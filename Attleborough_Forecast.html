@@ -4,31 +4,60 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>Attleborough — Sales, Hours & Wastage Forecast</title>
+<title>Attleborough — Bewiched Store Dashboard</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
   :root{--bg:#f4efe9;--card:#fff;--ink:#2b211b;--muted:#8a7a6d;--line:#e7ddd2;--brown:#5b3a29;
-    --green:#1f8a4c;--bals:#c08a2d;--att:#2d6fb3;--oln:#9aa6b0;--red:#c0392b;--amber:#b8860b;
+    --brown2:#3f281c;--cream:#efe6dc;
+    --green:#1f8a4c;--bals:#c08a2d;--att:#2d6fb3;--oln:#9aa6b0;--red:#c0392b;--amber:#b8860b;--slate:#9aa6b0;
     --redbg:#fbeae8;--amberbg:#f7f0dd;--greenbg:#e6f4ec;}
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
-  .wrap{max-width:1180px;margin:0 auto;padding:28px 22px 60px;}
-  header h1{margin:0 0 4px;font-size:23px;letter-spacing:-.3px;}
-  header .sub{color:var(--muted);font-size:13.5px;line-height:1.5;}
-  .pill{display:inline-block;background:#efe6dc;color:var(--brown);border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:12px;font-weight:600;margin-right:6px;}
-  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:6px;}
+
+  /* ---- Brand header ---- */
+  .brandbar{background:linear-gradient(180deg,var(--brown) 0%,var(--brown2) 100%);color:#f6efe7;}
+  .brandbar .inner{max-width:1180px;margin:0 auto;padding:14px 22px;display:flex;align-items:center;gap:13px;}
+  .logo{display:flex;align-items:center;gap:10px;}
+  .logo svg{display:block}
+  .logo .word{font-size:21px;font-weight:800;letter-spacing:.2px;line-height:1;}
+  .logo .word span{color:#e7b35a}
+  .brandlogo{height:36px;width:auto;display:block;}
+  .logo .eyebrow{font-size:10.5px;letter-spacing:2.4px;text-transform:uppercase;color:#cbb29c;margin-top:3px;}
+  .brandbar .spacer{flex:1}
+  .brandbar .ctx{font-size:11.5px;color:#cbb29c;text-align:right;line-height:1.5}
+  .brandbar .ctx b{color:#f6efe7;font-weight:700}
+
+  .wrap{max-width:1180px;margin:0 auto;padding:24px 22px 60px;}
+  header.page h1{margin:0 0 4px;font-size:23px;letter-spacing:-.3px;}
+  header.page .sub{color:var(--muted);font-size:13.5px;line-height:1.5;}
+  .pill{display:inline-block;background:var(--cream);color:var(--brown);border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:12px;font-weight:600;margin-right:6px;}
+
+  /* ---- Tabs ---- */
+  .tabs{display:flex;gap:6px;flex-wrap:wrap;margin:22px 0 4px;border-bottom:2px solid var(--line);}
+  .tab-btn{appearance:none;border:none;background:transparent;cursor:pointer;font:inherit;
+    font-size:13.5px;font-weight:700;color:var(--muted);padding:11px 16px;border-radius:10px 10px 0 0;
+    border-bottom:3px solid transparent;margin-bottom:-2px;transition:.15s;display:flex;align-items:center;gap:7px;}
+  .tab-btn:hover{color:var(--brown);background:#faf6f1;}
+  .tab-btn.active{color:var(--brown);border-bottom-color:var(--brown);background:#fff;}
+  .tab-btn .dot{font-size:11px}
+  .tab-panel{display:none;animation:fade .25s ease;}
+  .tab-panel.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:16px;}
   .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:0 1px 2px rgba(80,50,30,.04);}
   .card .lbl{font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.4px;}
   .card .val{font-size:25px;font-weight:700;margin-top:6px;letter-spacing:-.5px;}
   .card .meta{font-size:12.5px;color:var(--muted);margin-top:3px;}
-  .section-title{font-size:15px;font-weight:700;margin:30px 0 12px;color:var(--brown);}
+  .section-title{font-size:15px;font-weight:700;margin:26px 0 12px;color:var(--brown);}
   .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:0 1px 2px rgba(80,50,30,.04);}
-  .chart-box{height:360px;position:relative}
+  .chart-box{height:380px;position:relative}
   .note{background:#fff8ec;border:1px solid #f0e0bf;color:#7a5e1e;border-radius:10px;padding:10px 14px;font-size:12.5px;margin:14px 0 0;line-height:1.55;}
   .note.red{background:var(--redbg);border-color:#eccfca;color:#8c2f22;}
+  .note.green{background:var(--greenbg);border-color:#cfe6d8;color:#1c6b3d;}
   .grid2{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;align-items:start;}
-  table{width:100%;border-collapse:collapse;font-size:13px;}
-  th,td{padding:7px 9px;text-align:right;border-bottom:1px solid var(--line);}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;}
+  th,td{padding:8px 10px;text-align:right;border-bottom:1px solid var(--line);}
   th:first-child,td:first-child{text-align:left;}
   thead th{font-size:11px;text-transform:uppercase;letter-spacing:.3px;color:var(--muted);font-weight:700;}
   tbody tr:hover{background:#faf6f1;}
@@ -39,76 +68,179 @@
   .t-red{background:var(--redbg);color:var(--red)} .t-amber{background:var(--amberbg);color:var(--amber)} .t-ok{background:var(--greenbg);color:var(--green)}
   .stat-row{display:flex;gap:22px;flex-wrap:wrap;margin-top:4px;}
   .stat{font-size:12.5px;color:var(--muted);} .stat b{color:var(--ink);font-size:15px;}
+  .srclink{color:var(--brown);font-weight:600;text-decoration:none;border-bottom:1px solid #d9c7b6;}
+  .srclink:hover{border-bottom-color:var(--brown);}
   footer{color:var(--muted);font-size:12px;margin-top:26px;line-height:1.6}
   @media(max-width:860px){.cards{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
+
+<!-- ===== Brand header ===== -->
+<div class="brandbar">
+  <div class="inner">
+    <div class="logo">
+      <img src="bewiched-logo.png" alt="Bewiched" class="brandlogo"
+           onerror="this.style.display='none';document.getElementById('wordmark').style.display='flex';">
+      <div id="wordmark" class="logo" style="display:none;gap:10px">
+        <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true">
+          <circle cx="17" cy="17" r="17" fill="#e7b35a"/>
+          <path d="M9 14h12v5a5 5 0 0 1-5 5h-2a5 5 0 0 1-5-5v-5z" fill="#3f281c"/>
+          <path d="M21 15h2.2a2.6 2.6 0 0 1 0 5.2H21" fill="none" stroke="#3f281c" stroke-width="1.6"/>
+          <path d="M12 8.5c-1 1 0 2 0 3M15.5 8c-1 1 0 2 0 3M19 8.5c-1 1 0 2 0 3" fill="none" stroke="#3f281c" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <div>
+          <div class="word">Be<span>wiched</span></div>
+          <div class="eyebrow">Store Performance</div>
+        </div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+    <div class="ctx">Site: <b>Attleborough</b> · Area Coach <b>Ian</b><br>Forecast window: <b>8 Jun → 31 Aug 2026</b></div>
+  </div>
+</div>
+
 <div class="wrap">
-  <header>
-    <h1>🏪 Attleborough — Sales, Hours &amp; Wastage Forecast</h1>
+  <header class="page">
+    <h1>🏪 Attleborough — Store Dashboard</h1>
     <div class="sub">
       <span class="pill">Forecast: W/C 8 Jun → 31 Aug 2026 (13 weeks)</span>
       <span class="pill">CPH target £49 (flat)</span>
       <span class="pill">Opened 23 Apr 2026</span>
-      <br>Opening mirrored against HOE Balsall Common. Source: BigQuery live POS — sales &amp; wastage. Sales gross inc VAT.
+      <br>Opening mirrored against HOE Balsall Common. Source: BigQuery live POS + F1 audit sheet. Sales gross inc VAT.
     </div>
   </header>
 
-  <div class="cards">
-    <div class="card"><div class="lbl">13-wk sales forecast</div><div class="val">£82,350</div><div class="meta">avg £6,334 / wk · +4.9%</div></div>
-    <div class="card"><div class="lbl">13-wk labour hours</div><div class="val">1,685</div><div class="meta">@ £49 CPH · avg 129/wk</div></div>
-    <div class="card"><div class="lbl">Wastage now</div><div class="val" style="color:var(--red)">5.6% ▲</div><div class="meta">rising from 2.5% · estate 2.3%</div></div>
-    <div class="card"><div class="lbl">Wastage opportunity</div><div class="val" style="color:var(--green)">~£2,140</div><div class="meta">13 wks to 3% target (retail; ~£960 cost)</div></div>
-  </div>
+  <!-- ===== Tab nav ===== -->
+  <nav class="tabs" role="tablist">
+    <button class="tab-btn active" data-tab="sales" role="tab"><span class="dot">📈</span>Sales &amp; Hours</button>
+    <button class="tab-btn" data-tab="waste" role="tab"><span class="dot">♻️</span>Wastage</button>
+    <button class="tab-btn" data-tab="mix" role="tab"><span class="dot">🧺</span>Sales mix &amp; capture</button>
+    <button class="tab-btn" data-tab="f1" role="tab"><span class="dot">🏁</span>Op's Excellence</button>
+  </nav>
 
-  <div class="section-title">Opening curve — Attleborough vs Balsall Common (mirror) &amp; Olney (peer)</div>
-  <div class="panel">
-    <div class="chart-box"><canvas id="curve"></canvas></div>
-    <div class="stat-row" style="margin-top:14px">
-      <div class="stat">Attleborough opened <b style="color:var(--att)">£7.6k</b>, settled <b style="color:var(--att)">~£6.1k</b></div>
-      <div class="stat">Balsall <b style="color:var(--bals)">£5.0k→£3.7k</b> launch fade (mirror)</div>
-      <div class="stat">Olney peer <b style="color:#6b7782">~£5.3k</b> settled</div>
+  <!-- ===== TAB 1: Sales & Hours ===== -->
+  <section class="tab-panel active" id="tab-sales">
+    <div class="cards">
+      <div class="card"><div class="lbl">13-wk sales forecast</div><div class="val">£82,350</div><div class="meta">avg £6,334 / wk · +4.9%</div></div>
+      <div class="card"><div class="lbl">13-wk labour hours</div><div class="val">1,685</div><div class="meta">@ £49 CPH · avg 129 / wk</div></div>
+      <div class="card"><div class="lbl">CPH target (sales/hr)</div><div class="val">£49</div><div class="meta">flat · hours = sales ÷ 49</div></div>
+      <div class="card"><div class="lbl">Sales growth wk1→13</div><div class="val" style="color:var(--green)">+4.9%</div><div class="meta">settled high (~£6.1k)</div></div>
     </div>
-    <div class="note">Same launch-spike-then-settle shape as Balsall/Olney, but Attleborough has settled <strong>higher (~£6.1k)</strong> — a strong site. Forecast applies Balsall's settle-then-rebuild curve + summer lift: <strong>£6,100 → £6,400/wk (+4.9%)</strong>. Dashed = forecast.</div>
-  </div>
 
-  <div class="section-title">Sales &amp; hours forecast</div>
-  <div class="grid2">
-    <div class="panel"><div class="chart-box"><canvas id="fc"></canvas></div></div>
+    <div class="section-title">Opening curve — Attleborough vs Balsall Common (mirror) &amp; Olney (peer)</div>
     <div class="panel">
-      <table id="tbl"><thead><tr><th>Week</th><th>Sales £</th><th>CPH</th><th>Hours</th></tr></thead><tbody></tbody><tfoot></tfoot></table>
-      <div class="mini" style="margin-top:8px">Hours = sales ÷ £49 (flat CPH). No efficiency ramp assumed.</div>
+      <div class="chart-box"><canvas id="curve"></canvas></div>
+      <div class="stat-row" style="margin-top:14px">
+        <div class="stat">Attleborough opened <b style="color:var(--att)">£7.6k</b>, settled <b style="color:var(--att)">~£6.1k</b></div>
+        <div class="stat">Balsall <b style="color:var(--bals)">£5.0k→£3.7k</b> launch fade (mirror)</div>
+        <div class="stat">Olney peer <b style="color:#6b7782">~£5.3k</b> settled</div>
+      </div>
+      <div class="note">Same launch-spike-then-settle shape as Balsall/Olney, but Attleborough has settled <strong>higher (~£6.1k)</strong> — a strong site. Forecast applies Balsall's settle-then-rebuild curve + summer lift: <strong>£6,100 → £6,400/wk (+4.9%)</strong>. Dashed = forecast.</div>
     </div>
-  </div>
 
-  <div class="section-title">Sales mix &amp; capture vs the estate</div>
-  <div class="grid2">
-    <div class="panel"><div style="font-size:13px;font-weight:700;color:#5b3a29;margin-bottom:8px">Capture % ranked vs the estate (21 stores)</div><table id="peertbl"><thead><tr><th>Category</th><th>Attleborough</th><th>Rank</th><th>Estate avg</th><th>Best in estate</th></tr></thead><tbody></tbody></table><div class="mini" style="margin-top:8px">Capture = share of transactions including the category (last ~5 wks). Value green = above estate average; rank chip green = top third, red = bottom third.</div></div>
+    <div class="section-title">Sales &amp; hours forecast</div>
+    <div class="grid2">
+      <div class="panel"><div class="chart-box"><canvas id="fc"></canvas></div></div>
+      <div class="panel">
+        <table id="tbl"><thead><tr><th>Week</th><th>Sales £</th><th>CPH</th><th>Hours</th></tr></thead><tbody></tbody><tfoot></tfoot></table>
+        <div class="mini" style="margin-top:8px">Hours = sales ÷ £49 (flat CPH). No efficiency ramp assumed.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TAB 2: Wastage ===== -->
+  <section class="tab-panel" id="tab-waste">
+    <div class="cards">
+      <div class="card"><div class="lbl">Wastage now</div><div class="val" style="color:var(--red)">5.6% ▲</div><div class="meta">rising from 2.5% · estate 2.3%</div></div>
+      <div class="card"><div class="lbl">Wastage opportunity</div><div class="val" style="color:var(--green)">~£2,140</div><div class="meta">13 wks to 3% target (retail; ~£960 cost)</div></div>
+      <div class="card"><div class="lbl">Recent 4-wk avg</div><div class="val">5.8%</div><div class="meta">11 May → 1 Jun</div></div>
+      <div class="card"><div class="lbl">Estate-best benchmark</div><div class="val">2.3%</div><div class="meta">target set at 3%</div></div>
+    </div>
+
+    <div class="section-title">⚠️ Wastage — trending the wrong way</div>
+    <div class="grid2">
+      <div class="panel"><div class="chart-box" style="height:300px"><canvas id="waste"></canvas></div></div>
+      <div class="panel">
+        <div class="note red" style="margin-top:0"><strong>Wastage has more than doubled since launch</strong> — 2.5% → 6.1%, while sales stayed flat. This is a par-level / production-discipline issue at a new site that hasn't dialled in demand yet, not a sales problem. Target: pull back to <strong>3%</strong> (still above estate-best) to recover ~£2.1k retail over the quarter.</div>
+      </div>
+    </div>
+
+    <div class="section-title">Outlier items — biggest over-production (last 4 weeks)</div>
     <div class="panel">
-      <table id="cattbl"><thead><tr><th>Category</th><th>Current mix</th><th>Holiday tilt</th><th>Capture %</th></tr></thead><tbody></tbody></table>
-      <div class="note" style="margin-top:10px"><strong>Mix holds through the holidays.</strong> In the mature drive-thru/destination stores last summer the split barely moved from term into the school holidays — cold drinks + milkshakes were ~37% of sales in term vs ~35% in holidays (milkshakes flat, cold easing ~2pp as the early-summer heat passed). The cold-drink peak is <strong>weather-led (Jun–Jul), not the school calendar</strong>; total volume rose ~5%. So £ grows across all categories with only a small holiday tilt. <strong>Capture %</strong> = the share of transactions that include the category (attach rate, recent weeks) — a truer read of penetration than £. Bakery capture is strong here at ~25%; food ~19%.</div>
+      <table id="items"><thead><tr><th>Product</th><th>Waste £</th><th>Wasted</th><th>Sold</th><th>Waste rate</th><th style="text-align:left">Action</th></tr></thead><tbody></tbody></table>
+      <div class="note">Waste rate = wasted ÷ (wasted + sold). Items over ~40% are being made far ahead of demand — <strong>3 Egg &amp; Spinach Sandwich (60%)</strong>, <strong>Croissant Pastry (54%)</strong> and <strong>3 Falafel Wrap (54%)</strong> waste more than they sell: cut par levels hard or de-range. Top 15 items ≈ £249/wk of waste retail.</div>
     </div>
-  </div>
+  </section>
 
-  <div class="section-title">⚠️ Wastage — trending the wrong way</div>
-  <div class="grid2">
-    <div class="panel"><div class="chart-box" style="height:300px"><canvas id="waste"></canvas></div></div>
+  <!-- ===== TAB 3: Sales mix & capture ===== -->
+  <section class="tab-panel" id="tab-mix">
+    <div class="section-title">Sales mix &amp; capture vs the estate</div>
+    <div class="grid2">
+      <div class="panel"><div style="font-size:13px;font-weight:700;color:#5b3a29;margin-bottom:8px">Capture % ranked vs the estate (21 stores)</div><table id="peertbl"><thead><tr><th>Category</th><th>Attleborough</th><th>Rank</th><th>Estate avg</th><th>Best in estate</th></tr></thead><tbody></tbody></table><div class="mini" style="margin-top:8px">Capture = share of transactions including the category (last ~5 wks). Value green = above estate average; rank chip green = top third, red = bottom third.</div></div>
+      <div class="panel">
+        <table id="cattbl"><thead><tr><th>Category</th><th>Current mix</th><th>Holiday tilt</th><th>Capture %</th></tr></thead><tbody></tbody></table>
+        <div class="note" style="margin-top:10px"><strong>Mix holds through the holidays.</strong> In the mature drive-thru/destination stores last summer the split barely moved from term into the school holidays — cold drinks + milkshakes were ~37% of sales in term vs ~35% in holidays (milkshakes flat, cold easing ~2pp as the early-summer heat passed). The cold-drink peak is <strong>weather-led (Jun–Jul), not the school calendar</strong>; total volume rose ~5%. So £ grows across all categories with only a small holiday tilt. <strong>Capture %</strong> = the share of transactions that include the category (attach rate, recent weeks) — a truer read of penetration than £. Bakery capture is strong here at ~25%; food ~19%.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TAB 4: Op's Excellence (F1) ===== -->
+  <section class="tab-panel" id="tab-f1">
+    <div class="section-title">🏁 F1 Operational Excellence — Qualifying &amp; Race</div>
+    <div class="cards">
+      <div class="card"><div class="lbl">Latest Quali rank</div><div class="val" style="color:var(--amber)">17 / 21</div><div class="meta">W/C 1 Jun · best 6th (12 May)</div></div>
+      <div class="card"><div class="lbl">Latest Quali queue avg</div><div class="val">185s</div><div class="meta">range 147s → 226s</div></div>
+      <div class="card"><div class="lbl">Latest Race result</div><div class="val" style="color:var(--green)">P2 · 22 pts</div><div class="meta">W/C 7 Jun · podium two weeks running</div></div>
+      <div class="card"><div class="lbl">Hospitality watch-out</div><div class="val" style="color:var(--red)">Hello</div><div class="meta">door welcome 0% on 1 Jun</div></div>
+    </div>
+
+    <div class="note green" style="margin-top:16px"><strong>How F1 works.</strong> Every store is audited unannounced through the week. <strong>Qualifying (Mon–Thu)</strong> is a lighter check — queue speed plus hospitality (Hello, Goodbye, How-Are-You, Working the Queue) — and sets the grid for the weekend. <strong>Race (Fri–Sun)</strong> is the full audit (adds tables to brand, cleared within 3 mins, section/break-cover plan, visible team, dishwasher area) with the start handicapped by the Qualifying result. <em>Lower</em> queue/lap seconds and <em>higher</em> championship points are better.</div>
+
+    <div class="section-title">Race results — Fri–Sun full audit · the standout</div>
+    <div class="grid2">
+      <div class="panel"><div class="chart-box" style="height:300px"><canvas id="race"></canvas></div></div>
+      <div class="panel">
+        <table id="racetbl">
+          <thead><tr><th>Race (W/C)</th><th>Total score</th><th>Champ. pts</th><th>Finish</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <div class="note green" style="margin-top:10px"><strong>Attleborough's race form is the best of the new sites.</strong> It has climbed <strong>P14 → P11 → P13 → P4 → P2 → P2</strong>, on the podium the last two weekends, with championship points up to <strong>22</strong> and queue average falling to ~150s. This is a genuine win to call out in BrewCrew Kudos Hour and a template to share with Olney and Billing.</div>
+      </div>
+    </div>
+
+    <div class="section-title">Qualifying trend — the gap is Hello at the door</div>
+    <div class="grid2">
+      <div class="panel"><div class="chart-box" style="height:320px"><canvas id="quali"></canvas></div></div>
+      <div class="panel">
+        <table id="qualitbl">
+          <thead><tr><th>Audit (W/C)</th><th>Queue avg</th><th>Hospitality</th><th>Quali rank</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <div class="note" style="margin-top:10px"><strong>Race-day execution is elite, but Qualifying keeps leaving points on the table — and it's nearly all the door welcome.</strong> Goodbye and How-Are-You are consistently strong, but <strong>Hello</strong> has scored 65%, 25%, 25% and then <strong>0% on 1 Jun</strong>. Because the weekend grid is handicapped by Qualifying, fixing the welcome is the single cheapest way to turn those P2 races into P1s. One coaching focus: a named greeter on the door at peak.</div>
+      </div>
+    </div>
+
+    <div class="section-title">vs the chains — queue average (lower is better)</div>
     <div class="panel">
-      <div class="note red" style="margin-top:0"><strong>Wastage has more than doubled since launch</strong> — 2.5% → 6.1%, while sales stayed flat. This is a par-level / production-discipline issue at a new site that hasn't dialled in demand yet, not a sales problem. Target: pull back to <strong>3%</strong> (still above estate-best) to recover ~£2.1k retail over the quarter.</div>
+      <div class="chart-box" style="height:280px"><canvas id="comp"></canvas></div>
+      <div class="note" style="margin-top:12px"><strong>Attleborough out-runs the chains most weeks.</strong> Its 6-week average queue (~191s) already beats Nero (254s) and Costa (345s), and on its best week (147s) it's well clear — while the chains score <strong>0%</strong> on Hello/Goodbye/How-Are-You. The hospitality moat is real; the one crack to seal is the Hello miss noted above.</div>
     </div>
-  </div>
 
-  <div class="section-title">Outlier items — biggest over-production (last 4 weeks)</div>
-  <div class="panel">
-    <table id="items"><thead><tr><th>Product</th><th>Waste £</th><th>Wasted</th><th>Sold</th><th>Waste rate</th><th>Action</th></tr></thead><tbody></tbody></table>
-    <div class="note">Waste rate = wasted ÷ (wasted + sold). Items over ~40% are being made far ahead of demand — <strong>3 Egg &amp; Spinach Sandwich (60%)</strong>, <strong>Croissant Pastry (54%)</strong> and <strong>3 Falafel Wrap (54%)</strong> waste more than they sell: cut par levels hard or de-range. Top 15 items ≈ £249/wk of waste retail.</div>
-  </div>
+    <footer style="margin-top:18px">F1 data: live <a class="srclink" href="https://docs.google.com/spreadsheets/d/1YFqpR9_ftlQEbfwc5ZVMjtS5tFO0j-7ccwB8rwG56wQ/edit?gid=522976149#gid=522976149" target="_blank" rel="noopener">Bewiched F1 audit sheet ↗</a> · Qualifying (to W/C 1 Jun) &amp; The Race (to W/C 7 Jun) tabs · audit window 30 Apr → 7 Jun 2026 · Area Coach (Constructor): Ian. Scores are unannounced auditor visits; every audited Attleborough row is shown.</footer>
+  </section>
 
   <footer id="foot"></footer>
 </div>
 
 <script>
+/* Auto-register every Chart so hidden-tab charts can be resized on reveal */
+window.CHARTS=window.CHARTS||[];
+(function(){const _C=window.Chart;window.Chart=function(){const c=new _C(...arguments);window.CHARTS.push(c);return c;};window.Chart.prototype=_C.prototype;Object.assign(window.Chart,_C);})();
+</script>
+
+<script>
+/* ---- Sales & hours ---- */
 const BALS=[4976,5316,4913,4405,4053,3764,3799,4075,3864,3906,3485,3769,3721,3032,3803,4257,4087,4275,4237];
 const OLN=[7502,6719,6339,5459,4838,6065,5314,4595,5439,5241];
 const ATT_ACT=[7636,7299,5912,6166,6349,6038]; // 6 full wks
@@ -117,9 +249,7 @@ const FC=[["2026-06-08",6100,124,""],["2026-06-15",6150,126,""],["2026-06-22",62
 ["2026-07-27",6400,131,"summer hols"],["2026-08-03",6450,132,"summer hols"],["2026-08-10",6450,132,"summer hols"],
 ["2026-08-17",6500,133,"summer hols"],["2026-08-24",6550,134,"Aug BH wk"],["2026-08-31",6400,131,"schools return"]];
 const CPH=49;
-// weekly wastage % actual (full weeks): [date, waste£, sales]
 const WK=[["2026-04-27",193,7729],["2026-05-04",215,7345],["2026-05-11",307,5972],["2026-05-18",381,6223],["2026-05-25",393,6413],["2026-06-01",340,6109]];
-// outlier items: [name, waste£/4wk, wastedQty, soldQty]
 const ITEMS=[["3 Egg & Spinach Sandwich",79,18,12],["Croissant Pastry",58,27,23],["3 Falafel Wrap",60,14,12],
 ["Almond Croissant",77,29,31],["3 Chicken Caprese Sandwich",52,11,18],["Vegan Raspberry Croissant Pastry",58,22,44],
 ["3 Sausage Bap",81,19,52],["Sausage Roll Pastry",99,30,88],["3 Bacon Bap",64,15,47],["Chocolate Twist Traybake",56,21,74],
@@ -129,78 +259,141 @@ const ITEMS=[["3 Egg & Spinach Sandwich",79,18,12],["Croissant Pastry",58,27,23]
 const gbp0=n=>"£"+Math.round(n).toLocaleString("en-GB");
 const ddmm=s=>{const[y,m,d]=s.split("-");return d+"/"+m;};
 
-// opening curve (weeks since opening)
 const attLine=ATT_ACT.concat(FC.map(r=>r[1])); // 6 + 13 = 19
 const nW=Math.max(BALS.length,attLine.length,OLN.length);
 new Chart(document.getElementById("curve"),{type:"line",
-  data:{labels:Array.from({length:nW},(_,i)=>"Wk "+(i+1)),datasets:[
-    {label:"Attleborough (2026) — actual + forecast",data:attLine,borderColor:"#2d6fb3",backgroundColor:"#2d6fb3",tension:.3,pointRadius:3,borderWidth:2.5,segment:{borderDash:c=>c.p0DataIndex>=5?[6,4]:undefined}},
-    {label:"Balsall Common (2022) — mirror",data:BALS,borderColor:"#c08a2d",backgroundColor:"#c08a2d",tension:.3,pointRadius:0,borderWidth:2},
-    {label:"Olney (2026) — peer",data:OLN,borderColor:"#9aa6b0",backgroundColor:"#9aa6b0",tension:.3,pointRadius:0,borderWidth:1.5,borderDash:[3,3]}
-  ]},
-  options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},
-    plugins:{legend:{position:"bottom",labels:{boxWidth:14,font:{size:11}}},
-      tooltip:{callbacks:{label:c=>` ${c.dataset.label.split(" —")[0]}: ${c.parsed.y?gbp0(c.parsed.y):"—"}`}}},
-    scales:{y:{ticks:{callback:v=>"£"+(v/1000)+"k"},grid:{color:"#eee"},title:{display:true,text:"Weekly sales"},suggestedMin:3000},
-      x:{grid:{display:false},title:{display:true,text:"Weeks since opening (first full week = Wk 1)"}}}}});
+data:{labels:Array.from({length:nW},(_,i)=>"Wk "+(i+1)),datasets:[
+{label:"Attleborough (2026) — actual + forecast",data:attLine,borderColor:"#2d6fb3",backgroundColor:"#2d6fb3",tension:.3,pointRadius:3,borderWidth:2.5,segment:{borderDash:c=>c.p0DataIndex>=5?[6,4]:undefined}},
+{label:"Balsall Common (2022) — mirror",data:BALS,borderColor:"#c08a2d",backgroundColor:"#c08a2d",tension:.3,pointRadius:0,borderWidth:2},
+{label:"Olney (2026) — peer",data:OLN,borderColor:"#9aa6b0",backgroundColor:"#9aa6b0",tension:.3,pointRadius:0,borderWidth:1.5,borderDash:[3,3]}
+]},
+options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},
+plugins:{legend:{position:"bottom",labels:{boxWidth:14,font:{size:11}}},
+tooltip:{callbacks:{label:c=>` ${c.dataset.label.split(" —")[0]}: ${c.parsed.y?gbp0(c.parsed.y):"—"}`}}},
+scales:{y:{ticks:{callback:v=>"£"+(v/1000)+"k"},grid:{color:"#eee"},title:{display:true,text:"Weekly sales"},suggestedMin:3000},
+x:{grid:{display:false},title:{display:true,text:"Weeks since opening (first full week = Wk 1)"}}}}});
 
-// forecast combo
 new Chart(document.getElementById("fc"),{
-  data:{labels:FC.map(r=>ddmm(r[0])),datasets:[
-    {type:"bar",label:"Sales £",data:FC.map(r=>r[1]),backgroundColor:"#2d6fb3",borderRadius:4,yAxisID:"y",order:2},
-    {type:"line",label:"Hours (@ £49)",data:FC.map(r=>r[2]),borderColor:"#c0392b",backgroundColor:"#c0392b",tension:.3,pointRadius:2,borderWidth:2,yAxisID:"y1",order:1}]},
-  options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},
-    plugins:{legend:{position:"bottom",labels:{boxWidth:14,font:{size:11}}},
-      tooltip:{callbacks:{afterBody:i=>{const x=i[0].dataIndex;return "CPH £"+CPH+(FC[x][3]?"  ·  "+FC[x][3]:"");}}}},
-    scales:{y:{position:"left",ticks:{callback:v=>"£"+(v/1000)+"k"},grid:{color:"#eee"},suggestedMin:5000,title:{display:true,text:"Sales"}},
-      y1:{position:"right",grid:{display:false},suggestedMin:90,suggestedMax:160,title:{display:true,text:"Hours"}},x:{grid:{display:false}}}}});
+data:{labels:FC.map(r=>ddmm(r[0])),datasets:[
+{type:"bar",label:"Sales £",data:FC.map(r=>r[1]),backgroundColor:"#2d6fb3",borderRadius:4,yAxisID:"y",order:2},
+{type:"line",label:"Hours (@ £49)",data:FC.map(r=>r[2]),borderColor:"#c0392b",backgroundColor:"#c0392b",tension:.3,pointRadius:2,borderWidth:2,yAxisID:"y1",order:1}]},
+options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},
+plugins:{legend:{position:"bottom",labels:{boxWidth:14,font:{size:11}}},
+tooltip:{callbacks:{afterBody:i=>{const x=i[0].dataIndex;return "CPH £"+CPH+(FC[x][3]?" · "+FC[x][3]:"");}}}},
+scales:{y:{position:"left",ticks:{callback:v=>"£"+(v/1000)+"k"},grid:{color:"#eee"},suggestedMin:5000,title:{display:true,text:"Sales"}},
+y1:{position:"right",grid:{display:false},suggestedMin:90,suggestedMax:160,title:{display:true,text:"Hours"}},x:{grid:{display:false}}}}});
 
-// wastage trend
 const wpc=WK.map(r=>+(r[1]/r[2]*100).toFixed(2));
 new Chart(document.getElementById("waste"),{type:"line",
-  data:{labels:WK.map(r=>ddmm(r[0])),datasets:[
-    {label:"Wastage %",data:wpc,borderColor:"#c0392b",backgroundColor:"#c0392b",tension:.3,pointRadius:4,borderWidth:2.5,fill:false},
-    {label:"Target 3%",data:WK.map(()=>3),borderColor:"#1f8a4c",borderDash:[6,4],pointRadius:0,borderWidth:2},
-    {label:"Estate avg 2.3%",data:WK.map(()=>2.3),borderColor:"#9aa6b0",borderDash:[3,3],pointRadius:0,borderWidth:1.5}]},
-  options:{responsive:true,maintainAspectRatio:false,
-    plugins:{legend:{position:"bottom",labels:{boxWidth:14,font:{size:11}}},
-      tooltip:{callbacks:{label:c=>c.dataset.label+": "+c.parsed.y+"%"}}},
-    scales:{y:{ticks:{callback:v=>v+"%"},grid:{color:"#eee"},suggestedMin:0,suggestedMax:7},x:{grid:{display:false}}}}});
+data:{labels:WK.map(r=>ddmm(r[0])),datasets:[
+{label:"Wastage %",data:wpc,borderColor:"#c0392b",backgroundColor:"#c0392b",tension:.3,pointRadius:4,borderWidth:2.5,fill:false},
+{label:"Target 3%",data:WK.map(()=>3),borderColor:"#1f8a4c",borderDash:[6,4],pointRadius:0,borderWidth:2},
+{label:"Estate avg 2.3%",data:WK.map(()=>2.3),borderColor:"#9aa6b0",borderDash:[3,3],pointRadius:0,borderWidth:1.5}]},
+options:{responsive:true,maintainAspectRatio:false,
+plugins:{legend:{position:"bottom",labels:{boxWidth:14,font:{size:11}}},
+tooltip:{callbacks:{label:c=>c.dataset.label+": "+c.parsed.y+"%"}}},
+scales:{y:{ticks:{callback:v=>v+"%"},grid:{color:"#eee"},suggestedMin:0,suggestedMax:7},x:{grid:{display:false}}}}});
 
-// forecast table
 const tb=document.querySelector("#tbl tbody");
 tb.innerHTML=FC.map(r=>`<tr><td>${ddmm(r[0])}${r[3]?' <span class="chip">'+r[3]+'</span>':''}</td><td>${gbp0(r[1])}</td><td>£${CPH}</td><td>${r[2]}</td></tr>`).join("");
 const tS=FC.reduce((s,r)=>s+r[1],0),tH=FC.reduce((s,r)=>s+r[2],0);
 document.querySelector("#tbl tfoot").innerHTML=`<tr><td>13-WK TOTAL</td><td>${gbp0(tS)}</td><td>£${(tS/tH).toFixed(1)}</td><td>${tH.toLocaleString("en-GB")}</td></tr>`;
 
-// items table (sorted by waste rate desc)
 const rows=ITEMS.map(r=>({n:r[0],w:r[1],wq:r[2],sq:r[3],rate:r[2]/(r[2]+r[3])*100})).sort((a,b)=>b.rate-a.rate);
 document.querySelector("#items tbody").innerHTML=rows.map(r=>{
-  const tag=r.rate>=40?'t-red':r.rate>=25?'t-amber':'t-ok';
-  const act=r.rate>=40?'Cut par / de-range':r.rate>=25?'Reduce par':'Monitor';
-  return `<tr><td>${r.n}</td><td>£${r.w}</td><td>${r.wq}</td><td>${r.sq}</td>
-    <td><span class="tag ${tag}">${r.rate.toFixed(0)}%</span></td><td style="text-align:left">${act}</td></tr>`;}).join("");
+const tag=r.rate>=40?'t-red':r.rate>=25?'t-amber':'t-ok';
+const act=r.rate>=40?'Cut par / de-range':r.rate>=25?'Reduce par':'Monitor';
+return `<tr><td>${r.n}</td><td>£${r.w}</td><td>${r.wq}</td><td>${r.sq}</td>
+<td><span class="tag ${tag}">${r.rate.toFixed(0)}%</span></td><td style="text-align:left">${act}</td></tr>`;}).join("");
 
 document.getElementById("foot").innerHTML="Generated "+new Date().toLocaleString("en-GB")+
-  " · Sales mirror Balsall Common opening + summer; hours = sales ÷ £49. Wastage % = waste retail ÷ sales (live BigQuery). Outlier window: 11 May–7 Jun.";
+" · Sales mirror Balsall Common opening + summer; hours = sales ÷ £49. Wastage % = waste retail ÷ sales (live BigQuery). F1 from the audit sheet. Outlier window: 11 May–7 Jun.";
 </script>
+
 <script>
+/* ---- Sales mix & capture ---- */
 (function(){
-  const L=["08/06","15/06","22/06","29/06","06/07","13/07","20/07","27/07","03/08","10/08","17/08","24/08","31/08"];
-  const HOT=[2462,2482,2502,2523,2523,2543,2612,2632,2653,2653,2673,2694,2583];
-  const COLD=[1281,1292,1302,1313,1313,1323,1222,1232,1241,1241,1251,1261,1344];
-  const SHK=[528,532,537,541,541,545,545,550,554,554,558,563,554];
-  const FOOD=[851,858,865,871,871,878,902,909,916,916,923,930,892];
-  const BAK=[763,769,776,782,782,788,854,860,867,867,874,881,801];
-  const WK=[6100,6150,6200,6250,6250,6300,6350,6400,6450,6450,6500,6550,6400];
-  const ROWS=[["Hot drinks",40.4,0.8,58.7],["Cold drinks",21.0,-1.8,28.5],["Milkshakes",8.7,-0.1,11.2],["Food",13.9,0.3,19.3],["Bakery",12.5,0.9,25.4],["Other & retail",3.5,-0.2,13.8]];
-  const PEER=[["Hot drinks",58.7,14,21,61.4,"Wellingborough 71.8%"],["Cold drinks",28.5,6,21,23.7,"Billing 36.9%"],["Milkshakes",11.2,13,21,13.1,"Rushden 25.4%"],["Food",19.3,2,21,14.0,"Fletton Quays 23.8%"],["Bakery",25.4,1,21,17.5,"Top of estate"]];
-  document.querySelector("#peertbl tbody").innerHTML=PEER.map(r=>{const top=r[2]<=r[3]/3,bot=r[2]>r[3]*2/3;const rc=top?["#e6f4ec","#1f8a4c"]:bot?["#fbeae8","#c0392b"]:["#f7f0dd","#b8860b"];const vc=r[1]>=r[4]?"#1f8a4c":"#c0392b";
-    return "<tr><td>"+r[0]+"</td><td style=\"font-weight:700;color:"+vc+"\">"+r[1].toFixed(1)+"%</td><td><span style=\"display:inline-block;padding:2px 7px;border-radius:6px;font-weight:700;font-size:12px;background:"+rc[0]+";color:"+rc[1]+"\">"+r[2]+"/"+r[3]+"</span></td><td>"+r[4].toFixed(1)+"%</td><td style=\"text-align:left;font-size:11.5px;color:#8a7a6d\">"+r[5]+"</td></tr>";}).join("");
-  const gb=n=>"£"+Math.round(n).toLocaleString("en-GB");
-  const DESC={"Hot drinks":"lattes, cappuccinos, americanos, flat whites, hot choc, tea","Cold drinks":"iced lattes, frozen lemonade, iced matcha, frappés, cold brew","Milkshakes":"Oreo, Biscoff, vanilla, chocolate, strawberry shakes","Food":"croques, ciabattas, baps, wraps, salads, meal deals","Bakery":"traybakes, croissants, brownies, cookies, cakes","Other & retail":"bottled & soft drinks, beans, sundries"};
-  document.querySelector("#cattbl tbody").innerHTML=ROWS.map(r=>{const s=r[2]>0?"#1f8a4c":r[2]<0?"#c0392b":"#8a7a6d";
-    return "<tr><td>"+r[0]+"<br><span style=\"font-size:10.5px;color:#9a8a7c;font-weight:400\">"+(DESC[r[0]]||"")+"</span></td><td>"+r[1].toFixed(1)+"%</td><td style=\"color:"+s+"\">"+(r[2]>0?"+":"")+r[2].toFixed(1)+"pp</td><td>"+r[3].toFixed(1)+"%</td></tr>";}).join("");
+const ROWS=[["Hot drinks",40.4,0.8,58.7],["Cold drinks",21.0,-1.8,28.5],["Milkshakes",8.7,-0.1,11.2],["Food",13.9,0.3,19.3],["Bakery",12.5,0.9,25.4],["Other & retail",3.5,-0.2,13.8]];
+const PEER=[["Hot drinks",58.7,14,21,61.4,"Wellingborough 71.8%"],["Cold drinks",28.5,6,21,23.7,"Billing 36.9%"],["Milkshakes",11.2,13,21,13.1,"Rushden 25.4%"],["Food",19.3,2,21,14.0,"Fletton Quays 23.8%"],["Bakery",25.4,1,21,17.5,"Top of estate"]];
+document.querySelector("#peertbl tbody").innerHTML=PEER.map(r=>{const top=r[2]<=r[3]/3,bot=r[2]>r[3]*2/3;const rc=top?["#e6f4ec","#1f8a4c"]:bot?["#fbeae8","#c0392b"]:["#f7f0dd","#b8860b"];const vc=r[1]>=r[4]?"#1f8a4c":"#c0392b";
+return "<tr><td>"+r[0]+"</td><td style=\"font-weight:700;color:"+vc+"\">"+r[1].toFixed(1)+"%</td><td><span style=\"display:inline-block;padding:2px 7px;border-radius:6px;font-weight:700;font-size:12px;background:"+rc[0]+";color:"+rc[1]+"\">"+r[2]+"/"+r[3]+"</span></td><td>"+r[4].toFixed(1)+"%</td><td style=\"text-align:left;font-size:11.5px;color:#8a7a6d\">"+r[5]+"</td></tr>";}).join("");
+const DESC={"Hot drinks":"lattes, cappuccinos, americanos, flat whites, hot choc, tea","Cold drinks":"iced lattes, frozen lemonade, iced matcha, frappés, cold brew","Milkshakes":"Oreo, Biscoff, vanilla, chocolate, strawberry shakes","Food":"croques, ciabattas, baps, wraps, salads, meal deals","Bakery":"traybakes, croissants, brownies, cookies, cakes","Other & retail":"bottled & soft drinks, beans, sundries"};
+document.querySelector("#cattbl tbody").innerHTML=ROWS.map(r=>{const s=r[2]>0?"#1f8a4c":r[2]<0?"#c0392b":"#8a7a6d";
+return "<tr><td>"+r[0]+"<br><span style=\"font-size:10.5px;color:#9a8a7c;font-weight:400\">"+(DESC[r[0]]||"")+"</span></td><td>"+r[1].toFixed(1)+"%</td><td style=\"color:"+s+"\">"+(r[2]>0?"+":"")+r[2].toFixed(1)+"pp</td><td>"+r[3].toFixed(1)+"%</td></tr>";}).join("");
+})();
+</script>
+
+<script>
+/* ---- Op's Excellence (F1) ---- */
+(function(){
+  // Qualifying: [W/C, queue average s, hospitality 0-100 (avg of Hello/Goodbye/How-Are-You), quali rank of 21]
+  const Q=[["30 Apr",226,55,15],["5 May",195,75,10],["12 May",147,75,6],["20 May",178,100,7],["26 May",217,100,9],["1 Jun",185,67,17]];
+  // Race: [W/C, total score, championship points (higher=better), finishing position]
+  const R=[["2 May",283,9,14],["9 May",279,12,11],["16 May",233,10,13],["22 May",190,19,4],["30 May",158,22,2],["7 Jun",206,22,2]];
+  // Queue benchmark: [name, queue avg s, hospitality 0-100]
+  const COMP=[["Attle best wk",147,100],["Attle avg",191,79],["Nero",253.5,0],["Costa",344.5,0],["Coffee#1",666.5,0]];
+
+  // Race: championship points (bar) + finishing position (line, reversed)
+  new Chart(document.getElementById("race"),{
+    data:{labels:R.map(r=>r[0]),datasets:[
+      {type:"bar",label:"Championship points",data:R.map(r=>r[2]),backgroundColor:"#5b3a29",borderRadius:4,yAxisID:"y",order:2},
+      {type:"line",label:"Finishing position",data:R.map(r=>r[3]),borderColor:"#c0392b",backgroundColor:"#c0392b",tension:.3,pointRadius:4,borderWidth:2.5,yAxisID:"y1",order:1}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},
+      plugins:{legend:{position:"bottom",labels:{boxWidth:14,font:{size:11}}},
+        tooltip:{callbacks:{label:c=>c.dataset.yAxisID==="y1"?(" Finished P"+c.parsed.y):(" "+c.parsed.y+" pts")}}},
+      scales:{y:{position:"left",grid:{color:"#eee"},title:{display:true,text:"Points"},suggestedMin:0,suggestedMax:25},
+        y1:{position:"right",reverse:true,grid:{display:false},title:{display:true,text:"Finish (1 = best)"},min:1,max:23,ticks:{stepSize:5}},
+        x:{grid:{display:false}}}}});
+
+  document.querySelector("#racetbl tbody").innerHTML=R.map(r=>{
+    const pc=r[2]>=7?'t-ok':r[2]>=4?'t-amber':'t-red';
+    const fc=r[3]<=14?'t-ok':r[3]<=18?'t-amber':'t-red';
+    return "<tr><td>"+r[0]+"</td><td>"+r[1]+"</td><td><span class=\"tag "+pc+"\">"+r[2]+" pts</span></td><td><span class=\"tag "+fc+"\">P"+r[3]+"</span></td></tr>";}).join("");
+
+  // Quali: queue average (bars) + rank (line, reversed)
+  new Chart(document.getElementById("quali"),{
+    data:{labels:Q.map(r=>r[0]),datasets:[
+      {type:"bar",label:"Queue average (s)",data:Q.map(r=>r[1]),backgroundColor:Q.map(r=>r[1]>=250?"#b8860b":"#2d6fb3"),borderRadius:4,yAxisID:"y",order:2},
+      {type:"line",label:"Quali rank (of 21)",data:Q.map(r=>r[3]),borderColor:"#1f8a4c",backgroundColor:"#1f8a4c",tension:.3,pointRadius:4,borderWidth:2.5,yAxisID:"y1",order:1}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},
+      plugins:{legend:{position:"bottom",labels:{boxWidth:14,font:{size:11}}},
+        tooltip:{callbacks:{label:c=>c.dataset.yAxisID==="y1"?(" Rank "+c.parsed.y+" of 21"):(" Queue "+c.parsed.y+"s")}}},
+      scales:{y:{position:"left",ticks:{callback:v=>v+"s"},grid:{color:"#eee"},title:{display:true,text:"Queue average"},suggestedMin:0},
+        y1:{position:"right",reverse:true,grid:{display:false},title:{display:true,text:"Rank (1 = best)"},min:1,max:21,ticks:{stepSize:5}},
+        x:{grid:{display:false}}}}});
+
+  document.querySelector("#qualitbl tbody").innerHTML=Q.map(r=>{
+    const hosp='<span class="tag '+(r[2]>=100?'t-ok':r[2]>=65?'t-amber':'t-red')+'">'+r[2]+'%</span>';
+    const rk=r[3]<=7?'t-ok':r[3]>=15?'t-red':'t-amber';
+    return "<tr><td>"+r[0]+"</td><td>"+r[1]+"s</td><td>"+hosp+"</td><td><span class=\"tag "+rk+"\">"+r[3]+" / 21</span></td></tr>";}).join("");
+
+  new Chart(document.getElementById("comp"),{type:"bar",
+    data:{labels:COMP.map(r=>r[0]),datasets:[
+      {label:"Queue average (s)",data:COMP.map(r=>r[1]),
+        backgroundColor:COMP.map(r=>r[0].indexOf("Attle")===0?"#1f8a4c":"#9aa6b0"),borderRadius:5}
+    ]},
+    options:{indexAxis:"y",responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},
+        tooltip:{callbacks:{label:c=>" "+c.parsed.x+"s · hospitality "+COMP[c.dataIndex][2]+"%"}}},
+      scales:{x:{ticks:{callback:v=>v+"s"},grid:{color:"#eee"},title:{display:true,text:"Queue average — lower is better"}},
+        y:{grid:{display:false}}}}});
+})();
+</script>
+
+<script>
+/* ---- Tab switching (pure show/hide) + chart resize on reveal ---- */
+(function(){
+  const btns=document.querySelectorAll(".tab-btn");
+  const panels=document.querySelectorAll(".tab-panel");
+  btns.forEach(b=>b.addEventListener("click",()=>{
+    btns.forEach(x=>x.classList.remove("active"));
+    panels.forEach(p=>p.classList.remove("active"));
+    b.classList.add("active");
+    document.getElementById("tab-"+b.dataset.tab).classList.add("active");
+    requestAnimationFrame(()=>{(window.CHARTS||[]).forEach(c=>{try{c.resize();}catch(e){}});});
+  }));
 })();
 </script>
 </body>

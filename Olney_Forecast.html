@@ -4,26 +4,57 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>Olney — Sales & Hours Forecast</title>
+<title>Olney — Bewiched Store Dashboard</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
   :root{--bg:#f4efe9;--card:#fff;--ink:#2b211b;--muted:#8a7a6d;--line:#e7ddd2;--brown:#5b3a29;
-    --green:#1f8a4c;--bals:#c08a2d;--oln:#2d6fb3;--red:#c0392b;}
+    --brown2:#3f281c;--cream:#efe6dc;
+    --green:#1f8a4c;--bals:#c08a2d;--oln:#2d6fb3;--red:#c0392b;--amber:#b8860b;--slate:#9aa6b0;
+    --redbg:#fbeae8;--amberbg:#f7f0dd;--greenbg:#e6f4ec;}
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
-  .wrap{max-width:1180px;margin:0 auto;padding:28px 22px 60px;}
-  header h1{margin:0 0 4px;font-size:23px;letter-spacing:-.3px;}
-  header .sub{color:var(--muted);font-size:13.5px;line-height:1.5;}
-  .pill{display:inline-block;background:#efe6dc;color:var(--brown);border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:12px;font-weight:600;margin-right:6px;}
-  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:6px;}
+
+  /* ---- Brand header ---- */
+  .brandbar{background:linear-gradient(180deg,var(--brown) 0%,var(--brown2) 100%);color:#f6efe7;}
+  .brandbar .inner{max-width:1180px;margin:0 auto;padding:14px 22px;display:flex;align-items:center;gap:13px;}
+  .logo{display:flex;align-items:center;gap:10px;}
+  .logo svg{display:block}
+  .logo .word{font-size:21px;font-weight:800;letter-spacing:.2px;line-height:1;}
+  .logo .word span{color:#e7b35a}
+  .brandlogo{height:36px;width:auto;display:block;}
+  .logo .eyebrow{font-size:10.5px;letter-spacing:2.4px;text-transform:uppercase;color:#cbb29c;margin-top:3px;}
+  .brandbar .spacer{flex:1}
+  .brandbar .ctx{font-size:11.5px;color:#cbb29c;text-align:right;line-height:1.5}
+  .brandbar .ctx b{color:#f6efe7;font-weight:700}
+
+  .wrap{max-width:1180px;margin:0 auto;padding:24px 22px 60px;}
+  header.page h1{margin:0 0 4px;font-size:23px;letter-spacing:-.3px;}
+  header.page .sub{color:var(--muted);font-size:13.5px;line-height:1.5;}
+  .pill{display:inline-block;background:var(--cream);color:var(--brown);border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:12px;font-weight:600;margin-right:6px;}
+
+  /* ---- Tabs ---- */
+  .tabs{display:flex;gap:6px;flex-wrap:wrap;margin:22px 0 4px;border-bottom:2px solid var(--line);}
+  .tab-btn{appearance:none;border:none;background:transparent;cursor:pointer;font:inherit;
+    font-size:13.5px;font-weight:700;color:var(--muted);padding:11px 16px;border-radius:10px 10px 0 0;
+    border-bottom:3px solid transparent;margin-bottom:-2px;transition:.15s;display:flex;align-items:center;gap:7px;}
+  .tab-btn:hover{color:var(--brown);background:#faf6f1;}
+  .tab-btn.active{color:var(--brown);border-bottom-color:var(--brown);background:#fff;}
+  .tab-btn .dot{font-size:11px}
+  .tab-panel{display:none;animation:fade .25s ease;}
+  .tab-panel.active{display:block;}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:16px;}
   .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:0 1px 2px rgba(80,50,30,.04);}
   .card .lbl{font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.4px;}
   .card .val{font-size:25px;font-weight:700;margin-top:6px;letter-spacing:-.5px;}
   .card .meta{font-size:12.5px;color:var(--muted);margin-top:3px;}
-  .section-title{font-size:15px;font-weight:700;margin:30px 0 12px;color:var(--brown);}
+  .section-title{font-size:15px;font-weight:700;margin:26px 0 12px;color:var(--brown);}
   .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:0 1px 2px rgba(80,50,30,.04);}
   .chart-box{height:380px;position:relative}
   .note{background:#fff8ec;border:1px solid #f0e0bf;color:#7a5e1e;border-radius:10px;padding:10px 14px;font-size:12.5px;margin:14px 0 0;line-height:1.55;}
+  .note.red{background:var(--redbg);border-color:#eccfca;color:#8c2f22;}
+  .note.green{background:var(--greenbg);border-color:#cfe6d8;color:#1c6b3d;}
   .grid2{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;align-items:start;}
   table{width:100%;border-collapse:collapse;font-size:13.5px;}
   th,td{padding:8px 10px;text-align:right;border-bottom:1px solid var(--line);}
@@ -33,78 +64,173 @@
   tfoot td{font-weight:700;border-top:2px solid var(--line);}
   .mini{font-size:11.5px;color:var(--muted);}
   .chip{display:inline-block;font-size:11px;padding:1px 7px;border-radius:5px;background:#eef3ee;color:var(--green);font-weight:600;}
+  .tag{display:inline-block;padding:2px 7px;border-radius:6px;font-weight:700;font-size:12px;}
+  .t-red{background:var(--redbg);color:var(--red)} .t-amber{background:var(--amberbg);color:var(--amber)} .t-ok{background:var(--greenbg);color:var(--green)}
   .stat-row{display:flex;gap:22px;flex-wrap:wrap;margin-top:4px;}
   .stat{font-size:12.5px;color:var(--muted);} .stat b{color:var(--ink);font-size:15px;}
+  .srclink{color:var(--brown);font-weight:600;text-decoration:none;border-bottom:1px solid #d9c7b6;}
+  .srclink:hover{border-bottom-color:var(--brown);}
   footer{color:var(--muted);font-size:12px;margin-top:26px;line-height:1.6}
   @media(max-width:860px){.cards{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
+
+<!-- ===== Brand header ===== -->
+<div class="brandbar">
+  <div class="inner">
+    <div class="logo">
+      <!-- Primary: Bewiched logo file committed alongside this HTML in the repo. -->
+      <!-- If the file is missing, it falls back to the wordmark below automatically. -->
+      <img src="bewiched-logo.png" alt="Bewiched" class="brandlogo"
+           onerror="this.style.display='none';document.getElementById('wordmark').style.display='flex';">
+      <div id="wordmark" class="logo" style="display:none;gap:10px">
+        <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true">
+          <circle cx="17" cy="17" r="17" fill="#e7b35a"/>
+          <path d="M9 14h12v5a5 5 0 0 1-5 5h-2a5 5 0 0 1-5-5v-5z" fill="#3f281c"/>
+          <path d="M21 15h2.2a2.6 2.6 0 0 1 0 5.2H21" fill="none" stroke="#3f281c" stroke-width="1.6"/>
+          <path d="M12 8.5c-1 1 0 2 0 3M15.5 8c-1 1 0 2 0 3M19 8.5c-1 1 0 2 0 3" fill="none" stroke="#3f281c" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <div>
+          <div class="word">Be<span>wiched</span></div>
+          <div class="eyebrow">Store Performance</div>
+        </div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+    <div class="ctx">Site: <b>Olney</b> · Area Coach <b>Jon</b><br>Forecast window: <b>8 Jun → 31 Aug 2026</b></div>
+  </div>
+</div>
+
 <div class="wrap">
-  <header>
-    <h1>🏪 Olney — Sales &amp; Hours Forecast</h1>
+  <header class="page">
+    <h1>🏪 Olney — Store Dashboard</h1>
     <div class="sub">
       <span class="pill">Forecast: W/C 8 Jun → 31 Aug 2026 (13 weeks)</span>
       <span class="pill">CPH target £49 (flat)</span>
-      <br>Opening mirrored against HOE Balsall Common (opened Sep 2022). Source: BigQuery live POS. Sales gross inc VAT.
+      <br>Opening mirrored against HOE Balsall Common (opened Sep 2022). Source: BigQuery live POS + F1 audit sheet. Sales gross inc VAT.
     </div>
   </header>
 
-  <div class="cards">
-    <div class="card"><div class="lbl">13-wk sales forecast</div><div class="val">£71,950</div><div class="meta">avg £5,535 / wk</div></div>
-    <div class="card"><div class="lbl">13-wk labour hours</div><div class="val">1,465</div><div class="meta">avg 113 hrs / wk</div></div>
-    <div class="card"><div class="lbl">CPH target (sales/hr)</div><div class="val">£49</div><div class="meta">flat · hours = sales ÷ 49</div></div>
-    <div class="card"><div class="lbl">Sales growth wk1→13</div><div class="val" style="color:var(--green)">+5.7%</div><div class="meta">gentle summer rebuild</div></div>
-  </div>
+  <!-- ===== Tab nav ===== -->
+  <nav class="tabs" role="tablist">
+    <button class="tab-btn active" data-tab="sales" role="tab"><span class="dot">📈</span>Sales &amp; Hours</button>
+    <button class="tab-btn" data-tab="waste" role="tab"><span class="dot">♻️</span>Wastage</button>
+    <button class="tab-btn" data-tab="mix" role="tab"><span class="dot">🧺</span>Sales mix &amp; capture</button>
+    <button class="tab-btn" data-tab="f1" role="tab"><span class="dot">🏁</span>Op's Excellence</button>
+  </nav>
 
-  <div class="section-title">Opening curve — Olney mirrored against Balsall Common</div>
-  <div class="panel">
-    <div class="chart-box"><canvas id="curve"></canvas></div>
-    <div class="stat-row" style="margin-top:14px">
-      <div class="stat">Balsall opening <b style="color:var(--bals)">£5.0k → £3.7k</b> (−24.5% M1→M4: launch fade + winter)</div>
-      <div class="stat">Olney opened <b style="color:var(--oln)">£7.5k</b>, settled <b style="color:var(--oln)">~£5.3k</b> (wk 10)</div>
+  <!-- ===== TAB 1: Sales & Hours ===== -->
+  <section class="tab-panel active" id="tab-sales">
+    <div class="cards">
+      <div class="card"><div class="lbl">13-wk sales forecast</div><div class="val">£71,950</div><div class="meta">avg £5,535 / wk</div></div>
+      <div class="card"><div class="lbl">13-wk labour hours</div><div class="val">1,465</div><div class="meta">avg 113 hrs / wk</div></div>
+      <div class="card"><div class="lbl">CPH target (sales/hr)</div><div class="val">£49</div><div class="meta">flat · hours = sales ÷ 49</div></div>
+      <div class="card"><div class="lbl">Sales growth wk1→13</div><div class="val" style="color:var(--green)">+5.7%</div><div class="meta">gentle summer rebuild</div></div>
     </div>
-    <div class="note">Both sites show the community high-street pattern: a big launch spike that fades to a settled level. Olney has already found its level (~£5.3k) — comfortably above Balsall's post-launch trough. With Balsall's "settle-then-slow-rebuild" shape plus a summer tailwind Balsall never had (it opened into winter), Olney is forecast to grow gently to <strong>~£5.6–5.75k by late Aug (+5.7%)</strong>. Dashed line = forecast.</div>
-  </div>
 
-  <div class="section-title">Olney forecast — weekly sales &amp; hours</div>
-  <div class="grid2">
-    <div class="panel"><div class="chart-box"><canvas id="fc"></canvas></div></div>
+    <div class="section-title">Opening curve — Olney mirrored against Balsall Common</div>
     <div class="panel">
-      <table id="tbl">
-        <thead><tr><th>Week comm.</th><th>Sales £</th><th>CPH</th><th>Hours</th></tr></thead>
-        <tbody></tbody>
-        <tfoot></tfoot>
-      </table>
-      <div class="mini" style="margin-top:8px">CPH held flat at £49, so hours track sales directly (hours = sales ÷ 49). Unlike the drive-thrus, no efficiency ramp is assumed here.</div>
+      <div class="chart-box"><canvas id="curve"></canvas></div>
+      <div class="stat-row" style="margin-top:14px">
+        <div class="stat">Balsall opening <b style="color:var(--bals)">£5.0k → £3.7k</b> (−24.5% M1→M4: launch fade + winter)</div>
+        <div class="stat">Olney opened <b style="color:var(--oln)">£7.5k</b>, settled <b style="color:var(--oln)">~£5.3k</b> (wk 10)</div>
+      </div>
+      <div class="note">Both sites show the community high-street pattern: a big launch spike that fades to a settled level. Olney has already found its level (~£5.3k) — comfortably above Balsall's post-launch trough. With Balsall's "settle-then-slow-rebuild" shape plus a summer tailwind Balsall never had (it opened into winter), Olney is forecast to grow gently to <strong>~£5.6–5.75k by late Aug (+5.7%)</strong>. Dashed line = forecast.</div>
     </div>
-  </div>
 
-  <div class="section-title">Sales mix &amp; capture vs the estate</div>
-  <div class="grid2">
-    <div class="panel"><div style="font-size:13px;font-weight:700;color:#5b3a29;margin-bottom:8px">Capture % ranked vs the estate (21 stores)</div><table id="peertbl"><thead><tr><th>Category</th><th>Olney</th><th>Rank</th><th>Estate avg</th><th>Best in estate</th></tr></thead><tbody></tbody></table><div class="mini" style="margin-top:8px">Capture = share of transactions including the category (last ~5 wks). Value green = above estate average; rank chip green = top third, red = bottom third.</div></div>
+    <div class="section-title">Olney forecast — weekly sales &amp; hours</div>
+    <div class="grid2">
+      <div class="panel"><div class="chart-box"><canvas id="fc"></canvas></div></div>
+      <div class="panel">
+        <table id="tbl">
+          <thead><tr><th>Week comm.</th><th>Sales £</th><th>CPH</th><th>Hours</th></tr></thead>
+          <tbody></tbody>
+          <tfoot></tfoot>
+        </table>
+        <div class="mini" style="margin-top:8px">CPH held flat at £49, so hours track sales directly (hours = sales ÷ 49). Unlike the drive-thrus, no efficiency ramp is assumed here.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TAB 2: Wastage ===== -->
+  <section class="tab-panel" id="tab-waste">
+    <div class="section-title">⚠️ Wastage — improving, keep tightening</div>
+    <div class="grid2">
+      <div class="panel"><div class="chart-box" style="height:300px"><canvas id="waste"></canvas></div></div>
+      <div class="panel"><div class="note" style="margin-top:0"><strong>Olney's wastage has come down sharply</strong> — from a ~13% peak in April (classic new-site over-ordering) to ~4% now, recent 4-week average 3.8%. It's on the right track and well below where Attleborough sits. Holding to a 3% target leaves ~£600 of retail waste to claim over the quarter (~£270 at cost). The croque toasties and baps below are the repeat offenders.</div></div>
+    </div>
+
+    <div class="section-title">Outlier items — biggest over-production (last 4 weeks)</div>
     <div class="panel">
-      <table id="cattbl"><thead><tr><th>Category</th><th>Current mix</th><th>Holiday tilt</th><th>Capture %</th></tr></thead><tbody></tbody></table>
-      <div class="note" style="margin-top:10px"><strong>Mix holds through the holidays.</strong> In the mature drive-thru/destination stores last summer the split barely moved from term into the school holidays — cold drinks + milkshakes were ~37% of sales in term vs ~35% in holidays (milkshakes flat, cold easing ~2pp as the early-summer heat passed). The cold-drink peak is <strong>weather-led (Jun–Jul), not the school calendar</strong>; total volume rose ~5%. So £ grows across all categories with only a small holiday tilt. <strong>Capture %</strong> = the share of transactions that include the category (attach rate, recent weeks) — a truer read of penetration than £. Food capture here is just ~11%, well below the other new sites — a clear add-on opportunity.</div>
+      <table id="items"><thead><tr><th>Product</th><th>Waste £</th><th>Wasted</th><th>Sold</th><th>Waste rate</th><th style="text-align:left">Action</th></tr></thead><tbody></tbody></table>
+      <div class="note">Waste rate = wasted ÷ (wasted + sold). <strong>3 Bacon Bap (53%)</strong>, <strong>Chocolate Twist Traybake (51%)</strong>, <strong>3 Cheese &amp; Onion Croque (50%)</strong> and <strong>3 Caesar Wrap (50%)</strong> are produced roughly 1-for-1 with what sells — trim par levels. Top 10 items ≈ £140/wk of waste retail.</div>
     </div>
-  </div>
+  </section>
 
-  <div class="section-title">⚠️ Wastage — improving, keep tightening</div>
-  <div class="grid2">
-    <div class="panel"><div class="chart-box" style="height:300px"><canvas id="waste"></canvas></div></div>
-    <div class="panel"><div class="note" style="margin-top:0"><strong>Olney's wastage has come down sharply</strong> — from a ~13% peak in April (classic new-site over-ordering) to ~4% now, recent 4-week average 3.8%. It's on the right track and well below where Attleborough sits. Holding to a 3% target leaves ~£600 of retail waste to claim over the quarter (~£270 at cost). The croque toasties and baps below are the repeat offenders.</div></div>
-  </div>
+  <!-- ===== TAB 3: Sales mix & capture ===== -->
+  <section class="tab-panel" id="tab-mix">
+    <div class="section-title">Sales mix &amp; capture vs the estate</div>
+    <div class="grid2">
+      <div class="panel"><div style="font-size:13px;font-weight:700;color:#5b3a29;margin-bottom:8px">Capture % ranked vs the estate (21 stores)</div><table id="peertbl"><thead><tr><th>Category</th><th>Olney</th><th>Rank</th><th>Estate avg</th><th>Best in estate</th></tr></thead><tbody></tbody></table><div class="mini" style="margin-top:8px">Capture = share of transactions including the category (last ~5 wks). Value green = above estate average; rank chip green = top third, red = bottom third.</div></div>
+      <div class="panel">
+        <table id="cattbl"><thead><tr><th>Category</th><th>Current mix</th><th>Holiday tilt</th><th>Capture %</th></tr></thead><tbody></tbody></table>
+        <div class="note" style="margin-top:10px"><strong>Mix holds through the holidays.</strong> In the mature drive-thru/destination stores last summer the split barely moved from term into the school holidays — cold drinks + milkshakes were ~37% of sales in term vs ~35% in holidays (milkshakes flat, cold easing ~2pp as the early-summer heat passed). The cold-drink peak is <strong>weather-led (Jun–Jul), not the school calendar</strong>; total volume rose ~5%. So £ grows across all categories with only a small holiday tilt. <strong>Capture %</strong> = the share of transactions that include the category (attach rate, recent weeks) — a truer read of penetration than £. Food capture here is just ~11%, well below the other new sites — a clear add-on opportunity.</div>
+      </div>
+    </div>
+  </section>
 
-  <div class="section-title">Outlier items — biggest over-production (last 4 weeks)</div>
-  <div class="panel">
-    <table id="items"><thead><tr><th>Product</th><th>Waste £</th><th>Wasted</th><th>Sold</th><th>Waste rate</th><th style="text-align:left">Action</th></tr></thead><tbody></tbody></table>
-    <div class="note">Waste rate = wasted ÷ (wasted + sold). <strong>3 Bacon Bap (53%)</strong>, <strong>Chocolate Twist Traybake (51%)</strong>, <strong>3 Cheese &amp; Onion Croque (50%)</strong> and <strong>3 Caesar Wrap (50%)</strong> are produced roughly 1-for-1 with what sells — trim par levels. Top 10 items ≈ £140/wk of waste retail.</div>
-  </div>
+  <!-- ===== TAB 4: Op's Excellence (F1) ===== -->
+  <section class="tab-panel" id="tab-f1">
+    <div class="section-title">🏁 F1 Operational Excellence — Qualifying &amp; Race</div>
+    <div class="cards">
+      <div class="card"><div class="lbl">Latest Quali rank</div><div class="val" style="color:var(--amber)">15 / 21</div><div class="meta">W/C 1 Jun · swings 3rd → 23rd wk-to-wk</div></div>
+      <div class="card"><div class="lbl">Latest Quali queue avg</div><div class="val">224s</div><div class="meta">range 126s (best) → 806s (worst)</div></div>
+      <div class="card"><div class="lbl">Hospitality (latest quali)</div><div class="val" style="color:var(--green)">100%</div><div class="meta">but dipped to 55% on 27 May</div></div>
+      <div class="card"><div class="lbl">Latest Race result</div><div class="val" style="color:var(--red)">P21 · 2 pts</div><div class="meta">W/C 7 Jun · slipped to last · Coach: Jon</div></div>
+    </div>
+
+    <div class="note green" style="margin-top:16px"><strong>How F1 works.</strong> Every store is audited unannounced through the week. <strong>Qualifying (Mon–Thu)</strong> is a lighter check — queue speed plus hospitality (Hello, Goodbye, How-Are-You, Working the Queue) — and sets the grid for the weekend. <strong>Race (Fri–Sun)</strong> is the full audit (adds tables to brand, cleared within 3 mins, section/break-cover plan, visible team, dishwasher area) with the start handicapped by the Qualifying result. <em>Lower</em> queue/lap seconds and <em>higher</em> championship points are better.</div>
+
+    <div class="section-title">Qualifying trend — the ceiling is high, the floor is low</div>
+    <div class="grid2">
+      <div class="panel"><div class="chart-box" style="height:320px"><canvas id="quali"></canvas></div></div>
+      <div class="panel">
+        <table id="qualitbl">
+          <thead><tr><th>Audit (W/C)</th><th>Queue (s)</th><th>Hospitality</th><th>Quali rank</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <div class="note red" style="margin-top:10px"><strong>Brilliant one week, off the pace the next.</strong> Olney has hit <strong>3rd twice</strong> (27 Apr at 126s, 12 May at 146s) — proof the team can run a top-3 queue. But in between and since it's bounced to <strong>17th, 21st, 23rd and 15th</strong>, including a <strong>27 May write-off</strong> (queue average <strong>806s</strong>, goodbyes missed entirely → hospitality 55%). Hospitality is otherwise a reliable 100%. The opportunity isn't a new skill — it's <strong>consistency</strong>: lock in the routine that produced the 126s weeks so the floor stops collapsing.</div>
+      </div>
+    </div>
+
+    <div class="section-title">Race results — Fri–Sun full audit</div>
+    <div class="grid2">
+      <div class="panel"><div class="chart-box" style="height:300px"><canvas id="race"></canvas></div></div>
+      <div class="panel">
+        <table id="racetbl">
+          <thead><tr><th>Race (W/C)</th><th>Total score</th><th>Champ. pts</th><th>Finish</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <div class="mini" style="margin-top:8px">Championship points awarded F1-style (higher = better). Finishing position is the weekend race result; the grid start was handicapped by that week's Qualifying.</div>
+        <div class="note red" style="margin-top:10px"><strong>Race form is drifting down.</strong> The opening three weekends were mid-pack (P14, P17, P16) but the last five have slipped — <strong>P19, P16, P19, P19, and P21 (dead last) on 7 Jun</strong> — with championship points falling 7 → 4 → 2. The weekend race start is handicapped by Qualifying, so the bumpy quali weeks are feeding straight through. Fix the quali consistency and the race result follows.</div>
+      </div>
+    </div>
+
+    <div class="section-title">vs the chains — queue average (lower is better)</div>
+    <div class="panel">
+      <div class="chart-box" style="height:280px"><canvas id="comp"></canvas></div>
+      <div class="note" style="margin-top:12px"><strong>The hospitality edge is won; the speed edge isn't yet.</strong> On its <strong>best</strong> week Olney (126s) is ~2× faster than Nero (254s) and Costa (345s) and scores 100% hospitality where the chains score 0% — that's the ceiling, and the hospitality gap is a genuine moat. But Olney's <strong>9-week average queue is ~307s</strong>, right in Costa/Nero territory. So the team out-serves the chains every week but only out-runs them on the good weeks. The prize is a reliable sub-200s queue — that turns an occasional win into a permanent one.</div>
+    </div>
+
+    <footer style="margin-top:18px">F1 data: live <a class="srclink" href="https://docs.google.com/spreadsheets/d/1YFqpR9_ftlQEbfwc5ZVMjtS5tFO0j-7ccwB8rwG56wQ/edit?gid=522976149#gid=522976149" target="_blank" rel="noopener">Bewiched F1 audit sheet ↗</a> · Qualifying (to W/C 1 Jun) &amp; The Race (to W/C 7 Jun) tabs · full audit window 10 Apr → 7 Jun 2026 · Area Coach (Constructor): Jon. Scores are unannounced auditor visits; every audited Olney row is shown.</footer>
+  </section>
 
   <footer id="foot"></footer>
 </div>
 
 <script>
+window.CHARTS = window.CHARTS || [];
 const BALS=[4976,5316,4913,4405,4053,3764,3799,4075,3864,3906,3485,3769,3721,3032,3803,4257,4087,4275,4237]; // wk1-19
 const OLN_ACT=[7502,6719,6339,5459,4838,6065,5314,4595,5439,5241]; // wk1-10 actual
 const FC=[["2026-06-08",5300,108,""],["2026-06-15",5350,109,""],["2026-06-22",5400,110,""],["2026-06-29",5450,111,""],
@@ -120,7 +246,7 @@ const ddmm=s=>{const[y,m,d]=s.split("-");return d+"/"+m;};
 const olnLine=OLN_ACT.concat(FC.map(r=>r[1])); // 10 actual + 13 fc = 23
 const nW=Math.max(BALS.length,olnLine.length);
 const wks=Array.from({length:nW},(_,i)=>"Wk "+(i+1));
-new Chart(document.getElementById("curve"),{type:"line",
+window.CHARTS.push(new Chart(document.getElementById("curve"),{type:"line",
   data:{labels:wks,datasets:[
     {label:"Balsall Common (2022)",data:BALS,borderColor:"#c08a2d",backgroundColor:"#c08a2d",tension:.3,pointRadius:0,borderWidth:2},
     {label:"Olney (2026) — actual + forecast",data:olnLine,borderColor:"#2d6fb3",backgroundColor:"#2d6fb3",
@@ -130,10 +256,10 @@ new Chart(document.getElementById("curve"),{type:"line",
     plugins:{legend:{position:"bottom",labels:{boxWidth:14,font:{size:11.5}}},
       tooltip:{callbacks:{label:c=>` ${c.dataset.label.split(" —")[0]}: ${c.parsed.y?gbp0(c.parsed.y):"—"}`}}},
     scales:{y:{ticks:{callback:v=>"£"+(v/1000)+"k"},grid:{color:"#eee"},title:{display:true,text:"Weekly sales"},suggestedMin:3000},
-      x:{grid:{display:false},title:{display:true,text:"Weeks since opening (first full week = Wk 1)"}}}}});
+      x:{grid:{display:false},title:{display:true,text:"Weeks since opening (first full week = Wk 1)"}}}}}));
 
 // Forecast combo
-new Chart(document.getElementById("fc"),{
+window.CHARTS.push(new Chart(document.getElementById("fc"),{
   data:{labels:FC.map(r=>ddmm(r[0])),datasets:[
     {type:"bar",label:"Sales £",data:FC.map(r=>r[1]),backgroundColor:"#2d6fb3",borderRadius:4,yAxisID:"y",order:2},
     {type:"line",label:"Hours (@ £49 CPH)",data:FC.map(r=>r[2]),borderColor:"#c0392b",backgroundColor:"#c0392b",tension:.3,pointRadius:2,borderWidth:2,yAxisID:"y1",order:1}
@@ -143,7 +269,7 @@ new Chart(document.getElementById("fc"),{
       tooltip:{callbacks:{afterBody:items=>{const i=items[0].dataIndex;return "CPH target £"+CPH+(FC[i][3]?"  ·  "+FC[i][3]:"");}}}},
     scales:{y:{position:"left",ticks:{callback:v=>"£"+(v/1000)+"k"},grid:{color:"#eee"},title:{display:true,text:"Sales"},suggestedMin:4000},
       y1:{position:"right",grid:{display:false},title:{display:true,text:"Hours"},suggestedMin:80,suggestedMax:140},
-      x:{grid:{display:false}}}}});
+      x:{grid:{display:false}}}}}));
 
 const tb=document.querySelector("#tbl tbody");
 tb.innerHTML=FC.map(r=>`<tr><td>${ddmm(r[0])}${r[3]?' <span class="chip">'+r[3]+'</span>':''}</td>
@@ -152,17 +278,19 @@ const tS=FC.reduce((s,r)=>s+r[1],0), tH=FC.reduce((s,r)=>s+r[2],0);
 document.querySelector("#tbl tfoot").innerHTML=`<tr><td>13-WK TOTAL</td><td>${gbp0(tS)}</td><td>£${(tS/tH).toFixed(1)}</td><td>${tH.toLocaleString("en-GB")}</td></tr>`;
 
 document.getElementById("foot").innerHTML="Generated "+new Date().toLocaleString("en-GB")+
-  " · Method: Olney settled baseline (£5.3k, wks 6–10) shaped by Balsall Common's post-launch curve + summer lift. Hours = sales ÷ £49 CPH (flat). Sales & opening curves are live BigQuery actuals.";
+  " · Method: Olney settled baseline (£5.3k, wks 6–10) shaped by Balsall Common's post-launch curve + summer lift. Hours = sales ÷ £49 CPH (flat). Sales & opening curves are live BigQuery actuals; F1 from the audit sheet.";
 </script>
+
 <script>
+/* ---- Wastage tab ---- */
 (function(){
   const WK=[["30/03",4.74],["06/04",7.99],["13/04",8.70],["20/04",13.33],["27/04",7.12],["04/05",5.05],["11/05",1.75],["18/05",5.25],["25/05",3.50],["01/06",4.50]];
   const ITEMS=[["3 Cheese & Onion Croque",88,16,16],["3 Ham & Cheese Croque",82,15,48],["3 Bacon Bap",77,18,16],["Chocolate Twist Traybake",66,25,24],["3 Caesar Wrap",60,14,14],["Croissant Pastry",45,21,55],["3 Mozzarella & Tomato Ciabatta",44,8,37],["Vegan Raspberry Croissant Pastry",37,14,37],["3 Sausage Bap",30,7,31],["Sausage Roll Pastry",30,9,40]];
-  new Chart(document.getElementById('waste'),{type:'line',data:{labels:WK.map(r=>r[0]),datasets:[
+  window.CHARTS.push(new Chart(document.getElementById('waste'),{type:'line',data:{labels:WK.map(r=>r[0]),datasets:[
     {label:'Wastage %',data:WK.map(r=>r[1]),borderColor:'#c0392b',backgroundColor:'#c0392b',tension:.3,pointRadius:4,borderWidth:2.5},
     {label:'Target 3%',data:WK.map(()=>3),borderColor:'#1f8a4c',borderDash:[6,4],pointRadius:0,borderWidth:2},
     {label:'Estate avg 2.3%',data:WK.map(()=>2.3),borderColor:'#9aa6b0',borderDash:[3,3],pointRadius:0,borderWidth:1.5}]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:14,font:{size:11}}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y+'%'}}},scales:{y:{ticks:{callback:v=>v+'%'},grid:{color:'#eee'},suggestedMin:0},x:{grid:{display:false}}}}});
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:14,font:{size:11}}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y+'%'}}},scales:{y:{ticks:{callback:v=>v+'%'},grid:{color:'#eee'},suggestedMin:0},x:{grid:{display:false}}}}}));
   const rows=ITEMS.map(r=>({n:r[0],w:r[1],wq:r[2],sq:r[3],rt:r[2]/(r[2]+r[3])*100})).sort((a,b)=>b.rt-a.rt);
   document.getElementById('items').querySelector('tbody').innerHTML=rows.map(r=>{
     const c=r.rt>=40?['#fbeae8','#c0392b']:r.rt>=25?['#f7f0dd','#b8860b']:['#e6f4ec','#1f8a4c'];
@@ -170,23 +298,97 @@ document.getElementById("foot").innerHTML="Generated "+new Date().toLocaleString
     return '<tr><td>'+r.n+'</td><td>£'+r.w+'</td><td>'+r.wq+'</td><td>'+r.sq+'</td><td><span style="display:inline-block;padding:2px 7px;border-radius:6px;font-weight:700;background:'+c[0]+';color:'+c[1]+'">'+r.rt.toFixed(0)+'%</span></td><td style="text-align:left">'+act+'</td></tr>';}).join('');
 })();
 </script>
+
 <script>
+/* ---- Sales mix & capture tab ---- */
 (function(){
-  const L=["08/06","15/06","22/06","29/06","06/07","13/07","20/07","27/07","03/08","10/08","17/08","24/08","31/08"];
-  const HOT=[2528,2551,2575,2599,2599,2623,2689,2714,2738,2738,2762,2786,2671];
-  const COLD=[1178,1189,1200,1211,1211,1222,1136,1146,1156,1156,1166,1177,1244];
-  const SHK=[461,465,469,474,474,478,479,483,487,487,492,496,487];
-  const FOOD=[425,429,433,437,437,441,459,463,467,467,471,476,449];
-  const BAK=[498,503,508,512,512,517,574,579,584,584,589,594,527];
-  const WK=[5300,5350,5400,5450,5450,5500,5550,5600,5650,5650,5700,5750,5600];
   const ROWS=[["Hot drinks",47.7,0.8,64.9],["Cold drinks",22.2,-1.8,27.6],["Milkshakes",8.7,-0.1,10.1],["Food",8.0,0.3,10.7],["Bakery",9.4,0.9,19.7],["Other & retail",4.0,-0.2,15.6]];
   const PEER=[["Hot drinks",65.0,10,21,61.4,"Wellingborough 71.8%"],["Cold drinks",27.6,8,21,23.7,"Billing 36.9%"],["Milkshakes",10.1,17,21,13.1,"Rushden 25.4%"],["Food",10.7,18,21,14.0,"Fletton Quays 23.8%"],["Bakery",19.7,8,21,17.5,"Attleborough 25.4%"]];
   document.querySelector("#peertbl tbody").innerHTML=PEER.map(r=>{const top=r[2]<=r[3]/3,bot=r[2]>r[3]*2/3;const rc=top?["#e6f4ec","#1f8a4c"]:bot?["#fbeae8","#c0392b"]:["#f7f0dd","#b8860b"];const vc=r[1]>=r[4]?"#1f8a4c":"#c0392b";
     return "<tr><td>"+r[0]+"</td><td style=\"font-weight:700;color:"+vc+"\">"+r[1].toFixed(1)+"%</td><td><span style=\"display:inline-block;padding:2px 7px;border-radius:6px;font-weight:700;font-size:12px;background:"+rc[0]+";color:"+rc[1]+"\">"+r[2]+"/"+r[3]+"</span></td><td>"+r[4].toFixed(1)+"%</td><td style=\"text-align:left;font-size:11.5px;color:#8a7a6d\">"+r[5]+"</td></tr>";}).join("");
-  const gb=n=>"£"+Math.round(n).toLocaleString("en-GB");
   const DESC={"Hot drinks":"lattes, cappuccinos, americanos, flat whites, hot choc, tea","Cold drinks":"iced lattes, frozen lemonade, iced matcha, frappés, cold brew","Milkshakes":"Oreo, Biscoff, vanilla, chocolate, strawberry shakes","Food":"croques, ciabattas, baps, wraps, salads, meal deals","Bakery":"traybakes, croissants, brownies, cookies, cakes","Other & retail":"bottled & soft drinks, beans, sundries"};
   document.querySelector("#cattbl tbody").innerHTML=ROWS.map(r=>{const s=r[2]>0?"#1f8a4c":r[2]<0?"#c0392b":"#8a7a6d";
     return "<tr><td>"+r[0]+"<br><span style=\"font-size:10.5px;color:#9a8a7c;font-weight:400\">"+(DESC[r[0]]||"")+"</span></td><td>"+r[1].toFixed(1)+"%</td><td style=\"color:"+s+"\">"+(r[2]>0?"+":"")+r[2].toFixed(1)+"pp</td><td>"+r[3].toFixed(1)+"%</td></tr>";}).join("");
+})();
+</script>
+
+<script>
+/* ---- Op's Excellence (F1) tab ---- */
+(function(){
+  // Qualifying audits for Olney (Area Coach Jon): [W/C, queue average s, hospitality 0-100 (avg of Hello/Goodbye/How-Are-You), quali rank of 21]
+  const Q=[["10 Apr",251,100,28],["16 Apr",356,93,20],["20 Apr",261,100,16],["27 Apr",126,100,3],
+           ["5 May",305,100,17],["12 May",146,100,3],["20 May",292,100,21],["27 May",806,55,23],["1 Jun",224,100,15]];
+  // Race audits (The Race tab): [W/C, total score, championship points (higher=better), finishing position]
+  const R=[["17 Apr",256,9,14],["25 Apr",351,6,17],["2 May",316,7,16],["9 May",409,4,19],
+           ["15 May",314,7,16],["22 May",512,4,19],["30 May",440,4,19],["7 Jun",356,2,21]];
+  // Queue benchmark: [name, queue avg s, hospitality 0-100]. Olney best week & 9-wk average vs last-audited chains.
+  const COMP=[["Olney best wk",126,100],["Nero",253.5,0],["Olney avg (9wk)",307,94],["Costa",344.5,0],["Coffee#1",666.5,0]];
+
+  // Quali trend: queue seconds (bars) + rank (line, reversed so better = up)
+  window.CHARTS.push(new Chart(document.getElementById("quali"),{
+    data:{labels:Q.map(r=>r[0]),datasets:[
+      {type:"bar",label:"Queue average (s)",data:Q.map(r=>r[1]),backgroundColor:Q.map(r=>r[1]>=500?"#c0392b":r[1]>=250?"#b8860b":"#2d6fb3"),borderRadius:4,yAxisID:"y",order:2},
+      {type:"line",label:"Quali rank (of 21)",data:Q.map(r=>r[3]),borderColor:"#1f8a4c",backgroundColor:"#1f8a4c",tension:.3,pointRadius:4,borderWidth:2.5,yAxisID:"y1",order:1}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},
+      plugins:{legend:{position:"bottom",labels:{boxWidth:14,font:{size:11}}},
+        tooltip:{callbacks:{label:c=>c.dataset.yAxisID==="y1"?(" Rank "+c.parsed.y+" of 21"):(" Queue "+c.parsed.y+"s")}}},
+      scales:{y:{position:"left",ticks:{callback:v=>v+"s"},grid:{color:"#eee"},title:{display:true,text:"Queue average"},suggestedMin:0},
+        y1:{position:"right",reverse:true,grid:{display:false},title:{display:true,text:"Rank (1 = best)"},min:1,max:29,ticks:{stepSize:7}},
+        x:{grid:{display:false}}}}}));
+
+  // Quali table
+  document.querySelector("#qualitbl tbody").innerHTML=Q.map(r=>{
+    const hosp=r[2]===null?'<span class="mini">—</span>':'<span class="tag '+(r[2]>=100?'t-ok':r[2]>=65?'t-amber':'t-red')+'">'+r[2]+'%</span>';
+    const rk=r[3]<=7?'t-ok':r[3]>=15?'t-red':'t-amber';
+    return "<tr><td>"+r[0]+"</td><td>"+r[1]+"s</td><td>"+hosp+"</td><td><span class=\"tag "+rk+"\">"+r[3]+" / 21</span></td></tr>";}).join("");
+
+  // Race: championship points (bar) + finishing position (line, reversed)
+  window.CHARTS.push(new Chart(document.getElementById("race"),{
+    data:{labels:R.map(r=>r[0]),datasets:[
+      {type:"bar",label:"Championship points",data:R.map(r=>r[2]),backgroundColor:"#5b3a29",borderRadius:4,yAxisID:"y",order:2},
+      {type:"line",label:"Finishing position",data:R.map(r=>r[3]),borderColor:"#c0392b",backgroundColor:"#c0392b",tension:.3,pointRadius:4,borderWidth:2.5,yAxisID:"y1",order:1}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},
+      plugins:{legend:{position:"bottom",labels:{boxWidth:14,font:{size:11}}},
+        tooltip:{callbacks:{label:c=>c.dataset.yAxisID==="y1"?(" Finished P"+c.parsed.y):(" "+c.parsed.y+" pts")}}},
+      scales:{y:{position:"left",grid:{color:"#eee"},title:{display:true,text:"Points"},suggestedMin:0,suggestedMax:25},
+        y1:{position:"right",reverse:true,grid:{display:false},title:{display:true,text:"Finish (1 = best)"},min:1,max:23,ticks:{stepSize:5}},
+        x:{grid:{display:false}}}}}));
+
+  // Race table — colour championship points and finish by quality
+  document.querySelector("#racetbl tbody").innerHTML=R.map(r=>{
+    const pc=r[2]>=7?'t-ok':r[2]>=4?'t-amber':'t-red';
+    const fc=r[3]<=14?'t-ok':r[3]<=18?'t-amber':'t-red';
+    return "<tr><td>"+r[0]+"</td><td>"+r[1]+"</td><td><span class=\"tag "+pc+"\">"+r[2]+" pts</span></td><td><span class=\"tag "+fc+"\">P"+r[3]+"</span></td></tr>";}).join("");
+
+  // Competitor comparison (queue average, lower better)
+  window.CHARTS.push(new Chart(document.getElementById("comp"),{type:"bar",
+    data:{labels:COMP.map(r=>r[0]),datasets:[
+      {label:"Queue average (s)",data:COMP.map(r=>r[1]),
+        backgroundColor:COMP.map(r=>r[0].indexOf("Olney")===0?"#1f8a4c":"#9aa6b0"),borderRadius:5}
+    ]},
+    options:{indexAxis:"y",responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},
+        tooltip:{callbacks:{label:c=>" "+c.parsed.x+"s · hospitality "+COMP[c.dataIndex][2]+"%"}}},
+      scales:{x:{ticks:{callback:v=>v+"s"},grid:{color:"#eee"},title:{display:true,text:"Queue average — lower is better"}},
+        y:{grid:{display:false}}}}}));
+})();
+</script>
+
+<script>
+/* ---- Tab switching (pure show/hide) + chart resize on reveal ---- */
+(function(){
+  const btns=document.querySelectorAll(".tab-btn");
+  const panels=document.querySelectorAll(".tab-panel");
+  btns.forEach(b=>b.addEventListener("click",()=>{
+    btns.forEach(x=>x.classList.remove("active"));
+    panels.forEach(p=>p.classList.remove("active"));
+    b.classList.add("active");
+    document.getElementById("tab-"+b.dataset.tab).classList.add("active");
+    // charts built while hidden render at 0px; resize once their panel is visible
+    requestAnimationFrame(()=>{(window.CHARTS||[]).forEach(c=>{try{c.resize();}catch(e){}});});
+  }));
 })();
 </script>
 </body>

@@ -4,26 +4,57 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>Billing Drive-Thru — Sales & Hours Forecast</title>
+<title>Billing Drive-Thru — Bewiched Store Dashboard</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
   :root{--bg:#f4efe9;--card:#fff;--ink:#2b211b;--muted:#8a7a6d;--line:#e7ddd2;--brown:#5b3a29;
-    --blue:#2d6fb3;--green:#1f8a4c;--amber:#b8860b;--ndt:#7a5240;--glen:#c08a2d;--bill:#2d6fb3;}
+    --brown2:#3f281c;--cream:#efe6dc;
+    --green:#1f8a4c;--blue:#2d6fb3;--amber:#b8860b;--red:#c0392b;--ndt:#7a5240;--glen:#c08a2d;--bill:#2d6fb3;--slate:#9aa6b0;
+    --redbg:#fbeae8;--amberbg:#f7f0dd;--greenbg:#e6f4ec;}
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
-  .wrap{max-width:1180px;margin:0 auto;padding:28px 22px 60px;}
-  header h1{margin:0 0 4px;font-size:23px;letter-spacing:-.3px;}
-  header .sub{color:var(--muted);font-size:13.5px;line-height:1.5;}
-  .pill{display:inline-block;background:#efe6dc;color:var(--brown);border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:12px;font-weight:600;margin-right:6px;}
-  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:6px;}
+
+  /* ---- Brand header ---- */
+  .brandbar{background:linear-gradient(180deg,var(--brown) 0%,var(--brown2) 100%);color:#f6efe7;}
+  .brandbar .inner{max-width:1180px;margin:0 auto;padding:14px 22px;display:flex;align-items:center;gap:13px;}
+  .logo{display:flex;align-items:center;gap:10px;}
+  .logo svg{display:block}
+  .logo .word{font-size:21px;font-weight:800;letter-spacing:.2px;line-height:1;}
+  .logo .word span{color:#e7b35a}
+  .brandlogo{height:36px;width:auto;display:block;}
+  .logo .eyebrow{font-size:10.5px;letter-spacing:2.4px;text-transform:uppercase;color:#cbb29c;margin-top:3px;}
+  .brandbar .spacer{flex:1}
+  .brandbar .ctx{font-size:11.5px;color:#cbb29c;text-align:right;line-height:1.5}
+  .brandbar .ctx b{color:#f6efe7;font-weight:700}
+
+  .wrap{max-width:1180px;margin:0 auto;padding:24px 22px 60px;}
+  header.page h1{margin:0 0 4px;font-size:23px;letter-spacing:-.3px;}
+  header.page .sub{color:var(--muted);font-size:13.5px;line-height:1.5;}
+  .pill{display:inline-block;background:var(--cream);color:var(--brown);border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:12px;font-weight:600;margin-right:6px;}
+
+  /* ---- Tabs ---- */
+  .tabs{display:flex;gap:6px;flex-wrap:wrap;margin:22px 0 4px;border-bottom:2px solid var(--line);}
+  .tab-btn{appearance:none;border:none;background:transparent;cursor:pointer;font:inherit;
+    font-size:13.5px;font-weight:700;color:var(--muted);padding:11px 16px;border-radius:10px 10px 0 0;
+    border-bottom:3px solid transparent;margin-bottom:-2px;transition:.15s;display:flex;align-items:center;gap:7px;}
+  .tab-btn:hover{color:var(--brown);background:#faf6f1;}
+  .tab-btn.active{color:var(--brown);border-bottom-color:var(--brown);background:#fff;}
+  .tab-btn .dot{font-size:11px}
+  .tab-panel{display:none;animation:fade .25s ease;}
+  .tab-panel.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:16px;}
   .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:0 1px 2px rgba(80,50,30,.04);}
   .card .lbl{font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.4px;}
   .card .val{font-size:25px;font-weight:700;margin-top:6px;letter-spacing:-.5px;}
   .card .meta{font-size:12.5px;color:var(--muted);margin-top:3px;}
-  .section-title{font-size:15px;font-weight:700;margin:30px 0 12px;color:var(--brown);}
+  .section-title{font-size:15px;font-weight:700;margin:26px 0 12px;color:var(--brown);}
   .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:0 1px 2px rgba(80,50,30,.04);}
   .chart-box{height:380px;position:relative}
   .note{background:#fff8ec;border:1px solid #f0e0bf;color:#7a5e1e;border-radius:10px;padding:10px 14px;font-size:12.5px;margin:14px 0 0;line-height:1.55;}
+  .note.red{background:var(--redbg);border-color:#eccfca;color:#8c2f22;}
+  .note.green{background:var(--greenbg);border-color:#cfe6d8;color:#1c6b3d;}
   .grid2{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;align-items:start;}
   table{width:100%;border-collapse:collapse;font-size:13.5px;}
   th,td{padding:8px 10px;text-align:right;border-bottom:1px solid var(--line);}
@@ -33,84 +64,171 @@
   tfoot td{font-weight:700;border-top:2px solid var(--line);}
   .mini{font-size:11.5px;color:var(--muted);}
   .chip{display:inline-block;font-size:11px;padding:1px 7px;border-radius:5px;background:#eef3ee;color:var(--green);font-weight:600;}
+  .tag{display:inline-block;padding:2px 7px;border-radius:6px;font-weight:700;font-size:12px;}
+  .t-red{background:var(--redbg);color:var(--red)} .t-amber{background:var(--amberbg);color:var(--amber)} .t-ok{background:var(--greenbg);color:var(--green)}
   .stat-row{display:flex;gap:22px;flex-wrap:wrap;margin-top:4px;}
   .stat{font-size:12.5px;color:var(--muted);} .stat b{color:var(--ink);font-size:15px;}
+  .srclink{color:var(--brown);font-weight:600;text-decoration:none;border-bottom:1px solid #d9c7b6;}
+  .srclink:hover{border-bottom-color:var(--brown);}
+  .empty{background:#faf6f1;border:1px dashed var(--line);border-radius:12px;padding:24px;text-align:center;color:var(--muted);font-size:13px;}
   footer{color:var(--muted);font-size:12px;margin-top:26px;line-height:1.6}
   @media(max-width:860px){.cards{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
+
+<!-- ===== Brand header ===== -->
+<div class="brandbar">
+  <div class="inner">
+    <div class="logo">
+      <img src="bewiched-logo.png" alt="Bewiched" class="brandlogo"
+           onerror="this.style.display='none';document.getElementById('wordmark').style.display='flex';">
+      <div id="wordmark" class="logo" style="display:none;gap:10px">
+        <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true">
+          <circle cx="17" cy="17" r="17" fill="#e7b35a"/>
+          <path d="M9 14h12v5a5 5 0 0 1-5 5h-2a5 5 0 0 1-5-5v-5z" fill="#3f281c"/>
+          <path d="M21 15h2.2a2.6 2.6 0 0 1 0 5.2H21" fill="none" stroke="#3f281c" stroke-width="1.6"/>
+          <path d="M12 8.5c-1 1 0 2 0 3M15.5 8c-1 1 0 2 0 3M19 8.5c-1 1 0 2 0 3" fill="none" stroke="#3f281c" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <div>
+          <div class="word">Be<span>wiched</span></div>
+          <div class="eyebrow">Store Performance</div>
+        </div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+    <div class="ctx">Site: <b>Billing Drive-Thru</b> · Area Coach <b>Rich</b><br>Forecast window: <b>8 Jun → 31 Aug 2026</b></div>
+  </div>
+</div>
+
 <div class="wrap">
-  <header>
-    <h1>🚗 Billing Drive-Thru — Sales &amp; Hours Forecast</h1>
+  <header class="page">
+    <h1>🚗 Billing Drive-Thru — Store Dashboard</h1>
     <div class="sub">
       <span class="pill">Forecast: W/C 8 Jun → 31 Aug 2026 (13 weeks)</span>
       <span class="pill">CPH target £55 → £70</span>
-      <br>Opening benchmarked against Northampton DT (May 2021) &amp; Glenvale DT (Nov 2024). Source: BigQuery live POS. Sales gross inc VAT.
+      <span class="pill">New site · 3 weeks trading</span>
+      <br>Opening benchmarked against Northampton DT (May 2021) &amp; Glenvale DT (Nov 2024). Source: BigQuery live POS + F1 audit sheet. Sales gross inc VAT.
     </div>
   </header>
 
-  <div class="cards">
-    <div class="card"><div class="lbl">13-wk sales forecast</div><div class="val">£176,050</div><div class="meta">avg £13,542 / wk</div></div>
-    <div class="card"><div class="lbl">13-wk labour hours</div><div class="val">2,823</div><div class="meta">avg 217 hrs / wk</div></div>
-    <div class="card"><div class="lbl">CPH ramp (sales/hr)</div><div class="val">£55 → £70</div><div class="meta">+£15 over 13 wks · avg £62.4</div></div>
-    <div class="card"><div class="lbl">Sales growth wk1→13</div><div class="val" style="color:var(--green)">+14.5%</div><div class="meta">hours −9.8% as CPH lifts</div></div>
-  </div>
+  <!-- ===== Tab nav ===== -->
+  <nav class="tabs" role="tablist">
+    <button class="tab-btn active" data-tab="sales" role="tab"><span class="dot">📈</span>Sales &amp; Hours</button>
+    <button class="tab-btn" data-tab="waste" role="tab"><span class="dot">♻️</span>Wastage</button>
+    <button class="tab-btn" data-tab="mix" role="tab"><span class="dot">🧺</span>Sales mix &amp; capture</button>
+    <button class="tab-btn" data-tab="f1" role="tab"><span class="dot">🏁</span>Op's Excellence</button>
+  </nav>
 
-  <div class="section-title">Opening curves — Billing vs the two existing drive-thrus</div>
-  <div class="panel">
-    <div class="chart-box"><canvas id="curve"></canvas></div>
-    <div class="stat-row" style="margin-top:14px">
-      <div class="stat">NDT first 4 mths <b style="color:var(--ndt)">+12.5%</b> (£14.9k→£20.0k)</div>
-      <div class="stat">Glenvale first 4 mths <b style="color:var(--glen)">+1.6%</b> (winter open, £13.2k flat)</div>
-      <div class="stat">Billing opened <b style="color:var(--bill)">£12.3k/wk</b> avg (3 wks)</div>
+  <!-- ===== TAB 1: Sales & Hours ===== -->
+  <section class="tab-panel active" id="tab-sales">
+    <div class="cards">
+      <div class="card"><div class="lbl">13-wk sales forecast</div><div class="val">£176,050</div><div class="meta">avg £13,542 / wk</div></div>
+      <div class="card"><div class="lbl">13-wk labour hours</div><div class="val">2,823</div><div class="meta">avg 217 hrs / wk</div></div>
+      <div class="card"><div class="lbl">CPH ramp (sales/hr)</div><div class="val">£55 → £70</div><div class="meta">+£15 over 13 wks · avg £62.4</div></div>
+      <div class="card"><div class="lbl">Sales growth wk1→13</div><div class="val" style="color:var(--green)">+14.5%</div><div class="meta">hours −9.8% as CPH lifts</div></div>
     </div>
-    <div class="note">Billing opened strong — between NDT and Glenvale. Because it opens into <strong>summer</strong> (NDT's window, which ramped) rather than winter (Glenvale's flat start), the forecast applies an NDT-style maturation curve plus a school-holiday lift, landing at <strong>~£14.2k by end Aug (+14.5%)</strong>. Dashed line = forecast.</div>
-  </div>
 
-  <div class="section-title">Billing forecast — weekly sales &amp; hours</div>
-  <div class="grid2">
-    <div class="panel"><div class="chart-box"><canvas id="fc"></canvas></div></div>
+    <div class="section-title">Opening curves — Billing vs the two existing drive-thrus</div>
     <div class="panel">
-      <table id="tbl">
-        <thead><tr><th>Week comm.</th><th>Sales £</th><th>CPH</th><th>Hours</th></tr></thead>
-        <tbody></tbody>
-        <tfoot></tfoot>
-      </table>
-      <div class="mini" style="margin-top:8px">Hours = forecast sales ÷ CPH target. As CPH rises £55→£70, hours ease even as sales grow — the efficiency the ramp is designed to deliver.</div>
+      <div class="chart-box"><canvas id="curve"></canvas></div>
+      <div class="stat-row" style="margin-top:14px">
+        <div class="stat">NDT first 4 mths <b style="color:var(--ndt)">+12.5%</b> (£14.9k→£20.0k)</div>
+        <div class="stat">Glenvale first 4 mths <b style="color:var(--glen)">+1.6%</b> (winter open, £13.2k flat)</div>
+        <div class="stat">Billing opened <b style="color:var(--bill)">£12.3k/wk</b> avg (3 wks)</div>
+      </div>
+      <div class="note">Billing opened strong — between NDT and Glenvale. Because it opens into <strong>summer</strong> (NDT's window, which ramped) rather than winter (Glenvale's flat start), the forecast applies an NDT-style maturation curve plus a school-holiday lift, landing at <strong>~£14.2k by end Aug (+14.5%)</strong>. Dashed line = forecast.</div>
     </div>
-  </div>
 
-  <div class="section-title">Sales mix &amp; capture vs the estate</div>
-  <div class="grid2">
-    <div class="panel"><div style="font-size:13px;font-weight:700;color:#5b3a29;margin-bottom:8px">Capture % ranked vs the estate (21 stores)</div><table id="peertbl"><thead><tr><th>Category</th><th>Billing</th><th>Rank</th><th>Estate avg</th><th>Best in estate</th></tr></thead><tbody></tbody></table><div class="mini" style="margin-top:8px">Capture = share of transactions including the category (last ~5 wks). Value green = above estate average; rank chip green = top third, red = bottom third.</div></div>
+    <div class="section-title">Billing forecast — weekly sales &amp; hours</div>
+    <div class="grid2">
+      <div class="panel"><div class="chart-box"><canvas id="fc"></canvas></div></div>
+      <div class="panel">
+        <table id="tbl">
+          <thead><tr><th>Week comm.</th><th>Sales £</th><th>CPH</th><th>Hours</th></tr></thead>
+          <tbody></tbody>
+          <tfoot></tfoot>
+        </table>
+        <div class="mini" style="margin-top:8px">Hours = forecast sales ÷ CPH target. As CPH rises £55→£70, hours ease even as sales grow — the efficiency the ramp is designed to deliver.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TAB 2: Wastage ===== -->
+  <section class="tab-panel" id="tab-waste">
+    <div class="cards">
+      <div class="card"><div class="lbl">Wastage (3-wk avg)</div><div class="val" style="color:var(--red)">5.6%</div><div class="meta">4.7 / 8.3 / 3.7 · volatile</div></div>
+      <div class="card"><div class="lbl">Wastage opportunity</div><div class="val" style="color:var(--green)">~£4,650</div><div class="meta">to 3% over the quarter (~£2,100 cost)</div></div>
+      <div class="card"><div class="lbl">Latest week</div><div class="val">3.7%</div><div class="meta">W/C 1 Jun · heading right way</div></div>
+      <div class="card"><div class="lbl">Mature DT benchmark</div><div class="val">0.9–2.8%</div><div class="meta">NDT 0.9% · Glenvale 2.8%</div></div>
+    </div>
+
+    <div class="section-title">⚠️ Wastage — high &amp; volatile for a drive-thru</div>
+    <div class="grid2">
+      <div class="panel"><div class="chart-box" style="height:300px"><canvas id="waste"></canvas></div></div>
+      <div class="panel"><div class="note red" style="margin-top:0"><strong>Billing's wastage is running hot</strong> — 4.7% → 8.3% → 3.7% across its first three weeks (avg 5.6%), well above mature drive-thrus (NDT 0.9%, Glenvale 2.8%). On its volume, reaching a 3% target is worth ~£4,650 of retail waste over the quarter (~£2,100 at cost) — the biggest wastage prize of the new sites. The sandwich/toastie range is the issue.</div></div>
+    </div>
+
+    <div class="section-title">Outlier items — biggest over-production (last 4 weeks)</div>
     <div class="panel">
-      <table id="cattbl"><thead><tr><th>Category</th><th>Current mix</th><th>Holiday tilt</th><th>Capture %</th></tr></thead><tbody></tbody></table>
-      <div class="note" style="margin-top:10px"><strong>Mix holds through the holidays.</strong> In the mature drive-thru/destination stores last summer the split barely moved from term into the school holidays — cold drinks + milkshakes were ~37% of sales in term vs ~35% in holidays (milkshakes flat, cold easing ~2pp as the early-summer heat passed). The cold-drink peak is <strong>weather-led (Jun–Jul), not the school calendar</strong>; total volume rose ~5%. So £ grows across all categories with only a small holiday tilt. <strong>Capture %</strong> = the share of transactions that include the category (attach rate, recent weeks) — a truer read of penetration than £.</div>
+      <table id="items"><thead><tr><th>Product</th><th>Waste £</th><th>Wasted</th><th>Sold</th><th>Waste rate</th><th style="text-align:left">Action</th></tr></thead><tbody></tbody></table>
+      <div class="note">Waste rate = wasted ÷ (wasted + sold). <strong>3 Sausage Bap (56%)</strong>, <strong>3 Green &amp; Grain Salad (55%)</strong> and <strong>3 Tuna Ciabatta (51%)</strong> waste more than they sell; the <strong>3 Cheese &amp; Onion Croque</strong> is the single biggest £ loss (£264 / 4 wks). Cut these par levels first. Top 10 items ≈ £363/wk of waste retail.</div>
     </div>
-  </div>
+  </section>
 
-  <div class="section-title">⚠️ Wastage — high &amp; volatile for a drive-thru</div>
-  <div class="grid2">
-    <div class="panel"><div class="chart-box" style="height:300px"><canvas id="waste"></canvas></div></div>
-    <div class="panel"><div class="note" style="margin-top:0;background:#fbeae8;border-color:#eccfca;color:#8c2f22"><strong>Billing's wastage is running hot</strong> — 4.7% → 8.3% → 3.7% across its first three weeks (avg 5.6%), well above mature drive-thrus (NDT 0.9%, Glenvale 2.8%). On its volume, reaching a 3% target is worth ~£4,650 of retail waste over the quarter (~£2,100 at cost) — the biggest wastage prize of the new sites. The sandwich/toastie range is the issue.</div></div>
-  </div>
+  <!-- ===== TAB 3: Sales mix & capture ===== -->
+  <section class="tab-panel" id="tab-mix">
+    <div class="section-title">Sales mix &amp; capture vs the estate</div>
+    <div class="grid2">
+      <div class="panel"><div style="font-size:13px;font-weight:700;color:#5b3a29;margin-bottom:8px">Capture % ranked vs the estate (21 stores)</div><table id="peertbl"><thead><tr><th>Category</th><th>Billing</th><th>Rank</th><th>Estate avg</th><th>Best in estate</th></tr></thead><tbody></tbody></table><div class="mini" style="margin-top:8px">Capture = share of transactions including the category (last ~5 wks). Value green = above estate average; rank chip green = top third, red = bottom third.</div></div>
+      <div class="panel">
+        <table id="cattbl"><thead><tr><th>Category</th><th>Current mix</th><th>Holiday tilt</th><th>Capture %</th></tr></thead><tbody></tbody></table>
+        <div class="note" style="margin-top:10px"><strong>Mix holds through the holidays.</strong> In the mature drive-thru/destination stores last summer the split barely moved from term into the school holidays — cold drinks + milkshakes were ~37% of sales in term vs ~35% in holidays (milkshakes flat, cold easing ~2pp as the early-summer heat passed). The cold-drink peak is <strong>weather-led (Jun–Jul), not the school calendar</strong>; total volume rose ~5%. So £ grows across all categories with only a small holiday tilt. <strong>Capture %</strong> = the share of transactions that include the category (attach rate, recent weeks) — a truer read of penetration than £.</div>
+      </div>
+    </div>
+  </section>
 
-  <div class="section-title">Outlier items — biggest over-production (last 4 weeks)</div>
-  <div class="panel">
-    <table id="items"><thead><tr><th>Product</th><th>Waste £</th><th>Wasted</th><th>Sold</th><th>Waste rate</th><th style="text-align:left">Action</th></tr></thead><tbody></tbody></table>
-    <div class="note">Waste rate = wasted ÷ (wasted + sold). <strong>3 Sausage Bap (56%)</strong>, <strong>3 Green &amp; Grain Salad (55%)</strong> and <strong>3 Tuna Ciabatta (51%)</strong> waste more than they sell; the <strong>3 Cheese &amp; Onion Croque</strong> is the single biggest £ loss (£264 / 4 wks). Cut these par levels first. Top 10 items ≈ £363/wk of waste retail.</div>
-  </div>
+  <!-- ===== TAB 4: Op's Excellence (F1) ===== -->
+  <section class="tab-panel" id="tab-f1">
+    <div class="section-title">🏁 F1 Operational Excellence — Race (Qualifying to follow)</div>
+    <div class="cards">
+      <div class="card"><div class="lbl">Latest Race result</div><div class="val">P17 · 6 pts</div><div class="meta">W/C 7 Jun · up from P23</div></div>
+      <div class="card"><div class="lbl">Race queue average</div><div class="val" style="color:var(--green)">178s ▼</div><div class="meta">down from 535s in one week</div></div>
+      <div class="card"><div class="lbl">Audits so far</div><div class="val">2 races</div><div class="meta">31 May &amp; 7 Jun</div></div>
+      <div class="card"><div class="lbl">Qualifying</div><div class="val" style="color:var(--muted)">Not yet</div><div class="meta">baseline forming · new site</div></div>
+    </div>
+
+    <div class="note green" style="margin-top:16px"><strong>How F1 works.</strong> Every store is audited unannounced through the week. <strong>Qualifying (Mon–Thu)</strong> is a lighter check — queue speed plus hospitality (Hello, Goodbye, How-Are-You, Working the Queue) — and sets the grid for the weekend. <strong>Race (Fri–Sun)</strong> is the full audit (tables to brand, cleared within 3 mins, section/break-cover plan, visible team, dishwasher area). <em>Lower</em> queue seconds and <em>higher</em> championship points are better. Billing has only just entered the championship — two Race audits in, no Qualifying yet.</div>
+
+    <div class="section-title">Race results — first two weekends</div>
+    <div class="grid2">
+      <div class="panel"><div class="chart-box" style="height:300px"><canvas id="race"></canvas></div></div>
+      <div class="panel">
+        <table id="racetbl">
+          <thead><tr><th>Race (W/C)</th><th>Queue avg</th><th>Champ. pts</th><th>Finish</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <div class="note green" style="margin-top:10px"><strong>A textbook new-site jump.</strong> The first audit (31 May) was a classic opening-week result — P23 with a 535s queue under launch pressure. One week later it had nearly <strong>tripled its queue speed (535s → 178s)</strong> and climbed to <strong>P17</strong>. Two data points isn't a trend yet, but the direction is exactly right. Expect a Qualifying baseline to appear in the next few weeks; once it does this tab will fill out like Olney's and Attleborough's.</div>
+      </div>
+    </div>
+
+    <footer style="margin-top:18px">F1 data: live <a class="srclink" href="https://docs.google.com/spreadsheets/d/1YFqpR9_ftlQEbfwc5ZVMjtS5tFO0j-7ccwB8rwG56wQ/edit?gid=522976149#gid=522976149" target="_blank" rel="noopener">Bewiched F1 audit sheet ↗</a> · The Race tab (to W/C 7 Jun) · no Qualifying audits logged yet · audit window 31 May → 7 Jun 2026 · Area Coach (Constructor): Rich. Scores are unannounced auditor visits; every audited Billing row is shown.</footer>
+  </section>
 
   <footer id="foot"></footer>
 </div>
 
 <script>
-// ---- Opening actuals (full weeks since opening) ----
+/* Auto-register every Chart so hidden-tab charts can be resized on reveal */
+window.CHARTS=window.CHARTS||[];
+(function(){const _C=window.Chart;window.Chart=function(){const c=new _C(...arguments);window.CHARTS.push(c);return c;};window.Chart.prototype=_C.prototype;Object.assign(window.Chart,_C);})();
+</script>
+
+<script>
+/* ---- Sales & hours ---- */
 const NDT=[14958,16995,21155,17882,18388,17608,18436,19043,18967,19180,19588,19464,20998,20589,19953,18289];
 const GLEN=[13237,12417,13855,9941,11070,11777,12052,12331,11889,12823,12200,12958,13337,12386,12023,12496];
 const BILL_ACT=[12122,13189,11584]; // wks 1-3 actual
-// ---- Forecast: [week_start, sales, CPH, hours, note] (Billing wks 4-16) ----
 const FC=[["2026-06-08",12400,55.0,225,""],["2026-06-15",12600,56.2,224,""],["2026-06-22",12800,57.5,223,""],
 ["2026-06-29",12950,58.8,220,""],["2026-07-06",13150,60.0,219,"schools in"],["2026-07-13",13350,61.2,218,""],
 ["2026-07-20",13600,62.5,218,"summer hols"],["2026-07-27",13900,63.8,218,"summer hols"],["2026-08-03",14100,65.0,217,"summer hols"],
@@ -120,81 +238,114 @@ const FC=[["2026-06-08",12400,55.0,225,""],["2026-06-15",12600,56.2,224,""],["20
 const gbp0=n=>"£"+Math.round(n).toLocaleString("en-GB");
 const ddmm=s=>{const[y,m,d]=s.split("-");return d+"/"+m;};
 
-// ---- Opening curve chart (weeks 1-16) ----
 const wks=Array.from({length:16},(_,i)=>"Wk "+(i+1));
 const billLine=BILL_ACT.concat(FC.map(r=>r[1])); // 3 actual + 13 fc = 16
 new Chart(document.getElementById("curve"),{type:"line",
-  data:{labels:wks,datasets:[
-    {label:"Northampton DT (2021)",data:NDT,borderColor:"#7a5240",backgroundColor:"#7a5240",tension:.3,pointRadius:0,borderWidth:2},
-    {label:"Glenvale DT (2024)",data:GLEN,borderColor:"#c08a2d",backgroundColor:"#c08a2d",tension:.3,pointRadius:0,borderWidth:2},
-    {label:"Billing DT (2026) — actual + forecast",data:billLine,borderColor:"#2d6fb3",backgroundColor:"#2d6fb3",
-      tension:.3,pointRadius:3,borderWidth:2.5,
-      segment:{borderDash:ctx=>ctx.p0DataIndex>=2?[6,4]:undefined}}
-  ]},
-  options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},
-    plugins:{legend:{position:"bottom",labels:{boxWidth:14,font:{size:11.5}}},
-      tooltip:{callbacks:{label:c=>` ${c.dataset.label.split(" —")[0]}: ${c.parsed.y?gbp0(c.parsed.y):"—"}`}}},
-    scales:{y:{ticks:{callback:v=>"£"+(v/1000)+"k"},grid:{color:"#eee"},title:{display:true,text:"Weekly sales"}},
-      x:{grid:{display:false},title:{display:true,text:"Weeks since opening (first full week = Wk 1)"}}}}});
+data:{labels:wks,datasets:[
+{label:"Northampton DT (2021)",data:NDT,borderColor:"#7a5240",backgroundColor:"#7a5240",tension:.3,pointRadius:0,borderWidth:2},
+{label:"Glenvale DT (2024)",data:GLEN,borderColor:"#c08a2d",backgroundColor:"#c08a2d",tension:.3,pointRadius:0,borderWidth:2},
+{label:"Billing DT (2026) — actual + forecast",data:billLine,borderColor:"#2d6fb3",backgroundColor:"#2d6fb3",
+tension:.3,pointRadius:3,borderWidth:2.5,
+segment:{borderDash:ctx=>ctx.p0DataIndex>=2?[6,4]:undefined}}
+]},
+options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},
+plugins:{legend:{position:"bottom",labels:{boxWidth:14,font:{size:11.5}}},
+tooltip:{callbacks:{label:c=>` ${c.dataset.label.split(" —")[0]}: ${c.parsed.y?gbp0(c.parsed.y):"—"}`}}},
+scales:{y:{ticks:{callback:v=>"£"+(v/1000)+"k"},grid:{color:"#eee"},title:{display:true,text:"Weekly sales"}},
+x:{grid:{display:false},title:{display:true,text:"Weeks since opening (first full week = Wk 1)"}}}}});
 
-// ---- Forecast combo chart ----
 new Chart(document.getElementById("fc"),{
-  data:{labels:FC.map(r=>ddmm(r[0])),datasets:[
-    {type:"bar",label:"Sales £",data:FC.map(r=>r[1]),backgroundColor:"#2d6fb3",borderRadius:4,yAxisID:"y",order:2},
-    {type:"line",label:"Hours",data:FC.map(r=>r[3]),borderColor:"#c0392b",backgroundColor:"#c0392b",
-      tension:.3,pointRadius:2,borderWidth:2,yAxisID:"y1",order:1}
-  ]},
-  options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},
-    plugins:{legend:{position:"bottom",labels:{boxWidth:14,font:{size:11.5}}},
-      tooltip:{callbacks:{afterBody:items=>{const i=items[0].dataIndex;return "CPH target £"+FC[i][2]+(FC[i][4]?"  ·  "+FC[i][4]:"");}}}},
-    scales:{y:{position:"left",ticks:{callback:v=>"£"+(v/1000)+"k"},grid:{color:"#eee"},title:{display:true,text:"Sales"},suggestedMin:10000},
-      y1:{position:"right",grid:{display:false},title:{display:true,text:"Hours"},suggestedMin:150,suggestedMax:260},
-      x:{grid:{display:false}}}}});
+data:{labels:FC.map(r=>ddmm(r[0])),datasets:[
+{type:"bar",label:"Sales £",data:FC.map(r=>r[1]),backgroundColor:"#2d6fb3",borderRadius:4,yAxisID:"y",order:2},
+{type:"line",label:"Hours",data:FC.map(r=>r[3]),borderColor:"#c0392b",backgroundColor:"#c0392b",
+tension:.3,pointRadius:2,borderWidth:2,yAxisID:"y1",order:1}
+]},
+options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},
+plugins:{legend:{position:"bottom",labels:{boxWidth:14,font:{size:11.5}}},
+tooltip:{callbacks:{afterBody:items=>{const i=items[0].dataIndex;return "CPH target £"+FC[i][2]+(FC[i][4]?" · "+FC[i][4]:"");}}}},
+scales:{y:{position:"left",ticks:{callback:v=>"£"+(v/1000)+"k"},grid:{color:"#eee"},title:{display:true,text:"Sales"},suggestedMin:10000},
+y1:{position:"right",grid:{display:false},title:{display:true,text:"Hours"},suggestedMin:150,suggestedMax:260},
+x:{grid:{display:false}}}}});
 
-// ---- Table ----
 const tb=document.querySelector("#tbl tbody");
 tb.innerHTML=FC.map(r=>`<tr><td>${ddmm(r[0])}${r[4]?' <span class="chip">'+r[4]+'</span>':''}</td>
-  <td>${gbp0(r[1])}</td><td>£${r[2].toFixed(1)}</td><td>${r[3]}</td></tr>`).join("");
+<td>${gbp0(r[1])}</td><td>£${r[2].toFixed(1)}</td><td>${r[3]}</td></tr>`).join("");
 const tS=FC.reduce((s,r)=>s+r[1],0), tH=FC.reduce((s,r)=>s+r[3],0);
 document.querySelector("#tbl tfoot").innerHTML=`<tr><td>13-WK TOTAL</td><td>${gbp0(tS)}</td>
-  <td>£${(tS/tH).toFixed(1)}</td><td>${tH.toLocaleString("en-GB")}</td></tr>`;
+<td>£${(tS/tH).toFixed(1)}</td><td>${tH.toLocaleString("en-GB")}</td></tr>`;
 
 document.getElementById("foot").innerHTML="Generated "+new Date().toLocaleString("en-GB")+
-  " · Forecast method: Billing 3-week opening baseline (£12.3k) × blended NDT/Glenvale maturation curve, summer-weighted. Hours = sales ÷ CPH; CPH ramps £55→£70 linearly. Sales & opening curves are live BigQuery actuals.";
+" · Forecast method: Billing 3-week opening baseline (£12.3k) × blended NDT/Glenvale maturation curve, summer-weighted. Hours = sales ÷ CPH; CPH ramps £55→£70 linearly. Sales & opening curves are live BigQuery actuals; F1 from the audit sheet.";
 </script>
+
 <script>
+/* ---- Wastage ---- */
 (function(){
-  const WK=[["18/05",4.65],["25/05",8.26],["01/06",3.68]];
-  const ITEMS=[["3 Cheese & Onion Croque",264,48,54],["3 Ham & Cheese Croque",236,43,96],["3 Sausage Bap",230,54,43],["3 Tuna Ciabatta",198,36,34],["3 Chicken & Chorizo Ciabatta",137,25,53],["3 Mozzarella & Tomato Ciabatta",121,22,39],["3 Bacon Bap",89,21,38],["3 Green & Grain Salad",64,12,10],["Croissant Pastry",56,26,32],["3 Chicken Caprese Sandwich",55,11,14]];
-  new Chart(document.getElementById('waste'),{type:'line',data:{labels:WK.map(r=>r[0]),datasets:[
-    {label:'Wastage %',data:WK.map(r=>r[1]),borderColor:'#c0392b',backgroundColor:'#c0392b',tension:.3,pointRadius:4,borderWidth:2.5},
-    {label:'Target 3%',data:WK.map(()=>3),borderColor:'#1f8a4c',borderDash:[6,4],pointRadius:0,borderWidth:2},
-    {label:'Estate avg 2.3%',data:WK.map(()=>2.3),borderColor:'#9aa6b0',borderDash:[3,3],pointRadius:0,borderWidth:1.5}]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:14,font:{size:11}}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y+'%'}}},scales:{y:{ticks:{callback:v=>v+'%'},grid:{color:'#eee'},suggestedMin:0},x:{grid:{display:false}}}}});
-  const rows=ITEMS.map(r=>({n:r[0],w:r[1],wq:r[2],sq:r[3],rt:r[2]/(r[2]+r[3])*100})).sort((a,b)=>b.rt-a.rt);
-  document.getElementById('items').querySelector('tbody').innerHTML=rows.map(r=>{
-    const c=r.rt>=40?['#fbeae8','#c0392b']:r.rt>=25?['#f7f0dd','#b8860b']:['#e6f4ec','#1f8a4c'];
-    const act=r.rt>=40?'Cut par / de-range':r.rt>=25?'Reduce par':'Monitor';
-    return '<tr><td>'+r.n+'</td><td>£'+r.w+'</td><td>'+r.wq+'</td><td>'+r.sq+'</td><td><span style="display:inline-block;padding:2px 7px;border-radius:6px;font-weight:700;background:'+c[0]+';color:'+c[1]+'">'+r.rt.toFixed(0)+'%</span></td><td style="text-align:left">'+act+'</td></tr>';}).join('');
+const WK=[["18/05",4.65],["25/05",8.26],["01/06",3.68]];
+const ITEMS=[["3 Cheese & Onion Croque",264,48,54],["3 Ham & Cheese Croque",236,43,96],["3 Sausage Bap",230,54,43],["3 Tuna Ciabatta",198,36,34],["3 Chicken & Chorizo Ciabatta",137,25,53],["3 Mozzarella & Tomato Ciabatta",121,22,39],["3 Bacon Bap",89,21,38],["3 Green & Grain Salad",64,12,10],["Croissant Pastry",56,26,32],["3 Chicken Caprese Sandwich",55,11,14]];
+new Chart(document.getElementById('waste'),{type:'line',data:{labels:WK.map(r=>r[0]),datasets:[
+{label:'Wastage %',data:WK.map(r=>r[1]),borderColor:'#c0392b',backgroundColor:'#c0392b',tension:.3,pointRadius:4,borderWidth:2.5},
+{label:'Target 3%',data:WK.map(()=>3),borderColor:'#1f8a4c',borderDash:[6,4],pointRadius:0,borderWidth:2},
+{label:'Estate avg 2.3%',data:WK.map(()=>2.3),borderColor:'#9aa6b0',borderDash:[3,3],pointRadius:0,borderWidth:1.5}]},
+options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:14,font:{size:11}}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y+'%'}}},scales:{y:{ticks:{callback:v=>v+'%'},grid:{color:'#eee'},suggestedMin:0},x:{grid:{display:false}}}}});
+const rows=ITEMS.map(r=>({n:r[0],w:r[1],wq:r[2],sq:r[3],rt:r[2]/(r[2]+r[3])*100})).sort((a,b)=>b.rt-a.rt);
+document.getElementById('items').querySelector('tbody').innerHTML=rows.map(r=>{
+const c=r.rt>=40?['#fbeae8','#c0392b']:r.rt>=25?['#f7f0dd','#b8860b']:['#e6f4ec','#1f8a4c'];
+const act=r.rt>=40?'Cut par / de-range':r.rt>=25?'Reduce par':'Monitor';
+return '<tr><td>'+r.n+'</td><td>£'+r.w+'</td><td>'+r.wq+'</td><td>'+r.sq+'</td><td><span style="display:inline-block;padding:2px 7px;border-radius:6px;font-weight:700;background:'+c[0]+';color:'+c[1]+'">'+r.rt.toFixed(0)+'%</span></td><td style="text-align:left">'+act+'</td></tr>';}).join('');
 })();
 </script>
+
 <script>
+/* ---- Sales mix & capture ---- */
 (function(){
-  const L=["08/06","15/06","22/06","29/06","06/07","13/07","20/07","27/07","03/08","10/08","17/08","24/08","31/08"];
-  const HOT=[3873,3936,3998,4045,4108,4170,4353,4449,4513,4545,4593,4625,4436];
-  const COLD=[3334,3388,3441,3482,3535,3589,3417,3492,3543,3568,3605,3630,3818];
-  const SHK=[2021,2054,2086,2111,2143,2176,2207,2256,2289,2305,2329,2345,2315];
-  const FOOD=[1683,1710,1737,1757,1785,1812,1881,1922,1950,1964,1985,1999,1927];
-  const BAK=[1022,1038,1055,1067,1084,1100,1248,1275,1294,1303,1317,1326,1170];
-  const WK=[12400,12600,12800,12950,13150,13350,13600,13900,14100,14200,14350,14450,14200];
-  const ROWS=[["Hot drinks",31.2,0.8,48.0],["Cold drinks",26.9,-1.8,36.9],["Milkshakes",16.3,-0.1,18.4],["Food",13.6,0.3,17.9],["Bakery",8.2,0.9,17.4],["Other & retail",3.8,-0.2,17.4]];
-  const PEER=[["Hot drinks",48.1,20,21,61.4,"Wellingborough 71.8%"],["Cold drinks",36.9,1,21,23.7,"Top of estate"],["Milkshakes",18.4,3,21,13.1,"Rushden 25.4%"],["Food",17.9,4,21,14.0,"Fletton Quays 23.8%"],["Bakery",17.4,12,21,17.5,"Attleborough 25.4%"]];
-  document.querySelector("#peertbl tbody").innerHTML=PEER.map(r=>{const top=r[2]<=r[3]/3,bot=r[2]>r[3]*2/3;const rc=top?["#e6f4ec","#1f8a4c"]:bot?["#fbeae8","#c0392b"]:["#f7f0dd","#b8860b"];const vc=r[1]>=r[4]?"#1f8a4c":"#c0392b";
-    return "<tr><td>"+r[0]+"</td><td style=\"font-weight:700;color:"+vc+"\">"+r[1].toFixed(1)+"%</td><td><span style=\"display:inline-block;padding:2px 7px;border-radius:6px;font-weight:700;font-size:12px;background:"+rc[0]+";color:"+rc[1]+"\">"+r[2]+"/"+r[3]+"</span></td><td>"+r[4].toFixed(1)+"%</td><td style=\"text-align:left;font-size:11.5px;color:#8a7a6d\">"+r[5]+"</td></tr>";}).join("");
-  const gb=n=>"£"+Math.round(n).toLocaleString("en-GB");
-  const DESC={"Hot drinks":"lattes, cappuccinos, americanos, flat whites, hot choc, tea","Cold drinks":"iced lattes, frozen lemonade, iced matcha, frappés, cold brew","Milkshakes":"Oreo, Biscoff, vanilla, chocolate, strawberry shakes","Food":"croques, ciabattas, baps, wraps, salads, meal deals","Bakery":"traybakes, croissants, brownies, cookies, cakes","Other & retail":"bottled & soft drinks, beans, sundries"};
-  document.querySelector("#cattbl tbody").innerHTML=ROWS.map(r=>{const s=r[2]>0?"#1f8a4c":r[2]<0?"#c0392b":"#8a7a6d";
-    return "<tr><td>"+r[0]+"<br><span style=\"font-size:10.5px;color:#9a8a7c;font-weight:400\">"+(DESC[r[0]]||"")+"</span></td><td>"+r[1].toFixed(1)+"%</td><td style=\"color:"+s+"\">"+(r[2]>0?"+":"")+r[2].toFixed(1)+"pp</td><td>"+r[3].toFixed(1)+"%</td></tr>";}).join("");
+const ROWS=[["Hot drinks",31.2,0.8,48.0],["Cold drinks",26.9,-1.8,36.9],["Milkshakes",16.3,-0.1,18.4],["Food",13.6,0.3,17.9],["Bakery",8.2,0.9,17.4],["Other & retail",3.8,-0.2,17.4]];
+const PEER=[["Hot drinks",48.1,20,21,61.4,"Wellingborough 71.8%"],["Cold drinks",36.9,1,21,23.7,"Top of estate"],["Milkshakes",18.4,3,21,13.1,"Rushden 25.4%"],["Food",17.9,4,21,14.0,"Fletton Quays 23.8%"],["Bakery",17.4,12,21,17.5,"Attleborough 25.4%"]];
+document.querySelector("#peertbl tbody").innerHTML=PEER.map(r=>{const top=r[2]<=r[3]/3,bot=r[2]>r[3]*2/3;const rc=top?["#e6f4ec","#1f8a4c"]:bot?["#fbeae8","#c0392b"]:["#f7f0dd","#b8860b"];const vc=r[1]>=r[4]?"#1f8a4c":"#c0392b";
+return "<tr><td>"+r[0]+"</td><td style=\"font-weight:700;color:"+vc+"\">"+r[1].toFixed(1)+"%</td><td><span style=\"display:inline-block;padding:2px 7px;border-radius:6px;font-weight:700;font-size:12px;background:"+rc[0]+";color:"+rc[1]+"\">"+r[2]+"/"+r[3]+"</span></td><td>"+r[4].toFixed(1)+"%</td><td style=\"text-align:left;font-size:11.5px;color:#8a7a6d\">"+r[5]+"</td></tr>";}).join("");
+const DESC={"Hot drinks":"lattes, cappuccinos, americanos, flat whites, hot choc, tea","Cold drinks":"iced lattes, frozen lemonade, iced matcha, frappés, cold brew","Milkshakes":"Oreo, Biscoff, vanilla, chocolate, strawberry shakes","Food":"croques, ciabattas, baps, wraps, salads, meal deals","Bakery":"traybakes, croissants, brownies, cookies, cakes","Other & retail":"bottled & soft drinks, beans, sundries"};
+document.querySelector("#cattbl tbody").innerHTML=ROWS.map(r=>{const s=r[2]>0?"#1f8a4c":r[2]<0?"#c0392b":"#8a7a6d";
+return "<tr><td>"+r[0]+"<br><span style=\"font-size:10.5px;color:#9a8a7c;font-weight:400\">"+(DESC[r[0]]||"")+"</span></td><td>"+r[1].toFixed(1)+"%</td><td style=\"color:"+s+"\">"+(r[2]>0?"+":"")+r[2].toFixed(1)+"pp</td><td>"+r[3].toFixed(1)+"%</td></tr>";}).join("");
+})();
+</script>
+
+<script>
+/* ---- Op's Excellence (F1) — Race only (very new site) ---- */
+(function(){
+  // Race: [W/C, queue average s, championship points, finishing position]
+  const R=[["31 May",535,1,23],["7 Jun",178,6,17]];
+
+  new Chart(document.getElementById("race"),{
+    data:{labels:R.map(r=>r[0]),datasets:[
+      {type:"bar",label:"Queue average (s)",data:R.map(r=>r[1]),backgroundColor:R.map(r=>r[1]>=300?"#c0392b":"#2d6fb3"),borderRadius:4,yAxisID:"y",order:2},
+      {type:"line",label:"Finishing position",data:R.map(r=>r[3]),borderColor:"#c0392b",backgroundColor:"#c0392b",tension:.3,pointRadius:5,borderWidth:2.5,yAxisID:"y1",order:1}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},
+      plugins:{legend:{position:"bottom",labels:{boxWidth:14,font:{size:11}}},
+        tooltip:{callbacks:{label:c=>c.dataset.yAxisID==="y1"?(" Finished P"+c.parsed.y):(" Queue "+c.parsed.y+"s")}}},
+      scales:{y:{position:"left",ticks:{callback:v=>v+"s"},grid:{color:"#eee"},title:{display:true,text:"Queue average"},suggestedMin:0},
+        y1:{position:"right",reverse:true,grid:{display:false},title:{display:true,text:"Finish (1 = best)"},min:1,max:23,ticks:{stepSize:5}},
+        x:{grid:{display:false}}}}});
+
+  document.querySelector("#racetbl tbody").innerHTML=R.map(r=>{
+    const pc=r[2]>=7?'t-ok':r[2]>=4?'t-amber':'t-red';
+    const fc=r[3]<=14?'t-ok':r[3]<=18?'t-amber':'t-red';
+    return "<tr><td>"+r[0]+"</td><td>"+r[1]+"s</td><td><span class=\"tag "+pc+"\">"+r[2]+" pts</span></td><td><span class=\"tag "+fc+"\">P"+r[3]+"</span></td></tr>";}).join("");
+})();
+</script>
+
+<script>
+/* ---- Tab switching (pure show/hide) + chart resize on reveal ---- */
+(function(){
+  const btns=document.querySelectorAll(".tab-btn");
+  const panels=document.querySelectorAll(".tab-panel");
+  btns.forEach(b=>b.addEventListener("click",()=>{
+    btns.forEach(x=>x.classList.remove("active"));
+    panels.forEach(p=>p.classList.remove("active"));
+    b.classList.add("active");
+    document.getElementById("tab-"+b.dataset.tab).classList.add("active");
+    requestAnimationFrame(()=>{(window.CHARTS||[]).forEach(c=>{try{c.resize();}catch(e){}});});
+  }));
 })();
 </script>
 </body>
