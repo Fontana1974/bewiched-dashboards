@@ -80,6 +80,15 @@
     </div>
   </div>
 
+  <div class="section-title">Sales by category — holiday-mix forecast</div>
+  <div class="grid2">
+    <div class="panel"><div class="chart-box" style="height:340px"><canvas id="catbar"></canvas></div></div>
+    <div class="panel">
+      <table id="cattbl"><thead><tr><th>Category</th><th>Current mix</th><th>Holiday tilt</th><th>13-wk £</th></tr></thead><tbody></tbody></table>
+      <div class="note" style="margin-top:10px"><strong>Mix holds through the holidays.</strong> In the mature drive-thru/destination stores last summer the split barely moved from term into the school holidays — cold drinks + milkshakes were ~37% of sales in term vs ~35% in holidays (milkshakes flat, cold easing ~2pp as the early-summer heat passed). The cold-drink peak is <strong>weather-led (Jun–Jul), not the school calendar</strong>; total volume rose ~5%. So £ grows across all categories with only a small holiday tilt.</div>
+    </div>
+  </div>
+
   <div class="section-title">⚠️ Wastage — improving, keep tightening</div>
   <div class="grid2">
     <div class="panel"><div class="chart-box" style="height:300px"><canvas id="waste"></canvas></div></div>
@@ -159,6 +168,31 @@ document.getElementById("foot").innerHTML="Generated "+new Date().toLocaleString
     const c=r.rt>=40?['#fbeae8','#c0392b']:r.rt>=25?['#f7f0dd','#b8860b']:['#e6f4ec','#1f8a4c'];
     const act=r.rt>=40?'Cut par / de-range':r.rt>=25?'Reduce par':'Monitor';
     return '<tr><td>'+r.n+'</td><td>£'+r.w+'</td><td>'+r.wq+'</td><td>'+r.sq+'</td><td><span style="display:inline-block;padding:2px 7px;border-radius:6px;font-weight:700;background:'+c[0]+';color:'+c[1]+'">'+r.rt.toFixed(0)+'%</span></td><td style="text-align:left">'+act+'</td></tr>';}).join('');
+})();
+</script>
+<script>
+(function(){
+  const L=["08/06","15/06","22/06","29/06","06/07","13/07","20/07","27/07","03/08","10/08","17/08","24/08","31/08"];
+  const HOT=[2528,2551,2575,2599,2599,2623,2689,2714,2738,2738,2762,2786,2671];
+  const COLD=[1178,1189,1200,1211,1211,1222,1136,1146,1156,1156,1166,1177,1244];
+  const SHK=[461,465,469,474,474,478,479,483,487,487,492,496,487];
+  const FOOD=[425,429,433,437,437,441,459,463,467,467,471,476,449];
+  const BAK=[498,503,508,512,512,517,574,579,584,584,589,594,527];
+  const WK=[5300,5350,5400,5450,5450,5500,5550,5600,5650,5650,5700,5750,5600];
+  const ROWS=[["Hot drinks",47.7,0.8,34573],["Cold drinks",22.2,-1.8,15392],["Milkshakes",8.7,-0.1,6232],["Food",8.0,0.3,5854],["Bakery",9.4,0.9,7081],["Other & retail",4.0,-0.2,2818]];
+  const OTH=WK.map((s,i)=>s-(HOT[i]+COLD[i]+SHK[i]+FOOD[i]+BAK[i]));
+  const ds=(l,d,c)=>({label:l,data:d,backgroundColor:c,stack:"s"});
+  new Chart(document.getElementById("catbar"),{type:"bar",
+    data:{labels:L,datasets:[ds("Hot drinks",HOT,"#7a5240"),ds("Cold drinks",COLD,"#2d6fb3"),ds("Milkshakes",SHK,"#c08a2d"),ds("Food",FOOD,"#1f8a4c"),ds("Bakery",BAK,"#b8860b"),ds("Other & retail",OTH,"#c9b89a")]},
+    options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index"},
+      plugins:{legend:{position:"bottom",labels:{boxWidth:12,font:{size:10}}},
+        title:{display:true,text:"Forecast weekly sales by category (£)",align:"start",color:"#5b3a29",font:{size:13,weight:"bold"}},
+        tooltip:{callbacks:{label:c=>c.dataset.label+": £"+Math.round(c.parsed.y).toLocaleString("en-GB")}}},
+      scales:{x:{stacked:true,grid:{display:false}},y:{stacked:true,ticks:{callback:v=>"£"+(v/1000)+"k"},grid:{color:"#eee"}}}}});
+  const gb=n=>"£"+Math.round(n).toLocaleString("en-GB");
+  const DESC={"Hot drinks":"lattes, cappuccinos, americanos, flat whites, hot choc, tea","Cold drinks":"iced lattes, frozen lemonade, iced matcha, frappés, cold brew","Milkshakes":"Oreo, Biscoff, vanilla, chocolate, strawberry shakes","Food":"croques, ciabattas, baps, wraps, salads, meal deals","Bakery":"traybakes, croissants, brownies, cookies, cakes","Other & retail":"bottled & soft drinks, beans, sundries"};
+  document.querySelector("#cattbl tbody").innerHTML=ROWS.map(r=>{const s=r[2]>0?"#1f8a4c":r[2]<0?"#c0392b":"#8a7a6d";
+    return "<tr><td>"+r[0]+"<br><span style=\"font-size:10.5px;color:#9a8a7c;font-weight:400\">"+(DESC[r[0]]||"")+"</span></td><td>"+r[1].toFixed(1)+"%</td><td style=\"color:"+s+"\">"+(r[2]>0?"+":"")+r[2].toFixed(1)+"pp</td><td>"+gb(r[3])+"</td></tr>";}).join("");
 })();
 </script>
 </body>

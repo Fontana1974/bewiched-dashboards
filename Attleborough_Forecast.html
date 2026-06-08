@@ -82,6 +82,15 @@
     </div>
   </div>
 
+  <div class="section-title">Sales by category — holiday-mix forecast</div>
+  <div class="grid2">
+    <div class="panel"><div class="chart-box" style="height:340px"><canvas id="catbar"></canvas></div></div>
+    <div class="panel">
+      <table id="cattbl"><thead><tr><th>Category</th><th>Current mix</th><th>Holiday tilt</th><th>13-wk £</th></tr></thead><tbody></tbody></table>
+      <div class="note" style="margin-top:10px"><strong>Mix holds through the holidays.</strong> In the mature drive-thru/destination stores last summer the split barely moved from term into the school holidays — cold drinks + milkshakes were ~37% of sales in term vs ~35% in holidays (milkshakes flat, cold easing ~2pp as the early-summer heat passed). The cold-drink peak is <strong>weather-led (Jun–Jul), not the school calendar</strong>; total volume rose ~5%. So £ grows across all categories with only a small holiday tilt.</div>
+    </div>
+  </div>
+
   <div class="section-title">⚠️ Wastage — trending the wrong way</div>
   <div class="grid2">
     <div class="panel"><div class="chart-box" style="height:300px"><canvas id="waste"></canvas></div></div>
@@ -174,6 +183,31 @@ document.querySelector("#items tbody").innerHTML=rows.map(r=>{
 
 document.getElementById("foot").innerHTML="Generated "+new Date().toLocaleString("en-GB")+
   " · Sales mirror Balsall Common opening + summer; hours = sales ÷ £49. Wastage % = waste retail ÷ sales (live BigQuery). Outlier window: 11 May–7 Jun.";
+</script>
+<script>
+(function(){
+  const L=["08/06","15/06","22/06","29/06","06/07","13/07","20/07","27/07","03/08","10/08","17/08","24/08","31/08"];
+  const HOT=[2462,2482,2502,2523,2523,2543,2612,2632,2653,2653,2673,2694,2583];
+  const COLD=[1281,1292,1302,1313,1313,1323,1222,1232,1241,1241,1251,1261,1344];
+  const SHK=[528,532,537,541,541,545,545,550,554,554,558,563,554];
+  const FOOD=[851,858,865,871,871,878,902,909,916,916,923,930,892];
+  const BAK=[763,769,776,782,782,788,854,860,867,867,874,881,801];
+  const WK=[6100,6150,6200,6250,6250,6300,6350,6400,6450,6450,6500,6550,6400];
+  const ROWS=[["Hot drinks",40.4,0.8,33535],["Cold drinks",21.0,-1.8,16616],["Milkshakes",8.7,-0.1,7102],["Food",13.9,0.3,11582],["Bakery",12.5,0.9,10664],["Other & retail",3.5,-0.2,2851]];
+  const OTH=WK.map((s,i)=>s-(HOT[i]+COLD[i]+SHK[i]+FOOD[i]+BAK[i]));
+  const ds=(l,d,c)=>({label:l,data:d,backgroundColor:c,stack:"s"});
+  new Chart(document.getElementById("catbar"),{type:"bar",
+    data:{labels:L,datasets:[ds("Hot drinks",HOT,"#7a5240"),ds("Cold drinks",COLD,"#2d6fb3"),ds("Milkshakes",SHK,"#c08a2d"),ds("Food",FOOD,"#1f8a4c"),ds("Bakery",BAK,"#b8860b"),ds("Other & retail",OTH,"#c9b89a")]},
+    options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index"},
+      plugins:{legend:{position:"bottom",labels:{boxWidth:12,font:{size:10}}},
+        title:{display:true,text:"Forecast weekly sales by category (£)",align:"start",color:"#5b3a29",font:{size:13,weight:"bold"}},
+        tooltip:{callbacks:{label:c=>c.dataset.label+": £"+Math.round(c.parsed.y).toLocaleString("en-GB")}}},
+      scales:{x:{stacked:true,grid:{display:false}},y:{stacked:true,ticks:{callback:v=>"£"+(v/1000)+"k"},grid:{color:"#eee"}}}}});
+  const gb=n=>"£"+Math.round(n).toLocaleString("en-GB");
+  const DESC={"Hot drinks":"lattes, cappuccinos, americanos, flat whites, hot choc, tea","Cold drinks":"iced lattes, frozen lemonade, iced matcha, frappés, cold brew","Milkshakes":"Oreo, Biscoff, vanilla, chocolate, strawberry shakes","Food":"croques, ciabattas, baps, wraps, salads, meal deals","Bakery":"traybakes, croissants, brownies, cookies, cakes","Other & retail":"bottled & soft drinks, beans, sundries"};
+  document.querySelector("#cattbl tbody").innerHTML=ROWS.map(r=>{const s=r[2]>0?"#1f8a4c":r[2]<0?"#c0392b":"#8a7a6d";
+    return "<tr><td>"+r[0]+"<br><span style=\"font-size:10.5px;color:#9a8a7c;font-weight:400\">"+(DESC[r[0]]||"")+"</span></td><td>"+r[1].toFixed(1)+"%</td><td style=\"color:"+s+"\">"+(r[2]>0?"+":"")+r[2].toFixed(1)+"pp</td><td>"+gb(r[3])+"</td></tr>";}).join("");
+})();
 </script>
 </body>
 </html>

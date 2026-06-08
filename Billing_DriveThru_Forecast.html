@@ -81,6 +81,15 @@
     </div>
   </div>
 
+  <div class="section-title">Sales by category — holiday-mix forecast</div>
+  <div class="grid2">
+    <div class="panel"><div class="chart-box" style="height:340px"><canvas id="catbar"></canvas></div></div>
+    <div class="panel">
+      <table id="cattbl"><thead><tr><th>Category</th><th>Current mix</th><th>Holiday tilt</th><th>13-wk £</th></tr></thead><tbody></tbody></table>
+      <div class="note" style="margin-top:10px"><strong>Mix holds through the holidays.</strong> In the mature drive-thru/destination stores last summer the split barely moved from term into the school holidays — cold drinks + milkshakes were ~37% of sales in term vs ~35% in holidays (milkshakes flat, cold easing ~2pp as the early-summer heat passed). The cold-drink peak is <strong>weather-led (Jun–Jul), not the school calendar</strong>; total volume rose ~5%. So £ grows across all categories with only a small holiday tilt.</div>
+    </div>
+  </div>
+
   <div class="section-title">⚠️ Wastage — high &amp; volatile for a drive-thru</div>
   <div class="grid2">
     <div class="panel"><div class="chart-box" style="height:300px"><canvas id="waste"></canvas></div></div>
@@ -167,6 +176,31 @@ document.getElementById("foot").innerHTML="Generated "+new Date().toLocaleString
     const c=r.rt>=40?['#fbeae8','#c0392b']:r.rt>=25?['#f7f0dd','#b8860b']:['#e6f4ec','#1f8a4c'];
     const act=r.rt>=40?'Cut par / de-range':r.rt>=25?'Reduce par':'Monitor';
     return '<tr><td>'+r.n+'</td><td>£'+r.w+'</td><td>'+r.wq+'</td><td>'+r.sq+'</td><td><span style="display:inline-block;padding:2px 7px;border-radius:6px;font-weight:700;background:'+c[0]+';color:'+c[1]+'">'+r.rt.toFixed(0)+'%</span></td><td style="text-align:left">'+act+'</td></tr>';}).join('');
+})();
+</script>
+<script>
+(function(){
+  const L=["08/06","15/06","22/06","29/06","06/07","13/07","20/07","27/07","03/08","10/08","17/08","24/08","31/08"];
+  const HOT=[3873,3936,3998,4045,4108,4170,4353,4449,4513,4545,4593,4625,4436];
+  const COLD=[3334,3388,3441,3482,3535,3589,3417,3492,3543,3568,3605,3630,3818];
+  const SHK=[2021,2054,2086,2111,2143,2176,2207,2256,2289,2305,2329,2345,2315];
+  const FOOD=[1683,1710,1737,1757,1785,1812,1881,1922,1950,1964,1985,1999,1927];
+  const BAK=[1022,1038,1055,1067,1084,1100,1248,1275,1294,1303,1317,1326,1170];
+  const WK=[12400,12600,12800,12950,13150,13350,13600,13900,14100,14200,14350,14450,14200];
+  const ROWS=[["Hot drinks",31.2,0.8,55644],["Cold drinks",26.9,-1.8,45842],["Milkshakes",16.3,-0.1,28637],["Food",13.6,0.3,24112],["Bakery",8.2,0.9,15299],["Other & retail",3.8,-0.2,6518]];
+  const OTH=WK.map((s,i)=>s-(HOT[i]+COLD[i]+SHK[i]+FOOD[i]+BAK[i]));
+  const ds=(l,d,c)=>({label:l,data:d,backgroundColor:c,stack:"s"});
+  new Chart(document.getElementById("catbar"),{type:"bar",
+    data:{labels:L,datasets:[ds("Hot drinks",HOT,"#7a5240"),ds("Cold drinks",COLD,"#2d6fb3"),ds("Milkshakes",SHK,"#c08a2d"),ds("Food",FOOD,"#1f8a4c"),ds("Bakery",BAK,"#b8860b"),ds("Other & retail",OTH,"#c9b89a")]},
+    options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index"},
+      plugins:{legend:{position:"bottom",labels:{boxWidth:12,font:{size:10}}},
+        title:{display:true,text:"Forecast weekly sales by category (£)",align:"start",color:"#5b3a29",font:{size:13,weight:"bold"}},
+        tooltip:{callbacks:{label:c=>c.dataset.label+": £"+Math.round(c.parsed.y).toLocaleString("en-GB")}}},
+      scales:{x:{stacked:true,grid:{display:false}},y:{stacked:true,ticks:{callback:v=>"£"+(v/1000)+"k"},grid:{color:"#eee"}}}}});
+  const gb=n=>"£"+Math.round(n).toLocaleString("en-GB");
+  const DESC={"Hot drinks":"lattes, cappuccinos, americanos, flat whites, hot choc, tea","Cold drinks":"iced lattes, frozen lemonade, iced matcha, frappés, cold brew","Milkshakes":"Oreo, Biscoff, vanilla, chocolate, strawberry shakes","Food":"croques, ciabattas, baps, wraps, salads, meal deals","Bakery":"traybakes, croissants, brownies, cookies, cakes","Other & retail":"bottled & soft drinks, beans, sundries"};
+  document.querySelector("#cattbl tbody").innerHTML=ROWS.map(r=>{const s=r[2]>0?"#1f8a4c":r[2]<0?"#c0392b":"#8a7a6d";
+    return "<tr><td>"+r[0]+"<br><span style=\"font-size:10.5px;color:#9a8a7c;font-weight:400\">"+(DESC[r[0]]||"")+"</span></td><td>"+r[1].toFixed(1)+"%</td><td style=\"color:"+s+"\">"+(r[2]>0?"+":"")+r[2].toFixed(1)+"pp</td><td>"+gb(r[3])+"</td></tr>";}).join("");
 })();
 </script>
 </body>
