@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Billing Drive-Thru — Sales & Hours Forecast</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root{--bg:#f4efe9;--card:#fff;--ink:#2b211b;--muted:#8a7a6d;--line:#e7ddd2;--brown:#5b3a29;
+    --blue:#2d6fb3;--green:#1f8a4c;--amber:#b8860b;--ndt:#7a5240;--glen:#c08a2d;--bill:#2d6fb3;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+  .wrap{max-width:1180px;margin:0 auto;padding:28px 22px 60px;}
+  header h1{margin:0 0 4px;font-size:23px;letter-spacing:-.3px;}
+  header .sub{color:var(--muted);font-size:13.5px;line-height:1.5;}
+  .pill{display:inline-block;background:#efe6dc;color:var(--brown);border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:12px;font-weight:600;margin-right:6px;}
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:6px;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:0 1px 2px rgba(80,50,30,.04);}
+  .card .lbl{font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.4px;}
+  .card .val{font-size:25px;font-weight:700;margin-top:6px;letter-spacing:-.5px;}
+  .card .meta{font-size:12.5px;color:var(--muted);margin-top:3px;}
+  .section-title{font-size:15px;font-weight:700;margin:30px 0 12px;color:var(--brown);}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:0 1px 2px rgba(80,50,30,.04);}
+  .chart-box{height:380px;position:relative}
+  .note{background:#fff8ec;border:1px solid #f0e0bf;color:#7a5e1e;border-radius:10px;padding:10px 14px;font-size:12.5px;margin:14px 0 0;line-height:1.55;}
+  .grid2{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;align-items:start;}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;}
+  th,td{padding:8px 10px;text-align:right;border-bottom:1px solid var(--line);}
+  th:first-child,td:first-child{text-align:left;}
+  thead th{font-size:11px;text-transform:uppercase;letter-spacing:.3px;color:var(--muted);font-weight:700;}
+  tbody tr:hover{background:#faf6f1;}
+  tfoot td{font-weight:700;border-top:2px solid var(--line);}
+  .mini{font-size:11.5px;color:var(--muted);}
+  .chip{display:inline-block;font-size:11px;padding:1px 7px;border-radius:5px;background:#eef3ee;color:var(--green);font-weight:600;}
+  .stat-row{display:flex;gap:22px;flex-wrap:wrap;margin-top:4px;}
+  .stat{font-size:12.5px;color:var(--muted);} .stat b{color:var(--ink);font-size:15px;}
+  footer{color:var(--muted);font-size:12px;margin-top:26px;line-height:1.6}
+  @media(max-width:860px){.cards{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>🚗 Billing Drive-Thru — Sales &amp; Hours Forecast</h1>
+    <div class="sub">
+      <span class="pill">Forecast: W/C 8 Jun → 31 Aug 2026 (13 weeks)</span>
+      <span class="pill">CPH target £55 → £70</span>
+      <br>Opening benchmarked against Northampton DT (May 2021) &amp; Glenvale DT (Nov 2024). Source: BigQuery live POS. Sales gross inc VAT.
+    </div>
+  </header>
+
+  <div class="cards">
+    <div class="card"><div class="lbl">13-wk sales forecast</div><div class="val">£176,050</div><div class="meta">avg £13,542 / wk</div></div>
+    <div class="card"><div class="lbl">13-wk labour hours</div><div class="val">2,823</div><div class="meta">avg 217 hrs / wk</div></div>
+    <div class="card"><div class="lbl">CPH ramp (sales/hr)</div><div class="val">£55 → £70</div><div class="meta">+£15 over 13 wks · avg £62.4</div></div>
+    <div class="card"><div class="lbl">Sales growth wk1→13</div><div class="val" style="color:var(--green)">+14.5%</div><div class="meta">hours −9.8% as CPH lifts</div></div>
+  </div>
+
+  <div class="section-title">Opening curves — Billing vs the two existing drive-thrus</div>
+  <div class="panel">
+    <div class="chart-box"><canvas id="curve"></canvas></div>
+    <div class="stat-row" style="margin-top:14px">
+      <div class="stat">NDT first 4 mths <b style="color:var(--ndt)">+12.5%</b> (£14.9k→£20.0k)</div>
+      <div class="stat">Glenvale first 4 mths <b style="color:var(--glen)">+1.6%</b> (winter open, £13.2k flat)</div>
+      <div class="stat">Billing opened <b style="color:var(--bill)">£12.3k/wk</b> avg (3 wks)</div>
+    </div>
+    <div class="note">Billing opened strong — between NDT and Glenvale. Because it opens into <strong>summer</strong> (NDT's window, which ramped) rather than winter (Glenvale's flat start), the forecast applies an NDT-style maturation curve plus a school-holiday lift, landing at <strong>~£14.2k by end Aug (+14.5%)</strong>. Dashed line = forecast.</div>
+  </div>
+
+  <div class="section-title">Billing forecast — weekly sales &amp; hours</div>
+  <div class="grid2">
+    <div class="panel"><div class="chart-box"><canvas id="fc"></canvas></div></div>
+    <div class="panel">
+      <table id="tbl">
+        <thead><tr><th>Week comm.</th><th>Sales £</th><th>CPH</th><th>Hours</th></tr></thead>
+        <tbody></tbody>
+        <tfoot></tfoot>
+      </table>
+      <div class="mini" style="margin-top:8px">Hours = forecast sales ÷ CPH target. As CPH rises £55→£70, hours ease even as sales grow — the efficiency the ramp is designed to deliver.</div>
+    </div>
+  </div>
+
+  <div class="section-title">⚠️ Wastage — high &amp; volatile for a drive-thru</div>
+  <div class="grid2">
+    <div class="panel"><div class="chart-box" style="height:300px"><canvas id="waste"></canvas></div></div>
+    <div class="panel"><div class="note" style="margin-top:0;background:#fbeae8;border-color:#eccfca;color:#8c2f22"><strong>Billing's wastage is running hot</strong> — 4.7% → 8.3% → 3.7% across its first three weeks (avg 5.6%), well above mature drive-thrus (NDT 0.9%, Glenvale 2.8%). On its volume, reaching a 3% target is worth ~£4,650 of retail waste over the quarter (~£2,100 at cost) — the biggest wastage prize of the new sites. The sandwich/toastie range is the issue.</div></div>
+  </div>
+
+  <div class="section-title">Outlier items — biggest over-production (last 4 weeks)</div>
+  <div class="panel">
+    <table id="items"><thead><tr><th>Product</th><th>Waste £</th><th>Wasted</th><th>Sold</th><th>Waste rate</th><th style="text-align:left">Action</th></tr></thead><tbody></tbody></table>
+    <div class="note">Waste rate = wasted ÷ (wasted + sold). <strong>3 Sausage Bap (56%)</strong>, <strong>3 Green &amp; Grain Salad (55%)</strong> and <strong>3 Tuna Ciabatta (51%)</strong> waste more than they sell; the <strong>3 Cheese &amp; Onion Croque</strong> is the single biggest £ loss (£264 / 4 wks). Cut these par levels first. Top 10 items ≈ £363/wk of waste retail.</div>
+  </div>
+
+  <footer id="foot"></footer>
+</div>
+
+<script>
+// ---- Opening actuals (full weeks since opening) ----
+const NDT=[14958,16995,21155,17882,18388,17608,18436,19043,18967,19180,19588,19464,20998,20589,19953,18289];
+const GLEN=[13237,12417,13855,9941,11070,11777,12052,12331,11889,12823,12200,12958,13337,12386,12023,12496];
+const BILL_ACT=[12122,13189,11584]; // wks 1-3 actual
+// ---- Forecast: [week_start, sales, CPH, hours, note] (Billing wks 4-16) ----
+const FC=[["2026-06-08",12400,55.0,225,""],["2026-06-15",12600,56.2,224,""],["2026-06-22",12800,57.5,223,""],
+["2026-06-29",12950,58.8,220,""],["2026-07-06",13150,60.0,219,"schools in"],["2026-07-13",13350,61.2,218,""],
+["2026-07-20",13600,62.5,218,"summer hols"],["2026-07-27",13900,63.8,218,"summer hols"],["2026-08-03",14100,65.0,217,"summer hols"],
+["2026-08-10",14200,66.2,215,"summer hols"],["2026-08-17",14350,67.5,213,"summer hols"],["2026-08-24",14450,68.8,210,"Aug BH wk"],
+["2026-08-31",14200,70.0,203,"schools return"]];
+
+const gbp0=n=>"£"+Math.round(n).toLocaleString("en-GB");
+const ddmm=s=>{const[y,m,d]=s.split("-");return d+"/"+m;};
+
+// ---- Opening curve chart (weeks 1-16) ----
+const wks=Array.from({length:16},(_,i)=>"Wk "+(i+1));
+const billLine=BILL_ACT.concat(FC.map(r=>r[1])); // 3 actual + 13 fc = 16
+new Chart(document.getElementById("curve"),{type:"line",
+  data:{labels:wks,datasets:[
+    {label:"Northampton DT (2021)",data:NDT,borderColor:"#7a5240",backgroundColor:"#7a5240",tension:.3,pointRadius:0,borderWidth:2},
+    {label:"Glenvale DT (2024)",data:GLEN,borderColor:"#c08a2d",backgroundColor:"#c08a2d",tension:.3,pointRadius:0,borderWidth:2},
+    {label:"Billing DT (2026) — actual + forecast",data:billLine,borderColor:"#2d6fb3",backgroundColor:"#2d6fb3",
+      tension:.3,pointRadius:3,borderWidth:2.5,
+      segment:{borderDash:ctx=>ctx.p0DataIndex>=2?[6,4]:undefined}}
+  ]},
+  options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},
+    plugins:{legend:{position:"bottom",labels:{boxWidth:14,font:{size:11.5}}},
+      tooltip:{callbacks:{label:c=>` ${c.dataset.label.split(" —")[0]}: ${c.parsed.y?gbp0(c.parsed.y):"—"}`}}},
+    scales:{y:{ticks:{callback:v=>"£"+(v/1000)+"k"},grid:{color:"#eee"},title:{display:true,text:"Weekly sales"}},
+      x:{grid:{display:false},title:{display:true,text:"Weeks since opening (first full week = Wk 1)"}}}}});
+
+// ---- Forecast combo chart ----
+new Chart(document.getElementById("fc"),{
+  data:{labels:FC.map(r=>ddmm(r[0])),datasets:[
+    {type:"bar",label:"Sales £",data:FC.map(r=>r[1]),backgroundColor:"#2d6fb3",borderRadius:4,yAxisID:"y",order:2},
+    {type:"line",label:"Hours",data:FC.map(r=>r[3]),borderColor:"#c0392b",backgroundColor:"#c0392b",
+      tension:.3,pointRadius:2,borderWidth:2,yAxisID:"y1",order:1}
+  ]},
+  options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},
+    plugins:{legend:{position:"bottom",labels:{boxWidth:14,font:{size:11.5}}},
+      tooltip:{callbacks:{afterBody:items=>{const i=items[0].dataIndex;return "CPH target £"+FC[i][2]+(FC[i][4]?"  ·  "+FC[i][4]:"");}}}},
+    scales:{y:{position:"left",ticks:{callback:v=>"£"+(v/1000)+"k"},grid:{color:"#eee"},title:{display:true,text:"Sales"},suggestedMin:10000},
+      y1:{position:"right",grid:{display:false},title:{display:true,text:"Hours"},suggestedMin:150,suggestedMax:260},
+      x:{grid:{display:false}}}}});
+
+// ---- Table ----
+const tb=document.querySelector("#tbl tbody");
+tb.innerHTML=FC.map(r=>`<tr><td>${ddmm(r[0])}${r[4]?' <span class="chip">'+r[4]+'</span>':''}</td>
+  <td>${gbp0(r[1])}</td><td>£${r[2].toFixed(1)}</td><td>${r[3]}</td></tr>`).join("");
+const tS=FC.reduce((s,r)=>s+r[1],0), tH=FC.reduce((s,r)=>s+r[3],0);
+document.querySelector("#tbl tfoot").innerHTML=`<tr><td>13-WK TOTAL</td><td>${gbp0(tS)}</td>
+  <td>£${(tS/tH).toFixed(1)}</td><td>${tH.toLocaleString("en-GB")}</td></tr>`;
+
+document.getElementById("foot").innerHTML="Generated "+new Date().toLocaleString("en-GB")+
+  " · Forecast method: Billing 3-week opening baseline (£12.3k) × blended NDT/Glenvale maturation curve, summer-weighted. Hours = sales ÷ CPH; CPH ramps £55→£70 linearly. Sales & opening curves are live BigQuery actuals.";
+</script>
+<script>
+(function(){
+  const WK=[["18/05",4.65],["25/05",8.26],["01/06",3.68]];
+  const ITEMS=[["3 Cheese & Onion Croque",264,48,54],["3 Ham & Cheese Croque",236,43,96],["3 Sausage Bap",230,54,43],["3 Tuna Ciabatta",198,36,34],["3 Chicken & Chorizo Ciabatta",137,25,53],["3 Mozzarella & Tomato Ciabatta",121,22,39],["3 Bacon Bap",89,21,38],["3 Green & Grain Salad",64,12,10],["Croissant Pastry",56,26,32],["3 Chicken Caprese Sandwich",55,11,14]];
+  new Chart(document.getElementById('waste'),{type:'line',data:{labels:WK.map(r=>r[0]),datasets:[
+    {label:'Wastage %',data:WK.map(r=>r[1]),borderColor:'#c0392b',backgroundColor:'#c0392b',tension:.3,pointRadius:4,borderWidth:2.5},
+    {label:'Target 3%',data:WK.map(()=>3),borderColor:'#1f8a4c',borderDash:[6,4],pointRadius:0,borderWidth:2},
+    {label:'Estate avg 2.3%',data:WK.map(()=>2.3),borderColor:'#9aa6b0',borderDash:[3,3],pointRadius:0,borderWidth:1.5}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:14,font:{size:11}}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y+'%'}}},scales:{y:{ticks:{callback:v=>v+'%'},grid:{color:'#eee'},suggestedMin:0},x:{grid:{display:false}}}}});
+  const rows=ITEMS.map(r=>({n:r[0],w:r[1],wq:r[2],sq:r[3],rt:r[2]/(r[2]+r[3])*100})).sort((a,b)=>b.rt-a.rt);
+  document.getElementById('items').querySelector('tbody').innerHTML=rows.map(r=>{
+    const c=r.rt>=40?['#fbeae8','#c0392b']:r.rt>=25?['#f7f0dd','#b8860b']:['#e6f4ec','#1f8a4c'];
+    const act=r.rt>=40?'Cut par / de-range':r.rt>=25?'Reduce par':'Monitor';
+    return '<tr><td>'+r.n+'</td><td>£'+r.w+'</td><td>'+r.wq+'</td><td>'+r.sq+'</td><td><span style="display:inline-block;padding:2px 7px;border-radius:6px;font-weight:700;background:'+c[0]+';color:'+c[1]+'">'+r.rt.toFixed(0)+'%</span></td><td style="text-align:left">'+act+'</td></tr>';}).join('');
+})();
+</script>
+</body>
+</html>

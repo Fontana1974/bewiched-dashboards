@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Attleborough — Sales, Hours & Wastage Forecast</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root{--bg:#f4efe9;--card:#fff;--ink:#2b211b;--muted:#8a7a6d;--line:#e7ddd2;--brown:#5b3a29;
+    --green:#1f8a4c;--bals:#c08a2d;--att:#2d6fb3;--oln:#9aa6b0;--red:#c0392b;--amber:#b8860b;
+    --redbg:#fbeae8;--amberbg:#f7f0dd;--greenbg:#e6f4ec;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+  .wrap{max-width:1180px;margin:0 auto;padding:28px 22px 60px;}
+  header h1{margin:0 0 4px;font-size:23px;letter-spacing:-.3px;}
+  header .sub{color:var(--muted);font-size:13.5px;line-height:1.5;}
+  .pill{display:inline-block;background:#efe6dc;color:var(--brown);border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:12px;font-weight:600;margin-right:6px;}
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:6px;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:0 1px 2px rgba(80,50,30,.04);}
+  .card .lbl{font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.4px;}
+  .card .val{font-size:25px;font-weight:700;margin-top:6px;letter-spacing:-.5px;}
+  .card .meta{font-size:12.5px;color:var(--muted);margin-top:3px;}
+  .section-title{font-size:15px;font-weight:700;margin:30px 0 12px;color:var(--brown);}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:0 1px 2px rgba(80,50,30,.04);}
+  .chart-box{height:360px;position:relative}
+  .note{background:#fff8ec;border:1px solid #f0e0bf;color:#7a5e1e;border-radius:10px;padding:10px 14px;font-size:12.5px;margin:14px 0 0;line-height:1.55;}
+  .note.red{background:var(--redbg);border-color:#eccfca;color:#8c2f22;}
+  .grid2{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;align-items:start;}
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  th,td{padding:7px 9px;text-align:right;border-bottom:1px solid var(--line);}
+  th:first-child,td:first-child{text-align:left;}
+  thead th{font-size:11px;text-transform:uppercase;letter-spacing:.3px;color:var(--muted);font-weight:700;}
+  tbody tr:hover{background:#faf6f1;}
+  tfoot td{font-weight:700;border-top:2px solid var(--line);}
+  .mini{font-size:11.5px;color:var(--muted);}
+  .chip{display:inline-block;font-size:11px;padding:1px 7px;border-radius:5px;background:#eef3ee;color:var(--green);font-weight:600;}
+  .tag{display:inline-block;padding:2px 7px;border-radius:6px;font-weight:700;font-size:12px;}
+  .t-red{background:var(--redbg);color:var(--red)} .t-amber{background:var(--amberbg);color:var(--amber)} .t-ok{background:var(--greenbg);color:var(--green)}
+  .stat-row{display:flex;gap:22px;flex-wrap:wrap;margin-top:4px;}
+  .stat{font-size:12.5px;color:var(--muted);} .stat b{color:var(--ink);font-size:15px;}
+  footer{color:var(--muted);font-size:12px;margin-top:26px;line-height:1.6}
+  @media(max-width:860px){.cards{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>🏪 Attleborough — Sales, Hours &amp; Wastage Forecast</h1>
+    <div class="sub">
+      <span class="pill">Forecast: W/C 8 Jun → 31 Aug 2026 (13 weeks)</span>
+      <span class="pill">CPH target £49 (flat)</span>
+      <span class="pill">Opened 23 Apr 2026</span>
+      <br>Opening mirrored against HOE Balsall Common. Source: BigQuery live POS — sales &amp; wastage. Sales gross inc VAT.
+    </div>
+  </header>
+
+  <div class="cards">
+    <div class="card"><div class="lbl">13-wk sales forecast</div><div class="val">£82,350</div><div class="meta">avg £6,334 / wk · +4.9%</div></div>
+    <div class="card"><div class="lbl">13-wk labour hours</div><div class="val">1,685</div><div class="meta">@ £49 CPH · avg 129/wk</div></div>
+    <div class="card"><div class="lbl">Wastage now</div><div class="val" style="color:var(--red)">5.6% ▲</div><div class="meta">rising from 2.5% · estate 2.3%</div></div>
+    <div class="card"><div class="lbl">Wastage opportunity</div><div class="val" style="color:var(--green)">~£2,140</div><div class="meta">13 wks to 3% target (retail; ~£960 cost)</div></div>
+  </div>
+
+  <div class="section-title">Opening curve — Attleborough vs Balsall Common (mirror) &amp; Olney (peer)</div>
+  <div class="panel">
+    <div class="chart-box"><canvas id="curve"></canvas></div>
+    <div class="stat-row" style="margin-top:14px">
+      <div class="stat">Attleborough opened <b style="color:var(--att)">£7.6k</b>, settled <b style="color:var(--att)">~£6.1k</b></div>
+      <div class="stat">Balsall <b style="color:var(--bals)">£5.0k→£3.7k</b> launch fade (mirror)</div>
+      <div class="stat">Olney peer <b style="color:#6b7782">~£5.3k</b> settled</div>
+    </div>
+    <div class="note">Same launch-spike-then-settle shape as Balsall/Olney, but Attleborough has settled <strong>higher (~£6.1k)</strong> — a strong site. Forecast applies Balsall's settle-then-rebuild curve + summer lift: <strong>£6,100 → £6,400/wk (+4.9%)</strong>. Dashed = forecast.</div>
+  </div>
+
+  <div class="section-title">Sales &amp; hours forecast</div>
+  <div class="grid2">
+    <div class="panel"><div class="chart-box"><canvas id="fc"></canvas></div></div>
+    <div class="panel">
+      <table id="tbl"><thead><tr><th>Week</th><th>Sales £</th><th>CPH</th><th>Hours</th></tr></thead><tbody></tbody><tfoot></tfoot></table>
+      <div class="mini" style="margin-top:8px">Hours = sales ÷ £49 (flat CPH). No efficiency ramp assumed.</div>
+    </div>
+  </div>
+
+  <div class="section-title">⚠️ Wastage — trending the wrong way</div>
+  <div class="grid2">
+    <div class="panel"><div class="chart-box" style="height:300px"><canvas id="waste"></canvas></div></div>
+    <div class="panel">
+      <div class="note red" style="margin-top:0"><strong>Wastage has more than doubled since launch</strong> — 2.5% → 6.1%, while sales stayed flat. This is a par-level / production-discipline issue at a new site that hasn't dialled in demand yet, not a sales problem. Target: pull back to <strong>3%</strong> (still above estate-best) to recover ~£2.1k retail over the quarter.</div>
+    </div>
+  </div>
+
+  <div class="section-title">Outlier items — biggest over-production (last 4 weeks)</div>
+  <div class="panel">
+    <table id="items"><thead><tr><th>Product</th><th>Waste £</th><th>Wasted</th><th>Sold</th><th>Waste rate</th><th>Action</th></tr></thead><tbody></tbody></table>
+    <div class="note">Waste rate = wasted ÷ (wasted + sold). Items over ~40% are being made far ahead of demand — <strong>3 Egg &amp; Spinach Sandwich (60%)</strong>, <strong>Croissant Pastry (54%)</strong> and <strong>3 Falafel Wrap (54%)</strong> waste more than they sell: cut par levels hard or de-range. Top 15 items ≈ £249/wk of waste retail.</div>
+  </div>
+
+  <footer id="foot"></footer>
+</div>
+
+<script>
+const BALS=[4976,5316,4913,4405,4053,3764,3799,4075,3864,3906,3485,3769,3721,3032,3803,4257,4087,4275,4237];
+const OLN=[7502,6719,6339,5459,4838,6065,5314,4595,5439,5241];
+const ATT_ACT=[7636,7299,5912,6166,6349,6038]; // 6 full wks
+const FC=[["2026-06-08",6100,124,""],["2026-06-15",6150,126,""],["2026-06-22",6200,127,""],["2026-06-29",6250,128,""],
+["2026-07-06",6250,128,"schools in"],["2026-07-13",6300,129,""],["2026-07-20",6350,130,"summer hols"],
+["2026-07-27",6400,131,"summer hols"],["2026-08-03",6450,132,"summer hols"],["2026-08-10",6450,132,"summer hols"],
+["2026-08-17",6500,133,"summer hols"],["2026-08-24",6550,134,"Aug BH wk"],["2026-08-31",6400,131,"schools return"]];
+const CPH=49;
+// weekly wastage % actual (full weeks): [date, waste£, sales]
+const WK=[["2026-04-27",193,7729],["2026-05-04",215,7345],["2026-05-11",307,5972],["2026-05-18",381,6223],["2026-05-25",393,6413],["2026-06-01",340,6109]];
+// outlier items: [name, waste£/4wk, wastedQty, soldQty]
+const ITEMS=[["3 Egg & Spinach Sandwich",79,18,12],["Croissant Pastry",58,27,23],["3 Falafel Wrap",60,14,12],
+["Almond Croissant",77,29,31],["3 Chicken Caprese Sandwich",52,11,18],["Vegan Raspberry Croissant Pastry",58,22,44],
+["3 Sausage Bap",81,19,52],["Sausage Roll Pastry",99,30,88],["3 Bacon Bap",64,15,47],["Chocolate Twist Traybake",56,21,74],
+["3 Chicken & Chorizo Ciabatta",66,12,48],["3 Mozzarella & Tomato Ciabatta",60,11,44],["3 Cheese & Onion Croque",82,15,66],
+["3 Tuna Ciabatta",55,10,55],["3 Breakfast Bagel",49,9,95]];
+
+const gbp0=n=>"£"+Math.round(n).toLocaleString("en-GB");
+const ddmm=s=>{const[y,m,d]=s.split("-");return d+"/"+m;};
+
+// opening curve (weeks since opening)
+const attLine=ATT_ACT.concat(FC.map(r=>r[1])); // 6 + 13 = 19
+const nW=Math.max(BALS.length,attLine.length,OLN.length);
+new Chart(document.getElementById("curve"),{type:"line",
+  data:{labels:Array.from({length:nW},(_,i)=>"Wk "+(i+1)),datasets:[
+    {label:"Attleborough (2026) — actual + forecast",data:attLine,borderColor:"#2d6fb3",backgroundColor:"#2d6fb3",tension:.3,pointRadius:3,borderWidth:2.5,segment:{borderDash:c=>c.p0DataIndex>=5?[6,4]:undefined}},
+    {label:"Balsall Common (2022) — mirror",data:BALS,borderColor:"#c08a2d",backgroundColor:"#c08a2d",tension:.3,pointRadius:0,borderWidth:2},
+    {label:"Olney (2026) — peer",data:OLN,borderColor:"#9aa6b0",backgroundColor:"#9aa6b0",tension:.3,pointRadius:0,borderWidth:1.5,borderDash:[3,3]}
+  ]},
+  options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},
+    plugins:{legend:{position:"bottom",labels:{boxWidth:14,font:{size:11}}},
+      tooltip:{callbacks:{label:c=>` ${c.dataset.label.split(" —")[0]}: ${c.parsed.y?gbp0(c.parsed.y):"—"}`}}},
+    scales:{y:{ticks:{callback:v=>"£"+(v/1000)+"k"},grid:{color:"#eee"},title:{display:true,text:"Weekly sales"},suggestedMin:3000},
+      x:{grid:{display:false},title:{display:true,text:"Weeks since opening (first full week = Wk 1)"}}}}});
+
+// forecast combo
+new Chart(document.getElementById("fc"),{
+  data:{labels:FC.map(r=>ddmm(r[0])),datasets:[
+    {type:"bar",label:"Sales £",data:FC.map(r=>r[1]),backgroundColor:"#2d6fb3",borderRadius:4,yAxisID:"y",order:2},
+    {type:"line",label:"Hours (@ £49)",data:FC.map(r=>r[2]),borderColor:"#c0392b",backgroundColor:"#c0392b",tension:.3,pointRadius:2,borderWidth:2,yAxisID:"y1",order:1}]},
+  options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},
+    plugins:{legend:{position:"bottom",labels:{boxWidth:14,font:{size:11}}},
+      tooltip:{callbacks:{afterBody:i=>{const x=i[0].dataIndex;return "CPH £"+CPH+(FC[x][3]?"  ·  "+FC[x][3]:"");}}}},
+    scales:{y:{position:"left",ticks:{callback:v=>"£"+(v/1000)+"k"},grid:{color:"#eee"},suggestedMin:5000,title:{display:true,text:"Sales"}},
+      y1:{position:"right",grid:{display:false},suggestedMin:90,suggestedMax:160,title:{display:true,text:"Hours"}},x:{grid:{display:false}}}}});
+
+// wastage trend
+const wpc=WK.map(r=>+(r[1]/r[2]*100).toFixed(2));
+new Chart(document.getElementById("waste"),{type:"line",
+  data:{labels:WK.map(r=>ddmm(r[0])),datasets:[
+    {label:"Wastage %",data:wpc,borderColor:"#c0392b",backgroundColor:"#c0392b",tension:.3,pointRadius:4,borderWidth:2.5,fill:false},
+    {label:"Target 3%",data:WK.map(()=>3),borderColor:"#1f8a4c",borderDash:[6,4],pointRadius:0,borderWidth:2},
+    {label:"Estate avg 2.3%",data:WK.map(()=>2.3),borderColor:"#9aa6b0",borderDash:[3,3],pointRadius:0,borderWidth:1.5}]},
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{position:"bottom",labels:{boxWidth:14,font:{size:11}}},
+      tooltip:{callbacks:{label:c=>c.dataset.label+": "+c.parsed.y+"%"}}},
+    scales:{y:{ticks:{callback:v=>v+"%"},grid:{color:"#eee"},suggestedMin:0,suggestedMax:7},x:{grid:{display:false}}}}});
+
+// forecast table
+const tb=document.querySelector("#tbl tbody");
+tb.innerHTML=FC.map(r=>`<tr><td>${ddmm(r[0])}${r[3]?' <span class="chip">'+r[3]+'</span>':''}</td><td>${gbp0(r[1])}</td><td>£${CPH}</td><td>${r[2]}</td></tr>`).join("");
+const tS=FC.reduce((s,r)=>s+r[1],0),tH=FC.reduce((s,r)=>s+r[2],0);
+document.querySelector("#tbl tfoot").innerHTML=`<tr><td>13-WK TOTAL</td><td>${gbp0(tS)}</td><td>£${(tS/tH).toFixed(1)}</td><td>${tH.toLocaleString("en-GB")}</td></tr>`;
+
+// items table (sorted by waste rate desc)
+const rows=ITEMS.map(r=>({n:r[0],w:r[1],wq:r[2],sq:r[3],rate:r[2]/(r[2]+r[3])*100})).sort((a,b)=>b.rate-a.rate);
+document.querySelector("#items tbody").innerHTML=rows.map(r=>{
+  const tag=r.rate>=40?'t-red':r.rate>=25?'t-amber':'t-ok';
+  const act=r.rate>=40?'Cut par / de-range':r.rate>=25?'Reduce par':'Monitor';
+  return `<tr><td>${r.n}</td><td>£${r.w}</td><td>${r.wq}</td><td>${r.sq}</td>
+    <td><span class="tag ${tag}">${r.rate.toFixed(0)}%</span></td><td style="text-align:left">${act}</td></tr>`;}).join("");
+
+document.getElementById("foot").innerHTML="Generated "+new Date().toLocaleString("en-GB")+
+  " · Sales mirror Balsall Common opening + summer; hours = sales ÷ £49. Wastage % = waste retail ÷ sales (live BigQuery). Outlier window: 11 May–7 Jun.";
+</script>
+</body>
+</html>
