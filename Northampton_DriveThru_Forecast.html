@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Northampton Drive-Thru — Bewiched Store Dashboard</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root{--bg:#f4efe9;--card:#fff;--ink:#2b211b;--muted:#8a7a6d;--line:#e7ddd2;--brown:#5b3a29;
+    --brown2:#3f281c;--cream:#efe6dc;
+    --green:#1f8a4c;--blue:#2d6fb3;--amber:#b8860b;--red:#c0392b;--ndt:#7a5240;--glen:#c08a2d;--bill:#2d6fb3;--slate:#9aa6b0;
+    --redbg:#fbeae8;--amberbg:#f7f0dd;--greenbg:#e6f4ec;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+
+  /* ---- Brand header ---- */
+  .brandbar{background:linear-gradient(180deg,#1e3a52 0%,#142838 100%);color:#f6efe7;}
+  .brandbar .inner{max-width:1180px;margin:0 auto;padding:14px 22px;display:flex;align-items:center;gap:13px;}
+  .logo{display:flex;align-items:center;gap:10px;}
+  .logo svg{display:block}
+  .logo .word{font-size:21px;font-weight:800;letter-spacing:.2px;line-height:1;}
+  .logo .word span{color:#e7b35a}
+  .brandlogo{height:36px;width:auto;display:block;}
+  .logo .eyebrow{font-size:10.5px;letter-spacing:2.4px;text-transform:uppercase;color:#8fa6b8;margin-top:3px;}
+  .brandbar .spacer{flex:1}
+  .brandbar .ctx{font-size:11.5px;color:#8fa6b8;text-align:right;line-height:1.5}
+  .brandbar .ctx b{color:#f6efe7;font-weight:700}
+
+  .wrap{max-width:1180px;margin:0 auto;padding:24px 22px 60px;}
+  header.page h1{margin:0 0 4px;font-size:23px;letter-spacing:-.3px;}
+  header.page .sub{color:var(--muted);font-size:13.5px;line-height:1.5;}
+  .pill{display:inline-block;background:var(--cream);color:var(--brown);border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:12px;font-weight:600;margin-right:6px;}
+
+  /* ---- Tabs ---- */
+  .tabs{display:flex;gap:6px;flex-wrap:wrap;margin:22px 0 4px;border-bottom:2px solid var(--line);}
+  .tab-btn{appearance:none;border:none;background:transparent;cursor:pointer;font:inherit;
+    font-size:13.5px;font-weight:700;color:var(--muted);padding:11px 16px;border-radius:10px 10px 0 0;
+    border-bottom:3px solid transparent;margin-bottom:-2px;transition:.15s;display:flex;align-items:center;gap:7px;}
+  .tab-btn:hover{color:var(--brown);background:#faf6f1;}
+  .tab-btn.active{color:var(--brown);border-bottom-color:var(--brown);background:#fff;}
+  .tab-btn .dot{font-size:11px}
+  .tab-panel{display:none;animation:fade .25s ease;}
+  .tab-panel.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:16px;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:0 1px 2px rgba(80,50,30,.04);}
+  .card .lbl{font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.4px;}
+  .card .val{font-size:25px;font-weight:700;margin-top:6px;letter-spacing:-.5px;}
+  .card .meta{font-size:12.5px;color:var(--muted);margin-top:3px;}
+  .section-title{font-size:15px;font-weight:700;margin:26px 0 12px;color:var(--brown);}
+  .focus{margin:12px 0 6px;padding:10px 14px;border-radius:10px;font-size:13px;font-weight:600;background:var(--greenbg);border:1px solid #cfe6d8;color:#1c6b3d;}
+  .focus.red{background:var(--redbg);border-color:#eccfca;color:#8c2f22;}
+  .focus.amber{background:var(--amberbg);border-color:#ece0c0;color:#7a5b12;}
+  .focus .ar{font-weight:800;margin-right:5px;}
+  .focusmod{margin:16px 0 4px;padding:14px 18px;border-radius:14px;background:linear-gradient(180deg,#fff,#fbf7f2);border:1px solid var(--line);box-shadow:0 1px 2px rgba(80,50,30,.05);}
+  .focusmod.red{border-color:#eccfca;background:linear-gradient(180deg,#fff,#fbeae8);}
+  .focusmod h2{margin:0 0 8px;font-size:14px;color:var(--brown);display:flex;align-items:center;gap:7px;}
+  .focusmod ul{margin:0;padding-left:18px;}
+  .focusmod li{font-size:13px;margin:4px 0;color:var(--ink);line-height:1.45;}
+  .actbox{display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between;margin-top:16px;padding:16px 20px;border-radius:14px;border:1px solid var(--line);background:var(--card);}
+  .actbox.red{border:1.5px solid var(--red);background:var(--redbg);}
+  .actbox .ab-lbl{font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.4px;}
+  .actbox .ab-val{font-size:30px;font-weight:800;letter-spacing:-1px;color:var(--ink);margin-top:2px;}
+  .actbox .ab-stats{display:flex;gap:26px;flex-wrap:wrap;}
+  .actbox .ab-stats>div{display:flex;flex-direction:column;}
+  .actbox .ab-stats span{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.3px;}
+  .actbox .ab-stats b{font-size:18px;font-weight:800;}
+  .actbox .ab-stats small{font-size:11px;color:var(--muted);}
+  .neg{color:var(--red)} .pos{color:var(--green)} .mut{color:var(--muted)}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:0 1px 2px rgba(80,50,30,.04);}
+  .chart-box{height:380px;position:relative}
+  .note{background:#fff8ec;border:1px solid #f0e0bf;color:#7a5e1e;border-radius:10px;padding:10px 14px;font-size:12.5px;margin:14px 0 0;line-height:1.55;}
+  .note.red{background:var(--redbg);border-color:#eccfca;color:#8c2f22;}
+  .note.green{background:var(--greenbg);border-color:#cfe6d8;color:#1c6b3d;}
+  .grid2{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;align-items:start;}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;}
+  th,td{padding:8px 10px;text-align:right;border-bottom:1px solid var(--line);}
+  th:first-child,td:first-child{text-align:left;}
+  thead th{font-size:11px;text-transform:uppercase;letter-spacing:.3px;color:var(--muted);font-weight:700;}
+  tbody tr:hover{background:#faf6f1;}
+  tfoot td{font-weight:700;border-top:2px solid var(--line);}
+  .mini{font-size:11.5px;color:var(--muted);}
+  .chip{display:inline-block;font-size:11px;padding:1px 7px;border-radius:5px;background:#eef3ee;color:var(--green);font-weight:600;}
+  .tag{display:inline-block;padding:2px 7px;border-radius:6px;font-weight:700;font-size:12px;}
+  .t-red{background:var(--redbg);color:var(--red)} .t-amber{background:var(--amberbg);color:var(--amber)} .t-ok{background:var(--greenbg);color:var(--green)}
+  .stat-row{display:flex;gap:22px;flex-wrap:wrap;margin-top:4px;}
+  .stat{font-size:12.5px;color:var(--muted);} .stat b{color:var(--ink);font-size:15px;}
+  .srclink{color:var(--brown);font-weight:600;text-decoration:none;border-bottom:1px solid #d9c7b6;}
+  .srclink:hover{border-bottom-color:var(--brown);}
+  .empty{background:#faf6f1;border:1px dashed var(--line);border-radius:12px;padding:24px;text-align:center;color:var(--muted);font-size:13px;}
+  footer{color:var(--muted);font-size:12px;margin-top:26px;line-height:1.6}
+  @media(max-width:860px){.cards{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- ===== Brand header ===== -->
+<div class="brandbar">
+  <div class="inner">
+    <div class="logo">
+      <img src="bewiched-logo.png" alt="Bewiched" class="brandlogo"
+           onerror="this.style.display='none';document.getElementById('wordmark').style.display='flex';">
+      <div id="wordmark" class="logo" style="display:none;gap:10px">
+        <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true">
+          <circle cx="17" cy="17" r="17" fill="#e7b35a"/>
+          <path d="M9 14h12v5a5 5 0 0 1-5 5h-2a5 5 0 0 1-5-5v-5z" fill="#3f281c"/>
+          <path d="M21 15h2.2a2.6 2.6 0 0 1 0 5.2H21" fill="none" stroke="#3f281c" stroke-width="1.6"/>
+          <path d="M12 8.5c-1 1 0 2 0 3M15.5 8c-1 1 0 2 0 3M19 8.5c-1 1 0 2 0 3" fill="none" stroke="#3f281c" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <div>
+          <div class="word">Be<span>wiched</span></div>
+          <div class="eyebrow">Store Performance</div>
+        </div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+    <div class="ctx">Site: <b>Northampton Drive-Thru</b> (Moulton Park) · Area Coach <b>Rich</b><br>Mature drive-thru · live to w/c 1 Jun 2026</div>
+  </div>
+</div>
+
+<div class="wrap">
+  <header class="page">
+    <h1>🚗 Northampton Drive-Thru — Store Dashboard</h1>
+    <div class="sub">
+      <span class="pill">Mature drive-thru · est. May 2021</span>
+      <span class="pill">CPH target £65 (flat)</span>
+      <span class="pill">#2 in the estate by sales</span>
+      <br>Live BigQuery POS + F1 audit + Google/RMS sentiment. Sales gross inc VAT.
+    </div>
+  </header>
+
+  <!-- ===== Focus areas (above tabs) ===== -->
+  <div class="focusmod">
+    <h2>🎯 Focus areas — week of 9 Jun</h2>
+    <ul>
+      <li><b>Strong week:</b> £75.4 CPH vs £65 target &amp; +8.3% YoY — the estate's #2 store running efficiently; protect it.</li>
+      <li><b>Wastage:</b> 1.0% last week (well under 3%) — keep the egg pot &amp; bacon bap par levels tight.</li>
+      <li><b>Capture upside:</b> bakery attach 13% (18th of 21) — push a cake/pastry add-on at the window.</li>
+    </ul>
+  </div>
+
+  <!-- ===== Tab nav ===== -->
+  <nav class="tabs" role="tablist">
+    <button class="tab-btn active" data-tab="sales" role="tab"><span class="dot">📈</span>Sales &amp; Hours</button>
+    <button class="tab-btn" data-tab="waste" role="tab"><span class="dot">♻️</span>Wastage</button>
+    <button class="tab-btn" data-tab="mix" role="tab"><span class="dot">🧺</span>Sales mix &amp; capture</button>
+    <button class="tab-btn" data-tab="f1" role="tab"><span class="dot">🏁</span>Op's Excellence</button>
+    <button class="tab-btn" data-tab="sentiment" role="tab"><span class="dot">💬</span>Sentiment</button>
+  </nav>
+
+  <!-- ===== Tab status dots (red = needs attention last week, green = on track) ===== -->
+  <style>
+    .tab-btn .stat-dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-left:7px;vertical-align:middle;}
+    .stat-dot.green{background:#1f8a4c;}
+    .stat-dot.red{background:#c0392b;animation:dotpulse 1.4s ease-in-out infinite;}
+    @keyframes dotpulse{0%,100%{box-shadow:0 0 0 0 rgba(192,57,43,.55)}50%{box-shadow:0 0 0 5px rgba(192,57,43,0)}}
+  </style>
+  <script>
+  (function(){
+    /* Per-tab health for the previous complete week. Generator resets these each Monday. */
+    const TAB_STATUS={sales:"green",waste:"green",mix:"green",f1:"green",sentiment:"green"};
+    document.querySelectorAll(".tab-btn").forEach(b=>{
+      const s=TAB_STATUS[b.dataset.tab]; if(!s) return;
+      const d=document.createElement("span");
+      d.className="stat-dot "+s;
+      d.title=(s==="red"?"Needs attention — last week":"On track — last week");
+      b.appendChild(d);
+    });
+  })();
+  </script>
+
+  <!-- ===== TAB 1: Sales & Hours ===== -->
+  <section class="tab-panel active" id="tab-sales">
+    <div class="actbox">
+      <div><div class="ab-lbl">Last week actual sales · w/c 1 Jun</div><div class="ab-val">£25,540</div></div>
+      <div class="ab-stats">
+        <div><span>vs forecast</span><b class="neg">−1.8%</b><small>fcst £26,000</small></div>
+        <div><span>Estate rank</span><b class="pos">2 / 21</b><small>by sales £</small></div>
+        <div><span>YoY</span><b class="pos">+8.3%</b><small>vs £24.4k last yr</small></div>
+        <div><span>CPH</span><b class="pos">£75.4</b><small>target £65 · met</small></div>
+      </div>
+    </div>
+    <div class="cards">
+      <div class="card"><div class="lbl">Last 13 wks avg sales</div><div class="val">£25,776</div><div class="meta">/ wk · live BigQuery</div></div>
+      <div class="card"><div class="lbl">YoY growth</div><div class="val" style="color:var(--green)">+8.3%</div><div class="meta">w/c 1 Jun vs 2025</div></div>
+      <div class="card"><div class="lbl">CPH — target vs actual</div><div class="val">£65</div><div class="meta">last wk actual <b style="color:var(--green)">£75.4</b> · +£10.4/hr (w/c 1 Jun)</div></div>
+      <div class="card"><div class="lbl">Estate rank (sales)</div><div class="val" style="color:var(--green)">2 / 21</div><div class="meta">behind Rushden Lakes</div></div>
+    </div>
+
+    <div class="section-title">Weekly sales — 13 weeks actual + forward forecast</div>
+    <div class="panel">
+      <div class="chart-box"><canvas id="curve"></canvas></div>
+      <div class="note">An established drive-thru holding a strong, steady <strong>~£25.8k / week</strong> (range £24.4k–£27.3k over the last quarter), up <strong>+8.3% year-on-year</strong>. The forward forecast (dashed) carries the run-rate with a modest school-holiday lift. Solid = live BigQuery actuals; dashed = forecast.</div>
+    </div>
+
+    <div class="focus green"><span class="ar">→</span>Focus this week: ~£25.8k/wk and +8.3% YoY — a strong, steady estate-#2; hold the run-rate into summer.</div>
+    <div class="section-title">Forward forecast — weekly sales &amp; hours</div>
+    <div class="grid2">
+      <div class="panel"><div class="chart-box"><canvas id="fc"></canvas></div></div>
+      <div class="panel">
+        <table id="tbl">
+          <thead><tr><th>Week comm.</th><th>Sales £</th><th>CPH</th><th>Hours</th></tr></thead>
+          <tbody></tbody>
+          <tfoot></tfoot>
+        </table>
+        <div class="mini" style="margin-top:8px">Hours = forecast sales ÷ £65 CPH (flat). Last week the store actually ran £75.4 CPH — ahead of target — so real hours sit below this line.</div>
+      </div>
+    </div>
+    <div class="focus green"><span class="ar">→</span>Focus this week: £25,540 vs £26,000 forecast (−1.8%) — essentially on plan; protect the £65+ CPH.</div>
+    <div class="section-title">🧮 Schedule builder — hourly staffing</div>
+    <div class="panel">
+      <div style="display:flex;gap:18px;align-items:flex-end;flex-wrap:wrap;margin-bottom:12px">
+        <div><div class="mini" style="margin-bottom:4px">Day group</div>
+          <span class="sbseg" id="sbDP"><button type="button" class="on" data-v="MT">Mon–Thu</button><button type="button" data-v="FS">Fri–Sun</button></span></div>
+        <div><div class="mini" style="margin-bottom:4px">CPH target (£ sales / labour hr)</div>
+          <input id="sbCph" type="number" min="1" step="1" value="65"></div>
+        <div><div class="mini" style="margin-bottom:4px">People</div>
+          <span class="sbseg" id="sbMD"><button type="button" class="on" data-v="ceil">Rounded up</button><button type="button" data-v="raw">Exact</button></span></div>
+      </div>
+      <div class="grid2">
+        <div><div class="chart-box" style="height:320px"><canvas id="sbChart"></canvas></div></div>
+        <div><table id="sbTbl"><thead><tr><th>Hour</th><th>Avg sales</th><th>People</th></tr></thead><tbody></tbody><tfoot></tfoot></table></div>
+      </div>
+      <div class="note" id="sbNote" style="margin-top:12px"></div>
+    </div>
+    <style>#sbCph{width:120px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font-size:14px}
+    .sbseg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+    .sbseg button{padding:8px 14px;border:0;background:#fff;cursor:pointer;font:inherit;font-size:13px;color:var(--ink)}
+    .sbseg button.on{background:var(--brown);color:#fff}</style>
+    <script>
+    (function(){
+      const HMT=parse("6:58,7:224,8:313,9:363,10:332,11:308,12:395,13:328,14:256,15:261,16:224,17:167,18:151,19:88,20:28,21:0");
+      const HFS=parse("6:30,7:129,8:295,9:376,10:486,11:514,12:420,13:376,14:325,15:316,16:253,17:151,18:103,19:38,20:16");
+      const CPHD=65, ACT_CPH=75.43, ACT_WK="w/c 1 Jun";
+      let dp="MT", md="ceil";
+      const cph=document.getElementById("sbCph");
+      const gbp=n=>"£"+Math.round(n).toLocaleString("en-GB");
+      function parse(s){const m={};s.split(",").forEach(p=>{const a=p.split(":");m[+a[0]]=+a[1];});return m;}
+      function seg(id,cb){document.querySelectorAll("#"+id+" button").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll("#"+id+" button").forEach(x=>x.classList.remove("on"));b.classList.add("on");cb(b.dataset.v);}));}
+      seg("sbDP",v=>{dp=v;render();}); seg("sbMD",v=>{md=v;render();});
+      cph.addEventListener("input",render);
+      let ch;
+      function render(){
+        const c=Math.max(1,+cph.value||CPHD);
+        const m=dp==="MT"?HMT:HFS;
+        const hrs=Object.keys(m).map(Number).sort((a,b)=>a-b);
+        const sales=hrs.map(h=>m[h]);
+        const ppl=hrs.map(h=>md==="ceil"?Math.ceil(m[h]/c):Math.round(m[h]/c*10)/10);
+        const lab=hrs.map(h=>(h%12||12)+(h<12?'am':'pm'));
+        const dn=dp==="MT"?"Mon–Thu":"Fri–Sun";
+        if(ch)ch.destroy();
+        ch=new Chart(document.getElementById("sbChart"),{data:{labels:lab,datasets:[
+          {type:"bar",label:"Avg sales £",data:sales,backgroundColor:"#b08968",borderRadius:4,yAxisID:"y",order:2},
+          {type:"line",label:"People needed",data:ppl,borderColor:"#5b3a29",backgroundColor:"#5b3a29",stepped:true,pointRadius:3,borderWidth:2.5,yAxisID:"y1",order:1}
+        ]},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},
+          plugins:{legend:{position:"bottom",labels:{boxWidth:14,font:{size:11}}},
+            tooltip:{callbacks:{label:x=>x.dataset.type==="line"?" People needed: "+x.parsed.y:" Avg sales: "+gbp(x.parsed.y)}}},
+          scales:{y:{position:"left",ticks:{callback:v=>"£"+v},grid:{color:"#eee"},title:{display:true,text:"Avg sales £/hr"}},
+            y1:{position:"right",grid:{display:false},title:{display:true,text:"People"},ticks:{stepSize:1},beginAtZero:true},
+            x:{grid:{display:false}}}}});
+        document.querySelector("#sbTbl tbody").innerHTML=hrs.map((h,i)=>`<tr><td>${lab[i]}</td><td>${gbp(sales[i])}</td><td>${ppl[i]}</td></tr>`).join("");
+        const tot=sales.reduce((a,b)=>a+b,0), ph=ppl.reduce((a,b)=>a+b,0);
+        document.querySelector("#sbTbl tfoot").innerHTML=`<tr><td>${dn} day total</td><td>${gbp(tot)}</td><td>${md==="ceil"?ph:ph.toFixed(1)} person-hrs</td></tr>`;
+        document.getElementById("sbNote").innerHTML="Avg sales per trading "+dn+" hour, rolling last 4 weeks, from BigQuery v_sales_details_flat. People needed = avg hourly sales ÷ CPH target (£"+CPHD+"/labour hr baked in; editable above). <b>Last completed week ("+ACT_WK+") actual CPH was £"+ACT_CPH.toFixed(2)+" vs £"+CPHD+" target ("+(ACT_CPH>=CPHD?'+£':'−£')+Math.abs(ACT_CPH-CPHD).toFixed(2)+"/hr).</b> Add a minimum-staff floor / opening-hours clip before using as a rota.";
+      }
+      render();
+    })();
+    </script>
+  </section>
+
+    <div class="focus green"><span class="ar">→</span>Focus this week: £25,540 at £65 needs ~393 hrs — you ran ~339 (£75/hr); efficient, keep service levels up.</div>
+
+  <!-- ===== TAB 2: Wastage ===== -->
+  <section class="tab-panel" id="tab-waste">
+    <div class="cards">
+      <div class="card"><div class="lbl">Wastage (3-wk avg)</div><div class="val" style="color:var(--green)">1.4%</div><div class="meta">1.5 / 1.7 / 1.0 · steady</div></div>
+      <div class="card"><div class="lbl">Latest week</div><div class="val" style="color:var(--green)">1.0%</div><div class="meta">W/C 1 Jun · well under target</div></div>
+      <div class="card"><div class="lbl">vs 3% target</div><div class="val" style="color:var(--green)">−2.0pp</div><div class="meta">best-in-class for a DT</div></div>
+      <div class="card"><div class="lbl">Top 10 items waste</div><div class="val">~£148/wk</div><div class="meta">retail · last 4 wks</div></div>
+    </div>
+
+    <div class="section-title">✅ Wastage — low and well-controlled</div>
+    <div class="grid2">
+      <div class="panel"><div class="chart-box" style="height:300px"><canvas id="waste"></canvas></div></div>
+      <div class="panel"><div class="note green" style="margin-top:0"><strong>Northampton DT runs a tight kitchen.</strong> Wastage has held around <strong>1–1.7%</strong> for the last two months (latest 1.0%), comfortably under the 3% target and among the best in the estate for a high-volume drive-thru. The only lines worth watching are the egg &amp; spinach pot and bacon bap, which over-produce on quieter days.</div></div>
+    </div>
+
+    <div class="focus green"><span class="ar">→</span>Focus this week: wastage low (1.0%) — hold it; trim the egg pot &amp; bacon bap par on quiet days.</div>
+    <div class="section-title">Outlier items — biggest over-production (last 4 weeks)</div>
+    <div class="panel">
+      <table id="items"><thead><tr><th>Product</th><th>Waste £</th><th>Wasted</th><th>Sold</th><th>Waste rate</th><th style="text-align:left">Action</th></tr></thead><tbody></tbody></table>
+      <div class="note">Waste rate = wasted ÷ (wasted + sold). The <strong>3 Egg &amp; Spinach Pot (50%)</strong> wastes as much as it sells, and the <strong>GF Carrot Cake (33%)</strong> and <strong>Green &amp; Grain Salad (27%)</strong> over-produce; the <strong>3 Bacon Bap</strong> is the biggest single £ loss (£81 / 4 wks). Trim those par levels. Top 10 items ≈ £148/wk of waste retail.</div>
+    </div>
+  </section>
+
+    <div class="focus amber"><span class="ar">→</span>Focus this week: cut par on the egg pot, carrot cake &amp; salad — the lines that over-produce.</div>
+
+  <!-- ===== TAB 3: Sales mix & capture ===== -->
+  <section class="tab-panel" id="tab-mix">
+    <div class="section-title">Sales mix &amp; capture vs the estate</div>
+    <div class="grid2">
+      <div class="panel"><div style="font-size:13px;font-weight:700;color:#5b3a29;margin-bottom:8px">Capture % ranked vs the estate (21 stores)</div><table id="peertbl"><thead><tr><th>Category</th><th>NDT</th><th>Rank</th><th>Estate avg</th><th>Best in estate</th></tr></thead><tbody></tbody></table><div class="mini" style="margin-top:8px">Capture = share of transactions including the category (last ~5 wks). Value green = above estate average; rank chip green = top third, red = bottom third.</div></div>
+      <div class="panel">
+        <table id="cattbl"><thead><tr><th>Category</th><th>Current mix</th><th>Holiday tilt</th><th>Capture %</th></tr></thead><tbody></tbody></table>
+        <div class="note" style="margin-top:10px"><strong>Mix holds through the holidays.</strong> In the mature drive-thru/destination stores last summer the split barely moved from term into the school holidays — cold drinks + milkshakes were ~37% of sales in term vs ~35% in holidays (milkshakes flat, cold easing ~2pp as the early-summer heat passed). The cold-drink peak is <strong>weather-led (Jun–Jul), not the school calendar</strong>; total volume rose ~5%. So £ grows across all categories with only a small holiday tilt. <strong>Capture %</strong> = the share of transactions that include the category (attach rate, recent weeks) — a truer read of penetration than £.</div>
+      </div>
+    </div>
+  </section>
+
+    <div class="focus amber"><span class="ar">→</span>Focus this week: bakery attach 13% (18th/21) — push a cake/pastry add-on at the window.</div>
+
+  <!-- ===== TAB 4: Op's Excellence (F1) ===== -->
+  <section class="tab-panel" id="tab-f1">
+    <div class="section-title">🏁 F1 Operational Excellence</div>
+    <div class="note" style="margin-top:8px;background:var(--amberbg);border-color:#ece0c0;color:#7a5b12"><strong>⏳ F1 data refreshes at Monday's 9:30am auto-pull.</strong> This store's Qualifying &amp; Race history lives in the F1 audit sheet, which this build could not reach from the current browser session. Monday's scheduled refresh pulls it in full (queue times, hospitality, championship points, finishing positions) and this tab populates like the other dashboards.</div>
+    <div class="focus amber"><span class="ar">→</span>Focus this week: F1 scores land at Monday's refresh — Area Coach to review queue speed &amp; hospitality then.</div>
+  </section>
+
+  <!-- ===== TAB 5: Sentiment ===== -->
+  <section class="tab-panel" id="tab-sentiment">
+    <div class="section-title">💬 Sentiment — customers &amp; team</div>
+    <div class="note" style="margin-top:8px;background:var(--amberbg);border-color:#ece0c0;color:#7a5b12"><strong>⏳ Sentiment refreshes at Monday's 9:30am auto-pull.</strong> Live Google review scores &amp; 5★ breakdown, RMS "Rate My Shift" team ratings, and the sickness / return-to-work cross-reference all come from Google Maps and Google Sheets, which this build could not reach from the current browser session. Monday's scheduled refresh pulls them in full.</div>
+    <div class="focus amber"><span class="ar">→</span>Focus this week: customer &amp; team sentiment land at Monday's refresh.</div>
+  </section>
+
+  <footer id="foot"></footer>
+</div>
+
+<script>
+/* Auto-register every Chart so hidden-tab charts can be resized on reveal */
+window.CHARTS=window.CHARTS||[];
+(function(){const _C=window.Chart;window.Chart=function(){const c=new _C(...arguments);window.CHARTS.push(c);return c;};window.Chart.prototype=_C.prototype;Object.assign(window.Chart,_C);})();
+</script>
+
+<script>
+/* ---- Sales & hours ---- */
+const ACT=[["2026-03-09",24715],["2026-03-16",25487],["2026-03-23",24958],["2026-03-30",24398],["2026-04-06",25897],["2026-04-13",26437],["2026-04-20",27349],["2026-04-27",26888],["2026-05-04",26859],["2026-05-11",25472],["2026-05-18",24645],["2026-05-25",25540],["2026-06-01",26446]];
+const FC=[["2026-06-08",26000,65,400,""],["2026-06-15",26200,65,403,""],["2026-06-22",26500,65,408,""],["2026-06-29",26800,65,412,"schools in"],["2026-07-06",27200,65,418,"summer hols"],["2026-07-13",27500,65,423,"summer hols"],["2026-07-20",27500,65,423,"summer hols"],["2026-07-27",27000,65,415,"summer hols"]];
+
+const gbp0=n=>"£"+Math.round(n).toLocaleString("en-GB");
+const ddmm=s=>{const[y,m,d]=s.split("-");return d+"/"+m;};
+
+const allRows=ACT.map(r=>[r[0],r[1]]).concat(FC.map(r=>[r[0],r[1]]));
+const nAct=ACT.length;
+new Chart(document.getElementById("curve"),{type:"line",
+data:{labels:allRows.map(r=>ddmm(r[0])),datasets:[
+{label:"Weekly sales — actual + forecast",data:allRows.map(r=>r[1]),borderColor:"#2d6fb3",backgroundColor:"#2d6fb3",tension:.3,pointRadius:2,borderWidth:2.5,segment:{borderDash:ctx=>ctx.p0DataIndex>=nAct-1?[6,4]:undefined}}
+]},
+options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},
+plugins:{legend:{position:"bottom",labels:{boxWidth:14,font:{size:11.5}}},
+tooltip:{callbacks:{label:c=>" "+gbp0(c.parsed.y)+(c.dataIndex>=nAct?" (forecast)":"")}}},
+scales:{y:{ticks:{callback:v=>"£"+(v/1000)+"k"},grid:{color:"#eee"},title:{display:true,text:"Weekly sales"},suggestedMin:20000},
+x:{grid:{display:false},title:{display:true,text:"Week commencing — Northampton Drive-Thru"}}}}});
+
+new Chart(document.getElementById("fc"),{
+data:{labels:FC.map(r=>ddmm(r[0])),datasets:[
+{type:"bar",label:"Sales £",data:FC.map(r=>r[1]),backgroundColor:"#2d6fb3",borderRadius:4,yAxisID:"y",order:2},
+{type:"line",label:"Hours",data:FC.map(r=>r[3]),borderColor:"#c0392b",backgroundColor:"#c0392b",
+tension:.3,pointRadius:2,borderWidth:2,yAxisID:"y1",order:1}
+]},
+options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},
+plugins:{legend:{position:"bottom",labels:{boxWidth:14,font:{size:11.5}}},
+tooltip:{callbacks:{afterBody:items=>{const i=items[0].dataIndex;return "CPH target £"+FC[i][2]+(FC[i][4]?" · "+FC[i][4]:"");}}}},
+scales:{y:{position:"left",ticks:{callback:v=>"£"+(v/1000)+"k"},grid:{color:"#eee"},title:{display:true,text:"Sales"},suggestedMin:20000},
+y1:{position:"right",grid:{display:false},title:{display:true,text:"Hours"},suggestedMin:350,suggestedMax:450},
+x:{grid:{display:false}}}}});
+
+const tb=document.querySelector("#tbl tbody");
+tb.innerHTML=FC.map(r=>`<tr><td>${ddmm(r[0])}${r[4]?' <span class="chip">'+r[4]+'</span>':''}</td>
+<td>${gbp0(r[1])}</td><td>£${r[2].toFixed(1)}</td><td>${r[3]}</td></tr>`).join("");
+const tS=FC.reduce((s,r)=>s+r[1],0), tH=FC.reduce((s,r)=>s+r[3],0);
+document.querySelector("#tbl tfoot").innerHTML=`<tr><td>8-WK TOTAL</td><td>${gbp0(tS)}</td>
+<td>£${(tS/tH).toFixed(1)}</td><td>${tH.toLocaleString("en-GB")}</td></tr>`;
+
+document.getElementById("foot").innerHTML="Generated "+new Date().toLocaleString("en-GB")+
+" · Mature drive-thru: 13-week trailing actuals (live BigQuery) + 8-week forward forecast at a flat £65 CPH (hours = sales ÷ 65). Wastage & mix are live BigQuery; F1 & Sentiment refresh at Monday's auto-pull.";
+</script>
+
+<script>
+/* ---- Wastage ---- */
+(function(){
+const WK=[["13/04",2.2],["20/04",1.2],["27/04",1.1],["04/05",1.6],["11/05",0.6],["18/05",1.5],["25/05",1.7],["01/06",1.0]];
+const ITEMS=[["3 Bacon Bap",81,19,64],["3 Chicken & Chorizo Ciabatta",77,14,89],["3 Egg and Spinach Pot",70,20,20],["Croissant Pastry",60,28,83],["Gluten Free Carrot Cake",58,16,32],["3 Sausage Bap",55,13,76],["Sausage Roll Pastry",53,16,140],["3* Ham & Cheese Croque TA",49,9,116],["3 Egg & Spinach Sandwich",46,11,52],["3 Green & Grain Salad",43,8,22]];
+new Chart(document.getElementById('waste'),{type:'line',data:{labels:WK.map(r=>r[0]),datasets:[
+{label:'Wastage %',data:WK.map(r=>r[1]),borderColor:'#c0392b',backgroundColor:'#c0392b',tension:.3,pointRadius:4,borderWidth:2.5},
+{label:'Target 3%',data:WK.map(()=>3),borderColor:'#1f8a4c',borderDash:[6,4],pointRadius:0,borderWidth:2},
+{label:'Estate avg 2.3%',data:WK.map(()=>2.3),borderColor:'#9aa6b0',borderDash:[3,3],pointRadius:0,borderWidth:1.5}]},
+options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:14,font:{size:11}}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y+'%'}}},scales:{y:{ticks:{callback:v=>v+'%'},grid:{color:'#eee'},suggestedMin:0},x:{grid:{display:false}}}}});
+const rows=ITEMS.map(r=>({n:r[0],w:r[1],wq:r[2],sq:r[3],rt:r[2]/(r[2]+r[3])*100})).sort((a,b)=>b.rt-a.rt);
+document.getElementById('items').querySelector('tbody').innerHTML=rows.map(r=>{
+const c=r.rt>=40?['#fbeae8','#c0392b']:r.rt>=25?['#f7f0dd','#b8860b']:['#e6f4ec','#1f8a4c'];
+const act=r.rt>=40?'Cut par / de-range':r.rt>=25?'Reduce par':'Monitor';
+return '<tr><td>'+r.n+'</td><td>£'+r.w+'</td><td>'+r.wq+'</td><td>'+r.sq+'</td><td><span style="display:inline-block;padding:2px 7px;border-radius:6px;font-weight:700;background:'+c[0]+';color:'+c[1]+'">'+r.rt.toFixed(0)+'%</span></td><td style="text-align:left">'+act+'</td></tr>';}).join('');
+})();
+</script>
+
+<script>
+/* ---- Sales mix & capture ---- */
+(function(){
+const ROWS=[["Hot drinks",38.1,0.4,55.2],["Cold drinks",23.0,2.0,29.3],["Milkshakes",14.5,0.3,16.4],["Food",13.7,-0.3,16.5],["Bakery",6.3,-0.4,13.0],["Other & retail",4.3,-0.2,19.6]];
+const PEER=[["Hot drinks",55.2,17,21,61.3,"Wellingborough 71.9%"],["Cold drinks",29.3,5,21,23.5,"top quartile"],["Milkshakes",16.4,6,21,13.0,"Rushden 25.1%"],["Food",16.5,5,21,14.0,"Fletton 23.9%"],["Bakery",13.0,18,21,17.4,"best 25.3%"]];
+document.querySelector("#peertbl tbody").innerHTML=PEER.map(r=>{const top=r[2]<=r[3]/3,bot=r[2]>r[3]*2/3;const rc=top?["#e6f4ec","#1f8a4c"]:bot?["#fbeae8","#c0392b"]:["#f7f0dd","#b8860b"];const vc=r[1]>=r[4]?"#1f8a4c":"#c0392b";
+return "<tr><td>"+r[0]+"</td><td style=\"font-weight:700;color:"+vc+"\">"+r[1].toFixed(1)+"%</td><td><span style=\"display:inline-block;padding:2px 7px;border-radius:6px;font-weight:700;font-size:12px;background:"+rc[0]+";color:"+rc[1]+"\">"+r[2]+"/"+r[3]+"</span></td><td>"+r[4].toFixed(1)+"%</td><td style=\"text-align:left;font-size:11.5px;color:#8a7a6d\">"+r[5]+"</td></tr>";}).join("");
+const DESC={"Hot drinks":"lattes, cappuccinos, americanos, flat whites, hot choc, tea","Cold drinks":"iced lattes, frozen lemonade, iced matcha, frappés, cold brew","Milkshakes":"Oreo, Biscoff, vanilla, chocolate, strawberry shakes","Food":"croques, ciabattas, baps, wraps, salads, meal deals","Bakery":"traybakes, croissants, brownies, cookies, cakes","Other & retail":"bottled & soft drinks, beans, sundries"};
+document.querySelector("#cattbl tbody").innerHTML=ROWS.map(r=>{const s=r[2]>0?"#1f8a4c":r[2]<0?"#c0392b":"#8a7a6d";
+return "<tr><td>"+r[0]+"<br><span style=\"font-size:10.5px;color:#9a8a7c;font-weight:400\">"+(DESC[r[0]]||"")+"</span></td><td>"+r[1].toFixed(1)+"%</td><td style=\"color:"+s+"\">"+(r[2]>0?"+":"")+r[2].toFixed(1)+"pp</td><td>"+r[3].toFixed(1)+"%</td></tr>";}).join("");
+})();
+</script>
+
+
+
+
+
+<script>
+/* ---- Tab switching (pure show/hide) + chart resize on reveal ---- */
+(function(){
+  const btns=document.querySelectorAll(".tab-btn");
+  const panels=document.querySelectorAll(".tab-panel");
+  btns.forEach(b=>b.addEventListener("click",()=>{
+    btns.forEach(x=>x.classList.remove("active"));
+    panels.forEach(p=>p.classList.remove("active"));
+    b.classList.add("active");
+    document.getElementById("tab-"+b.dataset.tab).classList.add("active");
+    requestAnimationFrame(()=>{(window.CHARTS||[]).forEach(c=>{try{c.resize();}catch(e){}});});
+  }));
+})();
+</script>
+</body>
+</html>
