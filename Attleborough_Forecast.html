@@ -117,6 +117,7 @@
     <button class="tab-btn" data-tab="waste" role="tab"><span class="dot">♻️</span>Wastage</button>
     <button class="tab-btn" data-tab="mix" role="tab"><span class="dot">🧺</span>Sales mix &amp; capture</button>
     <button class="tab-btn" data-tab="f1" role="tab"><span class="dot">🏁</span>Op's Excellence</button>
+    <button class="tab-btn" data-tab="sentiment" role="tab"><span class="dot">💬</span>Sentiment</button>
   </nav>
 
   <!-- ===== TAB 1: Sales & Hours ===== -->
@@ -228,6 +229,58 @@
     </div>
 
     <footer style="margin-top:18px">F1 data: live <a class="srclink" href="https://docs.google.com/spreadsheets/d/1YFqpR9_ftlQEbfwc5ZVMjtS5tFO0j-7ccwB8rwG56wQ/edit?gid=522976149#gid=522976149" target="_blank" rel="noopener">Bewiched F1 audit sheet ↗</a> · Qualifying (to W/C 1 Jun) &amp; The Race (to W/C 7 Jun) tabs · audit window 30 Apr → 7 Jun 2026 · Area Coach (Constructor): Ian. Scores are unannounced auditor visits; every audited Attleborough row is shown.</footer>
+  </section>
+
+  <!-- ===== TAB 5: Sentiment ===== -->
+  <section class="tab-panel" id="tab-sentiment">
+    <style>
+      .sent-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+      .scorebig{font-size:36px;font-weight:800;letter-spacing:-1px;line-height:1}
+      .scoresub{font-size:12.5px;color:var(--muted);margin-top:4px}
+      .quote{border-left:3px solid #e7ddd2;padding:5px 0 5px 12px;margin:11px 0;font-size:12.5px;color:#5b4a3e;line-height:1.5}
+      .quote .who{display:block;font-size:11px;color:var(--muted);margin-top:5px;font-weight:600}
+      .stars{color:#e0a32e;letter-spacing:1px}
+      @media(max-width:860px){.sent-grid{grid-template-columns:1fr}}
+    </style>
+    <div class="section-title">💬 Sentiment — customers &amp; team</div>
+    <div class="cards">
+      <div class="card"><div class="lbl">Customer (Google)</div><div class="val" style="color:var(--green)">5.0★</div><div class="meta">15 reviews · live</div></div>
+      <div class="card"><div class="lbl">Team (RMS · /5)</div><div class="val" style="color:var(--green)">4.7</div><div class="meta">28 shift ratings</div></div>
+      <div class="card"><div class="lbl">5★ customer reviews</div><div class="val">15 / 15</div><div class="meta">100% five-star</div></div>
+      <div class="card"><div class="lbl">Team trend — June</div><div class="val" style="color:var(--amber)">3.8 ▼</div><div class="meta">softened from 4.9 (Apr) · 4 ratings</div></div>
+    </div>
+
+    <div class="sent-grid" style="margin-top:16px">
+      <div class="panel">
+        <div style="display:flex;align-items:baseline;gap:10px">
+          <div class="scorebig" style="color:var(--green)">5.0<span style="font-size:20px">★</span></div>
+          <div class="scoresub">Google · 15 reviews · every one 5★</div>
+        </div>
+        <div class="chart-box" style="height:170px;margin-top:8px"><canvas id="custDist"></canvas></div>
+        <div style="margin-top:8px">
+          <div class="quote">Just found this place, well worth the stop for a large flat white… there was actually coffee in there, unlike other establishments.<span class="who">Terry Smith · 5 days ago · <span class="stars">★★★★★</span></span></div>
+          <div class="quote">Oh what an amazing lunch break! I was served by Mot and James and I was being picky with my decaf, coconut-caramel-milk iced coffee — lol — but they were so lovely.<span class="who">Leanne Friel · 6 days ago · <span class="stars">★★★★★</span></span></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div style="display:flex;align-items:baseline;gap:10px">
+          <div class="scorebig" style="color:var(--green)">4.7<span style="font-size:20px">/5</span></div>
+          <div class="scoresub">RMS “Rate My Shift” · 28 ratings · 21 of 28 were 5★</div>
+        </div>
+        <div class="chart-box" style="height:170px;margin-top:8px"><canvas id="teamTrend"></canvas></div>
+        <div style="margin-top:8px">
+          <div class="quote">YIPPEE<span class="who">6 Jun · <span class="stars">★★★★★</span></span></div>
+          <div class="quote">we ate BIGTIME<span class="who">31 May · <span class="stars">★★★★★</span></span></div>
+          <div class="quote">Quiet, supported, enjoyable.<span class="who">4 Jun · <span class="stars">★★★</span></span></div>
+          <div class="quote">Dome lids bad<span class="who">2 Jun · <span class="stars">★★★</span></span></div>
+        </div>
+        <div class="note" style="margin-top:6px">Team morale is strong (4.7 avg). June reads softer at <strong>3.8</strong>, but on only <strong>4</strong> ratings — “quiet” shifts and a “dome lids” equipment niggle. Worth a quick check-in, not a worry yet.</div>
+      </div>
+    </div>
+
+    <div class="note" style="margin-top:14px"><strong>Two lenses on how it feels.</strong> Customer = the live Google rating &amp; newest reviews (a snapshot, refreshed weekly). Team = RMS “Rate My Shift”, where the crew score each shift 1–5 with a one-line comment. Google doesn’t publish a rating-over-time series, so the customer view shows the current score + star breakdown; the team chart is the monthly average from RMS.</div>
+
+    <footer style="margin-top:18px">Customer: live Google reviews (Bewiched Coffee Attleborough) · pulled Jun 2026. Team: <a class="srclink" href="https://docs.google.com/spreadsheets/d/1YFqpR9_ftlQEbfwc5ZVMjtS5tFO0j-7ccwB8rwG56wQ/edit" target="_blank" rel="noopener">RMS Shift Ratings ↗</a>.</footer>
   </section>
 
   <footer id="foot"></footer>
@@ -379,6 +432,23 @@ return "<tr><td>"+r[0]+"<br><span style=\"font-size:10.5px;color:#9a8a7c;font-we
         tooltip:{callbacks:{label:c=>" "+c.parsed.x+"s · hospitality "+COMP[c.dataIndex][2]+"%"}}},
       scales:{x:{ticks:{callback:v=>v+"s"},grid:{color:"#eee"},title:{display:true,text:"Queue average — lower is better"}},
         y:{grid:{display:false}}}}});
+})();
+</script>
+
+<script>
+/* ---- Sentiment tab ---- */
+(function(){
+  window.CHARTS=window.CHARTS||[];
+  const cust=[15,0,0,0,0]; // 5,4,3,2,1
+  window.CHARTS.push(new Chart(document.getElementById("custDist"),{type:"bar",
+    data:{labels:["5★","4★","3★","2★","1★"],datasets:[{data:cust,backgroundColor:["#1f8a4c","#7bbf86","#e0a32e","#e08a3e","#c0392b"],borderRadius:4}]},
+    options:{indexAxis:"y",responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>" "+c.parsed.x+" reviews"}}},
+      scales:{x:{grid:{color:"#eee"},ticks:{precision:0},title:{display:true,text:"reviews"}},y:{grid:{display:false}}}}}));
+  const tT=[["Apr",4.88],["May",4.81],["Jun",3.75]];
+  window.CHARTS.push(new Chart(document.getElementById("teamTrend"),{type:"line",
+    data:{labels:tT.map(r=>r[0]),datasets:[{label:"Avg shift rating",data:tT.map(r=>r[1]),borderColor:"#1f8a4c",backgroundColor:"#1f8a4c",tension:.3,pointRadius:4,borderWidth:2.5}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>" "+c.parsed.y+" / 5"}}},
+      scales:{y:{min:1,max:5,grid:{color:"#eee"},title:{display:true,text:"avg / 5"}},x:{grid:{display:false}}}}}));
 })();
 </script>
 
