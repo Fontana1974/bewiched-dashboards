@@ -50,6 +50,25 @@
   .card .val{font-size:25px;font-weight:700;margin-top:6px;letter-spacing:-.5px;}
   .card .meta{font-size:12.5px;color:var(--muted);margin-top:3px;}
   .section-title{font-size:15px;font-weight:700;margin:26px 0 12px;color:var(--brown);}
+  .focus{margin:12px 0 6px;padding:10px 14px;border-radius:10px;font-size:13px;font-weight:600;background:var(--greenbg);border:1px solid #cfe6d8;color:#1c6b3d;}
+  .focus.red{background:var(--redbg);border-color:#eccfca;color:#8c2f22;}
+  .focus.amber{background:var(--amberbg);border-color:#ece0c0;color:#7a5b12;}
+  .focus .ar{font-weight:800;margin-right:5px;}
+  .focusmod{margin:16px 0 4px;padding:14px 18px;border-radius:14px;background:linear-gradient(180deg,#fff,#fbf7f2);border:1px solid var(--line);box-shadow:0 1px 2px rgba(80,50,30,.05);}
+  .focusmod.red{border-color:#eccfca;background:linear-gradient(180deg,#fff,#fbeae8);}
+  .focusmod h2{margin:0 0 8px;font-size:14px;color:var(--brown);display:flex;align-items:center;gap:7px;}
+  .focusmod ul{margin:0;padding-left:18px;}
+  .focusmod li{font-size:13px;margin:4px 0;color:var(--ink);line-height:1.45;}
+  .actbox{display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between;margin-top:16px;padding:16px 20px;border-radius:14px;border:1px solid var(--line);background:var(--card);}
+  .actbox.red{border:1.5px solid var(--red);background:var(--redbg);}
+  .actbox .ab-lbl{font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.4px;}
+  .actbox .ab-val{font-size:30px;font-weight:800;letter-spacing:-1px;color:var(--ink);margin-top:2px;}
+  .actbox .ab-stats{display:flex;gap:26px;flex-wrap:wrap;}
+  .actbox .ab-stats>div{display:flex;flex-direction:column;}
+  .actbox .ab-stats span{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.3px;}
+  .actbox .ab-stats b{font-size:18px;font-weight:800;}
+  .actbox .ab-stats small{font-size:11px;color:var(--muted);}
+  .neg{color:var(--red)} .pos{color:var(--green)} .mut{color:var(--muted)}
   .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:0 1px 2px rgba(80,50,30,.04);}
   .chart-box{height:380px;position:relative}
   .note{background:#fff8ec;border:1px solid #f0e0bf;color:#7a5e1e;border-radius:10px;padding:10px 14px;font-size:12.5px;margin:14px 0 0;line-height:1.55;}
@@ -111,6 +130,16 @@
     </div>
   </header>
 
+  <!-- ===== Focus areas (above tabs) ===== -->
+  <div class="focusmod red">
+    <h2>🎯 Focus areas — week of 9 Jun</h2>
+    <ul>
+      <li><b>Labour:</b> £36.70 CPH vs £49 target (−£12.3) — the biggest efficiency gap of the new sites; cut hours hard to sales.</li>
+      <li><b>Sales:</b> £6,349 vs £6,850 forecast (−7%) — base is solid (~£6.1k); protect it through summer.</li>
+      <li><b>Wins to bank:</b> P2 race podium two weekends running &amp; 5.0★ customers — hold standards while fixing labour.</li>
+    </ul>
+  </div>
+
   <!-- ===== Tab nav ===== -->
   <nav class="tabs" role="tablist">
     <button class="tab-btn active" data-tab="sales" role="tab"><span class="dot">📈</span>Sales &amp; Hours</button>
@@ -143,6 +172,14 @@
 
   <!-- ===== TAB 1: Sales & Hours ===== -->
   <section class="tab-panel active" id="tab-sales">
+    <div class="actbox red">
+      <div><div class="ab-lbl">Last week actual sales · w/c 1 Jun</div><div class="ab-val">£6,349</div></div>
+      <div class="ab-stats">
+        <div><span>vs forecast</span><b class="neg">−7.3%</b><small>fcst £6,850</small></div>
+        <div><span>YoY</span><b class="mut">n/a</b><small>new site — no prior yr</small></div>
+        <div><span>CPH</span><b class="neg">£36.70</b><small>target £49 · missed</small></div>
+      </div>
+    </div>
     <div class="cards">
       <div class="card"><div class="lbl">13-wk sales forecast</div><div class="val">£82,350</div><div class="meta">avg £6,334 / wk · +4.9%</div></div>
       <div class="card"><div class="lbl">13-wk labour hours</div><div class="val">1,685</div><div class="meta">@ £49 CPH · avg 129 / wk</div></div>
@@ -161,6 +198,7 @@
       <div class="note">Same launch-spike-then-settle shape as Balsall/Olney, but Attleborough has settled <strong>higher (~£6.1k)</strong> — a strong site. Forecast applies Balsall's settle-then-rebuild curve + summer lift: <strong>£6,100 → £6,400/wk (+4.9%)</strong>. Dashed = forecast.</div>
     </div>
 
+    <div class="focus green"><span class="ar">→</span>Focus this week: settled high at ~£6.1k — above the Balsall mirror and the Olney peer; protect the base.</div>
     <div class="section-title">Sales &amp; hours forecast</div>
     <div class="grid2">
       <div class="panel"><div class="chart-box"><canvas id="fc"></canvas></div></div>
@@ -169,6 +207,7 @@
         <div class="mini" style="margin-top:8px">Hours = sales ÷ £49 (flat CPH). No efficiency ramp assumed.</div>
       </div>
     </div>
+    <div class="focus amber"><span class="ar">→</span>Focus this week: £6,349 vs £6,850 forecast (−7%) — small gap; hold the high base into summer.</div>
     <div class="section-title">🧮 Schedule builder — hourly staffing</div>
     <div class="panel">
       <div style="display:flex;gap:18px;align-items:flex-end;flex-wrap:wrap;margin-bottom:12px">
@@ -230,6 +269,8 @@
     </script>
   </section>
 
+    <div class="focus red"><span class="ar">→</span>Focus this week: at £49 CPH, £6,349 needs ~130 hrs — you ran ~173; trim ~43 hrs to hit target.</div>
+
   <!-- ===== TAB 2: Wastage ===== -->
   <section class="tab-panel" id="tab-waste">
     <div class="cards">
@@ -247,12 +288,15 @@
       </div>
     </div>
 
+    <div class="focus red"><span class="ar">→</span>Focus this week: wastage is trending the wrong way — rein in over-ordering before it eats GP.</div>
     <div class="section-title">Outlier items — biggest over-production (last 4 weeks)</div>
     <div class="panel">
       <table id="items"><thead><tr><th>Product</th><th>Waste £</th><th>Wasted</th><th>Sold</th><th>Waste rate</th><th style="text-align:left">Action</th></tr></thead><tbody></tbody></table>
       <div class="note">Waste rate = wasted ÷ (wasted + sold). Items over ~40% are being made far ahead of demand — <strong>3 Egg &amp; Spinach Sandwich (60%)</strong>, <strong>Croissant Pastry (54%)</strong> and <strong>3 Falafel Wrap (54%)</strong> waste more than they sell: cut par levels hard or de-range. Top 15 items ≈ £249/wk of waste retail.</div>
     </div>
   </section>
+
+    <div class="focus amber"><span class="ar">→</span>Focus this week: trim par levels on the worst over-produced lines — the top 10 are the quick win.</div>
 
   <!-- ===== TAB 3: Sales mix & capture ===== -->
   <section class="tab-panel" id="tab-mix">
@@ -266,6 +310,8 @@
     </div>
   </section>
 
+    <div class="focus amber"><span class="ar">→</span>Focus this week: lift food &amp; extras attach at the till to grow the mix.</div>
+
   <!-- ===== TAB 4: Op's Excellence (F1) ===== -->
   <section class="tab-panel" id="tab-f1">
     <div class="section-title">🏁 F1 Operational Excellence — Qualifying &amp; Race</div>
@@ -278,6 +324,7 @@
 
     <div class="note green" style="margin-top:16px"><strong>How F1 works.</strong> Every store is audited unannounced through the week. <strong>Qualifying (Mon–Thu)</strong> is a lighter check — queue speed plus hospitality (Hello, Goodbye, How-Are-You, Working the Queue) — and sets the grid for the weekend. <strong>Race (Fri–Sun)</strong> is the full audit (adds tables to brand, cleared within 3 mins, section/break-cover plan, visible team, dishwasher area) with the start handicapped by the Qualifying result. <em>Lower</em> queue/lap seconds and <em>higher</em> championship points are better.</div>
 
+    <div class="focus green"><span class="ar">→</span>Focus this week: P2 podium two weekends running — bank it; fix the Mon door welcome (Hello 0% on 1 Jun).</div>
     <div class="section-title">Race results — Fri–Sun full audit · the standout</div>
     <div class="grid2">
       <div class="panel"><div class="chart-box" style="height:300px"><canvas id="race"></canvas></div></div>
@@ -290,6 +337,7 @@
       </div>
     </div>
 
+    <div class="focus green"><span class="ar">→</span>Focus this week: race form is the standout — keep the weekend routine locked in.</div>
     <div class="section-title">Qualifying trend — the gap is Hello at the door</div>
     <div class="grid2">
       <div class="panel"><div class="chart-box" style="height:320px"><canvas id="quali"></canvas></div></div>
@@ -302,12 +350,14 @@
       </div>
     </div>
 
+    <div class="focus amber"><span class="ar">→</span>Focus this week: the gap is Hello at the door — drill the welcome to lift qualifying.</div>
     <div class="section-title">vs the chains — queue average (lower is better)</div>
     <div class="panel">
       <div class="chart-box" style="height:280px"><canvas id="comp"></canvas></div>
       <div class="note" style="margin-top:12px"><strong>Attleborough out-runs the chains most weeks.</strong> Its 6-week average queue (~191s) already beats Nero (254s) and Costa (345s), and on its best week (147s) it's well clear — while the chains score <strong>0%</strong> on Hello/Goodbye/How-Are-You. The hospitality moat is real; the one crack to seal is the Hello miss noted above.</div>
     </div>
 
+    <div class="focus amber"><span class="ar">→</span>Focus this week: queue ~185s is competitive — push toward a sub-160s average.</div>
     <footer style="margin-top:18px">F1 data: live <a class="srclink" href="https://docs.google.com/spreadsheets/d/1YFqpR9_ftlQEbfwc5ZVMjtS5tFO0j-7ccwB8rwG56wQ/edit?gid=522976149#gid=522976149" target="_blank" rel="noopener">Bewiched F1 audit sheet ↗</a> · Qualifying (to W/C 1 Jun) &amp; The Race (to W/C 7 Jun) tabs · audit window 30 Apr → 7 Jun 2026 · Area Coach (Constructor): Ian. Scores are unannounced auditor visits; every audited Attleborough row is shown.</footer>
   </section>
 
@@ -360,6 +410,7 @@
 
     <div class="note" style="margin-top:14px"><strong>Two lenses on how it feels.</strong> Customer = the live Google rating &amp; newest reviews (a snapshot, refreshed weekly). Team = RMS “Rate My Shift”, where the crew score each shift 1–5 with a one-line comment. Google doesn’t publish a rating-over-time series, so the customer view shows the current score + star breakdown; the team chart is the monthly average from RMS.</div>
 
+    <div class="focus green"><span class="ar">→</span>Focus this week: 5.0★ customers &amp; 4.7 team — June eased to 3.8 on 4 ratings; quick check-in, keep RMS flowing.</div>
     <div class="section-title" style="margin-top:26px">🩺 Sickness &amp; return-to-work</div>
     <div class="cards">
       <div class="card"><div class="lbl">Sick absences</div><div class="val">1</div><div class="meta">Apr–Jun 2026</div></div>
@@ -392,6 +443,7 @@
     })();
     </script>
 
+    <div class="focus green"><span class="ar">→</span>Focus this week: RTW 1/1 logged — keep the clean record and lift report-correctly (2/3).</div>
     <footer style="margin-top:18px">Customer: live Google reviews (Bewiched Coffee Attleborough) · pulled Jun 2026. Team: <a class="srclink" href="https://docs.google.com/spreadsheets/d/1YFqpR9_ftlQEbfwc5ZVMjtS5tFO0j-7ccwB8rwG56wQ/edit" target="_blank" rel="noopener">RMS Shift Ratings ↗</a> · Sickness &amp; RTW cross-referenced from the HRP sheet (‘Sickness / late’ → ‘RTW’).</footer>
   </section>
 
@@ -427,7 +479,7 @@ const ddmm=s=>{const[y,m,d]=s.split("-");return d+"/"+m;};
 const attLine=ATT_ACT.concat(FC.map(r=>r[1])); // 6 + 13 = 19
 const nW=Math.max(BALS.length,attLine.length,OLN.length);
 new Chart(document.getElementById("curve"),{type:"line",
-data:{labels:Array.from({length:nW},(_,i)=>"Wk "+(i+1)),datasets:[
+data:{labels:(function(){const _b=FC[0][0].split("-").map(Number),bs=new Date(_b[0],_b[1]-1,_b[2]),na=ATT_ACT.length;return Array.from({length:nW},(_,i)=>{const d=new Date(bs);d.setDate(d.getDate()+(i-na)*7);return ("0"+d.getDate()).slice(-2)+"/"+("0"+(d.getMonth()+1)).slice(-2);});})(),datasets:[
 {label:"Attleborough (2026) — actual + forecast",data:attLine,borderColor:"#2d6fb3",backgroundColor:"#2d6fb3",tension:.3,pointRadius:3,borderWidth:2.5,segment:{borderDash:c=>c.p0DataIndex>=5?[6,4]:undefined}},
 {label:"Balsall Common (2022) — mirror",data:BALS,borderColor:"#c08a2d",backgroundColor:"#c08a2d",tension:.3,pointRadius:0,borderWidth:2},
 {label:"Olney (2026) — peer",data:OLN,borderColor:"#9aa6b0",backgroundColor:"#9aa6b0",tension:.3,pointRadius:0,borderWidth:1.5,borderDash:[3,3]}
@@ -436,7 +488,7 @@ options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",int
 plugins:{legend:{position:"bottom",labels:{boxWidth:14,font:{size:11}}},
 tooltip:{callbacks:{label:c=>` ${c.dataset.label.split(" —")[0]}: ${c.parsed.y?gbp0(c.parsed.y):"—"}`}}},
 scales:{y:{ticks:{callback:v=>"£"+(v/1000)+"k"},grid:{color:"#eee"},title:{display:true,text:"Weekly sales"},suggestedMin:3000},
-x:{grid:{display:false},title:{display:true,text:"Weeks since opening (first full week = Wk 1)"}}}}});
+x:{grid:{display:false},title:{display:true,text:"Week commencing — Attleborough (Balsall/Olney aligned week-for-week)"}}}}});
 
 new Chart(document.getElementById("fc"),{
 data:{labels:FC.map(r=>ddmm(r[0])),datasets:[
