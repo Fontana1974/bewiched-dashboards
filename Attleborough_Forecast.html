@@ -146,7 +146,7 @@
     <div class="cards">
       <div class="card"><div class="lbl">13-wk sales forecast</div><div class="val">£82,350</div><div class="meta">avg £6,334 / wk · +4.9%</div></div>
       <div class="card"><div class="lbl">13-wk labour hours</div><div class="val">1,685</div><div class="meta">@ £49 CPH · avg 129 / wk</div></div>
-      <div class="card"><div class="lbl">CPH target (sales/hr)</div><div class="val">£49</div><div class="meta">flat · hours = sales ÷ 49</div></div>
+      <div class="card"><div class="lbl">CPH — target vs actual</div><div class="val">£49</div><div class="meta">last wk actual <b style="color:var(--red)">£36.70</b> · −£12.3/hr (w/c 1 Jun)</div></div>
       <div class="card"><div class="lbl">Sales growth wk1→13</div><div class="val" style="color:var(--green)">+4.9%</div><div class="meta">settled high (~£6.1k)</div></div>
     </div>
 
@@ -193,7 +193,7 @@
     (function(){
       const HMT=parse("6:0,7:29,8:50,9:81,10:103,11:120,12:126,13:97,14:72,15:63,16:38,17:35,18:18");
       const HFS=parse("7:14,8:59,9:101,10:137,11:140,12:129,13:115,14:87,15:61,16:59,17:30,18:1");
-      const CPHD=49;
+      const CPHD=49, ACT_CPH=36.70, ACT_WK="w/c 1 Jun";
       let dp="MT", md="ceil";
       const cph=document.getElementById("sbCph");
       const gbp=n=>"£"+Math.round(n).toLocaleString("en-GB");
@@ -223,7 +223,7 @@
         document.querySelector("#sbTbl tbody").innerHTML=hrs.map((h,i)=>`<tr><td>${lab[i]}</td><td>${gbp(sales[i])}</td><td>${ppl[i]}</td></tr>`).join("");
         const tot=sales.reduce((a,b)=>a+b,0), ph=ppl.reduce((a,b)=>a+b,0);
         document.querySelector("#sbTbl tfoot").innerHTML=`<tr><td>${dn} day total</td><td>${gbp(tot)}</td><td>${md==="ceil"?ph:ph.toFixed(1)} person-hrs</td></tr>`;
-        document.getElementById("sbNote").innerHTML="Avg sales per trading "+dn+" hour, rolling last 4 weeks, from BigQuery v_sales_details_flat. People needed = avg hourly sales ÷ CPH target (£"+CPHD+"/labour hr baked in; editable above). Add a minimum-staff floor / opening-hours clip before using as a rota.";
+        document.getElementById("sbNote").innerHTML="Avg sales per trading "+dn+" hour, rolling last 4 weeks, from BigQuery v_sales_details_flat. People needed = avg hourly sales ÷ CPH target (£"+CPHD+"/labour hr baked in; editable above). <b>Last completed week ("+ACT_WK+") actual CPH was £"+ACT_CPH.toFixed(2)+" vs £"+CPHD+" target ("+(ACT_CPH>=CPHD?'+£':'−£')+Math.abs(ACT_CPH-CPHD).toFixed(2)+"/hr).</b> Add a minimum-staff floor / opening-hours clip before using as a rota.";
       }
       render();
     })();
