@@ -278,7 +278,41 @@
 
     <div class="note" style="margin-top:14px"><strong>Two lenses on how it feels.</strong> Customer = the live Google rating &amp; newest reviews (a snapshot, refreshed weekly). Team = RMS “Rate My Shift”, where the crew score each shift 1–5 with a one-line comment. Google doesn’t publish a rating-over-time series, so the customer view shows the current score + star breakdown; the team chart is the monthly average from RMS.</div>
 
-    <footer style="margin-top:18px">Customer: live Google reviews (Bewiched Coffee Olney) · pulled Jun 2026. Team: <a class="srclink" href="https://docs.google.com/spreadsheets/d/1YFqpR9_ftlQEbfwc5ZVMjtS5tFO0j-7ccwB8rwG56wQ/edit" target="_blank" rel="noopener">RMS Shift Ratings ↗</a>.</footer>
+    <div class="section-title" style="margin-top:26px">🩺 Sickness &amp; return-to-work</div>
+    <div class="cards">
+      <div class="card"><div class="lbl">Sick absences</div><div class="val">3</div><div class="meta">Apr–May 2026</div></div>
+      <div class="card"><div class="lbl">Lateness</div><div class="val">4</div><div class="meta">tracked separately</div></div>
+      <div class="card"><div class="lbl">Reported correctly</div><div class="val" style="color:var(--amber)">4 / 7</div><div class="meta">called in per policy</div></div>
+      <div class="card"><div class="lbl">RTW completed</div><div class="val" style="color:var(--red)">0 / 3</div><div class="meta">return-to-work logged</div></div>
+    </div>
+    <div class="sent-grid" style="margin-top:16px">
+      <div class="panel">
+        <div style="font-size:13px;font-weight:700;color:#5b3a29;margin-bottom:8px">Sick absences vs RTW completed</div>
+        <div class="chart-box" style="height:150px"><canvas id="absChart"></canvas></div>
+        <div class="note red" style="margin-top:8px">Every sickness absence should be followed by a return-to-work chat, logged in HRP. <strong>None of Olney's 3 have one</strong> — worth Jon picking these up.</div>
+      </div>
+      <div class="panel">
+        <table>
+          <thead><tr><th>Team member</th><th>Sick date</th><th>Reported</th><th>RTW</th></tr></thead>
+          <tbody>
+            <tr><td>Mabel Francis</td><td>10 May</td><td><span class="tag t-red">No</span></td><td><span class="tag t-red">✗</span></td></tr>
+            <tr><td>Joshua Robinson</td><td>15 May</td><td><span class="tag t-ok">Yes</span></td><td><span class="tag t-red">✗</span></td></tr>
+            <tr><td>Joshua Robinson</td><td>25 May</td><td><span class="tag t-ok">Yes</span></td><td><span class="tag t-red">✗</span></td></tr>
+          </tbody>
+        </table>
+        <div class="mini" style="margin-top:8px">Cross-referenced HRP ‘Sickness / late’ → ‘RTW’ by team member &amp; date. Lateness (4 incidents) is tracked separately and doesn’t need an RTW.</div>
+      </div>
+    </div>
+    <script>
+    (function(){window.CHARTS=window.CHARTS||[];
+      window.CHARTS.push(new Chart(document.getElementById("absChart"),{type:"bar",
+        data:{labels:["Sick absences","RTW completed"],datasets:[{data:[3,0],backgroundColor:["#b8860b","#1f8a4c"],borderRadius:4}]},
+        options:{indexAxis:"y",responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>" "+c.parsed.x}}},
+          scales:{x:{grid:{color:"#eee"},ticks:{precision:0,stepSize:1},suggestedMax:4},y:{grid:{display:false}}}}}));
+    })();
+    </script>
+
+    <footer style="margin-top:18px">Customer: live Google reviews (Bewiched Coffee Olney) · pulled Jun 2026. Team: <a class="srclink" href="https://docs.google.com/spreadsheets/d/1YFqpR9_ftlQEbfwc5ZVMjtS5tFO0j-7ccwB8rwG56wQ/edit" target="_blank" rel="noopener">RMS Shift Ratings ↗</a> · Sickness &amp; RTW cross-referenced from the HRP sheet (‘Sickness / late’ → ‘RTW’).</footer>
   </section>
 
   <footer id="foot"></footer>
