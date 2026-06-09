@@ -160,7 +160,7 @@
   <script>
   (function(){
     /* Per-tab health for the previous complete week. Generator resets these each Monday. */
-    const TAB_STATUS={sales:"green",waste:"red",mix:"red",f1:"red",sentiment:"green"};
+    const TAB_STATUS={sales:"red",waste:"red",mix:"red",f1:"red",sentiment:"green"};
     document.querySelectorAll(".tab-btn").forEach(b=>{
       const s=TAB_STATUS[b.dataset.tab]; if(!s) return;
       const d=document.createElement("span");
@@ -177,6 +177,7 @@
       <div><div class="ab-lbl">Last week actual sales · w/c 1 Jun</div><div class="ab-val">£5,764</div></div>
       <div class="ab-stats">
         <div><span>vs forecast</span><b class="neg">−11.3%</b><small>fcst £6,500</small></div>
+        <div><span>Estate rank</span><b class="mut">16 / 21</b><small>by sales £ · small-format</small></div>
         <div><span>YoY</span><b class="mut">n/a</b><small>new site — no prior yr</small></div>
         <div><span>CPH</span><b class="neg">£41.80</b><small>target £49 · missed</small></div>
       </div>
