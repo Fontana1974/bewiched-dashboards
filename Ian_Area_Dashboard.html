@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="robots" content="noindex, nofollow">
+<title>Jon's Area — Bewiched Area Dashboard</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root{--bg:#f4efe9;--card:#fff;--ink:#2b211b;--muted:#8a7a6d;--line:#e7ddd2;--brown:#5b3a29;--cream:#efe6dc;
+    --green:#1f8a4c;--oln:#2d6fb3;--red:#c0392b;--amber:#b8860b;--slate:#9aa6b0;--redbg:#fbeae8;--amberbg:#f7f0dd;--greenbg:#e6f4ec;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+  .brandbar{background:linear-gradient(180deg,#1e3a52 0%,#142838 100%);color:#f6efe7;}
+  .brandbar .inner{max-width:1180px;margin:0 auto;padding:14px 22px;display:flex;align-items:center;gap:13px;}
+  .logo .word{font-size:21px;font-weight:800;line-height:1;} .logo .word span{color:#e7b35a}
+  .logo .eyebrow{font-size:10.5px;letter-spacing:2.4px;text-transform:uppercase;color:#8fa6b8;margin-top:3px;}
+  .brandbar .spacer{flex:1} .brandbar .ctx{font-size:11.5px;color:#8fa6b8;text-align:right;line-height:1.5} .brandbar .ctx b{color:#f6efe7;font-weight:700}
+  .wrap{max-width:1180px;margin:0 auto;padding:24px 22px 60px;}
+  header.page h1{margin:0 0 4px;font-size:23px;} header.page .sub{color:var(--muted);font-size:13.5px;line-height:1.5;}
+  .pill{display:inline-block;background:var(--cream);color:var(--brown);border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:12px;font-weight:600;margin-right:6px;}
+  .tabs{display:flex;gap:6px;flex-wrap:wrap;margin:22px 0 4px;border-bottom:2px solid var(--line);}
+  .tab-btn{appearance:none;border:none;background:transparent;cursor:pointer;font:inherit;font-size:13.5px;font-weight:700;color:var(--muted);padding:11px 16px;border-radius:10px 10px 0 0;border-bottom:3px solid transparent;margin-bottom:-2px;display:flex;align-items:center;gap:7px;}
+  .tab-btn:hover{color:var(--brown);background:#faf6f1;} .tab-btn.active{color:var(--brown);border-bottom-color:var(--brown);background:#fff;}
+  .tab-panel{display:none;animation:fade .25s ease;} .tab-panel.active{display:block;} @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1}}
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:16px;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:0 1px 2px rgba(80,50,30,.04);}
+  .card .lbl{font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.4px;}
+  .card .val{font-size:25px;font-weight:700;margin-top:6px;} .card .meta{font-size:12.5px;color:var(--muted);margin-top:3px;}
+  .chip{display:inline-block;font-size:12px;font-weight:700;padding:1px 7px;border-radius:6px;margin-left:6px;vertical-align:middle}
+  .chip.up{background:var(--greenbg);color:var(--green)} .chip.dn{background:var(--redbg);color:var(--red)}
+  .section-title{font-size:15px;font-weight:700;margin:26px 0 12px;color:var(--brown);}
+  .focus{margin:12px 0 6px;padding:10px 14px;border-radius:10px;font-size:13px;font-weight:600;background:var(--greenbg);border:1px solid #cfe6d8;color:#1c6b3d;}
+  .focus.red{background:var(--redbg);border-color:#eccfca;color:#8c2f22;} .focus.amber{background:var(--amberbg);border-color:#ece0c0;color:#7a5b12;} .focus .ar{font-weight:800;margin-right:5px;}
+  .focusmod{margin:16px 0 4px;padding:14px 18px;border-radius:14px;background:linear-gradient(180deg,#fff,#fbf7f2);border:1px solid var(--line);}
+  .focusmod h2{margin:0 0 8px;font-size:14px;color:var(--brown);} .focusmod ul{margin:0;padding-left:18px;} .focusmod li{font-size:13px;margin:4px 0;line-height:1.45;}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:0 1px 2px rgba(80,50,30,.04);}
+  .chart-box{height:340px;position:relative}
+  .note{background:#fff8ec;border:1px solid #f0e0bf;color:#7a5e1e;border-radius:10px;padding:10px 14px;font-size:12.5px;margin:14px 0 0;line-height:1.55;}
+  .note.red{background:var(--redbg);border-color:#eccfca;color:#8c2f22;} .note.green{background:var(--greenbg);border-color:#cfe6d8;color:#1c6b3d;} .note.blue{background:#eef4fb;border-color:#cfe0f2;color:#1d4e7a;}
+  .grid2{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;align-items:start;} .grid2.even{grid-template-columns:1fr 1fr;}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;} th,td{padding:8px 10px;text-align:right;border-bottom:1px solid var(--line);}
+  th:first-child,td:first-child{text-align:left;} thead th{font-size:11px;text-transform:uppercase;letter-spacing:.3px;color:var(--muted);font-weight:700;}
+  tbody tr:hover{background:#faf6f1;} tfoot td{font-weight:700;border-top:2px solid var(--line);}
+  .mini{font-size:11.5px;color:var(--muted);} .neg{color:var(--red);font-weight:700} .pos{color:var(--green);font-weight:700}
+  .tag{display:inline-block;padding:2px 8px;border-radius:6px;font-weight:700;font-size:12.5px;}
+  .t-red{background:var(--redbg);color:var(--red)} .t-amber{background:var(--amberbg);color:var(--amber)} .t-ok{background:var(--greenbg);color:var(--green)} .t-na{background:#eee;color:#999}
+  .dotc{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;vertical-align:middle}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:11.5px;color:var(--muted);margin-top:10px} .legend span{display:inline-flex;align-items:center;gap:5px} .sw{width:12px;height:12px;border-radius:3px;display:inline-block}
+  .scorecard td,.scorecard th{text-align:center;padding:7px 6px;} .scorecard td:first-child,.scorecard th:first-child{text-align:left;}
+  /* movements */
+  table.mov{border-collapse:separate;border-spacing:3px;} table.mov th{font-size:10.5px;color:var(--muted);font-weight:700;text-align:center;padding:0 0 6px;}
+  table.mov td.ms{text-align:left;font-size:12.5px;font-weight:600;white-space:nowrap;padding-right:8px;border:none}
+  table.mov td.dc{width:46px;height:30px;text-align:center;font-size:11.5px;font-weight:700;border-radius:5px;border:none}
+  table.mov td.cov{border:none;white-space:nowrap;padding-left:12px;min-width:110px}
+  table.mov td.cov .pbar{display:inline-block;width:64px;height:9px;border-radius:5px;background:#efe7dd;overflow:hidden;vertical-align:middle} table.mov td.cov .pbar i{display:block;height:100%;border-radius:5px}
+  table.mov td.cov span{font-size:11.5px;font-weight:700;color:var(--brown);margin-left:7px}
+  .newtag{font-size:9px;background:#eaf1f9;color:#2d6fb3;border-radius:5px;padding:1px 5px;font-weight:700;vertical-align:middle}
+  .capmat td,.capmat th{text-align:center;padding:6px 5px;} .capmat td.ms,.capmat th:first-child{text-align:left;font-weight:600}
+  .spkwrap{display:inline-flex;align-items:flex-end;gap:2px;height:20px} .spk{display:inline-block;width:7px;background:#2d6fb3;border-radius:1px;opacity:.85}
+  select{font:inherit;font-size:13px;padding:6px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink)}
+  footer{color:var(--muted);font-size:12px;margin-top:26px;line-height:1.6}
+  table.gh{border-collapse:separate;border-spacing:3px;} table.gh th{font-size:10.5px;color:var(--muted);font-weight:700;text-align:center;padding:0 0 4px;} table.gh td.ms{text-align:right;font-size:12.5px;font-weight:600;white-space:nowrap;padding-right:6px;border:none;width:1px} table.gh td.gc{width:78px;text-align:center;font-weight:700;font-size:11.5px;border-radius:5px;border:none;padding:7px 4px}
+  .crow{display:grid;grid-template-columns:34px 1fr 92px;gap:12px;align-items:center;padding:10px 12px;border-radius:10px;margin-bottom:8px}
+  .crow .crank{font-weight:800;font-size:16px;color:#5b3a29;text-align:center} .crow .cname{font-weight:700;font-size:14px;color:#3f2d22} .crow .csub{font-size:11px;color:var(--muted);margin-top:3px}
+  .crow .cbar{height:9px;background:#efe7dd;border-radius:5px;overflow:hidden;margin-top:5px} .crow .cbar i{display:block;height:100%;background:#5b3a29;border-radius:5px}
+  .crow .cval{font-weight:800;font-size:20px;color:#5b3a29;text-align:right} .crow .cval small{display:block;font-size:9.5px;color:var(--muted);font-weight:600}
+  .dleader{max-height:430px;overflow-y:auto} .dleader table{font-size:12.5px}
+  @media(max-width:860px){.cards{grid-template-columns:repeat(2,1fr)}.grid2,.grid2.even{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="brandbar"><div class="inner">
+  <div class="logo"><div><div class="word">Be<span>wiched</span></div><div class="eyebrow">Area Performance</div></div></div>
+  <div class="spacer"></div>
+  <div class="ctx">Area: <b>Ian</b> · 3 stores<br>4-week window: <b>11 May → 7 Jun 2026</b> · YoY vs 2025</div>
+</div></div>
+<div class="wrap">
+  <header class="page">
+    <h1>🧭 Ian's Area — Performance Dashboard</h1>
+    <div class="sub"><span class="pill">Glenvale DT · Balsall Common · Attleborough</span>
+    <br>Live BigQuery POS to 9 Jun · availability (polling) · F1 (audit sheet) · visits (rota) · RMS &amp; HRP. Sales gross inc VAT.</div>
+  </header>
+  <div class="focusmod"><h2>🎯 Area focus — week of 9 Jun</h2><ul><li><b>Sales:</b> area ran <b>£29,429</b> last week (+21.1% YoY); 4-week +27.9% YoY. <b>Glenvale DT +34.5%</b> leads.</li><li><b>Op's Excellence:</b> best <b>Attleborough P1</b>; reset <b>Balsall Common P13</b>.</li><li><b>Wastage:</b> area 3.7% retail; worst <b>Attleborough (6.1%)</b>.</li><li><b>Presence &amp; team:</b> Ian averages <b>18%</b> coverage; RTW completion just <b>12%</b> across 25 absences.</li></ul></div>
+  <nav class="tabs" role="tablist">
+    <button class="tab-btn active" data-tab="overview"><span>🚦</span>Area overview</button>
+    <button class="tab-btn" data-tab="sales"><span>📈</span>Sales</button>
+    <button class="tab-btn" data-tab="waste"><span>♻️</span>Wastage &amp; Yield</button>
+    <button class="tab-btn" data-tab="mix"><span>🧺</span>Mix &amp; opportunity</button>
+    <button class="tab-btn" data-tab="f1"><span>🏁</span>Op's Excellence</button>
+    <button class="tab-btn" data-tab="sentiment"><span>💬</span>Sentiment</button>
+  </nav>
+
+  <!-- OVERVIEW -->
+  <section class="tab-panel active" id="tab-overview">
+    <div class="cards">
+      <div class="card"><div class="lbl">Area sales — last week</div><div class="val">£29,429<span class="chip up">+21.1%</span></div><div class="meta">W/C 1 Jun · YoY</div></div>
+      <div class="card"><div class="lbl">Area sales — 4 weeks</div><div class="val">£122,471<span class="chip up">+27.9%</span></div><div class="meta">11 May → 7 Jun · YoY</div></div>
+      <div class="card"><div class="lbl">Area wastage %</div><div class="val">3.7%</div><div class="meta">£4,542 retail · target 3%</div></div>
+      <div class="card"><div class="lbl">Constructor standing</div><div class="val">P1 of 3</div><div class="meta">Ian 86.3 avg pts/store · Rich 72.3 · Jon 66.9</div></div>
+    </div>
+    <div class="section-title">Store scorecard — traffic-lit by KPI</div>
+    <div class="panel">
+      <table class="scorecard">
+        <thead><tr><th>Store</th><th>Last wk £</th><th>vs 4-wk avg</th><th>YoY (LW)</th><th>YoY (4wk)</th><th>ATV</th><th>Wastage %</th><th>Availability</th><th>F1 race</th><th>Ian presence</th></tr></thead>
+        <tbody><tr><td style="font-weight:700"><span class="dotc" style="background:#2d6fb3"></span>Attleborough</td><td style="font-weight:700">£6,038</td><td><span class="tag t-amber">-1.3%</span></td><td><span class="tag t-amber">new*</span></td><td><span class="tag t-amber">new*</span></td><td><span class="tag t-ok">£7.80</span></td><td><span class="tag t-red">6.1%</span></td><td><span class="tag t-amber">91.2%</span></td><td><span class="tag t-ok">P1</span></td><td><span class="tag t-red">20%</span></td></tr><tr><td style="font-weight:700"><span class="dotc" style="background:#c08a2d"></span>Glenvale Drive Thru</td><td style="font-weight:700">£17,342</td><td><span class="tag t-amber">-3.1%</span></td><td><span class="tag t-ok">+31.0%</span></td><td><span class="tag t-ok">+34.5%</span></td><td><span class="tag t-ok">£7.84</span></td><td><span class="tag t-ok">2.8%</span></td><td><span class="tag t-amber">94.9%</span></td><td><span class="tag t-amber">P7</span></td><td><span class="tag t-red">8%</span></td></tr><tr><td style="font-weight:700"><span class="dotc" style="background:#7a4ea8"></span>HOE Balsall Common</td><td style="font-weight:700">£6,049</td><td><span class="tag t-red">-8.5%</span></td><td><span class="tag t-amber">-0.5%</span></td><td><span class="tag t-ok">+12.8%</span></td><td><span class="tag t-amber">£7.62</span></td><td><span class="tag t-amber">4.0%</span></td><td><span class="tag t-amber">91.9%</span></td><td><span class="tag t-amber">P13</span></td><td><span class="tag t-red">27%</span></td></tr></tbody>
+      </table>
+      <div class="legend">
+        <span><span class="sw" style="background:var(--greenbg);border:1px solid #cfe6d8"></span>on track</span>
+        <span><span class="sw" style="background:var(--amberbg);border:1px solid #ece0c0"></span>watch</span>
+        <span><span class="sw" style="background:var(--redbg);border:1px solid #eccfca"></span>act now</span>
+        <span class="mini">YoY green ≥0% · ATV vs area median £7.80 · Wastage vs 3% · Availability ≥95% (polled to 08/06/2026) · F1 race finish ≤6 green, >15 red (field of ~25 incl. competitor audits) </span>
+      </div>
+    </div>
+    <div class="section-title">Ian's visit pattern — % of weeks on site by day (rota)</div>
+    <div class="panel">
+      <div style="overflow-x:auto">
+        <table class="mov">
+          <thead><tr><th></th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th><th style="padding-left:12px">Total coverage</th></tr></thead>
+          <tbody><tr><td class="ms">Balsall Common</td><td class="dc" style="background:rgba(31,138,76,0.12);color:#5b3a29">7</td><td class="dc" style="background:rgba(31,138,76,0.08);color:#5b3a29">2</td><td class="dc" style="background:rgba(31,138,76,0.1);color:#5b3a29">5</td><td class="dc" style="background:rgba(31,138,76,0.09);color:#5b3a29">3</td><td class="dc" style="background:rgba(31,138,76,0.15);color:#5b3a29">10</td><td class="dc" style="background:rgba(31,138,76,0.06);color:#5b3a29"></td><td class="dc" style="background:rgba(31,138,76,0.06);color:#5b3a29"></td><td class="cov"><div class="pbar"><i style="width:27%;background:#c0392b"></i></div><span>27%</span></td></tr><tr><td class="ms">Attleborough <span class="newtag">10 wks</span></td><td class="dc" style="background:rgba(31,138,76,0.23);color:#5b3a29">20</td><td class="dc" style="background:rgba(31,138,76,0.06);color:#5b3a29"></td><td class="dc" style="background:rgba(31,138,76,0.06);color:#5b3a29"></td><td class="dc" style="background:rgba(31,138,76,0.06);color:#5b3a29"></td><td class="dc" style="background:rgba(31,138,76,0.06);color:#5b3a29"></td><td class="dc" style="background:rgba(31,138,76,0.06);color:#5b3a29"></td><td class="dc" style="background:rgba(31,138,76,0.06);color:#5b3a29"></td><td class="cov"><div class="pbar"><i style="width:20%;background:#c0392b"></i></div><span>20%</span></td></tr><tr><td class="ms">Glenvale DT</td><td class="dc" style="background:rgba(31,138,76,0.09);color:#5b3a29">3</td><td class="dc" style="background:rgba(31,138,76,0.06);color:#5b3a29"></td><td class="dc" style="background:rgba(31,138,76,0.08);color:#5b3a29">2</td><td class="dc" style="background:rgba(31,138,76,0.08);color:#5b3a29">2</td><td class="dc" style="background:rgba(31,138,76,0.08);color:#5b3a29">2</td><td class="dc" style="background:rgba(31,138,76,0.06);color:#5b3a29"></td><td class="dc" style="background:rgba(31,138,76,0.06);color:#5b3a29"></td><td class="cov"><div class="pbar"><i style="width:8%;background:#c0392b"></i></div><span>8%</span></td></tr></tbody>
+        </table>
+      </div>
+      <div class="legend">
+        <span><span class="sw" style="background:rgba(31,138,76,.85)"></span>more often</span>
+        <span><span class="sw" style="background:rgba(31,138,76,.18)"></span>occasionally</span>
+        <span class="mini">Each cell = % of that store's logged weeks Jon was on site on that weekday. Total coverage bar = % of weeks he visited the store at all. Source: visit rota.</span>
+      </div>
+      <div class="note">Jon's rhythm is <b>Fri–Sun weighted</b> on the bigger sites (Rushden, Kettering, Corby) and midweek on the high-streets. Rothwell (60%) gets the fewest visits and has drifted to Kel-led cover; Olney is the new site just entering the rota.</div>
+    </div>
+  </section>
+
+  <!-- SALES -->
+  <section class="tab-panel" id="tab-sales">
+    <div class="section-title">Sales last week (W/C 1 Jun) — with transactions &amp; YoY</div>
+    <div class="panel">
+      <table><thead><tr><th>Store</th><th>Sales</th><th>YoY</th><th>Av spend</th><th>YoY</th><th>GC&#39;s</th><th>YoY</th></tr></thead>
+      <tbody><tr><td>Glenvale Drive Thru</td><td style="font-weight:700">£17,342</td><td><span class="tag t-ok">+31.0%</span></td><td>£7.62</td><td><span class="tag t-ok">+10.0%</span></td><td>2,277</td><td><span class="tag t-ok">+19.1%</span></td></tr><tr><td>HOE Balsall Common</td><td style="font-weight:700">£6,049</td><td><span class="tag t-red">-0.5%</span></td><td>£7.24</td><td><span class="tag t-ok">+5.0%</span></td><td>836</td><td><span class="tag t-red">-5.2%</span></td></tr><tr><td>Attleborough</td><td style="font-weight:700">£6,038</td><td><span class="tag t-na">n/a</span></td><td>£7.31</td><td><span class="tag t-na">n/a</span></td><td>826</td><td><span class="tag t-na">n/a</span></td></tr></tbody><tfoot><tr><td>AREA (3 stores)</td><td>£29,429</td><td><span class="tag t-ok">+21.1%</span></td><td>£7.47</td><td><span class="tag t-ok">+8.7%</span></td><td>3,939</td><td><span class="tag t-ok">+11.4%</span></td></tr></tfoot></table>
+      <div class="note green"><b>Reconciled with Looker &mdash; same LFL basis.</b> Last week&#39;s <b>sales &pound; and GC&#39;s match Looker to the pound and the cover</b> (Kettering &pound;9,921 &middot; 1,346 GCs &middot; &pound;7.37 av spend). The <b>YoY %</b> compares last week (W/C <b>Mon 1 Jun 2026</b>) to the weekday-aligned week last year (W/C <b>Mon 2 Jun 2025</b>) &mdash; Looker&#39;s &ldquo;shift the dates by a day to keep same-weekday vs same-weekday&rdquo; method (its filter: 2&ndash;8 Jun 2025). The 2025 baselines match Looker exactly (Kettering &pound;10,205 &middot; Rushden &pound;17,005 &middot; Higham &pound;3,891 &middot; Burton &pound;5,700 &middot; Rothwell &pound;6,044), so these YoY % line up with Looker&#39;s LFL.</div>
+    </div>
+    <div class="section-title" style="margin-top:22px">Sales — 4 weeks to 7 Jun, with YoY</div>
+    <div class="panel">
+      <table><thead><tr><th>Store</th><th>4-wk sales</th><th>YoY</th><th>ATV</th><th>Last wk</th><th>vs 4-wk</th></tr></thead>
+      <tbody><tr><td>Glenvale Drive Thru</td><td>£71,576</td><td class="pos">+34.5%</td><td>£7.84</td><td>£17,342</td><td class="neg">-3.1%</td></tr><tr><td>HOE Balsall Common</td><td>£26,430</td><td class="pos">+12.8%</td><td>£7.62</td><td>£6,049</td><td class="neg">-8.5%</td></tr><tr><td>Attleborough</td><td>£24,465</td><td class="pos">n/a</td><td>£7.80</td><td>£6,038</td><td class="neg">-1.3%</td></tr></tbody>
+      <tfoot><tr><td>AREA</td><td>£122,471</td><td>+27.9%</td><td>—</td><td>£29,429</td><td>—</td></tr></tfoot></table>
+    </div>
+    <div class="section-title" style="margin-top:22px">Daypart sales — YoY growth / decline by store</div>
+    <div class="panel"><div style="overflow-x:auto"><table class="gh">
+      <thead><tr><th></th><th>Morning</th><th>Lunch</th><th>Afternoon</th><th>Evening</th></tr></thead>
+      <tbody><tr><td class="ms">Attleborough</td><td class="gc" style="background:#eee;color:#999">n/a</td><td class="gc" style="background:#eee;color:#999">n/a</td><td class="gc" style="background:#eee;color:#999">n/a</td><td class="gc" style="background:#eee;color:#999">n/a</td></tr><tr><td class="ms">Glenvale DT</td><td class="gc" style="background:#1f8a4c;color:#fff">+55.9%</td><td class="gc" style="background:#1f8a4c;color:#fff">+32.1%</td><td class="gc" style="background:#1f8a4c;color:#fff">+25.4%</td><td class="gc" style="background:#1f8a4c;color:#fff">+9.2%</td></tr><tr><td class="ms">Balsall Common</td><td class="gc" style="background:#1f8a4c;color:#fff">+5.2%</td><td class="gc" style="background:#1f8a4c;color:#fff">+19.4%</td><td class="gc" style="background:#1f8a4c;color:#fff">+11.2%</td><td class="gc" style="background:#1f8a4c;color:#fff">+28.2%</td></tr></tbody></table></div>
+      <div class="note">% change vs the same 4 weeks in 2025 (2026 openings show n/a). Strongest daypart growth is <b>Morning</b>. Use it to target the daypart that's slipping.</div>
+    </div>
+    <div class="section-title" style="margin-top:22px">Day-of-week sales — YoY growth / decline by store</div>
+    <div class="panel"><div style="overflow-x:auto"><table class="gh">
+      <thead><tr><th></th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th></tr></thead>
+      <tbody><tr><td class="ms">Attleborough</td><td class="gc" style="background:#eee;color:#999">n/a</td><td class="gc" style="background:#eee;color:#999">n/a</td><td class="gc" style="background:#eee;color:#999">n/a</td><td class="gc" style="background:#eee;color:#999">n/a</td><td class="gc" style="background:#eee;color:#999">n/a</td><td class="gc" style="background:#eee;color:#999">n/a</td><td class="gc" style="background:#eee;color:#999">n/a</td></tr><tr><td class="ms">Glenvale DT</td><td class="gc" style="background:#1f8a4c;color:#fff">+30.9%</td><td class="gc" style="background:#1f8a4c;color:#fff">+36.8%</td><td class="gc" style="background:#1f8a4c;color:#fff">+42.8%</td><td class="gc" style="background:#1f8a4c;color:#fff">+28.3%</td><td class="gc" style="background:#1f8a4c;color:#fff">+39.5%</td><td class="gc" style="background:#1f8a4c;color:#fff">+38.5%</td><td class="gc" style="background:#1f8a4c;color:#fff">+25.0%</td></tr><tr><td class="ms">Balsall Common</td><td class="gc" style="background:#1f8a4c;color:#fff">+25.6%</td><td class="gc" style="background:#1f8a4c;color:#fff">+22.8%</td><td class="gc" style="background:#1f8a4c;color:#fff">+8.3%</td><td class="gc" style="background:#1f8a4c;color:#fff">+25.9%</td><td class="gc" style="background:#f7d9d4;color:#8c2f22">-4.0%</td><td class="gc" style="background:#1f8a4c;color:#fff">+8.9%</td><td class="gc" style="background:#1f8a4c;color:#fff">+11.6%</td></tr></tbody></table></div>
+      <div class="note">Same YoY basis by weekday — a green column is a day to protect, a red one is where to add a promo or labour.</div>
+    </div>
+    <div class="focus amber"><span class="ar">→</span>Chase the red cells in the growth grids; protect the green days with labour.</div>
+  </section>
+
+  <!-- WASTAGE & YIELD -->
+  <section class="tab-panel" id="tab-waste">
+    <div class="note blue"><b>Yield = Availability % − Waste-rate %</b>, target <b>90%</b>. Below it means either <b>over-producing</b> (high waste) or <b>selling out</b> (low availability — a chance to sell more). Pick a store: &nbsp;<select id="storeSel"></select> <span id="pollNote" class="mini"></span></div>
+    <div class="grid2 even" style="margin-top:8px">
+      <div class="panel">
+        <div style="font-size:13px;font-weight:700;color:var(--red);margin-bottom:8px">🔻 Outlier products — biggest over-production</div>
+        <table id="outTbl"><thead><tr><th>Product</th><th>Waste rate</th><th>Wasted</th><th>Sold</th><th>Waste £</th></tr></thead><tbody></tbody></table>
+        <div class="note red" id="outNote" style="margin-top:10px"></div>
+      </div>
+      <div class="panel">
+        <div style="font-size:13px;font-weight:700;color:var(--green);margin-bottom:8px">🔺 Selling out — make more</div>
+        <table id="moreTbl"><thead><tr><th>Product</th><th>Avail</th><th>Waste rate</th><th>Sold</th><th>Yield</th></tr></thead><tbody></tbody></table>
+        <div class="note green" id="moreNote" style="margin-top:10px"></div>
+      </div>
+    </div>
+    <div class="focus amber"><span class="ar">→</span><span id="focusLine"></span></div>
+  </section>
+
+  <!-- MIX -->
+  <section class="tab-panel" id="tab-mix">
+    <div class="section-title">Sales mix &amp; capture — area view</div>
+    <div class="grid2">
+      <div class="panel"><div style="font-size:13px;font-weight:700;color:#5b3a29;margin-bottom:8px">Area sales mix by category</div><div class="chart-box" style="height:300px"><canvas id="mixChart"></canvas></div></div>
+      <div class="panel">
+        <table><thead><tr><th>Category</th><th>Area mix %</th><th>Avg capture %</th><th>Best</th><th>Weakest</th></tr></thead>
+        <tbody><tr><td>Hot drinks</td><td>38.4%</td><td>55.7%</td><td style="text-align:left;color:#1f8a4c">Balsall Common 59.8%</td><td style="text-align:left;color:#c0392b">Glenvale DT 52.3%</td></tr><tr><td>Cold drinks</td><td>21.3%</td><td>25.8%</td><td style="text-align:left;color:#1f8a4c">Glenvale DT 30.7%</td><td style="text-align:left;color:#c0392b">Balsall Common 18.3%</td></tr><tr><td>Milkshakes</td><td>12.8%</td><td>14.0%</td><td style="text-align:left;color:#1f8a4c">Glenvale DT 15.7%</td><td style="text-align:left;color:#c0392b">Attleborough 11.8%</td></tr><tr><td>Food</td><td>12.3%</td><td>17.5%</td><td style="text-align:left;color:#1f8a4c">Balsall Common 19.4%</td><td style="text-align:left;color:#c0392b">Glenvale DT 15.1%</td></tr><tr><td>Bakery</td><td>10.2%</td><td>22.0%</td><td style="text-align:left;color:#1f8a4c">Attleborough 27.0%</td><td style="text-align:left;color:#c0392b">Glenvale DT 15.9%</td></tr><tr><td>Other & retail</td><td>4.9%</td><td>22.8%</td><td style="text-align:left;color:#1f8a4c">Glenvale DT 26.3%</td><td style="text-align:left;color:#c0392b">Attleborough 15.9%</td></tr></tbody></table>
+        <div class="note"><b>Capture %</b> = share of transactions including the category (attach rate). Hot drinks anchor the mix; <b>Food capture sits at ~17.5%</b> across the area — the clearest add-on prize.</div>
+      </div>
+    </div>
+    <div class="section-title" style="margin-top:22px">Capture % by store — green = ahead of area average, red = behind</div>
+    <div class="panel">
+      <div style="overflow-x:auto"><table class="capmat"><thead><tr><th>Store</th><th>Hot</th><th>Cold</th><th>Milkshakes</th><th>Food</th><th>Bakery</th><th>Other</th></tr></thead><tbody><tr><td class="ms">Attleborough</td><td><span class="tag t-amber">55.1%</span></td><td><span class="tag t-ok">28.5%</span></td><td><span class="tag t-red">11.8%</span></td><td><span class="tag t-amber">17.9%</span></td><td><span class="tag t-ok">27.0%</span></td><td><span class="tag t-red">15.9%</span></td></tr><tr><td class="ms">Glenvale DT</td><td><span class="tag t-amber">52.3%</span></td><td><span class="tag t-ok">30.7%</span></td><td><span class="tag t-ok">15.7%</span></td><td><span class="tag t-amber">15.1%</span></td><td><span class="tag t-red">15.9%</span></td><td><span class="tag t-ok">26.3%</span></td></tr><tr><td class="ms">Balsall Common</td><td><span class="tag t-ok">59.8%</span></td><td><span class="tag t-red">18.3%</span></td><td><span class="tag t-amber">14.5%</span></td><td><span class="tag t-ok">19.4%</span></td><td><span class="tag t-amber">23.0%</span></td><td><span class="tag t-ok">26.2%</span></td></tr></tbody></table></div>
+      <div class="note">Each cell is the store's attach rate for the category vs the 9-store area average. It surfaces specific add-on coaching: a red Food or Bakery cell is a till-prompt opportunity; a green Milkshake cell is a store worth learning from.</div>
+    </div>
+    <div class="focus amber"><span class="ar">→</span>Food attach is the area-wide prize — prompt a food add-on at the till where the Food column shows red.</div>
+  </section>
+
+  <!-- F1 -->
+  <section class="tab-panel" id="tab-f1">
+    <div class="cards" style="grid-template-columns:repeat(3,1fr)">
+      <div class="card"><div class="lbl">Constructor — avg race finish</div><div class="val">P7</div><div class="meta">across 9 stores · latest race</div></div>
+      <div class="card"><div class="lbl">Avg championship points</div><div class="val">17</div><div class="meta">latest race · higher = better</div></div>
+      <div class="card"><div class="lbl">Top of the grid</div><div class="val" style="color:var(--green)">Attleborough P1</div><div class="meta">Glenvale DT P7 next</div></div>
+    </div>
+    <div class="note green" style="margin-top:16px"><b>How F1 works.</b> Stores are audited unannounced weekly. <b>Qualifying (Mon–Thu)</b> sets the grid on queue speed + hospitality; <b>The Race (Fri–Sun)</b> is the full audit and banks championship points by finishing position. Ian is the <b>constructor</b>; these 3 stores are the drivers. Field of ~25 includes competitor benchmark audits (Costa, Nero, Starbucks, Coffee#1).</div>
+    <div class="section-title">🏆 Constructors’ Championship — <span style="font-weight:400;color:#9a8a7c;font-size:12px">avg points/store · since 25 Apr</span></div>
+    <div class="grid2">
+      <div class="panel">
+        <div style="font-size:13px;font-weight:700;color:#5b3a29;margin-bottom:10px">Constructors’ standings <span class="mini">· area coaches by avg pts/store</span></div>
+        <div class="crow" style="background:#fbf4e9;border:1.5px solid #e7b35a"><div class="crank">1</div><div class="cbody"><div class="cname">Ian <span style="color:#b8860b;font-weight:700;font-size:11px">◄ Ian</span></div><div class="cbar"><i style="width:100%"></i></div><div class="csub">259 pts total · 3 stores</div></div><div class="cval">86.3<small>pts/store</small></div></div><div class="crow" ><div class="crank">2</div><div class="cbody"><div class="cname">Rich</div><div class="cbar"><i style="width:84%"></i></div><div class="csub">651 pts total · 9 stores</div></div><div class="cval">72.3<small>pts/store</small></div></div><div class="crow" ><div class="crank">3</div><div class="cbody"><div class="cname">Jon</div><div class="cbar"><i style="width:78%"></i></div><div class="csub">602 pts total · 9 stores</div></div><div class="cval">66.9<small>pts/store</small></div></div>
+        <div class="note">Ian's 3-store team averages 86.3 pts/store (rank 1 of 3). Every weekend finish lifts the constructor average — the bottom-third stores are where the championship is won.</div>
+      </div>
+      <div class="panel">
+        <div style="font-size:13px;font-weight:700;color:#5b3a29;margin-bottom:8px">Drivers’ leaderboard <span class="mini">· all 21 stores by total pts · Ian’s highlighted</span></div>
+        <div class="dleader"><table><thead><tr><th style="text-align:center">#</th><th>Store (driver)</th><th>Coach</th><th>Pts</th></tr></thead><tbody><tr><td style="text-align:center">1</td><td style="text-align:left;font-weight:400">Leamington Parade</td><td><span class="tag t-amber">Rich</span></td><td style="font-weight:700">119</td></tr><tr><td style="text-align:center">2</td><td style="text-align:left;font-weight:400">Burton</td><td><span class="tag t-ok">Jon</span></td><td style="font-weight:700">109</td></tr><tr style="background:#fbf4e9"><td style="text-align:center">3</td><td style="text-align:left;font-weight:700">Attleborough <span style="color:#b8860b;font-weight:700">◄ Ian</span></td><td><span class="tag t-amber">Ian</span></td><td style="font-weight:700">108</td></tr><tr><td style="text-align:center">4</td><td style="text-align:left;font-weight:400">Northampton Grosvenor</td><td><span class="tag t-amber">Rich</span></td><td style="font-weight:700">102</td></tr><tr><td style="text-align:center">5</td><td style="text-align:left;font-weight:400">Fletton</td><td><span class="tag t-ok">Jon</span></td><td style="font-weight:700">99</td></tr><tr><td style="text-align:center">6</td><td style="text-align:left;font-weight:400">Train Station</td><td><span class="tag t-amber">Rich</span></td><td style="font-weight:700">99</td></tr><tr><td style="text-align:center">7</td><td style="text-align:left;font-weight:400">Market Harborough</td><td><span class="tag t-amber">Rich</span></td><td style="font-weight:700">90</td></tr><tr style="background:#fbf4e9"><td style="text-align:center">8</td><td style="text-align:left;font-weight:700">Glenvale Drive Thru <span style="color:#b8860b;font-weight:700">◄ Ian</span></td><td><span class="tag t-amber">Ian</span></td><td style="font-weight:700">88</td></tr><tr><td style="text-align:center">9</td><td style="text-align:left;font-weight:400">Lakes</td><td><span class="tag t-ok">Jon</span></td><td style="font-weight:700">73</td></tr><tr><td style="text-align:center">10</td><td style="text-align:left;font-weight:400">Market Street</td><td><span class="tag t-amber">Rich</span></td><td style="font-weight:700">70</td></tr><tr><td style="text-align:center">11</td><td style="text-align:left;font-weight:400">Corby</td><td><span class="tag t-ok">Jon</span></td><td style="font-weight:700">70</td></tr><tr><td style="text-align:center">12</td><td style="text-align:left;font-weight:400">Rothwell</td><td><span class="tag t-ok">Jon</span></td><td style="font-weight:700">68</td></tr><tr style="background:#fbf4e9"><td style="text-align:center">13</td><td style="text-align:left;font-weight:700">Balsall Common <span style="color:#b8860b;font-weight:700">◄ Ian</span></td><td><span class="tag t-amber">Ian</span></td><td style="font-weight:700">63</td></tr><tr><td style="text-align:center">14</td><td style="text-align:left;font-weight:400">Peterborough</td><td><span class="tag t-ok">Jon</span></td><td style="font-weight:700">62</td></tr><tr><td style="text-align:center">15</td><td style="text-align:left;font-weight:400">Lower Heathcote, Warwick</td><td><span class="tag t-amber">Rich</span></td><td style="font-weight:700">59</td></tr><tr><td style="text-align:center">16</td><td style="text-align:left;font-weight:400">Kettering</td><td><span class="tag t-ok">Jon</span></td><td style="font-weight:700">56</td></tr><tr><td style="text-align:center">17</td><td style="text-align:left;font-weight:400">Rugby</td><td><span class="tag t-amber">Rich</span></td><td style="font-weight:700">55</td></tr><tr><td style="text-align:center">18</td><td style="text-align:left;font-weight:400">Northampton Drive Thru</td><td><span class="tag t-amber">Rich</span></td><td style="font-weight:700">50</td></tr><tr><td style="text-align:center">19</td><td style="text-align:left;font-weight:400">Higham</td><td><span class="tag t-ok">Jon</span></td><td style="font-weight:700">39</td></tr><tr><td style="text-align:center">20</td><td style="text-align:left;font-weight:400">Olney</td><td><span class="tag t-ok">Jon</span></td><td style="font-weight:700">26</td></tr><tr><td style="text-align:center">21</td><td style="text-align:left;font-weight:400">Billing Drive Thru</td><td><span class="tag t-amber">Rich</span></td><td style="font-weight:700">7</td></tr></tbody></table></div>
+      </div>
+    </div>
+    <div class="section-title" style="margin-top:22px">Latest race finish by store — lower is better</div>
+    <div class="grid2">
+      <div class="panel"><div class="chart-box"><canvas id="f1Chart"></canvas></div></div>
+      <div class="panel">
+        <table><thead><tr><th>Store</th><th>Finish</th><th>Champ pts</th><th>Last 6 races</th></tr></thead><tbody><tr><td>Attleborough</td><td><span class="tag t-ok">P1</span></td><td>25</td><td style="text-align:left"><span class="spkwrap"><span class="spk" style="height:10px" title="P11"></span><span class="spk" style="height:11px" title="P10"></span><span class="spk" style="height:11px" title="P10"></span><span class="spk" style="height:16px" title="P3"></span><span class="spk" style="height:17px" title="P1"></span><span class="spk" style="height:17px" title="P1"></span></span></td></tr><tr><td>Glenvale Drive Thru</td><td><span class="tag t-amber">P7</span></td><td>16</td><td style="text-align:left"><span class="spkwrap"><span class="spk" style="height:12px" title="P8"></span><span class="spk" style="height:14px" title="P6"></span><span class="spk" style="height:10px" title="P11"></span><span class="spk" style="height:12px" title="P9"></span><span class="spk" style="height:12px" title="P9"></span><span class="spk" style="height:13px" title="P7"></span></span></td></tr><tr><td>HOE Balsall Common</td><td><span class="tag t-amber">P13</span></td><td>10</td><td style="text-align:left"><span class="spkwrap"><span class="spk" style="height:14px" title="P6"></span><span class="spk" style="height:10px" title="P11"></span><span class="spk" style="height:12px" title="P9"></span><span class="spk" style="height:6px" title="P18"></span><span class="spk" style="height:6px" title="P18"></span><span class="spk" style="height:9px" title="P13"></span></span></td></tr></tbody></table>
+        <div class="note red">Best of the grid: <b>Attleborough (P1)</b>; needs a reset: <b>Balsall Common (P13)</b>. The sparkline shows recent form — taller = better finish.</div>
+      </div>
+    </div>
+    <div class="focus red"><span class="ar">→</span>Reset the weekend routine at Balsall Common; lift qualifying to fix the handicapped grid start.</div>
+  </section>
+
+  <!-- SENTIMENT -->
+  <section class="tab-panel" id="tab-sentiment">
+    <div class="cards">
+      <div class="card"><div class="lbl">Team — avg RMS rating</div><div class="val">4.38<small style="font-size:14px;color:#9a8a7c">/5</small></div><div class="meta">Rate My Shift · 2026</div></div>
+      <div class="card"><div class="lbl">Sickness incidents (2026)</div><div class="val">25</div><div class="meta">9 of which late · reported correctly 67%</div></div>
+      <div class="card"><div class="lbl">RTW completion</div><div class="val"><span class="tag t-red" style="font-size:22px;padding:2px 10px">12%</span></div><div class="meta">3 return-to-work / 25 absences</div></div>
+      <div class="card"><div class="lbl">Customer — Google rating</div><div class="val">4.87<small style="font-size:14px;color:#9a8a7c">/5</small></div><div class="meta">483 reviews · live GMB</div></div>
+    </div>
+
+    <div class="grid2" style="margin-top:18px">
+      <div class="panel">
+        <div style="font-size:13px;font-weight:700;color:#5b3a29;margin-bottom:8px">Team sentiment — Rate My Shift (out of 5)</div>
+        <table class="mov"><tbody><tr><td class="ms">Balsall Common</td><td style="width:55%"><div class="pbar" style="width:100%"><i style="width:99%;background:#1f8a4c"></i></div></td><td><span class="tag t-ok">4.93</span></td><td class="mini">45 ratings</td></tr><tr><td class="ms">Attleborough</td><td style="width:55%"><div class="pbar" style="width:100%"><i style="width:93%;background:#1f8a4c"></i></div></td><td><span class="tag t-ok">4.67</span></td><td class="mini">30 ratings</td></tr><tr><td class="ms">Glenvale DT</td><td style="width:55%"><div class="pbar" style="width:100%"><i style="width:71%;background:#c0392b"></i></div></td><td><span class="tag t-red">3.54</span></td><td class="mini">70 ratings</td></tr></tbody></table>
+        <div class="note">RMS is the team's own shift rating. Softest at <b>Glenvale DT (3.54)</b> and <b>Attleborough (4.67)</b>; strongest <b>Balsall Common (4.93)</b>.</div>
+      </div>
+      <div class="panel">
+        <div style="font-size:13px;font-weight:700;color:#5b3a29;margin-bottom:8px">Sickness, late &amp; return-to-work — 2026</div>
+        <table><thead><tr><th>Store</th><th>Sick</th><th>Late</th><th>Reported OK</th><th>RTW done</th><th>RTW rate</th></tr></thead><tbody><tr><td>Glenvale Drive Thru</td><td>19</td><td>6</td><td><span class="tag t-red">67%</span></td><td>2</td><td><span class="tag t-red">11%</span></td></tr><tr><td>Attleborough</td><td>3</td><td>2</td><td><span class="tag t-red">67%</span></td><td>1</td><td><span class="tag t-red">33%</span></td></tr><tr><td>HOE Balsall Common</td><td>3</td><td>1</td><td><span class="tag t-red">67%</span></td><td>0</td><td><span class="tag t-red">0%</span></td></tr></tbody></table>
+        <div class="note red"><b>Return-to-work is the gap.</b> Only 3 RTW interviews logged against 25 absences (12%) — policy is an RTW chat after every absence. <b>Glenvale DT (19)</b> carries the most sickness.</div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:18px"><div style="font-size:13px;font-weight:700;color:#5b3a29;margin-bottom:8px">Customer — Google star rating by store <span class="mini">· live from Google My Business (Supermetrics)</span></div><table class="mov"><tbody><tr><td class="ms">Attleborough</td><td style="width:55%"><div class="pbar" style="width:100%"><i style="width:100%;background:#1f8a4c"></i></div></td><td><span class="tag t-ok">5.0★</span></td><td class="mini">15 reviews</td></tr><tr><td class="ms">Glenvale DT</td><td style="width:55%"><div class="pbar" style="width:100%"><i style="width:98%;background:#1f8a4c"></i></div></td><td><span class="tag t-ok">4.9★</span></td><td class="mini">295 reviews</td></tr><tr><td class="ms">Balsall Common</td><td style="width:55%"><div class="pbar" style="width:100%"><i style="width:94%;background:#1f8a4c"></i></div></td><td><span class="tag t-ok">4.7★</span></td><td class="mini">173 reviews</td></tr></tbody></table><div class="note">Live Google rating per store (483 reviews across the area). Strongest <b>Attleborough (5.0★)</b>; lowest <b>Balsall Common (4.7★, 173 reviews)</b> — high-volume sites naturally sit a touch lower.</div></div>
+    <div class="focus red"><span class="ar">→</span>Close the return-to-work gap (currently 12%): log an RTW chat after every absence, starting with Fletton &amp; Rushden.</div>
+  </section>
+
+  <footer id="foot"></footer>
+</div>
+
+<script>
+window.CHARTS=window.CHARTS||[];
+const YJS={"Attleborough": {"latest": "08/06/2026", "items": [["Bacon Bap", 100, 28.8, 47, 80.8], ["Caesar Wrap", 78.6, 25.0, 27, 38.4], ["Cheese & Onion Croque", 100, 20.5, 66, 93.3], ["Chicken & Chorizo Ciabatta", 100, 22.6, 48, 76.9], ["Egg & Spinach Sandwich", 89.3, 60.0, 12, 78.8], ["Ham & Mozzarella Croissant", 92.9, 20.0, 32, 39.4], ["Ham & Cheese Croque", 89.3, 8.0, 104, 49.4], ["Mozzarella & Tomato Ciabatta", 96.4, 21.4, 44, 65.9], ["Sausage Bap", 96.4, 27.8, 52, 85.0], ["Tuna Ciabatta", 96.4, 16.7, 55, 60.4], ["Chicken Caprese Sandwich", 82.1, 37.9, 18, 52.0], ["Falafel Wrap", 85.7, 53.8, 12, 59.9], ["Breakfast Bagel", 85.7, 8.7, 95, 49.0]]}, "Glenvale Drive Thru": {"latest": "08/06/2026", "items": [["Bacon Bap", 100, 40.5, 72, 208.2], ["Caesar Wrap", 96.4, 9.0, 61, 25.9], ["Cheese & Onion Croque", 100, 8.3, 100, 49.4], ["Chicken & Chorizo Ciabatta", 100, 10.9, 98, 65.9], ["Egg & Spinach Sandwich", 100, 8.6, 53, 21.0], ["Ham & Mozzarella Croissant", 100, 11.0, 130, 74.0], ["Ham & Cheese Croque", 100, 15.1, 141, 137.2], ["Mozzarella & Tomato Ciabatta", 100, 28.9, 64, 142.7], ["Sausage Bap", 100, 15.3, 138, 106.2], ["Tuna Ciabatta", 100, 15.3, 100, 98.8], ["Yogurt Granola Pot", 100, 0.0, 8, 0.0], ["Chicken Caprese Sandwich", 100, 12.1, 51, 34.9], ["Egg and Spinach Pot", 100, 65.3, 17, 111.7], ["Falafel Wrap", 100, 30.8, 27, 52.4], ["Green & Grain Salad", 96.4, 25.0, 18, 32.1], ["Greek Style Chicken Salad", 96.4, 35.7, 18, 53.5], ["Breakfast Bagel", 96.4, 17.1, 174, 196.2], ["Kids Cheese Sandwich", 57.1, 40.0, 9, 20.9], ["Kids Ham Sandwich", 60.7, 35.7, 9, 17.5]]}, "HOE Balsall Common": {"latest": "08/06/2026", "items": [["Bacon Bap", 100, 28.0, 54, 89.2], ["Caesar Wrap", 85.7, 15.2, 39, 31.4], ["Cheese & Onion Croque", 100, 12.6, 83, 65.9], ["Chicken & Chorizo Ciabatta", 85.7, 3.1, 31, 5.5], ["Egg & Spinach Sandwich", 82.1, 15.0, 34, 26.9], ["Ham & Mozzarella Croissant", 89.3, 12.1, 29, 20.0], ["Ham & Cheese Croque", 100, 9.2, 99, 54.9], ["Mozzarella & Tomato Ciabatta", 100, 27.8, 26, 54.9], ["Sausage Bap", 100, 18.7, 74, 72.2], ["Tuna Ciabatta", 96.4, 17.4, 38, 43.9], ["Chicken Caprese Sandwich", 92.9, 33.3, 14, 34.9], ["Greek Style Chicken Salad", 78.6, 33.3, 2, 5.3], ["Falafel Wrap", 92.9, 24.1, 22, 31.4], ["Breakfast Bagel", 82.1, 19.1, 38, 49.1]]}, "Area (all 3)": {"latest": "08/06/2026", "items": [["Bacon Bap", 100, 34.0, 173, 378.2], ["Caesar Wrap", 86.9, 14.8, 127, 95.7], ["Cheese & Onion Croque", 100, 13.2, 249, 208.6], ["Chicken & Chorizo Ciabatta", 95.2, 13.2, 177, 148.3], ["Egg & Spinach Sandwich", 90.5, 22.7, 99, 126.7], ["Ham & Mozzarella Croissant", 94.1, 12.8, 191, 133.4], ["Ham & Cheese Croque", 96.4, 11.3, 344, 241.5], ["Mozzarella & Tomato Ciabatta", 98.8, 26.4, 134, 263.5], ["Sausage Bap", 98.8, 19.0, 264, 263.4], ["Tuna Ciabatta", 97.6, 16.1, 193, 203.1], ["Chicken Caprese Sandwich", 91.7, 23.1, 83, 121.8], ["Falafel Wrap", 92.9, 35.1, 61, 143.7], ["Breakfast Bagel", 88.1, 15.0, 307, 294.3], ["Yogurt Granola Pot", 100, 0.0, 8, 0.0], ["Egg and Spinach Pot", 100, 65.3, 17, 111.7], ["Green & Grain Salad", 96.4, 25.0, 18, 32.1], ["Greek Style Chicken Salad", 87.5, 35.5, 20, 58.8], ["Kids Cheese Sandwich", 57.1, 40.0, 9, 20.9], ["Kids Ham Sandwich", 60.7, 35.7, 9, 17.5]]}}, OUT={"Attleborough": [["Sausage Roll Pastry", 25.4, 30, 88, 99.0], ["Cheese & Onion Croque", 20.5, 17, 66, 93.0], ["Sausage Bap", 27.8, 20, 52, 85.0], ["Bacon Bap", 28.8, 19, 47, 81.0], ["Almond Croissant", 49.2, 30, 31, 80.0], ["Egg & Spinach Sandwich", 60.0, 18, 12, 79.0], ["Chicken & Chorizo Ciabatta", 22.6, 14, 48, 77.0], ["Mozzarella & Tomato Ciabatta", 21.4, 12, 44, 66.0]], "Glenvale Drive Thru": [["Bacon Bap", 40.5, 49, 72, 208.0], ["Breakfast Bagel", 17.1, 36, 174, 196.0], ["Mozzarella & Tomato Ciabatta", 28.9, 26, 64, 143.0], ["Ham & Cheese Croque", 15.1, 25, 141, 137.0], ["Egg and Spinach Pot", 65.3, 32, 17, 112.0], ["Sausage Bap", 15.3, 25, 138, 106.0], ["Sausage Roll Pastry", 16.8, 32, 159, 106.0], ["Tuna Ciabatta", 15.3, 18, 100, 99.0]], "HOE Balsall Common": [["Bacon Bap", 28.0, 21, 54, 89.0], ["Sausage Bap", 18.7, 17, 74, 72.0], ["Cheese & Onion Croque", 12.6, 12, 83, 66.0], ["Chocolate Twist Traybake", 37.3, 22, 37, 58.0], ["Ham & Cheese Croque", 9.2, 10, 99, 55.0], ["Mozzarella & Tomato Ciabatta", 27.8, 10, 26, 55.0], ["Breakfast Bagel", 19.1, 9, 38, 49.0], ["Tuna Ciabatta", 17.4, 8, 38, 44.0]], "Area (all 3)": [["Bacon Bap", 34.0, 89, 173, 378], ["Mozzarella & Tomato Ciabatta", 26.4, 48, 134, 264], ["Sausage Bap", 19.0, 62, 264, 263], ["Breakfast Bagel", 17.5, 45, 212, 245], ["Sausage Roll Pastry", 20.1, 62, 247, 205], ["Ham & Cheese Croque", 12.7, 35, 240, 192], ["Cheese & Onion Croque", 16.3, 29, 149, 159], ["Tuna Ciabatta", 15.9, 26, 138, 143]]};
+const gbp0=v=>"£"+Math.round(v).toLocaleString("en-GB");
+
+// Mix bar
+window.CHARTS.push(new Chart(document.getElementById("mixChart"),{type:"bar",
+  data:{labels:["Hot drinks", "Cold drinks", "Milkshakes", "Food", "Bakery", "Other & retail"],datasets:[{label:"Area mix %",data:[38.4, 21.3, 12.8, 12.3, 10.2, 4.9],backgroundColor:["#5b3a29","#2d6fb3","#c0392b","#1f8a4c","#c08a2d","#9aa6b0"],borderRadius:5}]},
+  options:{indexAxis:"y",responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>" "+c.parsed.x+"% of area sales"}}},
+    scales:{x:{ticks:{callback:v=>v+"%"},grid:{color:"#eee"}},y:{grid:{display:false}}}}}));
+
+// F1 finishes (horizontal, lower=better)
+const f1fin=[1, 7, 13], f1lbl=["Attleborough", "Glenvale DT", "Balsall Common"];
+window.CHARTS.push(new Chart(document.getElementById("f1Chart"),{type:"bar",
+  data:{labels:f1lbl,datasets:[{label:"Race finish",data:f1fin,backgroundColor:f1fin.map(v=>v<=6?"#1f8a4c":v<=15?"#b8860b":"#c0392b"),borderRadius:5}]},
+  options:{indexAxis:"y",responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>" Finished P"+c.parsed.x}}},
+    scales:{x:{title:{display:true,text:"finishing position (lower = better)"},grid:{color:"#eee"},suggestedMax:25},y:{grid:{display:false}}}}}));
+
+// Wastage selector
+const TARGET=90;
+function renderWaste(store){
+  const items=YJS[store].items.map(r=>({n:r[0],av:r[1],wr:r[2],sold:r[3],wretail:r[4],y:+(r[1]-r[2]).toFixed(1)}));
+  const soldMed=[...items.map(r=>r.sold)].sort((a,b)=>a-b)[Math.floor(items.length/2)]||0;
+  document.getElementById("pollNote").innerHTML = store.startsWith("Area")?"· 9-store aggregate · availability avg, units summed":"· availability polled to "+YJS[store].latest+" (current)";
+  // outliers
+  const out=OUT[store].map(r=>({n:r[0],wr:r[1],wasted:r[2],sold:r[3],wretail:r[4]}));
+  document.querySelector("#outTbl tbody").innerHTML=out.map(r=>{
+    const c=r.wr>=40?["#fbeae8","#c0392b"]:r.wr>=25?["#f7f0dd","#b8860b"]:["#e6f4ec","#1f8a4c"];
+    return `<tr><td>${r.n}</td><td><span class="tag" style="background:${c[0]};color:${c[1]}">${r.wr}%</span></td><td>${r.wasted}</td><td>${r.sold}</td><td>£${Math.round(r.wretail)}</td></tr>`;}).join("");
+  const oGBP=out.reduce((s,r)=>s+r.wretail,0);
+  document.getElementById("outNote").innerHTML=`Top ${out.length} lines ≈ <b>£${Math.round(oGBP)}</b> retail waste over 4 weeks. Waste rate = wasted ÷ (wasted + sold); trim pars on the reds first.`;
+  // make more
+  const more=items.filter(r=>r.wr<20&&r.av<97&&r.sold>=soldMed).sort((a,b)=>b.sold-a.sold);
+  document.querySelector("#moreTbl tbody").innerHTML=(more.length?more:[null]).map(r=>!r?'<tr><td colspan="5" style="text-align:center;color:#8a7a6d">— none flagged —</td></tr>':
+    `<tr><td>${r.n}</td><td>${r.av}%</td><td>${r.wr}%</td><td><b>${r.sold}</b></td><td><span class="tag" style="background:#eaf1f9;color:#2d6fb3">${r.y}%</span></td></tr>`).join("");
+  document.getElementById("moreNote").innerHTML= more.length?
+    `Strong sellers, barely wasted, but ran out — ${more.map(r=>r.n).join(" & ")} under 100% available. Lift the par to catch lost sales.`:
+    `No low-waste line is running short — availability is keeping up with demand.`;
+  document.getElementById("focusLine").innerHTML=(out.length?`Trim pars on ${out.slice(0,3).map(r=>r.n).join(", ")}`:"Hold pars")+(more.length?`; lift pars on ${more.map(r=>r.n).join(" & ")} (selling out).`:".");
+}
+(function(){const sel=document.getElementById("storeSel");const ks=Object.keys(YJS);
+  const areaKey=ks.find(x=>x.startsWith("Area"))||ks[0];
+  sel.innerHTML=ks.map(s=>`<option${s===areaKey?" selected":""}>${s}</option>`).join("");
+  sel.addEventListener("change",()=>renderWaste(sel.value));renderWaste(areaKey);})();
+
+(function(){const btns=document.querySelectorAll(".tab-btn"),panels=document.querySelectorAll(".tab-panel");
+  btns.forEach(b=>b.addEventListener("click",()=>{btns.forEach(x=>x.classList.remove("active"));panels.forEach(p=>p.classList.remove("active"));
+    b.classList.add("active");document.getElementById("tab-"+b.dataset.tab).classList.add("active");
+    requestAnimationFrame(()=>{(window.CHARTS||[]).forEach(c=>{try{c.resize();}catch(e){}});});}));})();
+document.getElementById("foot").innerHTML="Generated "+new Date().toLocaleString("en-GB")+" · Sales, wastage, mix &amp; day-of-week: live BigQuery POS (4 wks to 7 Jun 2026, YoY vs 2025). Availability: polling sheet (to 08/06/2026). F1: audit sheet (The Race). Visits: rota sheet. Customer Google rating pending Supermetrics renewal.";
+</script>
+</body>
+</html>
