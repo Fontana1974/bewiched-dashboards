@@ -65,6 +65,7 @@
   .crow .cval{font-weight:800;font-size:20px;color:#5b3a29;text-align:right} .crow .cval small{display:block;font-size:9.5px;color:var(--muted);font-weight:600}
   .dleader{max-height:430px;overflow-y:auto} .dleader table{font-size:12.5px}
   @media(max-width:860px){.cards{grid-template-columns:repeat(2,1fr)}.grid2,.grid2.even{grid-template-columns:1fr}}
+  table.f1det th,table.f1det td{font-size:11.5px;padding:5px 7px;text-align:center} table.f1det td:first-child,table.f1det th:first-child{text-align:left}
 </style>
 </head>
 <body>
@@ -183,6 +184,20 @@
   <!-- WASTAGE & YIELD -->
   <section class="tab-panel" id="tab-waste">
     <div class="note blue"><b>Yield = Availability % − Waste-rate %</b>, target <b>90%</b>. Below it means either <b>over-producing</b> (high waste) or <b>selling out</b> (low availability — a chance to sell more). Pick a store: &nbsp;<select id="storeSel"></select> <span id="pollNote" class="mini"></span></div>
+    <div class="section-title">Company wastage — Food &amp; Bakery, last 4 weeks <span style="font-weight:400;color:#9a8a7c;font-size:12px">· numbered variants (e.g. “3 Ham &amp; Cheese Croque”) merged into the master product</span></div>
+    <div class="grid2 even">
+      <div class="panel">
+        <div style="font-size:13px;font-weight:700;color:#b8860b;margin-bottom:8px">🥪 Food</div>
+        <table><thead><tr><th>Product</th><th>Wasted</th><th>Sold</th><th>Waste rate</th><th>Retail lost</th></tr></thead><tbody>{{FOOD_WASTE_ROWS}}</tbody></table>
+        <div class="note">{{FOOD_WASTE_NOTE}}</div>
+      </div>
+      <div class="panel">
+        <div style="font-size:13px;font-weight:700;color:#7a4ea8;margin-bottom:8px">🧁 Bakery</div>
+        <table><thead><tr><th>Product</th><th>Wasted</th><th>Sold</th><th>Waste rate</th><th>Retail lost</th></tr></thead><tbody>{{BAKERY_WASTE_ROWS}}</tbody></table>
+        <div class="note">{{BAKERY_WASTE_NOTE}}</div>
+      </div>
+    </div>
+    <div class="section-title" style="margin-top:22px">Per-store yield &amp; outliers</div>
     <div class="grid2 even" style="margin-top:8px">
       <div class="panel">
         <div style="font-size:13px;font-weight:700;color:var(--red);margin-bottom:8px">🔻 Outlier products — biggest over-production</div>
@@ -245,6 +260,12 @@
         <div class="note red">{{F1_NOTE}}</div>
       </div>
     </div>
+    <div class="section-title" style="margin-top:22px">Qualifying detail — latest audit by store <span style="font-weight:400;color:#9a8a7c;font-size:12px">· sets the grid (Mon–Thu): queue speed + hospitality</span></div>
+    <div class="panel"><div style="overflow-x:auto"><table class="f1det"><thead><tr><th>Store</th><th>Rank</th><th>Queue avg</th><th>Hello</th><th>Goodbye</th><th>How are you</th><th>Working queue</th><th>Total score</th><th>Audited</th></tr></thead><tbody>{{QUALI_DETAIL_ROWS}}</tbody></table></div>
+    <div class="note">Hospitality scored 0–100% per greeting; queue average in seconds (lower is better); rank 1 = fastest+warmest that week. Total score is the weighted qualifying result that sets grid position.</div></div>
+    <div class="section-title" style="margin-top:22px">Race detail — latest audit by store <span style="font-weight:400;color:#9a8a7c;font-size:12px">· the full Fri–Sun audit that banks championship points</span></div>
+    <div class="panel"><div style="overflow-x:auto"><table class="f1det"><thead><tr><th>Store</th><th>Finish</th><th>Champ pts</th><th>Queue avg</th><th>Hello</th><th>Goodbye</th><th>How are you</th><th>Working queue</th><th>Total score</th><th>Audited</th></tr></thead><tbody>{{RACE_DETAIL_ROWS}}</tbody></table></div>
+    <div class="note">Finishing position across the full field of ~25 (incl. competitor benchmark audits); championship points banked by that finish. The component columns show what built the score.</div></div>
     <div class="focus red"><span class="ar">→</span>{{F1_FOCUS}}</div>
   </section>
 

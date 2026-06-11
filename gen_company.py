@@ -3,6 +3,8 @@ from collections import defaultdict
 from statistics import mean,median
 A=json.load(open('allstores.json')); REC=A['rec']; champ=A['champ']; CATS=A['cats']
 SMT=json.load(open('smt_visits.json'))
+WASTE=json.load(open('company_wastage.json'))['rows']
+F1D=json.load(open('f1_detail.json'))
 SHORT={"Burton Latimer":"Burton","Corby":"Corby","Higham Ferrers":"Higham","Kettering":"Kettering","Olney":"Olney",
 "Peterborough Bridge Street":"P'boro Bridge St","Peterborough Fletton Quays":"P'boro Fletton","Rothwell":"Rothwell","Rushden Lakes":"Rushden Lakes",
 "Attleborough":"Attleborough","Billing Drive Thru":"Billing DT","Glenvale Drive Thru":"Glenvale DT","HOE Balsall Common":"Balsall Common",
@@ -224,7 +226,56 @@ def build():
     fcst_rows+=tot+'</tr>'
     fcst_blended=round(sumf[0]/sumh[0],1) if sumh[0] else 0
     TARGETS="https://docs.google.com/spreadsheets/d/18iUyF6Usm5QnUAARPgNsAkqWp00fKPv1WA3waBKJFZU/edit"
+    # ---- company wastage: merge '3'/variant prefixes, classify Food vs Bakery ----
+    import re as _re
+    def _norm(n):
+        n=n.strip(); n=_re.sub(r'^\d+\s*\*?\s*','',n); n=_re.sub(r'^\*\s*','',n); n=_re.sub(r'\s*TA$','',n); return n.strip()
+    FOOD=_re.compile(r'meal deal|croque|ciabatta|\bbap\b|wrap|sandwich|bagel|salad|tuna|panini|toastie|soup|sausage roll|breakfast|baguette|\bpot\b|porridge|crumpet|toast|chickpea|falafel|ploughman',_re.I)
+    SAVC=_re.compile(r'(ham|cheese|mozzarella|bacon|egg|chicken).*croissant|croissant.*(ham|cheese|mozzarella|bacon|egg|chicken)',_re.I)
+    BAK=_re.compile(r'traybake|brownie|slice|croissant|pastry|muffin|cookie|cake|bakewell|millionaire|teacake|scone|flapjack|twist|doughnut|fudge|cinnamon|gingerbread|shortbread|\boat',_re.I)
+    def _cat(n):
+        if SAVC.search(n) or FOOD.search(n): return 'Food'
+        if BAK.search(n): return 'Bakery'
+        return 'Other'
+    wagg={}
+    for name,w,ret,sold in WASTE:
+        nm=_norm(name); cat=_cat(nm)
+        if cat=='Other': continue
+        a=wagg.setdefault(nm,{'w':0.0,'ret':0.0,'sold':0.0,'cat':cat}); a['w']+=w; a['ret']+=ret; a['sold']+=sold
+    def _wrow(items):
+        r=""
+        for nm,a in items:
+            wr=round(100*a['w']/(a['w']+a['sold']),1) if (a['w']+a['sold'])>0 else 0
+            r+=f'<tr><td>{nm}</td><td>{int(a["w"])}</td><td>{int(a["sold"]):,}</td><td>{tag(str(wr)+"%",cls(wr,4,8,rev=True))}</td><td style="font-weight:600">£{a["ret"]:.0f}</td></tr>'
+        return r
+    food=sorted([(n,a) for n,a in wagg.items() if a['cat']=='Food'],key=lambda x:-x[1]['ret'])[:15]
+    bak=sorted([(n,a) for n,a in wagg.items() if a['cat']=='Bakery'],key=lambda x:-x[1]['ret'])[:15]
+    food_rows=_wrow(food); bak_rows=_wrow(bak)
+    food_tot=sum(a['ret'] for _,a in wagg.items() if a['cat']=='Food'); bak_tot=sum(a['ret'] for _,a in wagg.items() if a['cat']=='Bakery')
+    food_note=f"Top food lines by lost retail (≈ £{food_tot:,.0f} of food wastage company-wide over 4 weeks). Croques, baps &amp; ciabattas dominate — tighten prep-to-par here first."
+    bak_note=f"Top bakery lines by lost retail (≈ £{bak_tot:,.0f} of bakery wastage over 4 weeks). Traybakes, pastries &amp; muffins are the watch-list."
+    # ---- F1 Qualifying / Race detail tables ----
+    def _hosp(x):
+        try: v=float(x)
+        except: return tag("n/a","t-na")
+        p=round(v*100); k="t-ok" if v>=1 else ("t-amber" if v>=0.5 else "t-red"); return tag(f"{p}%",k)
+    def _q(x):
+        try: v=float(x)
+        except: return tag("n/a","t-na")
+        k="t-ok" if v<=180 else ("t-amber" if v<=300 else "t-red"); return tag(f"{int(round(v))}s",k)
+    def _rk(x):
+        try: v=int(float(x))
+        except: return tag(str(x),"t-na")
+        k="t-ok" if v<=6 else ("t-amber" if v<=15 else "t-red"); return tag(str(v),k)
+    qlist=[(s,F1D[s]['quali']) for s in F1D if not s.startswith('_') and isinstance(F1D[s],dict) and 'quali' in F1D[s]]
+    qlist.sort(key=lambda x:int(float(x[1][6])))
+    quali_rows="".join(f'<tr><td>{SHORT.get(s,s)}</td><td>{_rk(q[6])}</td><td>{_q(q[0])}</td><td>{_hosp(q[1])}</td><td>{_hosp(q[2])}</td><td>{_hosp(q[3])}</td><td>{_hosp(q[4])}</td><td>{q[5]}</td><td class="mini">{q[7]}</td></tr>' for s,q in qlist)
+    rlist=[(s,F1D[s]['race']) for s in F1D if not s.startswith('_') and isinstance(F1D[s],dict) and 'race' in F1D[s]]
+    rlist.sort(key=lambda x:int(float(x[1][7])))
+    race_rows="".join(f'<tr><td>{SHORT.get(s,s)}</td><td>{_rk(r[7])}</td><td style="font-weight:700">{r[6]}</td><td>{_q(r[0])}</td><td>{_hosp(r[1])}</td><td>{_hosp(r[2])}</td><td>{_hosp(r[3])}</td><td>{_hosp(r[4])}</td><td>{r[5]}</td><td class="mini">{r[8]}</td></tr>' for s,r in rlist)
     repl={
+     "{{FOOD_WASTE_ROWS}}":food_rows,"{{BAKERY_WASTE_ROWS}}":bak_rows,"{{FOOD_WASTE_NOTE}}":food_note,"{{BAKERY_WASTE_NOTE}}":bak_note,
+     "{{QUALI_DETAIL_ROWS}}":quali_rows,"{{RACE_DETAIL_ROWS}}":race_rows,
      "{{NSTORES}}":str(len(stores)),"{{PILL}}":"All areas · Jon · Ian · Rich · "+str(len(stores))+" stores",
      "{{FOCUS_LI}}":focus_li,"{{OVROWS}}":ov,"{{AREA_LAST}}":GBP(area_last),"{{AREA_YOY_LW}}":pctxt(ylw),"{{LWCHIP}}":"up" if ylw>=0 else "dn",
      "{{AREA_4WK}}":GBP(area_4wk),"{{AREA_YOY_4W}}":pctxt(y4),"{{W4CHIP}}":"up" if y4>=0 else "dn",
