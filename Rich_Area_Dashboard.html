@@ -65,13 +65,14 @@
   .crow .cval{font-weight:800;font-size:20px;color:#5b3a29;text-align:right} .crow .cval small{display:block;font-size:9.5px;color:var(--muted);font-weight:600}
   .dleader{max-height:430px;overflow-y:auto} .dleader table{font-size:12.5px}
   @media(max-width:860px){.cards{grid-template-columns:repeat(2,1fr)}.grid2,.grid2.even{grid-template-columns:1fr}}
+.plannerbtn{display:inline-block;background:#5b3a29;color:#fff!important;text-decoration:none;font-weight:700;font-size:13px;padding:8px 14px;border-radius:9px;margin:2px 6px 2px 0}
 </style>
 </head>
 <body>
 <div class="brandbar"><div class="inner">
   <div class="logo"><div><div class="word">Be<span>wiched</span></div><div class="eyebrow">Area Performance</div></div></div>
   <div class="spacer"></div>
-  <div class="ctx">Area: <b>Rich</b> · 9 stores<br>4-week window: <b>11 May → 7 Jun 2026</b> · YoY vs 2025<br><span style="color:#e7b35a;font-weight:700">\U0001F504 Refreshed 11 Jun 2026, 15:35 · auto Mon 9am</span></div>
+  <div class="ctx">Area: <b>Rich</b> · 9 stores<br>4-week window: <b>11 May → 7 Jun 2026</b> · YoY vs 2025<br><span style="color:#e7b35a;font-weight:700">\U0001F504 Refreshed 11 Jun 2026, 15:39 · auto Mon 9am</span></div>
 </div></div>
 <div class="wrap">
   <header class="page">
@@ -164,6 +165,7 @@
       <div class="card"><div class="lbl">This week — planned hours</div><div class="val">1648</div><div class="meta">at CPH target</div></div>
       <div class="card"><div class="lbl">Blended CPH</div><div class="val">&pound;58.5</div><div class="meta">forecast &pound; &divide; planned hrs</div></div>
     </div>
+    <div style="margin:4px 0 14px"><a class="plannerbtn" href="https://docs.google.com/spreadsheets/d/11XuXn9zQr-JB4x2fQ0ORV96Sf-U7xWPQPvg2YlCl_dQ/edit" target="_blank" rel="noopener">📋 Open Rich&#39;s Weekly Planner ↗</a><span class="mini">the planner&#39;s forecasts &amp; planned hours feed this tab</span></div>
     <div class="section-title">Last week (W/C 1 Jun) — actual vs forecast</div>
     <div class="panel"><div style="overflow-x:auto">
       <table class="scorecard"><thead><tr><th>Store</th><th>Forecast £</th><th>Actual £</th><th>Sales vs FC</th><th>Sched hrs</th><th>Used hrs</th><th>Hrs vs sched</th><th>Target CPH</th><th>Actual CPH</th></tr></thead>
@@ -327,7 +329,7 @@ function renderWaste(store){
   btns.forEach(b=>b.addEventListener("click",()=>{btns.forEach(x=>x.classList.remove("active"));panels.forEach(p=>p.classList.remove("active"));
     b.classList.add("active");document.getElementById("tab-"+b.dataset.tab).classList.add("active");
     requestAnimationFrame(()=>{(window.CHARTS||[]).forEach(c=>{try{c.resize();}catch(e){}});});}));})();
-document.getElementById("foot").innerHTML="Data refreshed 11 Jun 2026, 15:35 \u00b7 auto-refreshes every Monday 9am (force a refresh anytime via the Scheduled task\u2019s \u2018Run now\u2019 in Cowork). Sources: live BigQuery POS, polling sheet, F1 audit, SMT visit diary, HRP &amp; Google reviews.";
+document.getElementById("foot").innerHTML="Data refreshed 11 Jun 2026, 15:39 \u00b7 auto-refreshes every Monday 9am (force a refresh anytime via the Scheduled task\u2019s \u2018Run now\u2019 in Cowork). Sources: live BigQuery POS, polling sheet, F1 audit, SMT visit diary, HRP &amp; Google reviews.";
 </script>
 </body>
 </html>
