@@ -6,200 +6,153 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Bewiched — Store Performance Dashboards</title>
 <style>
-:root{--bg:#f4efe9;--card:#fff;--ink:#2b211b;--muted:#8a7a6d;--line:#e7ddd2;--brown:#5b3a29;
---brown2:#3f281c;--cream:#efe6dc;--green:#1f8a4c;--gold:#e7b35a;
---oln:#2d6fb3;--att:#1f8a4c;--bill:#b8860b;--ndt:#7a5240;--glen:#c08a2d;--rich:#c0392b;}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+  :root{--bg:#f4efe9;--card:#fff;--ink:#2b211b;--muted:#8a7a6d;--line:#e7ddd2;--brown:#5b3a29;
+    --brown2:#3f281c;--cream:#efe6dc;--green:#1f8a4c;--gold:#e7b35a;
+    --oln:#2d6fb3;--att:#1f8a4c;--bill:#b8860b;--ndt:#7a5240;--glen:#c08a2d;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
 
-/* ---- Brand header ---- */
-.brandbar{background:linear-gradient(180deg,var(--brown) 0%,var(--brown2) 100%);color:#f6efe7;}
-.brandbar .inner{max-width:1080px;margin:0 auto;padding:16px 22px;display:flex;align-items:center;gap:13px;}
-.logo{display:flex;align-items:center;gap:10px;}
-.logo svg{display:block}
-.logo .word{font-size:22px;font-weight:800;letter-spacing:.2px;line-height:1;}
-.logo .word span{color:var(--gold)}
-.brandlogo{height:38px;width:auto;display:block;}
-.logo .eyebrow{font-size:10.5px;letter-spacing:2.4px;text-transform:uppercase;color:#cbb29c;margin-top:3px;}
-.brandbar .spacer{flex:1}
-.brandbar .ctx{font-size:11.5px;color:#cbb29c;text-align:right;line-height:1.5}
+  /* ---- Brand header ---- */
+  .brandbar{background:linear-gradient(180deg,var(--brown) 0%,var(--brown2) 100%);color:#f6efe7;}
+  .brandbar .inner{max-width:1080px;margin:0 auto;padding:16px 22px;display:flex;align-items:center;gap:13px;}
+  .logo{display:flex;align-items:center;gap:10px;}
+  .logo svg{display:block}
+  .logo .word{font-size:22px;font-weight:800;letter-spacing:.2px;line-height:1;}
+  .logo .word span{color:var(--gold)}
+  .brandlogo{height:38px;width:auto;display:block;}
+  .logo .eyebrow{font-size:10.5px;letter-spacing:2.4px;text-transform:uppercase;color:#cbb29c;margin-top:3px;}
+  .brandbar .spacer{flex:1}
+  .brandbar .ctx{font-size:11.5px;color:#cbb29c;text-align:right;line-height:1.5}
 
-.wrap{max-width:1080px;margin:0 auto;padding:34px 22px 70px;}
-h1{margin:0 0 6px;font-size:26px;letter-spacing:-.4px;}
-.lede{color:var(--muted);font-size:14px;line-height:1.6;max-width:680px;margin:0 0 8px;}
+  .wrap{max-width:1080px;margin:0 auto;padding:34px 22px 70px;}
+  h1{margin:0 0 6px;font-size:26px;letter-spacing:-.4px;}
+  .lede{color:var(--muted);font-size:14px;line-height:1.6;max-width:680px;margin:0 0 8px;}
 
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:26px;}
-.store{display:block;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);
-border-radius:16px;overflow:hidden;box-shadow:0 1px 3px rgba(80,50,30,.05);transition:transform .15s, box-shadow .15s;}
-.store:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(80,50,30,.13);}
-.store .top{padding:18px 20px 14px;border-top:4px solid var(--accent);}
-.store .kind{font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--accent);}
-.store h2{margin:6px 0 2px;font-size:20px;letter-spacing:-.3px;}
-.store .loc{font-size:12.5px;color:var(--muted);}
-.store .body{padding:4px 20px 16px;}
-.store .meta{font-size:12.5px;color:var(--muted);margin:8px 0 12px;line-height:1.5}
-.store .meta b{color:var(--ink)}
-.tabs{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
-.pill{display:inline-block;background:var(--cream);color:var(--brown);border:1px solid var(--line);
-border-radius:999px;padding:2px 9px;font-size:11px;font-weight:600;}
-.open{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-top:1px solid var(--line);
-font-size:13px;font-weight:700;color:var(--accent);}
-.open .arrow{transition:transform .15s}
-.store:hover .arrow{transform:translateX(4px)}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:26px;}
+  .store{display:block;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);
+    border-radius:16px;overflow:hidden;box-shadow:0 1px 3px rgba(80,50,30,.05);transition:transform .15s, box-shadow .15s;}
+  .store:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(80,50,30,.13);}
+  .store .top{padding:18px 20px 14px;border-top:4px solid var(--accent);}
+  .store .kind{font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--accent);}
+  .store h2{margin:6px 0 2px;font-size:20px;letter-spacing:-.3px;}
+  .store .loc{font-size:12.5px;color:var(--muted);}
+  .store .body{padding:4px 20px 16px;}
+  .store .meta{font-size:12.5px;color:var(--muted);margin:8px 0 12px;line-height:1.5}
+  .store .meta b{color:var(--ink)}
+  .tabs{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
+  .pill{display:inline-block;background:var(--cream);color:var(--brown);border:1px solid var(--line);
+    border-radius:999px;padding:2px 9px;font-size:11px;font-weight:600;}
+  .open{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-top:1px solid var(--line);
+    font-size:13px;font-weight:700;color:var(--accent);}
+  .open .arrow{transition:transform .15s}
+  .store:hover .arrow{transform:translateX(4px)}
 
-.note{background:#fff8ec;border:1px solid #f0e0bf;color:#7a5e1e;border-radius:12px;padding:12px 16px;font-size:12.5px;margin-top:28px;line-height:1.6}
-footer{color:var(--muted);font-size:12px;margin-top:26px;line-height:1.6}
-@media(max-width:820px){.grid{grid-template-columns:1fr}}
+  .note{background:#fff8ec;border:1px solid #f0e0bf;color:#7a5e1e;border-radius:12px;padding:12px 16px;font-size:12.5px;margin-top:28px;line-height:1.6}
+  footer{color:var(--muted);font-size:12px;margin-top:26px;line-height:1.6}
+  @media(max-width:820px){.grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 
 <div class="brandbar">
-<div class="inner">
-<div class="logo">
-<img src="bewiched-logo.png" alt="Bewiched" class="brandlogo"
-onerror="this.style.display='none';document.getElementById('wordmark').style.display='flex';">
-<div id="wordmark" class="logo" style="display:none;gap:10px">
-<svg width="36" height="36" viewBox="0 0 34 34" aria-hidden="true">
-<circle cx="17" cy="17" r="17" fill="#e7b35a"/>
-<path d="M9 14h12v5a5 5 0 0 1-5 5h-2a5 5 0 0 1-5-5v-5z" fill="#3f281c"/>
-<path d="M21 15h2.2a2.6 2.6 0 0 1 0 5.2H21" fill="none" stroke="#3f281c" stroke-width="1.6"/>
-<path d="M12 8.5c-1 1 0 2 0 3M15.5 8c-1 1 0 2 0 3M19 8.5c-1 1 0 2 0 3" fill="none" stroke="#3f281c" stroke-width="1.5" stroke-linecap="round"/>
-</svg>
-<div>
-<div class="word">Be<span>wiched</span></div>
-<div class="eyebrow">Store Performance</div>
-</div>
-</div>
-</div>
-<div class="spacer"></div>
-<div class="ctx">Store &amp; area dashboards<br>Refreshed weekly · Mondays 9:30am</div>
-</div>
+  <div class="inner">
+    <div class="logo">
+      <img src="bewiched-logo.png" alt="Bewiched" class="brandlogo"
+           onerror="this.style.display='none';document.getElementById('wordmark').style.display='flex';">
+      <div id="wordmark" class="logo" style="display:none;gap:10px">
+        <svg width="36" height="36" viewBox="0 0 34 34" aria-hidden="true">
+          <circle cx="17" cy="17" r="17" fill="#e7b35a"/>
+          <path d="M9 14h12v5a5 5 0 0 1-5 5h-2a5 5 0 0 1-5-5v-5z" fill="#3f281c"/>
+          <path d="M21 15h2.2a2.6 2.6 0 0 1 0 5.2H21" fill="none" stroke="#3f281c" stroke-width="1.6"/>
+          <path d="M12 8.5c-1 1 0 2 0 3M15.5 8c-1 1 0 2 0 3M19 8.5c-1 1 0 2 0 3" fill="none" stroke="#3f281c" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <div>
+          <div class="word">Be<span>wiched</span></div>
+          <div class="eyebrow">Store Performance</div>
+        </div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+    <div class="ctx">Store dashboards<br>Refreshed weekly · Mondays 9:30am</div>
+  </div>
 </div>
 
 <div class="wrap">
+  <h1>Store Performance Dashboards</h1>
+  <p class="lede">Live performance for five Bewiched sites — three new openings and two established drive-thrus. Each dashboard carries five tabs — Sales &amp; Hours, Wastage, Sales mix &amp; capture, Op's Excellence (F1) and Sentiment — and refreshes automatically every Monday from BigQuery, the F1 audit sheet, Google reviews and RMS.</p>
 
-<h1>Area Dashboards</h1>
-<p class="lede">Area-level rollups for each coach — every store on one page. Each carries seven tabs: Area overview (traffic-lit scorecard + visit movements), Sales (last week &amp; YoY, daypart &amp; day-of-week growth), Forecast &amp; hours (3-week sales &amp; planned-hours forecast, CPH from the Store Targets sheet), Wastage &amp; Yield, Mix &amp; opportunity, Op's Excellence (F1 race + constructors&#39; championship) and Sentiment (live Google ratings, team RMS, sickness &amp; return-to-work). Live from BigQuery, the polling &amp; F1 sheets, the visit rota, HRP and Google My Business.</p>
+  <div class="grid">
 
-<div class="grid">
+    <a class="store" style="--accent:var(--oln)" href="Olney_Forecast.html">
+      <div class="top">
+        <div class="kind">High-street store</div>
+        <h2>Olney</h2>
+        <div class="loc">38 Market Place, Olney</div>
+      </div>
+      <div class="body">
+        <div class="meta">Area Coach <b>Jon</b> · opened early 2026<br>Mirrored against HOE Balsall Common</div>
+        <div class="tabs"><span class="pill">📈 Sales</span><span class="pill">♻️ Wastage</span><span class="pill">🧺 Mix</span><span class="pill">🏁 F1</span><span class="pill">💬 Sentiment</span></div>
+      </div>
+      <div class="open"><span>Open dashboard</span><span class="arrow">→</span></div>
+    </a>
 
-<a class="store" style="--accent:var(--oln)" href="Jon_Area_Dashboard.html">
-<div class="top">
-<div class="kind">Area · 9 stores</div>
-<h2>Jon&#39;s Area</h2>
-<div class="loc">Rushden Lakes · Kettering · Fletton · Corby · Bridge St · Olney · Burton · Higham · Rothwell</div>
-</div>
-<div class="body">
-<div class="meta">Area Coach <b>Jon</b> · constructor <b>P3</b><br>£283k / 4 wks · Google <b>4.63★</b></div>
-<div class="tabs"><span class="pill">🚦 Overview</span><span class="pill">📈 Sales</span><span class="pill">📅 Forecast</span><span class="pill">♻️ Wastage</span><span class="pill">🧺 Mix</span><span class="pill">🏁 F1</span><span class="pill">💬 Sentiment</span></div>
-</div>
-<div class="open"><span>Open area dashboard</span><span class="arrow">→</span></div>
-</a>
+    <a class="store" style="--accent:var(--att)" href="Attleborough_Forecast.html">
+      <div class="top">
+        <div class="kind">High-street store</div>
+        <h2>Attleborough</h2>
+        <div class="loc">Attleborough, Norfolk</div>
+      </div>
+      <div class="body">
+        <div class="meta">Area Coach <b>Ian</b> · opened 23 Apr 2026<br>Settled high (~£6.1k/wk) — a strong site</div>
+        <div class="tabs"><span class="pill">📈 Sales</span><span class="pill">♻️ Wastage</span><span class="pill">🧺 Mix</span><span class="pill">🏁 F1</span><span class="pill">💬 Sentiment</span></div>
+      </div>
+      <div class="open"><span>Open dashboard</span><span class="arrow">→</span></div>
+    </a>
 
-<a class="store" style="--accent:var(--att)" href="Ian_Area_Dashboard.html">
-<div class="top">
-<div class="kind">Area · 3 stores</div>
-<h2>Ian&#39;s Area</h2>
-<div class="loc">Glenvale DT · Balsall Common · Attleborough</div>
-</div>
-<div class="body">
-<div class="meta">Area Coach <b>Ian</b> · constructor <b>P1</b><br>£122k / 4 wks · Google <b>4.87★</b></div>
-<div class="tabs"><span class="pill">🚦 Overview</span><span class="pill">📈 Sales</span><span class="pill">📅 Forecast</span><span class="pill">♻️ Wastage</span><span class="pill">🧺 Mix</span><span class="pill">🏁 F1</span><span class="pill">💬 Sentiment</span></div>
-</div>
-<div class="open"><span>Open area dashboard</span><span class="arrow">→</span></div>
-</a>
+    <a class="store" style="--accent:var(--bill)" href="Billing_DriveThru_Forecast.html">
+      <div class="top">
+        <div class="kind">Drive-thru</div>
+        <h2>Billing Drive-Thru</h2>
+        <div class="loc">3 The Causeway, Great Billing</div>
+      </div>
+      <div class="body">
+        <div class="meta">Area Coach <b>Rich</b> · newest site<br>Benchmarked vs Northampton &amp; Glenvale DTs</div>
+        <div class="tabs"><span class="pill">📈 Sales</span><span class="pill">♻️ Wastage</span><span class="pill">🧺 Mix</span><span class="pill">🏁 F1</span><span class="pill">💬 Sentiment</span></div>
+      </div>
+      <div class="open"><span>Open dashboard</span><span class="arrow">→</span></div>
+    </a>
 
-<a class="store" style="--accent:var(--rich)" href="Rich_Area_Dashboard.html">
-<div class="top">
-<div class="kind">Area · 9 stores</div>
-<h2>Rich&#39;s Area</h2>
-<div class="loc">Northampton DT · Mkt Harborough · Northampton · Billing DT · Leam Parade · Rugby · Train Stn · Wellingborough · Lower Heathcote</div>
-</div>
-<div class="body">
-<div class="meta">Area Coach <b>Rich</b> · constructor <b>P2</b><br>£369k / 4 wks · Google <b>4.77★</b></div>
-<div class="tabs"><span class="pill">🚦 Overview</span><span class="pill">📈 Sales</span><span class="pill">📅 Forecast</span><span class="pill">♻️ Wastage</span><span class="pill">🧺 Mix</span><span class="pill">🏁 F1</span><span class="pill">💬 Sentiment</span></div>
-</div>
-<div class="open"><span>Open area dashboard</span><span class="arrow">→</span></div>
-</a>
+    <a class="store" style="--accent:var(--ndt)" href="Northampton_DriveThru_Forecast.html">
+      <div class="top">
+        <div class="kind">Drive-thru · mature</div>
+        <h2>Northampton Drive-Thru</h2>
+        <div class="loc">Moulton Park, Northampton</div>
+      </div>
+      <div class="body">
+        <div class="meta">Area Coach <b>Rich</b> · est. May 2021<br>#2 in the estate · +8.3% YoY · £74 CPH</div>
+        <div class="tabs"><span class="pill">📈 Sales</span><span class="pill">♻️ Wastage</span><span class="pill">🧺 Mix</span><span class="pill">🏁 F1</span><span class="pill">💬 Sentiment</span></div>
+      </div>
+      <div class="open"><span>Open dashboard</span><span class="arrow">→</span></div>
+    </a>
 
-</div>
+    <a class="store" style="--accent:var(--glen)" href="Glenvale_Forecast.html">
+      <div class="top">
+        <div class="kind">Drive-thru · mature</div>
+        <h2>Glenvale Drive-Thru</h2>
+        <div class="loc">Glenvale Park, Wellingborough</div>
+      </div>
+      <div class="body">
+        <div class="meta">Area Coach <b>Ian</b> · est. Nov 2024<br>#3 in the estate · +31% YoY · £61 CPH</div>
+        <div class="tabs"><span class="pill">📈 Sales</span><span class="pill">♻️ Wastage</span><span class="pill">🧺 Mix</span><span class="pill">🏁 F1</span><span class="pill">💬 Sentiment</span></div>
+      </div>
+      <div class="open"><span>Open dashboard</span><span class="arrow">→</span></div>
+    </a>
 
-<h1 style="margin-top:46px">Store Performance Dashboards</h1>
-<p class="lede">Live performance for five Bewiched sites — three new openings and two established drive-thrus. Each dashboard carries five tabs — Sales &amp; Hours, Wastage, Sales mix &amp; capture, Op's Excellence (F1) and Sentiment — and refreshes automatically every Monday from BigQuery, the F1 audit sheet, Google reviews and RMS.</p>
+  </div>
 
-<div class="grid">
+  <div class="note"><strong>How to read these.</strong> New sites forecast sales from their opening curve; the mature drive-thrus show recent actuals + a forward forecast with real year-on-year growth. F1 is the unannounced Qualifying &amp; Race audit. Sentiment pairs the live Google customer rating with the team's RMS "Rate My Shift" scores. Where a signal is thin or dipping, the dashboards say so rather than smoothing it over.</div>
 
-<a class="store" style="--accent:var(--oln)" href="Olney_Forecast.html">
-<div class="top">
-<div class="kind">High-street store</div>
-<h2>Olney</h2>
-<div class="loc">38 Market Place, Olney</div>
-</div>
-<div class="body">
-<div class="meta">Area Coach <b>Jon</b> · opened early 2026<br>Mirrored against HOE Balsall Common</div>
-<div class="tabs"><span class="pill">📈 Sales</span><span class="pill">♻️ Wastage</span><span class="pill">🧺 Mix</span><span class="pill">🏁 F1</span><span class="pill">💬 Sentiment</span></div>
-</div>
-<div class="open"><span>Open dashboard</span><span class="arrow">→</span></div>
-</a>
-
-<a class="store" style="--accent:var(--att)" href="Attleborough_Forecast.html">
-<div class="top">
-<div class="kind">High-street store</div>
-<h2>Attleborough</h2>
-<div class="loc">Attleborough, Norfolk</div>
-</div>
-<div class="body">
-<div class="meta">Area Coach <b>Ian</b> · opened 23 Apr 2026<br>Settled high (~£6.1k/wk) — a strong site</div>
-<div class="tabs"><span class="pill">📈 Sales</span><span class="pill">♻️ Wastage</span><span class="pill">🧺 Mix</span><span class="pill">🏁 F1</span><span class="pill">💬 Sentiment</span></div>
-</div>
-<div class="open"><span>Open dashboard</span><span class="arrow">→</span></div>
-</a>
-
-<a class="store" style="--accent:var(--bill)" href="Billing_DriveThru_Forecast.html">
-<div class="top">
-<div class="kind">Drive-thru</div>
-<h2>Billing Drive-Thru</h2>
-<div class="loc">3 The Causeway, Great Billing</div>
-</div>
-<div class="body">
-<div class="meta">Area Coach <b>Rich</b> · newest site<br>Benchmarked vs Northampton &amp; Glenvale DTs</div>
-<div class="tabs"><span class="pill">📈 Sales</span><span class="pill">♻️ Wastage</span><span class="pill">🧺 Mix</span><span class="pill">🏁 F1</span><span class="pill">💬 Sentiment</span></div>
-</div>
-<div class="open"><span>Open dashboard</span><span class="arrow">→</span></div>
-</a>
-
-<a class="store" style="--accent:var(--ndt)" href="Northampton_DriveThru_Forecast.html">
-<div class="top">
-<div class="kind">Drive-thru · mature</div>
-<h2>Northampton Drive-Thru</h2>
-<div class="loc">Moulton Park, Northampton</div>
-</div>
-<div class="body">
-<div class="meta">Area Coach <b>Rich</b> · est. May 2021<br>#2 in the estate · +8.3% YoY · £75 CPH</div>
-<div class="tabs"><span class="pill">📈 Sales</span><span class="pill">♻️ Wastage</span><span class="pill">🧺 Mix</span><span class="pill">🏁 F1</span><span class="pill">💬 Sentiment</span></div>
-</div>
-<div class="open"><span>Open dashboard</span><span class="arrow">→</span></div>
-</a>
-
-<a class="store" style="--accent:var(--glen)" href="Glenvale_Forecast.html">
-<div class="top">
-<div class="kind">Drive-thru · mature</div>
-<h2>Glenvale Drive-Thru</h2>
-<div class="loc">Glenvale Park, Wellingborough</div>
-</div>
-<div class="body">
-<div class="meta">Area Coach <b>Rich</b> · est. Nov 2024<br>#3 in the estate · +31% YoY · £67 CPH</div>
-<div class="tabs"><span class="pill">📈 Sales</span><span class="pill">♻️ Wastage</span><span class="pill">🧺 Mix</span><span class="pill">🏁 F1</span><span class="pill">💬 Sentiment</span></div>
-</div>
-<div class="open"><span>Open dashboard</span><span class="arrow">→</span></div>
-</a>
-
-</div>
-
-<div class="note"><strong>How to read these.</strong> New sites forecast sales from their opening curve; the mature drive-thrus show recent actuals + a forward forecast with real year-on-year growth. F1 is the unannounced Qualifying &amp; Race audit. Sentiment pairs the live Google customer rating with the team's RMS "Rate My Shift" scores. Where a signal is thin or dipping, the dashboards say so rather than smoothing it over.</div>
-
-<footer>Bewiched Limited · internal use. Data: BigQuery live POS, the F1 audit sheet, the visit rota, HRP, Google My Business and RMS. Auto-refreshed every Monday.</footer>
+  <footer>Bewiched Limited · internal use. Data: BigQuery live POS, the F1 audit sheet, Google reviews and RMS. Auto-refreshed every Monday.</footer>
 </div>
 
 </body>

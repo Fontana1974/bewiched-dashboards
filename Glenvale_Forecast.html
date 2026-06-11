@@ -125,7 +125,7 @@
     <h1>🚗 Glenvale Drive-Thru — Store Dashboard</h1>
     <div class="sub">
       <span class="pill">Mature drive-thru · est. Nov 2024</span>
-      <span class="pill">CPH target £65 (flat)</span>
+      <span class="pill">CPH target £63 (flat)</span>
       <span class="pill">#3 in the estate by sales</span>
       <br>Live BigQuery POS + F1 audit + Google/RMS sentiment. Sales gross inc VAT.
     </div>
@@ -135,7 +135,7 @@
   <div class="focusmod red">
     <h2>🎯 Focus areas — week of 9 Jun</h2>
     <ul>
-      <li><b>Mixed week:</b> +31% YoY (best in the estate) but CPH dipped to £60.6 vs £65 last week — pull hours back to sales.</li>
+      <li><b>Mixed week:</b> +31% YoY (best in the estate) but CPH dipped to £60.6 vs £63 last week — pull hours back to sales.</li>
       <li><b>Watch wastage:</b> crept to 3.3% (three weeks now over the 3% target) — tighten the egg pot &amp; bacon bap par.</li>
       <li><b>Capture:</b> cold drinks 30% (4th of 21) is a real strength; bakery 14% (17th) is the upside.</li>
     </ul>
@@ -179,13 +179,13 @@
         <div><span>vs forecast</span><b class="neg">−5.0%</b><small>fcst £18,250</small></div>
         <div><span>Estate rank</span><b class="pos">2 / 21</b><small>by sales £</small></div>
         <div><span>YoY</span><b class="pos">+31.0%</b><small>vs £13.2k last yr</small></div>
-        <div><span>CPH</span><b class="neg">£60.6</b><small>target £65 · missed</small></div>
+        <div><span>CPH</span><b class="neg">£60.6</b><small>target £63 · missed</small></div>
       </div>
     </div>
     <div class="cards">
       <div class="card"><div class="lbl">Last 13 wks avg sales</div><div class="val">£17,503</div><div class="meta">/ wk · live BigQuery</div></div>
       <div class="card"><div class="lbl">YoY growth</div><div class="val" style="color:var(--green)">+31.0%</div><div class="meta">w/c 1 Jun vs 2025 · yr-2 ramp</div></div>
-      <div class="card"><div class="lbl">CPH — target vs actual</div><div class="val">£65</div><div class="meta">last wk actual <b style="color:var(--red)">£60.6</b> · −£4.4/hr (w/c 1 Jun)</div></div>
+      <div class="card"><div class="lbl">CPH — target vs actual</div><div class="val">£63</div><div class="meta">last wk actual <b style="color:var(--red)">£60.6</b> · −£2.4/hr (w/c 1 Jun)</div></div>
       <div class="card"><div class="lbl">Estate rank (sales)</div><div class="val" style="color:var(--green)">2 / 21</div><div class="meta">behind Northampton DT</div></div>
     </div>
 
@@ -205,7 +205,7 @@
           <tbody></tbody>
           <tfoot></tfoot>
         </table>
-        <div class="mini" style="margin-top:8px">Hours = forecast sales ÷ £65 CPH (flat). Last week the store actually ran £60.6 CPH — below target.</div>
+        <div class="mini" style="margin-top:8px">Hours = forecast sales ÷ £63 CPH (flat). Last week the store actually ran £60.6 CPH — below target.</div>
       </div>
     </div>
     <div class="focus green"><span class="ar">→</span>Focus this week: £17,342 vs £18,250 forecast (−5.0%) — behind plan; CPH dipped to £60.6, tighten hours to sales.</div>
@@ -215,7 +215,7 @@
         <div><div class="mini" style="margin-bottom:4px">Day group</div>
           <span class="sbseg" id="sbDP"><button type="button" class="on" data-v="MT">Mon–Thu</button><button type="button" data-v="FS">Fri–Sun</button></span></div>
         <div><div class="mini" style="margin-bottom:4px">CPH target (£ sales / labour hr)</div>
-          <input id="sbCph" type="number" min="1" step="1" value="65"></div>
+          <input id="sbCph" type="number" min="1" step="1" value="63"></div>
         <div><div class="mini" style="margin-bottom:4px">People</div>
           <span class="sbseg" id="sbMD"><button type="button" class="on" data-v="ceil">Rounded up</button><button type="button" data-v="raw">Exact</button></span></div>
       </div>
@@ -233,7 +233,7 @@
     (function(){
       const HMT=parse("6:7,7:166,8:218,9:186,10:227,11:246,12:247,13:221,14:172,15:182,16:132,17:110,18:98,19:71,20:36,21:0");
       const HFS=parse("6:3,7:96,8:181,9:291,10:401,11:345,12:375,13:274,14:262,15:231,16:169,17:102,18:52,19:47,20:22,21:1");
-      const CPHD=65, ACT_CPH=60.63, ACT_WK="w/c 1 Jun";
+      const CPHD=63, ACT_CPH=60.63, ACT_WK="w/c 1 Jun";
       let dp="MT", md="ceil";
       const cph=document.getElementById("sbCph");
       const gbp=n=>"£"+Math.round(n).toLocaleString("en-GB");
@@ -270,7 +270,7 @@
     </script>
   </section>
 
-    <div class="focus green"><span class="ar">→</span>Focus this week: £17,342 at £65 needs ~267 hrs — you ran ~286 (£60.6/hr); trim ~19 hrs to hit the £65 target.</div>
+    <div class="focus green"><span class="ar">→</span>Focus this week: £17,342 at £63 needs ~275 hrs — you ran ~286 (£60.6/hr); trim ~11 hrs to hit the £63 target.</div>
 
   <!-- ===== TAB 2: Wastage ===== -->
   <section class="tab-panel" id="tab-waste">
@@ -350,7 +350,7 @@
     </div>
 
     <div class="focus amber"><span class="ar">→</span>Focus this week: convert elite Qualifying into a weekend podium — same pace, Fri–Sun.</div>
-    <footer style="margin-top:18px">F1 data: live <a class="srclink" href="https://docs.google.com/spreadsheets/d/1YFqpR9_ftlQEbfwc5ZVMjtS5tFO0j-7ccwB8rwG56wQ/edit?gid=522976149#gid=522976149" target="_blank" rel="noopener">Bewiched F1 audit sheet ↗</a> · Qualifying (to W/C 9 Jun) &amp; The Race (to W/C 7 Jun) tabs · audit window 3 Apr → 9 Jun 2026 · Area Coach (Constructor): Ian. Scores are unannounced auditor visits; every audited Glenvale Drive Thru row is shown.</footer>
+    <footer style="margin-top:18px">F1 data: live Bewiched F1 audit sheet · Qualifying (to W/C 9 Jun) &amp; The Race (to W/C 7 Jun) tabs · audit window 3 Apr → 9 Jun 2026 · Area Coach (Constructor): Ian. Scores are unannounced auditor visits; every audited Glenvale Drive Thru row is shown.</footer>
     <div class="section-title" style="margin-top:26px">🏆 Constructors’ Championship — since 25 Apr</div>
     <div class="note" style="margin-top:8px"><strong>How it works.</strong> Each Area Coach is an F1 <strong>constructor</strong>; their stores are the <strong>drivers</strong>, and every Race weekend each store banks championship points by finishing position. To keep it fair across teams of different sizes, <strong>constructors are ranked by average points per store</strong>, while the <strong>drivers’ leaderboard ranks individual stores by total points</strong>. Competitor benchmark audits (Costa, Nero, Starbucks, Coffee#1) are excluded; window from 25 Apr 2026.</div>
     <div class="grid2" style="margin-top:14px">
@@ -585,20 +585,30 @@
 
     <div class="focus red"><span class="ar">→</span>Focus this week: RTW just 1/11 logged — make the return-to-work chat mandatory after every absence.</div>
     <div class="section-title" style="margin-top:26px">📋 Documented coaching — barista &amp; customer checklists</div>
-    <div class="note" style="margin-top:8px">The standard is a <strong>Customer Service</strong> and a <strong>Barista coaching checklist for every team member each month</strong>. Below is Glenvale Drive Thru’s position <strong>month-to-date (June)</strong> and <strong>quarter-to-date (Apr–Jun 2026)</strong>, cross-referenced from the HRP ‘CS and Br %’ log.</div>
+    <div class="note" style="margin-top:8px">The standard is a <strong>Customer Service</strong> and a <strong>Barista coaching checklist for every team member each month</strong>. Below is Glenvale Drive Thru’s position <strong>month-to-date (June)</strong> and <strong>quarter-to-date (Apr–Jun 2026)</strong>, plus who’s still <strong>due</strong> their June checklists — cross-referenced from the HRP ‘CS and Br %’ log.</div>
     <div class="cards" style="margin-top:14px">
       <div class="card"><div class="lbl">Customer coaching · qtr</div><div class="val" style="color:#1f8a4c">25</div><div class="meta">CS 139% of qtr standard</div></div>
       <div class="card"><div class="lbl">Barista coaching · qtr</div><div class="val" style="color:#1f8a4c">28</div><div class="meta">Barista 156% of qtr standard</div></div>
-      <div class="card"><div class="lbl">This month (Jun)</div><div class="val">5 / 7</div><div class="meta">customer / barista</div></div>
-      <div class="card"><div class="lbl">Team coached · qtr</div><div class="val">13</div><div class="meta">individuals so far</div></div>
+      <div class="card"><div class="lbl">Done this month (Jun)</div><div class="val">5 / 7</div><div class="meta">customer / barista</div></div>
+      <div class="card"><div class="lbl">Active team · qtr</div><div class="val">13</div><div class="meta">in the coaching log</div></div>
     </div>
     <div class="panel" style="margin-top:14px">
-      <div style="font-size:13px;font-weight:700;color:#5b3a29;margin-bottom:9px">Coached so far this month</div>
-      <div style="display:flex;flex-wrap:wrap;gap:7px"><span style="display:inline-flex;align-items:center;padding:4px 8px;border:1px solid #ece3d7;border-radius:8px;font-size:11.5px;color:#4f3d30;background:#fcfaf6">Lewis Plant<span style="display:inline-block;padding:1px 6px;border-radius:5px;background:#e6eff7;color:#2d6fb3;font-size:10px;font-weight:700;margin-left:4px">CS</span><span style="display:inline-block;padding:1px 6px;border-radius:5px;background:#e6f4ec;color:#1f8a4c;font-size:10px;font-weight:700;margin-left:4px">Bar</span></span><span style="display:inline-flex;align-items:center;padding:4px 8px;border:1px solid #ece3d7;border-radius:8px;font-size:11.5px;color:#4f3d30;background:#fcfaf6">Grace Plant<span style="display:inline-block;padding:1px 6px;border-radius:5px;background:#e6eff7;color:#2d6fb3;font-size:10px;font-weight:700;margin-left:4px">CS</span></span><span style="display:inline-flex;align-items:center;padding:4px 8px;border:1px solid #ece3d7;border-radius:8px;font-size:11.5px;color:#4f3d30;background:#fcfaf6">Shaira Begum<span style="display:inline-block;padding:1px 6px;border-radius:5px;background:#e6eff7;color:#2d6fb3;font-size:10px;font-weight:700;margin-left:4px">CS</span><span style="display:inline-block;padding:1px 6px;border-radius:5px;background:#e6f4ec;color:#1f8a4c;font-size:10px;font-weight:700;margin-left:4px">Bar</span></span><span style="display:inline-flex;align-items:center;padding:4px 8px;border:1px solid #ece3d7;border-radius:8px;font-size:11.5px;color:#4f3d30;background:#fcfaf6">Julie Baker<span style="display:inline-block;padding:1px 6px;border-radius:5px;background:#e6f4ec;color:#1f8a4c;font-size:10px;font-weight:700;margin-left:4px">Bar</span></span><span style="display:inline-flex;align-items:center;padding:4px 8px;border:1px solid #ece3d7;border-radius:8px;font-size:11.5px;color:#4f3d30;background:#fcfaf6">Alesha Barrett<span style="display:inline-block;padding:1px 6px;border-radius:5px;background:#e6eff7;color:#2d6fb3;font-size:10px;font-weight:700;margin-left:4px">CS</span></span><span style="display:inline-flex;align-items:center;padding:4px 8px;border:1px solid #ece3d7;border-radius:8px;font-size:11.5px;color:#4f3d30;background:#fcfaf6">Leigh White<span style="display:inline-block;padding:1px 6px;border-radius:5px;background:#e6eff7;color:#2d6fb3;font-size:10px;font-weight:700;margin-left:4px">CS</span></span><span style="display:inline-flex;align-items:center;padding:4px 8px;border:1px solid #ece3d7;border-radius:8px;font-size:11.5px;color:#4f3d30;background:#fcfaf6">Rhys Harris<span style="display:inline-block;padding:1px 6px;border-radius:5px;background:#e6f4ec;color:#1f8a4c;font-size:10px;font-weight:700;margin-left:4px">Bar</span></span><span style="display:inline-flex;align-items:center;padding:4px 8px;border:1px solid #ece3d7;border-radius:8px;font-size:11.5px;color:#4f3d30;background:#fcfaf6">James Bedells<span style="display:inline-block;padding:1px 6px;border-radius:5px;background:#e6f4ec;color:#1f8a4c;font-size:10px;font-weight:700;margin-left:4px">Bar</span></span><span style="display:inline-flex;align-items:center;padding:4px 8px;border:1px solid #ece3d7;border-radius:8px;font-size:11.5px;color:#4f3d30;background:#fcfaf6">Isla Shambrook<span style="display:inline-block;padding:1px 6px;border-radius:5px;background:#e6f4ec;color:#1f8a4c;font-size:10px;font-weight:700;margin-left:4px">Bar</span></span><span style="display:inline-flex;align-items:center;padding:4px 8px;border:1px solid #ece3d7;border-radius:8px;font-size:11.5px;color:#4f3d30;background:#fcfaf6">Daizy-Lei Kinton<span style="display:inline-block;padding:1px 6px;border-radius:5px;background:#e6f4ec;color:#1f8a4c;font-size:10px;font-weight:700;margin-left:4px">Bar</span></span></div>
+      <div style="font-size:13px;font-weight:700;color:#5b3a29;margin-bottom:11px">Due this month — outstanding June checklists</div>
+      <div class="grid2">
+        <div>
+          <div style="font-size:11.5px;font-weight:700;color:#8a7a6d;text-transform:uppercase;letter-spacing:.3px;margin-bottom:8px">Customer coaching — 8 due</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px"><span style="display:inline-block;padding:4px 9px;border:1px solid #ece0c0;background:#fbf6ea;border-radius:8px;font-size:11.5px;color:#7a5b12">Bethany Saunders</span><span style="display:inline-block;padding:4px 9px;border:1px solid #ece0c0;background:#fbf6ea;border-radius:8px;font-size:11.5px;color:#7a5b12">Daizy-Lei Kinton</span><span style="display:inline-block;padding:4px 9px;border:1px solid #ece0c0;background:#fbf6ea;border-radius:8px;font-size:11.5px;color:#7a5b12">Isla Shambrook</span><span style="display:inline-block;padding:4px 9px;border:1px solid #ece0c0;background:#fbf6ea;border-radius:8px;font-size:11.5px;color:#7a5b12">James Bedells</span><span style="display:inline-block;padding:4px 9px;border:1px solid #ece0c0;background:#fbf6ea;border-radius:8px;font-size:11.5px;color:#7a5b12">Jessica Lee</span><span style="display:inline-block;padding:4px 9px;border:1px solid #ece0c0;background:#fbf6ea;border-radius:8px;font-size:11.5px;color:#7a5b12">Julie Baker</span><span style="display:inline-block;padding:4px 9px;border:1px solid #ece0c0;background:#fbf6ea;border-radius:8px;font-size:11.5px;color:#7a5b12">Myles Hadley</span><span style="display:inline-block;padding:4px 9px;border:1px solid #ece0c0;background:#fbf6ea;border-radius:8px;font-size:11.5px;color:#7a5b12">Rhys Harris</span></div>
+        </div>
+        <div>
+          <div style="font-size:11.5px;font-weight:700;color:#8a7a6d;text-transform:uppercase;letter-spacing:.3px;margin-bottom:8px">Barista coaching — 6 due</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px"><span style="display:inline-block;padding:4px 9px;border:1px solid #ece0c0;background:#fbf6ea;border-radius:8px;font-size:11.5px;color:#7a5b12">Alesha Barrett</span><span style="display:inline-block;padding:4px 9px;border:1px solid #ece0c0;background:#fbf6ea;border-radius:8px;font-size:11.5px;color:#7a5b12">Bethany Saunders</span><span style="display:inline-block;padding:4px 9px;border:1px solid #ece0c0;background:#fbf6ea;border-radius:8px;font-size:11.5px;color:#7a5b12">Grace Plant</span><span style="display:inline-block;padding:4px 9px;border:1px solid #ece0c0;background:#fbf6ea;border-radius:8px;font-size:11.5px;color:#7a5b12">Jessica Lee</span><span style="display:inline-block;padding:4px 9px;border:1px solid #ece0c0;background:#fbf6ea;border-radius:8px;font-size:11.5px;color:#7a5b12">Leigh White</span><span style="display:inline-block;padding:4px 9px;border:1px solid #ece0c0;background:#fbf6ea;border-radius:8px;font-size:11.5px;color:#7a5b12">Myles Hadley</span></div>
+        </div>
+      </div>
       
+      <div class="mini" style="margin-top:11px">“Due” = active team members (anyone with a coaching record this quarter) who don’t yet have that checklist logged in June. Source: HRP ‘CS and Br %’.</div>
     </div>
-    <div class="focus green"><span class="ar">→</span>Focus this week: Estate-leading — both customer (139%) and barista (156%) coaching are well over the quarterly standard. This is the benchmark to share.</div>
-    <footer style="margin-top:18px">Customer: live Google reviews (Bewiched Coffee Wellingborough Drive-Thru) · pulled Jun 2026. Team: <a class="srclink" href="https://docs.google.com/spreadsheets/d/1YFqpR9_ftlQEbfwc5ZVMjtS5tFO0j-7ccwB8rwG56wQ/edit" target="_blank" rel="noopener">RMS Shift Ratings ↗</a> · Sickness &amp; RTW cross-referenced from the HRP sheet (‘Sickness / late’ → ‘RTW’).</footer>
+    <div class="focus green"><span class="ar">→</span>Focus this week: Estate-leading on the quarter — keep it up by clearing the names still due their June checklists below.</div>
+    <footer style="margin-top:18px">Customer: live Google reviews (Bewiched Coffee Wellingborough Drive-Thru) · pulled Jun 2026. Team: RMS Shift Ratings · Sickness &amp; RTW cross-referenced from the HRP sheet (‘Sickness / late’ → ‘RTW’).</footer>
   </section>
 
   <footer id="foot"></footer>
@@ -613,7 +623,7 @@ window.CHARTS=window.CHARTS||[];
 <script>
 /* ---- Sales & hours ---- */
 const ACT=[["2026-03-09",16945],["2026-03-16",16315],["2026-03-23",16599],["2026-03-30",16404],["2026-04-06",17396],["2026-04-13",17339],["2026-04-20",18678],["2026-04-27",17781],["2026-05-04",18507],["2026-05-11",17940],["2026-05-18",17613],["2026-05-25",18682],["2026-06-01",17342]];
-const FC=[["2026-06-08",18000,65,277,""],["2026-06-15",18200,65,280,""],["2026-06-22",18400,65,283,""],["2026-06-29",18600,65,286,"schools in"],["2026-07-06",18800,65,289,"summer hols"],["2026-07-13",19000,65,292,"summer hols"],["2026-07-20",19000,65,292,"summer hols"],["2026-07-27",18600,65,286,"summer hols"]];
+const FC=[["2026-06-08",18000,63,286,""],["2026-06-15",18200,63,289,""],["2026-06-22",18400,63,292,""],["2026-06-29",18600,63,295,"schools in"],["2026-07-06",18800,63,298,"summer hols"],["2026-07-13",19000,63,302,"summer hols"],["2026-07-20",19000,63,302,"summer hols"],["2026-07-27",18600,63,295,"summer hols"]];
 
 const gbp0=n=>"£"+Math.round(n).toLocaleString("en-GB");
 const ddmm=s=>{const[y,m,d]=s.split("-");return d+"/"+m;};
@@ -651,7 +661,7 @@ document.querySelector("#tbl tfoot").innerHTML=`<tr><td>8-WK TOTAL</td><td>${gbp
 <td>£${(tS/tH).toFixed(1)}</td><td>${tH.toLocaleString("en-GB")}</td></tr>`;
 
 document.getElementById("foot").innerHTML="Generated "+new Date().toLocaleString("en-GB")+
-" · Mature drive-thru: 13-week trailing actuals (live BigQuery) + 8-week forward forecast at a flat £65 CPH (hours = sales ÷ 65). Wastage & mix are live BigQuery; F1 & Sentiment refresh at Monday's auto-pull.";
+" · Mature drive-thru: 13-week trailing actuals (live BigQuery) + 8-week forward forecast at a flat £63 CPH (hours = sales ÷ 63). Wastage & mix are live BigQuery; F1 & Sentiment refresh at Monday's auto-pull.";
 </script>
 
 <script>
