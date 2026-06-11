@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="robots" content="noindex, nofollow">
+<title>Bewiched — Company Dashboard</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root{--bg:#f4efe9;--card:#fff;--ink:#2b211b;--muted:#8a7a6d;--line:#e7ddd2;--brown:#5b3a29;--cream:#efe6dc;
+    --green:#1f8a4c;--oln:#2d6fb3;--red:#c0392b;--amber:#b8860b;--slate:#9aa6b0;--redbg:#fbeae8;--amberbg:#f7f0dd;--greenbg:#e6f4ec;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+  .brandbar{background:linear-gradient(180deg,#1e3a52 0%,#142838 100%);color:#f6efe7;}
+  .brandbar .inner{max-width:1180px;margin:0 auto;padding:14px 22px;display:flex;align-items:center;gap:13px;}
+  .logo .word{font-size:21px;font-weight:800;line-height:1;} .logo .word span{color:#e7b35a}
+  .logo .eyebrow{font-size:10.5px;letter-spacing:2.4px;text-transform:uppercase;color:#8fa6b8;margin-top:3px;}
+  .brandbar .spacer{flex:1} .brandbar .ctx{font-size:11.5px;color:#8fa6b8;text-align:right;line-height:1.5} .brandbar .ctx b{color:#f6efe7;font-weight:700}
+  .wrap{max-width:1180px;margin:0 auto;padding:24px 22px 60px;}
+  header.page h1{margin:0 0 4px;font-size:23px;} header.page .sub{color:var(--muted);font-size:13.5px;line-height:1.5;}
+  .pill{display:inline-block;background:var(--cream);color:var(--brown);border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:12px;font-weight:600;margin-right:6px;}
+  .tabs{display:flex;gap:6px;flex-wrap:wrap;margin:22px 0 4px;border-bottom:2px solid var(--line);}
+  .tab-btn{appearance:none;border:none;background:transparent;cursor:pointer;font:inherit;font-size:13.5px;font-weight:700;color:var(--muted);padding:11px 16px;border-radius:10px 10px 0 0;border-bottom:3px solid transparent;margin-bottom:-2px;display:flex;align-items:center;gap:7px;}
+  .tab-btn:hover{color:var(--brown);background:#faf6f1;} .tab-btn.active{color:var(--brown);border-bottom-color:var(--brown);background:#fff;}
+  .tab-panel{display:none;animation:fade .25s ease;} .tab-panel.active{display:block;} @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1}}
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:16px;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:0 1px 2px rgba(80,50,30,.04);}
+  .card .lbl{font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.4px;}
+  .card .val{font-size:25px;font-weight:700;margin-top:6px;} .card .meta{font-size:12.5px;color:var(--muted);margin-top:3px;}
+  .chip{display:inline-block;font-size:12px;font-weight:700;padding:1px 7px;border-radius:6px;margin-left:6px;vertical-align:middle}
+  .chip.up{background:var(--greenbg);color:var(--green)} .chip.dn{background:var(--redbg);color:var(--red)}
+  .section-title{font-size:15px;font-weight:700;margin:26px 0 12px;color:var(--brown);}
+  .focus{margin:12px 0 6px;padding:10px 14px;border-radius:10px;font-size:13px;font-weight:600;background:var(--greenbg);border:1px solid #cfe6d8;color:#1c6b3d;}
+  .focus.red{background:var(--redbg);border-color:#eccfca;color:#8c2f22;} .focus.amber{background:var(--amberbg);border-color:#ece0c0;color:#7a5b12;} .focus .ar{font-weight:800;margin-right:5px;}
+  .focusmod{margin:16px 0 4px;padding:14px 18px;border-radius:14px;background:linear-gradient(180deg,#fff,#fbf7f2);border:1px solid var(--line);}
+  .focusmod h2{margin:0 0 8px;font-size:14px;color:var(--brown);} .focusmod ul{margin:0;padding-left:18px;} .focusmod li{font-size:13px;margin:4px 0;line-height:1.45;}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:0 1px 2px rgba(80,50,30,.04);}
+  .chart-box{height:340px;position:relative}
+  .note{background:#fff8ec;border:1px solid #f0e0bf;color:#7a5e1e;border-radius:10px;padding:10px 14px;font-size:12.5px;margin:14px 0 0;line-height:1.55;}
+  .note.red{background:var(--redbg);border-color:#eccfca;color:#8c2f22;} .note.green{background:var(--greenbg);border-color:#cfe6d8;color:#1c6b3d;} .note.blue{background:#eef4fb;border-color:#cfe0f2;color:#1d4e7a;}
+  .grid2{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;align-items:start;} .grid2.even{grid-template-columns:1fr 1fr;}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;} th,td{padding:8px 10px;text-align:right;border-bottom:1px solid var(--line);}
+  th:first-child,td:first-child{text-align:left;} thead th{font-size:11px;text-transform:uppercase;letter-spacing:.3px;color:var(--muted);font-weight:700;}
+  tbody tr:hover{background:#faf6f1;} tfoot td{font-weight:700;border-top:2px solid var(--line);}
+  .mini{font-size:11.5px;color:var(--muted);} .neg{color:var(--red);font-weight:700} .pos{color:var(--green);font-weight:700}
+  .tag{display:inline-block;padding:2px 8px;border-radius:6px;font-weight:700;font-size:12.5px;}
+  .t-red{background:var(--redbg);color:var(--red)} .t-amber{background:var(--amberbg);color:var(--amber)} .t-ok{background:var(--greenbg);color:var(--green)} .t-na{background:#eee;color:#999}
+  .dotc{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;vertical-align:middle}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:11.5px;color:var(--muted);margin-top:10px} .legend span{display:inline-flex;align-items:center;gap:5px} .sw{width:12px;height:12px;border-radius:3px;display:inline-block}
+  .scorecard td,.scorecard th{text-align:center;padding:7px 6px;} .scorecard td:first-child,.scorecard th:first-child{text-align:left;}
+  /* movements */
+  table.mov{border-collapse:separate;border-spacing:3px;} table.mov th{font-size:10.5px;color:var(--muted);font-weight:700;text-align:center;padding:0 0 6px;}
+  table.mov td.ms{text-align:left;font-size:12.5px;font-weight:600;white-space:nowrap;padding-right:8px;border:none}
+  table.mov td.dc{width:46px;height:30px;text-align:center;font-size:11.5px;font-weight:700;border-radius:5px;border:none}
+  table.mov td.cov{border:none;white-space:nowrap;padding-left:12px;min-width:110px}
+  table.mov td.cov .pbar{display:inline-block;width:64px;height:9px;border-radius:5px;background:#efe7dd;overflow:hidden;vertical-align:middle} table.mov td.cov .pbar i{display:block;height:100%;border-radius:5px}
+  table.mov td.cov span{font-size:11.5px;font-weight:700;color:var(--brown);margin-left:7px}
+  .newtag{font-size:9px;background:#eaf1f9;color:#2d6fb3;border-radius:5px;padding:1px 5px;font-weight:700;vertical-align:middle}
+  .capmat td,.capmat th{text-align:center;padding:6px 5px;} .capmat td.ms,.capmat th:first-child{text-align:left;font-weight:600}
+  .spkwrap{display:inline-flex;align-items:flex-end;gap:2px;height:20px} .spk{display:inline-block;width:7px;background:#2d6fb3;border-radius:1px;opacity:.85}
+  select{font:inherit;font-size:13px;padding:6px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink)}
+  footer{color:var(--muted);font-size:12px;margin-top:26px;line-height:1.6}
+  table.gh{border-collapse:separate;border-spacing:3px;} table.gh th{font-size:10.5px;color:var(--muted);font-weight:700;text-align:center;padding:0 0 4px;} table.gh td.ms{text-align:right;font-size:12.5px;font-weight:600;white-space:nowrap;padding-right:6px;border:none;width:1px} table.gh td.gc{width:78px;text-align:center;font-weight:700;font-size:11.5px;border-radius:5px;border:none;padding:7px 4px}
+  .crow{display:grid;grid-template-columns:34px 1fr 92px;gap:12px;align-items:center;padding:10px 12px;border-radius:10px;margin-bottom:8px}
+  .crow .crank{font-weight:800;font-size:16px;color:#5b3a29;text-align:center} .crow .cname{font-weight:700;font-size:14px;color:#3f2d22} .crow .csub{font-size:11px;color:var(--muted);margin-top:3px}
+  .crow .cbar{height:9px;background:#efe7dd;border-radius:5px;overflow:hidden;margin-top:5px} .crow .cbar i{display:block;height:100%;background:#5b3a29;border-radius:5px}
+  .crow .cval{font-weight:800;font-size:20px;color:#5b3a29;text-align:right} .crow .cval small{display:block;font-size:9.5px;color:var(--muted);font-weight:600}
+  .dleader{max-height:430px;overflow-y:auto} .dleader table{font-size:12.5px}
+  @media(max-width:860px){.cards{grid-template-columns:repeat(2,1fr)}.grid2,.grid2.even{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="brandbar"><div class="inner">
+  <div class="logo"><div><div class="word">Be<span>wiched</span></div><div class="eyebrow">Company Performance</div></div></div>
+  <div class="spacer"></div>
+  <div class="ctx">Whole company · <b>{{NSTORES}} stores</b><br>4-week window: <b>11 May → 7 Jun 2026</b> · YoY vs 2025</div>
+</div></div>
+<div class="wrap">
+  <header class="page">
+    <h1>🏢 Bewiched — Company Performance Dashboard</h1>
+    <div class="sub"><span class="pill">{{PILL}}</span>
+    <br>Live BigQuery POS to 9 Jun · availability (polling) · F1 (audit sheet) · visits (rota) · RMS &amp; HRP. Sales gross inc VAT.</div>
+  </header>
+  <div class="focusmod"><h2>🎯 Company focus — week of 9 Jun</h2><ul>{{FOCUS_LI}}</ul></div>
+  <nav class="tabs" role="tablist">
+    <button class="tab-btn active" data-tab="overview"><span>🚦</span>Company overview</button>
+    <button class="tab-btn" data-tab="sales"><span>📈</span>Sales</button>
+    <button class="tab-btn" data-tab="forecast"><span>📅</span>Forecast &amp; Hours</button>
+    <button class="tab-btn" data-tab="waste"><span>♻️</span>Wastage &amp; Yield</button>
+    <button class="tab-btn" data-tab="mix"><span>🧺</span>Mix &amp; opportunity</button>
+    <button class="tab-btn" data-tab="f1"><span>🏁</span>Op's Excellence</button>
+    <button class="tab-btn" data-tab="sentiment"><span>💬</span>Sentiment</button>
+  </nav>
+
+  <!-- OVERVIEW -->
+  <section class="tab-panel active" id="tab-overview">
+    <div class="cards">
+      <div class="card"><div class="lbl">Area sales — last week</div><div class="val">{{AREA_LAST}}<span class="chip {{LWCHIP}}">{{AREA_YOY_LW}}</span></div><div class="meta">W/C 1 Jun · YoY</div></div>
+      <div class="card"><div class="lbl">Area sales — 4 weeks</div><div class="val">{{AREA_4WK}}<span class="chip {{W4CHIP}}">{{AREA_YOY_4W}}</span></div><div class="meta">11 May → 7 Jun · YoY</div></div>
+      <div class="card"><div class="lbl">Area wastage %</div><div class="val">{{AREA_WASTE_PCT}}%</div><div class="meta">{{AREA_WASTE_RETAIL}} retail · target 3%</div></div>
+      <div class="card"><div class="lbl">Customer rating</div><div class="val">{{AREA_RATING}}★</div><div class="meta">{{AREA_REVIEWS}} Google reviews · team RMS {{AREA_RMS}}/5</div></div>
+    </div>
+    <div class="section-title">Store scorecard — traffic-lit by KPI</div>
+    <div class="panel">
+      <table class="scorecard">
+        <thead><tr><th>Store</th><th>Last wk £</th><th>vs 4-wk avg</th><th>YoY (LW)</th><th>YoY (4wk)</th><th>ATV</th><th>Wastage %</th><th>Availability</th><th>F1 race</th><th>Coach presence</th></tr></thead>
+        <tbody>{{OVROWS}}</tbody>
+      </table>
+      <div class="legend">
+        <span><span class="sw" style="background:var(--greenbg);border:1px solid #cfe6d8"></span>on track</span>
+        <span><span class="sw" style="background:var(--amberbg);border:1px solid #ece0c0"></span>watch</span>
+        <span><span class="sw" style="background:var(--redbg);border:1px solid #eccfca"></span>act now</span>
+        <span class="mini">YoY green ≥0% · ATV vs area median £{{ATV_MED}} · Wastage vs 3% · Availability ≥95% (polled to 08/06/2026) · F1 race finish ≤6 green, >15 red (field of ~25 incl. competitor audits) </span>
+      </div>
+    </div>
+    <div class="section-title">SMT site presence — Matt, Kel &amp; Claire</div>
+    <div class="note" style="margin-bottom:14px">Where each of the senior team spends time across the estate, from the Weekly SMT Visit Diary (60 weeks). Each cell = % of that store's logged weeks the person was on site on that weekday; the bar = % of weeks they visited at all.</div>
+    <div class="section-title">Matt — % of weeks on site by day (SMT diary)</div>
+    <div class="panel">
+      <div style="overflow-x:auto"><table class="mov"><thead><tr><th></th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th><th style="padding-left:12px">Total coverage</th></tr></thead><tbody>{{SMT_MATT_ROWS}}</tbody></table></div>
+    </div>
+    <div class="section-title">Kel — % of weeks on site by day (SMT diary)</div>
+    <div class="panel">
+      <div style="overflow-x:auto"><table class="mov"><thead><tr><th></th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th><th style="padding-left:12px">Total coverage</th></tr></thead><tbody>{{SMT_KEL_ROWS}}</tbody></table></div>
+    </div>
+    <div class="section-title">Claire — % of weeks on site by day (SMT diary)</div>
+    <div class="panel">
+      <div style="overflow-x:auto"><table class="mov"><thead><tr><th></th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th><th style="padding-left:12px">Total coverage</th></tr></thead><tbody>{{SMT_CLAIRE_ROWS}}</tbody></table></div>
+    </div>
+    <div class="legend">
+        <span><span class="sw" style="background:rgba(31,138,76,.85)"></span>more often</span>
+        <span><span class="sw" style="background:rgba(31,138,76,.18)"></span>occasionally</span>
+        <span class="mini">Coverage bar: green ≥40% of weeks · amber ≥20% · red below. Source: Weekly SMT Visit Diary, Master tab.</span>
+      </div>
+      <div class="note">{{SMT_NOTE}}</div>
+  </section>
+
+  <!-- SALES -->
+  <section class="tab-panel" id="tab-sales">
+    <div class="section-title">Sales last week (W/C 1 Jun) — with transactions &amp; YoY</div>
+    <div class="panel">
+      <table><thead><tr><th>Store</th><th>Sales</th><th>YoY</th><th>Av spend</th><th>YoY</th><th>GC&#39;s</th><th>YoY</th></tr></thead>
+      <tbody>{{LW_TABLE}}</tbody><tfoot>{{LW_TOTAL}}</tfoot></table>
+      <div class="note green"><b>Reconciled with Looker &mdash; same LFL basis.</b> Last week&#39;s <b>sales &pound; and GC&#39;s match Looker to the pound and the cover</b> (Kettering &pound;9,921 &middot; 1,346 GCs &middot; &pound;7.37 av spend). The <b>YoY %</b> compares last week (W/C <b>Mon 1 Jun 2026</b>) to the weekday-aligned week last year (W/C <b>Mon 2 Jun 2025</b>) &mdash; Looker&#39;s &ldquo;shift the dates by a day to keep same-weekday vs same-weekday&rdquo; method (its filter: 2&ndash;8 Jun 2025). The 2025 baselines match Looker exactly (Kettering &pound;10,205 &middot; Rushden &pound;17,005 &middot; Higham &pound;3,891 &middot; Burton &pound;5,700 &middot; Rothwell &pound;6,044), so these YoY % line up with Looker&#39;s LFL.</div>
+    </div>
+    <div class="section-title" style="margin-top:22px">Sales — 4 weeks to 7 Jun, with YoY</div>
+    <div class="panel">
+      <table><thead><tr><th>Store</th><th>4-wk sales</th><th>YoY</th><th>ATV</th><th>Last wk</th><th>vs 4-wk</th></tr></thead>
+      <tbody>{{SALESTBL}}</tbody>
+      <tfoot><tr><td>AREA</td><td>{{AREA_4WK}}</td><td>{{AREA_YOY_4W}}</td><td>—</td><td>{{AREA_LAST}}</td><td>—</td></tr></tfoot></table>
+    </div>
+    <div class="section-title" style="margin-top:22px">Daypart sales — YoY growth / decline by store</div>
+    <div class="panel"><div style="overflow-x:auto"><table class="gh">
+      <thead><tr><th></th><th>Morning</th><th>Lunch</th><th>Afternoon</th><th>Evening</th></tr></thead>
+      <tbody>{{DPG_ROWS}}</tbody></table></div>
+      <div class="note">{{DPG_NOTE}}</div>
+    </div>
+    <div class="section-title" style="margin-top:22px">Day-of-week sales — YoY growth / decline by store</div>
+    <div class="panel"><div style="overflow-x:auto"><table class="gh">
+      <thead><tr><th></th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th></tr></thead>
+      <tbody>{{DOWG_ROWS}}</tbody></table></div>
+      <div class="note">{{DOWG_NOTE}}</div>
+    </div>
+    <div class="focus amber"><span class="ar">→</span>{{SALES_FOCUS}}</div>
+  </section>
+
+  <!-- FORECAST -->
+  <section class="tab-panel" id="tab-forecast">
+    <div class="cards" style="grid-template-columns:repeat(3,1fr)">
+      <div class="card"><div class="lbl">This week — sales forecast</div><div class="val">{{FCST_AREA_THIS}}</div><div class="meta">{{WK_THIS}} · area</div></div>
+      <div class="card"><div class="lbl">This week — planned hours</div><div class="val">{{FCST_HRS_THIS}}</div><div class="meta">at CPH target</div></div>
+      <div class="card"><div class="lbl">Blended CPH</div><div class="val">&pound;{{FCST_BLENDED}}</div><div class="meta">forecast &pound; &divide; planned hrs</div></div>
+    </div>
+    <div class="section-title">3-week sales &amp; hours forecast</div>
+    <div class="panel"><div style="overflow-x:auto">
+      <table class="scorecard"><thead>
+        <tr><th rowspan="2">Store</th><th rowspan="2">CPH</th><th rowspan="2">Last wk actual</th><th colspan="3">{{WK_THIS}}</th><th colspan="3">{{WK_N1}}</th><th colspan="3">{{WK_N2}}</th></tr>
+        <tr><th>LY</th><th>Fcst</th><th>Hrs</th><th>LY</th><th>Fcst</th><th>Hrs</th><th>LY</th><th>Fcst</th><th>Hrs</th></tr>
+      </thead><tbody>{{FCST_ROWS}}</tbody></table></div>
+      <div class="note">Forecast = last year (weekday-aligned) &times; the store&#39;s recent YoY; new 2026 sites use last week&#39;s actual. Planned hours = forecast &divide; CPH target. <b>CPH targets are the single source of truth in the <a class="srclink" href="{{TARGETS_LINK}}" target="_blank" rel="noopener">Store Targets sheet</a></b> &mdash; update them there and they flow into every rebuild.</div>
+    </div>
+    <div class="focus amber"><span class="ar">&rarr;</span>Shape the rota to the forecast &mdash; the planned-hours column is the labour budget per store for the week.</div>
+  </section>
+
+  <!-- WASTAGE & YIELD -->
+  <section class="tab-panel" id="tab-waste">
+    <div class="note blue"><b>Yield = Availability % − Waste-rate %</b>, target <b>90%</b>. Below it means either <b>over-producing</b> (high waste) or <b>selling out</b> (low availability — a chance to sell more). Pick a store: &nbsp;<select id="storeSel"></select> <span id="pollNote" class="mini"></span></div>
+    <div class="grid2 even" style="margin-top:8px">
+      <div class="panel">
+        <div style="font-size:13px;font-weight:700;color:var(--red);margin-bottom:8px">🔻 Outlier products — biggest over-production</div>
+        <table id="outTbl"><thead><tr><th>Product</th><th>Waste rate</th><th>Wasted</th><th>Sold</th><th>Waste £</th></tr></thead><tbody></tbody></table>
+        <div class="note red" id="outNote" style="margin-top:10px"></div>
+      </div>
+      <div class="panel">
+        <div style="font-size:13px;font-weight:700;color:var(--green);margin-bottom:8px">🔺 Selling out — make more</div>
+        <table id="moreTbl"><thead><tr><th>Product</th><th>Avail</th><th>Waste rate</th><th>Sold</th><th>Yield</th></tr></thead><tbody></tbody></table>
+        <div class="note green" id="moreNote" style="margin-top:10px"></div>
+      </div>
+    </div>
+    <div class="focus amber"><span class="ar">→</span><span id="focusLine"></span></div>
+  </section>
+
+  <!-- MIX -->
+  <section class="tab-panel" id="tab-mix">
+    <div class="section-title">Sales mix &amp; capture — area view</div>
+    <div class="grid2">
+      <div class="panel"><div style="font-size:13px;font-weight:700;color:#5b3a29;margin-bottom:8px">Area sales mix by category</div><div class="chart-box" style="height:300px"><canvas id="mixChart"></canvas></div></div>
+      <div class="panel">
+        <table><thead><tr><th>Category</th><th>Area mix %</th><th>Avg capture %</th><th>Best</th><th>Weakest</th></tr></thead>
+        <tbody>{{MIX_AREA_ROWS}}</tbody></table>
+        <div class="note"><b>Capture %</b> = share of transactions including the category (attach rate). {{MIX_NOTE}}</div>
+      </div>
+    </div>
+    <div class="section-title" style="margin-top:22px">Capture % by store — green = ahead of area average, red = behind</div>
+    <div class="panel">
+      <div style="overflow-x:auto"><table class="capmat"><thead><tr><th>Store</th>{{CAPHDR}}</tr></thead><tbody>{{CAPMAT}}</tbody></table></div>
+      <div class="note">Each cell is the store's attach rate for the category vs the 9-store area average. It surfaces specific add-on coaching: a red Food or Bakery cell is a till-prompt opportunity; a green Milkshake cell is a store worth learning from.</div>
+    </div>
+    <div class="focus amber"><span class="ar">→</span>{{MIX_FOCUS}}</div>
+  </section>
+
+  <!-- F1 -->
+  <section class="tab-panel" id="tab-f1">
+    <div class="cards" style="grid-template-columns:repeat(3,1fr)">
+      <div class="card"><div class="lbl">Constructor — avg race finish</div><div class="val">P{{AVG_FIN2}}</div><div class="meta">across 9 stores · latest race</div></div>
+      <div class="card"><div class="lbl">Avg championship points</div><div class="val">{{F1_CHAMP_AVG}}</div><div class="meta">latest race · higher = better</div></div>
+      <div class="card"><div class="lbl">Top of the grid</div><div class="val" style="color:var(--green)">{{F1_TOP}}</div><div class="meta">{{F1_TOP_META}}</div></div>
+    </div>
+    <div class="note green" style="margin-top:16px"><b>How F1 works.</b> Stores are audited unannounced weekly. <b>Qualifying (Mon–Thu)</b> sets the grid on queue speed + hospitality; <b>The Race (Fri–Sun)</b> is the full audit and banks championship points by finishing position. Each Area Coach is a <b>constructor</b>; their stores are the drivers (Jon, Ian &amp; Rich across {{NSTORES}} stores). Field of ~25 includes competitor benchmark audits (Costa, Nero, Starbucks, Coffee#1).</div>
+    <div class="section-title">🏆 Constructors’ Championship — <span style="font-weight:400;color:#9a8a7c;font-size:12px">avg points/store · since 25 Apr</span></div>
+    <div class="grid2">
+      <div class="panel">
+        <div style="font-size:13px;font-weight:700;color:#5b3a29;margin-bottom:10px">Constructors’ standings <span class="mini">· area coaches by avg pts/store</span></div>
+        {{CON_HTML}}
+        <div class="note">{{CON_NOTE}}</div>
+      </div>
+      <div class="panel">
+        <div style="font-size:13px;font-weight:700;color:#5b3a29;margin-bottom:8px">Drivers’ leaderboard <span class="mini">· all 21 stores by total pts</span></div>
+        <div class="dleader"><table><thead><tr><th style="text-align:center">#</th><th>Store (driver)</th><th>Coach</th><th>Pts</th></tr></thead><tbody>{{DRV_ROWS}}</tbody></table></div>
+      </div>
+    </div>
+    <div class="section-title" style="margin-top:22px">Latest race finish by store — lower is better</div>
+    <div class="grid2">
+      <div class="panel"><div class="chart-box"><canvas id="f1Chart"></canvas></div></div>
+      <div class="panel">
+        <table><thead><tr><th>Store</th><th>Finish</th><th>Champ pts</th><th>Last 6 races</th></tr></thead><tbody>{{F1TBL}}</tbody></table>
+        <div class="note red">{{F1_NOTE}}</div>
+      </div>
+    </div>
+    <div class="focus red"><span class="ar">→</span>{{F1_FOCUS}}</div>
+  </section>
+
+  <!-- SENTIMENT -->
+  <section class="tab-panel" id="tab-sentiment">
+    <div class="cards">
+      <div class="card"><div class="lbl">Team — avg RMS rating</div><div class="val">{{AREA_RMS}}<small style="font-size:14px;color:#9a8a7c">/5</small></div><div class="meta">Rate My Shift · 2026</div></div>
+      <div class="card"><div class="lbl">Sickness incidents (2026)</div><div class="val">{{AREA_SICK}}</div><div class="meta">{{AREA_LATE}} of which late · reported correctly {{AREA_REP}}%</div></div>
+      <div class="card"><div class="lbl">RTW completion</div><div class="val"><span class="tag {{RTW_COMP_K}}" style="font-size:22px;padding:2px 10px">{{RTW_COMP}}%</span></div><div class="meta">{{AREA_RTW}} return-to-work / {{AREA_SICK}} absences</div></div>
+      <div class="card"><div class="lbl">Customer — Google rating</div><div class="val">{{AREA_RATING}}<small style="font-size:14px;color:#9a8a7c">/5</small></div><div class="meta">{{AREA_REVIEWS}} reviews · live GMB</div></div>
+    </div>
+
+    <div class="grid2" style="margin-top:18px">
+      <div class="panel">
+        <div style="font-size:13px;font-weight:700;color:#5b3a29;margin-bottom:8px">Team sentiment — Rate My Shift (out of 5)</div>
+        <table class="mov"><tbody>{{RMS_ROWS}}</tbody></table>
+        <div class="note">{{RMS_NOTE}}</div>
+      </div>
+      <div class="panel">
+        <div style="font-size:13px;font-weight:700;color:#5b3a29;margin-bottom:8px">Sickness, late &amp; return-to-work — 2026</div>
+        <table><thead><tr><th>Store</th><th>Sick</th><th>Late</th><th>Reported OK</th><th>RTW done</th><th>RTW rate</th></tr></thead><tbody>{{HR_ROWS}}</tbody></table>
+        <div class="note red">{{RTW_NOTE}}</div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:18px"><div style="font-size:13px;font-weight:700;color:#5b3a29;margin-bottom:8px">Customer — Google star rating by store <span class="mini">· live from Google My Business (Supermetrics)</span></div><table class="mov"><tbody>{{CUST_ROWS}}</tbody></table><div class="note">{{CUST_NOTE}}</div></div>
+    <div class="focus red"><span class="ar">→</span>Close the return-to-work gap (currently {{RTW_COMP}}%): log an RTW chat after every absence, starting with Fletton &amp; Rushden.</div>
+  </section>
+
+  <footer id="foot"></footer>
+</div>
+
+<script>
+window.CHARTS=window.CHARTS||[];
+const YJS={{YJS}}, OUT={{OUTJS}};
+const gbp0=v=>"£"+Math.round(v).toLocaleString("en-GB");
+
+// Mix bar
+window.CHARTS.push(new Chart(document.getElementById("mixChart"),{type:"bar",
+  data:{labels:{{MIX_LBLS}},datasets:[{label:"Area mix %",data:{{MIX_DS}},backgroundColor:["#5b3a29","#2d6fb3","#c0392b","#1f8a4c","#c08a2d","#9aa6b0"],borderRadius:5}]},
+  options:{indexAxis:"y",responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>" "+c.parsed.x+"% of area sales"}}},
+    scales:{x:{ticks:{callback:v=>v+"%"},grid:{color:"#eee"}},y:{grid:{display:false}}}}}));
+
+// F1 finishes (horizontal, lower=better)
+const f1fin={{F1_FIN_DS}}, f1lbl={{F1_FIN_LBLS}};
+window.CHARTS.push(new Chart(document.getElementById("f1Chart"),{type:"bar",
+  data:{labels:f1lbl,datasets:[{label:"Race finish",data:f1fin,backgroundColor:f1fin.map(v=>v<=6?"#1f8a4c":v<=15?"#b8860b":"#c0392b"),borderRadius:5}]},
+  options:{indexAxis:"y",responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>" Finished P"+c.parsed.x}}},
+    scales:{x:{title:{display:true,text:"finishing position (lower = better)"},grid:{color:"#eee"},suggestedMax:25},y:{grid:{display:false}}}}}));
+
+// Wastage selector
+const TARGET=90;
+function renderWaste(store){
+  const items=YJS[store].items.map(r=>({n:r[0],av:r[1],wr:r[2],sold:r[3],wretail:r[4],y:+(r[1]-r[2]).toFixed(1)}));
+  const soldMed=[...items.map(r=>r.sold)].sort((a,b)=>a-b)[Math.floor(items.length/2)]||0;
+  document.getElementById("pollNote").innerHTML = store.startsWith("Area")?"· 9-store aggregate · availability avg, units summed":"· availability polled to "+YJS[store].latest+" (current)";
+  // outliers
+  const out=OUT[store].map(r=>({n:r[0],wr:r[1],wasted:r[2],sold:r[3],wretail:r[4]}));
+  document.querySelector("#outTbl tbody").innerHTML=out.map(r=>{
+    const c=r.wr>=40?["#fbeae8","#c0392b"]:r.wr>=25?["#f7f0dd","#b8860b"]:["#e6f4ec","#1f8a4c"];
+    return `<tr><td>${r.n}</td><td><span class="tag" style="background:${c[0]};color:${c[1]}">${r.wr}%</span></td><td>${r.wasted}</td><td>${r.sold}</td><td>£${Math.round(r.wretail)}</td></tr>`;}).join("");
+  const oGBP=out.reduce((s,r)=>s+r.wretail,0);
+  document.getElementById("outNote").innerHTML=`Top ${out.length} lines ≈ <b>£${Math.round(oGBP)}</b> retail waste over 4 weeks. Waste rate = wasted ÷ (wasted + sold); trim pars on the reds first.`;
+  // make more
+  const more=items.filter(r=>r.wr<20&&r.av<97&&r.sold>=soldMed).sort((a,b)=>b.sold-a.sold);
+  document.querySelector("#moreTbl tbody").innerHTML=(more.length?more:[null]).map(r=>!r?'<tr><td colspan="5" style="text-align:center;color:#8a7a6d">— none flagged —</td></tr>':
+    `<tr><td>${r.n}</td><td>${r.av}%</td><td>${r.wr}%</td><td><b>${r.sold}</b></td><td><span class="tag" style="background:#eaf1f9;color:#2d6fb3">${r.y}%</span></td></tr>`).join("");
+  document.getElementById("moreNote").innerHTML= more.length?
+    `Strong sellers, barely wasted, but ran out — ${more.map(r=>r.n).join(" & ")} under 100% available. Lift the par to catch lost sales.`:
+    `No low-waste line is running short — availability is keeping up with demand.`;
+  document.getElementById("focusLine").innerHTML=(out.length?`Trim pars on ${out.slice(0,3).map(r=>r.n).join(", ")}`:"Hold pars")+(more.length?`; lift pars on ${more.map(r=>r.n).join(" & ")} (selling out).`:".");
+}
+(function(){const sel=document.getElementById("storeSel");const ks=Object.keys(YJS);
+  const areaKey=ks.find(x=>x.startsWith("Area"))||ks[0];
+  sel.innerHTML=ks.map(s=>`<option${s===areaKey?" selected":""}>${s}</option>`).join("");
+  sel.addEventListener("change",()=>renderWaste(sel.value));renderWaste(areaKey);})();
+
+(function(){const btns=document.querySelectorAll(".tab-btn"),panels=document.querySelectorAll(".tab-panel");
+  btns.forEach(b=>b.addEventListener("click",()=>{btns.forEach(x=>x.classList.remove("active"));panels.forEach(p=>p.classList.remove("active"));
+    b.classList.add("active");document.getElementById("tab-"+b.dataset.tab).classList.add("active");
+    requestAnimationFrame(()=>{(window.CHARTS||[]).forEach(c=>{try{c.resize();}catch(e){}});});}));})();
+document.getElementById("foot").innerHTML="Generated "+new Date().toLocaleString("en-GB")+" · Sales, wastage, mix &amp; day-of-week: live BigQuery POS (4 wks to 7 Jun 2026, YoY vs 2025). Availability: polling sheet (to 08/06/2026). F1: audit sheet (The Race). Visits: rota sheet. Customer Google rating pending Supermetrics renewal.";
+</script>
+</body>
+</html>
