@@ -5,6 +5,8 @@ A=json.load(open('allstores.json')); REC=A['rec']; champ=A['champ']; CATS=A['cat
 SMT=json.load(open('smt_visits.json'))
 WASTE=json.load(open('company_wastage.json'))['rows']
 F1D=json.load(open('f1_detail.json'))
+ACT=json.load(open('actuals.json'))
+import datetime as _dtm; GEN_STAMP=_dtm.datetime.now().strftime('%d %b %Y, %H:%M')
 SHORT={"Burton Latimer":"Burton","Corby":"Corby","Higham Ferrers":"Higham","Kettering":"Kettering","Olney":"Olney",
 "Peterborough Bridge Street":"P'boro Bridge St","Peterborough Fletton Quays":"P'boro Fletton","Rothwell":"Rothwell","Rushden Lakes":"Rushden Lakes",
 "Attleborough":"Attleborough","Billing Drive Thru":"Billing DT","Glenvale Drive Thru":"Glenvale DT","HOE Balsall Common":"Balsall Common",
@@ -273,7 +275,21 @@ def build():
     rlist=[(s,F1D[s]['race']) for s in F1D if not s.startswith('_') and isinstance(F1D[s],dict) and 'race' in F1D[s]]
     rlist.sort(key=lambda x:int(float(x[1][7])))
     race_rows="".join(f'<tr><td>{SHORT.get(s,s)}</td><td>{_rk(r[7])}</td><td style="font-weight:700">{r[6]}</td><td>{_q(r[0])}</td><td>{_hosp(r[1])}</td><td>{_hosp(r[2])}</td><td>{_hosp(r[3])}</td><td>{_hosp(r[4])}</td><td>{r[5]}</td><td class="mini">{r[8]}</td></tr>' for s,r in rlist)
+    # ---- actual vs forecast (last completed week) ----
+    avf=""; sfc=sa=ssc=su=0
+    for s in sorted(stores,key=lambda x:-R[x]['lw26']):
+        a=ACT.get(s)
+        if not isinstance(a,list): continue
+        fc=a[1] or 0; sched=a[2] or 0; used=a[3] or 0; act=R[s]['lw26']; tcph=R[s].get('cph',55)
+        sfc+=fc; sa+=act; ssc+=sched; su+=used
+        sv=round(100*(act/fc-1)) if fc else None; hv=round(used-sched,1) if (used or sched) else None; ac=round(act/used,2) if used else None
+        svk='t-ok' if (sv is not None and sv>=0) else 't-red'; cpk='t-ok' if (ac is not None and ac>=tcph) else 't-red'; hvk='t-ok' if (hv is not None and hv<=0) else 't-amber'
+        svt=(("+" if sv>=0 else "")+str(sv)+"%") if sv is not None else "n/a"; hvt=(("+" if hv>=0 else "")+("%g"%hv)) if hv is not None else "n/a"
+        avf+=(f'<tr><td style="font-weight:700">{s}</td><td>£{fc:,.0f}</td><td style="font-weight:700">£{act:,.0f}</td><td>{tag(svt,svk)}</td><td>{"%g"%sched}</td><td>{"%g"%used}</td><td>{tag(hvt,hvk)}</td><td>£{tcph}</td><td>{tag(("£%.2f"%ac) if ac is not None else "n/a",cpk)}</td></tr>')
+    tsv=round(100*(sa/sfc-1)) if sfc else 0; tac=round(sa/su,2) if su else 0; thv=round(su-ssc,1)
+    avf+=(f'<tr style="font-weight:700;background:#EFE6DC"><td>COMPANY TOTAL</td><td>£{sfc:,.0f}</td><td>£{sa:,.0f}</td><td>{("+" if tsv>=0 else "")+str(tsv)}%</td><td>{"%g"%ssc}</td><td>{"%g"%su}</td><td>{("+" if thv>=0 else "")+("%g"%thv)}</td><td></td><td>£{tac:.2f}</td></tr>')
     repl={
+     "{{GEN_STAMP}}":GEN_STAMP,"{{AVF_WK}}":ACT.get('_week_label','last week'),"{{AVF_ROWS}}":avf,
      "{{FOOD_WASTE_ROWS}}":food_rows,"{{BAKERY_WASTE_ROWS}}":bak_rows,"{{FOOD_WASTE_NOTE}}":food_note,"{{BAKERY_WASTE_NOTE}}":bak_note,
      "{{QUALI_DETAIL_ROWS}}":quali_rows,"{{RACE_DETAIL_ROWS}}":race_rows,
      "{{NSTORES}}":str(len(stores)),"{{PILL}}":"All areas · Jon · Ian · Rich · "+str(len(stores))+" stores",

@@ -71,7 +71,7 @@
 <div class="brandbar"><div class="inner">
   <div class="logo"><div><div class="word">Be<span>wiched</span></div><div class="eyebrow">Area Performance</div></div></div>
   <div class="spacer"></div>
-  <div class="ctx">Area: <b>{{COACH}}</b> · {{NSTORES}} stores<br>4-week window: <b>11 May → 7 Jun 2026</b> · YoY vs 2025</div>
+  <div class="ctx">Area: <b>{{COACH}}</b> · {{NSTORES}} stores<br>4-week window: <b>11 May → 7 Jun 2026</b> · YoY vs 2025<br><span style="color:#e7b35a;font-weight:700">\U0001F504 Refreshed {{GEN_STAMP}} · auto Mon 9am</span></div>
 </div></div>
 <div class="wrap">
   <header class="page">
@@ -163,6 +163,12 @@
       <div class="card"><div class="lbl">This week — sales forecast</div><div class="val">{{FCST_AREA_THIS}}</div><div class="meta">{{WK_THIS}} · area</div></div>
       <div class="card"><div class="lbl">This week — planned hours</div><div class="val">{{FCST_HRS_THIS}}</div><div class="meta">at CPH target</div></div>
       <div class="card"><div class="lbl">Blended CPH</div><div class="val">&pound;{{FCST_BLENDED}}</div><div class="meta">forecast &pound; &divide; planned hrs</div></div>
+    </div>
+    <div class="section-title">Last week ({{AVF_WK}}) — actual vs forecast</div>
+    <div class="panel"><div style="overflow-x:auto">
+      <table class="scorecard"><thead><tr><th>Store</th><th>Forecast £</th><th>Actual £</th><th>Sales vs FC</th><th>Sched hrs</th><th>Used hrs</th><th>Hrs vs sched</th><th>Target CPH</th><th>Actual CPH</th></tr></thead>
+      <tbody>{{AVF_ROWS}}</tbody></table></div>
+      <div class="note">Forecast = the week&#39;s committed forecast (Col Report Master Populator); actual sales = live BigQuery; actual CPH = actual sales &divide; hours used. Green sales = beat forecast; green CPH = met or beat target; amber/red hours = ran over the schedule.</div>
     </div>
     <div class="section-title">3-week sales &amp; hours forecast</div>
     <div class="panel"><div style="overflow-x:auto">
@@ -321,7 +327,7 @@ function renderWaste(store){
   btns.forEach(b=>b.addEventListener("click",()=>{btns.forEach(x=>x.classList.remove("active"));panels.forEach(p=>p.classList.remove("active"));
     b.classList.add("active");document.getElementById("tab-"+b.dataset.tab).classList.add("active");
     requestAnimationFrame(()=>{(window.CHARTS||[]).forEach(c=>{try{c.resize();}catch(e){}});});}));})();
-document.getElementById("foot").innerHTML="Generated "+new Date().toLocaleString("en-GB")+" · Sales, wastage, mix &amp; day-of-week: live BigQuery POS (4 wks to 7 Jun 2026, YoY vs 2025). Availability: polling sheet (to 08/06/2026). F1: audit sheet (The Race). Visits: rota sheet. Customer Google rating pending Supermetrics renewal.";
+document.getElementById("foot").innerHTML="Data refreshed {{GEN_STAMP}} \u00b7 auto-refreshes every Monday 9am (force a refresh anytime via the Scheduled task\u2019s \u2018Run now\u2019 in Cowork). Sources: live BigQuery POS, polling sheet, F1 audit, SMT visit diary, HRP &amp; Google reviews.";
 </script>
 </body>
 </html>

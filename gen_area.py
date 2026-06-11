@@ -2,6 +2,30 @@ import json,sys
 from collections import defaultdict
 from statistics import mean,median
 A=json.load(open('allstores.json')); REC=A['rec']; champ=A['champ']; CATS=A['cats']
+ACT=json.load(open('actuals.json'))
+import datetime as _dtm; GEN_STAMP=_dtm.datetime.now().strftime('%d %b %Y, %H:%M')
+def _avf_rows(stores,R):
+    body=""; sfc=sa=ssc=su=0
+    for s in sorted(stores,key=lambda x:-R[x]['lw26']):
+        a=ACT.get(s)
+        if not isinstance(a,list): continue
+        fc=a[1] or 0; sched=a[2] or 0; used=a[3] or 0; act=R[s]['lw26']; tcph=R[s].get('cph',55)
+        sfc+=fc; sa+=act; ssc+=sched; su+=used
+        sv=round(100*(act/fc-1)) if fc else None
+        hv=round(used-sched,1) if (used or sched) else None
+        ac=round(act/used,2) if used else None
+        svk='t-ok' if (sv is not None and sv>=0) else 't-red'
+        cpk='t-ok' if (ac is not None and ac>=tcph) else 't-red'
+        hvk='t-ok' if (hv is not None and hv<=0) else 't-amber'
+        svt=(("+" if sv>=0 else "")+str(sv)+"%") if sv is not None else "n/a"
+        hvt=(("+" if hv>=0 else "")+("%g"%hv)) if hv is not None else "n/a"
+        body+=(f'<tr><td style="font-weight:700">{s}</td><td>£{fc:,.0f}</td><td style="font-weight:700">£{act:,.0f}</td>'
+               f'<td>{tag(svt,svk)}</td><td>{"%g"%sched}</td><td>{"%g"%used}</td><td>{tag(hvt,hvk)}</td>'
+               f'<td>£{tcph}</td><td>{tag(("£%.2f"%ac) if ac is not None else "n/a",cpk)}</td></tr>')
+    tsv=round(100*(sa/sfc-1)) if sfc else 0; tac=round(sa/su,2) if su else 0; thv=round(su-ssc,1)
+    body+=(f'<tr style="font-weight:700;background:#EFE6DC"><td>TOTAL</td><td>£{sfc:,.0f}</td><td>£{sa:,.0f}</td>'
+           f'<td>{("+" if tsv>=0 else "")+str(tsv)}%</td><td>{"%g"%ssc}</td><td>{"%g"%su}</td><td>{("+" if thv>=0 else "")+("%g"%thv)}</td><td></td><td>£{tac:.2f}</td></tr>')
+    return body
 SHORT={"Burton Latimer":"Burton","Corby":"Corby","Higham Ferrers":"Higham","Kettering":"Kettering","Olney":"Olney",
 "Peterborough Bridge Street":"P'boro Bridge St","Peterborough Fletton Quays":"P'boro Fletton","Rothwell":"Rothwell","Rushden Lakes":"Rushden Lakes",
 "Attleborough":"Attleborough","Billing Drive Thru":"Billing DT","Glenvale Drive Thru":"Glenvale DT","HOE Balsall Common":"Balsall Common",
@@ -240,6 +264,7 @@ def build(coach):
     TARGETS="https://docs.google.com/spreadsheets/d/18iUyF6Usm5QnUAARPgNsAkqWp00fKPv1WA3waBKJFZU/edit"
 
     repl={
+     "{{GEN_STAMP}}":GEN_STAMP,"{{AVF_WK}}":ACT.get('_week_label','last week'),"{{AVF_ROWS}}":_avf_rows(stores,R),
      "{{COACH}}":coach,"{{NSTORES}}":str(len(stores)),"{{PILL}}":" · ".join(SHORT[s] for s in sorted(stores,key=lambda x:-R[x]['s4'])),
      "{{FOCUS_LI}}":focus_li,"{{OVROWS}}":ov,"{{AREA_LAST}}":GBP(area_last),"{{AREA_YOY_LW}}":pctxt(ylw),"{{LWCHIP}}":"up" if ylw>=0 else "dn",
      "{{AREA_4WK}}":GBP(area_4wk),"{{AREA_YOY_4W}}":pctxt(y4),"{{W4CHIP}}":"up" if y4>=0 else "dn",
@@ -262,5 +287,5 @@ import re
 for coach,fn in [("Jon","Jon_Area_Dashboard.html"),("Ian","Ian_Area_Dashboard.html"),("Rich","Rich_Area_Dashboard.html")]:
     h=build(coach)
     left=re.findall(r'{{[A-Z_0-9]+}}',h)
-    open('./'+fn,'w').write(h)
+    open('/sessions/sleepy-nifty-allen/mnt/outputs/'+fn,'w').write(h)
     print(coach,"-> ",fn," leftover placeholders:",sorted(set(left)) or "none")
