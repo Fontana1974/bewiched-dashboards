@@ -3,6 +3,8 @@ from collections import defaultdict
 from statistics import mean,median
 A=json.load(open('allstores.json')); REC=A['rec']; champ=A['champ']; CATS=A['cats']
 ACT=json.load(open('actuals.json'))
+try: OVR=json.load(open('planner_overrides.json'))
+except FileNotFoundError: OVR={}
 import datetime as _dtm; GEN_STAMP=_dtm.datetime.now().strftime('%d %b %Y, %H:%M')
 def _avf_rows(stores,R):
     body=""; sfc=sa=ssc=su=0
@@ -10,6 +12,7 @@ def _avf_rows(stores,R):
         a=ACT.get(s)
         if not isinstance(a,list): continue
         fc=a[1] or 0; sched=a[2] or 0; used=a[3] or 0; act=R[s]['lw26']; tcph=R[s].get('cph',55)
+        if isinstance(OVR.get(s),dict) and OVR[s].get('used_lastwk') is not None: used=OVR[s]['used_lastwk']
         sfc+=fc; sa+=act; ssc+=sched; su+=used
         sv=round(100*(act/fc-1)) if fc else None
         hv=round(used-sched,1) if (used or sched) else None
@@ -254,6 +257,7 @@ def build(coach):
         cells=f'<td style="text-align:left">{SHORT[s]}</td><td>£{cph}</td><td>{GBP(lw)}</td>'
         for wi in range(3):
             ly=R[s].get('ly',[0,0,0,0])[wi+1]; f=_fc(s,wi+1); h=round(f/cph) if cph else 0
+            if isinstance(OVR.get(s),dict): f=OVR[s]['fc'][wi]; h=OVR[s]['hrs'][wi]
             sumly[wi]+=ly; sumf[wi]+=f; sumh[wi]+=h
             cells+=f'<td class="mini">{GBP(ly) if ly>0 else "&mdash;"}</td><td style="font-weight:600">{GBP(f)}</td><td>{h}</td>'
         fcst_rows+=f'<tr>{cells}</tr>'
