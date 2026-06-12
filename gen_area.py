@@ -195,7 +195,7 @@ def build(coach):
         con_html+=(f'<div class="crow" {hl}><div class="crank">{i+1}</div><div class="cbody"><div class="cname">{cc}{badge}</div><div class="cbar"><i style="width:{w}%"></i></div><div class="csub">{total} pts total · {nst} stores</div></div><div class="cval">{avg}<small>pts/store</small></div></div>')
     COACHCHIP={"Jon":"t-ok","Rich":"t-amber","Ian":"t-amber"}; drv=champ['drivers']; drv_rows=""
     for i,(stn,cc,pts) in enumerate(drv):
-        mine = DRVMAP.get(stn) in stores
+        mine = stn in stores or DRVMAP.get(stn) in stores
         hl=' style="background:#fbf4e9"' if mine else ''; you=f' <span style="color:#b8860b;font-weight:700">◄ {coach}</span>' if mine else ''
         drv_rows+=f'<tr{hl}><td style="text-align:center">{i+1}</td><td style="text-align:left;font-weight:{700 if mine else 400}">{stn}{you}</td><td>{tag(cc,COACHCHIP.get(cc,"t-na"))}</td><td style="font-weight:700">{pts}</td></tr>'
     # ---- sentiment ----
