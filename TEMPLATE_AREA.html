@@ -92,23 +92,24 @@
 
   <!-- OVERVIEW -->
   <section class="tab-panel active" id="tab-overview">
-    <div class="cards">
-      <div class="card"><div class="lbl">Area sales — last week</div><div class="val">{{AREA_LAST}}<span class="chip {{LWCHIP}}">{{AREA_YOY_LW}}</span></div><div class="meta">W/C 1 Jun · YoY</div></div>
-      <div class="card"><div class="lbl">Area sales — 4 weeks</div><div class="val">{{AREA_4WK}}<span class="chip {{W4CHIP}}">{{AREA_YOY_4W}}</span></div><div class="meta">11 May → 7 Jun · YoY</div></div>
+    <div class="cards" style="grid-template-columns:repeat(5,1fr)">
+      <div class="card"><div class="lbl">Sales — last week</div><div class="val">{{AREA_LAST}}<span class="chip {{LWCHIP}}">{{AREA_YOY_LW}}</span></div><div class="meta">W/C 1 Jun · sales YoY</div></div>
+      <div class="card"><div class="lbl">Guest checks — last week</div><div class="val">{{AREA_GC}}<span class="chip {{GCCHIP}}">{{AREA_GC_YOY}}</span></div><div class="meta">transactions · YoY</div></div>
+      <div class="card"><div class="lbl">Stores audit avg — QTD</div><div class="val"><span class="tag {{AUDIT_K}}" style="font-size:22px;padding:2px 10px">{{AUDIT_QTD}}</span><small style="font-size:14px;color:#9a8a7c"> /5</small></div><div class="meta">{{AUDIT_META}}</div></div>
       <div class="card"><div class="lbl">Area wastage %</div><div class="val">{{AREA_WASTE_PCT}}%</div><div class="meta">{{AREA_WASTE_RETAIL}} retail · target 3%</div></div>
       <div class="card"><div class="lbl">Constructor standing</div><div class="val">{{CON_POS}}</div><div class="meta">{{CON_META}}</div></div>
     </div>
     <div class="section-title">Store scorecard — traffic-lit by KPI</div>
     <div class="panel">
       <table class="scorecard">
-        <thead><tr><th>Store</th><th>Last wk £</th><th>vs 4-wk avg</th><th>YoY (LW)</th><th>YoY (4wk)</th><th>ATV</th><th>Wastage %</th><th>Availability</th><th>F1 race</th><th>{{COACH}} presence</th></tr></thead>
+        <thead><tr><th>Store</th><th>Last wk £</th><th>Sales YoY</th><th>GC YoY</th><th>Audit /5</th><th>Wastage %</th><th>Availability</th><th>F1 race</th><th>{{COACH}} presence</th></tr></thead>
         <tbody>{{OVROWS}}</tbody>
       </table>
       <div class="legend">
         <span><span class="sw" style="background:var(--greenbg);border:1px solid #cfe6d8"></span>on track</span>
         <span><span class="sw" style="background:var(--amberbg);border:1px solid #ece0c0"></span>watch</span>
         <span><span class="sw" style="background:var(--redbg);border:1px solid #eccfca"></span>act now</span>
-        <span class="mini">YoY green ≥0% · ATV vs area median £{{ATV_MED}} · Wastage vs 3% · Availability ≥95% (polled to 08/06/2026) · F1 race finish ≤6 green, >15 red (field of ~25 incl. competitor audits) </span>
+        <span class="mini">YoY green ≥0% · Audit /5 green ≥4.5 · amber ≥4 · Wastage vs 3% · Availability ≥95% (polled to 08/06/2026) · F1 race finish ≤6 green, >15 red (field of ~25 incl. competitor audits) </span>
       </div>
     </div>
     <div class="section-title">{{COACH}}'s visit pattern — % of weeks on site by day (rota)</div>
