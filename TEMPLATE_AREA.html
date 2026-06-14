@@ -96,14 +96,14 @@
     <div class="cards" style="grid-template-columns:repeat(5,1fr)">
       <div class="card"><div class="lbl">Sales — last week</div><div class="val">{{AREA_LAST}}<span class="chip {{LWCHIP}}">{{AREA_YOY_LW}}</span></div><div class="meta">W/C 1 Jun · sales YoY</div></div>
       <div class="card"><div class="lbl">Guest checks — last week</div><div class="val">{{AREA_GC}}<span class="chip {{GCCHIP}}">{{AREA_GC_YOY}}</span></div><div class="meta">transactions · YoY</div></div>
-      <div class="card"><div class="lbl">Stores audit avg — QTD</div><div class="val"><span class="tag {{AUDIT_K}}" style="font-size:22px;padding:2px 10px">{{AUDIT_QTD}}</span><small style="font-size:14px;color:#9a8a7c"> /5</small></div><div class="meta">{{AUDIT_META}}</div></div>
+      <div class="card"><div class="lbl">Stores audit avg — quarter-to-date (QTD)</div><div class="val"><span class="tag {{AUDIT_K}}" style="font-size:22px;padding:2px 10px">{{AUDIT_QTD}}</span><small style="font-size:14px;color:#9a8a7c"> /5</small></div><div class="meta">{{AUDIT_META}}</div></div>
       <div class="card"><div class="lbl">Area wastage %</div><div class="val">{{AREA_WASTE_PCT}}%</div><div class="meta">{{AREA_WASTE_RETAIL}} retail · target 3%</div></div>
       <div class="card"><div class="lbl">Constructor standing</div><div class="val">{{CON_POS}}</div><div class="meta">{{CON_META}}</div></div>
     </div>
     <div class="section-title">Store scorecard — traffic-lit by KPI</div>
     <div class="panel">
       <table class="scorecard">
-        <thead><tr><th>Store</th><th>Last wk £</th><th>Sales YoY</th><th>GC YoY</th><th>Audit /5</th><th>Wastage %</th><th>Availability</th><th>F1 race</th><th>{{COACH}} presence</th></tr></thead>
+        <thead><tr><th>Store</th><th>Last wk £</th><th>Sales YoY</th><th>Guest-count YoY</th><th>Audit /5</th><th>Wastage %</th><th>Availability</th><th>F1 race</th><th>{{COACH}} presence</th></tr></thead>
         <tbody>{{OVROWS}}</tbody>
       </table>
       <div class="legend">
@@ -134,12 +134,12 @@
   <section class="tab-panel" id="tab-sales">
     <div class="section-title">Sales last week (W/C 1 Jun) — with transactions &amp; YoY</div>
     <div class="panel">
-      <table><thead><tr><th>Store</th><th>Sales</th><th>YoY</th><th>Av spend</th><th>YoY</th><th>GC&#39;s</th><th>YoY</th></tr></thead>
+      <table><thead><tr><th>Store</th><th>Sales</th><th>YoY</th><th>Av spend</th><th>YoY</th><th>Guest counts</th><th>YoY</th></tr></thead>
       <tbody>{{LW_TABLE}}</tbody><tfoot>{{LW_TOTAL}}</tfoot></table>
     </div>
     <div class="section-title" style="margin-top:22px">Sales — 4 weeks to 7 Jun, with YoY</div>
     <div class="panel">
-      <table><thead><tr><th>Store</th><th>4-wk sales</th><th>YoY</th><th>ATV</th><th>Last wk</th><th>vs 4-wk</th></tr></thead>
+      <table><thead><tr><th>Store</th><th>4-wk sales</th><th>YoY</th><th>Avg spend (ATV)</th><th>Last wk</th><th>vs 4-wk</th></tr></thead>
       <tbody>{{SALESTBL}}</tbody>
       <tfoot><tr><td>AREA</td><td>{{AREA_4WK}}</td><td>{{AREA_YOY_4W}}</td><td>—</td><td>{{AREA_LAST}}</td><td>—</td></tr></tfoot></table>
     </div>
@@ -162,7 +162,7 @@
   <section class="tab-panel" id="tab-forecast">
     <div class="cards" style="grid-template-columns:repeat(3,1fr)">
       <div class="card"><div class="lbl">This week — sales forecast</div><div class="val">{{FCST_AREA_THIS}}</div><div class="meta">{{WK_THIS}} · area</div></div>
-      <div class="card"><div class="lbl">This week — planned hours</div><div class="val">{{FCST_HRS_THIS}}</div><div class="meta">at CPH target</div></div>
+      <div class="card"><div class="lbl">This week — planned hours</div><div class="val">{{FCST_HRS_THIS}}</div><div class="meta">at CPH (sales per labour hour) target</div></div>
       <div class="card"><div class="lbl">Blended CPH</div><div class="val">&pound;{{FCST_BLENDED}}</div><div class="meta">forecast &pound; &divide; planned hrs</div></div>
     </div>
     <div style="margin:4px 0 14px"><a class="plannerbtn" href="{{PLANNER_LINK}}" target="_blank" rel="noopener">📋 Open {{COACH}}&#39;s Weekly Planner ↗</a><span class="mini">the planner&#39;s forecasts &amp; planned hours feed this tab</span></div>
@@ -178,7 +178,7 @@
         <tr><th rowspan="2">Store</th><th rowspan="2">CPH</th><th rowspan="2">Last wk actual</th><th colspan="3">{{WK_THIS}}</th><th colspan="3">{{WK_N1}}</th><th colspan="3">{{WK_N2}}</th></tr>
         <tr><th>LY</th><th>Fcst</th><th>Hrs</th><th>LY</th><th>Fcst</th><th>Hrs</th><th>LY</th><th>Fcst</th><th>Hrs</th></tr>
       </thead><tbody>{{FCST_ROWS}}</tbody></table></div>
-      <div class="note">Forecast = last year (weekday-aligned) &times; the store&#39;s recent YoY; new 2026 sites use last week&#39;s actual. Planned hours = forecast &divide; CPH target. <b>CPH targets are the single source of truth in the <a class="srclink" href="{{TARGETS_LINK}}" target="_blank" rel="noopener">Store Targets sheet</a></b> &mdash; update them there and they flow into every rebuild.</div>
+      <div class="note">Forecast = last year (weekday-aligned) &times; the store&#39;s recent YoY (year-on-year growth); new 2026 sites use last week&#39;s actual. Planned hours = forecast &divide; CPH target. <b>CPH targets are the single source of truth in the <a class="srclink" href="{{TARGETS_LINK}}" target="_blank" rel="noopener">Store Targets sheet</a></b> &mdash; update them there and they flow into every rebuild.</div>
     </div>
     <div class="focus amber"><span class="ar">&rarr;</span>Shape the rota to the forecast &mdash; the planned-hours column is the labour budget per store for the week.</div>
   </section>
@@ -259,7 +259,7 @@
     <div class="cards">
       <div class="card"><div class="lbl">Team — avg RMS rating</div><div class="val">{{AREA_RMS}}<small style="font-size:14px;color:#9a8a7c">/5</small></div><div class="meta">Rate My Shift · 2026</div></div>
       <div class="card"><div class="lbl">Sickness incidents (2026)</div><div class="val">{{AREA_SICK}}</div><div class="meta">{{AREA_LATE}} of which late · reported correctly {{AREA_REP}}%</div></div>
-      <div class="card"><div class="lbl">RTW completion</div><div class="val"><span class="tag {{RTW_COMP_K}}" style="font-size:22px;padding:2px 10px">{{RTW_COMP}}%</span></div><div class="meta">{{AREA_RTW}} done / {{AREA_SICKFS}} sick-for-shift</div></div>
+      <div class="card"><div class="lbl">Return-to-work (RTW) completion</div><div class="val"><span class="tag {{RTW_COMP_K}}" style="font-size:22px;padding:2px 10px">{{RTW_COMP}}%</span></div><div class="meta">{{AREA_RTW}} done / {{AREA_SICKFS}} sick-for-shift</div></div>
       <div class="card"><div class="lbl">Customer — Google rating</div><div class="val">{{AREA_RATING}}<small style="font-size:14px;color:#9a8a7c">/5</small></div><div class="meta">{{AREA_REVIEWS}} reviews · live GMB</div></div>
     </div>
 

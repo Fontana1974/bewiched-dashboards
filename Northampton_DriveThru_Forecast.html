@@ -121,7 +121,7 @@
 </div>
 
 <div class="wrap">
-<div style="margin:16px 0 0;padding:11px 16px;border-radius:12px;background:#e6f4ec;border:1px solid #cfe6d8;font-weight:700;font-size:13.5px;color:#1c6b3d;display:inline-block">🏅 Brand audit &mdash; QTD: <b style="font-size:16px">4.73</b><span style="font-weight:500;opacity:.85"> / 5 · current quarter (Brand Audit sheet)</span></div>
+<div style="margin:16px 0 0;padding:11px 16px;border-radius:12px;background:#e6f4ec;border:1px solid #cfe6d8;font-weight:700;font-size:13.5px;color:#1c6b3d;display:inline-block">🏅 Brand audit &mdash; quarter-to-date (QTD): <b style="font-size:16px">4.73</b><span style="font-weight:500;opacity:.85"> / 5 · current quarter (Brand Audit sheet)</span></div>
   <header class="page">
     <h1>🚗 Northampton Drive-Thru — Store Dashboard</h1>
     <div class="sub">
@@ -180,14 +180,14 @@
       <div class="ab-stats">
         <div><span>vs forecast</span><b class="pos">+1.7%</b><small>fcst £26,000</small></div>
         <div><span>Estate rank</span><b class="pos">1 / 21</b><small>by sales £</small></div>
-        <div><span>YoY</span><b class="pos">+8.3%</b><small>vs £24.4k last yr</small></div>
+        <div><span>YoY (vs last year)</span><b class="pos">+8.3%</b><small>vs £24.4k last yr</small></div>
         <div><span>CPH</span><b class="pos">£73.6</b><small>target £70 · met</small></div>
       </div>
     </div>
     <div class="cards">
       <div class="card"><div class="lbl">Last 13 wks avg sales</div><div class="val">£25,776</div><div class="meta">/ wk · live BigQuery</div></div>
       <div class="card"><div class="lbl">YoY growth</div><div class="val" style="color:var(--green)">+8.3%</div><div class="meta">w/c 1 Jun vs 2025</div></div>
-      <div class="card"><div class="lbl">CPH — target vs actual</div><div class="val">£70</div><div class="meta">last wk actual <b style="color:var(--green)">£73.6</b> · +£3.6/hr (w/c 1 Jun)</div></div>
+      <div class="card"><div class="lbl">CPH (sales per labour hour) — target vs actual</div><div class="val">£70</div><div class="meta">last wk actual <b style="color:var(--green)">£73.6</b> · +£3.6/hr (w/c 1 Jun)</div></div>
       <div class="card"><div class="lbl">Estate rank (sales)</div><div class="val" style="color:var(--green)">1 / 21</div><div class="meta">top of the estate last week</div></div>
     </div>
 
@@ -304,43 +304,45 @@
   <section class="tab-panel" id="tab-mix">
     <div class="section-title">Sales mix &amp; capture vs the estate</div>
     <div id="wxnudge" style="display:none;margin:2px 0 14px;padding:11px 15px;border-radius:12px;font-size:13.5px;line-height:1.55"></div>
-<script>(function(){var LOCS=[[52.26, -0.85]],SCOPE="",C={hot:-1.19,cold:0.73,shake:0.42},FCOEF=0.203;if(!LOCS||!LOCS.length)return;
+<script>(function(){
+var LOCS=[[52.26, -0.85]], ANALOG=[[22.0, 16.9, 40.6, 14.6, 27.3], [26.2, 23.4, 33.0, 17.0, 28.9], [24.8, 18.3, 38.7, 14.2, 25.9], [24.1, 19.1, 38.4, 14.1, 27.1], [25.5, 23.0, 33.6, 16.0, 28.2], [22.8, 15.4, 42.9, 12.4, 25.9], [21.7, 14.9, 42.6, 13.4, 27.6], [22.0, 14.2, 43.0, 13.7, 27.2], [23.2, 16.2, 40.3, 14.3, 28.2], [27.2, 20.6, 35.6, 15.6, 30.0], [21.0, 13.2, 43.8, 13.3, 28.7], [22.4, 14.5, 41.9, 13.5, 29.1], [20.7, 11.9, 45.5, 12.4, 28.0], [18.0, 10.5, 49.7, 10.0, 26.7], [19.4, 9.9, 50.8, 9.5, 27.3], [16.4, 9.1, 51.4, 9.7, 25.8], [17.1, 8.1, 52.1, 9.2, 25.5], [15.8, 8.9, 53.7, 8.6, 25.5], [13.9, 8.4, 55.6, 8.2, 26.0], [12.5, 8.0, 55.5, 8.0, 26.1], [12.8, 8.6, 53.6, 9.5, 27.7], [15.2, 8.6, 55.6, 8.3, 25.4], [12.8, 7.2, 57.4, 7.2, 25.2], [6.1, 5.4, 60.4, 5.7, 22.9], [9.1, 6.2, 58.8, 6.4, 23.1], [10.1, 6.4, 58.9, 6.4, 23.1], [11.5, 6.6, 58.4, 6.4, 23.8], [10.0, 6.6, 57.0, 6.7, 24.1], [6.8, 7.1, 57.2, 8.2, 22.8], [3.9, 6.7, 58.6, 8.4, 26.0], [4.1, 6.3, 60.6, 6.9, 24.7], [8.8, 7.4, 57.9, 7.5, 24.9], [8.7, 7.4, 58.4, 7.7, 25.9], [7.7, 7.7, 57.2, 7.7, 25.4], [8.5, 7.6, 56.9, 8.0, 26.2], [8.3, 7.8, 56.8, 7.9, 25.2], [8.6, 8.6, 52.8, 10.4, 26.5], [13.0, 9.8, 54.0, 8.8, 25.0], [12.1, 10.1, 53.3, 9.4, 23.1], [11.3, 10.3, 52.8, 9.2, 24.4], [13.4, 13.9, 49.0, 11.3, 23.5], [10.3, 10.0, 54.1, 8.5, 23.8], [13.1, 12.7, 49.7, 11.6, 24.7], [14.9, 16.6, 45.5, 12.6, 26.0], [14.9, 14.9, 49.5, 10.0, 27.5], [16.1, 18.4, 44.6, 12.0, 24.3], [18.7, 19.2, 43.4, 11.8, 24.8], [15.0, 16.6, 46.4, 11.1, 25.6], [12.9, 13.0, 51.2, 9.2, 24.3], [21.2, 22.1, 39.9, 12.9, 26.0], [26.4, 29.6, 28.8, 17.6, 29.3], [18.4, 16.2, 47.3, 10.2, 23.8]], RECENT={"cold": 23.8, "hot": 37.1, "milk": 14.8, "coldfood": 25.9, "temp": 19.7};
+if(!LOCS||!LOCS.length)return;
+var comingT, KEYS={cold:1,hot:2,milk:3,coldfood:4};
+function analog(t,key){var ix=KEYS[key];var s=ANALOG.slice().sort(function(a,b){return Math.abs(a[0]-t)-Math.abs(b[0]-t)}).slice(0,8);var v=s.map(function(r){return r[ix]});return v.reduce(function(a,c){return a+c},0)/v.length;}
+function expect(key){var e=RECENT[key]+(analog(comingT,key)-analog(RECENT.temp,key));return Math.max(0,Math.min(100,e));}
 var la=LOCS.map(function(x){return x[0]}).join(","),lo=LOCS.map(function(x){return x[1]}).join(",");
-var u="https://api.open-meteo.com/v1/forecast?latitude="+la+"&longitude="+lo+"&daily=temperature_2m_max&past_days=14&forecast_days=8&timezone=Europe%2FLondon";
+var u="https://api.open-meteo.com/v1/forecast?latitude="+la+"&longitude="+lo+"&daily=temperature_2m_max,precipitation_probability_max&forecast_days=8&timezone=Europe%2FLondon";
 fetch(u).then(function(r){return r.json()}).then(function(j){var A=Array.isArray(j)?j:[j];
-var now=new Date();var tod=now.toISOString().slice(0,10);
-var fut=[];for(var dd=1;dd<=7;dd++){fut.push(new Date(now.getTime()+dd*864e5).toISOString().slice(0,10));}
-var nloc=0,baseSum=0,dayAgg={};fut.forEach(function(d){dayAgg[d]=[];});
-A.forEach(function(loc){if(!loc.daily)return;var t=loc.daily.time,m=loc.daily.temperature_2m_max;
- var b=[];for(var k=0;k<t.length;k++){if(t[k]<tod&&m[k]!=null)b.push(m[k]);}
- if(!b.length)return;baseSum+=b.reduce(function(a,c){return a+c},0)/b.length;nloc++;
- fut.forEach(function(d){var i=t.indexOf(d);if(i>=0&&m[i]!=null)dayAgg[d].push(m[i]);});});
-if(!nloc)return;var base=baseSum/nloc;
-var dayAvg=[],dayKeys=[];fut.forEach(function(d){var a=dayAgg[d];if(a.length){dayAvg.push(a.reduce(function(x,y){return x+y},0)/a.length);dayKeys.push(d);}});
-if(!dayAvg.length)return;
-var wkmean=dayAvg.reduce(function(x,y){return x+y},0)/dayAvg.length;
-var peak=Math.max.apply(null,dayAvg),peakIdx=dayAvg.indexOf(peak);
-var dn=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];var peakDay=dn[new Date(dayKeys[peakIdx]+"T12:00:00").getDay()];
-var d=wkmean-base,cold=C.cold*d,hot=C.hot*d,shake=C.shake*d,foodpp=FCOEF*d;
-var p=function(v){return(v>=0?"+":"")+v.toFixed(1)+"pp"};
-var wm=wkmean.toFixed(0),ds=(d>=0?"+":"")+d.toFixed(0)+"°",sc=SCOPE?", "+SCOPE:"";
+var now=new Date();var fut=[];for(var dd=1;dd<=7;dd++){fut.push(new Date(now.getTime()+dd*864e5).toISOString().slice(0,10));}
+var dT={},dP={};fut.forEach(function(d){dT[d]=[];dP[d]=[];});
+A.forEach(function(loc){if(!loc.daily)return;var t=loc.daily.time,m=loc.daily.temperature_2m_max,pp=loc.daily.precipitation_probability_max;fut.forEach(function(d){var i=t.indexOf(d);if(i>=0){if(m[i]!=null)dT[d].push(m[i]);if(pp&&pp[i]!=null)dP[d].push(pp[i]);}});});
+var days=[];fut.forEach(function(d){if(dT[d].length){var tm=dT[d].reduce(function(a,c){return a+c},0)/dT[d].length;var pa=dP[d].length?dP[d].reduce(function(a,c){return a+c},0)/dP[d].length:0;days.push({t:tm,p:pa,dow:new Date(d+"T12:00:00").toLocaleDateString("en-GB",{weekday:"short"})});}});
+if(!days.length)return;
+comingT=days.reduce(function(a,c){return a+c.t},0)/days.length;
+var peak=days.reduce(function(a,c){return c.t>a.t?c:a},days[0]);
+var delta=comingT-RECENT.temp,R=function(x){return Math.round(x);};
+var ec=expect("cold"),eh=expect("hot"),em=expect("milk"),ef=expect("coldfood");
+var wet=[],sh=[];days.forEach(function(x){if(x.p>=55)wet.push(x.dow);else if(x.p>=30)sh.push(x.dow);});
+var rain= wet.length>=4?"a wet week — rain likely most days":wet.length?("rain likely "+wet.join(" & ")):sh.length>=3?"mostly dry with the odd shower midweek":sh.length?("mostly dry, the odd shower "+sh.join(" & ")):"a dry week";
+var warm=delta>=1.5,cool=delta<=-1.5,dc=ec-RECENT.cold,mag=Math.abs(dc)>=2.5?"noticeably":"a little";
 var bg,bd,fg,full,compact,food;
-if(Math.abs(d)<1.5){bg="#f5efe0";bd="#e6dcc4";fg="#6b5a47";
- full="🌤️ <b>Week ahead ~"+wm+"°C</b> (peak "+peak.toFixed(0)+"° "+peakDay+", "+ds+" vs last fortnight"+sc+") — in line with recent weather; no big mix shift expected. <span style=\"color:#9a8a7c;font-size:11px\">Live 7-day forecast · Open-Meteo</span>";
- compact="🌤️ <b>Week ahead ~"+wm+"°C</b> ("+ds+" vs recent) — steady; no big mix shift expected.";
- food="🍞 <b>Food mix steady this week</b> (~"+wm+"°, "+ds+" vs recent) — no notable hot/cold-food shift expected.";}
-else{var warm=d>0;bg=warm?"#fdf3e6":"#eef4fb";bd=warm?"#f0d8b0":"#cfe0f2";fg="#4a3a2a";
- full="🌤️ <b>Week ahead ~"+wm+"°C</b> (peak "+peak.toFixed(0)+"° "+peakDay+", "+ds+" vs last fortnight"+sc+") → expect <b>cold drinks "+p(cold)+"</b> · <b>hot drinks "+p(hot)+"</b> · <b>milkshakes "+p(shake)+"</b> vs recent mix — prep & stock accordingly. <span style=\"color:#9a8a7c;font-size:11px\">Live 7-day forecast · Open-Meteo · sensitivity from 12-mth backtest</span>";
- compact="🌤️ <b>Week ahead ~"+wm+"°C</b> ("+ds+" vs recent) → mix lean: <b>cold drinks "+p(cold)+"</b> · <b>hot drinks "+p(hot)+"</b> · milkshakes "+p(shake)+". <span style=\"color:#9a8a7c;font-size:11px\">full detail on the Mix tab</span>";
+if(!warm&&!cool){bg="#f5efe0";bd="#e6dcc4";fg="#6b5a47";
+ compact="🌤️ <b>Week ahead ~"+R(comingT)+"°C</b> — similar to recent weeks, so the mix should hold fairly steady. Rain: "+rain+".";
+ full="🌤️ <b>Week ahead: averaging ~"+R(comingT)+"°C</b> (peak "+R(peak.t)+"°C "+peak.dow+") — much like the last fortnight, so expect the sales mix to stay broadly where it's been: cold drinks around "+R(RECENT.cold)+"% of sales, hot drinks around "+R(RECENT.hot)+"%, milkshakes around "+R(RECENT.milk)+"%. Rain: "+rain+". <span style=\"color:#9a8a7c;font-size:11px\">Live 7-day forecast · Open-Meteo</span>";
+ food="🍞 <b>Week ahead ~"+R(comingT)+"°C</b> — similar to recent weeks; the hot/cold food split should stay about the same. Prep to your normal pattern.";}
+else{bg=warm?"#fdf3e6":"#eef4fb";bd=warm?"#f0d8b0":"#cfe0f2";fg="#4a3a2a";
+ var lead=warm?(mag+" more cold drinks &amp; milkshakes, and fewer hot drinks"):(mag+" more hot drinks, and fewer cold drinks &amp; milkshakes");
+ compact="🌤️ <b>"+(warm?"Warm":"Cooler")+" week ahead ~"+R(comingT)+"°C</b> (peak "+R(peak.t)+"° "+peak.dow+") → expect "+lead+". Cold drinks likely ~"+R(ec)+"% of sales (about "+R(RECENT.cold)+"% lately). Rain: "+rain+".";
+ full="🌤️ <b>Week ahead: averaging ~"+R(comingT)+"°C, peaking "+R(peak.t)+"°C "+peak.dow+"</b> — "+(warm?"warmer":"cooler")+" than the last fortnight. Going on how sales actually moved in past weeks at similar temperatures (adjusted to your recent baseline), expect the mix to run about: <b>cold drinks ~"+R(ec)+"% of sales</b> (about "+R(RECENT.cold)+"% recently), <b>hot drinks ~"+R(eh)+"%</b> (about "+R(RECENT.hot)+"%), <b>milkshakes ~"+R(em)+"%</b> (about "+R(RECENT.milk)+"%). So "+(warm?"lean into cold drinks &amp; milkshakes and ease back on hot-drink prep":"lean into hot drinks and ease back on cold-drink prep")+". Rain: "+rain+". <span style=\"color:#9a8a7c;font-size:11px\">Live 7-day forecast · Open-Meteo · pattern from similar-temperature weeks over the last year</span>";
  food=warm
-  ?"🍞 <b>Warm week ahead</b> (~"+wm+"°, "+ds+") → lean <b>cold food</b>: prep more sandwiches, wraps &amp; salads; ease croques, toasties &amp; breakfast. Cold-food share of food tends ~"+p(foodpp)+"; <b>watch hot-food (croque) over-prep &amp; wastage</b>. <span style=\"color:#9a8a7c;font-size:11px\">directional · 12-mth backtest r≈0.70</span>"
-  :"🍞 <b>Cool week ahead</b> (~"+wm+"°, "+ds+") → lean <b>hot food</b>: prep more croques, toasties &amp; breakfast; ease cold sandwiches. <b>Watch cold-food (sandwich/salad) wastage</b>. <span style=\"color:#9a8a7c;font-size:11px\">directional · 12-mth backtest r≈0.70</span>";}
+  ?"🍞 <b>Warm week ahead (~"+R(comingT)+"°C)</b> — within food, expect a little more cold (sandwiches, wraps, salads) and a little less hot (croques, toasties, breakfast): cold food likely ~"+R(ef)+"% of food sales (about "+R(RECENT.coldfood)+"% recently). Prep a touch more cold, ease the hot items, and <b>keep an eye on hot-food (croque) wastage</b>. <span style=\"color:#9a8a7c;font-size:11px\">directional — food shifts far less with weather than drinks</span>"
+  :"🍞 <b>Cooler week ahead (~"+R(comingT)+"°C)</b> — within food, expect a little more hot (croques, toasties, breakfast) and a little less cold: cold food likely ~"+R(ef)+"% of food sales (about "+R(RECENT.coldfood)+"% recently). Prep a touch more hot, ease the cold items, and <b>watch cold-food (sandwich/salad) wastage</b>. <span style=\"color:#9a8a7c;font-size:11px\">directional — food shifts far less with weather than drinks</span>";}
 [["wxnudge",full],["wxnudge_top",compact],["wxfood",food]].forEach(function(pr){var el=document.getElementById(pr[0]);if(el){el.style.cssText+=";background:"+bg+";border:1px solid "+bd+";color:"+fg;el.innerHTML=pr[1];el.style.display="block";}});
 }).catch(function(){});})();</script>
     <div class="grid2">
       <div class="panel"><div style="font-size:13px;font-weight:700;color:#5b3a29;margin-bottom:8px">Capture % ranked vs the estate (21 stores)</div><table id="peertbl"><thead><tr><th>Category</th><th>NDT</th><th>Rank</th><th>Estate avg</th><th>Best in estate</th></tr></thead><tbody></tbody></table><div class="mini" style="margin-top:8px">Capture = share of transactions including the category (last ~5 wks). Value green = above estate average; rank chip green = top third, red = bottom third.</div></div>
       <div class="panel">
-        <table id="cattbl"><thead><tr><th>Category</th><th>Current mix · &#9650;&#9660; vs prior 4wk</th><th>Holiday tilt</th><th>Capture % · &#9650;&#9660;</th></tr></thead><tbody></tbody></table>
+        <table id="cattbl"><thead><tr><th>Category</th><th>Current mix (vs 4 wks ago)</th><th>Holiday tilt</th><th>Capture % (vs 4 wks ago)</th></tr></thead><tbody></tbody></table>
         <div class="note" style="margin-top:10px"><strong>Mix holds through the holidays.</strong> In the mature drive-thru/destination stores last summer the split barely moved from term into the school holidays — cold drinks + milkshakes were ~37% of sales in term vs ~35% in holidays (milkshakes flat, cold easing ~2pp as the early-summer heat passed). The cold-drink peak is <strong>weather-led (Jun–Jul), not the school calendar</strong>; total volume rose ~5%. So £ grows across all categories with only a small holiday tilt. <strong>Capture %</strong> = the share of transactions that include the category (attach rate, recent weeks) — a truer read of penetration than £.</div>
       </div>
     </div>
@@ -591,11 +593,11 @@ else{var warm=d>0;bg=warm?"#fdf3e6":"#eef4fb";bd=warm?"#f0d8b0":"#cfe0f2";fg="#4
       <div class="card"><div class="lbl">Sick absences</div><div class="val">7</div><div class="meta">Mar–Jun 2026</div></div>
       <div class="card"><div class="lbl">Lateness</div><div class="val">1</div><div class="meta">tracked separately</div></div>
       <div class="card"><div class="lbl">Reported correctly</div><div class="val" style="color:var(--green)">7 / 7</div><div class="meta">all called in per policy</div></div>
-      <div class="card"><div class="lbl">RTW completed</div><div class="val" style="color:var(--red)">2 / 7</div><div class="meta">return-to-work logged</div></div>
+      <div class="card"><div class="lbl">Return-to-work (RTW) completed</div><div class="val" style="color:var(--red)">2 / 7</div><div class="meta">return-to-work logged</div></div>
     </div>
     <div class="sent-grid" style="margin-top:16px">
       <div class="panel">
-        <div style="font-size:13px;font-weight:700;color:#5b3a29;margin-bottom:8px">Sick absences vs RTW completed</div>
+        <div style="font-size:13px;font-weight:700;color:#5b3a29;margin-bottom:8px">Sick absences vs Return-to-work (RTW) completed</div>
         <div class="chart-box" style="height:150px"><canvas id="absChart"></canvas></div>
         <div class="note" style="margin-top:8px">Reporting is perfect — <strong>every one of the 7 sickness absences was called in correctly</strong>. The follow-through lags: only 2 have a return-to-work logged. Closing that gap is a quick, cheap win.</div>
       </div>
@@ -701,7 +703,7 @@ document.getElementById("foot").innerHTML="Generated "+new Date().toLocaleString
 /* ---- Wastage ---- */
 (function(){
 const WK=[["13/04",2.2],["20/04",1.2],["27/04",1.1],["04/05",1.6],["11/05",0.6],["18/05",1.5],["25/05",1.7],["01/06",1.0]];
-const ITEMS=[["3 Bacon Bap",81,19,64],["3 Chicken & Chorizo Ciabatta",77,14,89],["3 Egg and Spinach Pot",70,20,20],["Croissant Pastry",60,28,83],["Gluten Free Carrot Cake",58,16,32],["3 Sausage Bap",55,13,76],["Sausage Roll Pastry",53,16,140],["3* Ham & Cheese Croque TA",49,9,116],["3 Egg & Spinach Sandwich",46,11,52],["3 Green & Grain Salad",43,8,22]];
+const ITEMS=[["Bacon Bap", 81, 19, 64], ["Chicken & Chorizo Ciabatta", 77, 14, 89], ["Egg and Spinach Pot", 70, 20, 20], ["Croissant Pastry", 60, 28, 83], ["Gluten Free Carrot Cake", 58, 16, 32], ["Sausage Bap", 55, 13, 76], ["Sausage Roll Pastry", 53, 16, 140], ["Ham & Cheese Croque", 49, 9, 116], ["Egg & Spinach Sandwich", 46, 11, 52], ["Green & Grain Salad", 43, 8, 22]];
 new Chart(document.getElementById('waste'),{type:'line',data:{labels:WK.map(r=>r[0]),datasets:[
 {label:'Wastage %',data:WK.map(r=>r[1]),borderColor:'#c0392b',backgroundColor:'#c0392b',tension:.3,pointRadius:4,borderWidth:2.5},
 {label:'Target 3%',data:WK.map(()=>3),borderColor:'#1f8a4c',borderDash:[6,4],pointRadius:0,borderWidth:2},
@@ -723,7 +725,7 @@ const PEER=[["Hot drinks",55.2,17,21,61.3,"Wellingborough 71.9%"],["Cold drinks"
 document.querySelector("#peertbl tbody").innerHTML=PEER.map(r=>{const top=r[2]<=r[3]/3,bot=r[2]>r[3]*2/3;const rc=top?["#e6f4ec","#1f8a4c"]:bot?["#fbeae8","#c0392b"]:["#f7f0dd","#b8860b"];const vc=r[1]>=r[4]?"#1f8a4c":"#c0392b";
 return "<tr><td>"+r[0]+"</td><td style=\"font-weight:700;color:"+vc+"\">"+r[1].toFixed(1)+"%</td><td><span style=\"display:inline-block;padding:2px 7px;border-radius:6px;font-weight:700;font-size:12px;background:"+rc[0]+";color:"+rc[1]+"\">"+r[2]+"/"+r[3]+"</span></td><td>"+r[4].toFixed(1)+"%</td><td style=\"text-align:left;font-size:11.5px;color:#8a7a6d\">"+r[5]+"</td></tr>";}).join("");
 const DESC={"Hot drinks":"lattes, cappuccinos, americanos, flat whites, hot choc, tea","Cold drinks":"iced lattes, frozen lemonade, iced matcha, frappés, cold brew","Milkshakes":"Oreo, Biscoff, vanilla, chocolate, strawberry shakes","Food":"croques, ciabattas, baps, wraps, salads, meal deals","Bakery":"traybakes, croissants, brownies, cookies, cakes","Other & retail":"bottled & soft drinks, beans, sundries"};
-document.querySelector("#cattbl tbody").innerHTML=ROWS.map(r=>{const s=r[2]>0?"#1f8a4c":r[2]<0?"#c0392b":"#8a7a6d";function mv(pp,val){if(pp===null||pp===undefined)return ' <span style=\"color:#9a8a7c;font-size:10px\">· new</span>';if(Math.abs(pp)<0.05)return ' <span style=\"color:#9a8a7c;font-size:10px\">&#9670; 0.0pp</span>';var up=pp>0,col=val?(up?"#1f8a4c":"#c0392b"):"#6b7785";return ' <span style=\"color:'+col+';font-size:10px;font-weight:700\">'+(up?"&#9650;":"&#9660;")+' '+(up?"+":"")+pp.toFixed(1)+'pp</span>';}return "<tr><td>"+r[0]+"<br><span style=\"font-size:10.5px;color:#9a8a7c;font-weight:400\">"+(DESC[r[0]]||"")+"</span></td><td>"+r[1].toFixed(1)+"%"+mv(r[4],false)+"</td><td style=\"color:"+s+"\">"+(r[2]>0?"+":"")+r[2].toFixed(1)+"pp</td><td>"+r[3].toFixed(1)+"%"+mv(r[5],true)+"</td></tr>";}).join("");
+document.querySelector("#cattbl tbody").innerHTML=ROWS.map(r=>{const s=r[2]>0?"#1f8a4c":r[2]<0?"#c0392b":"#8a7a6d";function mv(cur,pp,val){if(pp===null||pp===undefined)return ' <span style=\"color:#9a8a7c;font-size:10px\">(new this period)</span>';if(Math.abs(pp)<0.05)return ' <span style=\"color:#9a8a7c;font-size:10px\">(about the same as four weeks ago)</span>';var prior=(cur-pp).toFixed(1),up=pp>0,col=val?(up?"#1f8a4c":"#c0392b"):"#6b7785",word=up?"up":"down";return ' <span style=\"color:'+col+';font-size:10px\">('+word+' from '+prior+'% four weeks ago)</span>';}return "<tr><td>"+r[0]+"<br><span style=\"font-size:10.5px;color:#9a8a7c;font-weight:400\">"+(DESC[r[0]]||"")+"</span></td><td>"+r[1].toFixed(1)+"%"+mv(r[1],r[4],false)+"</td><td style=\"color:"+s+"\">"+(r[2]>0?"+":"")+r[2].toFixed(1)+"pp</td><td>"+r[3].toFixed(1)+"%"+mv(r[3],r[5],true)+"</td></tr>";}).join("");
 })();
 </script>
 
@@ -781,7 +783,7 @@ document.querySelector("#cattbl tbody").innerHTML=ROWS.map(r=>{const s=r[2]>0?"#
     options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>" "+c.parsed.y+" / 5"}}},
       scales:{y:{min:1,max:5,grid:{color:"#eee"},title:{display:true,text:"avg / 5"}},x:{grid:{display:false}}}}}));
   window.CHARTS.push(new Chart(document.getElementById("absChart"),{type:"bar",
-    data:{labels:["Sick absences","RTW completed"],datasets:[{data:[7,2],backgroundColor:["#b8860b","#1f8a4c"],borderRadius:4}]},
+    data:{labels:["Sick absences","Return-to-work (RTW) completed"],datasets:[{data:[7,2],backgroundColor:["#b8860b","#1f8a4c"],borderRadius:4}]},
     options:{indexAxis:"y",responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>" "+c.parsed.x}}},
       scales:{x:{grid:{color:"#eee"},ticks:{precision:0,stepSize:1},suggestedMax:8},y:{grid:{display:false}}}}}));
 })();

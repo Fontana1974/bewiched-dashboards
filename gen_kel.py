@@ -15,9 +15,25 @@ A=json.load(open('allstores.json')); REC=A['rec']; champ=A['champ']; CATS=A['cat
 WX_TMPL=open('wx_nudge_tmpl.html',encoding='utf-8').read()
 WX_TOP='<div id="wxnudge_top" style="display:none;margin:0 0 16px;padding:9px 14px;border-radius:11px;font-size:13px;line-height:1.5"></div>'
 WX_FOOD='<div id="wxfood" style="display:none;margin:2px 0 14px;padding:11px 15px;border-radius:12px;font-size:13.5px;line-height:1.55"></div>'
-def wx_nudge(locs,scope=""):
+import re as _rep
+def cleanprod(n):
+    n=(n or '').strip(); n=_rep.sub(r'^(?:[23]\*?|\*)\s+','',n); n=_rep.sub(r'\s+TA$','',n); return n.strip()
+def clean_outliers(lst):
+    ag={}
+    for o in lst:
+        nm=cleanprod(o[0])
+        if nm in ag: ag[nm][2]+=o[2]; ag[nm][3]+=o[3]; ag[nm][4]+=o[4]
+        else: ag[nm]=[nm,o[1],o[2],o[3],o[4]]
+    out=[]
+    for a in ag.values():
+        w,s=a[2],a[3]; a[1]=round(100*w/(w+s),1) if (w+s)>0 else 0; out.append(a)
+    return sorted(out,key=lambda x:-x[4])
+ANALOG_TBL=json.load(open('analog_table.json'))['ANALOG']
+def wx_nudge(locs,recent):
     locs=[[round(x[0],4),round(x[1],4)] for x in locs if x]
-    return WX_TMPL.replace("__LOCS__",json.dumps(locs)).replace("__SCOPE__",scope)
+    return WX_TMPL.replace("__LOCS__",json.dumps(locs)).replace("__ANALOG__",json.dumps(ANALOG_TBL)).replace("__RECENT__",json.dumps(recent))
+def wx_recent(amix):
+    return {"cold":amix['Cold drinks']['mix'],"hot":amix['Hot drinks']['mix'],"milk":amix['Milkshakes']['mix'],"coldfood":25.9,"temp":19.7}
 ACT=json.load(open('actuals.json'))
 try: OVR=json.load(open('planner_overrides.json'))
 except FileNotFoundError: OVR={}
@@ -126,10 +142,10 @@ sales_focus="Chase the red cells in the growth grids; protect the green days wit
 
 # ---- wastage (company aggregate) ----
 yjs={s:{"latest":"08/06/2026","items":R[s]['yield_items']} for s in stores}
-outjs={s:R[s]['outliers'] for s in stores}
+outjs={s:clean_outliers(R[s]['outliers']) for s in stores}
 oa=defaultdict(lambda:{'w':0,'s':0,'wr':0.0})
 for s in stores:
-    for o in R[s]['outliers']:
+    for o in outjs[s]:
         oa[o[0]]['w']+=o[2]; oa[o[0]]['s']+=o[3]; oa[o[0]]['wr']+=o[4]
 aol=sorted([[n,round(100*v['w']/(v['w']+v['s']),1) if (v['w']+v['s'])>0 else 0,v['w'],v['s'],round(v['wr'])] for n,v in oa.items() if v['w']>0],key=lambda x:-x[4])[:8]
 ya=defaultdict(lambda:{'av':[], 'sold':0,'w':0,'wr':0.0})
@@ -150,12 +166,12 @@ area_sales=sum(R[s]['tot'][0] for s in stores); amix={}
 swp=[s for s in stores if R[s].get('mix_prev')]
 tcl=sum(R[s]['mix'][c]['sales'] for s in swp for c in CATS) or 1
 tpl=sum(R[s]['mix_prev'][c]['sales'] for s in swp for c in CATS) or 1
-def _mv(pp,valued=False):
-    if pp is None: return '<span style="color:#9a8a7c;font-size:10.5px"> · new</span>'
-    if abs(pp)<0.05: return '<span style="color:#9a8a7c;font-size:10.5px"> &#9670; 0.0pp</span>'
-    up=pp>0; arr='&#9650;' if up else '&#9660;'
+def _mv(cur,pp,valued=False):
+    if pp is None: return '<span style="color:#9a8a7c;font-size:11px"> (new this period)</span>'
+    if abs(pp)<0.05: return '<span style="color:#9a8a7c;font-size:11px"> (about the same as four weeks ago)</span>'
+    prior=round(cur-pp,1); up=pp>0; word="up" if up else "down"
     col=('#1f8a4c' if up else '#c0392b') if valued else '#6b7785'
-    return '<span style="color:%s;font-size:10.5px;font-weight:700"> %s %+.1fpp</span>'%(col,arr,pp)
+    return '<span style="color:%s;font-size:11px"> (%s from %s%% four weeks ago)</span>'%(col,word,prior)
 for c in CATS:
     cs=sum(R[s]['mix'][c]['sales'] for s in stores); caps=[R[s]['mix'][c]['cap'] for s in stores]
     csl=sum(R[s]['mix'][c]['sales'] for s in swp); psl=sum(R[s]['mix_prev'][c]['sales'] for s in swp)
@@ -165,7 +181,7 @@ for c in CATS:
 mar=""
 for c in CATS:
     caps=[(s,R[s]['mix'][c]['cap']) for s in stores]; best=max(caps,key=lambda x:x[1]); worst=min(caps,key=lambda x:x[1])
-    mar+='<tr><td>%s</td><td>%s%%%s</td><td>%s%%%s</td><td style="text-align:left;color:#1f8a4c">%s %s%%</td><td style="text-align:left;color:#c0392b">%s %s%%</td></tr>'%(c,amix[c]["mix"],_mv(amix[c]["mix_pp"]),amix[c]["cap_avg"],_mv(amix[c]["cap_pp"],True),sh(best[0]),best[1],sh(worst[0]),worst[1])
+    mar+='<tr><td>%s</td><td>%s%%%s</td><td>%s%%%s</td><td style="text-align:left;color:#1f8a4c">%s %s%%</td><td style="text-align:left;color:#c0392b">%s %s%%</td></tr>'%(c,amix[c]["mix"],_mv(amix[c]["mix"],amix[c]["mix_pp"]),amix[c]["cap_avg"],_mv(amix[c]["cap_avg"],amix[c]["cap_pp"],True),sh(best[0]),best[1],sh(worst[0]),worst[1])
 caphdr="".join('<th>%s</th>'%c.split(" ")[0] for c in CATS)
 capmat=""
 for s in stores:
@@ -175,7 +191,7 @@ for s in stores:
     capmat+='<tr><td class="ms">%s</td>%s</tr>'%(sh(s),cells)
 mix_ds=json.dumps([amix[c]['mix'] for c in CATS]); mix_lbls=json.dumps(CATS)
 foodcap=amix['Food']['cap_avg']
-mix_note="Hot drinks anchor the mix; <b>Food capture sits at ~%s%%</b> company-wide — the clearest add-on prize. <b>&#9650;&#9660; pp</b> = this 4 weeks vs the prior 4 (like-for-like); mix-share moves are neutral, capture moves are green up / red down."%foodcap
+mix_note="Hot drinks anchor the mix; <b>Food capture sits at ~%s%%</b> company-wide — the clearest add-on prize. The small note after each figure shows the change vs four weeks ago (like-for-like): capture changes are coloured green (up) / red (down); mix-share changes are neutral grey."%foodcap
 mix_focus="Food attach is the company-wide prize — prompt a food add-on at the till where the Food column shows red."
 
 # ---- F1 ----
@@ -293,7 +309,7 @@ avf+='<tr style="font-weight:700;background:#EFE6DC"><td>COMPANY TOTAL</td><td>�
 
 # ---- fill template ----
 repl={
- "{{WX_NUDGE}}":wx_nudge([R[s]['coords'] for s in stores if R[s].get('coords')],"estate avg"),
+ "{{WX_NUDGE}}":wx_nudge([R[s]['coords'] for s in stores if R[s].get('coords')],wx_recent(amix)),
  "{{WX_NUDGE_TOP}}":WX_TOP,"{{WX_FOOD}}":WX_FOOD,
  "{{COACH}}":COACH,"{{COACH_CARDS}}":COACH_CARDS,"{{MOVROWS}}":mov,"{{MOV_NOTE}}":mov_note,"{{PLANNER_LINKS}}":PLANNERS_HTML,
  "{{GEN_STAMP}}":GEN_STAMP,"{{NSTORES}}":str(len(stores)),"{{PILL}}":COACH+" · Engagement Coach · all "+str(len(stores))+" stores","{{FOCUS_LI}}":focus_li,

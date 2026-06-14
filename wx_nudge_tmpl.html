@@ -1,34 +1,36 @@
 <div id="wxnudge" style="display:none;margin:2px 0 14px;padding:11px 15px;border-radius:12px;font-size:13.5px;line-height:1.55"></div>
-<script>(function(){var LOCS=__LOCS__,SCOPE="__SCOPE__",C={hot:-1.19,cold:0.73,shake:0.42},FCOEF=0.203;if(!LOCS||!LOCS.length)return;
+<script>(function(){
+var LOCS=__LOCS__, ANALOG=__ANALOG__, RECENT=__RECENT__;
+if(!LOCS||!LOCS.length)return;
+var comingT, KEYS={cold:1,hot:2,milk:3,coldfood:4};
+function analog(t,key){var ix=KEYS[key];var s=ANALOG.slice().sort(function(a,b){return Math.abs(a[0]-t)-Math.abs(b[0]-t)}).slice(0,8);var v=s.map(function(r){return r[ix]});return v.reduce(function(a,c){return a+c},0)/v.length;}
+function expect(key){var e=RECENT[key]+(analog(comingT,key)-analog(RECENT.temp,key));return Math.max(0,Math.min(100,e));}
 var la=LOCS.map(function(x){return x[0]}).join(","),lo=LOCS.map(function(x){return x[1]}).join(",");
-var u="https://api.open-meteo.com/v1/forecast?latitude="+la+"&longitude="+lo+"&daily=temperature_2m_max&past_days=14&forecast_days=8&timezone=Europe%2FLondon";
+var u="https://api.open-meteo.com/v1/forecast?latitude="+la+"&longitude="+lo+"&daily=temperature_2m_max,precipitation_probability_max&forecast_days=8&timezone=Europe%2FLondon";
 fetch(u).then(function(r){return r.json()}).then(function(j){var A=Array.isArray(j)?j:[j];
-var now=new Date();var tod=now.toISOString().slice(0,10);
-var fut=[];for(var dd=1;dd<=7;dd++){fut.push(new Date(now.getTime()+dd*864e5).toISOString().slice(0,10));}
-var nloc=0,baseSum=0,dayAgg={};fut.forEach(function(d){dayAgg[d]=[];});
-A.forEach(function(loc){if(!loc.daily)return;var t=loc.daily.time,m=loc.daily.temperature_2m_max;
- var b=[];for(var k=0;k<t.length;k++){if(t[k]<tod&&m[k]!=null)b.push(m[k]);}
- if(!b.length)return;baseSum+=b.reduce(function(a,c){return a+c},0)/b.length;nloc++;
- fut.forEach(function(d){var i=t.indexOf(d);if(i>=0&&m[i]!=null)dayAgg[d].push(m[i]);});});
-if(!nloc)return;var base=baseSum/nloc;
-var dayAvg=[],dayKeys=[];fut.forEach(function(d){var a=dayAgg[d];if(a.length){dayAvg.push(a.reduce(function(x,y){return x+y},0)/a.length);dayKeys.push(d);}});
-if(!dayAvg.length)return;
-var wkmean=dayAvg.reduce(function(x,y){return x+y},0)/dayAvg.length;
-var peak=Math.max.apply(null,dayAvg),peakIdx=dayAvg.indexOf(peak);
-var dn=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];var peakDay=dn[new Date(dayKeys[peakIdx]+"T12:00:00").getDay()];
-var d=wkmean-base,cold=C.cold*d,hot=C.hot*d,shake=C.shake*d,foodpp=FCOEF*d;
-var p=function(v){return(v>=0?"+":"")+v.toFixed(1)+"pp"};
-var wm=wkmean.toFixed(0),ds=(d>=0?"+":"")+d.toFixed(0)+"°",sc=SCOPE?", "+SCOPE:"";
+var now=new Date();var fut=[];for(var dd=1;dd<=7;dd++){fut.push(new Date(now.getTime()+dd*864e5).toISOString().slice(0,10));}
+var dT={},dP={};fut.forEach(function(d){dT[d]=[];dP[d]=[];});
+A.forEach(function(loc){if(!loc.daily)return;var t=loc.daily.time,m=loc.daily.temperature_2m_max,pp=loc.daily.precipitation_probability_max;fut.forEach(function(d){var i=t.indexOf(d);if(i>=0){if(m[i]!=null)dT[d].push(m[i]);if(pp&&pp[i]!=null)dP[d].push(pp[i]);}});});
+var days=[];fut.forEach(function(d){if(dT[d].length){var tm=dT[d].reduce(function(a,c){return a+c},0)/dT[d].length;var pa=dP[d].length?dP[d].reduce(function(a,c){return a+c},0)/dP[d].length:0;days.push({t:tm,p:pa,dow:new Date(d+"T12:00:00").toLocaleDateString("en-GB",{weekday:"short"})});}});
+if(!days.length)return;
+comingT=days.reduce(function(a,c){return a+c.t},0)/days.length;
+var peak=days.reduce(function(a,c){return c.t>a.t?c:a},days[0]);
+var delta=comingT-RECENT.temp,R=function(x){return Math.round(x);};
+var ec=expect("cold"),eh=expect("hot"),em=expect("milk"),ef=expect("coldfood");
+var wet=[],sh=[];days.forEach(function(x){if(x.p>=55)wet.push(x.dow);else if(x.p>=30)sh.push(x.dow);});
+var rain= wet.length>=4?"a wet week — rain likely most days":wet.length?("rain likely "+wet.join(" & ")):sh.length>=3?"mostly dry with the odd shower midweek":sh.length?("mostly dry, the odd shower "+sh.join(" & ")):"a dry week";
+var warm=delta>=1.5,cool=delta<=-1.5,dc=ec-RECENT.cold,mag=Math.abs(dc)>=2.5?"noticeably":"a little";
 var bg,bd,fg,full,compact,food;
-if(Math.abs(d)<1.5){bg="#f5efe0";bd="#e6dcc4";fg="#6b5a47";
- full="🌤️ <b>Week ahead ~"+wm+"°C</b> (peak "+peak.toFixed(0)+"° "+peakDay+", "+ds+" vs last fortnight"+sc+") — in line with recent weather; no big mix shift expected. <span style=\"color:#9a8a7c;font-size:11px\">Live 7-day forecast · Open-Meteo</span>";
- compact="🌤️ <b>Week ahead ~"+wm+"°C</b> ("+ds+" vs recent) — steady; no big mix shift expected.";
- food="🍞 <b>Food mix steady this week</b> (~"+wm+"°, "+ds+" vs recent) — no notable hot/cold-food shift expected.";}
-else{var warm=d>0;bg=warm?"#fdf3e6":"#eef4fb";bd=warm?"#f0d8b0":"#cfe0f2";fg="#4a3a2a";
- full="🌤️ <b>Week ahead ~"+wm+"°C</b> (peak "+peak.toFixed(0)+"° "+peakDay+", "+ds+" vs last fortnight"+sc+") → expect <b>cold drinks "+p(cold)+"</b> · <b>hot drinks "+p(hot)+"</b> · <b>milkshakes "+p(shake)+"</b> vs recent mix — prep & stock accordingly. <span style=\"color:#9a8a7c;font-size:11px\">Live 7-day forecast · Open-Meteo · sensitivity from 12-mth backtest</span>";
- compact="🌤️ <b>Week ahead ~"+wm+"°C</b> ("+ds+" vs recent) → mix lean: <b>cold drinks "+p(cold)+"</b> · <b>hot drinks "+p(hot)+"</b> · milkshakes "+p(shake)+". <span style=\"color:#9a8a7c;font-size:11px\">full detail on the Mix tab</span>";
+if(!warm&&!cool){bg="#f5efe0";bd="#e6dcc4";fg="#6b5a47";
+ compact="🌤️ <b>Week ahead ~"+R(comingT)+"°C</b> — similar to recent weeks, so the mix should hold fairly steady. Rain: "+rain+".";
+ full="🌤️ <b>Week ahead: averaging ~"+R(comingT)+"°C</b> (peak "+R(peak.t)+"°C "+peak.dow+") — much like the last fortnight, so expect the sales mix to stay broadly where it's been: cold drinks around "+R(RECENT.cold)+"% of sales, hot drinks around "+R(RECENT.hot)+"%, milkshakes around "+R(RECENT.milk)+"%. Rain: "+rain+". <span style=\"color:#9a8a7c;font-size:11px\">Live 7-day forecast · Open-Meteo</span>";
+ food="🍞 <b>Week ahead ~"+R(comingT)+"°C</b> — similar to recent weeks; the hot/cold food split should stay about the same. Prep to your normal pattern.";}
+else{bg=warm?"#fdf3e6":"#eef4fb";bd=warm?"#f0d8b0":"#cfe0f2";fg="#4a3a2a";
+ var lead=warm?(mag+" more cold drinks &amp; milkshakes, and fewer hot drinks"):(mag+" more hot drinks, and fewer cold drinks &amp; milkshakes");
+ compact="🌤️ <b>"+(warm?"Warm":"Cooler")+" week ahead ~"+R(comingT)+"°C</b> (peak "+R(peak.t)+"° "+peak.dow+") → expect "+lead+". Cold drinks likely ~"+R(ec)+"% of sales (about "+R(RECENT.cold)+"% lately). Rain: "+rain+".";
+ full="🌤️ <b>Week ahead: averaging ~"+R(comingT)+"°C, peaking "+R(peak.t)+"°C "+peak.dow+"</b> — "+(warm?"warmer":"cooler")+" than the last fortnight. Going on how sales actually moved in past weeks at similar temperatures (adjusted to your recent baseline), expect the mix to run about: <b>cold drinks ~"+R(ec)+"% of sales</b> (about "+R(RECENT.cold)+"% recently), <b>hot drinks ~"+R(eh)+"%</b> (about "+R(RECENT.hot)+"%), <b>milkshakes ~"+R(em)+"%</b> (about "+R(RECENT.milk)+"%). So "+(warm?"lean into cold drinks &amp; milkshakes and ease back on hot-drink prep":"lean into hot drinks and ease back on cold-drink prep")+". Rain: "+rain+". <span style=\"color:#9a8a7c;font-size:11px\">Live 7-day forecast · Open-Meteo · pattern from similar-temperature weeks over the last year</span>";
  food=warm
-  ?"🍞 <b>Warm week ahead</b> (~"+wm+"°, "+ds+") → lean <b>cold food</b>: prep more sandwiches, wraps &amp; salads; ease croques, toasties &amp; breakfast. Cold-food share of food tends ~"+p(foodpp)+"; <b>watch hot-food (croque) over-prep &amp; wastage</b>. <span style=\"color:#9a8a7c;font-size:11px\">directional · 12-mth backtest r≈0.70</span>"
-  :"🍞 <b>Cool week ahead</b> (~"+wm+"°, "+ds+") → lean <b>hot food</b>: prep more croques, toasties &amp; breakfast; ease cold sandwiches. <b>Watch cold-food (sandwich/salad) wastage</b>. <span style=\"color:#9a8a7c;font-size:11px\">directional · 12-mth backtest r≈0.70</span>";}
+  ?"🍞 <b>Warm week ahead (~"+R(comingT)+"°C)</b> — within food, expect a little more cold (sandwiches, wraps, salads) and a little less hot (croques, toasties, breakfast): cold food likely ~"+R(ef)+"% of food sales (about "+R(RECENT.coldfood)+"% recently). Prep a touch more cold, ease the hot items, and <b>keep an eye on hot-food (croque) wastage</b>. <span style=\"color:#9a8a7c;font-size:11px\">directional — food shifts far less with weather than drinks</span>"
+  :"🍞 <b>Cooler week ahead (~"+R(comingT)+"°C)</b> — within food, expect a little more hot (croques, toasties, breakfast) and a little less cold: cold food likely ~"+R(ef)+"% of food sales (about "+R(RECENT.coldfood)+"% recently). Prep a touch more hot, ease the cold items, and <b>watch cold-food (sandwich/salad) wastage</b>. <span style=\"color:#9a8a7c;font-size:11px\">directional — food shifts far less with weather than drinks</span>";}
 [["wxnudge",full],["wxnudge_top",compact],["wxfood",food]].forEach(function(pr){var el=document.getElementById(pr[0]);if(el){el.style.cssText+=";background:"+bg+";border:1px solid "+bd+";color:"+fg;el.innerHTML=pr[1];el.style.display="block";}});
 }).catch(function(){});})();</script>
