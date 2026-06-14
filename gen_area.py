@@ -3,6 +3,8 @@ from collections import defaultdict
 from statistics import mean,median
 A=json.load(open('allstores.json')); REC=A['rec']; champ=A['champ']; CATS=A['cats']
 WX_TMPL=open('wx_nudge_tmpl.html',encoding='utf-8').read()
+WX_TOP='<div id="wxnudge_top" style="display:none;margin:0 0 16px;padding:9px 14px;border-radius:11px;font-size:13px;line-height:1.5"></div>'
+WX_FOOD='<div id="wxfood" style="display:none;margin:2px 0 14px;padding:11px 15px;border-radius:12px;font-size:13.5px;line-height:1.55"></div>'
 def wx_nudge(locs,scope=""):
     locs=[[round(x[0],4),round(x[1],4)] for x in locs if x]
     return WX_TMPL.replace("__LOCS__",json.dumps(locs)).replace("__SCOPE__",scope)
@@ -301,6 +303,7 @@ def build(coach):
 
     repl={
      "{{WX_NUDGE}}":wx_nudge([R[s]['coords'] for s in stores if R[s].get('coords')],"area avg"),
+     "{{WX_NUDGE_TOP}}":WX_TOP,"{{WX_FOOD}}":WX_FOOD,
      "{{GEN_STAMP}}":GEN_STAMP,"{{AVF_WK}}":ACT.get('_week_label','last week'),"{{AVF_ROWS}}":_avf_rows(stores,R),"{{PLANNER_LINK}}":PLANNERS.get(coach,'#'),
      "{{COACH}}":coach,"{{NSTORES}}":str(len(stores)),"{{PILL}}":" · ".join(SHORT[s] for s in sorted(stores,key=lambda x:-R[x]['s4'])),
      "{{FOCUS_LI}}":focus_li,"{{OVROWS}}":ov,"{{AREA_LAST}}":GBP(area_last),"{{AREA_YOY_LW}}":pctxt(ylw),"{{LWCHIP}}":"up" if ylw>=0 else "dn",

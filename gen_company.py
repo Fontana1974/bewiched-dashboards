@@ -3,6 +3,8 @@ from collections import defaultdict
 from statistics import mean,median
 A=json.load(open('allstores.json')); REC=A['rec']; champ=A['champ']; CATS=A['cats']
 WX_TMPL=open('wx_nudge_tmpl.html',encoding='utf-8').read()
+WX_TOP='<div id="wxnudge_top" style="display:none;margin:0 0 16px;padding:9px 14px;border-radius:11px;font-size:13px;line-height:1.5"></div>'
+WX_FOOD='<div id="wxfood" style="display:none;margin:2px 0 14px;padding:11px 15px;border-radius:12px;font-size:13.5px;line-height:1.55"></div>'
 def wx_nudge(locs,scope=""):
     locs=[[round(x[0],4),round(x[1],4)] for x in locs if x]
     return WX_TMPL.replace("__LOCS__",json.dumps(locs)).replace("__SCOPE__",scope)
@@ -327,6 +329,7 @@ def build():
     avf+=(f'<tr style="font-weight:700;background:#EFE6DC"><td>COMPANY TOTAL</td><td>£{sfc:,.0f}</td><td>£{sa:,.0f}</td><td>{("+" if tsv>=0 else "")+str(tsv)}%</td><td>{"%g"%ssc}</td><td>{"%g"%su}</td><td>{("+" if thv>=0 else "")+("%g"%thv)}</td><td></td><td>£{tac:.2f}</td></tr>')
     repl={
      "{{WX_NUDGE}}":wx_nudge([R[s]['coords'] for s in stores if R[s].get('coords')],"estate avg"),
+     "{{WX_NUDGE_TOP}}":WX_TOP,"{{WX_FOOD}}":WX_FOOD,
      "{{GEN_STAMP}}":GEN_STAMP,"{{AVF_WK}}":ACT.get('_week_label','last week'),"{{AVF_ROWS}}":avf,
      "{{PLANNER_LINKS}}":('<a class="plannerbtn" href="https://docs.google.com/spreadsheets/d/1PSjBGiR40171h769esQCtn3ldcpCB5XJyfqRTo7Yccs/edit" target="_blank" rel="noopener">📋 Jon&#39;s Planner ↗</a>'
        '<a class="plannerbtn" href="https://docs.google.com/spreadsheets/d/1_qdK6fzqPg1NcA2KKMy2TnaZ8nQJtVE-fglz2On3oBw/edit" target="_blank" rel="noopener">📋 Ian&#39;s Planner ↗</a>'

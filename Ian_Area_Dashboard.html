@@ -71,7 +71,7 @@
 <div class="brandbar"><div class="inner">
   <div class="logo"><div><div class="word">Be<span>wiched</span></div><div class="eyebrow">Area Performance</div></div></div>
   <div class="spacer"></div>
-  <div class="ctx">Area: <b>Ian</b> · 3 stores<br>4-week window: <b>11 May → 7 Jun 2026</b> · YoY vs 2025<br><span style="color:#e7b35a;font-weight:700">🔄 Refreshed 14 Jun 2026, 11:26 · auto Mon 9am</span></div>
+  <div class="ctx">Area: <b>Ian</b> · 3 stores<br>4-week window: <b>11 May → 7 Jun 2026</b> · YoY vs 2025<br><span style="color:#e7b35a;font-weight:700">🔄 Refreshed 14 Jun 2026, 12:34 · auto Mon 9am</span></div>
 </div></div>
 <div class="wrap">
   <header class="page">
@@ -92,6 +92,7 @@
 
   <!-- OVERVIEW -->
   <section class="tab-panel active" id="tab-overview">
+    <div id="wxnudge_top" style="display:none;margin:0 0 16px;padding:9px 14px;border-radius:11px;font-size:13px;line-height:1.5"></div>
     <div class="cards" style="grid-template-columns:repeat(5,1fr)">
       <div class="card"><div class="lbl">Sales — last week</div><div class="val">£29,429<span class="chip up">+21.1%</span></div><div class="meta">W/C 1 Jun · sales YoY</div></div>
       <div class="card"><div class="lbl">Guest checks — last week</div><div class="val">3,939<span class="chip up">+11.4%</span></div><div class="meta">transactions · YoY</div></div>
@@ -184,6 +185,7 @@
 
   <!-- WASTAGE & YIELD -->
   <section class="tab-panel" id="tab-waste">
+    <div id="wxfood" style="display:none;margin:2px 0 14px;padding:11px 15px;border-radius:12px;font-size:13.5px;line-height:1.55"></div>
     <div class="note blue"><b>Yield = Availability % − Waste-rate %</b>, target <b>90%</b>. Below it means either <b>over-producing</b> (high waste) or <b>selling out</b> (low availability — a chance to sell more). Pick a store: &nbsp;<select id="storeSel"></select> <span id="pollNote" class="mini"></span></div>
     <div class="grid2 even" style="margin-top:8px">
       <div class="panel">
@@ -204,22 +206,39 @@
   <section class="tab-panel" id="tab-mix">
     <div class="section-title">Sales mix &amp; capture — area view</div>
     <div id="wxnudge" style="display:none;margin:2px 0 14px;padding:11px 15px;border-radius:12px;font-size:13.5px;line-height:1.55"></div>
-<script>(function(){var LOCS=[[52.52, -1.48], [52.32, -0.66], [52.4, -1.63]],SCOPE="area avg",C={hot:-1.19,cold:0.73,shake:0.42};if(!LOCS||!LOCS.length)return;
+<script>(function(){var LOCS=[[52.52, -1.48], [52.32, -0.66], [52.4, -1.63]],SCOPE="area avg",C={hot:-1.19,cold:0.73,shake:0.42},FCOEF=0.203;if(!LOCS||!LOCS.length)return;
 var la=LOCS.map(function(x){return x[0]}).join(","),lo=LOCS.map(function(x){return x[1]}).join(",");
-var u="https://api.open-meteo.com/v1/forecast?latitude="+la+"&longitude="+lo+"&daily=temperature_2m_max&past_days=14&forecast_days=2&timezone=Europe%2FLondon";
+var u="https://api.open-meteo.com/v1/forecast?latitude="+la+"&longitude="+lo+"&daily=temperature_2m_max&past_days=14&forecast_days=8&timezone=Europe%2FLondon";
 fetch(u).then(function(r){return r.json()}).then(function(j){var A=Array.isArray(j)?j:[j];
-var now=new Date();var tmo=new Date(now.getTime()+864e5).toISOString().slice(0,10);var tod=now.toISOString().slice(0,10);
-var T=[],B=[];A.forEach(function(loc){if(!loc.daily)return;var t=loc.daily.time,m=loc.daily.temperature_2m_max;var i=t.indexOf(tmo);if(i<0)return;if(m[i]==null)return;T.push(m[i]);
-var b=[];for(var k=0;k<t.length;k++){if(t[k]<tod&&m[k]!=null)b.push(m[k]);}if(b.length)B.push(b.reduce(function(a,c){return a+c},0)/b.length);});
-if(!T.length||!B.length)return;var av=function(a){return a.reduce(function(x,y){return x+y},0)/a.length};
-var tm=av(T),bs=av(B),d=tm-bs,el=document.getElementById("wxnudge");if(!el)return;
-var ds=(d>=0?"+":"")+d.toFixed(0)+"°",sc=SCOPE?", "+SCOPE:"";
-if(Math.abs(d)<1.5){el.style.cssText+=";background:#f5efe0;border:1px solid #e6dcc4;color:#6b5a47";
-el.innerHTML="🌤️ <b>Tomorrow ~"+tm.toFixed(0)+"°C</b> ("+ds+" vs the last fortnight"+sc+") — in line with recent weather; no big mix shift expected. <span style=\"color:#9a8a7c;font-size:11px\">Live forecast · Open-Meteo</span>";}
-else{var warm=d>0,p=function(v){return(v>=0?"+":"")+v.toFixed(1)+"pp"};
-el.style.cssText+=";background:"+(warm?"#fdf3e6":"#eef4fb")+";border:1px solid "+(warm?"#f0d8b0":"#cfe0f2")+";color:#4a3a2a";
-el.innerHTML="🌤️ <b>Tomorrow ~"+tm.toFixed(0)+"°C</b> ("+ds+" vs the last fortnight"+sc+") → expect <b>cold drinks "+p(C.cold*d)+"</b> · <b>hot drinks "+p(C.hot*d)+"</b> · <b>milkshakes "+p(C.shake*d)+"</b> vs recent mix — prep &amp; stock accordingly. <span style=\"color:#9a8a7c;font-size:11px\">Live forecast · Open-Meteo · weather-sensitivity from 12-mth backtest</span>";}
-el.style.display="block";}).catch(function(){});})();</script>
+var now=new Date();var tod=now.toISOString().slice(0,10);
+var fut=[];for(var dd=1;dd<=7;dd++){fut.push(new Date(now.getTime()+dd*864e5).toISOString().slice(0,10));}
+var nloc=0,baseSum=0,dayAgg={};fut.forEach(function(d){dayAgg[d]=[];});
+A.forEach(function(loc){if(!loc.daily)return;var t=loc.daily.time,m=loc.daily.temperature_2m_max;
+ var b=[];for(var k=0;k<t.length;k++){if(t[k]<tod&&m[k]!=null)b.push(m[k]);}
+ if(!b.length)return;baseSum+=b.reduce(function(a,c){return a+c},0)/b.length;nloc++;
+ fut.forEach(function(d){var i=t.indexOf(d);if(i>=0&&m[i]!=null)dayAgg[d].push(m[i]);});});
+if(!nloc)return;var base=baseSum/nloc;
+var dayAvg=[],dayKeys=[];fut.forEach(function(d){var a=dayAgg[d];if(a.length){dayAvg.push(a.reduce(function(x,y){return x+y},0)/a.length);dayKeys.push(d);}});
+if(!dayAvg.length)return;
+var wkmean=dayAvg.reduce(function(x,y){return x+y},0)/dayAvg.length;
+var peak=Math.max.apply(null,dayAvg),peakIdx=dayAvg.indexOf(peak);
+var dn=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];var peakDay=dn[new Date(dayKeys[peakIdx]+"T12:00:00").getDay()];
+var d=wkmean-base,cold=C.cold*d,hot=C.hot*d,shake=C.shake*d,foodpp=FCOEF*d;
+var p=function(v){return(v>=0?"+":"")+v.toFixed(1)+"pp"};
+var wm=wkmean.toFixed(0),ds=(d>=0?"+":"")+d.toFixed(0)+"°",sc=SCOPE?", "+SCOPE:"";
+var bg,bd,fg,full,compact,food;
+if(Math.abs(d)<1.5){bg="#f5efe0";bd="#e6dcc4";fg="#6b5a47";
+ full="🌤️ <b>Week ahead ~"+wm+"°C</b> (peak "+peak.toFixed(0)+"° "+peakDay+", "+ds+" vs last fortnight"+sc+") — in line with recent weather; no big mix shift expected. <span style=\"color:#9a8a7c;font-size:11px\">Live 7-day forecast · Open-Meteo</span>";
+ compact="🌤️ <b>Week ahead ~"+wm+"°C</b> ("+ds+" vs recent) — steady; no big mix shift expected.";
+ food="🍞 <b>Food mix steady this week</b> (~"+wm+"°, "+ds+" vs recent) — no notable hot/cold-food shift expected.";}
+else{var warm=d>0;bg=warm?"#fdf3e6":"#eef4fb";bd=warm?"#f0d8b0":"#cfe0f2";fg="#4a3a2a";
+ full="🌤️ <b>Week ahead ~"+wm+"°C</b> (peak "+peak.toFixed(0)+"° "+peakDay+", "+ds+" vs last fortnight"+sc+") → expect <b>cold drinks "+p(cold)+"</b> · <b>hot drinks "+p(hot)+"</b> · <b>milkshakes "+p(shake)+"</b> vs recent mix — prep & stock accordingly. <span style=\"color:#9a8a7c;font-size:11px\">Live 7-day forecast · Open-Meteo · sensitivity from 12-mth backtest</span>";
+ compact="🌤️ <b>Week ahead ~"+wm+"°C</b> ("+ds+" vs recent) → mix lean: <b>cold drinks "+p(cold)+"</b> · <b>hot drinks "+p(hot)+"</b> · milkshakes "+p(shake)+". <span style=\"color:#9a8a7c;font-size:11px\">full detail on the Mix tab</span>";
+ food=warm
+  ?"🍞 <b>Warm week ahead</b> (~"+wm+"°, "+ds+") → lean <b>cold food</b>: prep more sandwiches, wraps &amp; salads; ease croques, toasties &amp; breakfast. Cold-food share of food tends ~"+p(foodpp)+"; <b>watch hot-food (croque) over-prep &amp; wastage</b>. <span style=\"color:#9a8a7c;font-size:11px\">directional · 12-mth backtest r≈0.70</span>"
+  :"🍞 <b>Cool week ahead</b> (~"+wm+"°, "+ds+") → lean <b>hot food</b>: prep more croques, toasties &amp; breakfast; ease cold sandwiches. <b>Watch cold-food (sandwich/salad) wastage</b>. <span style=\"color:#9a8a7c;font-size:11px\">directional · 12-mth backtest r≈0.70</span>";}
+[["wxnudge",full],["wxnudge_top",compact],["wxfood",food]].forEach(function(pr){var el=document.getElementById(pr[0]);if(el){el.style.cssText+=";background:"+bg+";border:1px solid "+bd+";color:"+fg;el.innerHTML=pr[1];el.style.display="block";}});
+}).catch(function(){});})();</script>
     <div class="grid2">
       <div class="panel"><div style="font-size:13px;font-weight:700;color:#5b3a29;margin-bottom:8px">Area sales mix by category</div><div class="chart-box" style="height:300px"><canvas id="mixChart"></canvas></div></div>
       <div class="panel">
@@ -335,7 +354,7 @@ function renderWaste(store){
   btns.forEach(b=>b.addEventListener("click",()=>{btns.forEach(x=>x.classList.remove("active"));panels.forEach(p=>p.classList.remove("active"));
     b.classList.add("active");document.getElementById("tab-"+b.dataset.tab).classList.add("active");
     requestAnimationFrame(()=>{(window.CHARTS||[]).forEach(c=>{try{c.resize();}catch(e){}});});}));})();
-document.getElementById("foot").innerHTML="Data refreshed 14 Jun 2026, 11:26 · auto-refreshes every Monday 9am. Sources: live BigQuery POS, polling sheet, F1 audit, the visit rota, HRP &amp; Google reviews.";
+document.getElementById("foot").innerHTML="Data refreshed 14 Jun 2026, 12:34 · auto-refreshes every Monday 9am. Sources: live BigQuery POS, polling sheet, F1 audit, the visit rota, HRP &amp; Google reviews.";
 </script>
 </body>
 </html>

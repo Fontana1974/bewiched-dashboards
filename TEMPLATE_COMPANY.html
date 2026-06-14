@@ -94,6 +94,7 @@
 
   <!-- OVERVIEW -->
   <section class="tab-panel active" id="tab-overview">
+    {{WX_NUDGE_TOP}}
     <div class="cards" style="grid-template-columns:repeat(5,1fr)">
       <div class="card"><div class="lbl">Sales — last week</div><div class="val">{{AREA_LAST}}<span class="chip {{LWCHIP}}">{{AREA_YOY_LW}}</span></div><div class="meta">W/C 1 Jun · sales YoY</div></div>
       <div class="card"><div class="lbl">Guest checks — last week</div><div class="val">{{AREA_GC}}<span class="chip {{GCCHIP}}">{{AREA_GC_YOY}}</span></div><div class="meta">transactions · YoY</div></div>
@@ -192,6 +193,7 @@
 
   <!-- WASTAGE & YIELD -->
   <section class="tab-panel" id="tab-waste">
+    {{WX_FOOD}}
     <div class="note blue"><b>Yield = Availability % − Waste-rate %</b>, target <b>90%</b>. Pick a store: &nbsp;<select id="storeSel"></select> <span id="pollNote" class="mini"></span></div>
     <div class="section-title">Company wastage — Food &amp; Bakery, last 4 weeks</div>
     <div class="grid2 even">

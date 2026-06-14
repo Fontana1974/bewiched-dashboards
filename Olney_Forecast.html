@@ -143,6 +143,7 @@
   </div>
 
   <!-- ===== Tab nav ===== -->
+  <div id="wxnudge_top" style="display:none;margin:14px 0 0;padding:9px 14px;border-radius:11px;font-size:13px;line-height:1.5"></div>
   <nav class="tabs" role="tablist">
     <button class="tab-btn active" data-tab="sales" role="tab"><span class="dot">📈</span>Sales &amp; Hours</button>
     <button class="tab-btn" data-tab="waste" role="tab"><span class="dot">♻️</span>Wastage</button>
@@ -279,6 +280,7 @@
 
   <!-- ===== TAB 2: Wastage ===== -->
   <section class="tab-panel" id="tab-waste">
+    <div id="wxfood" style="display:none;margin:2px 0 14px;padding:11px 15px;border-radius:12px;font-size:13.5px;line-height:1.55"></div>
     <div class="section-title">⚠️ Wastage — improving, keep tightening</div>
     <div class="grid2">
       <div class="panel"><div class="chart-box" style="height:300px"><canvas id="waste"></canvas></div></div>
@@ -299,22 +301,39 @@
   <section class="tab-panel" id="tab-mix">
     <div class="section-title">Sales mix &amp; capture vs the estate</div>
     <div id="wxnudge" style="display:none;margin:2px 0 14px;padding:11px 15px;border-radius:12px;font-size:13.5px;line-height:1.55"></div>
-<script>(function(){var LOCS=[[52.15, -0.7]],SCOPE="",C={hot:-1.19,cold:0.73,shake:0.42};if(!LOCS||!LOCS.length)return;
+<script>(function(){var LOCS=[[52.15, -0.7]],SCOPE="",C={hot:-1.19,cold:0.73,shake:0.42},FCOEF=0.203;if(!LOCS||!LOCS.length)return;
 var la=LOCS.map(function(x){return x[0]}).join(","),lo=LOCS.map(function(x){return x[1]}).join(",");
-var u="https://api.open-meteo.com/v1/forecast?latitude="+la+"&longitude="+lo+"&daily=temperature_2m_max&past_days=14&forecast_days=2&timezone=Europe%2FLondon";
+var u="https://api.open-meteo.com/v1/forecast?latitude="+la+"&longitude="+lo+"&daily=temperature_2m_max&past_days=14&forecast_days=8&timezone=Europe%2FLondon";
 fetch(u).then(function(r){return r.json()}).then(function(j){var A=Array.isArray(j)?j:[j];
-var now=new Date();var tmo=new Date(now.getTime()+864e5).toISOString().slice(0,10);var tod=now.toISOString().slice(0,10);
-var T=[],B=[];A.forEach(function(loc){if(!loc.daily)return;var t=loc.daily.time,m=loc.daily.temperature_2m_max;var i=t.indexOf(tmo);if(i<0)return;if(m[i]==null)return;T.push(m[i]);
-var b=[];for(var k=0;k<t.length;k++){if(t[k]<tod&&m[k]!=null)b.push(m[k]);}if(b.length)B.push(b.reduce(function(a,c){return a+c},0)/b.length);});
-if(!T.length||!B.length)return;var av=function(a){return a.reduce(function(x,y){return x+y},0)/a.length};
-var tm=av(T),bs=av(B),d=tm-bs,el=document.getElementById("wxnudge");if(!el)return;
-var ds=(d>=0?"+":"")+d.toFixed(0)+"°",sc=SCOPE?", "+SCOPE:"";
-if(Math.abs(d)<1.5){el.style.cssText+=";background:#f5efe0;border:1px solid #e6dcc4;color:#6b5a47";
-el.innerHTML="🌤️ <b>Tomorrow ~"+tm.toFixed(0)+"°C</b> ("+ds+" vs the last fortnight"+sc+") — in line with recent weather; no big mix shift expected. <span style=\"color:#9a8a7c;font-size:11px\">Live forecast · Open-Meteo</span>";}
-else{var warm=d>0,p=function(v){return(v>=0?"+":"")+v.toFixed(1)+"pp"};
-el.style.cssText+=";background:"+(warm?"#fdf3e6":"#eef4fb")+";border:1px solid "+(warm?"#f0d8b0":"#cfe0f2")+";color:#4a3a2a";
-el.innerHTML="🌤️ <b>Tomorrow ~"+tm.toFixed(0)+"°C</b> ("+ds+" vs the last fortnight"+sc+") → expect <b>cold drinks "+p(C.cold*d)+"</b> · <b>hot drinks "+p(C.hot*d)+"</b> · <b>milkshakes "+p(C.shake*d)+"</b> vs recent mix — prep &amp; stock accordingly. <span style=\"color:#9a8a7c;font-size:11px\">Live forecast · Open-Meteo · weather-sensitivity from 12-mth backtest</span>";}
-el.style.display="block";}).catch(function(){});})();</script>
+var now=new Date();var tod=now.toISOString().slice(0,10);
+var fut=[];for(var dd=1;dd<=7;dd++){fut.push(new Date(now.getTime()+dd*864e5).toISOString().slice(0,10));}
+var nloc=0,baseSum=0,dayAgg={};fut.forEach(function(d){dayAgg[d]=[];});
+A.forEach(function(loc){if(!loc.daily)return;var t=loc.daily.time,m=loc.daily.temperature_2m_max;
+ var b=[];for(var k=0;k<t.length;k++){if(t[k]<tod&&m[k]!=null)b.push(m[k]);}
+ if(!b.length)return;baseSum+=b.reduce(function(a,c){return a+c},0)/b.length;nloc++;
+ fut.forEach(function(d){var i=t.indexOf(d);if(i>=0&&m[i]!=null)dayAgg[d].push(m[i]);});});
+if(!nloc)return;var base=baseSum/nloc;
+var dayAvg=[],dayKeys=[];fut.forEach(function(d){var a=dayAgg[d];if(a.length){dayAvg.push(a.reduce(function(x,y){return x+y},0)/a.length);dayKeys.push(d);}});
+if(!dayAvg.length)return;
+var wkmean=dayAvg.reduce(function(x,y){return x+y},0)/dayAvg.length;
+var peak=Math.max.apply(null,dayAvg),peakIdx=dayAvg.indexOf(peak);
+var dn=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];var peakDay=dn[new Date(dayKeys[peakIdx]+"T12:00:00").getDay()];
+var d=wkmean-base,cold=C.cold*d,hot=C.hot*d,shake=C.shake*d,foodpp=FCOEF*d;
+var p=function(v){return(v>=0?"+":"")+v.toFixed(1)+"pp"};
+var wm=wkmean.toFixed(0),ds=(d>=0?"+":"")+d.toFixed(0)+"°",sc=SCOPE?", "+SCOPE:"";
+var bg,bd,fg,full,compact,food;
+if(Math.abs(d)<1.5){bg="#f5efe0";bd="#e6dcc4";fg="#6b5a47";
+ full="🌤️ <b>Week ahead ~"+wm+"°C</b> (peak "+peak.toFixed(0)+"° "+peakDay+", "+ds+" vs last fortnight"+sc+") — in line with recent weather; no big mix shift expected. <span style=\"color:#9a8a7c;font-size:11px\">Live 7-day forecast · Open-Meteo</span>";
+ compact="🌤️ <b>Week ahead ~"+wm+"°C</b> ("+ds+" vs recent) — steady; no big mix shift expected.";
+ food="🍞 <b>Food mix steady this week</b> (~"+wm+"°, "+ds+" vs recent) — no notable hot/cold-food shift expected.";}
+else{var warm=d>0;bg=warm?"#fdf3e6":"#eef4fb";bd=warm?"#f0d8b0":"#cfe0f2";fg="#4a3a2a";
+ full="🌤️ <b>Week ahead ~"+wm+"°C</b> (peak "+peak.toFixed(0)+"° "+peakDay+", "+ds+" vs last fortnight"+sc+") → expect <b>cold drinks "+p(cold)+"</b> · <b>hot drinks "+p(hot)+"</b> · <b>milkshakes "+p(shake)+"</b> vs recent mix — prep & stock accordingly. <span style=\"color:#9a8a7c;font-size:11px\">Live 7-day forecast · Open-Meteo · sensitivity from 12-mth backtest</span>";
+ compact="🌤️ <b>Week ahead ~"+wm+"°C</b> ("+ds+" vs recent) → mix lean: <b>cold drinks "+p(cold)+"</b> · <b>hot drinks "+p(hot)+"</b> · milkshakes "+p(shake)+". <span style=\"color:#9a8a7c;font-size:11px\">full detail on the Mix tab</span>";
+ food=warm
+  ?"🍞 <b>Warm week ahead</b> (~"+wm+"°, "+ds+") → lean <b>cold food</b>: prep more sandwiches, wraps &amp; salads; ease croques, toasties &amp; breakfast. Cold-food share of food tends ~"+p(foodpp)+"; <b>watch hot-food (croque) over-prep &amp; wastage</b>. <span style=\"color:#9a8a7c;font-size:11px\">directional · 12-mth backtest r≈0.70</span>"
+  :"🍞 <b>Cool week ahead</b> (~"+wm+"°, "+ds+") → lean <b>hot food</b>: prep more croques, toasties &amp; breakfast; ease cold sandwiches. <b>Watch cold-food (sandwich/salad) wastage</b>. <span style=\"color:#9a8a7c;font-size:11px\">directional · 12-mth backtest r≈0.70</span>";}
+[["wxnudge",full],["wxnudge_top",compact],["wxfood",food]].forEach(function(pr){var el=document.getElementById(pr[0]);if(el){el.style.cssText+=";background:"+bg+";border:1px solid "+bd+";color:"+fg;el.innerHTML=pr[1];el.style.display="block";}});
+}).catch(function(){});})();</script>
     <div class="grid2">
       <div class="panel"><div style="font-size:13px;font-weight:700;color:#5b3a29;margin-bottom:8px">Capture % ranked vs the estate (21 stores)</div><table id="peertbl"><thead><tr><th>Category</th><th>Olney</th><th>Rank</th><th>Estate avg</th><th>Best in estate</th></tr></thead><tbody></tbody></table><div class="mini" style="margin-top:8px">Capture = share of transactions including the category (last ~5 wks). Value green = above estate average; rank chip green = top third, red = bottom third.</div></div>
       <div class="panel">
