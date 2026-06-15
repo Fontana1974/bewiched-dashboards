@@ -72,7 +72,7 @@
 <div class="brandbar"><div class="inner">
   <div class="logo"><div><div class="word">Be<span>wiched</span></div><div class="eyebrow">Area Performance</div></div></div>
   <div class="spacer"></div>
-  <div class="ctx">Area: <b>Jon</b> · 9 stores<br>4-week window: <b>11 May → 7 Jun 2026</b> · YoY vs 2025<br><span style="color:#e7b35a;font-weight:700">🔄 Refreshed 15 Jun 2026, 17:11 · auto Mon 9am</span></div>
+  <div class="ctx">Area: <b>Jon</b> · 9 stores<br>4-week window: <b>11 May → 7 Jun 2026</b> · YoY vs 2025<br><span style="color:#e7b35a;font-weight:700">🔄 Refreshed 15 Jun 2026, 20:29 · auto Mon 9am</span></div>
 </div></div>
 <div class="wrap">
   <header class="page">
@@ -379,7 +379,7 @@ function renderWaste(store){
   btns.forEach(b=>b.addEventListener("click",()=>{btns.forEach(x=>x.classList.remove("active"));panels.forEach(p=>p.classList.remove("active"));
     b.classList.add("active");document.getElementById("tab-"+b.dataset.tab).classList.add("active");
     requestAnimationFrame(()=>{(window.CHARTS||[]).forEach(c=>{try{c.resize();}catch(e){}});});}));})();
-document.getElementById("foot").innerHTML="Data refreshed 15 Jun 2026, 17:11 · auto-refreshes every Monday 9am. Sources: live BigQuery POS, polling sheet, F1 audit, the visit rota, HRP &amp; Google reviews.";
+document.getElementById("foot").innerHTML="Data refreshed 15 Jun 2026, 20:29 · auto-refreshes every Monday 9am. Sources: live BigQuery POS, polling sheet, F1 audit, the visit rota, HRP &amp; Google reviews.";
 </script>
 </body>
 </html>
