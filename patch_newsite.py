@@ -4,6 +4,18 @@
 # + Master Populator "hours used" (passed in HOURS map, gviz).  No Chrome needed.
 import json, re, sys
 
+def relocate_coaching(h):
+    """Ensure the 'Documented coaching' block lives ONLY on the Op's Excellence (tab-f1)
+    tab, not Sentiment. Sickness/RTW stay on Sentiment. Idempotent / self-healing."""
+    sidx=h.find('id="tab-sentiment"'); cidx=h.find('Documented coaching')
+    if cidx<0 or (0<=cidx<sidx): return h          # missing, or already pre-sentiment (on f1)
+    m=re.search(r'(\s*<div class="section-title"[^>]*>\U0001F4CB Documented coaching[\s\S]*?)(\n\s*<footer style="margin-top:18px">Customer:)', h)
+    if not m: return h
+    block=m.group(1); h=h[:m.start(1)]+h[m.end(1):]
+    h2,n=re.subn(r'(\n\s*</section>)(\s*(?:<!--[^>]*-->\s*)?<section class="tab-panel" id="tab-sentiment">)',
+                 lambda mm: "\n"+block.rstrip()+"\n"+mm.group(1)+mm.group(2), h, count=1)
+    return h2 if n else h
+
 A=json.load(open('allstores.json')); R=A['rec']; champ=A['champ']; CATS=A['cats']
 FD=json.load(open('f1_detail.json')); STH=json.load(open('storehealth.json'))['stores']
 try: SENT=json.load(open('newsite_sentiment.json'))   # review snippets / RMS trend+comments / sickness cross-ref (gviz, headless)
@@ -295,6 +307,7 @@ def patch(fn,store,coach,mature):
     sub(r'(<div class="card"><div class="lbl">Latest Race result</div><div class="val"[^>]*>)P\d+ · \d+ pts(</div>)',
         rf'\g<1>P{fin} · {chp} pts\g<2>',1,"Latest Race card value")
     # 8) generated timestamp note already dynamic (new Date()). leave.
+    h=relocate_coaching(h)  # keep coaching on Op's Excellence only (sickness/RTW stay on Sentiment)
     open(fn,'w',encoding='utf-8').write(h)
     print(f"\n=== {fn} ({store}) ==="); print("\n".join(log))
 
