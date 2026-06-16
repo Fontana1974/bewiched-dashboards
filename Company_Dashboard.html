@@ -37,6 +37,9 @@
   .kpw:hover{transform:translateY(-2px)} .kpw .kl{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;opacity:.9} .kpw .kv{font-size:28px;font-weight:800;margin:3px 0 1px;line-height:1} .kpw .kt{font-size:11px;opacity:.85}
   .kpw.green{background:#e8f5ee;border-color:#bfe3cd;color:#1c6b3d} .kpw.red{background:#fcebe8;border-color:#f0ccc5;color:#9a2f22}
   @media(max-width:760px){.kpws{grid-template-columns:repeat(2,1fr)}}
+  .cosum{display:flex;flex-wrap:wrap;gap:8px 22px;align-items:center;background:linear-gradient(180deg,#fff,#fbf7f2);border:1px solid var(--line);border-radius:12px;padding:11px 16px;margin:0 0 10px;}
+  .cosum .ci{display:flex;flex-direction:column;line-height:1.15} .cosum .cl{font-size:10.5px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);font-weight:700} .cosum .cv{font-size:16px;font-weight:800;color:var(--ink);margin-top:2px}
+  .cosum .sep{align-self:stretch;width:1px;background:var(--line)} @media(max-width:760px){.cosum .sep{display:none}}
   .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:0 1px 2px rgba(80,50,30,.04);}
   .chart-box{height:340px;position:relative}
   .note{background:#fff8ec;border:1px solid #f0e0bf;color:#7a5e1e;border-radius:10px;padding:10px 14px;font-size:12.5px;margin:14px 0 0;line-height:1.55;}
@@ -78,7 +81,7 @@
 <div class="brandbar"><div class="inner">
   <div class="logo"><div><div class="word">Be<span>wiched</span></div><div class="eyebrow">Company Performance</div></div></div>
   <div class="spacer"></div>
-  <div class="ctx">Whole company · <b>21 stores</b><br>4-week window: <b>11 May → 7 Jun 2026</b> · YoY vs 2025<br><span style="color:#e7b35a;font-weight:700">🔄 Refreshed 16 Jun 2026, 16:12 · auto Mon 9am</span></div>
+  <div class="ctx">Whole company · <b>21 stores</b><br>4-week window: <b>11 May → 7 Jun 2026</b> · YoY vs 2025<br><span style="color:#e7b35a;font-weight:700">🔄 Refreshed 16 Jun 2026, 16:50 · auto Mon 9am</span></div>
 </div></div>
 <div class="wrap">
   <header class="page">
@@ -107,14 +110,16 @@
   <!-- OVERVIEW -->
   <section class="tab-panel active" id="tab-overview">
     <div id="wxnudge_top" style="display:none;margin:0 0 16px;padding:9px 14px;border-radius:11px;font-size:13px;line-height:1.5"></div>
-    <div class="cards" style="grid-template-columns:repeat(5,1fr)">
-      <div class="card"><div class="lbl">Sales — last week</div><div class="val">£193,211<span class="chip up">+8.8%</span></div><div class="meta">W/C 8 Jun · sales YoY</div></div>
-      <div class="card"><div class="lbl">Guest checks — last week</div><div class="val">26,223<span class="chip up">+1.9%</span></div><div class="meta">transactions · YoY</div></div>
-      <div class="card"><div class="lbl">Stores audit avg — quarter-to-date (QTD)</div><div class="val"><span class="tag t-ok" style="font-size:22px;padding:2px 10px">4.67</span><small style="font-size:14px;color:#9a8a7c"> /5</small></div><div class="meta">21 stores audited · QTD</div></div>
-      <div class="card"><div class="lbl">Wastage % — last week</div><div class="val">2.5%</div><div class="meta">£4,884 retail · W/C 8 Jun · target 3% · 4-wk run rate on Wastage tab</div></div>
-      <div class="card"><div class="lbl">Customer rating</div><div class="val">4.74★</div><div class="meta">3,421 Google reviews · team RMS 4.4/5</div></div>
-    </div>
     <div class="section-title">Store scorecard — last week (W/C 8 Jun), traffic-lit by KPI</div>
+    <div class="cosum">
+      <div class="ci"><span class="cl">Company sales · last wk</span><span class="cv">£193,211 <span class="chip up">+8.8%</span></span></div>
+      <span class="sep"></span>
+      <div class="ci"><span class="cl">Guest checks · last wk</span><span class="cv">26,223 <span class="chip up">+1.9%</span></span></div>
+      <span class="sep"></span>
+      <div class="ci"><span class="cl">Wastage · last wk vs 4-wk</span><span class="cv">2.5% <small style="font-weight:600;color:#9a8a7c">vs 3.1% run rate · tgt 3%</small></span></div>
+      <span class="sep"></span>
+      <div class="ci"><span class="cl">Stores audit avg · QTD</span><span class="cv">4.67<small style="font-weight:600;color:#9a8a7c">/5</small></span></div>
+    </div>
     <div class="note" style="margin:-2px 0 8px">All columns are <b>last week (W/C 8 Jun)</b> except: <b>RMS avg</b> &amp; <b>Google health</b> = quarter-to-date (Q2: 1 Apr&ndash;16 Jun) &middot; <b>Availability</b> = current polling &middot; <b>F1 race</b> = latest audited race &middot; <b>Coach presence</b> = % of recent weeks on site.</div>
     <div class="panel">
       <table class="scorecard">
@@ -411,7 +416,7 @@ function goTab(t){var b=document.querySelector('.tab-btn[data-tab="'+t+'"]');if(
   btns.forEach(b=>b.addEventListener("click",()=>{btns.forEach(x=>x.classList.remove("active"));panels.forEach(p=>p.classList.remove("active"));
     b.classList.add("active");document.getElementById("tab-"+b.dataset.tab).classList.add("active");
     requestAnimationFrame(()=>{(window.CHARTS||[]).forEach(c=>{try{c.resize();}catch(e){}});});}));})();
-document.getElementById("foot").innerHTML="Data refreshed 16 Jun 2026, 16:12 · auto-refreshes every Monday 9am. Sources: live BigQuery POS, polling sheet, F1 audit, SMT visit diary, HRP &amp; Google reviews.";
+document.getElementById("foot").innerHTML="Data refreshed 16 Jun 2026, 16:50 · auto-refreshes every Monday 9am. Sources: live BigQuery POS, polling sheet, F1 audit, SMT visit diary, HRP &amp; Google reviews.";
 </script>
 </body>
 </html>
