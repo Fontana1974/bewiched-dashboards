@@ -266,7 +266,7 @@ sales_b="<b>Sales:</b> %s; 4-week %s YoY."%(syoy,pctxt(y4))+(" <b>%s %s</b> lead
 wpd=sorted(stores,key=lambda x:-R[x]['waste_pct'])
 waste_b="<b>Wastage:</b> company %s%% retail; worst <b>%s (%s%%)</b>."%(awpct,sh(wpd[0]),R[wpd[0]]['waste_pct'])
 f1_b="<b>Op's Excellence:</b> best <b>%s P%s</b>; reset <b>%s P%s</b>."%(sh(bestf[0]),R[bestf[0]]['f1'][0],sh(worstf[0]),R[worstf[0]]['f1'][0])
-coach_b="<b>Engagement:</b> %s averages <b>~%s%%</b> weekly site coverage, heaviest at %s (%s%%); RTW completion just <b>%s%%</b> across %s sick-for-shift (lateness excluded)."%(COACH,kavg,sh(ktop[0]),ktop[1][0],rtw_comp,area_sickfs)
+coach_b="<b>Site presence:</b> %s averages <b>~%s%%</b> weekly site coverage, heaviest at %s (%s%%); RTW completion just <b>%s%%</b> across %s sick-for-shift (lateness excluded)."%(COACH,kavg,sh(ktop[0]),ktop[1][0],rtw_comp,area_sickfs)
 focus_li=rtw_chip+"".join("<li>%s</li>"%b for b in [sales_b,f1_b,waste_b,coach_b])
 
 # ---- forecast ----
