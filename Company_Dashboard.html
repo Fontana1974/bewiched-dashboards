@@ -32,6 +32,11 @@
   .focus.red{background:var(--redbg);border-color:#eccfca;color:#8c2f22;} .focus.amber{background:var(--amberbg);border-color:#ece0c0;color:#7a5b12;} .focus .ar{font-weight:800;margin-right:5px;}
   .focusmod{margin:16px 0 4px;padding:14px 18px;border-radius:14px;background:linear-gradient(180deg,#fff,#fbf7f2);border:1px solid var(--line);}
   .focusmod h2{margin:0 0 8px;font-size:14px;color:var(--brown);} .focusmod ul{margin:0;padding-left:18px;} .focusmod li{font-size:13px;margin:4px 0;line-height:1.45;}
+  .pills{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:14px 0 6px;}
+  .pill{display:block;text-decoration:none;color:inherit;border-radius:14px;padding:13px 16px;border:1.5px solid;cursor:pointer;transition:transform .08s}
+  .pill:hover{transform:translateY(-2px)} .pill .pl{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;opacity:.9} .pill .pv{font-size:27px;font-weight:800;margin:3px 0 1px;line-height:1} .pill .ps{font-size:11px;opacity:.8}
+  .pill.green{background:#e8f5ee;border-color:#bfe3cd;color:#1c6b3d} .pill.amber{background:#fdf4e3;border-color:#f0dcb0;color:#9a6b15} .pill.red{background:#fcebe8;border-color:#f0ccc5;color:#9a2f22}
+  @media(max-width:760px){.pills{grid-template-columns:repeat(2,1fr)}}
   .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:0 1px 2px rgba(80,50,30,.04);}
   .chart-box{height:340px;position:relative}
   .note{background:#fff8ec;border:1px solid #f0e0bf;color:#7a5e1e;border-radius:10px;padding:10px 14px;font-size:12.5px;margin:14px 0 0;line-height:1.55;}
@@ -73,7 +78,7 @@
 <div class="brandbar"><div class="inner">
   <div class="logo"><div><div class="word">Be<span>wiched</span></div><div class="eyebrow">Company Performance</div></div></div>
   <div class="spacer"></div>
-  <div class="ctx">Whole company · <b>21 stores</b><br>4-week window: <b>11 May → 7 Jun 2026</b> · YoY vs 2025<br><span style="color:#e7b35a;font-weight:700">🔄 Refreshed 16 Jun 2026, 14:16 · auto Mon 9am</span></div>
+  <div class="ctx">Whole company · <b>21 stores</b><br>4-week window: <b>11 May → 7 Jun 2026</b> · YoY vs 2025<br><span style="color:#e7b35a;font-weight:700">🔄 Refreshed 16 Jun 2026, 15:28 · auto Mon 9am</span></div>
 </div></div>
 <div class="wrap">
   <header class="page">
@@ -81,6 +86,13 @@
     <div class="sub"><span class="pill">All areas · Jon · Ian · Rich · 21 stores</span>
     <br>Live BigQuery POS to 9 Jun · availability (polling) · F1 (audit sheet) · visits (rota) · RMS &amp; HRP. Sales gross inc VAT.</div>
   </header>
+  <div class="pills">
+    <a class="pill green" onclick="goTab('sales')"><div class="pl">📈 Sales</div><div class="pv">+8.8%</div><div class="ps">sales YoY · last week</div></a>
+    <a class="pill amber" onclick="goTab('sentiment')"><div class="pl">👥 People</div><div class="pv">52%</div><div class="ps">return-to-work completion</div></a>
+    <a class="pill amber" onclick="goTab('f1')"><div class="pl">🏁 Operations</div><div class="pv">201s</div><div class="ps">F1 avg queue · quali+race</div></a>
+    <a class="pill green" onclick="goTab('sentiment')"><div class="pl">⭐ Customer</div><div class="pv">4.73★</div><div class="ps">Google rating · 3,556 reviews</div></a>
+  </div>
+  <div class="note" style="margin:-2px 0 8px"><b>At a glance</b> — <b style="color:#1c6b3d">green</b> on track · <b style="color:#9a6b15">amber</b> watch · <b style="color:#9a2f22">red</b> act. Tap a pill for the detail.</div>
   <div class="focusmod"><h2>🎯 Company focus — week of 9 Jun</h2><ul><li style="list-style:none;margin:2px 0 9px -18px;padding:9px 13px;border-radius:10px;font-weight:700;background:#fbeae8;border:1px solid #eccfca;color:#8c2f22">🩹 RTWs to do &mdash; last 45 days: 15 &mdash; of 39 sick-for-shift in window · worst P'boro Fletton (2)</li><li><b>Sales:</b> company ran <b>£193,211</b> last week (+8.8% YoY); 4-week +10.6% YoY. <b>Glenvale DT +32.8%</b> leads.</li><li><b>Op's Excellence:</b> best <b>P'boro Fletton P1</b>; reset <b>Rushden Lakes P21</b>.</li><li><b>Wastage:</b> company 3.1% retail; worst <b>Attleborough (6.1%)</b>.</li><li><b>Team:</b> RMS 4.4/5 · RTW completion just <b>52%</b> across 80 sick-for-shift (lateness excluded).</li></ul></div>
   <nav class="tabs" role="tablist">
     <button class="tab-btn active" data-tab="overview"><span>🚦</span>Company overview</button>
@@ -394,11 +406,12 @@ function renderWaste(store){
   const areaKey=ks.find(x=>x.startsWith("Company"))||ks[0];
   sel.innerHTML=ks.map(s=>`<option${s===areaKey?" selected":""}>${s}</option>`).join("");
   sel.addEventListener("change",()=>renderWaste(sel.value));renderWaste(areaKey);})();
+function goTab(t){var b=document.querySelector('.tab-btn[data-tab="'+t+'"]');if(b){b.click();window.scrollTo({top:0,behavior:"smooth"});}}
 (function(){const btns=document.querySelectorAll(".tab-btn"),panels=document.querySelectorAll(".tab-panel");
   btns.forEach(b=>b.addEventListener("click",()=>{btns.forEach(x=>x.classList.remove("active"));panels.forEach(p=>p.classList.remove("active"));
     b.classList.add("active");document.getElementById("tab-"+b.dataset.tab).classList.add("active");
     requestAnimationFrame(()=>{(window.CHARTS||[]).forEach(c=>{try{c.resize();}catch(e){}});});}));})();
-document.getElementById("foot").innerHTML="Data refreshed 16 Jun 2026, 14:16 · auto-refreshes every Monday 9am. Sources: live BigQuery POS, polling sheet, F1 audit, SMT visit diary, HRP &amp; Google reviews.";
+document.getElementById("foot").innerHTML="Data refreshed 16 Jun 2026, 15:28 · auto-refreshes every Monday 9am. Sources: live BigQuery POS, polling sheet, F1 audit, SMT visit diary, HRP &amp; Google reviews.";
 </script>
 </body>
 </html>

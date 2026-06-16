@@ -357,6 +357,20 @@ def build():
         avf+=(f'<tr><td style="font-weight:700">{s}</td><td>£{fc:,.0f}</td><td style="font-weight:700">£{act:,.0f}</td><td>{tag(svt,svk)}</td><td>{"%g"%sched}</td><td>{"%g"%used}</td><td>{tag(hvt,hvk)}</td><td>£{tcph}</td><td>{tag(("£%.2f"%ac) if ac is not None else "n/a",cpk)}</td></tr>')
     tsv=round(100*(sa/sfc-1)) if sfc else 0; tac=round(sa/su,2) if su else 0; thv=round(su-ssc,1)
     avf+=(f'<tr style="font-weight:700;background:#EFE6DC"><td>COMPANY TOTAL</td><td>£{sfc:,.0f}</td><td>£{sa:,.0f}</td><td>{("+" if tsv>=0 else "")+str(tsv)}%</td><td>{"%g"%ssc}</td><td>{"%g"%su}</td><td>{("+" if thv>=0 else "")+("%g"%thv)}</td><td></td><td>£{tac:.2f}</td></tr>')
+    # ---- Four-pillar at-a-glance pills (SALES/PEOPLE/OPERATIONS/CUSTOMER) ----
+    _qn=_qd=0
+    for _s,_fd in F1D.items():
+        if str(_s).startswith('_') or not isinstance(_fd,dict): continue
+        for _key in ('race_qtd','quali_qtd'):
+            _d=_fd.get(_key)
+            if _d and _d.get('queue_s') is not None and _d.get('n'): _qn+=_d['queue_s']*_d['n']; _qd+=_d['n']
+    ops_q=round(_qn/_qd) if _qd else None
+    pill_sales_k='green' if ylw>=2 else ('amber' if ylw>=-2 else 'red'); pill_sales_v=pctxt(ylw)
+    pill_people_k='green' if rtw_comp>=80 else ('amber' if rtw_comp>=50 else 'red'); pill_people_v=str(rtw_comp)+"%"
+    pill_ops_k=('green' if ops_q<=180 else ('amber' if ops_q<=250 else 'red')) if ops_q is not None else 'amber'; pill_ops_v=(str(ops_q)+"s" if ops_q is not None else "n/a")
+    try: _CUST=json.load(open('customer.json')); _crate=_CUST.get('company_rating'); _crev=_CUST.get('reviews')
+    except Exception: _crate=None; _crev=None
+    pill_cust_k=('green' if _crate>=4.5 else ('amber' if _crate>=4.0 else 'red')) if _crate else 'amber'; pill_cust_v=((str(_crate)+"★") if _crate else "n/a")
     repl={
      "{{WX_NUDGE}}":wx_nudge([R[s]['coords'] for s in stores if R[s].get('coords')],wx_recent(amix)),
      "{{WX_NUDGE_TOP}}":WX_TOP,"{{WX_FOOD}}":WX_FOOD,
@@ -367,7 +381,7 @@ def build():
      "{{FOOD_WASTE_ROWS}}":food_rows,"{{BAKERY_WASTE_ROWS}}":bak_rows,"{{FOOD_WASTE_NOTE}}":food_note,"{{BAKERY_WASTE_NOTE}}":bak_note,
      "{{QUALI_DETAIL_ROWS}}":quali_rows,"{{RACE_DETAIL_ROWS}}":race_rows,"{{QUALI_QTD_ROWS}}":quali_qtd_rows,"{{RACE_QTD_ROWS}}":race_qtd_rows,
      "{{NSTORES}}":str(len(stores)),"{{PILL}}":"All areas · Jon · Ian · Rich · "+str(len(stores))+" stores",
-     "{{FOCUS_LI}}":focus_li,"{{OVROWS}}":ov,"{{AREA_LAST}}":GBP(area_last),"{{AREA_YOY_LW}}":pctxt(ylw),"{{LWCHIP}}":"up" if ylw>=0 else "dn",
+     "{{FOCUS_LI}}":focus_li,"{{PILL_SALES_K}}":pill_sales_k,"{{PILL_SALES_V}}":pill_sales_v,"{{PILL_PEOPLE_K}}":pill_people_k,"{{PILL_PEOPLE_V}}":pill_people_v,"{{PILL_OPS_K}}":pill_ops_k,"{{PILL_OPS_V}}":pill_ops_v,"{{PILL_CUST_K}}":pill_cust_k,"{{PILL_CUST_V}}":pill_cust_v,"{{PILL_CUST_N}}":(format(_crev,",d") if _crev else "live"),"{{OVROWS}}":ov,"{{AREA_LAST}}":GBP(area_last),"{{AREA_YOY_LW}}":pctxt(ylw),"{{LWCHIP}}":"up" if ylw>=0 else "dn",
      "{{AREA_4WK}}":GBP(area_4wk),"{{AREA_YOY_4W}}":pctxt(y4),"{{W4CHIP}}":"up" if y4>=0 else "dn",
      "{{AREA_WASTE_PCT}}":str(awpct),"{{AREA_WASTE_RETAIL}}":GBP(awr),"{{WASTE_PCT_LW}}":str(awpct_lw),"{{WASTE_RETAIL_LW}}":GBP(awr_lw),"{{WASTE_RETAIL_WK}}":GBP(awr_wk),"{{AREA_GC}}":format(st_,",d"),"{{AREA_GC_YOY}}":pctxt(round(agy,1)),"{{GCCHIP}}":"up" if agy>=0 else "dn","{{AUDIT_QTD}}":("%.2f"%audit_mean) if audit_mean is not None else "n/a","{{AUDIT_K}}":cls(audit_mean,4.5,4.0),"{{AUDIT_META}}":str(len(audit_vals))+" stores audited · QTD",
      "{{ATV_MED}}":f"{atv_med:.2f}",
