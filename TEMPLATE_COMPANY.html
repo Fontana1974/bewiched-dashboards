@@ -171,15 +171,27 @@
     </div>
     <div class="section-title" style="margin-top:22px">Daypart sales — YoY growth / decline by store</div>
     <div class="panel"><div style="overflow-x:auto"><table class="gh">
-      <thead><tr><th></th><th>Morning</th><th>Lunch</th><th>Afternoon</th><th>Evening</th></tr></thead>
+      <thead><tr><th></th><th>Morning<br><span class="mini" style="font-weight:400">5am–11am</span></th><th>Lunch<br><span class="mini" style="font-weight:400">11am–2pm</span></th><th>Afternoon<br><span class="mini" style="font-weight:400">2pm–5pm</span></th><th>Evening<br><span class="mini" style="font-weight:400">5pm+</span></th></tr></thead>
       <tbody>{{DPG_ROWS}}</tbody></table></div>
-      <div class="note">{{DPG_NOTE}}</div>
+      <div class="note">{{DPG_NOTE}} Dayparts are bucketed by transaction time: <b>Morning 5am–11am</b> (hours 5–10), <b>Lunch 11am–2pm</b> (11–13), <b>Afternoon 2pm–5pm</b> (14–16), <b>Evening 5pm+</b> (17 on).</div>
     </div>
+    <div class="section-title" style="margin-top:22px">🥪 Food gaining traction by daypart — company-wide</div>
+    <div class="note" style="margin:-2px 0 10px">Food items growing fastest vs the same 4 weeks last year, in each time-of-day window (ranked by £ added). Names cleaned of till codes. {{DAYPART_FOOD_NOTE}}</div>
+    {{DAYPART_FOOD}}
     <div class="section-title" style="margin-top:22px">Day-of-week sales — YoY growth / decline by store</div>
     <div class="panel"><div style="overflow-x:auto"><table class="gh">
       <thead><tr><th></th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th></tr></thead>
       <tbody>{{DOWG_ROWS}}</tbody></table></div>
       <div class="note">{{DOWG_NOTE}}</div>
+    </div>
+    <div class="section-title" style="margin-top:22px">Per-store daypart &amp; day-of-week — sales £ and YoY</div>
+    <div class="panel">
+      <div class="note blue" style="margin:0 0 10px">Pick a store to see its own daypart and day-of-week split — 4-week sales £ with YoY (vs the same 4 weeks last year). &nbsp;Store: <select id="dpStoreSel"></select></div>
+      <div class="grid2 even">
+        <div><div style="font-size:13px;font-weight:700;color:#5b3a29;margin-bottom:6px">By daypart</div><table class="scorecard"><thead><tr><th>Daypart</th><th>4-wk sales</th><th>YoY</th></tr></thead><tbody id="dpStoreDP"></tbody></table></div>
+        <div><div style="font-size:13px;font-weight:700;color:#5b3a29;margin-bottom:6px">By day of week</div><table class="scorecard"><thead><tr><th>Day</th><th>4-wk sales</th><th>YoY</th></tr></thead><tbody id="dpStoreDOW"></tbody></table></div>
+      </div>
+      <div class="mini" style="margin-top:8px">Morning 5am–11am · Lunch 11am–2pm · Afternoon 2pm–5pm · Evening 5pm+. New 2026 sites show YoY as n/a (no prior year). Same 4-week window as the grids above.</div>
     </div>
     <div class="focus amber"><span class="ar">→</span>{{SALES_FOCUS}}</div>
   </section>
@@ -377,6 +389,17 @@ function renderWaste(store){
   sel.innerHTML=ks.map(s=>`<option${s===areaKey?" selected":""}>${s}</option>`).join("");
   sel.addEventListener("change",()=>renderWaste(sel.value));renderWaste(areaKey);})();
 function goTab(t){var b=document.querySelector('.tab-btn[data-tab="'+t+'"]');if(b){b.click();window.scrollTo({top:0,behavior:"smooth"});}}
+// ---- per-store daypart & day-of-week selector ----
+(function(){var DPS={{DPSTORE_JS}};var sel=document.getElementById("dpStoreSel");if(!sel||!DPS||!DPS.stores)return;
+  var gbp=function(v){return "£"+Math.round(v).toLocaleString("en-GB");};
+  var yc=function(y){if(y===null||y===undefined)return '<span class="tag t-na">n/a</span>';var k=y>=0?"t-ok":"t-red";return '<span class="tag '+k+'">'+(y>=0?"+":"")+y+'%</span>';};
+  var DPO=["Morning","Lunch","Afternoon","Evening"],DW=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+  var names=Object.keys(DPS.stores).sort();
+  sel.innerHTML=names.map(function(s){return '<option>'+s+'</option>';}).join("");
+  function render(s){var r=DPS.stores[s];if(!r)return;
+    document.getElementById("dpStoreDP").innerHTML=DPO.map(function(d){var v=r.dp[d]||[0,null];return '<tr><td style="text-align:left">'+d+'</td><td>'+gbp(v[0])+'</td><td>'+yc(v[1])+'</td></tr>';}).join("");
+    document.getElementById("dpStoreDOW").innerHTML=DW.map(function(d){var v=r.dow[d]||[0,null];return '<tr><td style="text-align:left">'+d+'</td><td>'+gbp(v[0])+'</td><td>'+yc(v[1])+'</td></tr>';}).join("");}
+  sel.addEventListener("change",function(){render(sel.value);});render(names[0]);})();
 (function(){const btns=document.querySelectorAll(".tab-btn"),panels=document.querySelectorAll(".tab-panel");
   btns.forEach(b=>b.addEventListener("click",()=>{btns.forEach(x=>x.classList.remove("active"));panels.forEach(p=>p.classList.remove("active"));
     b.classList.add("active");document.getElementById("tab-"+b.dataset.tab).classList.add("active");

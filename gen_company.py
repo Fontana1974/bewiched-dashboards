@@ -2,6 +2,10 @@ import json,re
 from collections import defaultdict
 from statistics import mean,median
 A=json.load(open('allstores.json')); REC=A['rec']; champ=A['champ']; CATS=A['cats']
+try: DPFOOD=json.load(open('daypart_food.json'))
+except FileNotFoundError: DPFOOD={}
+try: DPSTORE=json.load(open('daypart_store.json'))
+except FileNotFoundError: DPSTORE={"stores":{}}
 WX_TMPL=open('wx_nudge_tmpl.html',encoding='utf-8').read()
 WX_TOP='<div id="wxnudge_top" style="display:none;margin:0 0 16px;padding:9px 14px;border-radius:11px;font-size:13px;line-height:1.5"></div>'
 WX_FOOD='<div id="wxfood" style="display:none;margin:2px 0 14px;padding:11px 15px;border-radius:12px;font-size:13.5px;line-height:1.55"></div>'
@@ -128,6 +132,26 @@ def build():
     dpg_note=f"% change vs the same 4 weeks in 2025 (2026 openings show n/a). Strongest daypart growth company-wide is <b>{best_dp}</b>."
     dowg_note="Same YoY basis by weekday — green columns are days to protect, red ones to target with promo or labour."
     sales_focus="Chase the red cells in the growth grids; protect the green days with labour."
+    # ---- daypart food traction panel (PART 2) from daypart_food.json ----
+    _ICON={"Morning":"🌅","Lunch":"🥪","Afternoon":"☕","Evening":"🌙"}
+    daypart_food="<p class='note'>Daypart food-traction data not available this run.</p>"; daypart_food_note=""
+    if DPFOOD.get("dayparts"):
+        cards=""
+        for dp in DP:
+            d=DPFOOD["dayparts"].get(dp)
+            if not d: continue
+            rows=""
+            for it in d.get("top",[]):
+                nm,cur,gpct,gbp=it
+                rows+=(f'<div style="display:flex;justify-content:space-between;gap:8px;padding:5px 0;border-bottom:1px solid var(--line)">'
+                       f'<span style="font-size:12.5px;color:#3f2d22">{nm}</span>'
+                       f'<span style="white-space:nowrap;font-size:12px"><b>£{cur:,}</b> <span class="chip up">+{gpct}%</span></span></div>')
+            newln=("<div style='font-size:11.5px;color:#1d4e7a;margin-top:7px'>🆕 New this year: "+", ".join(f"{p} (£{c:,})" for p,c in d.get("new",[]))+"</div>") if d.get("new") else ""
+            cards+=(f'<div class="panel" style="padding:13px 15px"><div style="font-size:13px;font-weight:700;color:var(--brown);margin-bottom:6px">{_ICON.get(dp,"")} {dp} <span class="mini" style="font-weight:400">· {d.get("hours","")}</span></div>{rows}{newln}</div>')
+        daypart_food=f'<div class="cards" style="grid-template-columns:repeat(4,1fr)">{cards}</div>'
+        daypart_food_note=DPFOOD.get("_window","")
+    # ---- per-store daypart/dow selector data (PART 3) from daypart_store.json ----
+    dpstore_js=json.dumps(DPSTORE)
     # ---- wastage ----
     yjs={s:{"latest":"08/06/2026","items":R[s]['yield_items']} for s in stores}
     outjs={s:clean_outliers(R[s]['outliers']) for s in stores}
@@ -392,7 +416,7 @@ def build():
      "{{ATV_MED}}":f"{atv_med:.2f}",
      "{{SMT_MATT_ROWS}}":smt_rows('Matt'),"{{SMT_KEL_ROWS}}":smt_rows('Kel'),"{{SMT_CLAIRE_ROWS}}":smt_rows('Claire'),"{{SMT_NOTE}}":smt_note,
      "{{LW_TABLE}}":lw_rows,"{{LW_TOTAL}}":lw_total,"{{SALESTBL}}":salestbl,"{{DPG_ROWS}}":dpg_rows,"{{DOWG_ROWS}}":dowg_rows,
-     "{{DPG_NOTE}}":dpg_note,"{{DOWG_NOTE}}":dowg_note,"{{SALES_FOCUS}}":sales_focus,
+     "{{DPG_NOTE}}":dpg_note,"{{DOWG_NOTE}}":dowg_note,"{{SALES_FOCUS}}":sales_focus,"{{DAYPART_FOOD}}":daypart_food,"{{DAYPART_FOOD_NOTE}}":daypart_food_note,"{{DPSTORE_JS}}":dpstore_js,
      "{{YJS}}":json.dumps(yjs),"{{OUTJS}}":json.dumps(outjs),
      "{{MIX_AREA_ROWS}}":mar,"{{CAPHDR}}":caphdr,"{{CAPMAT}}":capmat,"{{MIX_DS}}":mix_ds,"{{MIX_LBLS}}":mix_lbls,"{{MIX_NOTE}}":mix_note,"{{MIX_FOCUS}}":mix_focus,
      "{{F1TBL}}":f1tbl,"{{F1_FIN_DS}}":f1_fin_ds,"{{F1_FIN_LBLS}}":f1_fin_lbls,"{{F1_CHAMP_AVG}}":str(f1_champ_avg),"{{AVG_FIN2}}":str(avg_fin),
