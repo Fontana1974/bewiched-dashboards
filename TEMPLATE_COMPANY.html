@@ -281,13 +281,10 @@
       </div>
     </div>
     <div class="section-title" style="margin-top:22px">Latest race finish by store — lower is better</div>
-    <div class="grid2">
-      <div class="panel"><div class="chart-box"><canvas id="f1Chart"></canvas></div></div>
-      <div class="panel">
+    <div class="panel">
         <table><thead><tr><th>Store</th><th>Finish</th><th>Champ pts</th><th>Score</th><th>Last 6 races</th></tr></thead><tbody>{{F1TBL}}</tbody></table>
         <div class="note red">{{F1_NOTE}}</div>
         <div class="note"><b>Race Total Score benchmark</b> (lower = better): <span style="color:var(--green);font-weight:700">&le;210 good</span> &middot; <span style="color:#b8860b;font-weight:700">&le;285 watch</span> &middot; <span style="color:var(--red);font-weight:700">&gt;285 act</span>.</div>
-      </div>
     </div>
     <div class="section-title" style="margin-top:22px">Qualifying detail — latest audit by store</div>
     <div class="panel"><div style="overflow-x:auto"><table class="f1det"><thead><tr><th>Store</th><th>Rank</th><th>Queue avg</th><th>Hello</th><th>Goodbye</th><th>How are you</th><th>Working queue</th><th>Total score</th><th>Audited</th></tr></thead><tbody>{{QUALI_DETAIL_ROWS}}</tbody></table></div>
@@ -341,11 +338,6 @@ window.CHARTS.push(new Chart(document.getElementById("mixChart"),{type:"bar",
   data:{labels:{{MIX_LBLS}},datasets:[{label:"Area mix %",data:{{MIX_DS}},backgroundColor:["#5b3a29","#2d6fb3","#c0392b","#1f8a4c","#c08a2d","#9aa6b0"],borderRadius:5}]},
   options:{indexAxis:"y",responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>" "+c.parsed.x+"% of area sales"}}},
     scales:{x:{ticks:{callback:v=>v+"%"},grid:{color:"#eee"}},y:{grid:{display:false}}}}}));
-const f1fin={{F1_FIN_DS}}, f1lbl={{F1_FIN_LBLS}};
-window.CHARTS.push(new Chart(document.getElementById("f1Chart"),{type:"bar",
-  data:{labels:f1lbl,datasets:[{label:"Race finish",data:f1fin,backgroundColor:f1fin.map(v=>v<=6?"#1f8a4c":v<=15?"#b8860b":"#c0392b"),borderRadius:5}]},
-  options:{indexAxis:"y",responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>" Finished P"+c.parsed.x}}},
-    scales:{x:{title:{display:true,text:"finishing position (lower = better)"},grid:{color:"#eee"},suggestedMax:25},y:{grid:{display:false}}}}}));
 const TARGET=90;
 function renderWaste(store){
   const items=YJS[store].items.map(r=>({n:r[0],av:r[1],wr:r[2],sold:r[3],wretail:r[4],y:+(r[1]-r[2]).toFixed(1)}));
