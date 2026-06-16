@@ -117,6 +117,26 @@ def build(coach):
           f'<td>{aud_cell}</td>'
           f'<td>{tag(f"{wpl}%",cls(wpl,3,4,rev=True))}</td><td>{tag((str(av)+"%") if av is not None else "n/a",cls(av,95,85))}</td>'
           f'<td>{tag("P"+str(fin),cls(fin,6,15,rev=True))}</td><td>{tag(f"{cov}%",cls(cov,70,40))}</td></tr>')
+    # ---- area summary row (scorecard tfoot) ----
+    # Last wk £ = SUM. Sales YoY = SALES-weighted (Σlw26/Σlw25, not naive mean). Guest-count YoY = TRANSACTION-weighted
+    # (Σtx26/Σtx25). Wastage % = area last-week SALES-weighted (Σwr_lw/Σlw_sales). Audit/5, Availability, F1 race
+    # finish & coach presence = simple mean across the area's stores (same RAG thresholds as the per-store cells).
+    _gc=[s for s in stores if R[s]['tx25']>0]
+    sc_gcy=round(100*(sum(R[s]['tx26'] for s in _gc)/sum(R[s]['tx25'] for s in _gc)-1),1) if _gc else None
+    _avl=[R[s]['avail'] for s in stores if R[s].get('avail') is not None]
+    sc_av=round(mean(_avl),1) if _avl else None
+    _fins=[R[s]['f1_finish'] for s in stores if R[s].get('f1_finish') is not None]
+    sc_fin=round(mean(_fins),1) if _fins else None
+    ov_total=('<tr style="font-weight:700;background:#EFE6DC">'
+      f'<td style="text-align:left;font-weight:700">AREA TOTAL / AVG ({len(stores)})</td>'
+      f'<td>{GBP(area_last)}</td>'
+      f'<td>{tag(pctxt(ylw),cls(ylw,0,-5))}</td>'
+      f'<td>{tag(pctxt(sc_gcy),cls(sc_gcy,0,-5))}</td>'
+      f'<td>{tag(("%.2f"%audit_mean) if audit_mean is not None else "n/a",cls(audit_mean,4.5,4.0))}</td>'
+      f'<td>{tag(f"{awpct_lw}%",cls(awpct_lw,3,4,rev=True))}</td>'
+      f'<td>{tag((f"{sc_av}%") if sc_av is not None else "n/a",cls(sc_av,95,85))}</td>'
+      f'<td>{tag(("P"+("%g"%sc_fin)) if sc_fin is not None else "n/a",cls(sc_fin,6,15,rev=True))}</td>'
+      f'<td>{tag(f"{avgcov}%",cls(avgcov,70,40))}</td></tr>')
     # ---- movements ----
     DOWL=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]
     def hc(p):
@@ -390,7 +410,7 @@ def build(coach):
      "{{WX_NUDGE_TOP}}":WX_TOP,"{{WX_FOOD}}":WX_FOOD,
      "{{GEN_STAMP}}":GEN_STAMP,"{{LW_LABEL}}":lw_label,"{{AVF_WK}}":ACT.get('_week_label','last week'),"{{AVF_ROWS}}":_avf_rows(stores,R),"{{PLANNER_LINK}}":PLANNERS.get(coach,'#'),
      "{{COACH}}":coach,"{{NSTORES}}":str(len(stores)),"{{PILL}}":" · ".join(SHORT[s] for s in sorted(stores,key=lambda x:-R[x]['s4'])),
-     "{{FOCUS_LI}}":focus_li,"{{OVROWS}}":ov,"{{AREA_LAST}}":GBP(area_last),"{{AREA_YOY_LW}}":pctxt(ylw),"{{LWCHIP}}":"up" if ylw>=0 else "dn",
+     "{{FOCUS_LI}}":focus_li,"{{OVROWS}}":ov,"{{OV_TOTAL}}":ov_total,"{{AREA_LAST}}":GBP(area_last),"{{AREA_YOY_LW}}":pctxt(ylw),"{{LWCHIP}}":"up" if ylw>=0 else "dn",
      "{{AREA_4WK}}":GBP(area_4wk),"{{AREA_YOY_4W}}":pctxt(y4),"{{W4CHIP}}":"up" if y4>=0 else "dn",
      "{{AREA_WASTE_PCT}}":str(awpct),"{{AREA_WASTE_RETAIL}}":GBP(awr),"{{WASTE_PCT_LW}}":str(awpct_lw),"{{WASTE_RETAIL_LW}}":GBP(awr_lw),"{{WASTE_RETAIL_WK}}":GBP(awr_wk),"{{CON_POS}}":con_pos,"{{CON_META}}":con_meta,"{{AREA_GC}}":format(st_,",d"),"{{AREA_GC_YOY}}":pctxt(round(agy,1)),"{{GCCHIP}}":"up" if agy>=0 else "dn","{{AUDIT_QTD}}":("%.2f"%audit_mean) if audit_mean is not None else "n/a","{{AUDIT_K}}":cls(audit_mean,4.5,4.0),"{{AUDIT_META}}":str(len(audit_vals))+" stores audited · QTD",
      "{{ATV_MED}}":f"{atv_med:.2f}","{{MOVROWS}}":mov,"{{MOV_NOTE}}":mov_note,
