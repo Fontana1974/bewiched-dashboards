@@ -31,6 +31,9 @@ import datetime as _dtm; GEN_STAMP=_dtm.datetime.now().strftime('%d %b %Y, %H:%M
 PLANNERS={"Jon":"https://docs.google.com/spreadsheets/d/1PSjBGiR40171h769esQCtn3ldcpCB5XJyfqRTo7Yccs/edit","Rich":"https://docs.google.com/spreadsheets/d/11XuXn9zQr-JB4x2fQ0ORV96Sf-U7xWPQPvg2YlCl_dQ/edit","Ian":"https://docs.google.com/spreadsheets/d/1_qdK6fzqPg1NcA2KKMy2TnaZ8nQJtVE-fglz2On3oBw/edit"}
 try: FD=json.load(open('f1_detail.json'))
 except FileNotFoundError: FD={}
+try: STH=json.load(open('storehealth.json'))
+except FileNotFoundError: STH={'targets':{},'stores':{}}
+STT=STH.get('targets',{}); STS=STH.get('stores',{})
 def _f1score(s):
     d=FD.get(s)
     if isinstance(d,dict) and d.get('race') and len(d['race'])>5 and d['race'][5] not in (None,''):
@@ -343,7 +346,46 @@ def build(coach):
     if not quali_rows: quali_rows='<tr><td colspan="9" class="mini" style="text-align:center;padding:10px">No qualifying audits yet for this area.</td></tr>'
     if not race_rows: race_rows='<tr><td colspan="10" class="mini" style="text-align:center;padding:10px">No race audits yet for this area.</td></tr>'
 
+    # ---- four pillar widgets (area-scoped; same targets/look as the company dashboard) ----
+    Np=len(stores)
+    # SALES: area last-week YoY vs 8% (last-week basis, like company)
+    kpw_sales_k='green' if ylw>=8 else 'red'; kpw_sales_v=pctxt(ylw)
+    # OPERATIONS: area last-week avg F1 race score vs 190 (lower=better; latest race, like company)
+    _scs=[_f1score(s) for s in stores]; _scs=[x for x in _scs if x is not None]
+    ops_lw=round(sum(_scs)/len(_scs)) if _scs else None
+    kpw_ops_k=('green' if ops_lw<=190 else 'red') if ops_lw is not None else 'grey'
+    kpw_ops_v=(str(ops_lw) if ops_lw is not None else "n/a")
+    # CUSTOMER: QTD Google health (last-week per-area review volume too sparse). Company composite shape over the
+    #   area's stores: star term = (sum live-feed avg star / area store count)*0.5; volume term = (sum live-feed QTD
+    #   reviews, each capped at its quarterly target / sum of the area's per-store quarterly review targets)*2.5.
+    #   GREY "no feed" if the area has no live Google feed this week (sparse-data guard, like the per-store column).
+    _live=[s for s in stores if s in STS and not STS[s].get('g_stale') and STS[s].get('g_avg') is not None and STS[s].get('g_n') is not None]
+    _gtgt=sum(STT.get(s,0) for s in stores)
+    if _live and _gtgt>0:
+        _star=(sum(STS[s]['g_avg'] for s in _live)/Np)*0.5
+        _vol=(sum(min(STS[s]['g_n'],STT.get(s,0)) for s in _live)/_gtgt)*2.5
+        cust_h=round(_star+_vol,2)
+        kpw_cust_k='green' if cust_h>=3.32 else 'red'; kpw_cust_v=("%.2f"%cust_h)
+    else:
+        kpw_cust_k='grey'; kpw_cust_v="no feed"
+    kpw_cust_n=(f"{len(_live)}/{Np} live feeds" if _live else f"0/{Np} feeds")
+    # PEOPLE: QTD RMS health (last-week per-area submission volume too sparse). Company composite shape over the
+    #   area's stores: rating term = (mean per-store QTD avg shift rating / area store count)*0.5; volume term =
+    #   (sum area QTD submissions / scaled target)*2.5, where the target = company weekly target 50, spread evenly
+    #   across 21 stores over a 13-week quarter (= 50*13*area_store_count/21). GREY if no RMS data in the area.
+    _rated=[s for s in stores if s in STS and STS[s].get('r_n') and STS[s].get('r_avg') is not None]
+    if _rated:
+        _ar=mean(STS[s]['r_avg'] for s in _rated); _subs=sum(STS[s]['r_n'] for s in _rated)
+        _rtgt=50*13*Np/21.0
+        ppl_h=round((_ar/Np)*0.5 + (_subs/_rtgt)*2.5,2)
+        kpw_people_k='green' if ppl_h>=3.32 else 'red'; kpw_people_v=("%.2f"%ppl_h); kpw_people_n=f"{_subs} ratings"
+    else:
+        kpw_people_k='grey'; kpw_people_v="n/a"; kpw_people_n="0 ratings"
+
     repl={
+     "{{KPW_SALES_K}}":kpw_sales_k,"{{KPW_SALES_V}}":kpw_sales_v,"{{KPW_OPS_K}}":kpw_ops_k,"{{KPW_OPS_V}}":kpw_ops_v,
+     "{{KPW_CUST_K}}":kpw_cust_k,"{{KPW_CUST_V}}":kpw_cust_v,"{{KPW_CUST_N}}":kpw_cust_n,
+     "{{KPW_PEOPLE_K}}":kpw_people_k,"{{KPW_PEOPLE_V}}":kpw_people_v,"{{KPW_PEOPLE_N}}":kpw_people_n,
      "{{WX_NUDGE}}":wx_nudge([R[s]['coords'] for s in stores if R[s].get('coords')],wx_recent(amix)),
      "{{WX_NUDGE_TOP}}":WX_TOP,"{{WX_FOOD}}":WX_FOOD,
      "{{GEN_STAMP}}":GEN_STAMP,"{{LW_LABEL}}":lw_label,"{{AVF_WK}}":ACT.get('_week_label','last week'),"{{AVF_ROWS}}":_avf_rows(stores,R),"{{PLANNER_LINK}}":PLANNERS.get(coach,'#'),
