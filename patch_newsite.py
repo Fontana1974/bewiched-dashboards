@@ -13,6 +13,11 @@ NEWDATE="2026-06-08"
 
 # Master Populator "hours used" for the just-completed week (w/c 8 Jun), from the 15-Jun-dated rows. None = not yet posted.
 HOURS={'Olney':None,'Attleborough':161.0,'Billing Drive Thru':273.0,'Glenvale Drive Thru':277.0,'Northampton Drive-Thru':350.0}
+# CPH targets (Store Targets sheet) and the just-completed week's committed forecast £ (Master Populator "Forecasts last week", 15-Jun row)
+CPH_T={'Olney':49,'Attleborough':49,'Billing Drive Thru':56,'Glenvale Drive Thru':63,'Northampton Drive-Thru':70}
+FCST={'Olney':5800,'Attleborough':6300,'Billing Drive Thru':12000,'Glenvale Drive Thru':18250,'Northampton Drive-Thru':26000}
+MINUS="−"  # unicode minus, matches the dashboards' existing style
+def pct1(v): return ("+" if v>=0 else MINUS)+f"{abs(v):.1f}%"
 
 STORES=[
  ('Olney_Forecast.html','Olney','Jon',False),
@@ -129,6 +134,31 @@ def patch(fn,store,coach,mature):
         y=r['yoy_lw']
         sub(r'(<div class="card"><div class="lbl">YoY growth</div><div class="val"[^>]*>)\+?[\d.]+%(</div><div class="meta">)w/c 1 Jun( vs 2025)',
             rf'\g<1>{"+" if y>=0 else ""}{y}%\g<2>{NEWWK}\g<3>',1,"mature YoY card")
+    # 5b) derived headline stats -> w/c 8 Jun (data-driven, reproducible)
+    fcst=FCST.get(store); cpht=CPH_T.get(store)
+    # vs-forecast (actbox) — sales-based, applies to all incl. new sites
+    if fcst:
+        vsf=round(100*(LW/fcst-1),1); vcls='pos' if vsf>=0 else 'neg'
+        sub(r'<span>vs forecast</span><b class="(?:neg|pos)">[^<]*</b><small>fcst £[\d,]+</small>',
+            f'<span>vs forecast</span><b class="{vcls}">{pct1(vsf)}</b><small>fcst {gbp(fcst)}</small>',1,"actbox vs-forecast")
+        # forecast note(s): "£X vs £Y forecast (Z%)"
+        sub(r'£[\d,]+ vs £[\d,]+ forecast \([^)]*\)',
+            f'{gbp(LW)} vs {gbp(fcst)} forecast ({pct1(vsf)})',3,"forecast note sales")
+    # CPH-actual (only where w/c 8 Jun hours posted)
+    if hrs:
+        cph=round(LW/hrs,1); diff=round(cph-cpht,1); met=cph>=cpht
+        cw='met' if met else 'missed'; cvar='green' if met else 'red'; cab='pos' if met else 'neg'
+        dsign='+' if diff>=0 else MINUS
+        sub(r'<span>CPH</span><b class="(?:neg|pos)">£[\d.]+</b><small>target £\d+ · (?:missed|met)</small>',
+            f'<span>CPH</span><b class="{cab}">£{cph}</b><small>target £{cpht} · {cw}</small>',1,"actbox CPH stat")
+        sub(r'last wk actual <b style="color:var\(--(?:red|green)\);?">£[\d.]+</b> · [^(]*\(w/c \d Jun\)',
+            f'last wk actual <b style="color:var(--{cvar})">£{cph}</b> · {dsign}£{abs(diff)}/hr (w/c 8 Jun)',1,"KPI CPH card")
+        sub(r'ran £[\d.]+ CPH', f'ran £{cph} CPH',2,"forecast-note CPH (mature)")
+    # actbox YoY stat (mature only; new sites read "new site — no prior yr" and are skipped by the pattern)
+    if mature and r.get('yoy_lw') is not None:
+        y=r['yoy_lw']; ly=r['lw25']; ycls='pos' if y>=0 else 'neg'
+        sub(r'(<span>YoY[^<]*</span><b class=")(?:pos|neg|mut)(">)[^<]*(</b><small>)vs £[\d.]+k last yr(</small>)',
+            rf'\g<1>{ycls}\g<2>{"+" if y>=0 else MINUS}{abs(y)}%\g<3>vs £{ly/1000:.1f}k last yr\g<4>',1,"actbox YoY stat")
     # 6) constructors standings regenerate
     sub(r'(by avg pts/store</span></div>\s*)(.*?)(\s*</div>\s*<div class="panel">\s*<div style="font-size:13px;font-weight:700;color:#5b3a29;margin-bottom:8px">Drivers)',
         lambda m: m.group(1)+"\n"+constructors_rows(coach)+"\n   "+m.group(3),1,"constructors standings",flags=re.S)
