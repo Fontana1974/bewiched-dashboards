@@ -26,12 +26,19 @@
    "n": 7,
    "score": 231.8,
    "queue_s": 180.2,
-   "qcall": 78.6
+   "qcall": 78.6,
+   "hello": 90,
+   "goodbye": 90,
+   "howareyou": 100
   },
   "quali_qtd": {
    "n": 7,
    "rank": 10.1,
-   "queue_s": 189.0
+   "queue_s": 189.1,
+   "qcall": 80,
+   "hello": 59.3,
+   "goodbye": 90.7,
+   "howareyou": 95
   }
  },
  "Billing Drive Thru": {
@@ -60,12 +67,19 @@
    "n": 3,
    "score": 445.4,
    "queue_s": 320.3,
-   "qcall": 66.7
+   "qcall": 66.7,
+   "hello": 88.3,
+   "goodbye": 88.3,
+   "howareyou": 33.3
   },
   "quali_qtd": {
    "n": 1,
    "rank": 19,
-   "queue_s": 242.0
+   "queue_s": 241.5,
+   "qcall": 100,
+   "hello": 15,
+   "goodbye": 15,
+   "howareyou": 100
   }
  },
  "Burton Latimer": {
@@ -94,12 +108,19 @@
    "n": 10,
    "score": 218.6,
    "queue_s": 171.4,
-   "qcall": 80.0
+   "qcall": 80,
+   "hello": 96.5,
+   "goodbye": 96.5,
+   "howareyou": 78.5
   },
   "quali_qtd": {
    "n": 12,
    "rank": 5.6,
-   "queue_s": 121.0
+   "queue_s": 121.4,
+   "qcall": 71.4,
+   "hello": 79.2,
+   "goodbye": 78.3,
+   "howareyou": 94.6
   }
  },
  "Coffee#1": {
@@ -152,12 +173,19 @@
    "n": 10,
    "score": 269.9,
    "queue_s": 199.6,
-   "qcall": 25.0
+   "qcall": 25,
+   "hello": 56.5,
+   "goodbye": 49,
+   "howareyou": 88.5
   },
   "quali_qtd": {
    "n": 13,
    "rank": 6.8,
-   "queue_s": 151.0
+   "queue_s": 151,
+   "qcall": 50,
+   "hello": 71.9,
+   "goodbye": 72.3,
+   "howareyou": 100
   }
  },
  "Costa": {
@@ -210,12 +238,19 @@
    "n": 10,
    "score": 270.1,
    "queue_s": 212.2,
-   "qcall": 74.5
+   "qcall": 74.5,
+   "hello": 69,
+   "goodbye": 75.5,
+   "howareyou": 84.5
   },
   "quali_qtd": {
    "n": 13,
    "rank": 10.4,
-   "queue_s": 154.0
+   "queue_s": 153.7,
+   "qcall": 100,
+   "hello": 84.2,
+   "goodbye": 64.2,
+   "howareyou": 100
   }
  },
  "HOE Balsall Common": {
@@ -244,12 +279,19 @@
    "n": 9,
    "score": 296.3,
    "queue_s": 234.6,
-   "qcall": 79.4
+   "qcall": 79.4,
+   "hello": 78.3,
+   "goodbye": 67.2,
+   "howareyou": 73.3
   },
   "quali_qtd": {
    "n": 13,
    "rank": 12.4,
-   "queue_s": 178.0
+   "queue_s": 178,
+   "qcall": 85.7,
+   "hello": 56.2,
+   "goodbye": 63.8,
+   "howareyou": 100
   }
  },
  "Higham Ferrers": {
@@ -278,12 +320,19 @@
    "n": 10,
    "score": 366.7,
    "queue_s": 281.4,
-   "qcall": 26.0
+   "qcall": 26,
+   "hello": 93,
+   "goodbye": 89.5,
+   "howareyou": 94
   },
   "quali_qtd": {
    "n": 12,
    "rank": 14.1,
-   "queue_s": 261.0
+   "queue_s": 261,
+   "qcall": 42.9,
+   "hello": 67.9,
+   "goodbye": 68.3,
+   "howareyou": 92.9
   }
  },
  "Kettering": {
@@ -310,14 +359,21 @@
   ],
   "race_qtd": {
    "n": 10,
-   "score": 270.0,
-   "queue_s": 221.1,
-   "qcall": 46.5
+   "score": 270,
+   "queue_s": 199,
+   "qcall": 46.5,
+   "hello": 68,
+   "goodbye": 55.5,
+   "howareyou": 90
   },
   "quali_qtd": {
    "n": 11,
    "rank": 12.8,
-   "queue_s": 175.0
+   "queue_s": 175.1,
+   "qcall": 16.7,
+   "hello": 34.5,
+   "goodbye": 33.6,
+   "howareyou": 92.3
   }
  },
  "Leamington Parade": {
@@ -346,12 +402,19 @@
    "n": 10,
    "score": 204.8,
    "queue_s": 171.5,
-   "qcall": 41.0
+   "qcall": 41,
+   "hello": 98,
+   "goodbye": 97,
+   "howareyou": 93.5
   },
   "quali_qtd": {
    "n": 11,
    "rank": 5,
-   "queue_s": 118.0
+   "queue_s": 118.1,
+   "qcall": 80,
+   "hello": 79.5,
+   "goodbye": 73.2,
+   "howareyou": 100
   }
  },
  "Lower Heathcote": {
@@ -380,12 +443,19 @@
    "n": 10,
    "score": 298.7,
    "queue_s": 240.4,
-   "qcall": 58.0
+   "qcall": 58,
+   "hello": 84,
+   "goodbye": 88,
+   "howareyou": 77
   },
   "quali_qtd": {
    "n": 11,
    "rank": 11.5,
-   "queue_s": 250.0
+   "queue_s": 227.7,
+   "qcall": 100,
+   "hello": 65.5,
+   "goodbye": 73.5,
+   "howareyou": 91.5
   }
  },
  "Market Harborough": {
@@ -413,13 +483,20 @@
   "race_qtd": {
    "n": 10,
    "score": 257.3,
-   "queue_s": 199.9,
-   "qcall": 78.0
+   "queue_s": 200,
+   "qcall": 78,
+   "hello": 71,
+   "goodbye": 68,
+   "howareyou": 100
   },
   "quali_qtd": {
    "n": 10,
    "rank": 14.1,
-   "queue_s": 180.0
+   "queue_s": 180.4,
+   "qcall": 60,
+   "hello": 30,
+   "goodbye": 42,
+   "howareyou": 100
   }
  },
  "Nero": {
@@ -472,12 +549,19 @@
    "n": 10,
    "score": 228.5,
    "queue_s": 162.5,
-   "qcall": 59.5
+   "qcall": 59.5,
+   "hello": 67,
+   "goodbye": 54.5,
+   "howareyou": 93
   },
   "quali_qtd": {
    "n": 11,
    "rank": 15.1,
-   "queue_s": 179.0
+   "queue_s": 179.2,
+   "qcall": 40,
+   "hello": 15.5,
+   "goodbye": 32.5,
+   "howareyou": 87.7
   }
  },
  "Northampton Drive-Thru": {
@@ -506,12 +590,19 @@
    "n": 10,
    "score": 327.4,
    "queue_s": 250.8,
-   "qcall": 46.0
+   "qcall": 46,
+   "hello": 76,
+   "goodbye": 61.5,
+   "howareyou": 69.5
   },
   "quali_qtd": {
    "n": 11,
    "rank": 15,
-   "queue_s": 194.0
+   "queue_s": 194.5,
+   "qcall": 53,
+   "hello": 43.2,
+   "goodbye": 24.1,
+   "howareyou": 100
   }
  },
  "Olney": {
@@ -540,12 +631,19 @@
    "n": 9,
    "score": 365.4,
    "queue_s": 295.3,
-   "qcall": 42.8
+   "qcall": 42.8,
+   "hello": 96.1,
+   "goodbye": 96.1,
+   "howareyou": 74.4
   },
   "quali_qtd": {
    "n": 11,
    "rank": 18.1,
-   "queue_s": 322.0
+   "queue_s": 321.5,
+   "qcall": 40,
+   "hello": 88.2,
+   "goodbye": 82.3,
+   "howareyou": 100
   }
  },
  "Peterborough Bridge Street": {
@@ -574,12 +672,19 @@
    "n": 10,
    "score": 359.1,
    "queue_s": 292.4,
-   "qcall": 56.5
+   "qcall": 56.5,
+   "hello": 87,
+   "goodbye": 87,
+   "howareyou": 82.5
   },
   "quali_qtd": {
    "n": 15,
    "rank": 10.3,
-   "queue_s": 165.0
+   "queue_s": 164.9,
+   "qcall": 44.4,
+   "hello": 75.3,
+   "goodbye": 91,
+   "howareyou": 100
   }
  },
  "Peterborough Fletton Quays": {
@@ -608,12 +713,19 @@
    "n": 9,
    "score": 274.9,
    "queue_s": 224.3,
-   "qcall": 86.7
+   "qcall": 86.7,
+   "hello": 92.2,
+   "goodbye": 88.3,
+   "howareyou": 77.8
   },
   "quali_qtd": {
    "n": 15,
    "rank": 10.1,
-   "queue_s": 165.0
+   "queue_s": 165,
+   "qcall": 66.7,
+   "hello": 67.7,
+   "goodbye": 61.7,
+   "howareyou": 100
   }
  },
  "Rothwell": {
@@ -642,12 +754,19 @@
    "n": 10,
    "score": 264.2,
    "queue_s": 210.2,
-   "qcall": 61.5
+   "qcall": 61.5,
+   "hello": 100,
+   "goodbye": 100,
+   "howareyou": 100
   },
   "quali_qtd": {
    "n": 15,
    "rank": 10.7,
-   "queue_s": 167.0
+   "queue_s": 166.6,
+   "qcall": 77.8,
+   "hello": 83.7,
+   "goodbye": 82.7,
+   "howareyou": 98.7
   }
  },
  "Rugby": {
@@ -675,13 +794,20 @@
   "race_qtd": {
    "n": 10,
    "score": 321.9,
-   "queue_s": 247.3,
-   "qcall": 46.0
+   "queue_s": 247.4,
+   "qcall": 46,
+   "hello": 100,
+   "goodbye": 93.5,
+   "howareyou": 92.5
   },
   "quali_qtd": {
    "n": 12,
    "rank": 17.8,
-   "queue_s": 242.0
+   "queue_s": 241.5,
+   "qcall": 84.2,
+   "hello": 67.1,
+   "goodbye": 60,
+   "howareyou": 91.7
   }
  },
  "Rushden Lakes": {
@@ -710,12 +836,19 @@
    "n": 10,
    "score": 293.9,
    "queue_s": 244.3,
-   "qcall": 81.5
+   "qcall": 81.5,
+   "hello": 82.5,
+   "goodbye": 72,
+   "howareyou": 86
   },
   "quali_qtd": {
    "n": 11,
    "rank": 18.2,
-   "queue_s": 287.0
+   "queue_s": 286.8,
+   "qcall": 16.7,
+   "hello": 46.4,
+   "goodbye": 18.6,
+   "howareyou": 93.6
   }
  },
  "Starbucks": {
@@ -767,13 +900,20 @@
   "race_qtd": {
    "n": 10,
    "score": 262.8,
-   "queue_s": 211.4,
-   "qcall": 60.0
+   "queue_s": 211.5,
+   "qcall": 60,
+   "hello": 96.5,
+   "goodbye": 74.5,
+   "howareyou": 69.5
   },
   "quali_qtd": {
    "n": 13,
    "rank": 9.8,
-   "queue_s": 145.0
+   "queue_s": 145.3,
+   "qcall": 42.9,
+   "hello": 55.8,
+   "goodbye": 54.6,
+   "howareyou": 92.7
   }
  },
  "Wellingborough Train Station": {
@@ -802,12 +942,19 @@
    "n": 10,
    "score": 238.2,
    "queue_s": 180.2,
-   "qcall": 76.5
+   "qcall": 76.5,
+   "hello": 100,
+   "goodbye": 90,
+   "howareyou": 100
   },
   "quali_qtd": {
    "n": 11,
    "rank": 2.1,
-   "queue_s": 90.0
+   "queue_s": 90.4,
+   "qcall": 100,
+   "hello": 96.8,
+   "goodbye": 100,
+   "howareyou": 100
   }
  }
 }
