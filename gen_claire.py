@@ -347,7 +347,7 @@ repl={
  "{{WX_NUDGE}}":wx_nudge([R[s]['coords'] for s in stores if R[s].get('coords')],wx_recent(amix)),
  "{{WX_NUDGE_TOP}}":WX_TOP,"{{WX_FOOD}}":WX_FOOD,
  "{{COACH}}":COACH,"{{COACH_CARDS}}":COACH_CARDS,"{{MOVROWS}}":mov,"{{MOV_NOTE}}":mov_note,"{{PLANNER_LINKS}}":PLANNERS_HTML,
- "{{GEN_STAMP}}":GEN_STAMP,"{{ROLE}}":ROLE,"{{SPEED_WIDGETS}}":SPEED_WIDGETS,"{{LW_LABEL}}":lw_label,"{{NSTORES}}":str(len(stores)),"{{PILL}}":COACH+" · "+ROLE+" · all "+str(len(stores))+" stores","{{FOCUS_LI}}":focus_li,
+ "{{GEN_STAMP}}":GEN_STAMP,"{{FOOT_VIEW}}":"coach","{{ROLE}}":ROLE,"{{SPEED_WIDGETS}}":SPEED_WIDGETS,"{{LW_LABEL}}":lw_label,"{{NSTORES}}":str(len(stores)),"{{PILL}}":COACH+" · "+ROLE+" · all "+str(len(stores))+" stores","{{FOCUS_LI}}":focus_li,
  "{{AREA_LAST}}":GBP(area_last),"{{AREA_YOY_LW}}":pctxt(ylw),"{{LWCHIP}}":"up" if ylw>=0 else "dn",
  "{{AREA_4WK}}":GBP(area_4wk),"{{AREA_YOY_4W}}":pctxt(y4),"{{W4CHIP}}":"up" if y4>=0 else "dn",
  "{{AREA_WASTE_PCT}}":str(awpct),"{{AREA_WASTE_RETAIL}}":GBP(awr),"{{WASTE_PCT_LW}}":str(awpct_lw),"{{WASTE_RETAIL_LW}}":GBP(awr_lw),"{{WASTE_RETAIL_WK}}":GBP(awr_wk),"{{ATV_MED}}":"%.2f"%atv_med,
