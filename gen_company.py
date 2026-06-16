@@ -329,6 +329,17 @@ def build():
         except: return tag(str(x),"t-na")
         return tag(("%g"%v),cls(v,210,285,rev=True))
     race_rows="".join(f'<tr{_rs(s)}><td>{_nm(s)}</td><td>{_rk(r[7])}</td><td style="font-weight:700">{r[6]}</td><td>{_q(r[0])}</td><td>{_hosp(r[1])}</td><td>{_hosp(r[2])}</td><td>{_hosp(r[3])}</td><td>{_hosp(r[4])}</td><td>{_scrag(r[5])}</td><td class="mini">{r[8]}</td></tr>' for s,r in rlist)
+    # ---- QTD (quarter-to-date) aggregates: race + qualifying by store ----
+    def _qcallpct(x):
+        if x is None: return tag("n/a","t-na")
+        k="t-ok" if x>=75 else ("t-amber" if x>=50 else "t-red"); return tag(f"{int(round(x))}%",k)
+    def _na(): return tag("n/a","t-na")
+    rqlist=[(s,F1D[s]['race_qtd']) for s in F1D if not s.startswith('_') and isinstance(F1D.get(s),dict) and F1D[s].get('race_qtd') and not _iscomp(s)]
+    rqlist.sort(key=lambda x:x[1]['score'])
+    race_qtd_rows="".join(f'<tr><td>{_nm(s)}</td><td>{d["n"]}</td><td>{_scrag(d["score"])}</td><td>{_q(d["queue_s"]) if d.get("queue_s") is not None else _na()}</td><td>{_qcallpct(d.get("qcall"))}</td></tr>' for s,d in rqlist)
+    qqlist=[(s,F1D[s]['quali_qtd']) for s in F1D if not s.startswith('_') and isinstance(F1D.get(s),dict) and F1D[s].get('quali_qtd') and not _iscomp(s)]
+    qqlist.sort(key=lambda x:(x[1]['rank'] if x[1].get('rank') is not None else 99))
+    quali_qtd_rows="".join(f'<tr><td>{_nm(s)}</td><td>{d["n"]}</td><td>{_rk(round(d["rank"])) if d.get("rank") is not None else _na()}</td><td>{_q(d["queue_s"]) if d.get("queue_s") is not None else _na()}</td></tr>' for s,d in qqlist)
     # ---- actual vs forecast (last completed week) ----
     avf=""; sfc=sa=ssc=su=0
     for s in sorted(stores,key=lambda x:-R[x]['lw26']):
@@ -351,7 +362,7 @@ def build():
        '<a class="plannerbtn" href="https://docs.google.com/spreadsheets/d/1_qdK6fzqPg1NcA2KKMy2TnaZ8nQJtVE-fglz2On3oBw/edit" target="_blank" rel="noopener">📋 Ian&#39;s Planner ↗</a>'
        '<a class="plannerbtn" href="https://docs.google.com/spreadsheets/d/11XuXn9zQr-JB4x2fQ0ORV96Sf-U7xWPQPvg2YlCl_dQ/edit" target="_blank" rel="noopener">📋 Rich&#39;s Planner ↗</a>'),
      "{{FOOD_WASTE_ROWS}}":food_rows,"{{BAKERY_WASTE_ROWS}}":bak_rows,"{{FOOD_WASTE_NOTE}}":food_note,"{{BAKERY_WASTE_NOTE}}":bak_note,
-     "{{QUALI_DETAIL_ROWS}}":quali_rows,"{{RACE_DETAIL_ROWS}}":race_rows,
+     "{{QUALI_DETAIL_ROWS}}":quali_rows,"{{RACE_DETAIL_ROWS}}":race_rows,"{{QUALI_QTD_ROWS}}":quali_qtd_rows,"{{RACE_QTD_ROWS}}":race_qtd_rows,
      "{{NSTORES}}":str(len(stores)),"{{PILL}}":"All areas · Jon · Ian · Rich · "+str(len(stores))+" stores",
      "{{FOCUS_LI}}":focus_li,"{{OVROWS}}":ov,"{{AREA_LAST}}":GBP(area_last),"{{AREA_YOY_LW}}":pctxt(ylw),"{{LWCHIP}}":"up" if ylw>=0 else "dn",
      "{{AREA_4WK}}":GBP(area_4wk),"{{AREA_YOY_4W}}":pctxt(y4),"{{W4CHIP}}":"up" if y4>=0 else "dn",

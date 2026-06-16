@@ -292,9 +292,15 @@
     <div class="section-title" style="margin-top:22px">Qualifying detail — latest audit by store</div>
     <div class="panel"><div style="overflow-x:auto"><table class="f1det"><thead><tr><th>Store</th><th>Rank</th><th>Queue avg</th><th>Hello</th><th>Goodbye</th><th>How are you</th><th>Working queue</th><th>Total score</th><th>Audited</th></tr></thead><tbody>{{QUALI_DETAIL_ROWS}}</tbody></table></div>
     <div class="note">Hospitality scored 0–100% per greeting; queue average in seconds (lower is better).</div></div>
+    <div class="section-title" style="margin-top:22px">Qualifying — quarter-to-date by store</div>
+    <div class="panel"><div style="overflow-x:auto"><table class="f1det"><thead><tr><th>Store</th><th>Audits</th><th>Avg rank</th><th>Avg queue</th></tr></thead><tbody>{{QUALI_QTD_ROWS}}</tbody></table></div>
+    <div class="note">Quarter-to-date averages across every qualifying audit this quarter (rank 1 = top of the grid; lower queue seconds = quicker). Queue-calling &amp; sub-scores are omitted here — the qualifying sheet records them on an inconsistent scale, so the race view below is the clean source for those.</div></div>
     <div class="section-title" style="margin-top:22px">Race detail — latest audit by store</div>
     <div class="panel"><div style="overflow-x:auto"><table class="f1det"><thead><tr><th>Store</th><th>Finish</th><th>Champ pts</th><th>Queue avg</th><th>Hello</th><th>Goodbye</th><th>How are you</th><th>Working queue</th><th>Total score</th><th>Audited</th></tr></thead><tbody>{{RACE_DETAIL_ROWS}}</tbody></table></div>
     <div class="note">Finishing position across the full field of ~25 (incl. competitor benchmark audits).</div></div>
+    <div class="section-title" style="margin-top:22px">Race — quarter-to-date by store</div>
+    <div class="panel"><div style="overflow-x:auto"><table class="f1det"><thead><tr><th>Store</th><th>Audits</th><th>Avg total score</th><th>Avg queue</th><th>Avg queue-calling</th></tr></thead><tbody>{{RACE_QTD_ROWS}}</tbody></table></div>
+    <div class="note">Quarter-to-date averages across every race audit this quarter. Lower total score &amp; queue seconds = better; higher queue-calling = better. The “latest audit” table above shows the most recent single visit; this shows the quarter.</div></div>
     <div class="focus red"><span class="ar">→</span>{{F1_FOCUS}}</div>
   </section>
 
