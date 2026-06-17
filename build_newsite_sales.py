@@ -46,9 +46,14 @@ def _hour_label(iso, hr):  # ("2021-06-20", 10) -> "Sun 20 Jun 2021, 10am–11am
 recweek={}
 for r in rw_rows:
     s, wc = r["k"].rsplit("|",1); recweek[s]={"gbp": i(r["rev"]), "label": _wc_label(wc)}
+ATV_CEIL = 20  # record-hour sanity guard: a real coffee hour averages ~£5–13/order; >£20/order
+               # means duplicated/garbled lines (e.g. NDT's old 2021 launch data showed £1,684 @ £60/order).
 rechour={}
 for r in rh_rows:
-    s, d, hr = r["k"].split("|",2); rechour[s]={"gbp": i(r["rev"]), "label": _hour_label(d, int(hr))}
+    s, d, hr = r["k"].split("|",2); rev=i(r["rev"]); ordc=int(r.get("orders") or 0)
+    if ordc and rev/ordc > ATV_CEIL:   # secondary guard (primary guard is the SQL HAVING clause)
+        continue                       # skip an implausible single-hour outlier rather than show it
+    rechour[s]={"gbp": rev, "label": _hour_label(d, int(hr))}
 
 # index by store
 dp = {s:{} for s in STORES}
