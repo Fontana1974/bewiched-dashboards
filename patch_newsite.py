@@ -22,6 +22,8 @@ try: SENT=json.load(open('newsite_sentiment.json'))   # review snippets / RMS tr
 except FileNotFoundError: SENT={}
 try: NS=json.load(open('newsite_sales.json'))          # per-store Sales tab: DOW + daypart + Food&Bakery traction (BigQuery, headless)
 except FileNotFoundError: NS={}
+try: STAR=json.load(open('star_rating.json'))          # TEST: Grow composite star rating, gated to stores in this file (Glenvale only for now)
+except FileNotFoundError: STAR={}
 T_RMS=50*13/21.0  # per-store quarterly RMS submission target (area method / store)
 import html as _html
 def esc(t): return _html.escape((t or "").strip())[:200]
@@ -225,6 +227,42 @@ def inject_sales_tab(h, store):
     if m: return h[:m.start()]+"\n  "+sec+"\n"+h[m.start():]
     return h
 
+# ===== TEST: Grow composite star rating (gated to stores in star_rating.json — Glenvale only for now) =====
+def _stars(score, size):
+    # fractional gold stars: grey row behind, gold row clipped to (score/5) width
+    pct=max(0,min(100, round(score/5*100,2)))
+    return (f'<span style="position:relative;display:inline-block;font-size:{size}px;line-height:1;white-space:nowrap;letter-spacing:1px">'
+            f'<span style="color:#ddd5cb">★★★★★</span>'
+            f'<span style="position:absolute;top:0;left:0;overflow:hidden;width:{pct}%;color:#e8b923">★★★★★</span></span>')
+
+def star_card(store):
+    st=(STAR.get("stores") or {}).get(store) if STAR else None
+    if not st: return ""
+    comp=st["composite"]
+    rows=""
+    for p in st["pillars"]:
+        rows+=(f'<div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#3f2d22">'
+               f'<span style="width:74px;font-weight:700">{p["name"]}</span>{_stars(p["star"],14)}'
+               f'<span style="font-weight:800;width:26px">{p["star"]:g}</span>'
+               f'<span class="mini">· {p["qtd"]} <span style="opacity:.7">({p["target"]})</span></span></div>')
+    return (f'<!-- STARRATING START -->\n'
+            f'<div class="card" style="border:1.5px solid #e8b923;background:linear-gradient(180deg,#fffdf5,#fff);margin:16px 0 6px;padding:16px 18px">'
+            f'<div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap">'
+            f'<div><div class="lbl" style="color:#8a6d1e">⭐ {store} Grow score · quarter-to-date</div>'
+            f'<div style="display:flex;align-items:center;gap:12px;margin-top:6px">{_stars(comp,34)}'
+            f'<div style="font-size:30px;font-weight:800;color:#5b3a29">{comp:g} <span style="font-size:15px;color:#9a8a7c">/ 5</span></div></div></div>'
+            f'<div style="flex:1;min-width:300px;display:flex;flex-direction:column;gap:5px">{rows}</div></div>'
+            f'<div class="mini" style="margin-top:10px">Composite of the four pillars on a quarter-to-date basis. Each pillar scored 0–5 vs its target (target = 3★, stretch = 5★, miss pulls toward 0); the four are averaged. A Starbucks-Grow-style snapshot — TEST on Glenvale only.</div>'
+            f'</div>\n<!-- STARRATING END -->')
+
+def inject_star(h, store):
+    # remove any prior star card (so removing a store from star_rating.json removes the widget), then insert above the pillars
+    h=re.sub(r'\s*<!-- STARRATING START -->.*?<!-- STARRATING END -->', '', h, flags=re.S)
+    sc=star_card(store)
+    if not sc: return h
+    if 'class="kpws"' in h: return h.replace('<div class="kpws">', sc+'\n  <div class="kpws">', 1)
+    return re.sub(r'(</header>)', lambda m: m.group(1)+"\n  "+sc, h, count=1)
+
 def patch(fn,store,coach,mature):
     h=open(fn,encoding='utf-8').read(); log=[]
     def sub(pat,repl,n_expected,label,flags=0):
@@ -240,6 +278,8 @@ def patch(fn,store,coach,mature):
     else:
         sub(r'</style>', PILLAR_CSS+"\n</style>",1,"pillar CSS")
         sub(r'(</header>)', r'\1\n'+pillars(store).replace('\\','\\\\'),1,"pillar block")
+    # 1b) TEST Grow star rating (gated to stores in star_rating.json — Glenvale only). Idempotent + self-removing.
+    h=inject_star(h,store)
     # 2) actbox value + week
     sub(r'(Last week actual sales · )w/c 1 Jun(</div><div class="ab-val">)£[\d,]+(</div>)',
         rf'\g<1>{NEWWK}\g<2>{gbp(LW)}\g<3>',1,"actbox £ + week")

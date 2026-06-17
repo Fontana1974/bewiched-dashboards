@@ -1,0 +1,15 @@
+{
+ "_method": "Grow composite star rating (TEST — Glenvale only). Each pillar scored 0-5 vs its target by linear interpolation between three anchors: floor=0 stars, target=3 stars, stretch=5 stars (clamped 0-5). Anchors — Sales YoY: floor -8%, target +8%, stretch +20%. Operations (avg F1 race score, lower=better): floor 320, target 190, stretch 130. Customer Google-health: floor 1.66, target 3.32, stretch 5.0. People RMS-health: floor 1.66, target 3.32, stretch 5.0. Composite = simple average of the four. All on a quarter-to-date basis (Q2 2026: 1 Apr-14 Jun).",
+ "_window": "quarter-to-date · 1 Apr – 14 Jun 2026",
+ "stores": {
+  "Glenvale Drive Thru": {
+   "composite": 3.5,
+   "pillars": [
+    {"name": "Sales", "star": 5.0, "qtd": "+33.3% YoY", "target": "target +8%"},
+    {"name": "Operations", "star": 1.2, "qtd": "270 avg F1 race", "target": "target 190 (lower better)"},
+    {"name": "Customer", "star": 3.9, "qtd": "4.07 Google health", "target": "target 3.32"},
+    {"name": "People", "star": 4.0, "qtd": "4.14 RMS health", "target": "target 3.32"}
+   ]
+  }
+ }
+}
