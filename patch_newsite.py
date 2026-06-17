@@ -138,17 +138,18 @@ def sales_tab_section(store):
     for lab,cur,ly in dow:
         pct=round(100*(cur-ly)/ly) if ly>0 else None; bw=round(100*cur/maxc); chip=_chip(pct) if has else ""
         dowrows+=(f'<div style="display:flex;align-items:center;gap:10px;margin:4px 0">'
-                  f'<div style="width:36px;font-size:12px;color:var(--muted)">{lab}</div>'
+                  f'<div style="width:58px;font-size:12px;color:var(--muted)">avg {lab}</div>'
                   f'<div style="flex:1;height:14px;background:var(--cream);border-radius:7px;overflow:hidden"><div style="height:100%;width:{bw}%;background:var(--brown);border-radius:7px"></div></div>'
                   f'<div style="width:64px;text-align:right;font-size:12.5px"><b>{gbp(cur)}</b></div>'
                   f'<div style="width:56px;text-align:right">{chip}</div></div>')
-    dow_title="Day-of-week sales · YoY" if has else "Day-of-week sales"
-    dow_note="" if has else '<div class="mini" style="margin-top:6px">Brand-new site — this year only (no prior-year comparison yet).</div>'
+    dow_title="Average day-of-week sales · YoY" if has else "Average day-of-week sales"
+    dow_note=('<div class="mini" style="margin-top:6px">Average per weekday — the 4-week total ÷ 4 weeks (a typical Monday, Tuesday, …).</div>' if has
+              else '<div class="mini" style="margin-top:6px">Average per weekday (4-week total ÷ 4). Brand-new site — this year only (no prior-year comparison yet).</div>')
     # daypart cards
     dpcards=""
     for lab,cur,ly in d.get("daypart",[]):
         pct=round(100*(cur-ly)/ly) if ly>0 else None
-        meta=(hrs.get(lab,"")+" · "+_chip(pct)) if has else (hrs.get(lab,"")+" · <span class='mini'>new site</span>")
+        meta=(hrs.get(lab,"")+" · avg/day · "+_chip(pct)) if has else (hrs.get(lab,"")+" · avg/day · <span class='mini'>new site</span>")
         dpcards+=(f'<div class="card"><div class="lbl">{_DPICON.get(lab,"")} {lab}</div>'
                   f'<div class="val">{gbp(cur)}</div><div class="meta">{meta}</div></div>')
     # food & bakery traction
@@ -170,14 +171,14 @@ def sales_tab_section(store):
             if rows: cap="<div style='font-size:11.5px;color:#8a7a6d;margin-top:7px'>Top sellers — new site, no prior-year comparison yet.</div>"
         if not rows: rows='<div class="mini" style="padding:5px 0">Limited data this daypart.</div>'
         fcards+=(f'<div class="panel" style="padding:13px 15px"><div style="font-size:13px;font-weight:700;color:var(--brown);margin-bottom:6px">{_DPICON.get(lab,"")} {lab} <span class="mini" style="font-weight:400">· {hrs.get(lab,"")}</span></div>{rows}{cap}</div>')
-    food_lead=("Food &amp; bakery items growing fastest vs the same 4 weeks last year (ranked by £ added). Names cleaned of till codes."
-               if has else "Top food &amp; bakery sellers by daypart — this brand-new site has no prior-year comparison yet.")
+    food_lead=("Food &amp; bakery items growing fastest vs the same 4 weeks last year (ranked by £ added over the 4 weeks — these are 4-week totals, not averages). Names cleaned of till codes."
+               if has else "Top food &amp; bakery sellers by daypart (4-week totals) — this brand-new site has no prior-year comparison yet.")
     return (f'<!-- STORESALES START -->\n<!-- ===== TAB: Sales (store-scoped) ===== -->\n'
             f'<section class="tab-panel" id="tab-storesales">\n'
             f'  <div class="section-title">📊 Sales by day &amp; daypart — {store}</div>\n'
-            f'  <div class="note">This store only · {win}. Dayparts: <b>Morning 5am–11am</b>, <b>Lunch 11am–2pm</b>, <b>Afternoon 2pm–5pm</b>, <b>Evening 5pm+</b>.</div>\n'
+            f'  <div class="note">This store only · {win}, shown as <b>averages for a typical day</b> (not 4-week totals). Day-of-week = 4-week total ÷ 4 weeks; daypart = 4-week total ÷ 28 days. Dayparts: <b>Morning 5am–11am</b>, <b>Lunch 11am–2pm</b>, <b>Afternoon 2pm–5pm</b>, <b>Evening 5pm+</b>. (The Food &amp; bakery traction panel below stays as 4-week totals.)</div>\n'
             f'  <div class="section-title">{dow_title}</div>\n  <div>{dowrows}</div>{dow_note}\n'
-            f'  <div class="section-title">Sales by daypart</div>\n  <div class="cards">{dpcards}</div>\n'
+            f'  <div class="section-title">Average sales by daypart — a typical day</div>\n  <div class="cards">{dpcards}</div>\n'
             f'  <div class="section-title">🥪 Food &amp; bakery gaining traction by daypart</div>\n'
             f'  <div class="note" style="margin-bottom:4px">{food_lead}</div>\n'
             f'  <div class="cards">{fcards}</div>\n</section>\n<!-- STORESALES END -->')

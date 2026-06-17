@@ -21,6 +21,8 @@ DOW_ORDER = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]
 STORES = ["Olney","Attleborough","Billing Drive Thru","Glenvale Drive Thru","Northampton Drive-Thru"]
 NEW_MIN = 80           # mature-site "new this year" threshold (£ in 4wk)
 EXCL = ["(Copy)", " SL"]
+WEEKS = 4              # window = 4 complete weeks; DOW average divisor (a typical weekday)
+DAYS  = 28            # 4 weeks × 7 days; daypart average divisor (a typical day)
 
 def i(v):
     try: return int(round(float(v)))
@@ -47,16 +49,16 @@ def excl(n): return any(x in n for x in EXCL)
 out = {"_window": WINDOW, "hours": HOURS, "stores": {}}
 for s in STORES:
     has_ly = sum(ly for (_, ly) in dp.get(s,{}).values()) > 0
-    # day-of-week
+    # day-of-week — AVERAGE per weekday = 4-week total ÷ WEEKS (a typical Mon, Tue, …)
     dseries = []
     for n in (2,3,4,5,6,7,1):
         cur, ly = dow.get(s,{}).get(n,(0,0))
-        dseries.append([DOW_MAP[n], cur, ly])
-    # daypart
+        dseries.append([DOW_MAP[n], round(cur/WEEKS), round(ly/WEEKS)])
+    # daypart — AVERAGE per day = 4-week total ÷ DAYS (a typical day's Morning/Lunch/…)
     dpser = []
     for d in DP_ORDER:
         cur, ly = dp.get(s,{}).get(d,(0,0))
-        dpser.append([d, cur, ly])
+        dpser.append([d, round(cur/DAYS), round(ly/DAYS)])
     # food per daypart
     fout = {}
     for d in DP_ORDER:
