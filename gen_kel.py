@@ -311,8 +311,64 @@ avf+='<tr style="font-weight:700;background:#EFE6DC"><td>COMPANY TOTAL</td><td>�
 ROLE="Engagement Coach"
 SPEED_WIDGETS=""
 
+# ---- BENCH tab (Kel only): geographical bench-vs-gap map from HRP 'Bench and HRP' ----
+BENCH_NAV=""; BENCH_PANEL=""
+try: BENCH=json.load(open('bench.json'))
+except Exception: BENCH=None
+if BENCH and BENCH.get('rows'):
+    BMAP={"Drive Thru Northampton":"Northampton Drive-Thru","Train Station":"Wellingborough Train Station",
+          "Wellingborough Market St":"Wellingborough","Fletton Quays":"Peterborough Fletton Quays",
+          "Peterborough":"Peterborough Bridge Street","Balsall Common":"HOE Balsall Common"}
+    SCOL={"bench":"#1f8a4c","thin":"#b8860b","gap":"#c0392b"}
+    STAG={"bench":"t-ok","thin":"t-amber","gap":"t-red"}
+    pts=[]; tbl=[]; ng=na=nr=0
+    for row in BENCH['rows']:
+        nm=(row[0] or "").strip(); cells=[(c or "").strip() for c in row[1:10]]
+        sm=cells[0]; leaders=[c for c in cells[0:5] if c]; bench=[c for c in cells[5:9] if c]
+        if bench: st,sl="bench","Bench ready"; ng+=1
+        elif not sm: st,sl="gap","Gap (no SM)"; nr+=1
+        else: st,sl="thin","Thin"; na+=1
+        key=BMAP.get(nm,nm); rec=REC.get(key); coords=rec.get('coords') if rec else None
+        lab=sh(key) if rec else nm
+        if coords: pts.append((coords,st,SCOL[st],lab))
+        tbl.append((nm,len(leaders),(", ".join(bench) if bench else "—"),sl,st))
+    # inline SVG map (dependency-free; north up; lat/long projection over plotted stores)
+    lats=[c[0] for c,_,_,_ in pts]; lons=[c[1] for c,_,_,_ in pts]
+    la0,la1=min(lats),max(lats); lo0,lo1=min(lons),max(lons)
+    W,H,m=720,470,48
+    Xp=lambda lon:m+(lon-lo0)/((lo1-lo0) or 1)*(W-2*m)
+    Yp=lambda lat:m+(la1-lat)/((la1-la0) or 1)*(H-2*m)
+    marks=""
+    for i,(c,st,col,lab) in enumerate(sorted(pts,key=lambda z:-z[0][0])):
+        x=Xp(c[1]); y=Yp(c[0]); dy=-11 if i%2==0 else 18
+        marks+=('<circle cx="%.1f" cy="%.1f" r="7" fill="%s" stroke="#fff" stroke-width="1.5"><title>%s — %s</title></circle>'
+                '<text x="%.1f" y="%.1f" font-size="9.5" text-anchor="middle" fill="#2b211b" paint-order="stroke" stroke="#fff" stroke-width="2.5">%s</text>'
+                %(x,y,col,lab,st,x,y+dy,lab))
+    svg=('<svg viewBox="0 0 %d %d" width="100%%" style="max-width:760px;height:auto;background:#f3efe9;border:1px solid var(--line);border-radius:12px" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Estate bench map">'
+         '<text x="%d" y="28" font-size="13" font-weight="700" fill="#5b3a29">Estate bench map · North up · one marker per store</text>%s</svg>'%(W,H,m,marks))
+    legend=('<div style="margin-top:10px;font-size:11.5px;color:#6b5a47;display:flex;gap:18px;flex-wrap:wrap">'
+            '<span style="display:inline-flex;align-items:center;gap:6px"><span style="width:12px;height:12px;border-radius:3px;background:#1f8a4c;display:inline-block"></span>Bench ready (named successor)</span>'
+            '<span style="display:inline-flex;align-items:center;gap:6px"><span style="width:12px;height:12px;border-radius:3px;background:#b8860b;display:inline-block"></span>Thin (team, no named bench)</span>'
+            '<span style="display:inline-flex;align-items:center;gap:6px"><span style="width:12px;height:12px;border-radius:3px;background:#c0392b;display:inline-block"></span>Gap (manager vacancy)</span></div>')
+    rows="".join('<tr><td style="text-align:left">%s</td><td>%s</td><td style="text-align:left">%s</td><td>%s</td></tr>'%(n,ld,bn,tag(sl,STAG[st])) for (n,ld,bn,sl,st) in tbl)
+    upd=BENCH.get('_updated','')
+    BENCH_NAV='<button class="tab-btn" data-tab="bench"><span>🪑</span>Bench</button>'
+    BENCH_PANEL=('<section class="tab-panel" id="tab-bench">'
+      '<div class="cards" style="grid-template-columns:repeat(3,1fr)">'
+      '<div class="card"><div class="lbl">Bench-ready stores</div><div class="val" style="color:#1f8a4c">%d</div><div class="meta">named Bench Manager / pipeline</div></div>'
+      '<div class="card"><div class="lbl">Thin bench</div><div class="val" style="color:#b8860b">%d</div><div class="meta">leadership team, no named successor</div></div>'
+      '<div class="card"><div class="lbl">Capability gap</div><div class="val" style="color:#c0392b">%d</div><div class="meta">Store Manager vacancy</div></div></div>'
+      '<div class="note" style="margin-top:12px"><b>Bench</b> = succession cover from the HRP ‘Bench and HRP’ roster. <b style="color:#1c6b3d">Green</b> = a named Bench Manager (promotion-ready) is in place; <b style="color:#7a5b12">amber</b> = a full leadership line but no named successor; <b style="color:#9a2f22">red</b> = a Store Manager vacancy. Refreshed Monday.</div>'
+      '<div class="section-title">Where the bench is &mdash; and the gaps</div>'
+      '<div class="panel">%s%s</div>'
+      '<div class="section-title" style="margin-top:18px">Per-store bench &amp; succession</div>'
+      '<div class="panel"><div style="overflow-x:auto"><table class="scorecard"><thead><tr><th>Store</th><th>Leadership team</th><th>Bench / successor</th><th>Status</th></tr></thead><tbody>%s</tbody></table></div>'
+      '<div class="mini" style="margin-top:8px">Leadership team = filled Store Manager + Assistant Managers + Supervisors. “Leamington Retail” has no mapped location so it is listed but not plotted. Source: HRP ‘Bench and HRP’ tab, pulled %s.</div></div>'
+      '</section>')%(ng,na,nr,svg,legend,rows,upd)
+
 # ---- fill template ----
 repl={
+ "{{BENCH_NAV}}":BENCH_NAV,"{{BENCH_PANEL}}":BENCH_PANEL,
  "{{WX_NUDGE}}":wx_nudge([R[s]['coords'] for s in stores if R[s].get('coords')],wx_recent(amix)),
  "{{WX_NUDGE_TOP}}":WX_TOP,"{{WX_FOOD}}":WX_FOOD,
  "{{COACH}}":COACH,"{{COACH_CARDS}}":COACH_CARDS,"{{MOVROWS}}":mov,"{{MOV_NOTE}}":mov_note,"{{PLANNER_LINKS}}":PLANNERS_HTML,

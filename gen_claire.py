@@ -347,6 +347,7 @@ except Exception as _e:
 
 # ---- fill template ----
 repl={
+ "{{BENCH_NAV}}":"","{{BENCH_PANEL}}":"",  # Bench tab is Kel-only (shared template) — blank for Claire
  "{{WX_NUDGE}}":wx_nudge([R[s]['coords'] for s in stores if R[s].get('coords')],wx_recent(amix)),
  "{{WX_NUDGE_TOP}}":WX_TOP,"{{WX_FOOD}}":WX_FOOD,
  "{{COACH}}":COACH,"{{COACH_CARDS}}":COACH_CARDS,"{{MOVROWS}}":mov,"{{MOV_NOTE}}":mov_note,"{{PLANNER_LINKS}}":PLANNERS_HTML,
