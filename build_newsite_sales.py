@@ -59,9 +59,14 @@ for r in rh_rows:
     if ordc and rev/ordc > ATV_CEIL:   # secondary guard (primary guard is the SQL HAVING clause)
         continue                       # skip an implausible single-hour outlier rather than show it
     rechour[s]={"gbp": rev, "label": _hour_label(d, int(hr))}
-# all-time RECORD drive-thru cars week (complete weeks; SQL applies a plausibility ceiling) → merge into drivethru
+# all-time RECORD drive-thru cars week → merge into drivethru.
+# GUARD: the SQL excludes weeks where the drive-thru till rang > 75% of the store's total orders
+# (pre-till-split garbled data — e.g. NDT's 2022 weeks showed 100% share / ~3,100 cars vs a real ~1,700).
+# Secondary guard here: skip a record row whose share > 75 if it ever slipped through.
+DT_SHARE_CEIL = 75
 for r in Lopt("ns_dtrecord_raw.json"):
-    s, wc = r["k"].rsplit("|",1)
+    s, wc = r["k"].rsplit("|",1); sh=int(r.get("share") or 0)
+    if sh and sh > DT_SHARE_CEIL: continue
     if s in drivethru: drivethru[s]["rec_cars"]=i(r["cars"]); drivethru[s]["rec_label"]=_wc_label(wc)
 
 # index by store
