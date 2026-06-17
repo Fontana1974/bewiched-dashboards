@@ -1,330 +1,359 @@
 {
-"_window": "4 weeks to 14 Jun 2026 vs the same 4 weeks in 2025",
-"hours": {
-"Morning": "5am–11am",
-"Lunch": "11am–2pm",
-"Afternoon": "2pm–5pm",
-"Evening": "5pm+"
-},
-"coaches": {
-"Jon": {
-"Morning": {
-"hours": "5am–11am",
-"top": [
-[
-"Bacon Bap Meal Deal Reg",
-564,
-324,
-431
-],
-[
-"Breakfast Meal Deal",
-1545,
-27,
-333
-],
-[
-"Sausage Bap Meal Deal Reg",
-435,
-220,
-299
-]
-],
-"new": [
-[
-"Breakfast Bagel",
-162
-],
-[
-"Sausage Roll Meal Deal Large",
-157
-]
-]
-},
-"Lunch": {
-"hours": "11am–2pm",
-"top": [
-[
-"Tuna Ciabatta",
-1863,
-27,
-398
-],
-[
-"Caesar Wrap",
-1075,
-55,
-380
-],
-[
-"Egg & Spinach Sandwich",
-1058,
-46,
-332
-]
-],
-"new": [
-[
-"Chicken Caprese Sandwich",
-476
-],
-[
-"Breakfast Bagel",
-251
-]
-]
-},
-"Afternoon": {
-"hours": "2pm–5pm",
-"top": [
-[
-"Mozzarella & Tomato Ciabatta",
-453,
-39,
-126
-],
-[
-"Tuna Ciabatta",
-533,
-28,
-116
-],
-[
-"Ham & Cheese Croque",
-1017,
-12,
-108
-]
-],
-"new": [
-[
-"Chicken Caprese Sandwich",
-157
-]
-]
-},
-"Evening": {
-"hours": "5pm+",
-"top": [
-[
-"Ham & Cheese Croque",
-85,
-57,
-31
-]
-],
-"new": []
-}
-},
-"Ian": {
-"Morning": {
-"hours": "5am–11am",
-"top": [
-[
-"Large Breakfast Pastry Meal Deal",
-1094,
-125,
-608
-],
-[
-"Sausage Bap Meal Deal Large",
-454,
-199,
-302
-],
-[
-"Breakfast Meal Deal",
-988,
-42,
-294
-]
-],
-"new": [
-[
-"Breakfast Bagel",
-681
-],
-[
-"Sausage Roll Meal Deal Large",
-220
-]
-]
-},
-"Lunch": {
-"hours": "11am–2pm",
-"top": [
-[
-"Cheese & Onion Croque",
-842,
-47,
-270
-],
-[
-"Sausage Roll Pastry",
-595,
-80,
-265
-],
-[
-"Caesar Wrap",
-338,
-100,
-169
-]
-],
-"new": [
-[
-"Breakfast Bagel",
-520
-],
-[
-"Chicken Caprese Sandwich",
-226
-]
-]
-},
-"Afternoon": {
-"hours": "2pm–5pm",
-"top": [
-[
-"Cheese & Onion Croque",
-247,
-41,
-72
-],
-[
-"Egg & Spinach Sandwich",
-92,
-188,
-60
-],
-[
-"Tuna Ciabatta",
-168,
-53,
-58
-]
-],
-"new": []
-},
-"Evening": {
-"hours": "5pm+",
-"top": [],
-"new": []
-}
-},
-"Rich": {
-"Morning": {
-"hours": "5am–11am",
-"top": [
-[
-"Breakfast Meal Deal",
-4091,
-119,
-2227
-],
-[
-"Sausage Bap Meal Deal Reg",
-1623,
-219,
-1114
-],
-[
-"Bacon Bap Meal Deal Reg",
-1399,
-340,
-1081
-]
-],
-"new": [
-[
-"Breakfast Bagel",
-1062
-],
-[
-"Sausage Roll Meal Deal",
-569
-]
-]
-},
-"Lunch": {
-"hours": "11am–2pm",
-"top": [
-[
-"Tuna Ciabatta",
-1802,
-36,
-478
-],
-[
-"Egg & Spinach Sandwich",
-939,
-89,
-441
-],
-[
-"Sausage Roll Pastry",
-1474,
-42,
-439
-]
-],
-"new": [
-[
-"Breakfast Bagel",
-704
-],
-[
-"Chicken Caprese Sandwich",
-625
-]
-]
-},
-"Afternoon": {
-"hours": "2pm–5pm",
-"top": [
-[
-"Sausage Roll Pastry",
-443,
-79,
-196
-],
-[
-"Caesar Wrap",
-315,
-105,
-161
-],
-[
-"Ham & Cheese Croque",
-995,
-18,
-150
-]
-],
-"new": [
-[
-"Chicken Caprese Sandwich",
-215
-],
-[
-"Falafel Wrap",
-186
-]
-]
-},
-"Evening": {
-"hours": "5pm+",
-"top": [
-[
-"Cheese & Onion Croque",
-100,
-67,
-40
-]
-],
-"new": []
-}
-}
-}
+ "_window": "4 weeks to 14 Jun 2026 vs the same 4 weeks in 2025",
+ "hours": {
+  "Morning": "5am–11am",
+  "Lunch": "11am–2pm",
+  "Afternoon": "2pm–5pm",
+  "Evening": "5pm+"
+ },
+ "coaches": {
+  "Jon": {
+   "Morning": {
+    "hours": "5am–11am",
+    "top": [
+     [
+      "Cherry Bakewell Slice Traybake",
+      783,
+      7018,
+      772
+     ],
+     [
+      "Bacon Bap Meal Deal Reg",
+      564,
+      324,
+      431
+     ],
+     [
+      "Breakfast Meal Deal",
+      1545,
+      27,
+      333
+     ]
+    ],
+    "new": [
+     [
+      "Breakfast Bagel",
+      162
+     ],
+     [
+      "Sausage Roll Meal Deal Large",
+      157
+     ]
+    ]
+   },
+   "Lunch": {
+    "hours": "11am–2pm",
+    "top": [
+     [
+      "Cherry Bakewell Slice Traybake",
+      1483,
+      8624,
+      1466
+     ],
+     [
+      "Tuna Ciabatta",
+      1863,
+      27,
+      398
+     ],
+     [
+      "Caesar Wrap",
+      1075,
+      55,
+      380
+     ]
+    ],
+    "new": [
+     [
+      "Chicken Caprese Sandwich",
+      476
+     ],
+     [
+      "Breakfast Bagel",
+      251
+     ]
+    ]
+   },
+   "Afternoon": {
+    "hours": "2pm–5pm",
+    "top": [
+     [
+      "Cherry Bakewell Slice Traybake",
+      850,
+      2329,
+      815
+     ],
+     [
+      "Mozzarella & Tomato Ciabatta",
+      453,
+      39,
+      126
+     ],
+     [
+      "Tuna Ciabatta",
+      533,
+      28,
+      116
+     ]
+    ],
+    "new": [
+     [
+      "Chicken Caprese Sandwich",
+      157
+     ]
+    ]
+   },
+   "Evening": {
+    "hours": "5pm+",
+    "top": [
+     [
+      "Fudge Topped Brownie",
+      123,
+      45,
+      38
+     ],
+     [
+      "Ham & Cheese Croque",
+      85,
+      57,
+      31
+     ],
+     [
+      "Luxury Millionaires Triangle Traybake",
+      165,
+      20,
+      28
+     ]
+    ],
+    "new": []
+   }
+  },
+  "Ian": {
+   "Morning": {
+    "hours": "5am–11am",
+    "top": [
+     [
+      "Large Breakfast Pastry Meal Deal",
+      1094,
+      125,
+      608
+     ],
+     [
+      "Sausage Bap Meal Deal Large",
+      454,
+      199,
+      302
+     ],
+     [
+      "Breakfast Meal Deal",
+      988,
+      42,
+      294
+     ]
+    ],
+    "new": [
+     [
+      "Breakfast Bagel",
+      681
+     ],
+     [
+      "Sausage Roll Meal Deal Large",
+      220
+     ]
+    ]
+   },
+   "Lunch": {
+    "hours": "11am–2pm",
+    "top": [
+     [
+      "Cheese & Onion Croque",
+      842,
+      47,
+      270
+     ],
+     [
+      "Sausage Roll Pastry",
+      595,
+      80,
+      265
+     ],
+     [
+      "Teacake Traybake",
+      792,
+      47,
+      253
+     ]
+    ],
+    "new": [
+     [
+      "Breakfast Bagel",
+      520
+     ],
+     [
+      "Cherry Bakewell Slice Traybake",
+      368
+     ]
+    ]
+   },
+   "Afternoon": {
+    "hours": "2pm–5pm",
+    "top": [
+     [
+      "Cherry Bakewell Slice Traybake",
+      317,
+      2782,
+      306
+     ],
+     [
+      "Fudge Topped Brownie",
+      187,
+      108,
+      97
+     ],
+     [
+      "Cheese & Onion Croque",
+      247,
+      41,
+      72
+     ]
+    ],
+    "new": []
+   },
+   "Evening": {
+    "hours": "5pm+",
+    "top": [],
+    "new": []
+   }
+  },
+  "Rich": {
+   "Morning": {
+    "hours": "5am–11am",
+    "top": [
+     [
+      "Breakfast Meal Deal",
+      4091,
+      119,
+      2227
+     ],
+     [
+      "Sausage Bap Meal Deal Reg",
+      1623,
+      219,
+      1114
+     ],
+     [
+      "Bacon Bap Meal Deal Reg",
+      1399,
+      340,
+      1081
+     ]
+    ],
+    "new": [
+     [
+      "Breakfast Bagel",
+      1062
+     ],
+     [
+      "Sausage Roll Meal Deal",
+      569
+     ]
+    ]
+   },
+   "Lunch": {
+    "hours": "11am–2pm",
+    "top": [
+     [
+      "Cherry Bakewell Slice Traybake",
+      1440,
+      2900,
+      1392
+     ],
+     [
+      "Ham & Mozzarella Croissant",
+      1042,
+      103,
+      529
+     ],
+     [
+      "Tuna Ciabatta",
+      1802,
+      36,
+      478
+     ]
+    ],
+    "new": [
+     [
+      "Breakfast Bagel",
+      704
+     ],
+     [
+      "Chicken Caprese Sandwich",
+      625
+     ]
+    ]
+   },
+   "Afternoon": {
+    "hours": "2pm–5pm",
+    "top": [
+     [
+      "Cherry Bakewell Slice Traybake",
+      1104,
+      3147,
+      1070
+     ],
+     [
+      "Ham & Mozzarella Croissant",
+      409,
+      108,
+      212
+     ],
+     [
+      "Sausage Roll Pastry",
+      443,
+      79,
+      196
+     ]
+    ],
+    "new": [
+     [
+      "Chicken Caprese Sandwich",
+      215
+     ],
+     [
+      "Falafel Wrap",
+      186
+     ]
+    ]
+   },
+   "Evening": {
+    "hours": "5pm+",
+    "top": [
+     [
+      "Rocky Road Traybake",
+      168,
+      195,
+      111
+     ],
+     [
+      "Luxury Millionaires Triangle Traybake",
+      188,
+      47,
+      60
+     ],
+     [
+      "Fudge Topped Brownie",
+      103,
+      81,
+      46
+     ]
+    ],
+    "new": [
+     [
+      "Cherry Bakewell Slice Traybake",
+      153
+     ]
+    ]
+   }
+  }
+ }
 }
