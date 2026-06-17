@@ -173,10 +173,20 @@ def sales_tab_section(store):
         fcards+=(f'<div class="panel" style="padding:13px 15px"><div style="font-size:13px;font-weight:700;color:var(--brown);margin-bottom:6px">{_DPICON.get(lab,"")} {lab} <span class="mini" style="font-weight:400">· {hrs.get(lab,"")}</span></div>{rows}{cap}</div>')
     food_lead=("Food &amp; bakery items growing fastest vs the same 4 weeks last year (ranked by £ added over the 4 weeks — these are 4-week totals, not averages). Names cleaned of till codes."
                if has else "Top food &amp; bakery sellers by daypart (4-week totals) — this brand-new site has no prior-year comparison yet.")
+    # all-time record cards (record revenue week + record revenue hour)
+    def _reccard(title, obj, sub):
+        if not obj: return f'<div class="card" style="border-left:4px solid #b8860b"><div class="lbl">🏆 {title}</div><div class="val">—</div><div class="meta">no record yet</div></div>'
+        return (f'<div class="card" style="border-left:4px solid #b8860b"><div class="lbl">🏆 {title}</div>'
+                f'<div class="val">{gbp(obj["gbp"])}</div><div class="meta">all-time best · {(sub+" "+obj["label"]).strip()}</div></div>')
+    recs=('<div class="cards" style="grid-template-columns:repeat(2,1fr)">'
+          + _reccard("Record revenue week", d.get("rec_week"), "week of")
+          + _reccard("Record revenue hour", d.get("rec_hour"), "")
+          + '</div>')
     return (f'<!-- STORESALES START -->\n<!-- ===== TAB: Sales (store-scoped) ===== -->\n'
             f'<section class="tab-panel" id="tab-storesales">\n'
             f'  <div class="section-title">📊 Sales by day &amp; daypart — {store}</div>\n'
             f'  <div class="note">This store only · {win}, shown as <b>averages for a typical day</b> (not 4-week totals). Day-of-week = 4-week total ÷ 4 weeks; daypart = 4-week total ÷ 28 days. Dayparts: <b>Morning 5am–11am</b>, <b>Lunch 11am–2pm</b>, <b>Afternoon 2pm–5pm</b>, <b>Evening 5pm+</b>. (The Food &amp; bakery traction panel below stays as 4-week totals.)</div>\n'
+            f'  <div class="section-title">🏆 All-time records</div>\n  {recs}\n'
             f'  <div class="section-title">{dow_title}</div>\n  <div>{dowrows}</div>{dow_note}\n'
             f'  <div class="section-title">Average sales by daypart — a typical day</div>\n  <div class="cards">{dpcards}</div>\n'
             f'  <div class="section-title">🥪 Food &amp; bakery gaining traction by daypart</div>\n'

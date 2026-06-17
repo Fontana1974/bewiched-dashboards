@@ -31,6 +31,24 @@ def i(v):
 dp_rows  = L("ns_daypart_raw.json")
 dow_rows = L("ns_dow_raw.json")
 food_rows= L("ns_food_raw.json")
+def Lopt(fn):
+    try: return L(fn)
+    except FileNotFoundError: return []
+rw_rows  = Lopt("ns_recweek_raw.json")   # all-time record weekly revenue: k="<store>|<YYYY-MM-DD wc>"
+rh_rows  = Lopt("ns_rechour_raw.json")   # all-time record hour revenue:   k="<store>|<YYYY-MM-DD>|<hour 0-23>"
+
+def _wc_label(iso):   # "2026-04-20" -> "20 Apr 2026"
+    d=_dt.date.fromisoformat(iso); return "%d %s %d" % (d.day, d.strftime("%b"), d.year)
+def _h12(x):          # 10 -> "10am", 12 -> "12pm", 0 -> "12am"
+    x%=24; suf="am" if x<12 else "pm"; hh=x%12; hh=12 if hh==0 else hh; return f"{hh}{suf}"
+def _hour_label(iso, hr):  # ("2021-06-20", 10) -> "Sun 20 Jun 2021, 10am–11am"
+    d=_dt.date.fromisoformat(iso); return "%s %d %s %d, %s–%s" % (d.strftime("%a"), d.day, d.strftime("%b"), d.year, _h12(hr), _h12(hr+1))
+recweek={}
+for r in rw_rows:
+    s, wc = r["k"].rsplit("|",1); recweek[s]={"gbp": i(r["rev"]), "label": _wc_label(wc)}
+rechour={}
+for r in rh_rows:
+    s, d, hr = r["k"].split("|",2); rechour[s]={"gbp": i(r["rev"]), "label": _hour_label(d, int(hr))}
 
 # index by store
 dp = {s:{} for s in STORES}
@@ -77,7 +95,8 @@ for s in STORES:
             sl.sort(key=lambda x:x[1], reverse=True)
             sell = [[p,c] for p,c in sl[:3]]
         fout[d] = {"gain":gain, "new":new, "sell":sell}
-    out["stores"][s] = {"has_ly":has_ly, "dow":dseries, "daypart":dpser, "food":fout}
+    out["stores"][s] = {"has_ly":has_ly, "dow":dseries, "daypart":dpser, "food":fout,
+                        "rec_week":recweek.get(s), "rec_hour":rechour.get(s)}
 
 json.dump(out, open(os.path.join(BASE,"newsite_sales.json"),"w"), ensure_ascii=False, indent=1)
 
