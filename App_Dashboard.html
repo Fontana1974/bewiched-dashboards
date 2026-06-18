@@ -79,14 +79,13 @@
     <div class="note"><b>External published figures — not strictly like-for-like.</b> Each chain measures a slightly different thing: Bewiched = app/loyalty-identified transactions (named customer); Greggs = loyalty app "scanned" share; Starbucks = "Mobile Order &amp; Pay" share (US); Pret = digital (Club Pret) transaction share. They're a directional benchmark, not an exact comparison. Costa quotes "&gt;70% of <i>Costa Club</i> transactions via app" — that's a share <i>of loyalty</i>, not of total transactions, so it's excluded from the bar (shown here as a note). Caffè Nero publishes app users (3m+) but no clean transaction-share figure.</div>
   </div>
 
-  <div class="section-title">🎁 Most redeemed on the app — loyalty offers (quarter to date)</div>
-  <div class="note purple"><b>How redemptions are identified:</b> the POS records each reward as a <b>line-item discount</b> (a discount flag, a discount id and a discount %) on a loyalty/named-customer order — it does <b>not</b> store the offer's marketing name. So offers are grouped by their <b>discount percentage</b>: <b>10% off</b> is the everyday app/loyalty discount, <b>35% / 50% off</b> are promos, and <b>100% off = a free item</b> (the classic reward). A "birthday reward" etc. can't be told apart by name — only by its % and the product it lands on. These are loyalty-order redemptions (the app definition above).</div>
+  <div class="section-title">🎁 Most redeemed on the app — loyalty rewards (quarter to date)</div>
+  <div class="note purple"><b>Real app rewards.</b> These are the named reward lines customers cash in at the till — read straight from the product-name field (e.g. "£1 Off", "Free Flat White"), not the generic till discount buttons. Ranked by redemptions, 1 Apr – 14 Jun 2026, company-wide. <span id="rewTot"></span></div>
   <div class="grid2">
-    <div class="panel"><div style="font-size:13px;font-weight:700;color:var(--brown);margin-bottom:8px">By offer type (discount %)</div><div class="chart-box" style="height:260px"><canvas id="off"></canvas></div>
-      <table id="offTbl" style="margin-top:10px"><thead><tr><th>Offer</th><th>Redemptions</th><th>Value given</th></tr></thead><tbody></tbody></table>
-    </div>
-    <div class="panel"><div style="font-size:13px;font-weight:700;color:var(--brown);margin-bottom:8px">Top products redeemed</div><div class="chart-box" style="height:330px"><canvas id="red"></canvas></div>
-      <div class="note">Coffee dominates what customers cash in — lattes, cappuccinos &amp; flat whites — with the Ham &amp; Cheese Croque and traybakes the top food/bakery redemptions.</div>
+    <div class="panel"><div style="font-size:13px;font-weight:700;color:var(--brown);margin-bottom:8px">Top rewards by redemptions</div><div class="chart-box" style="height:300px"><canvas id="rew"></canvas></div></div>
+    <div class="panel"><div style="font-size:13px;font-weight:700;color:var(--brown);margin-bottom:8px">Redemptions &amp; value given</div>
+      <table id="rewTbl"><thead><tr><th>Reward</th><th>Redemptions</th><th>Value given</th></tr></thead><tbody></tbody></table>
+      <div class="note" style="margin-top:10px"><b>£1 Off</b> is the workhorse reward (over half of all redemptions), with <b>£3/£5 off</b> and the <b>free coffee</b> rewards next. "Free Latte or Cappuccino" (large/regular) and "Free Flat White" are the named free-drink rewards.</div>
     </div>
   </div>
 
@@ -134,14 +133,13 @@ new Chart(store,{type:"bar",data:{labels:SS.map(r=>r[0]),datasets:[{label:"App %
 new Chart(mkt,{type:"bar",data:{labels:MKT.map(r=>r[0]),datasets:[{label:"% of transactions",data:MKT.map(r=>r[1]),backgroundColor:MKT.map(r=>r[2]),borderRadius:5}]},
   options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>" ~"+c.parsed.y+"% of transactions"}}},scales:{y:{...baseY,suggestedMax:50},x:{grid:{display:false},ticks:{font:{size:11}}}}}});
 
-// ===== redemptions: offer types [label, count, value£] + top products [name, count] =====
-const OFFERS=[["10% off (everyday loyalty)",16309,7231],["35% off",1726,2700],["50% off (half price)",988,2350],["Free item (100% off)",161,665]];
-const REDEEM=[["Large Latte",638],["Large Flavoured Latte",466],["Ham & Cheese Croque",460],["Regular Latte",453],["Reg Flavoured Latte",401],["Large Cappuccino",292],["Large Flat White",254],["Regular Flat White",251],["Regular Cappuccino",241],["Large Americano",227]];
-new Chart(off,{type:"bar",data:{labels:OFFERS.map(r=>r[0]),datasets:[{label:"Redemptions",data:OFFERS.map(r=>r[1]),backgroundColor:["#6b4bb0","#8a6fc6","#a892d6","#1f8a4c"],borderRadius:5}]},
-  options:{indexAxis:"y",responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>" "+c.parsed.x.toLocaleString("en-GB")+" redemptions · ~£"+OFFERS[c.dataIndex][2].toLocaleString("en-GB")+" given"}}},scales:{x:{grid:{color:"#eee"},suggestedMin:0},y:{grid:{display:false},ticks:{font:{size:11}}}}}});
-document.querySelector("#offTbl tbody").innerHTML=OFFERS.map(r=>`<tr><td>${r[0]}</td><td>${r[1].toLocaleString("en-GB")}</td><td>£${r[2].toLocaleString("en-GB")}</td></tr>`).join("");
-new Chart(red,{type:"bar",data:{labels:REDEEM.map(r=>r[0]),datasets:[{label:"Redemptions",data:REDEEM.map(r=>r[1]),backgroundColor:"#6b4bb0",borderRadius:4}]},
-  options:{indexAxis:"y",responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>" "+c.parsed.x.toLocaleString("en-GB")+" redeemed"}}},scales:{x:{grid:{color:"#eee"},suggestedMin:0},y:{grid:{display:false},ticks:{font:{size:11}}}}}});
+// ===== app rewards (named product lines): [reward, count, value£] =====
+const REWARDS=[["£1 Off",8304,8296],["£3 Off",2013,6039],["£5 off",1577,7885],["Free Large Latte or Cappuccino",1107,4738],["Free Regular Latte or Cappuccino",696,2843],["£10 off",345,3450],["Free Flat White",281,1107]].sort((a,b)=>b[1]-a[1]);
+const rTot=REWARDS.reduce((s,r)=>s+r[1],0), rVal=REWARDS.reduce((s,r)=>s+r[2],0);
+document.getElementById("rewTot").innerHTML="<b>"+rTot.toLocaleString("en-GB")+"</b> reward redemptions · <b>£"+rVal.toLocaleString("en-GB")+"</b> of value given this quarter.";
+new Chart(rew,{type:"bar",data:{labels:REWARDS.map(r=>r[0]),datasets:[{label:"Redemptions",data:REWARDS.map(r=>r[1]),backgroundColor:REWARDS.map(r=>r[0].toLowerCase().startsWith("free")?"#1f8a4c":"#6b4bb0"),borderRadius:4}]},
+  options:{indexAxis:"y",responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>" "+c.parsed.x.toLocaleString("en-GB")+" redemptions · £"+REWARDS[c.dataIndex][2].toLocaleString("en-GB")+" given"}}},scales:{x:{grid:{color:"#eee"},suggestedMin:0},y:{grid:{display:false},ticks:{font:{size:11}}}}}});
+document.querySelector("#rewTbl tbody").innerHTML=REWARDS.map(r=>`<tr><td>${r[0]}</td><td>${r[1].toLocaleString("en-GB")}</td><td>£${r[2].toLocaleString("en-GB")}</td></tr>`).join("")+`<tr style="font-weight:700;border-top:2px solid var(--line)"><td>Total</td><td>${rTot.toLocaleString("en-GB")}</td><td>£${rVal.toLocaleString("en-GB")}</td></tr>`;
 
 document.getElementById("foot").innerHTML="<b>Definition:</b> app transaction = order with a customer name (registered app/loyalty account) attached · live BigQuery POS (v_sales_details). Includes in-store loyalty scans — see caveat above.<br>"+
 "<b>Market sources</b> (external, published, not like-for-like): "+
