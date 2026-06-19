@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Bewiched — Maintenance Dashboard</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root{--bg:#f4efe9;--card:#fff;--ink:#2b211b;--muted:#8a7a6d;--line:#e7ddd2;--brown:#5b3a29;
+    --green:#1f8a4c;--red:#c0392b;--amber:#b8860b;--teal:#127d77;--tealbg:#e6f2f1;--cream:#efe6dc;
+    --redbg:#fbeae8;--amberbg:#f7f0dd;--greenbg:#e6f4ec;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+  .wrap{max-width:1180px;margin:0 auto;padding:28px 22px 60px;}
+  header h1{margin:0 0 4px;font-size:23px;letter-spacing:-.3px;}
+  header .sub{color:var(--muted);font-size:13.5px;line-height:1.5;}
+  .pill{display:inline-block;background:var(--tealbg);color:var(--teal);border:1px solid #c7e3e1;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:700;margin-right:6px;}
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:16px;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:0 1px 2px rgba(80,50,30,.04);}
+  .card .lbl{font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.4px;}
+  .card .val{font-size:30px;font-weight:800;margin-top:6px;letter-spacing:-.5px;color:var(--teal);}
+  .card .meta{font-size:12.5px;color:var(--muted);margin-top:3px;}
+  .section-title{font-size:15px;font-weight:700;margin:30px 0 12px;color:var(--brown);}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:0 1px 2px rgba(80,50,30,.04);}
+  .chart-box{height:330px;position:relative}
+  .note{background:#fff8ec;border:1px solid #f0e0bf;color:#7a5e1e;border-radius:10px;padding:10px 14px;font-size:12.5px;margin:14px 0 0;line-height:1.55;}
+  .note.teal{background:var(--tealbg);border-color:#c7e3e1;color:#0f5f5a;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start;}
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  th,td{padding:7px 9px;text-align:right;border-bottom:1px solid var(--line);}
+  th:first-child,td:first-child{text-align:left;}
+  thead th{font-size:11px;text-transform:uppercase;letter-spacing:.3px;color:var(--muted);font-weight:700;}
+  .chip{display:inline-block;font-size:10.5px;font-weight:700;padding:1px 7px;border-radius:5px;}
+  .chip.open{background:var(--redbg);color:var(--red);} .chip.done{background:var(--greenbg);color:var(--green);} .chip.mon{background:var(--amberbg);color:var(--amber);}
+  .feed{display:flex;flex-direction:column;gap:10px;}
+  .feed .item{border:1px solid var(--line);border-radius:10px;padding:11px 13px;background:#fffdfa;}
+  .feed .item h4{margin:0 0 5px;font-size:13px;color:var(--brown);}
+  .feed .item ul{margin:4px 0 0;padding-left:18px;} .feed .item li{font-size:12px;margin:2px 0;line-height:1.4;color:#3f2d22;}
+  footer{color:var(--muted);font-size:12px;margin-top:26px;line-height:1.6}
+  a{color:var(--teal)}
+  @media(max-width:860px){.cards{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>🔧 Bewiched — Maintenance Dashboard</h1>
+    <div class="sub">
+      <span class="pill">Estate maintenance</span><span class="pill">v1</span>
+      <br>Planned visits, reactive jobs and audit action-plan items across the estate. <span id="gen"></span>
+    </div>
+  </header>
+
+  <div class="cards">
+    <div class="card"><div class="lbl">🔴 Open reactive jobs</div><div class="val" style="color:var(--red)" id="kOpen">—</div><div class="meta">awaiting work (outstanding + further work)</div></div>
+    <div class="card"><div class="lbl">✅ Reactive completion rate</div><div class="val" style="color:var(--green)" id="kRate">—</div><div class="meta" id="kRateMeta">completed of all logged jobs</div></div>
+    <div class="card"><div class="lbl">🗓️ Planned visits</div><div class="val" id="kPlan">—</div><div class="meta">last ~10 months · 19 stores</div></div>
+    <div class="card"><div class="lbl">📋 Audit action plans</div><div class="val" id="kAudit">329</div><div class="meta">audits with an action plan logged (Claire)</div></div>
+  </div>
+
+  <div class="section-title">⚙️ Reactive jobs — assigned vs completed</div>
+  <div class="grid2">
+    <div class="panel"><div style="font-size:13px;font-weight:700;color:var(--brown);margin-bottom:8px">Status of all logged jobs</div><div class="chart-box" style="height:240px"><canvas id="status"></canvas></div>
+      <div class="note teal" id="statusNote"></div>
+    </div>
+    <div class="panel"><div style="font-size:13px;font-weight:700;color:var(--brown);margin-bottom:8px">🔴 Open jobs by store</div><div class="chart-box" style="height:300px"><canvas id="openStore"></canvas></div></div>
+  </div>
+
+  <div class="section-title">Reactive jobs by store — total raised, completed & open</div>
+  <div class="panel">
+    <table id="storeTbl"><thead><tr><th>Store</th><th>Total raised</th><th>Completed</th><th>Open</th><th>Completion</th></tr></thead><tbody></tbody></table>
+    <div class="note">Reactive jobs are logged via the Maintenance Request Form → "Maintenance Jobs" sheet. <b>Caveat:</b> the job <b>date</b> field is unreliable (many form mis-entries, e.g. year "1198"/"2001"), so job <b>ageing</b> can't be shown accurately yet — counts and status are reliable, dates are not. "Test" rows and blanks are excluded.</div>
+  </div>
+
+  <div class="section-title">🔩 Most common reactive issues</div>
+  <div class="panel"><div class="chart-box" style="height:320px"><canvas id="issues"></canvas></div>
+    <div class="note">What breaks most across the estate (completed jobs). "Other" is the catch-all free-text category; the Magrini milk dispenser, dishwashers, grinders and ice machines are the top named recurring faults.</div>
+  </div>
+
+  <div class="section-title">🗓️ Planned maintenance visits by store</div>
+  <div class="grid2">
+    <div class="panel"><div class="chart-box" style="height:430px"><canvas id="planned"></canvas></div></div>
+    <div class="panel">
+      <table id="planTbl"><thead><tr><th>Store</th><th>Visits</th><th>Last visit</th></tr></thead><tbody></tbody></table>
+      <div class="note" style="margin-top:10px">Planned maintenance visit log ("Bewiched - Planned Maintenance"). Window shown: <b>Aug 2025 – 11 May 2026</b> (157 visits). Fairly even coverage (~6–11 visits/store); Fletton, Train Station &amp; Leamington Retail are the lightest, and a few stores haven't had a logged visit since Feb–Mar.</div>
+    </div>
+  </div>
+
+  <div class="section-title">📋 Audit action-plan maintenance items — Claire's monthly visits</div>
+  <div class="panel">
+    <div class="note teal" style="margin-top:0">From Claire's brand-audit action plans (Richard Wagg sheet → "Brand Audit Date (NEW24/25)", Action Plan column). Every audit has a <b>Maintenance</b> section where items are tracked and tagged in-text — <span class="chip open">outstanding / awaiting / reported</span> <span class="chip mon">monitor</span> <span class="chip done">action closed / resolved / fixed</span>. <b>Caveat:</b> recent action-plan rows are logged against the <b>manager/shift-runner name</b>, not a normalised store, so this is shown as a chronological feed rather than per-store.</div>
+    <div class="feed" id="auditFeed" style="margin-top:14px"></div>
+  </div>
+
+  <footer id="foot"></footer>
+</div>
+
+<script>
+const TEAL="#127d77";
+// ---- reactive ----
+const STATUS=[["Completed",189],["Further work required",14],["Outstanding",6]];
+const OPEN_STORE=[["Lakes",4],["Northampton Drive-Thru",3],["Northampton Grosvenor",3],["Higham",2],["Rothwell",2],["Burton",1],["Kettering",1],["Market Harborough",1],["Peterborough Bridge St",1],["Rugby",1]];
+const COMP_STORE={"Lakes":40,"Higham":14,"Market Harborough":14,"Train Station W'boro":12,"Kettering":11,"Northampton Drive-Thru":10,"Northampton Grosvenor":10,"Rugby":10,"Leamington Parade":9,"Burton":8,"Market St W'boro":8,"Rothwell":8,"Corby":7,"Fletton Quays":5,"Olney":5,"Peterborough Bridge St":5,"Lower Heathcote":4,"Balsall Common":1,"Glenvale Drive Thru":1};
+const OPEN_MAP={"Lakes":4,"Northampton Drive-Thru":3,"Northampton Grosvenor":3,"Higham":2,"Rothwell":2,"Burton":1,"Kettering":1,"Market Harborough":1,"Peterborough Bridge St":1,"Rugby":1};
+const ISSUES=[["Other",49],["Magrini Milk Dispenser",15],["Dishwasher",14],["Grinder",14],["Ice Machine",10],["Coffee Machine",9],["Air Conditioning",8],["Door",7],["Sink / Tap",7],["Pipework leak/blocked",6],["Table or chair",5],["Toilet",5]];
+// ---- planned (visits, last visit) ----
+const PLANNED=[["Market Harborough",11,"10 Apr 2026"],["Lower Heathcote",10,"11 May 2026"],["Market Street",10,"06 May 2026"],["Peterborough",9,"18 Apr 2026"],["Kettering",9,"22 Apr 2026"],["Rothwell",9,"07 Mar 2026"],["Higham",9,"06 May 2026"],["Lakes",9,"21 Apr 2026"],["Northampton Grosvenor",9,"08 May 2026"],["Rugby",9,"20 Apr 2026"],["Leamington Parade",9,"07 May 2026"],["Burton",8,"07 May 2026"],["Leamington Retail",7,"05 Feb 2026"],["Balsall Common",7,"04 Mar 2026"],["Corby",7,"06 Apr 2026"],["Northampton Drive-Thru",7,"17 Apr 2026"],["Train Station",6,"23 Mar 2026"],["Fletton",6,"21 Feb 2026"],["Glenvale Drive Thru",6,"21 Apr 2026"]];
+// ---- audit action-plan maintenance feed (recent) ----
+const AUDIT=[
+ ["21 May 2026","Kimberley",[["mon","Toilet surround — no resolution, monitor"],["done","Merrychef — resolved"],["mon","Dishwasher — hand-washing, awaiting new"],["mon","Coffee machine — one steam arm down"],["mon","Fridge — awaiting repair"]]],
+ ["20 May 2026","Halle",[["done","Front painting — complete"],["mon","Walls — awaiting re-paint"],["done","Dishwasher — fixed"],["done","Coffee machine — fixed"],["done","Aircon unit — cleaned"]]],
+ ["14 May 2026","Immy",[["open","Outside signage columns — sand &amp; repaint (POA needed)"],["mon","Magrini — offsite being fixed"],["mon","Back door handle loose"],["open","2 new lidded bins requested (fly control)"],["done","Front door — closed"]]],
+ ["13 May 2026","Nicole",[["mon","Fly zapper bulb — on order"],["mon","Milk fridge — monitor"],["done","Dishwasher — closed"],["done","Toilet sink leak — closed"]]],
+ ["11 May 2026","Tanya",[["open","OUTSTANDING: fridge seal"],["open","OUTSTANDING: freezer seal"],["open","OUTSTANDING: aircon units dirty (despite planned visit)"],["mon","Bewiched sign 'B' fallen off"]]],
+ ["7 May 2026","Louise",[["mon","Painting touch-ups — no change"],["mon","Chair missing"],["mon","New table &amp; chairs — not installed"],["done","Toilet tap leak — closed"]]],
+ ["6 May 2026","Xander",[["mon","Merrychef — awaiting replacement"],["mon","Front door — awaiting repair"],["open","Store-room storage unit broken/unstable"],["mon","Magrini — missing parts, reported"]]],
+ ["6 May 2026","Amy Watts",[["open","Ice machine — not producing ice, reported"],["open","Grey wall above panini fridge — paint touch-up"]]]
+];
+
+const pc=(a,t)=>t?Math.round(1000*a/t)/10:0;
+document.getElementById("gen").textContent="Generated "+new Date().toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"})+".";
+
+// KPIs
+const openTot=STATUS.filter(s=>s[0]!="Completed").reduce((a,b)=>a+b[1],0);
+const total=STATUS.reduce((a,b)=>a+b[1],0);
+const comp=STATUS[0][1];
+document.getElementById("kOpen").textContent=openTot;
+document.getElementById("kRate").textContent=pc(comp,total)+"%";
+document.getElementById("kRateMeta").textContent=comp+" of "+total+" logged jobs completed";
+document.getElementById("kPlan").textContent=PLANNED.reduce((a,b)=>a+b[1],0);
+
+const baseX={grid:{color:"#eee"},suggestedMin:0,ticks:{precision:0}};
+// status donut
+new Chart(status,{type:"doughnut",data:{labels:STATUS.map(s=>s[0]),datasets:[{data:STATUS.map(s=>s[1]),backgroundColor:["#1f8a4c","#b8860b","#c0392b"]}]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:"right",labels:{boxWidth:12,font:{size:11.5}}}}}});
+document.getElementById("statusNote").innerHTML="<b>"+comp+" completed</b> of <b>"+total+"</b> logged jobs = <b>"+pc(comp,total)+"% completion</b>. <b>"+openTot+" open</b> ("+STATUS[1][1]+" need further work, "+STATUS[2][1]+" outstanding).";
+// open by store
+new Chart(openStore,{type:"bar",data:{labels:OPEN_STORE.map(r=>r[0]),datasets:[{data:OPEN_STORE.map(r=>r[1]),backgroundColor:"#c0392b",borderRadius:4}]},
+  options:{indexAxis:"y",responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:baseX,y:{grid:{display:false},ticks:{font:{size:11}}}}}});
+// issues
+new Chart(issues,{type:"bar",data:{labels:ISSUES.map(r=>r[0]),datasets:[{data:ISSUES.map(r=>r[1]),backgroundColor:TEAL,borderRadius:4}]},
+  options:{indexAxis:"y",responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:baseX,y:{grid:{display:false},ticks:{font:{size:11}}}}}});
+// planned by store
+new Chart(planned,{type:"bar",data:{labels:PLANNED.map(r=>r[0]),datasets:[{data:PLANNED.map(r=>r[1]),backgroundColor:"#127d77",borderRadius:4}]},
+  options:{indexAxis:"y",responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>" "+c.parsed.x+" visits · last "+PLANNED[c.dataIndex][2]}}},scales:{x:baseX,y:{grid:{display:false},ticks:{font:{size:11}}}}}});
+document.querySelector("#planTbl tbody").innerHTML=PLANNED.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join("");
+
+// reactive by-store table (total raised, completed, open, completion)
+const allStores=Array.from(new Set([...Object.keys(COMP_STORE),...Object.keys(OPEN_MAP)]));
+const rows=allStores.map(s=>{const cmp=COMP_STORE[s]||0,op=OPEN_MAP[s]||0;return [s,cmp+op,cmp,op, (cmp+op)?Math.round(100*cmp/(cmp+op)):0];}).sort((a,b)=>b[1]-a[1]);
+document.querySelector("#storeTbl tbody").innerHTML=rows.map(r=>{const oc=r[3]>0?'style="color:var(--red);font-weight:700"':'';return `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td ${oc}>${r[3]}</td><td>${r[4]}%</td></tr>`;}).join("");
+
+// audit feed
+document.getElementById("auditFeed").innerHTML=AUDIT.map(a=>`<div class="item"><h4>${a[0]} · ${a[1]}</h4><ul>${a[2].map(it=>`<li><span class="chip ${it[0]}">${it[0]=="done"?"closed":it[0]=="mon"?"monitor":"open"}</span> ${it[1]}</li>`).join("")}</ul></div>`).join("");
+
+document.getElementById("foot").innerHTML="<b>Sources:</b> Planned — 'Bewiched - Planned Maintenance' (visit log). Reactive — 'Maintenance Jobs' (fed by the Maintenance Request Form). Audit action plans — 'Richard Wagg' sheet, 'Brand Audit Date (NEW24/25)', Action Plan column (Claire's monthly audits). Read live via Google Sheets. <br>Caveats: reactive job <b>dates</b> are unreliable (form mis-entries) so ageing isn't shown; audit action plans are logged by manager name, not store. v1 — refreshed weekly.";
+</script>
+</body>
+</html>
