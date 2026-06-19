@@ -16,14 +16,19 @@
   header h1{margin:0 0 4px;font-size:23px;letter-spacing:-.3px;}
   header .sub{color:var(--muted);font-size:13.5px;line-height:1.5;}
   .pill{display:inline-block;background:var(--tealbg);color:var(--teal);border:1px solid #c7e3e1;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:700;margin-right:6px;}
-  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:16px;}
+  .tabs{display:flex;gap:8px;margin:18px 0 4px;flex-wrap:wrap;border-bottom:2px solid var(--line);}
+  .tab{border:none;background:none;font:inherit;font-size:14px;font-weight:700;color:var(--muted);padding:9px 16px;border-radius:10px 10px 0 0;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;}
+  .tab:hover{color:var(--brown)}
+  .tab.on{color:var(--teal);border-bottom-color:var(--teal);background:var(--tealbg)}
+  .scope{font-size:13px;color:var(--muted);margin:12px 0 2px}
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:12px;}
   .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:0 1px 2px rgba(80,50,30,.04);}
   .card .lbl{font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.4px;}
   .card .val{font-size:30px;font-weight:800;margin-top:6px;letter-spacing:-.5px;color:var(--teal);}
   .card .meta{font-size:12.5px;color:var(--muted);margin-top:3px;}
   .section-title{font-size:15px;font-weight:700;margin:30px 0 12px;color:var(--brown);}
   .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:0 1px 2px rgba(80,50,30,.04);}
-  .chart-box{height:330px;position:relative}
+  .chart-box{position:relative}
   .note{background:#fff8ec;border:1px solid #f0e0bf;color:#7a5e1e;border-radius:10px;padding:10px 14px;font-size:12.5px;margin:14px 0 0;line-height:1.55;}
   .note.teal{background:var(--tealbg);border-color:#c7e3e1;color:#0f5f5a;}
   .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start;}
@@ -47,6 +52,7 @@
   td.mcell.hit2{background:#cde7d8;color:#15663a;font-weight:800;}
   td.mcell.miss{background:var(--redbg);color:var(--red);font-weight:800;font-size:15px;}
   table.matrix tfoot td{border-top:2px solid var(--line);border-bottom:none;}
+  .empty{color:var(--muted);font-size:13px;padding:18px 4px;text-align:center}
   @media(max-width:860px){.cards{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}}
 </style>
 </head>
@@ -55,16 +61,19 @@
   <header>
     <h1>🔧 Bewiched — Maintenance Dashboard</h1>
     <div class="sub">
-      <span class="pill">Estate maintenance</span><span class="pill">v1</span>
+      <span class="pill">Estate maintenance</span><span class="pill">v2</span>
       <br>Planned visits, reactive jobs and audit action-plan items across the estate. <span id="gen"></span>
     </div>
   </header>
 
+  <div class="tabs" id="tabs"></div>
+  <div class="scope" id="scope"></div>
+
   <div class="cards">
-    <div class="card"><div class="lbl">🔴 Open reactive jobs</div><div class="val" style="color:var(--red)" id="kOpen">—</div><div class="meta">awaiting work (outstanding + further work)</div></div>
+    <div class="card"><div class="lbl">🔴 Open reactive jobs</div><div class="val" style="color:var(--red)" id="kOpen">—</div><div class="meta" id="kOpenMeta">awaiting work (outstanding + further work)</div></div>
     <div class="card"><div class="lbl">✅ Reactive completion rate</div><div class="val" style="color:var(--green)" id="kRate">—</div><div class="meta" id="kRateMeta">completed of all logged jobs</div></div>
-    <div class="card"><div class="lbl">🗓️ Planned visits this month</div><div class="val" id="kPlan">—</div><div class="meta" id="kPlanMeta">stores visited · standard is 1/store/month</div></div>
-    <div class="card"><div class="lbl">📋 Audit action plans</div><div class="val" id="kAudit">329</div><div class="meta">audits with an action plan logged (Claire)</div></div>
+    <div class="card"><div class="lbl">🗓️ Planned visits this month</div><div class="val" id="kPlan">—</div><div class="meta" id="kPlanMeta">stores visited · standard 1/store/month</div></div>
+    <div class="card"><div class="lbl">📋 Audit action plans</div><div class="val" id="kAudit">329</div><div class="meta">audits with an action plan logged (estate · Claire)</div></div>
   </div>
 
   <div class="section-title">⚙️ Reactive jobs — assigned vs completed</div>
@@ -72,36 +81,42 @@
     <div class="panel"><div style="font-size:13px;font-weight:700;color:var(--brown);margin-bottom:8px">Status of all logged jobs</div><div class="chart-box" style="height:240px"><canvas id="status"></canvas></div>
       <div class="note teal" id="statusNote"></div>
     </div>
-    <div class="panel"><div style="font-size:13px;font-weight:700;color:var(--brown);margin-bottom:8px">🔴 Open jobs by store</div><div class="chart-box" style="height:300px"><canvas id="openStore"></canvas></div></div>
+    <div class="panel"><div style="font-size:13px;font-weight:700;color:var(--brown);margin-bottom:8px">🔴 Open jobs by store</div><div class="chart-box" style="height:300px"><canvas id="openStore"></canvas></div>
+      <div class="empty" id="openEmpty" style="display:none">No open reactive jobs in this area 🎉</div>
+    </div>
   </div>
 
-  <div class="section-title">Reactive jobs by store — total raised, completed & open</div>
+  <div class="section-title">Reactive jobs by store — total raised, completed &amp; open</div>
   <div class="panel">
     <table id="storeTbl"><thead><tr><th>Store</th><th>Total raised</th><th>Completed</th><th>Open</th><th>Completion</th></tr></thead><tbody></tbody></table>
-    <div class="note">Reactive jobs are logged via the Maintenance Request Form → "Maintenance Jobs" sheet. <b>Caveat:</b> the job <b>date</b> field is unreliable (many form mis-entries, e.g. year "1198"/"2001"), so job <b>ageing</b> can't be shown accurately yet — counts and status are reliable, dates are not. "Test" rows and blanks are excluded.</div>
+    <div class="note">Reactive jobs logged via the Maintenance Request Form → "Maintenance Jobs" sheet. "Test" rows excluded. The job <b>date</b> field is unreliable (form mis-entries) so ageing isn't shown.</div>
   </div>
 
-  <div class="section-title">🔩 Most common reactive issues</div>
-  <div class="panel"><div class="chart-box" style="height:320px"><canvas id="issues"></canvas></div>
-    <div class="note">What breaks most across the estate (completed jobs). "Other" is the catch-all free-text category; the Magrini milk dispenser, dishwashers, grinders and ice machines are the top named recurring faults.</div>
+  <div class="section-title">🔩 Most common reactive issues <span style="font-weight:600;color:var(--muted);font-size:13px">(named types only — "Other" excluded, broken out below)</span></div>
+  <div class="panel"><div class="chart-box" style="height:360px"><canvas id="issues"></canvas></div>
+    <div class="empty" id="issuesEmpty" style="display:none">Not enough named-issue data for this area.</div>
+  </div>
+
+  <div class="section-title">🧩 What's inside "Other" <span style="font-weight:600;color:var(--muted);font-size:13px">(<span id="otherTot">0</span> jobs that were logged as "Other", sub-categorised from the description)</span></div>
+  <div class="panel"><div class="chart-box" style="height:320px"><canvas id="other"></canvas></div>
+    <div class="empty" id="otherEmpty" style="display:none">No "Other" jobs logged for this area.</div>
+    <div class="note">The form's "Other" bucket is free text. These are sub-categorised by keyword from each description — flies/pests, fittings &amp; consumables (soap, napkins, coffee-catcher socks), tills &amp; comms, doors/locks/cupboards, signage, electrical, lighting and so on. A small residual stays "Unclassified".</div>
   </div>
 
   <div class="section-title">🗓️ Planned maintenance — monthly compliance</div>
   <div class="panel" style="margin-bottom:18px">
-    <div style="font-size:13px;font-weight:700;color:var(--brown);margin-bottom:8px">Stores visited each month <span style="font-weight:600;color:var(--muted)">(standard: every store, every month — green bar = full estate)</span></div>
+    <div style="font-size:13px;font-weight:700;color:var(--brown);margin-bottom:8px">Stores visited each month <span style="font-weight:600;color:var(--muted)">(standard: every store, every month — green bar = full set)</span></div>
     <div class="chart-box" style="height:210px"><canvas id="permonth"></canvas></div>
   </div>
   <div class="panel">
-    <div style="font-size:13px;font-weight:700;color:var(--brown);margin-bottom:4px">Store × month — was each store visited? <span style="font-weight:600;color:var(--muted)">(✓ visited · number = multiple visits · <span style="color:var(--red)">·</span> missed)</span></div>
-    <div style="overflow-x:auto">
-      <table id="matrixTbl" class="matrix"><thead><tr></tr></thead><tbody></tbody><tfoot><tr></tr></tfoot></table>
-    </div>
-    <div class="note" style="margin-top:10px">Planned maintenance visit log ("Bewiched - Planned Maintenance", Maintenance tab) read live via the Google Sheets API — <b>all rows to date, incl. 19 Jun 2026</b>. The standard is <b>one planned visit per store per month</b>; a red dot is a month with no logged visit. 20 stores are on the planned-visit schedule (Olney is newly added). Coverage was strong through winter (Nov–Feb ~18–19/20) and has dipped through spring; the current month is still in progress.</div>
+    <div style="font-size:13px;font-weight:700;color:var(--brown);margin-bottom:4px">Store × month — was each store visited? <span style="font-weight:600;color:var(--muted)">(✓ visited · number = multiple · <span style="color:var(--red)">·</span> missed)</span></div>
+    <div style="overflow-x:auto"><table id="matrixTbl" class="matrix"><thead><tr></tr></thead><tbody></tbody><tfoot><tr></tr></tfoot></table></div>
+    <div class="note">Planned maintenance visit log ("Bewiched - Planned Maintenance", Maintenance tab) read live via the Google Sheets API — all rows to date, incl. 19 Jun 2026. Standard is one planned visit per store per month; a red dot is a month with no logged visit.</div>
   </div>
 
   <div class="section-title">📋 Audit action-plan maintenance items — Claire's monthly visits</div>
   <div class="panel">
-    <div class="note teal" style="margin-top:0">From Claire's brand-audit action plans (Richard Wagg sheet → "Brand Audit Date (NEW24/25)", Action Plan column). Every audit has a <b>Maintenance</b> section where items are tracked and tagged in-text — <span class="chip open">outstanding / awaiting / reported</span> <span class="chip mon">monitor</span> <span class="chip done">action closed / resolved / fixed</span>. <b>Caveat:</b> recent action-plan rows are logged against the <b>manager/shift-runner name</b>, not a normalised store, so this is shown as a chronological feed rather than per-store.</div>
+    <div class="note teal" id="auditNote" style="margin-top:0"></div>
     <div class="feed" id="auditFeed" style="margin-top:14px"></div>
   </div>
 
@@ -110,19 +125,10 @@
 
 <script>
 const TEAL="#127d77";
-// ---- reactive ----
-const STATUS=[["Completed",189],["Further work required",14],["Outstanding",6]];
-const OPEN_STORE=[["Lakes",4],["Northampton Drive-Thru",3],["Northampton Grosvenor",3],["Higham",2],["Rothwell",2],["Burton",1],["Kettering",1],["Market Harborough",1],["Peterborough Bridge St",1],["Rugby",1]];
-const COMP_STORE={"Lakes":40,"Higham":14,"Market Harborough":14,"Train Station W'boro":12,"Kettering":11,"Northampton Drive-Thru":10,"Northampton Grosvenor":10,"Rugby":10,"Leamington Parade":9,"Burton":8,"Market St W'boro":8,"Rothwell":8,"Corby":7,"Fletton Quays":5,"Olney":5,"Peterborough Bridge St":5,"Lower Heathcote":4,"Balsall Common":1,"Glenvale Drive Thru":1};
-const OPEN_MAP={"Lakes":4,"Northampton Drive-Thru":3,"Northampton Grosvenor":3,"Higham":2,"Rothwell":2,"Burton":1,"Kettering":1,"Market Harborough":1,"Peterborough Bridge St":1,"Rugby":1};
-const ISSUES=[["Other",49],["Magrini Milk Dispenser",15],["Dishwasher",14],["Grinder",14],["Ice Machine",10],["Coffee Machine",9],["Air Conditioning",8],["Door",7],["Sink / Tap",7],["Pipework leak/blocked",6],["Table or chair",5],["Toilet",5]];
-// ---- planned maintenance — by-month compliance (last 12 months, to 19 Jun 2026) ----
-const MONTHS=["Jul 25","Aug 25","Sep 25","Oct 25","Nov 25","Dec 25","Jan 26","Feb 26","Mar 26","Apr 26","May 26","Jun 26"];
-const PMATRIX=[["Higham",2,1,1,1,1,0,1,1,2,1,1,1],["Lakes",3,1,1,1,1,1,1,1,1,2,0,1],["Leamington Parade",2,0,1,1,1,1,1,1,1,1,1,1],["Market Street",1,1,1,1,1,1,2,1,1,1,1,0],["Northampton DT",1,1,1,0,1,1,1,1,1,1,1,2],["Peterborough",2,1,1,1,1,1,1,1,1,1,0,1],["Balsall Common",1,1,1,1,1,1,1,1,1,0,0,1],["Lower Heathcote",1,0,1,1,1,1,1,2,1,1,1,0],["Market Harborough",1,1,2,2,1,1,2,1,0,1,1,0],["Northampton Grosvenor",1,1,1,0,2,1,1,1,1,1,2,0],["Rugby",0,1,1,1,1,2,1,1,1,1,0,1],["Burton",1,1,1,1,1,0,1,1,0,1,1,0],["Corby",1,1,2,1,1,1,1,0,0,1,0,1],["Fletton",1,1,1,1,1,1,1,1,0,0,0,1],["Kettering",1,2,0,2,1,1,1,1,1,1,0,0],["Rothwell",2,1,3,1,1,0,1,2,1,0,1,0],["Glenvale DT",2,1,1,1,1,0,1,1,0,1,0,0],["Train Station",1,2,0,1,1,0,1,1,1,0,0,1],["Leamington Retail",1,0,1,1,2,1,1,1,0,0,0,0],["Olney",0,0,0,0,0,0,0,0,0,0,0,1]];
-const PERMONTH=[18,16,17,17,19,14,19,18,13,14,9,11];
-const PLAST={"Balsall Common":"05 Jun 2026","Burton":"07 May 2026","Corby":"11 Jun 2026","Fletton":"18 Jun 2026","Glenvale DT":"21 Apr 2026","Higham":"12 Jun 2026","Kettering":"22 Apr 2026","Lakes":"19 Jun 2026","Leamington Parade":"10 Jun 2026","Leamington Retail":"05 Feb 2026","Lower Heathcote":"11 May 2026","Market Harborough":"18 May 2026","Market Street":"06 May 2026","Northampton DT":"01 Jun 2026","Northampton Grosvenor":"27 May 2026","Olney":"03 Jun 2026","Peterborough":"08 Jun 2026","Rothwell":"14 May 2026","Rugby":"09 Jun 2026","Train Station":"05 Jun 2026"};
-const NSTORES=20;
-// ---- audit action-plan maintenance feed (recent) ----
+const $=id=>document.getElementById(id);
+const pc=(a,t)=>t?Math.round(1000*a/t)/10:0;
+const DATA={"company":{"reactive":{"comp":189,"fwr":14,"out":6,"open":20,"total":209,"rate":90,"open_store":[["Rushden Lakes",4],["Northampton DT",3],["Northampton",3],["Rothwell",3],["Higham",2],["Burton",1],["Kettering",1],["Market Harborough",1],["P'boro Bridge St",1],["Rugby",1]],"bystore":[["Rushden Lakes",44,40,4],["Higham",16,14,2],["Market Harborough",15,14,1],["Northampton DT",14,11,3],["Northampton",14,11,3],["Kettering",13,12,1],["Leamington Parade",12,12,0],["W'boro Train Stn",12,12,0],["Rothwell",11,8,3],["Rugby",11,10,1],["Burton",9,8,1],["Corby",8,8,0],["W'boro Market St",8,8,0],["P'boro Bridge St",6,5,1],["P'boro Fletton",5,5,0],["Olney",5,5,0],["Lower Heathcote",4,4,0],["Balsall Common",1,1,0],["Glenvale DT",1,1,0]],"issues":[["Magrini Milk Dispenser",20],["Dishwasher",15],["Grinder",15],["Coffee Machine",10],["Ice Machine",10],["Panini Fridge",10],["Door",8],["Air Conditioning",8],["Sink / Tap",7],["Pipework leak/blocked",7],["Music",6],["Table or chair",6],["Merrychef / HSO",5],["Toilet",5],["Blender",4],["Printer",4],["Under Counter Fridge",4],["Milkshake Machine",3],["Panini Grill",2],["Wall",1],["Ceiling",1],["Ipad",1],["izettle",1],["Tamper",1],["Water Boiler / Tea Urn",1]],"other":[["Pest control (flies/rodents/ants)",11],["Fittings / consumables",9],["IT / tills / comms",5],["Doors / locks / cupboards",5],["Cleaning / decor / windows",5],["Signage / boards",4],["Fridge / cooling / smells",4],["Furniture / fixtures",4],["Flooring / trip hazards",4],["Electrical / power",3],["Lighting",3],["Plumbing / leaks",1],["Unclassified / misc",1]],"other_total":59,"njobs":209},"planned":{"months":["Jul 25","Aug 25","Sep 25","Oct 25","Nov 25","Dec 25","Jan 26","Feb 26","Mar 26","Apr 26","May 26","Jun 26"],"matrix":[["Higham",2,1,1,1,1,0,1,1,2,1,1,1],["Lakes",3,1,1,1,1,1,1,1,1,2,0,1],["Leamington Parade",2,0,1,1,1,1,1,1,1,1,1,1],["Market Street",1,1,1,1,1,1,2,1,1,1,1,0],["Northampton DT",1,1,1,0,1,1,1,1,1,1,1,2],["Peterborough",2,1,1,1,1,1,1,1,1,1,0,1],["Balsall Common",1,1,1,1,1,1,1,1,1,0,0,1],["Lower Heathcote",1,0,1,1,1,1,1,2,1,1,1,0],["Market Harborough",1,1,2,2,1,1,2,1,0,1,1,0],["Northampton Grosvenor",1,1,1,0,2,1,1,1,1,1,2,0],["Rugby",0,1,1,1,1,2,1,1,1,1,0,1],["Burton",1,1,1,1,1,0,1,1,0,1,1,0],["Corby",1,1,2,1,1,1,1,0,0,1,0,1],["Fletton",1,1,1,1,1,1,1,1,0,0,0,1],["Kettering",1,2,0,2,1,1,1,1,1,1,0,0],["Rothwell",2,1,3,1,1,0,1,2,1,0,1,0],["Glenvale DT",2,1,1,1,1,0,1,1,0,1,0,0],["Train Station",1,2,0,1,1,0,1,1,1,0,0,1],["Leamington Retail",1,0,1,1,2,1,1,1,0,0,0,0],["Olney",0,0,0,0,0,0,0,0,0,0,0,1]],"permonth":[18,16,17,17,19,14,19,18,13,14,9,11],"nstores":20,"last":{"Balsall Common":"05 Jun 2026","Burton":"07 May 2026","Corby":"11 Jun 2026","Fletton":"18 Jun 2026","Glenvale DT":"21 Apr 2026","Higham":"12 Jun 2026","Kettering":"22 Apr 2026","Lakes":"19 Jun 2026","Leamington Parade":"10 Jun 2026","Leamington Retail":"05 Feb 2026","Lower Heathcote":"11 May 2026","Market Harborough":"18 May 2026","Market Street":"06 May 2026","Northampton DT":"01 Jun 2026","Northampton Grosvenor":"27 May 2026","Olney":"03 Jun 2026","Peterborough":"08 Jun 2026","Rothwell":"14 May 2026","Rugby":"09 Jun 2026","Train Station":"05 Jun 2026"},"thismonth":11}},"Jon":{"reactive":{"comp":105,"fwr":7,"out":5,"open":12,"total":117,"rate":90,"open_store":[["Rushden Lakes",4],["Rothwell",3],["Higham",2],["Burton",1],["Kettering",1],["P'boro Bridge St",1]],"bystore":[["Rushden Lakes",44,40,4],["Higham",16,14,2],["Kettering",13,12,1],["Rothwell",11,8,3],["Burton",9,8,1],["Corby",8,8,0],["P'boro Bridge St",6,5,1],["P'boro Fletton",5,5,0],["Olney",5,5,0]],"issues":[["Dishwasher",10],["Magrini Milk Dispenser",10],["Grinder",9],["Panini Fridge",8],["Door",7],["Coffee Machine",6],["Air Conditioning",5],["Sink / Tap",4],["Ice Machine",3],["Merrychef / HSO",3],["Pipework leak/blocked",3],["Under Counter Fridge",3],["Panini Grill",2],["Toilet",2],["Milkshake Machine",2],["Table or chair",2],["Blender",1],["Wall",1],["Printer",1],["Ceiling",1],["Ipad",1],["izettle",1],["Music",1]],"other":[["Pest control (flies/rodents/ants)",8],["IT / tills / comms",3],["Fittings / consumables",3],["Doors / locks / cupboards",3],["Flooring / trip hazards",3],["Signage / boards",2],["Fridge / cooling / smells",2],["Cleaning / decor / windows",2],["Furniture / fixtures",2],["Lighting",2],["Electrical / power",1],["Plumbing / leaks",1]],"other_total":32,"njobs":117},"planned":{"months":["Jul 25","Aug 25","Sep 25","Oct 25","Nov 25","Dec 25","Jan 26","Feb 26","Mar 26","Apr 26","May 26","Jun 26"],"matrix":[["Higham",2,1,1,1,1,0,1,1,2,1,1,1],["Lakes",3,1,1,1,1,1,1,1,1,2,0,1],["Peterborough",2,1,1,1,1,1,1,1,1,1,0,1],["Burton",1,1,1,1,1,0,1,1,0,1,1,0],["Corby",1,1,2,1,1,1,1,0,0,1,0,1],["Fletton",1,1,1,1,1,1,1,1,0,0,0,1],["Kettering",1,2,0,2,1,1,1,1,1,1,0,0],["Rothwell",2,1,3,1,1,0,1,2,1,0,1,0],["Olney",0,0,0,0,0,0,0,0,0,0,0,1]],"permonth":[8,8,7,8,8,5,8,7,5,6,3,6],"nstores":9,"last":{"Higham":"12 Jun 2026","Lakes":"19 Jun 2026","Peterborough":"08 Jun 2026","Burton":"07 May 2026","Corby":"11 Jun 2026","Fletton":"18 Jun 2026","Kettering":"22 Apr 2026","Rothwell":"14 May 2026","Olney":"03 Jun 2026"},"thismonth":6}},"Ian":{"reactive":{"comp":2,"fwr":0,"out":0,"open":0,"total":2,"rate":100,"open_store":[],"bystore":[["Balsall Common",1,1,0],["Glenvale DT",1,1,0]],"issues":[["Coffee Machine",1],["Ice Machine",1]],"other":[],"other_total":0,"njobs":2},"planned":{"months":["Jul 25","Aug 25","Sep 25","Oct 25","Nov 25","Dec 25","Jan 26","Feb 26","Mar 26","Apr 26","May 26","Jun 26"],"matrix":[["Balsall Common",1,1,1,1,1,1,1,1,1,0,0,1],["Glenvale DT",2,1,1,1,1,0,1,1,0,1,0,0]],"permonth":[2,2,2,2,2,1,2,2,1,1,0,1],"nstores":2,"last":{"Balsall Common":"05 Jun 2026","Glenvale DT":"21 Apr 2026"},"thismonth":1}},"Rich":{"reactive":{"comp":82,"fwr":7,"out":1,"open":8,"total":90,"rate":91,"open_store":[["Northampton DT",3],["Northampton",3],["Market Harborough",1],["Rugby",1]],"bystore":[["Market Harborough",15,14,1],["Northampton DT",14,11,3],["Northampton",14,11,3],["Leamington Parade",12,12,0],["W'boro Train Stn",12,12,0],["Rugby",11,10,1],["W'boro Market St",8,8,0],["Lower Heathcote",4,4,0]],"issues":[["Magrini Milk Dispenser",10],["Grinder",6],["Ice Machine",6],["Music",5],["Dishwasher",5],["Pipework leak/blocked",4],["Table or chair",4],["Sink / Tap",3],["Air Conditioning",3],["Blender",3],["Toilet",3],["Coffee Machine",3],["Printer",3],["Merrychef / HSO",2],["Panini Fridge",2],["Door",1],["Milkshake Machine",1],["Tamper",1],["Under Counter Fridge",1],["Water Boiler / Tea Urn",1]],"other":[["Fittings / consumables",6],["Pest control (flies/rodents/ants)",3],["Cleaning / decor / windows",3],["Signage / boards",2],["IT / tills / comms",2],["Doors / locks / cupboards",2],["Electrical / power",2],["Fridge / cooling / smells",2],["Furniture / fixtures",2],["Unclassified / misc",1],["Flooring / trip hazards",1],["Lighting",1]],"other_total":27,"njobs":90},"planned":{"months":["Jul 25","Aug 25","Sep 25","Oct 25","Nov 25","Dec 25","Jan 26","Feb 26","Mar 26","Apr 26","May 26","Jun 26"],"matrix":[["Leamington Parade",2,0,1,1,1,1,1,1,1,1,1,1],["Market Street",1,1,1,1,1,1,2,1,1,1,1,0],["Northampton DT",1,1,1,0,1,1,1,1,1,1,1,2],["Lower Heathcote",1,0,1,1,1,1,1,2,1,1,1,0],["Market Harborough",1,1,2,2,1,1,2,1,0,1,1,0],["Northampton Grosvenor",1,1,1,0,2,1,1,1,1,1,2,0],["Rugby",0,1,1,1,1,2,1,1,1,1,0,1],["Train Station",1,2,0,1,1,0,1,1,1,0,0,1],["Leamington Retail",1,0,1,1,2,1,1,1,0,0,0,0]],"permonth":[8,6,8,7,9,8,9,9,7,7,6,4],"nstores":9,"last":{"Leamington Parade":"10 Jun 2026","Market Street":"06 May 2026","Northampton DT":"01 Jun 2026","Lower Heathcote":"11 May 2026","Market Harborough":"18 May 2026","Northampton Grosvenor":"27 May 2026","Rugby":"09 Jun 2026","Train Station":"05 Jun 2026","Leamington Retail":"05 Feb 2026"},"thismonth":4}}};
+// audit action-plan feed — logged by manager name, not store, so it's an estate-wide feed (not area-split)
 const AUDIT=[
  ["21 May 2026","Kimberley",[["mon","Toilet surround — no resolution, monitor"],["done","Merrychef — resolved"],["mon","Dishwasher — hand-washing, awaiting new"],["mon","Coffee machine — one steam arm down"],["mon","Fridge — awaiting repair"]]],
  ["20 May 2026","Halle",[["done","Front painting — complete"],["mon","Walls — awaiting re-paint"],["done","Dishwasher — fixed"],["done","Coffee machine — fixed"],["done","Aircon unit — cleaned"]]],
@@ -133,65 +139,70 @@ const AUDIT=[
  ["6 May 2026","Xander",[["mon","Merrychef — awaiting replacement"],["mon","Front door — awaiting repair"],["open","Store-room storage unit broken/unstable"],["mon","Magrini — missing parts, reported"]]],
  ["6 May 2026","Amy Watts",[["open","Ice machine — not producing ice, reported"],["open","Grey wall above panini fridge — paint touch-up"]]]
 ];
+const TABS=[["company","Overview"],["Jon","Jon"],["Ian","Ian"],["Rich","Rich"]];
+const SCOPE={company:"All 21 stores (estate-wide).",Jon:"Jon's patch — Rushden Lakes, Higham, Kettering, Rothwell, Burton, Corby, Peterborough (Bridge St &amp; Fletton), Olney.",Ian:"Ian's patch — Glenvale DT, Balsall Common, Attleborough.",Rich:"Rich's patch — Northampton (Grosvenor &amp; DT), Market Harborough, Leamington Parade, Lower Heathcote, Rugby, Wellingborough (Market St &amp; Train Station)."};
+$("gen").textContent="Generated "+new Date().toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"})+".";
 
-const pc=(a,t)=>t?Math.round(1000*a/t)/10:0;
-document.getElementById("gen").textContent="Generated "+new Date().toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"})+".";
+// tab bar
+$("tabs").innerHTML=TABS.map(t=>`<button class="tab" data-k="${t[0]}">${t[1]}</button>`).join("");
 
-// KPIs
-const openTot=STATUS.filter(s=>s[0]!="Completed").reduce((a,b)=>a+b[1],0);
-const total=STATUS.reduce((a,b)=>a+b[1],0);
-const comp=STATUS[0][1];
-document.getElementById("kOpen").textContent=openTot;
-document.getElementById("kRate").textContent=pc(comp,total)+"%";
-document.getElementById("kRateMeta").textContent=comp+" of "+total+" logged jobs completed";
-document.getElementById("kPlan").textContent=PERMONTH[PERMONTH.length-1]+"/"+NSTORES;
-document.getElementById("kPlanMeta").textContent="visited in "+MONTHS[MONTHS.length-1].replace(/(\w+) (\d+)/,"$1 20$2")+" · standard 1/store/month";
-
+const charts={};
+function mk(id,cfg){ if(charts[id]) charts[id].destroy(); charts[id]=new Chart($(id),cfg); }
 const baseX={grid:{color:"#eee"},suggestedMin:0,ticks:{precision:0}};
-const $=id=>document.getElementById(id);
-// status donut  (NOTE: canvas id "status" collides with the reserved window.status string,
-// so the element must be fetched explicitly via getElementById — a bare `status` does NOT
-// resolve to the canvas and silently breaks the chart.)
-new Chart($("status"),{type:"doughnut",data:{labels:STATUS.map(s=>s[0]),datasets:[{data:STATUS.map(s=>s[1]),backgroundColor:["#1f8a4c","#b8860b","#c0392b"]}]},
-  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:"right",labels:{boxWidth:12,font:{size:11.5}}}}}});
-$("statusNote").innerHTML="<b>"+comp+" completed</b> of <b>"+total+"</b> logged jobs = <b>"+pc(comp,total)+"% completion</b>. <b>"+openTot+" open</b> ("+STATUS[1][1]+" need further work, "+STATUS[2][1]+" outstanding).";
-// open by store
-new Chart($("openStore"),{type:"bar",data:{labels:OPEN_STORE.map(r=>r[0]),datasets:[{data:OPEN_STORE.map(r=>r[1]),backgroundColor:"#c0392b",borderRadius:4}]},
-  options:{indexAxis:"y",responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:baseX,y:{grid:{display:false},ticks:{font:{size:11}}}}}});
-// issues
-new Chart($("issues"),{type:"bar",data:{labels:ISSUES.map(r=>r[0]),datasets:[{data:ISSUES.map(r=>r[1]),backgroundColor:TEAL,borderRadius:4}]},
-  options:{indexAxis:"y",responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:baseX,y:{grid:{display:false},ticks:{font:{size:11}}}}}});
+const baseYbar={indexAxis:"y",responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:baseX,y:{grid:{display:false},ticks:{font:{size:11}}}}};
 
-// ===== planned maintenance — by-month compliance matrix =====
-// standard: every store gets ONE planned visit EVERY month. Cell green = visited, red = missed.
-// per-month completion strip chart
-new Chart($("permonth"),{type:"bar",data:{labels:MONTHS,datasets:[{label:"Stores visited",data:PERMONTH,backgroundColor:PERMONTH.map(v=>v>=NSTORES?"#1f8a4c":v>=NSTORES*0.8?"#b8860b":"#c0392b"),borderRadius:4}]},
-  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>" "+c.parsed.y+" of "+NSTORES+" stores visited"}}},scales:{x:{grid:{display:false},ticks:{font:{size:10.5}}},y:{grid:{color:"#eee"},suggestedMax:NSTORES,ticks:{precision:0}}}}});
-// matrix table heatmap
-const mh=document.querySelector("#matrixTbl thead tr");
-mh.innerHTML="<th>Store</th>"+MONTHS.map(m=>`<th class="mcell">${m.split(" ")[0]}<br><span style="color:var(--muted);font-weight:600">${m.split(" ")[1]}</span></th>`).join("")+"<th>Last visit</th>";
-const mb=document.querySelector("#matrixTbl tbody");
-mb.innerHTML=PMATRIX.map(r=>{
-  const cells=r.slice(1).map(v=>{
-    if(v===0) return `<td class="mcell miss" title="missed">·</td>`;
-    if(v>1) return `<td class="mcell hit2" title="${v} visits">${v}</td>`;
-    return `<td class="mcell hit" title="visited">✓</td>`;
-  }).join("");
-  return `<tr><td>${r[0]}</td>${cells}<td style="color:var(--muted);font-size:11.5px">${PLAST[r[0]]||"—"}</td></tr>`;
-}).join("");
-// footer total row = per-month completion
-const tot=PERMONTH.map((v,i)=>`<td class="mcell" style="font-weight:800;color:${v>=NSTORES?'var(--green)':v>=NSTORES*0.8?'var(--amber)':'var(--red)'}">${v}</td>`).join("");
-document.querySelector("#matrixTbl tfoot tr").innerHTML=`<td style="font-weight:700">Visited / ${NSTORES}</td>${tot}<td></td>`;
-
-// reactive by-store table (total raised, completed, open, completion)
-const allStores=Array.from(new Set([...Object.keys(COMP_STORE),...Object.keys(OPEN_MAP)]));
-const rows=allStores.map(s=>{const cmp=COMP_STORE[s]||0,op=OPEN_MAP[s]||0;return [s,cmp+op,cmp,op, (cmp+op)?Math.round(100*cmp/(cmp+op)):0];}).sort((a,b)=>b[1]-a[1]);
-document.querySelector("#storeTbl tbody").innerHTML=rows.map(r=>{const oc=r[3]>0?'style="color:var(--red);font-weight:700"':'';return `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td ${oc}>${r[3]}</td><td>${r[4]}%</td></tr>`;}).join("");
-
-// audit feed
-document.getElementById("auditFeed").innerHTML=AUDIT.map(a=>`<div class="item"><h4>${a[0]} · ${a[1]}</h4><ul>${a[2].map(it=>`<li><span class="chip ${it[0]}">${it[0]=="done"?"closed":it[0]=="mon"?"monitor":"open"}</span> ${it[1]}</li>`).join("")}</ul></div>`).join("");
-
-document.getElementById("foot").innerHTML="<b>Sources:</b> Planned — 'Bewiched - Planned Maintenance' (visit log). Reactive — 'Maintenance Jobs' (fed by the Maintenance Request Form). Audit action plans — 'Richard Wagg' sheet, 'Brand Audit Date (NEW24/25)', Action Plan column (Claire's monthly audits). Read live via Google Sheets. <br>Caveats: reactive job <b>dates</b> are unreliable (form mis-entries) so ageing isn't shown; audit action plans are logged by manager name, not store. v1 — refreshed weekly.";
+function render(tab){
+  const d=DATA[tab], r=d.reactive, p=d.planned;
+  document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("on",b.dataset.k===tab));
+  $("scope").innerHTML="<b>Showing:</b> "+SCOPE[tab];
+  // KPIs
+  $("kOpen").textContent=r.open;
+  $("kOpenMeta").textContent=r.fwr+" further work · "+r.out+" outstanding";
+  $("kRate").textContent=pc(r.comp,r.total)+"%";
+  $("kRateMeta").textContent=r.comp+" of "+r.total+" logged jobs completed";
+  $("kPlan").textContent=p.thismonth+"/"+p.nstores;
+  $("kPlanMeta").textContent="visited in "+p.months[p.months.length-1].replace(/(\w+) (\d+)/,"$1 20$2")+" · standard 1/store/month";
+  // status donut
+  const ST=[["Completed",r.comp,"#1f8a4c"],["Further work required",r.fwr,"#b8860b"],["Outstanding",r.out,"#c0392b"]].filter(x=>x[1]>0);
+  mk("status",{type:"doughnut",data:{labels:ST.map(s=>s[0]),datasets:[{data:ST.map(s=>s[1]),backgroundColor:ST.map(s=>s[2])}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:"right",labels:{boxWidth:12,font:{size:11.5}}}}}});
+  $("statusNote").innerHTML="<b>"+r.comp+" completed</b> of <b>"+r.total+"</b> logged jobs = <b>"+pc(r.comp,r.total)+"% completion</b>. <b>"+r.open+" open</b> ("+r.fwr+" further work, "+r.out+" outstanding).";
+  // open by store
+  if(r.open_store.length){ $("openStore").style.display=""; $("openEmpty").style.display="none";
+    mk("openStore",{type:"bar",data:{labels:r.open_store.map(x=>x[0]),datasets:[{data:r.open_store.map(x=>x[1]),backgroundColor:"#c0392b",borderRadius:4}]},options:baseYbar});
+  } else { if(charts.openStore)charts.openStore.destroy(); $("openStore").style.display="none"; $("openEmpty").style.display="block"; }
+  // by-store table
+  $("storeTbl").querySelector("tbody").innerHTML=r.bystore.map(x=>{const oc=x[3]>0?'style="color:var(--red);font-weight:700"':'';const rate=x[1]?Math.round(100*x[2]/x[1]):0;return `<tr><td>${x[0]}</td><td>${x[1]}</td><td>${x[2]}</td><td ${oc}>${x[3]}</td><td>${rate}%</td></tr>`;}).join("");
+  // issues (excl Other)
+  const iss=r.issues.slice(0,14);
+  if(iss.length){ $("issues").style.display=""; $("issuesEmpty").style.display="none";
+    mk("issues",{type:"bar",data:{labels:iss.map(x=>x[0]),datasets:[{data:iss.map(x=>x[1]),backgroundColor:TEAL,borderRadius:4}]},options:baseYbar});
+  } else { if(charts.issues)charts.issues.destroy(); $("issues").style.display="none"; $("issuesEmpty").style.display="block"; }
+  // OTHER breakdown
+  $("otherTot").textContent=r.other_total;
+  if(r.other.length){ $("other").style.display=""; $("otherEmpty").style.display="none";
+    mk("other",{type:"bar",data:{labels:r.other.map(x=>x[0]),datasets:[{data:r.other.map(x=>x[1]),backgroundColor:"#b8860b",borderRadius:4}]},options:baseYbar});
+  } else { if(charts.other)charts.other.destroy(); $("other").style.display="none"; $("otherEmpty").style.display="block"; }
+  // planned per-month
+  mk("permonth",{type:"bar",data:{labels:p.months,datasets:[{data:p.permonth,backgroundColor:p.permonth.map(v=>v>=p.nstores?"#1f8a4c":v>=p.nstores*0.8?"#b8860b":"#c0392b"),borderRadius:4}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>" "+c.parsed.y+" of "+p.nstores+" stores visited"}}},scales:{x:{grid:{display:false},ticks:{font:{size:10.5}}},y:{grid:{color:"#eee"},suggestedMax:p.nstores,ticks:{precision:0}}}}});
+  // matrix
+  $("matrixTbl").querySelector("thead tr").innerHTML="<th>Store</th>"+p.months.map(m=>`<th class="mcell">${m.split(" ")[0]}<br><span style="color:var(--muted);font-weight:600">${m.split(" ")[1]}</span></th>`).join("")+"<th>Last visit</th>";
+  $("matrixTbl").querySelector("tbody").innerHTML=p.matrix.map(row=>{
+    const cells=row.slice(1).map(v=> v===0?`<td class="mcell miss" title="missed">·</td>`: v>1?`<td class="mcell hit2" title="${v} visits">${v}</td>`:`<td class="mcell hit" title="visited">✓</td>`).join("");
+    return `<tr><td>${row[0]}</td>${cells}<td style="color:var(--muted);font-size:11.5px">${p.last[row[0]]||"—"}</td></tr>`;}).join("");
+  const tot=p.permonth.map(v=>`<td class="mcell" style="font-weight:800;color:${v>=p.nstores?'var(--green)':v>=p.nstores*0.8?'var(--amber)':'var(--red)'}">${v}</td>`).join("");
+  $("matrixTbl").querySelector("tfoot tr").innerHTML=`<td style="font-weight:700">Visited / ${p.nstores}</td>${tot}<td></td>`;
+  // audit feed (shared)
+  $("auditNote").innerHTML=(tab==="company"
+    ?"From Claire's brand-audit action plans (Richard Wagg sheet → \"Brand Audit Date (NEW24/25)\", Action Plan column). Each audit has a <b>Maintenance</b> section, tagged in-text — <span class='chip open'>open</span> <span class='chip mon'>monitor</span> <span class='chip done'>closed</span>."
+    :"<b>Estate-wide feed (not area-split).</b> Audit action plans are logged against the <b>manager / shift-runner name</b>, not a normalised store, so they can't be reliably attributed to "+tab+"'s patch. Showing the full recent feed.");
+  $("auditFeed").innerHTML=AUDIT.map(a=>`<div class="item"><h4>${a[0]} · ${a[1]}</h4><ul>${a[2].map(it=>`<li><span class="chip ${it[0]}">${it[0]=="done"?"closed":it[0]=="mon"?"monitor":"open"}</span> ${it[1]}</li>`).join("")}</ul></div>`).join("");
+}
+$("tabs").addEventListener("click",e=>{const b=e.target.closest(".tab"); if(b) render(b.dataset.k);});
+render("company");
+$("foot").innerHTML="<b>Sources:</b> Planned — 'Bewiched - Planned Maintenance' (visit log). Reactive — 'Maintenance Jobs' (Maintenance Request Form). Audit action plans — 'Richard Wagg' sheet, 'Brand Audit Date (NEW24/25)', Action Plan column. Read live via Google Sheets. <br><b>Area scoping:</b> reactive jobs &amp; planned visits are split by the store→coach map used on the area dashboards (Jon 9, Rich 9, Ian 3 stores; Ian's patch logs very few reactive jobs). Audit action plans are estate-wide (logged by manager name). Reactive job <b>dates</b> are unreliable so ageing isn't shown; 'Test' rows excluded. v2 — refreshed weekly.";
 </script>
 </body>
 </html>
+
