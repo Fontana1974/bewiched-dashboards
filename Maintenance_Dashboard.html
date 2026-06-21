@@ -69,6 +69,7 @@
   <div class="tabs" id="tabs"></div>
   <div class="scope" id="scope"></div>
 
+  <div id="standardView">
   <div class="cards">
     <div class="card"><div class="lbl">🔴 Open reactive jobs</div><div class="val" style="color:var(--red)" id="kOpen">—</div><div class="meta" id="kOpenMeta">awaiting work (outstanding + further work)</div></div>
     <div class="card"><div class="lbl">✅ Reactive completion rate</div><div class="val" style="color:var(--green)" id="kRate">—</div><div class="meta" id="kRateMeta">completed of all logged jobs</div></div>
@@ -119,6 +120,35 @@
     <div class="note teal" id="auditNote" style="margin-top:0"></div>
     <div class="feed" id="auditFeed" style="margin-top:14px"></div>
   </div>
+  </div><!-- /standardView -->
+
+  <div id="servicingView" style="display:none">
+    <div class="cards">
+      <div class="card"><div class="lbl">☕ Machines in-date</div><div class="val" style="color:var(--green)" id="cIn">—</div><div class="meta" id="cInMeta">of stores with a service record</div></div>
+      <div class="card"><div class="lbl">🔴 Overdue a service</div><div class="val" style="color:var(--red)" id="cOver">—</div><div class="meta">last service &gt; 6 months ago</div></div>
+      <div class="card"><div class="lbl">🟠 No record logged</div><div class="val" style="color:var(--amber)" id="cNo">—</div><div class="meta" id="cNoMeta">estate sites never serviced in the log</div></div>
+      <div class="card"><div class="lbl">🛠️ Services logged</div><div class="val" id="cTot">—</div><div class="meta">all completed services on record</div></div>
+    </div>
+
+    <div class="section-title">☕ Coffee machine servicing — status by store</div>
+    <div class="grid2">
+      <div class="panel"><div style="font-size:13px;font-weight:700;color:var(--brown);margin-bottom:8px">Service status</div><div class="chart-box" style="height:240px"><canvas id="cStatus"></canvas></div>
+        <div class="note teal" id="cNote"></div>
+      </div>
+      <div class="panel"><div style="font-size:13px;font-weight:700;color:var(--brown);margin-bottom:8px">⏳ Days since last service <span style="font-weight:600;color:var(--muted)">(red &gt; 6 months)</span></div><div class="chart-box" style="height:360px"><canvas id="cDays"></canvas></div></div>
+    </div>
+
+    <div class="section-title">Per-store service register</div>
+    <div class="panel">
+      <table id="cTbl"><thead><tr><th>Store</th><th>Last service</th><th>Months ago</th><th>Services on record</th><th>Last type</th><th>Status</th></tr></thead><tbody></tbody></table>
+      <div class="note" id="cNoRec"></div>
+    </div>
+
+    <div class="section-title">🧰 Service type split</div>
+    <div class="panel"><div class="chart-box" style="height:200px"><canvas id="cTypes"></canvas></div>
+      <div class="note">Two service kinds are logged: a <b>Full Service</b> (deep strip-down) and a lighter <b>Front End Service</b> (seals, group heads, descale). The "months ago" / overdue flag uses each store's <b>most recent service of either kind</b>.</div>
+    </div>
+  </div><!-- /servicingView -->
 
   <footer id="foot"></footer>
 </div>
@@ -128,6 +158,7 @@ const TEAL="#127d77";
 const $=id=>document.getElementById(id);
 const pc=(a,t)=>t?Math.round(1000*a/t)/10:0;
 const DATA={"company":{"reactive":{"comp":189,"fwr":14,"out":6,"open":20,"total":209,"rate":90,"open_store":[["Rushden Lakes",4],["Northampton DT",3],["Northampton",3],["Rothwell",3],["Higham",2],["Burton",1],["Kettering",1],["Market Harborough",1],["P'boro Bridge St",1],["Rugby",1]],"bystore":[["Rushden Lakes",44,40,4],["Higham",16,14,2],["Market Harborough",15,14,1],["Northampton DT",14,11,3],["Northampton",14,11,3],["Kettering",13,12,1],["Leamington Parade",12,12,0],["W'boro Train Stn",12,12,0],["Rothwell",11,8,3],["Rugby",11,10,1],["Burton",9,8,1],["Corby",8,8,0],["W'boro Market St",8,8,0],["P'boro Bridge St",6,5,1],["P'boro Fletton",5,5,0],["Olney",5,5,0],["Lower Heathcote",4,4,0],["Balsall Common",1,1,0],["Glenvale DT",1,1,0]],"issues":[["Magrini Milk Dispenser",20],["Dishwasher",15],["Grinder",15],["Coffee Machine",10],["Ice Machine",10],["Panini Fridge",10],["Door",8],["Air Conditioning",8],["Sink / Tap",7],["Pipework leak/blocked",7],["Music",6],["Table or chair",6],["Merrychef / HSO",5],["Toilet",5],["Blender",4],["Printer",4],["Under Counter Fridge",4],["Milkshake Machine",3],["Panini Grill",2],["Wall",1],["Ceiling",1],["Ipad",1],["izettle",1],["Tamper",1],["Water Boiler / Tea Urn",1]],"other":[["Pest control (flies/rodents/ants)",11],["Fittings / consumables",9],["IT / tills / comms",5],["Doors / locks / cupboards",5],["Cleaning / decor / windows",5],["Signage / boards",4],["Fridge / cooling / smells",4],["Furniture / fixtures",4],["Flooring / trip hazards",4],["Electrical / power",3],["Lighting",3],["Plumbing / leaks",1],["Unclassified / misc",1]],"other_total":59,"njobs":209},"planned":{"months":["Jul 25","Aug 25","Sep 25","Oct 25","Nov 25","Dec 25","Jan 26","Feb 26","Mar 26","Apr 26","May 26","Jun 26"],"matrix":[["Higham",2,1,1,1,1,0,1,1,2,1,1,1],["Lakes",3,1,1,1,1,1,1,1,1,2,0,1],["Leamington Parade",2,0,1,1,1,1,1,1,1,1,1,1],["Market Street",1,1,1,1,1,1,2,1,1,1,1,0],["Northampton DT",1,1,1,0,1,1,1,1,1,1,1,2],["Peterborough",2,1,1,1,1,1,1,1,1,1,0,1],["Balsall Common",1,1,1,1,1,1,1,1,1,0,0,1],["Lower Heathcote",1,0,1,1,1,1,1,2,1,1,1,0],["Market Harborough",1,1,2,2,1,1,2,1,0,1,1,0],["Northampton Grosvenor",1,1,1,0,2,1,1,1,1,1,2,0],["Rugby",0,1,1,1,1,2,1,1,1,1,0,1],["Burton",1,1,1,1,1,0,1,1,0,1,1,0],["Corby",1,1,2,1,1,1,1,0,0,1,0,1],["Fletton",1,1,1,1,1,1,1,1,0,0,0,1],["Kettering",1,2,0,2,1,1,1,1,1,1,0,0],["Rothwell",2,1,3,1,1,0,1,2,1,0,1,0],["Glenvale DT",2,1,1,1,1,0,1,1,0,1,0,0],["Train Station",1,2,0,1,1,0,1,1,1,0,0,1],["Leamington Retail",1,0,1,1,2,1,1,1,0,0,0,0],["Olney",0,0,0,0,0,0,0,0,0,0,0,1]],"permonth":[18,16,17,17,19,14,19,18,13,14,9,11],"nstores":20,"last":{"Balsall Common":"05 Jun 2026","Burton":"07 May 2026","Corby":"11 Jun 2026","Fletton":"18 Jun 2026","Glenvale DT":"21 Apr 2026","Higham":"12 Jun 2026","Kettering":"22 Apr 2026","Lakes":"19 Jun 2026","Leamington Parade":"10 Jun 2026","Leamington Retail":"05 Feb 2026","Lower Heathcote":"11 May 2026","Market Harborough":"18 May 2026","Market Street":"06 May 2026","Northampton DT":"01 Jun 2026","Northampton Grosvenor":"27 May 2026","Olney":"03 Jun 2026","Peterborough":"08 Jun 2026","Rothwell":"14 May 2026","Rugby":"09 Jun 2026","Train Station":"05 Jun 2026"},"thismonth":11}},"Jon":{"reactive":{"comp":105,"fwr":7,"out":5,"open":12,"total":117,"rate":90,"open_store":[["Rushden Lakes",4],["Rothwell",3],["Higham",2],["Burton",1],["Kettering",1],["P'boro Bridge St",1]],"bystore":[["Rushden Lakes",44,40,4],["Higham",16,14,2],["Kettering",13,12,1],["Rothwell",11,8,3],["Burton",9,8,1],["Corby",8,8,0],["P'boro Bridge St",6,5,1],["P'boro Fletton",5,5,0],["Olney",5,5,0]],"issues":[["Dishwasher",10],["Magrini Milk Dispenser",10],["Grinder",9],["Panini Fridge",8],["Door",7],["Coffee Machine",6],["Air Conditioning",5],["Sink / Tap",4],["Ice Machine",3],["Merrychef / HSO",3],["Pipework leak/blocked",3],["Under Counter Fridge",3],["Panini Grill",2],["Toilet",2],["Milkshake Machine",2],["Table or chair",2],["Blender",1],["Wall",1],["Printer",1],["Ceiling",1],["Ipad",1],["izettle",1],["Music",1]],"other":[["Pest control (flies/rodents/ants)",8],["IT / tills / comms",3],["Fittings / consumables",3],["Doors / locks / cupboards",3],["Flooring / trip hazards",3],["Signage / boards",2],["Fridge / cooling / smells",2],["Cleaning / decor / windows",2],["Furniture / fixtures",2],["Lighting",2],["Electrical / power",1],["Plumbing / leaks",1]],"other_total":32,"njobs":117},"planned":{"months":["Jul 25","Aug 25","Sep 25","Oct 25","Nov 25","Dec 25","Jan 26","Feb 26","Mar 26","Apr 26","May 26","Jun 26"],"matrix":[["Higham",2,1,1,1,1,0,1,1,2,1,1,1],["Lakes",3,1,1,1,1,1,1,1,1,2,0,1],["Peterborough",2,1,1,1,1,1,1,1,1,1,0,1],["Burton",1,1,1,1,1,0,1,1,0,1,1,0],["Corby",1,1,2,1,1,1,1,0,0,1,0,1],["Fletton",1,1,1,1,1,1,1,1,0,0,0,1],["Kettering",1,2,0,2,1,1,1,1,1,1,0,0],["Rothwell",2,1,3,1,1,0,1,2,1,0,1,0],["Olney",0,0,0,0,0,0,0,0,0,0,0,1]],"permonth":[8,8,7,8,8,5,8,7,5,6,3,6],"nstores":9,"last":{"Higham":"12 Jun 2026","Lakes":"19 Jun 2026","Peterborough":"08 Jun 2026","Burton":"07 May 2026","Corby":"11 Jun 2026","Fletton":"18 Jun 2026","Kettering":"22 Apr 2026","Rothwell":"14 May 2026","Olney":"03 Jun 2026"},"thismonth":6}},"Ian":{"reactive":{"comp":2,"fwr":0,"out":0,"open":0,"total":2,"rate":100,"open_store":[],"bystore":[["Balsall Common",1,1,0],["Glenvale DT",1,1,0]],"issues":[["Coffee Machine",1],["Ice Machine",1]],"other":[],"other_total":0,"njobs":2},"planned":{"months":["Jul 25","Aug 25","Sep 25","Oct 25","Nov 25","Dec 25","Jan 26","Feb 26","Mar 26","Apr 26","May 26","Jun 26"],"matrix":[["Balsall Common",1,1,1,1,1,1,1,1,1,0,0,1],["Glenvale DT",2,1,1,1,1,0,1,1,0,1,0,0]],"permonth":[2,2,2,2,2,1,2,2,1,1,0,1],"nstores":2,"last":{"Balsall Common":"05 Jun 2026","Glenvale DT":"21 Apr 2026"},"thismonth":1}},"Rich":{"reactive":{"comp":82,"fwr":7,"out":1,"open":8,"total":90,"rate":91,"open_store":[["Northampton DT",3],["Northampton",3],["Market Harborough",1],["Rugby",1]],"bystore":[["Market Harborough",15,14,1],["Northampton DT",14,11,3],["Northampton",14,11,3],["Leamington Parade",12,12,0],["W'boro Train Stn",12,12,0],["Rugby",11,10,1],["W'boro Market St",8,8,0],["Lower Heathcote",4,4,0]],"issues":[["Magrini Milk Dispenser",10],["Grinder",6],["Ice Machine",6],["Music",5],["Dishwasher",5],["Pipework leak/blocked",4],["Table or chair",4],["Sink / Tap",3],["Air Conditioning",3],["Blender",3],["Toilet",3],["Coffee Machine",3],["Printer",3],["Merrychef / HSO",2],["Panini Fridge",2],["Door",1],["Milkshake Machine",1],["Tamper",1],["Under Counter Fridge",1],["Water Boiler / Tea Urn",1]],"other":[["Fittings / consumables",6],["Pest control (flies/rodents/ants)",3],["Cleaning / decor / windows",3],["Signage / boards",2],["IT / tills / comms",2],["Doors / locks / cupboards",2],["Electrical / power",2],["Fridge / cooling / smells",2],["Furniture / fixtures",2],["Unclassified / misc",1],["Flooring / trip hazards",1],["Lighting",1]],"other_total":27,"njobs":90},"planned":{"months":["Jul 25","Aug 25","Sep 25","Oct 25","Nov 25","Dec 25","Jan 26","Feb 26","Mar 26","Apr 26","May 26","Jun 26"],"matrix":[["Leamington Parade",2,0,1,1,1,1,1,1,1,1,1,1],["Market Street",1,1,1,1,1,1,2,1,1,1,1,0],["Northampton DT",1,1,1,0,1,1,1,1,1,1,1,2],["Lower Heathcote",1,0,1,1,1,1,1,2,1,1,1,0],["Market Harborough",1,1,2,2,1,1,2,1,0,1,1,0],["Northampton Grosvenor",1,1,1,0,2,1,1,1,1,1,2,0],["Rugby",0,1,1,1,1,2,1,1,1,1,0,1],["Train Station",1,2,0,1,1,0,1,1,1,0,0,1],["Leamington Retail",1,0,1,1,2,1,1,1,0,0,0,0]],"permonth":[8,6,8,7,9,8,9,9,7,7,6,4],"nstores":9,"last":{"Leamington Parade":"10 Jun 2026","Market Street":"06 May 2026","Northampton DT":"01 Jun 2026","Lower Heathcote":"11 May 2026","Market Harborough":"18 May 2026","Northampton Grosvenor":"27 May 2026","Rugby":"09 Jun 2026","Train Station":"05 Jun 2026","Leamington Retail":"05 Feb 2026"},"thismonth":4}}};
+const CMS={"rows":[{"store":"Corby","last":"10 Oct 2024","days":619,"count":5,"type":"Front End Service","status":"overdue","sort":739169},{"store":"Leamington Parade","last":"01 Nov 2024","days":597,"count":2,"type":"Front End Service","status":"overdue","sort":739191},{"store":"Higham","last":"20 Feb 2025","days":486,"count":10,"type":"Front End Service","status":"overdue","sort":739302},{"store":"Balsall Common","last":"02 Jun 2025","days":384,"count":2,"type":"Front End Service","status":"overdue","sort":739404},{"store":"Peterborough Fletton","last":"10 Jul 2025","days":346,"count":6,"type":"Front End Service","status":"overdue","sort":739442},{"store":"Rothwell","last":"30 Jan 2026","days":142,"count":5,"type":"Front End Service","status":"indate","sort":739646},{"store":"Rushden Lakes","last":"11 Feb 2026","days":130,"count":5,"type":"Front End Service","status":"indate","sort":739658},{"store":"Burton","last":"11 Feb 2026","days":130,"count":4,"type":"Full Service","status":"indate","sort":739658},{"store":"Northampton (Grosvenor)","last":"11 Feb 2026","days":130,"count":4,"type":"Front End Service","status":"indate","sort":739658},{"store":"Rugby","last":"11 Feb 2026","days":130,"count":3,"type":"Front End Service","status":"indate","sort":739658},{"store":"Market Harborough","last":"12 Feb 2026","days":129,"count":4,"type":"Front End Service","status":"indate","sort":739659},{"store":"Kettering","last":"04 Mar 2026","days":109,"count":3,"type":"Full Service","status":"indate","sort":739679},{"store":"P'boro Bridge St","last":"13 Mar 2026","days":100,"count":3,"type":"Full Service","status":"indate","sort":739688},{"store":"Leamington Retail","last":"13 Mar 2026","days":100,"count":2,"type":"Full Service","status":"indate","sort":739688},{"store":"Lower Heathcote","last":"19 Mar 2026","days":94,"count":3,"type":"Full Service","status":"indate","sort":739694},{"store":"W'boro Market St","last":"30 Mar 2026","days":83,"count":4,"type":"Front End Service","status":"indate","sort":739705},{"store":"Attleborough","last":"09 Apr 2026","days":73,"count":1,"type":"Full Service","status":"indate","sort":739715}],"indate":12,"due":0,"overdue":5,"nstores":17,"norecord":["Glenvale DT","Olney","Billing DT","Northampton DT","W'boro Train Stn"],"interval_months":6,"types":{"Full Service":35,"Front End Service":29,"Unspecified":2}};
 // audit action-plan feed — logged by manager name, not store, so it's an estate-wide feed (not area-split)
 const AUDIT=[
  ["21 May 2026","Kimberley",[["mon","Toilet surround — no resolution, monitor"],["done","Merrychef — resolved"],["mon","Dishwasher — hand-washing, awaiting new"],["mon","Coffee machine — one steam arm down"],["mon","Fridge — awaiting repair"]]],
@@ -139,8 +170,8 @@ const AUDIT=[
  ["6 May 2026","Xander",[["mon","Merrychef — awaiting replacement"],["mon","Front door — awaiting repair"],["open","Store-room storage unit broken/unstable"],["mon","Magrini — missing parts, reported"]]],
  ["6 May 2026","Amy Watts",[["open","Ice machine — not producing ice, reported"],["open","Grey wall above panini fridge — paint touch-up"]]]
 ];
-const TABS=[["company","Overview"],["Jon","Jon"],["Ian","Ian"],["Rich","Rich"]];
-const SCOPE={company:"All 21 stores (estate-wide).",Jon:"Jon's patch — Rushden Lakes, Higham, Kettering, Rothwell, Burton, Corby, Peterborough (Bridge St &amp; Fletton), Olney.",Ian:"Ian's patch — Glenvale DT, Balsall Common, Attleborough.",Rich:"Rich's patch — Northampton (Grosvenor &amp; DT), Market Harborough, Leamington Parade, Lower Heathcote, Rugby, Wellingborough (Market St &amp; Train Station)."};
+const TABS=[["company","Overview"],["Jon","Jon"],["Ian","Ian"],["Rich","Rich"],["servicing","☕ Coffee Servicing"]];
+const SCOPE={company:"All 21 stores (estate-wide).",Jon:"Jon's patch — Rushden Lakes, Higham, Kettering, Rothwell, Burton, Corby, Peterborough (Bridge St &amp; Fletton), Olney.",Ian:"Ian's patch — Glenvale DT, Balsall Common, Attleborough.",Rich:"Rich's patch — Northampton (Grosvenor &amp; DT), Market Harborough, Leamington Parade, Lower Heathcote, Rugby, Wellingborough (Market St &amp; Train Station).",servicing:"Coffee machine servicing across the estate — last service &amp; overdue status. Due date derived on a 6-month interval (the sheet logs services, not a 'next due' date)."};
 $("gen").textContent="Generated "+new Date().toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"})+".";
 
 // tab bar
@@ -151,10 +182,39 @@ function mk(id,cfg){ if(charts[id]) charts[id].destroy(); charts[id]=new Chart($
 const baseX={grid:{color:"#eee"},suggestedMin:0,ticks:{precision:0}};
 const baseYbar={indexAxis:"y",responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:baseX,y:{grid:{display:false},ticks:{font:{size:11}}}}};
 
+function renderServicing(){
+  $("standardView").style.display="none"; $("servicingView").style.display="";
+  const c=CMS;
+  $("cIn").textContent=c.indate+"/"+c.nstores;
+  $("cInMeta").textContent="in-date of "+c.nstores+" stores with a record";
+  $("cOver").textContent=c.overdue;
+  $("cNo").textContent=c.norecord.length;
+  $("cNoMeta").textContent=c.norecord.join(", ")||"all sites have a record";
+  $("cTot").textContent=Object.values(c.types).reduce((a,b)=>a+b,0);
+  // status doughnut
+  const SD=[["In-date",c.indate,"#1f8a4c"],["Due soon",c.due,"#b8860b"],["Overdue",c.overdue,"#c0392b"],["No record",c.norecord.length,"#9b8c7d"]].filter(x=>x[1]>0);
+  mk("cStatus",{type:"doughnut",data:{labels:SD.map(x=>x[0]),datasets:[{data:SD.map(x=>x[1]),backgroundColor:SD.map(x=>x[2])}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:"right",labels:{boxWidth:12,font:{size:11.5}}}}}});
+  $("cNote").innerHTML="<b>"+c.indate+" of "+c.nstores+"</b> stores with a service record are in-date; <b>"+c.overdue+" overdue</b> (last service over 6 months ago). A further <b>"+c.norecord.length+"</b> estate sites have no service logged at all.";
+  // days bar
+  const rows=c.rows;
+  mk("cDays",{type:"bar",data:{labels:rows.map(r=>r.store),datasets:[{data:rows.map(r=>r.days),backgroundColor:rows.map(r=>r.status==="overdue"?"#c0392b":r.status==="due"?"#b8860b":"#1f8a4c"),borderRadius:4}]},
+    options:{indexAxis:"y",responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:x=>" "+x.parsed.x+" days since last service"}}},scales:{x:{grid:{color:"#eee"},suggestedMin:0,title:{display:true,text:"days since last service"}},y:{grid:{display:false},ticks:{font:{size:10.5}}}}}});
+  // table
+  const badge=s=>s==="overdue"?'<span class="chip open">overdue</span>':s==="due"?'<span class="chip mon">due soon</span>':'<span class="chip done">in-date</span>';
+  $("cTbl").querySelector("tbody").innerHTML=rows.map(r=>`<tr><td>${r.store}</td><td>${r.last}</td><td ${r.status==='overdue'?'style="color:var(--red);font-weight:700"':''}>${(r.days/30.4).toFixed(1)}</td><td>${r.count}</td><td style="font-size:12px;color:var(--muted)">${r.type}</td><td>${badge(r.status)}</td></tr>`).join("");
+  $("cNoRec").innerHTML="Due status is derived on a <b>6-month service interval</b> (the sheet records services done, not a 'next due' date) — so it flags any machine last serviced over 6 months ago. <b>No service record logged</b> for: "+(c.norecord.join(", ")||"—")+" (newer / drive-thru sites not yet in the servicing log). 'Months ago' shown to 1 dp; dates parsed as day/month (garbled/future dates skipped).";
+  // types
+  const T=Object.entries(c.types).sort((a,b)=>b[1]-a[1]);
+  mk("cTypes",{type:"bar",data:{labels:T.map(x=>x[0]),datasets:[{data:T.map(x=>x[1]),backgroundColor:"#127d77",borderRadius:4}]},
+    options:{indexAxis:"y",responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{color:"#eee"},suggestedMin:0,ticks:{precision:0}},y:{grid:{display:false}}}}});
+}
 function render(tab){
-  const d=DATA[tab], r=d.reactive, p=d.planned;
   document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("on",b.dataset.k===tab));
   $("scope").innerHTML="<b>Showing:</b> "+SCOPE[tab];
+  if(tab==="servicing"){ renderServicing(); return; }
+  $("servicingView").style.display="none"; $("standardView").style.display="";
+  const d=DATA[tab], r=d.reactive, p=d.planned;
   // KPIs
   $("kOpen").textContent=r.open;
   $("kOpenMeta").textContent=r.fwr+" further work · "+r.out+" outstanding";
