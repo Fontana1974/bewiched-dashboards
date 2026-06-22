@@ -122,7 +122,7 @@
       </div>
     </div>
     <div class="spacer"></div>
-    <div class="ctx">Site: <b>Northampton Drive-Thru</b> (Moulton Park) · Area Coach <b>Rich</b><br>Mature drive-thru · live to w/c 1 Jun 2026</div>
+    <div class="ctx">Site: <b>Northampton Drive-Thru</b> (Moulton Park) · Area Coach <b>Rich</b><br>Mature drive-thru · live to w/c 15 Jun 2026</div>
   </div>
 </div>
 
@@ -177,7 +177,7 @@
   <script>
   (function(){
     /* Per-tab health for the previous complete week. Generator resets these each Monday. */
-    const TAB_STATUS={sales:"green",waste:"green",mix:"green",f1:"green",sentiment:"green",storesales:"green"};
+    const TAB_STATUS={sales:"red",waste:"green",mix:"green",f1:"red",sentiment:"red",storesales:"green"};
     document.querySelectorAll(".tab-btn").forEach(b=>{
       const s=TAB_STATUS[b.dataset.tab]; if(!s) return;
       const d=document.createElement("span");
@@ -191,17 +191,17 @@
   <!-- ===== TAB 1: Sales & Hours ===== -->
   <section class="tab-panel active" id="tab-sales">
     <div class="actbox">
-      <div><div class="ab-lbl">Last week actual sales · w/c 8 Jun</div><div class="ab-val">£26,378</div></div>
+      <div><div class="ab-lbl">Last week actual sales · w/c 15 Jun</div><div class="ab-val">£24,898</div></div>
       <div class="ab-stats">
-        <div><span>vs forecast</span><b class="pos">+1.5%</b><small>fcst £26,000</small></div>
+        <div><span>vs forecast</span><b class="neg">−4.2%</b><small>fcst £26,000</small></div>
         <div><span>Estate rank</span><b class="pos">1 / 21</b><small>by sales £</small></div>
-        <div><span>YoY (vs last year)</span><b class="pos">+12.4%</b><small>vs £23.5k last yr</small></div>
+        <div><span>YoY (vs last year)</span><b class="pos">+9.5%</b><small>vs £22.7k last yr</small></div>
         <div><span>CPH</span><b class="pos">£75.4</b><small>target £70 · met</small></div>
       </div>
     </div>
     <div class="cards">
       <div class="card"><div class="lbl">Last 13 wks avg sales</div><div class="val">£25,776</div><div class="meta">/ wk · live BigQuery</div></div>
-      <div class="card"><div class="lbl">YoY growth</div><div class="val" style="color:var(--green)">+12.4%</div><div class="meta">w/c 8 Jun vs 2025</div></div>
+      <div class="card"><div class="lbl">YoY growth</div><div class="val" style="color:var(--green)">+9.5%</div><div class="meta">w/c 15 Jun vs 2025</div></div>
       <div class="card"><div class="lbl">CPH (sales per labour hour) — target vs actual</div><div class="val">£70</div><div class="meta">last wk actual <b style="color:var(--green)">£75.4</b> · +£5.4/hr (w/c 8 Jun)</div></div>
       <div class="card"><div class="lbl">Estate rank (sales)</div><div class="val" style="color:var(--green)">1 / 21</div><div class="meta">top of the estate last week</div></div>
     </div>
@@ -225,7 +225,7 @@
         <div class="mini" style="margin-top:8px">Hours = forecast sales ÷ £70 CPH (flat). Last week the store actually ran £75.4 CPH — ahead of target — so real hours sit below this line.</div>
       </div>
     </div>
-    <div class="focus green"><span class="ar">→</span>Focus this week: £26,378 vs £26,000 forecast (+1.5%) — ahead of plan; protect the £70+ CPH.</div>
+    <div class="focus green"><span class="ar">→</span>Focus this week: £24,898 vs £26,000 forecast (−4.2%) — ahead of plan; protect the £70+ CPH.</div>
     <div class="section-title">🧮 Schedule builder — hourly staffing</div>
     <div class="panel">
       <div style="display:flex;gap:18px;align-items:flex-end;flex-wrap:wrap;margin-bottom:12px">
@@ -314,13 +314,13 @@
     <div class="cards">
       <div class="card"><div class="lbl">Wastage %</div>
         <div style="display:flex;gap:18px;align-items:flex-end;margin:3px 0 4px">
-          <div><div style="font-size:20px;font-weight:800;line-height:1;color:var(--green)">0.7%</div><div style="font-size:10px;color:#9a8a7c;margin-top:2px">last week</div></div>
-          <div><div style="font-size:20px;font-weight:800;line-height:1;color:var(--green)">1.2%</div><div style="font-size:10px;color:#9a8a7c;margin-top:2px">4-week run rate</div></div>
+          <div><div style="font-size:20px;font-weight:800;line-height:1;color:var(--green)">1.1%</div><div style="font-size:10px;color:#9a8a7c;margin-top:2px">last week</div></div>
+          <div><div style="font-size:20px;font-weight:800;line-height:1;color:var(--green)">1.1%</div><div style="font-size:10px;color:#9a8a7c;margin-top:2px">4-week run rate</div></div>
         </div><div class="meta">target 3%</div></div>
       <div class="card"><div class="lbl">Waste &pound; (retail lost)</div>
         <div style="display:flex;gap:18px;align-items:flex-end;margin:3px 0 4px">
-          <div><div style="font-size:20px;font-weight:800;line-height:1">£182</div><div style="font-size:10px;color:#9a8a7c;margin-top:2px">last week</div></div>
-          <div><div style="font-size:20px;font-weight:800;line-height:1">£309</div><div style="font-size:10px;color:#9a8a7c;margin-top:2px">4-week weekly avg</div></div>
+          <div><div style="font-size:20px;font-weight:800;line-height:1">£272</div><div style="font-size:10px;color:#9a8a7c;margin-top:2px">last week</div></div>
+          <div><div style="font-size:20px;font-weight:800;line-height:1">£289</div><div style="font-size:10px;color:#9a8a7c;margin-top:2px">4-week weekly avg</div></div>
         </div><div class="meta">over-production &middot; item tables below are last 4 weeks</div></div>
     </div>
 
@@ -394,9 +394,9 @@ else{bg=warm?"#fdf3e6":"#eef4fb";bd=warm?"#f0d8b0":"#cfe0f2";fg="#4a3a2a";
   <section class="tab-panel" id="tab-f1">
     <div class="section-title">🏁 F1 Operational Excellence — Qualifying &amp; Race</div>
     <div class="cards">
-      <div class="card"><div class="lbl">Latest Quali rank</div><div class="val" style="color:var(--green)">2 / 21</div><div class="meta">W/C 8 Jun · sharp recovery</div></div>
-      <div class="card"><div class="lbl">Latest Quali queue avg</div><div class="val" style="color:var(--green)">134s ▼</div><div class="meta">down from 207s</div></div>
-      <div class="card"><div class="lbl">Latest Race result</div><div class="val" style="color:var(--red)">P15 · 8 pts</div><div class="meta">W/C 6 Jun · off weekend</div></div>
+      <div class="card"><div class="lbl">Latest Quali rank</div><div class="val" style="color:var(--amber)">9 / 21</div><div class="meta">W/C 15 Jun · sharp recovery</div></div>
+      <div class="card"><div class="lbl">Latest Quali queue avg</div><div class="val" style="color:var(--green)">125s</div><div class="meta">down from 207s</div></div>
+      <div class="card"><div class="lbl">Latest Race result</div><div class="val" style="color:var(--red)">P13 · 10 pts</div><div class="meta">W/C 6 Jun · off weekend</div></div>
       <div class="card"><div class="lbl">Race consistency</div><div class="val" style="color:var(--amber)">Volatile</div><div class="meta">queue swings 145s → 312s</div></div>
     </div>
 
@@ -436,33 +436,35 @@ else{bg=warm?"#fdf3e6":"#eef4fb";bd=warm?"#f0d8b0":"#cfe0f2";fg="#4a3a2a";
       <div class="panel">
         <div style="font-size:13px;font-weight:700;color:#5b3a29;margin-bottom:10px">Constructors’ standings <span style="font-weight:400;color:#9a8a7c;font-size:11px">· by avg pts/store</span></div>
 
+
 <div style="display:grid;grid-template-columns:30px 1fr 78px;gap:10px;align-items:center;padding:8px 10px;border-radius:8px;background:#fff7e9;box-shadow:inset 0 0 0 1.5px #e7c873;margin-bottom:6px">
      <div style="font-weight:800;font-size:15px;color:#5b3a29;text-align:center">1</div>
      <div>
        <div style="font-weight:700;font-size:13.5px;color:#3f2d22">Rich <span style="font-size:10.5px;font-weight:700;color:#b8860b">◄ this store’s constructor</span></div>
        <div style="height:9px;background:#efe7dd;border-radius:5px;margin-top:5px;overflow:hidden"><div style="height:100%;width:100%;background:#b8860b;border-radius:5px"></div></div>
-       <div style="font-size:10.5px;color:#9a8a7c;margin-top:3px">898 pts total · 9 stores</div>
+       <div style="font-size:10.5px;color:#9a8a7c;margin-top:3px">1017 pts total · 9 stores</div>
      </div>
-     <div style="text-align:right"><div style="font-weight:800;font-size:18px;color:#b8860b">100</div><div style="font-size:9.5px;color:#9a8a7c;margin-top:-2px">pts/store</div></div>
+     <div style="text-align:right"><div style="font-weight:800;font-size:18px;color:#b8860b">113</div><div style="font-size:9.5px;color:#9a8a7c;margin-top:-2px">pts/store</div></div>
    </div>
 <div style="display:grid;grid-template-columns:30px 1fr 78px;gap:10px;align-items:center;padding:8px 10px;border-radius:8px;background:transparent;margin-bottom:6px">
      <div style="font-weight:800;font-size:15px;color:#5b3a29;text-align:center">2</div>
      <div>
        <div style="font-weight:700;font-size:13.5px;color:#3f2d22">Ian</div>
-       <div style="height:9px;background:#efe7dd;border-radius:5px;margin-top:5px;overflow:hidden"><div style="height:100%;width:99%;background:#5b3a29;border-radius:5px"></div></div>
-       <div style="font-size:10.5px;color:#9a8a7c;margin-top:3px">298 pts total · 3 stores</div>
+       <div style="height:9px;background:#efe7dd;border-radius:5px;margin-top:5px;overflow:hidden"><div style="height:100%;width:97%;background:#5b3a29;border-radius:5px"></div></div>
+       <div style="font-size:10.5px;color:#9a8a7c;margin-top:3px">329 pts total · 3 stores</div>
      </div>
-     <div style="text-align:right"><div style="font-weight:800;font-size:18px;color:#3f2d22">99</div><div style="font-size:9.5px;color:#9a8a7c;margin-top:-2px">pts/store</div></div>
+     <div style="text-align:right"><div style="font-weight:800;font-size:18px;color:#3f2d22">110</div><div style="font-size:9.5px;color:#9a8a7c;margin-top:-2px">pts/store</div></div>
    </div>
 <div style="display:grid;grid-template-columns:30px 1fr 78px;gap:10px;align-items:center;padding:8px 10px;border-radius:8px;background:transparent;margin-bottom:6px">
      <div style="font-weight:800;font-size:15px;color:#5b3a29;text-align:center">3</div>
      <div>
        <div style="font-weight:700;font-size:13.5px;color:#3f2d22">Jon</div>
        <div style="height:9px;background:#efe7dd;border-radius:5px;margin-top:5px;overflow:hidden"><div style="height:100%;width:90%;background:#5b3a29;border-radius:5px"></div></div>
-       <div style="font-size:10.5px;color:#9a8a7c;margin-top:3px">810 pts total · 9 stores</div>
+       <div style="font-size:10.5px;color:#9a8a7c;margin-top:3px">915 pts total · 9 stores</div>
      </div>
-     <div style="text-align:right"><div style="font-weight:800;font-size:18px;color:#3f2d22">90</div><div style="font-size:9.5px;color:#9a8a7c;margin-top:-2px">pts/store</div></div>
+     <div style="text-align:right"><div style="font-weight:800;font-size:18px;color:#3f2d22">102</div><div style="font-size:9.5px;color:#9a8a7c;margin-top:-2px">pts/store</div></div>
    </div>
+   
    
       </div>
       <div class="panel">
@@ -622,8 +624,8 @@ else{bg=warm?"#fdf3e6":"#eef4fb";bd=warm?"#f0d8b0":"#cfe0f2";fg="#4a3a2a";
     </style>
     <div class="section-title">💬 Sentiment — customers &amp; team</div>
     <div class="cards">
-      <div class="card"><div class="lbl">Customer (Google)</div><div class="val" style="color:var(--green)">4.6★</div><div class="meta">278 reviews · live</div></div>
-      <div class="card"><div class="lbl">Team (RMS · /5)</div><div class="val" style="color:var(--red)">3.96</div><div class="meta">98 shift ratings</div></div>
+      <div class="card"><div class="lbl">Customer (Google)</div><div class="val" style="color:var(--green)">4.6★</div><div class="meta">830 reviews · live</div></div>
+      <div class="card"><div class="lbl">Team (RMS · /5)</div><div class="val" style="color:var(--amber)">4.01</div><div class="meta">123 shift ratings</div></div>
       <div class="card"><div class="lbl">Review base</div><div class="val">826</div><div class="meta">the estate's most-reviewed site</div></div>
       <div class="card"><div class="lbl">RMS — June</div><div class="val" style="color:var(--amber)">No entries</div><div class="meta">last logged May (4.43)</div></div>
     </div>
@@ -632,23 +634,24 @@ else{bg=warm?"#fdf3e6":"#eef4fb";bd=warm?"#f0d8b0":"#cfe0f2";fg="#4a3a2a";
       <div class="panel">
         <div style="display:flex;align-items:baseline;gap:10px">
           <div class="scorebig" style="color:var(--green)">4.6<span style="font-size:20px">★</span></div>
-          <div class="scoresub">Google · 278 reviews · the estate's biggest review base, open since 2021</div>
+          <div class="scoresub">Google · 830 reviews · the estate's biggest review base, open since 2021</div>
         </div>
         <div style="margin-top:12px">
-          <div class="quote">Really nice place and coffee is to die for! The staff are really friendly and helpful. A clean, inviting place to sit and relax.<span class="who">14 Jul 2025 · <span class="stars">★★★★★</span></span></div>
-          <div class="quote">Very beautiful place with lovely staff. I found a relaxing place, and great for lunch or work.<span class="who">11 Jul 2025 · <span class="stars">★★★★★</span></span></div>
+          <div class="quote">The atmosphere is warm and welcoming, the staff are always friendly, and the coffee is consistently excellent.<span class="who">8 months ago · <span class="stars">★★★★★</span></span></div>
+          <div class="quote">Served just after opening by Ada — lovely start to the morning.<span class="who">2 weeks ago · <span class="stars">★★★★★</span></span></div>
+          <div class="quote">All the staff are so friendly and always ask how I am. Marta, Thea, Tanya and Rachel to name just a few.<span class="who">4 months ago · <span class="stars">★★★★★</span></span></div>
         </div>
       </div>
       <div class="panel">
         <div style="display:flex;align-items:baseline;gap:10px">
-          <div class="scorebig" style="color:var(--red)">3.96<span style="font-size:20px">/5</span></div>
-          <div class="scoresub">RMS “Rate My Shift” · 98 ratings · 67 of 117 were 5★</div>
+          <div class="scorebig" style="color:var(--amber)">4.01<span style="font-size:20px">/5</span></div>
+          <div class="scoresub">RMS “Rate My Shift” · 123 ratings · 67 of 117 were 5★</div>
         </div>
         <div class="chart-box" style="height:170px;margin-top:8px"><canvas id="teamTrend"></canvas></div>
         <div style="margin-top:8px">
+          <div class="quote">Frustrating Unfair Stressful<span class="who">21 Jun · <span class="stars">★</span></span></div>
+          <div class="quote">Grumpy cusfomers<span class="who">20 Jun · <span class="stars">★★</span></span></div>
           <div class="quote">Annoying<span class="who">13 Jun · <span class="stars">★★★</span></span></div>
-          <div class="quote">Fast but managed.<span class="who">13 Jun · <span class="stars">★★★★</span></span></div>
-          <div class="quote">Good moments, teamwork<span class="who">12 Jun · <span class="stars">★★★★★</span></span></div>
         </div>
         <div class="note" style="margin-top:6px">Team morale is strong on a big sample (4.06 over 117 ratings, mostly 5★). The one gap is <strong>participation: no RMS entries logged in June yet</strong> — worth a nudge so the score stays live and representative through the summer peak.</div>
       </div>
@@ -694,8 +697,8 @@ window.CHARTS=window.CHARTS||[];
 
 <script>
 /* ---- Sales & hours ---- */
-const ACT=[["2026-03-09",24715],["2026-03-16",25487],["2026-03-23",24958],["2026-03-30",24398],["2026-04-06",25897],["2026-04-13",26437],["2026-04-20",27349],["2026-04-27",26888],["2026-05-04",26859],["2026-05-11",25472],["2026-05-18",24645],["2026-05-25",25540],["2026-06-01",26446],["2026-06-08",26378]];
-const FC=[["2026-06-15",26200,70,374,""],["2026-06-22",26500,70,379,""],["2026-06-29",26800,70,383,"schools in"],["2026-07-06",27200,70,389,"summer hols"],["2026-07-13",27500,70,393,"summer hols"],["2026-07-20",27500,70,393,"summer hols"],["2026-07-27",27000,70,386,"summer hols"]];
+const ACT=[["2026-03-09",24715],["2026-03-16",25487],["2026-03-23",24958],["2026-03-30",24398],["2026-04-06",25897],["2026-04-13",26437],["2026-04-20",27349],["2026-04-27",26888],["2026-05-04",26859],["2026-05-11",25472],["2026-05-18",24645],["2026-05-25",25540],["2026-06-01",26446],["2026-06-08",26378],["2026-06-15",24898]];
+const FC=[["2026-06-22",26500,70,379,""],["2026-06-29",26800,70,383,"schools in"],["2026-07-06",27200,70,389,"summer hols"],["2026-07-13",27500,70,393,"summer hols"],["2026-07-20",27500,70,393,"summer hols"],["2026-07-27",27000,70,386,"summer hols"]];
 
 const gbp0=n=>"£"+Math.round(n).toLocaleString("en-GB");
 const ddmm=s=>{const[y,m,d]=s.split("-");return d+"/"+m;};
@@ -739,8 +742,8 @@ document.getElementById("foot").innerHTML="Generated "+new Date().toLocaleString
 <script>
 /* ---- Wastage ---- */
 (function(){
-const WK=[["13/04", 2.2], ["20/04", 1.2], ["27/04", 1.1], ["04/05", 1.6], ["11/05", 0.6], ["18/05", 1.5], ["25/05", 1.7], ["01/06", 1.0], ["08/06", 0.7]];
-const ITEMS=[["Bacon Bap", 98, 23, 165], ["Chicken & Chorizo Ciabatta", 82, 15, 125], ["Sausage Roll Pastry", 66, 20, 226], ["Egg and Spinach Pot", 66, 19, 23], ["Ham & Cheese Croque", 60, 11, 291], ["Croissant Pastry", 60, 28, 82], ["Sausage Bap", 60, 14, 151], ["Gluten Free Carrot Cake", 58, 16, 34]];
+const WK=[["13/04", 2.2], ["20/04", 1.2], ["27/04", 1.1], ["04/05", 1.6], ["11/05", 0.6], ["18/05", 1.5], ["25/05", 1.7], ["01/06", 1.0], ["08/06", 0.7], ["15/06", 1.1]];
+const ITEMS=[["Sausage Roll Pastry", 69, 21, 154], ["Egg & Spinach Sandwich", 68, 16, 54], ["Croissant Pastry", 67, 31, 74], ["Chicken & Chorizo Ciabatta", 66, 12, 78], ["Green & Grain Salad", 64, 12, 23], ["Bacon Bap", 60, 14, 57], ["Chicken Caprese Sandwich", 49, 10, 40], ["Ham & Cheese Croque", 49, 9, 98], ["Egg and Spinach Pot", 49, 14, 21], ["Falafel Wrap", 43, 10, 30]];
 new Chart(document.getElementById('waste'),{type:'line',data:{labels:WK.map(r=>r[0]),datasets:[
 {label:'Wastage %',data:WK.map(r=>r[1]),borderColor:'#c0392b',backgroundColor:'#c0392b',tension:.3,pointRadius:4,borderWidth:2.5},
 {label:'Target 3%',data:WK.map(()=>3),borderColor:'#1f8a4c',borderDash:[6,4],pointRadius:0,borderWidth:2},
@@ -757,8 +760,8 @@ return '<tr><td>'+r.n+'</td><td>£'+r.w+'</td><td>'+r.wq+'</td><td>'+r.sq+'</td>
 <script>
 /* ---- Sales mix & capture ---- */
 (function(){
-const ROWS=[["Hot drinks", 36.3, 0.4, 53.5, -4.1, -4.6, 41.5, 60.2], ["Cold drinks", 24.3, 2.0, 30.7, 3.4, 4.3, 19.3, 24.4], ["Milkshakes", 15.2, 0.3, 17.3, 1.1, 1.3, 14.1, 16.4], ["Food", 13.5, -0.3, 16.2, -0.1, -0.4, 13.9, 16.4], ["Bakery", 6.3, -0.4, 13.0, -0.1, 0.2, 6.5, 13.1], ["Other & retail", 4.4, -0.2, 19.5, -0.1, -0.6, 4.8, 20.2]];
-const PEER=[["Hot drinks", 53.5, 16, 21, 59.2, "Wellingborough 69.5%"], ["Cold drinks", 30.7, 5, 21, 25.0, "Rushden Lakes 37.0%"], ["Milkshakes", 17.3, 6, 21, 13.8, "Rushden Lakes 26.9%"], ["Food", 16.2, 7, 21, 14.0, "P'boro Fletton 24.8%"], ["Bakery", 13.0, 18, 21, 17.2, "Attleborough 23.4%"]];
+const ROWS=[["Hot drinks", 36.3, 0.4, 53.5, -3.5, -3.7, 35.6, 52.2], ["Cold drinks", 24.2, 2.0, 30.8, 2.7, 3.6, 25.4, 31.8], ["Milkshakes", 15.2, 0.3, 17.5, 1.0, 1.5, 15.5, 17.6], ["Food", 13.3, -0.3, 16.1, -0.4, -0.3, 12.6, 14.9], ["Bakery", 6.4, -0.4, 13.2, 0.1, 0.5, 6.2, 12.9], ["Other & retail", 4.2, -0.2, 19.3, 0.2, -0.8, 4.3, 19.0]];
+const PEER=[["Hot drinks", 53.5, 16, 21, 58.9, "Wellingborough 70.1%"], ["Cold drinks", 30.8, 5, 21, 25.6, "Rushden Lakes 37%"], ["Milkshakes", 17.5, 6, 21, 13.9, "Rushden Lakes 27.2%"], ["Food", 16.1, 5, 21, 13.9, "P'boro Fletton 24.6%"], ["Bakery", 13.2, 18, 21, 17.1, "P'boro Bridge St 22.9%"]];
 document.querySelector("#peertbl tbody").innerHTML=PEER.map(r=>{const top=r[2]<=r[3]/3,bot=r[2]>r[3]*2/3;const rc=top?["#e6f4ec","#1f8a4c"]:bot?["#fbeae8","#c0392b"]:["#f7f0dd","#b8860b"];const vc=r[1]>=r[4]?"#1f8a4c":"#c0392b";
 return "<tr><td>"+r[0]+"</td><td style=\"font-weight:700;color:"+vc+"\">"+r[1].toFixed(1)+"%</td><td><span style=\"display:inline-block;padding:2px 7px;border-radius:6px;font-weight:700;font-size:12px;background:"+rc[0]+";color:"+rc[1]+"\">"+r[2]+"/"+r[3]+"</span></td><td>"+r[4].toFixed(1)+"%</td><td style=\"text-align:left;font-size:11.5px;color:#8a7a6d\">"+r[5]+"</td></tr>";}).join("");
 const DESC={"Hot drinks":"lattes, cappuccinos, americanos, flat whites, hot choc, tea","Cold drinks":"iced lattes, frozen lemonade, iced matcha, frappés, cold brew","Milkshakes":"Oreo, Biscoff, vanilla, chocolate, strawberry shakes","Food":"croques, ciabattas, baps, wraps, salads, meal deals","Bakery":"traybakes, croissants, brownies, cookies, cakes","Other & retail":"bottled & soft drinks, beans, sundries"};
@@ -770,9 +773,9 @@ document.querySelector("#cattbl tbody").innerHTML=ROWS.map(r=>{const s=r[2]>0?"#
 /* ---- Op's Excellence (F1) ---- */
 (function(){
   // Race: [W/C, total score, championship points (higher=better), finishing position]
-  const R=[["11 Apr",499.75,7,16],["17 Apr",188.75,19,4],["25 Apr",248.5,15,8],["3 May",308,8,15],["8 May",341.5,8,15],["16 May",210.25,15,8],["24 May",339,8,15],["29 May",344.25,9,14],["6 Jun",343,3,20]];
+  const R=[["11 Apr", 523.75, 7, 16], ["17 Apr", 196.75, 18, 5], ["25 Apr", 261.5, 13, 10], ["3 May", 315, 7, 16], ["8 May", 359.5, 7, 16], ["16 May", 216.25, 15, 8], ["24 May", 359, 8, 15], ["29 May", 353.25, 9, 14], ["6 Jun", 355, 3, 20], ["13 Jun", 333.5, 8, 15], ["19 Jun", 252.5, 10, 13]];
   // Qualifying: [W/C, queue average s, hospitality 0-100, quali rank of 21]
-  const Q=[["8 Apr",209.5,70,26],["14 Apr",129.5,77,10],["23 Apr",201,33,15],["28 Apr",128.5,38,9],["4 May",324,33,20],["12 May",147,45,8],["19 May",257.5,33,22],["25 May",206.5,38,11],["3 Jun",192,100,14],["8 Jun",134,75,2]];
+  const Q=[["8 Apr", 209.5, 70, 27], ["14 Apr", 129.5, 77, 10], ["23 Apr", 201, 33, 15], ["28 Apr", 128.5, 38, 9], ["4 May", 324, 33, 20], ["12 May", 147, 45, 8], ["19 May", 257.5, 33, 22], ["25 May", 206.5, 38, 11], ["3 Jun", 192, 100, 14], ["8 Jun", 134, 75, 3], ["16 Jun", 125, 35, 9]];
 
   new Chart(document.getElementById("race"),{
     data:{labels:R.map(r=>r[0]),datasets:[
@@ -814,7 +817,7 @@ document.querySelector("#cattbl tbody").innerHTML=ROWS.map(r=>{const s=r[2]>0?"#
 /* ---- Sentiment tab ---- */
 (function(){
   window.CHARTS=window.CHARTS||[];
-  const tT=[["Jan", 3.53], ["Feb", 4.57], ["Mar", 3.35], ["Apr", 4.04], ["May", 4.43], ["Jun", 3.75]];
+  const tT=[["Feb", 4.57], ["Mar", 3.35], ["Apr", 4.04], ["May", 4.43], ["Jun", 3]];
   window.CHARTS.push(new Chart(document.getElementById("teamTrend"),{type:"line",
     data:{labels:tT.map(r=>r[0]),datasets:[{label:"Avg shift rating",data:tT.map(r=>r[1]),borderColor:"#1f8a4c",backgroundColor:"#1f8a4c",tension:.3,pointRadius:4,borderWidth:2.5}]},
     options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>" "+c.parsed.y+" / 5"}}},
