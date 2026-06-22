@@ -94,13 +94,15 @@ def pillars(store):
     if ra is None or not rn: p_k,p_v,p_t='grey','n/a','RMS health · QTD · target ≥3.32'
     else:
         ph=round(ra*0.5+min(rn/T_RMS,1)*2.5,2); p_k,p_v,p_t=('green' if ph>=3.32 else 'red', f"{ph:.2f}", f"RMS health · QTD · target ≥3.32 · {rn} ratings")
-    return f"""  <div class="kpws">
+    return f"""  <!-- PILLARS START -->
+  <div class="kpws">
     <a class="kpw {s_k}"><div class="kl">📈 Sales</div><div class="kv">{s_v}</div><div class="kt">{s_t}</div></a>
     <a class="kpw {o_k}"><div class="kl">🏁 Operations</div><div class="kv">{o_v}</div><div class="kt">F1 race score · last wk · target ≤190 (lower=better)</div></a>
     <a class="kpw {c_k}"><div class="kl">⭐ Customer</div><div class="kv">{c_v}</div><div class="kt">{c_t}</div></a>
     <a class="kpw {p_k}"><div class="kl">👥 People</div><div class="kv">{p_v}</div><div class="kt">{p_t}</div></a>
   </div>
   <div class="note" style="margin:2px 0 8px;background:#fff8ec;border:1px solid #f0e0bf;color:#7a5e1e;border-radius:10px;padding:8px 12px;font-size:12px"><b>At a glance</b> — <b style="color:#1c6b3d">green</b> on/above target · <b style="color:#9a2f22">red</b> below · <b style="color:#8a7a6d">grey</b> = no data/feed. Sales &amp; Operations are last week; Customer &amp; People are quarter-to-date.</div>
+  <!-- PILLARS END -->
 """
 
 def constructors_rows(coach):
@@ -120,6 +122,24 @@ def constructors_rows(coach):
           f'     <div style="text-align:right"><div style="font-weight:800;font-size:18px;color:{valc}">{avg}</div><div style="font-size:9.5px;color:#9a8a7c;margin-top:-2px">pts/store</div></div>\n'
           f'   </div>')
     return "\n".join(out)
+
+# DRIVERS' (per-store) leaderboard — rebuilt each week from champ['drivers']=[ [store,coach,pts], ... ]
+# (the engine used to leave this tbody static, so it drifted out of sync with the constructors block)
+DRV_DISP={'Olney':'Olney','Attleborough':'Attleborough','Billing Drive Thru':'Billing Drive Thru','Glenvale Drive Thru':'Glenvale Drive Thru','Northampton Drive-Thru':'Northampton Drive Thru'}
+def drivers_tbody(store):
+    drv=sorted(champ.get('drivers',[]), key=lambda x:-x[2])
+    if not drv: return None
+    own=DRV_DISP.get(store); rows=['<tbody>']
+    for i,(st,co,pts) in enumerate(drv,1):
+        if st==own:
+            tr='<tr style="background:#fff7e9;font-weight:700">'
+            nm=f'{st} <span style="font-size:10px;font-weight:700;color:#b8860b">◄ you</span>'
+        else:
+            tr=f'<tr style="background:{"#faf7f2" if i%2==0 else "transparent"};">'; nm=st
+        rows.append(tr+'\n     <td style="text-align:center;color:#8a7a6d">'+str(i)+'</td>\n     <td>'+nm
+                    +'</td>\n     <td><span class="tag t-ok" style="font-size:10.5px">'+co
+                    +'</span></td>\n     <td style="text-align:right;font-weight:700">'+str(pts)+'</td>\n   </tr>')
+    rows.append('</tbody>'); return ''.join(rows)
 
 # ===== NEW per-store "Sales" tab (DOW + daypart + Food&Bakery traction) =====
 _DPICON={"Morning":"🌅","Lunch":"🥪","Afternoon":"☕","Evening":"🌙"}
@@ -298,12 +318,16 @@ def patch(fn,store,coach,mature):
         else: log.append(f"  ✗ {label} — NOT FOUND")
         return nn
     r=R[store]; LW=r['lw26']
-    # 1) PILLAR CSS + block (idempotent)
-    if 'class="kpws"' in h:
-        log.append("  • pillars already present, skipping inject")
-    else:
+    # 1) PILLAR CSS (inject once) + pillar block (RE-RENDER every run via PILLARS markers,
+    #    mirroring how the star-rating card re-renders). Strip any prior block — marker form
+    #    or legacy unmarked kpws+note — then re-inject with current values so the pillars
+    #    never go stale.
+    if 'class="kpws"' not in h:
         sub(r'</style>', PILLAR_CSS+"\n</style>",1,"pillar CSS")
-        sub(r'(</header>)', r'\1\n'+pillars(store).replace('\\','\\\\'),1,"pillar block")
+    # strip prior pillar block: new marker form first, then legacy unmarked form
+    h=re.sub(r'\s*<!-- PILLARS START -->.*?<!-- PILLARS END -->', '', h, flags=re.S)
+    h=re.sub(r'\s*<div class="kpws">.*?At a glance.*?</div>', '', h, flags=re.S)
+    sub(r'(</header>)', r'\1\n'+pillars(store).replace('\\','\\\\'),1,"pillar block (re-render)")
     # 1b) TEST Grow star rating + compliance panel (gated to stores in star_rating.json — Glenvale only). Idempotent + self-removing.
     h=inject_star(h,store)
     h=inject_compliance(h,store)
@@ -477,6 +501,15 @@ def patch(fn,store,coach,mature):
     # 6) constructors standings regenerate
     sub(r'(by avg pts/store</span></div>\s*)(.*?)(\s*</div>\s*<div class="panel">\s*<div style="font-size:13px;font-weight:700;color:#5b3a29;margin-bottom:8px">Drivers)',
         lambda m: m.group(1)+"\n"+constructors_rows(coach)+"\n   "+m.group(3),1,"constructors standings",flags=re.S)
+    # 6b) drivers' (per-store) leaderboard tbody — rebuild from champ['drivers'] (was previously left static)
+    dtb=drivers_tbody(store)
+    if dtb:
+        di=h.find('Drivers'); tb=h.find('<tbody>',di) if di>=0 else -1; te=h.find('</tbody>',tb) if tb>=0 else -1
+        if di>=0 and tb>=0 and te>=0:
+            h=h[:tb]+dtb+h[te+8:]; log.append("  ✓ drivers leaderboard rebuilt")
+        else: log.append("  ✗ drivers leaderboard — tbody markers not found")
+    else:
+        log.append("  • drivers leaderboard held (no champ['drivers'] supplied)")
     # 7) Latest Race result card -> latest race finish/champ/score from f1
     fin,chp=r['f1'][0],r['f1'][1]
     sub(r'(<div class="card"><div class="lbl">Latest Race result</div><div class="val"[^>]*>)P\d+ · \d+ pts(</div>)',
