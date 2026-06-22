@@ -1,133 +1,108 @@
 {
- "_window": "4 weeks to 14 Jun 2026 vs the same 4 weeks in 2025",
+ "_window": "4 weeks to 21 Jun 2026 vs same 4 weeks 2025",
  "hours": {
-  "Morning": "5am–11am",
-  "Lunch": "11am–2pm",
-  "Afternoon": "2pm–5pm",
+  "Morning": "5am-11am",
+  "Lunch": "11am-2pm",
+  "Afternoon": "2pm-5pm",
   "Evening": "5pm+"
  },
  "dayparts": {
-  "Morning": {
-   "hours": "5am–11am",
-   "top": [
-    [
-     "Breakfast Meal Deal",
-     6624,
-     76,
-     2854
-    ],
-    [
-     "Bacon Bap Meal Deal Reg",
-     2261,
-     291,
-     1682
-    ],
-    [
-     "Cherry Bakewell Slice Traybake",
-     1717,
-     3893,
-     1674
-    ]
-   ],
-   "new": [
-    [
-     "Breakfast Bagel",
-     1906
-    ],
-    [
-     "Sausage Roll Meal Deal Large",
-     931
-    ]
-   ]
-  },
   "Lunch": {
-   "hours": "11am–2pm",
+   "hours": "11am-2pm",
    "top": [
     [
      "Cherry Bakewell Slice Traybake",
-     3292,
-     4888,
-     3226
+     3362,
+     4443,
+     3288
+    ],
+    [
+     "Cheese & Onion Croque",
+     4962,
+     22,
+     882
     ],
     [
      "Tuna Ciabatta",
-     4243,
-     25,
-     848
-    ],
-    [
-     "Egg & Spinach Sandwich",
-     2232,
-     61,
-     844
+     4111,
+     20,
+     691
     ]
    ],
    "new": [
     [
      "Breakfast Bagel",
-     1474
+     1485
     ],
     [
      "Chicken Caprese Sandwich",
-     1327
+     1356
     ]
    ]
   },
   "Afternoon": {
-   "hours": "2pm–5pm",
+   "hours": "2pm-5pm",
    "top": [
     [
      "Cherry Bakewell Slice Traybake",
-     2271,
-     2704,
-     2190
+     2267,
+     3335,
+     2201
     ],
     [
-     "Ham & Mozzarella Croissant",
-     763,
-     83,
-     345
+     "Mozzarella & Tomato Ciabatta",
+     1103,
+     41,
+     319
     ],
     [
-     "All Butter Flapjack",
-     835,
-     49,
-     276
+     "Cheese & Onion Croque",
+     1639,
+     22,
+     301
     ]
    ],
    "new": [
     [
      "Chicken Caprese Sandwich",
-     440
+     393
+    ],
+    [
+     "Breakfast Bagel",
+     301
     ]
    ]
   },
-  "Evening": {
-   "hours": "5pm+",
+  "Morning": {
+   "hours": "5am-11am",
    "top": [
     [
-     "Rocky Road Traybake",
-     278,
-     97,
-     137
+     "Breakfast Meal Deal",
+     6745,
+     80,
+     2996
     ],
     [
-     "Fudge Topped Brownie",
-     274,
-     43,
-     82
+     "Cherry Bakewell Slice Traybake",
+     1677,
+     4092,
+     1637
     ],
     [
-     "Luxury Millionaires Triangle Traybake",
-     426,
-     22,
-     76
+     "Large Breakfast Pastry Meal Deal",
+     4208,
+     57,
+     1527
     ]
    ],
    "new": [
     [
-     "Cherry Bakewell Slice Traybake",
-     362
+     "Breakfast Bagel",
+     1850
+    ],
+    [
+     "Sausage Roll Meal Deal",
+     922
     ]
    ]
   }

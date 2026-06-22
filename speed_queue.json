@@ -1,147 +1,98 @@
 {
- "_source": "F1 'The Race' tab (1YFqpR9...) Queue average seconds, quarter-to-date, Bewiched stores only (competitors + invalid 0s excluded)",
- "_updated": "2026-06-16",
- "n_audits": 196,
+ "_updated": "2026-06-22",
+ "n_audits": 217,
  "trend": [
   [
    "w/c 6 Apr",
-   182.0,
+   182,
    16
   ],
   [
    "w/c 13 Apr",
-   201.0,
+   201,
    18
   ],
   [
    "w/c 20 Apr",
-   209.0,
+   209,
    19
   ],
   [
    "w/c 27 Apr",
-   210.0,
+   210,
    20
   ],
   [
    "w/c 4 May",
-   240.0,
+   240,
    20
   ],
   [
    "w/c 11 May",
-   198.0,
+   198,
    20
   ],
   [
    "w/c 18 May",
-   256.0,
+   256,
    20
   ],
   [
    "w/c 25 May",
-   268.0,
+   268,
    21
   ],
   [
    "w/c 1 Jun",
-   218.0,
+   218,
    21
   ],
   [
    "w/c 8 Jun",
-   237.0,
+   237,
+   21
+  ],
+  [
+   "w/c 15 Jun",
+   201,
    21
   ]
  ],
  "first": 182,
- "last": 237,
- "change_s": 55,
- "change_pct": 30,
+ "last": 201,
+ "change_s": 19,
  "direction": "worsening",
  "fastest": [
   [
+   "Leamington Parade",
+   163
+  ],
+  [
    "Northampton",
-   162
+   165
   ],
   [
    "Burton Latimer",
-   171
-  ],
-  [
-   "Leamington Parade",
-   172
+   170
   ]
  ],
  "slowest": [
   [
    "Peterborough Bridge Street",
-   292
+   304
   ],
   [
    "Olney",
-   295
+   284
   ],
   [
    "Billing Drive Thru",
-   320
-  ]
- ],
- "corr": [
-  [
-   "Sales last week (\u00a3)",
-   0.07,
-   21,
-   "none"
-  ],
-  [
-   "Guest count",
-   0.01,
-   21,
-   "none"
-  ],
-  [
-   "ATV (\u00a3)",
-   0.25,
-   21,
-   "none"
-  ],
-  [
-   "Sales YoY %",
-   -0.31,
-   18,
-   "suggestive"
-  ],
-  [
-   "Customer rating",
-   0.06,
-   21,
-   "none"
-  ],
-  [
-   "Team RMS",
-   0.23,
-   21,
-   "none"
-  ],
-  [
-   "Takeaway %",
-   -0.07,
-   21,
-   "none"
-  ],
-  [
-   "Brand audit QTD",
-   -0.46,
-   21,
-   "meaningful"
+   274
   ]
  ],
  "qcall": {
-  "_metric": "Queue calling = the F1 'Working The Queue' audit score (0-1, shown as %), from the weekly Race audit. Bewiched stores only; competitors excluded.",
-  "_note_quali": "Also recorded in the Qualifying audit but on an inconsistent scale there (mixed 0-100/0-45) and unreliable to extract via the API on sparse rows; Race is the clean, complete source.",
-  "n_audits": 197,
-  "avg": 60,
+  "n_audits": 218,
+  "avg": 61,
   "trend": [
    [
     "w/c 6 Apr",
@@ -192,89 +143,95 @@
     "w/c 8 Jun",
     60,
     21
+   ],
+   [
+    "w/c 15 Jun",
+    70,
+    21
    ]
   ],
   "first": 94,
-  "last": 60,
-  "change": -34,
+  "last": 70,
   "direction": "worsening",
   "strongest": [
    [
     "Peterborough Fletton Quays",
-    87
+    88
    ],
    [
     "Rushden Lakes",
-    82
+    83
    ],
    [
     "Burton Latimer",
-    80
+    82
    ]
   ],
   "weakest": [
    [
     "Corby",
-    25
+    29
    ],
    [
     "Higham Ferrers",
-    26
+    33
    ],
    [
     "Leamington Parade",
-    41
-   ]
-  ],
-  "corr": [
-   [
-    "Brand audit QTD",
-    0.41,
-    21,
-    "suggestive"
-   ],
-   [
-    "Sales last week (\u00a3)",
-    0.08,
-    21,
-    "none"
-   ],
-   [
-    "Guest count",
-    0.07,
-    21,
-    "none"
-   ],
-   [
-    "ATV (\u00a3)",
-    0.11,
-    21,
-    "none"
-   ],
-   [
-    "Sales YoY %",
-    0.28,
-    18,
-    "none"
-   ],
-   [
-    "Customer rating",
-    0.1,
-    21,
-    "none"
-   ],
-   [
-    "Team RMS",
-    -0.12,
-    21,
-    "none"
-   ],
-   [
-    "Takeaway %",
-    0.43,
-    21,
-    "suggestive"
+    37
    ]
   ]
- }
+ },
+ "change_pct": 10,
+ "_source": "F1 'The Race' Queue average seconds, QTD, Bewiched stores only",
+ "corr": [
+  [
+   "lw26",
+   0.06,
+   21,
+   "none"
+  ],
+  [
+   "tx26",
+   -0.01,
+   21,
+   "none"
+  ],
+  [
+   "atv",
+   0.32,
+   21,
+   "suggestive"
+  ],
+  [
+   "yoy_lw",
+   -0.24,
+   18,
+   "none"
+  ],
+  [
+   "cust.rating",
+   0.02,
+   21,
+   "none"
+  ],
+  [
+   "sent.rms",
+   0.22,
+   21,
+   "none"
+  ],
+  [
+   "takeaway",
+   0.06,
+   21,
+   "none"
+  ],
+  [
+   "audit_qtd",
+   -0.55,
+   21,
+   "meaningful"
+  ]
+ ]
 }

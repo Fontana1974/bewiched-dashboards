@@ -1,10 +1,8 @@
 {
- "_source": "F1 workbook (1YFqpR9...) 'Shift Ratings' tab — last complete week (w/c 8 Jun 2026); formula ((AVG(Rating)/21)*0.5)+((SUM(RecordCount)/50)*5*0.5)",
- "_updated": "2026-06-16",
- "week": "W/C 8 Jun",
- "avg_rating": 4.37,
- "submissions": 52,
- "company_health": 2.7,
+ "avg_rating": 4.45,
+ "submissions": 55,
+ "company_health": 2.86,
+ "week": "w/c 15 Jun 2026",
  "target": 3.32,
  "submissions_target": 50
 }

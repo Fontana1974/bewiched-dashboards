@@ -1,1 +1,131 @@
-{"_format": "[reportRowDate (holds prior completed week W/C 1 Jun), forecastLastWeek_\u00a3, hoursScheduled, hoursUsed]", "_source": "Col Report Master Populator (gid 1695121199), latest row per store. Actual sales come from BigQuery lw26; actual CPH = lw26 / hoursUsed.", "_week_label": "W/C 8 Jun", "Burton Latimer": ["6/15/2026", 5350, 116, 0], "Corby": ["6/15/2026", 7700, 167, 0], "Kettering": ["6/15/2026", 9650, 166, 0], "Northampton": ["6/15/2026", 9900, 175, 173], "Peterborough Bridge Street": ["6/15/2026", 5000, 112, 0], "Rothwell": ["6/15/2026", 6000, 123, 0], "Rushden Lakes": ["6/15/2026", 22000, 350, 0], "Wellingborough": ["6/15/2026", 7150, 133, 131], "Wellingborough Train Station": ["6/15/2026", 6900, 115, 118], "Higham Ferrers": ["6/15/2026", 5000, 118, 0], "Peterborough Fletton Quays": ["6/15/2026", 8500, 163, 0], "Rugby": ["6/15/2026", 8100, 148.5, 152], "Northampton Drive-Thru": ["6/15/2026", 26000, 344, 350], "Lower Heathcote": ["6/15/2026", 4600, 108.5, 110], "HOE Balsall Common": ["6/15/2026", 6750, 152, 146], "Market Harborough": ["6/15/2026", 10000, 174, 172], "Leamington Parade": ["6/15/2026", 9150, 164, 158], "Glenvale Drive Thru": ["6/15/2026", 18250, 292, 277], "Olney": ["6/15/2026", 5800, 155, 0], "Attleborough": ["6/15/2026", 6300, 168, 161], "Billing Drive Thru": ["6/15/2026", 12000, 274, 273]}
+{
+ "_format": "[reportRowDate, forecastLastWeek_GBP, hoursScheduled, hoursUsed]",
+ "_source": "Master Populator latest row per store (gid 1695121199)",
+ "_week_label": "W/C 15 Jun",
+ "Burton Latimer": [
+  "6/22/2026",
+  5350,
+  129,
+  0
+ ],
+ "Corby": [
+  "6/22/2026",
+  7500,
+  157,
+  0
+ ],
+ "Kettering": [
+  "6/22/2026",
+  9400,
+  171,
+  0
+ ],
+ "Northampton": [
+  "6/22/2026",
+  9750,
+  173,
+  0
+ ],
+ "Peterborough Bridge Street": [
+  "6/22/2026",
+  5000,
+  108,
+  0
+ ],
+ "Rothwell": [
+  "6/22/2026",
+  5600,
+  120,
+  0
+ ],
+ "Rushden Lakes": [
+  "6/22/2026",
+  18750,
+  318,
+  0
+ ],
+ "Wellingborough": [
+  "6/22/2026",
+  7250,
+  125,
+  0
+ ],
+ "Wellingborough Train Station": [
+  "6/22/2026",
+  6900,
+  122,
+  0
+ ],
+ "Higham Ferrers": [
+  "6/22/2026",
+  4950,
+  110,
+  0
+ ],
+ "Peterborough Fletton Quays": [
+  "6/22/2026",
+  8300,
+  158,
+  0
+ ],
+ "Rugby": [
+  "6/22/2026",
+  7980,
+  157,
+  0
+ ],
+ "Northampton Drive-Thru": [
+  "6/22/2026",
+  26000,
+  340,
+  0
+ ],
+ "Lower Heathcote": [
+  "6/22/2026",
+  4600,
+  108,
+  0
+ ],
+ "HOE Balsall Common": [
+  "6/22/2026",
+  6680,
+  152,
+  0
+ ],
+ "Market Harborough": [
+  "6/22/2026",
+  9775,
+  168,
+  0
+ ],
+ "Leamington Parade": [
+  "6/22/2026",
+  8525,
+  156,
+  0
+ ],
+ "Glenvale Drive Thru": [
+  "6/22/2026",
+  18450,
+  294,
+  0
+ ],
+ "Olney": [
+  "6/22/2026",
+  5450,
+  130,
+  0
+ ],
+ "Attleborough": [
+  "6/22/2026",
+  6350,
+  160,
+  0
+ ],
+ "Billing Drive Thru": [
+  "6/22/2026",
+  12000,
+  265,
+  0
+ ]
+}

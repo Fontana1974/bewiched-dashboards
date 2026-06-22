@@ -1,12 +1,10 @@
 {
- "_source": "Google Reviews sheet (1Dm3fxmhodV2xH...), Reviews tab, LAST COMPLETE WEEK (w/c 8 Jun). Google health = ((SUM(per-store avg star)/21)*0.5)+((SUM(reviews)/125)*5*0.5)",
- "_updated": "2026-06-16",
- "window": "W/C 8 Jun",
- "company_health": 1.67,
- "sum_store_avg": 34.8,
- "stores_with_reviews": 7,
- "reviews": 42,
+ "company_health": 0.8,
+ "sum_store_avg": 24.5,
+ "stores_with_reviews": 5,
+ "reviews": 11,
  "avg_rating_last_week": 4.9,
+ "window": "w/c 15 Jun 2026 (Mon-Sun)",
  "target": 3.32,
  "reviews_target": 125
 }
