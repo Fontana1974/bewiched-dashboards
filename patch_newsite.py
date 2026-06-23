@@ -309,6 +309,81 @@ def inject_compliance(h, store):
     # insert at the very top of the Op's Excellence tab (id="tab-f1")
     return re.sub(r'(<section class="tab-panel"[^>]*id="tab-f1">)', lambda m: m.group(1)+"\n  "+cp, h, count=1)
 
+# ---- Simply Lunch food order forecast (chilled food-to-go) -------------------
+# Gated to stores with a simply_lunch_<key>.json file (Glenvale only for now).
+# Reads the file build_simply_lunch.py writes from the BigQuery day-of-week pull and
+# renders the recommended Mon/Wed/Sat delivery orders on the Mix & opportunity tab.
+# Idempotent + self-removing (markers), like the star/compliance cards — survives Monday.
+try: SLUNCH=json.load(open('simply_lunch_glenvale.json'))
+except (FileNotFoundError, ValueError): SLUNCH=None
+SL_STORES={'Glenvale Drive Thru'}
+
+def simply_lunch_card(store):
+    if store not in SL_STORES or not SLUNCH: return ""
+    d=SLUNCH; items=d.get('items',[])
+    if not items: return ""
+    cov={'mon':'covers Mon–Tue','wed':'covers Wed–Fri','sat':'covers Sat–Sun'}
+    def th(label,sub):
+        return (f'<th style="padding:6px 9px;text-align:right;font-weight:700">{label}'
+                f'<br><span style="font-weight:600;color:var(--muted);font-size:10.5px">{sub}</span></th>')
+    rows=[]; cur=None
+    for it in items:
+        if it['category']!=cur:
+            cur=it['category']
+            rows.append(f'<tr><td colspan="6" style="padding:7px 9px 3px;background:var(--cream);'
+                        f'font-weight:700;color:var(--brown);font-size:12px">{esc(cur)}</td></tr>')
+        sparse=it.get('sparse'); nm=esc(it['item'])+(' <span style="color:var(--amber)">†</span>' if sparse else '')
+        muted=';color:var(--muted)' if sparse else ''
+        rows.append(
+            f'<tr style="border-bottom:1px solid var(--line){muted}">'
+            f'<td style="padding:6px 9px">{nm}</td>'
+            f'<td style="padding:6px 9px;text-align:right;color:var(--muted)">{it["weekly_mean"]:g}</td>'
+            f'<td style="padding:6px 9px;text-align:right;font-weight:700">{it["mon"]}</td>'
+            f'<td style="padding:6px 9px;text-align:right;font-weight:700">{it["wed"]}</td>'
+            f'<td style="padding:6px 9px;text-align:right;font-weight:700">{it["sat"]}</td>'
+            f'<td style="padding:6px 9px;text-align:right;font-weight:800;color:var(--brown)">{it["weekly_order"]}</td></tr>')
+    tot=lambda k: sum(i[k] for i in items)
+    rows.append(
+        f'<tr style="border-top:2px solid var(--line);font-weight:800;color:var(--brown)">'
+        f'<td style="padding:7px 9px">Weekly total (all lines)</td>'
+        f'<td style="padding:7px 9px;text-align:right">{tot("weekly_mean"):g}</td>'
+        f'<td style="padding:7px 9px;text-align:right">{tot("mon")}</td>'
+        f'<td style="padding:7px 9px;text-align:right">{tot("wed")}</td>'
+        f'<td style="padding:7px 9px;text-align:right">{tot("sat")}</td>'
+        f'<td style="padding:7px 9px;text-align:right">{tot("weekly_order")}</td></tr>')
+    return (
+        '<!-- SIMPLYLUNCH START -->\n'
+        '<div class="section-title" style="margin-top:26px">🥪 Simply Lunch food order forecast — chilled food-to-go</div>\n'
+        f'<div class="mini" style="margin-bottom:10px">Recommended order quantities for the three weekly <b>Simply Lunch</b> deliveries, '
+        f'built from this store\'s average daily demand by day of week over the last <b>{d["window_weeks"]} complete weeks</b> (to {esc(d["cur_end"])}). '
+        f'Deliveries land <b>Mon</b>, <b>Wed</b> and <b>Sat</b>; each order covers demand until the next delivery, plus a <b>{d["buffer_pct"]}% buffer</b>, rounded up.</div>\n'
+        '<table style="width:100%;border-collapse:collapse;font-size:13px">\n'
+        '<thead><tr style="text-align:left;color:var(--brown);border-bottom:2px solid var(--line)">'
+        '<th style="padding:6px 9px;font-weight:700">Item</th>'
+        '<th style="padding:6px 9px;text-align:right;font-weight:700">Avg sold/wk</th>'
+        + th('Mon order',cov['mon']) + th('Wed order',cov['wed']) + th('Sat order',cov['sat'])
+        + '<th style="padding:6px 9px;text-align:right;font-weight:700">Weekly total</th>'
+        '</tr></thead>\n<tbody>\n' + "\n".join(rows) + '\n</tbody></table>\n'
+        f'<div class="note" style="margin-top:12px"><b>Method.</b> For each item we take the average units sold on each day of the week '
+        f'(last {d["window_weeks"]} complete weeks) and add up the days a delivery must cover: '
+        f'<b>Mon</b> covers Mon–Tue (2 days), <b>Wed</b> covers Wed–Fri (3 days), <b>Sat</b> covers Sat–Sun (2 days). '
+        f'Longest run is {d["max_coverage_days"]} days — within the {d["shelf_life_days"]}-day shelf life. '
+        f'We then add a <b>{d["buffer_pct"]}% buffer</b> and round up. The buffer is a balance: too small and you risk lunchtime stockouts, '
+        f'too large and you waste stock given the {d["shelf_life_days"]}-day life. '
+        f'<span style="color:var(--amber)">†</span> = demand too sparse to forecast reliably (under {d["sparse_threshold_weekly"]}/week) — treat these as a guide and adjust by eye.</div>\n'
+        '<!-- SIMPLYLUNCH END -->')
+
+def inject_simply_lunch(h, store):
+    h=re.sub(r'\s*<!-- SIMPLYLUNCH START -->.*?<!-- SIMPLYLUNCH END -->', '', h, flags=re.S)
+    card=simply_lunch_card(store)
+    if not card: return h
+    # insert at the END of the Mix & opportunity tab (id="tab-mix"), before its </section>
+    i=h.find('id="tab-mix"')
+    if i<0: return h
+    j=h.find('</section>', i)
+    if j<0: return h
+    return h[:j]+"  "+card+"\n  "+h[j:]
+
 def patch(fn,store,coach,mature):
     h=open(fn,encoding='utf-8').read(); log=[]
     def sub(pat,repl,n_expected,label,flags=0):
@@ -331,6 +406,7 @@ def patch(fn,store,coach,mature):
     # 1b) TEST Grow star rating + compliance panel (gated to stores in star_rating.json — Glenvale only). Idempotent + self-removing.
     h=inject_star(h,store)
     h=inject_compliance(h,store)
+    h=inject_simply_lunch(h,store)   # Simply Lunch food order forecast on the Mix tab (Glenvale)
     # 2) actbox value + week
     sub(r'(Last week actual sales · )w/c 1 Jun(</div><div class="ab-val">)£[\d,]+(</div>)',
         rf'\g<1>{NEWWK}\g<2>{gbp(LW)}\g<3>',1,"actbox £ + week")
