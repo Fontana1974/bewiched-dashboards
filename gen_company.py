@@ -285,7 +285,7 @@ def build():
     focus_li=rtw_chip+"".join(f"<li>{b}</li>" for b in [sales_b,f1_b,waste_b,team_b])
     # ---- forecast & hours ----
     import datetime as _dt
-    _t=_dt.date.today(); _mon=_t-_dt.timedelta(days=_t.weekday()); lw_label="W/C "+str((_mon-_dt.timedelta(days=7)).day)+" "+(_mon-_dt.timedelta(days=7)).strftime("%b")
+    _t=_dt.date.today(); _cur_end=_t-_dt.timedelta(days=((_t.weekday()+1)%7)); _mon=_cur_end+_dt.timedelta(days=1); _lwmon=_mon-_dt.timedelta(days=7); lw_label="W/C "+str(_lwmon.day)+" "+_lwmon.strftime("%b"); focus_week="week of "+str(_lwmon.day)+" "+_lwmon.strftime("%b")
     def _wl(d): return "W/C "+str(d.day)+" "+d.strftime("%b")
     wk_this=_wl(_mon); wk_n1=_wl(_mon+_dt.timedelta(days=7)); wk_n2=_wl(_mon+_dt.timedelta(days=14))
     def _fc(s,i):
@@ -408,7 +408,7 @@ def build():
     repl={
      "{{WX_NUDGE}}":wx_nudge([R[s]['coords'] for s in stores if R[s].get('coords')],wx_recent(amix)),
      "{{WX_NUDGE_TOP}}":WX_TOP,"{{WX_FOOD}}":WX_FOOD,
-     "{{GEN_STAMP}}":GEN_STAMP,"{{LW_LABEL}}":lw_label,"{{AVF_WK}}":ACT.get('_week_label','last week'),"{{AVF_ROWS}}":avf,
+     "{{GEN_STAMP}}":GEN_STAMP,"{{LW_LABEL}}":lw_label,"{{FOCUS_WEEK}}":focus_week,"{{AVF_WK}}":ACT.get('_week_label','last week'),"{{AVF_ROWS}}":avf,
      "{{PLANNER_LINKS}}":('<a class="plannerbtn" href="https://docs.google.com/spreadsheets/d/1PSjBGiR40171h769esQCtn3ldcpCB5XJyfqRTo7Yccs/edit" target="_blank" rel="noopener">📋 Jon&#39;s Planner ↗</a>'
        '<a class="plannerbtn" href="https://docs.google.com/spreadsheets/d/1_qdK6fzqPg1NcA2KKMy2TnaZ8nQJtVE-fglz2On3oBw/edit" target="_blank" rel="noopener">📋 Ian&#39;s Planner ↗</a>'
        '<a class="plannerbtn" href="https://docs.google.com/spreadsheets/d/11XuXn9zQr-JB4x2fQ0ORV96Sf-U7xWPQPvg2YlCl_dQ/edit" target="_blank" rel="noopener">📋 Rich&#39;s Planner ↗</a>'),

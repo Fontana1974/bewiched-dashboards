@@ -384,6 +384,59 @@ def inject_simply_lunch(h, store):
     if j<0: return h
     return h[:j]+"  "+card+"\n  "+h[j:]
 
+# --- Store FOCUS box -----------------------------------------------------------
+# Regenerate the top "Focus areas" box every run from the page's OWN authoritative,
+# already-refreshed figures (actbox sales / vs-forecast / CPH stat / Latest Race / wastage),
+# with the trading-week label taken from the actbox. Deriving from the page (not from the
+# source maps, which can lag a week) guarantees the box can never contradict the page and
+# always lands on the current trading week. Fallback week label is auto-derived from today.
+import datetime as _dtm_fw, re as _re_fw
+def _focus_week_fallback():
+    t=_dtm_fw.date.today(); ce=t-_dtm_fw.timedelta(days=((t.weekday()+1)%7)); m=ce-_dtm_fw.timedelta(days=6)
+    return "week of "+str(m.day)+" "+m.strftime("%b")
+
+def build_focus_box(h, store, coach):
+    def f(pat, grp=1, default=None):
+        m=_re_fw.search(pat, h); return m.group(grp) if m else default
+    wk      = f(r'Last week actual sales · [Ww]/c (\d{1,2} \w{3})')          # "15 Jun"
+    focus_w = ("week of "+wk) if wk else _focus_week_fallback()
+    sales   = f(r'Last week actual sales · [Ww]/c \d{1,2} \w{3}</div><div class="ab-val">(£[\d,]+)')
+    vsf     = f(r'<span>vs forecast</span><b[^>]*>([^<]+)</b><small>fcst £[\d,]+</small>')
+    fcst    = f(r'<span>vs forecast</span><b[^>]*>[^<]+</b><small>fcst (£[\d,]+)</small>')
+    cph     = f(r'<span>CPH</span><b[^>]*>(£[\d.]+)</b><small>target £\d+ · (?:met|missed)</small>')
+    cpht    = f(r'<span>CPH</span><b[^>]*>£[\d.]+</b><small>target (£\d+) · (?:met|missed)</small>')
+    cph_st  = f(r'<span>CPH</span><b[^>]*>£[\d.]+</b><small>target £\d+ · (met|missed)</small>')
+    race    = f(r'Latest Race result</div><div class="val"[^>]*>(P\d+)')
+    waste   = f(r'color:var\(--\w+\)">([\d.]+)%</div><div style="font-size:10px;color:#9a8a7c;margin-top:2px">last week')
+    bullets=[]; red=False
+    if sales:
+        extra = (f" vs {fcst} forecast ({vsf})" if (vsf and fcst) else "")
+        bullets.append(f"<b>Sales:</b> {sales} last week{extra}.")
+        if vsf and vsf.strip().startswith(MINUS): red=True
+    if cph and cpht:
+        if cph_st=="missed":
+            bullets.append(f"<b>Labour:</b> ran <b>{cph} CPH</b> vs {cpht} target — tighten the rota to sales."); red=True
+        else:
+            bullets.append(f"<b>Labour:</b> ran <b>{cph} CPH</b> vs {cpht} target — labour in line with sales.")
+    if race:
+        try: pn=int(race[1:])
+        except: pn=0
+        tail=" — reset the weekend routine." if pn>=15 else " — holding a strong grid slot."
+        if pn>=15: red=True
+        bullets.append(f"<b>Op's Excellence:</b> latest Race finish <b>{race}</b> (Coach {coach}){tail}")
+    if waste:
+        try: wv=float(waste)
+        except: wv=0.0
+        wt=" — over the 3% target, tighten pars." if wv>3 else " — within the 3% target."
+        if wv>3: red=True
+        bullets.append(f"<b>Wastage:</b> {waste}% last week{wt}")
+    if not bullets:
+        bullets.append("<b>Focus:</b> review last week's sales, labour, Op's Excellence and wastage.")
+    cls="focusmod red" if red else "focusmod"
+    lis="".join("\n      <li>%s</li>"%b for b in bullets)
+    return ('<div class="%s">\n    <h2>\U0001F3AF Focus areas — %s</h2>\n    <ul>%s\n    </ul>\n  </div>'
+            % (cls, focus_w, lis))
+
 def patch(fn,store,coach,mature):
     h=open(fn,encoding='utf-8').read(); log=[]
     def sub(pat,repl,n_expected,label,flags=0):
@@ -604,6 +657,11 @@ def patch(fn,store,coach,mature):
     before=('data-tab="storesales"' in h)
     h=inject_sales_tab(h,store)   # rename front tab -> "Forecast / Review" + (re)build store-scoped "Sales" tab
     log.append("  ✓ Sales tab "+("rebuilt" if before else "added")+" + front tab renamed to Forecast / Review")
+    # FOCUS BOX (top of page) — rebuild LAST, from the page's now-current figures.
+    _newbox=build_focus_box(h,store,coach)
+    h2,_nn=re.subn(r'<div class="focusmod[^"]*">\s*<h2>\U0001F3AF Focus areas[\s\S]*?</ul>\s*</div>', lambda m:_newbox, h, count=1)
+    if _nn: h=h2; log.append('  ✓ focus box (re-render)')
+    else: log.append('  ✗ focus box — NOT FOUND')
     open(fn,'w',encoding='utf-8').write(h)
     print(f"\n=== {fn} ({store}) ==="); print("\n".join(log))
 

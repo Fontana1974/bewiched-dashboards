@@ -77,7 +77,7 @@
 <div class="brandbar"><div class="inner">
   <div class="logo"><div><div class="word">Be<span>wiched</span></div><div class="eyebrow">Area Performance</div></div></div>
   <div class="spacer"></div>
-  <div class="ctx">Area: <b>Jon</b> · 9 stores<br>4-week window: <b>11 May → 7 Jun 2026</b> · YoY vs 2025<br><span style="color:#e7b35a;font-weight:700">🔄 Refreshed 22 Jun 2026, 10:20 · auto Mon 9am</span></div>
+  <div class="ctx">Area: <b>Jon</b> · 9 stores<br>4-week window: <b>11 May → 7 Jun 2026</b> · YoY vs 2025<br><span style="color:#e7b35a;font-weight:700">🔄 Refreshed 24 Jun 2026, 13:41 · auto Mon 9am</span></div>
 </div></div>
 <div class="wrap">
   <header class="page">
@@ -92,7 +92,7 @@
     <a class="kpw red" onclick="goTab('sentiment')"><div class="kl">👥 People</div><div class="kv">1.97</div><div class="kt">RMS health · QTD · target ≥3.32 · 192 ratings</div></a>
   </div>
   <div class="note" style="margin:-2px 0 8px"><b>At a glance</b> — <b style="color:#1c6b3d">green</b> on/above target · <b style="color:#9a2f22">red</b> below target · <b style="color:#8a7a6d">grey</b> = no data / no feed. Sales &amp; Operations are last-week; Customer &amp; People are quarter-to-date (last-week per-area review/RMS volumes are too sparse). Tap a widget for the detail.</div>
-  <div class="focusmod"><h2>🎯 Area focus — week of 9 Jun</h2><ul><li style="list-style:none;margin:2px 0 9px -18px;padding:9px 13px;border-radius:10px;font-weight:700;background:#fbeae8;border:1px solid #eccfca;color:#8c2f22">🩹 RTWs to do &mdash; last 45 days: 9 &mdash; of 16 sick-for-shift in window · worst Corby (3)</li><li><b>Sales:</b> area ran <b>£71,346</b> last week (+4.2% YoY); 4-week +2.2% YoY. <b>P'boro Fletton +25.4%</b> leads.</li><li><b>Op's Excellence:</b> best <b>Kettering P3</b>; reset <b>P'boro Bridge St P22</b>.</li><li><b>Wastage:</b> area 3.0% retail; worst <b>P'boro Bridge St (4.7%)</b>.</li><li><b>Presence &amp; team:</b> Jon averages <b>81%</b> coverage; RTW completion just <b>42%</b> across 52 sick-for-shift (lateness excluded).</li></ul></div>
+  <div class="focusmod"><h2>🎯 Area focus — week of 15 Jun</h2><ul><li style="list-style:none;margin:2px 0 9px -18px;padding:9px 13px;border-radius:10px;font-weight:700;background:#fbeae8;border:1px solid #eccfca;color:#8c2f22">🩹 RTWs to do &mdash; last 45 days: 9 &mdash; of 16 sick-for-shift in window · worst Corby (3)</li><li><b>Sales:</b> area ran <b>£71,346</b> last week (+4.2% YoY); 4-week +2.2% YoY. <b>P'boro Fletton +25.4%</b> leads.</li><li><b>Op's Excellence:</b> best <b>Kettering P3</b>; reset <b>P'boro Bridge St P22</b>.</li><li><b>Wastage:</b> area 3.0% retail; worst <b>P'boro Bridge St (4.7%)</b>.</li><li><b>Presence &amp; team:</b> Jon averages <b>81%</b> coverage; RTW completion just <b>42%</b> across 52 sick-for-shift (lateness excluded).</li></ul></div>
   <nav class="tabs" role="tablist">
     <button class="tab-btn active" data-tab="overview"><span>🚦</span>Area overview</button>
     <button class="tab-btn" data-tab="sales"><span>📈</span>Sales</button>
@@ -389,7 +389,7 @@ function renderWaste(store){
     b.classList.add("active");document.getElementById("tab-"+b.dataset.tab).classList.add("active");
     requestAnimationFrame(()=>{(window.CHARTS||[]).forEach(c=>{try{c.resize();}catch(e){}});});}));})();
 function goTab(t){var b=document.querySelector('.tab-btn[data-tab="'+t+'"]');if(b){b.click();window.scrollTo({top:0,behavior:"smooth"});}}
-document.getElementById("foot").innerHTML="Data refreshed 22 Jun 2026, 10:20 · auto-refreshes every Monday 9am. Sources: live BigQuery POS, polling sheet, F1 audit, the visit rota, HRP &amp; Google reviews.";
+document.getElementById("foot").innerHTML="Data refreshed 24 Jun 2026, 13:41 · auto-refreshes every Monday 9am. Sources: live BigQuery POS, polling sheet, F1 audit, the visit rota, HRP &amp; Google reviews.";
 </script>
 </body>
 </html>

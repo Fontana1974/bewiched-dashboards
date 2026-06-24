@@ -278,7 +278,7 @@ coach_b="<b>Site presence:</b> %s averages <b>~%s%%</b> weekly site coverage, he
 focus_li=rtw_chip+"".join("<li>%s</li>"%b for b in [sales_b,f1_b,waste_b,coach_b])
 
 # ---- forecast ----
-_t=_dt.date.today(); _mon=_t-_dt.timedelta(days=_t.weekday()); lw_label="W/C "+str((_mon-_dt.timedelta(days=7)).day)+" "+(_mon-_dt.timedelta(days=7)).strftime("%b")
+_t=_dt.date.today(); _cur_end=_t-_dt.timedelta(days=((_t.weekday()+1)%7)); _mon=_cur_end+_dt.timedelta(days=1); _lwmon=_mon-_dt.timedelta(days=7); lw_label="W/C "+str(_lwmon.day)+" "+_lwmon.strftime("%b"); focus_week="week of "+str(_lwmon.day)+" "+_lwmon.strftime("%b")
 def _wl(d): return "W/C "+str(d.day)+" "+d.strftime("%b")
 wk_this=_wl(_mon); wk_n1=_wl(_mon+_dt.timedelta(days=7)); wk_n2=_wl(_mon+_dt.timedelta(days=14))
 def _fc(s,i):
@@ -359,7 +359,7 @@ repl={
  "{{WX_NUDGE}}":wx_nudge([R[s]['coords'] for s in stores if R[s].get('coords')],wx_recent(amix)),
  "{{WX_NUDGE_TOP}}":WX_TOP,"{{WX_FOOD}}":WX_FOOD,
  "{{COACH}}":COACH,"{{COACH_CARDS}}":COACH_CARDS,"{{MOVROWS}}":mov,"{{MOV_NOTE}}":mov_note,"{{PLANNER_LINKS}}":PLANNERS_HTML,
- "{{GEN_STAMP}}":GEN_STAMP,"{{FOOT_VIEW}}":"coach","{{ROLE}}":ROLE,"{{SPEED_WIDGETS}}":SPEED_WIDGETS,"{{LW_LABEL}}":lw_label,"{{NSTORES}}":str(len(stores)),"{{PILL}}":COACH+" · "+ROLE+" · all "+str(len(stores))+" stores","{{FOCUS_LI}}":focus_li,"{{QUEUE_BENCH}}":qbench_line(QBENCH.get("company") if QBENCH else None),
+ "{{GEN_STAMP}}":GEN_STAMP,"{{FOOT_VIEW}}":"coach","{{ROLE}}":ROLE,"{{SPEED_WIDGETS}}":SPEED_WIDGETS,"{{LW_LABEL}}":lw_label,"{{FOCUS_WEEK}}":focus_week,"{{NSTORES}}":str(len(stores)),"{{PILL}}":COACH+" · "+ROLE+" · all "+str(len(stores))+" stores","{{FOCUS_LI}}":focus_li,"{{QUEUE_BENCH}}":qbench_line(QBENCH.get("company") if QBENCH else None),
  "{{AREA_LAST}}":GBP(area_last),"{{AREA_YOY_LW}}":pctxt(ylw),"{{LWCHIP}}":"up" if ylw>=0 else "dn",
  "{{AREA_4WK}}":GBP(area_4wk),"{{AREA_YOY_4W}}":pctxt(y4),"{{W4CHIP}}":"up" if y4>=0 else "dn",
  "{{AREA_WASTE_PCT}}":str(awpct),"{{AREA_WASTE_RETAIL}}":GBP(awr),"{{WASTE_PCT_LW}}":str(awpct_lw),"{{WASTE_RETAIL_LW}}":GBP(awr_lw),"{{WASTE_RETAIL_WK}}":GBP(awr_wk),"{{ATV_MED}}":"%.2f"%atv_med,

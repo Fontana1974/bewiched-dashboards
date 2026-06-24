@@ -349,7 +349,7 @@ def build(coach):
 
     # ---- forecast & hours tab ----
     import datetime as _dt
-    _t=_dt.date.today(); _mon=_t-_dt.timedelta(days=_t.weekday()); lw_label="W/C "+str((_mon-_dt.timedelta(days=7)).day)+" "+(_mon-_dt.timedelta(days=7)).strftime("%b")
+    _t=_dt.date.today(); _cur_end=_t-_dt.timedelta(days=((_t.weekday()+1)%7)); _mon=_cur_end+_dt.timedelta(days=1); _lwmon=_mon-_dt.timedelta(days=7); lw_label="W/C "+str(_lwmon.day)+" "+_lwmon.strftime("%b"); focus_week="week of "+str(_lwmon.day)+" "+_lwmon.strftime("%b")
     def _wl(d): return "W/C "+str(d.day)+" "+d.strftime("%b")
     wk_this=_wl(_mon); wk_n1=_wl(_mon+_dt.timedelta(days=7)); wk_n2=_wl(_mon+_dt.timedelta(days=14))
     def _fc(s,i):
@@ -439,7 +439,7 @@ def build(coach):
      "{{KPW_PEOPLE_K}}":kpw_people_k,"{{KPW_PEOPLE_V}}":kpw_people_v,"{{KPW_PEOPLE_N}}":kpw_people_n,
      "{{WX_NUDGE}}":wx_nudge([R[s]['coords'] for s in stores if R[s].get('coords')],wx_recent(amix)),
      "{{WX_NUDGE_TOP}}":WX_TOP,"{{WX_FOOD}}":WX_FOOD,
-     "{{GEN_STAMP}}":GEN_STAMP,"{{LW_LABEL}}":lw_label,"{{AVF_WK}}":ACT.get('_week_label','last week'),"{{AVF_ROWS}}":_avf_rows(stores,R),"{{PLANNER_LINK}}":PLANNERS.get(coach,'#'),
+     "{{GEN_STAMP}}":GEN_STAMP,"{{LW_LABEL}}":lw_label,"{{FOCUS_WEEK}}":focus_week,"{{AVF_WK}}":ACT.get('_week_label','last week'),"{{AVF_ROWS}}":_avf_rows(stores,R),"{{PLANNER_LINK}}":PLANNERS.get(coach,'#'),
      "{{QUEUE_BENCH}}":qbench_line((QBENCH.get("areas") or {}).get(coach) if QBENCH else None),
      "{{COACH}}":coach,"{{NSTORES}}":str(len(stores)),"{{PILL}}":" · ".join(SHORT[s] for s in sorted(stores,key=lambda x:-R[x]['s4'])),
      "{{FOCUS_LI}}":focus_li,"{{OVROWS}}":ov,"{{OV_TOTAL}}":ov_total,"{{AREA_LAST}}":GBP(area_last),"{{AREA_YOY_LW}}":pctxt(ylw),"{{LWCHIP}}":"up" if ylw>=0 else "dn",
