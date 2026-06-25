@@ -559,6 +559,55 @@ def build_focus_box(h, store, coach):
     return ('<div class="%s">\n    <h2>\U0001F3AF Focus areas — %s</h2>\n    <ul>%s\n    </ul>\n  </div>'
             % (cls, focus_w, lis))
 
+def _rv_cell(name, d):
+    """QTD/WTD tile for a store page. Graceful 'No reviews' when the window is empty."""
+    if not d or not d.get('n'):
+        return ('<div style="flex:1;min-width:96px;border:1px solid #ece3d6;border-radius:10px;padding:8px 10px">'
+                f'<div style="font-size:11px;color:#9a8a7c">{name}</div>'
+                '<div style="font-size:15px;font-weight:700;color:#9a8a7c">No reviews</div>'
+                '<div style="font-size:11px;color:#9a8a7c">this period</div></div>')
+    a=d.get('avg'); col="#1f8a4c" if (a or 0)>=4.7 else ("#b8860b" if (a or 0)>=4.5 else "#c0392b")
+    av=f'{a:.2f}★' if a is not None else '—'
+    return ('<div style="flex:1;min-width:96px;border:1px solid #ece3d6;border-radius:10px;padding:8px 10px">'
+            f'<div style="font-size:11px;color:#9a8a7c">{name}</div>'
+            f'<div style="font-size:18px;font-weight:700;color:{col}">{av}</div>'
+            f'<div style="font-size:11px;color:#9a8a7c">{d["n"]} review{"s" if d["n"]!=1 else ""}</div></div>')
+
+def reviews_block(store):
+    """Overall (lifetime) / QTD / WTD trio + Customer Voice for one store page."""
+    r=R.get(store,{}); cu=r.get('cust') or {}
+    rating=cu.get('rating'); reviews=cu.get('reviews',0) or 0
+    try: qlabel=json.load(open('reviews_feed.json')).get('_qtd_label','QTD')
+    except Exception: qlabel='QTD'
+    ovc="#1f8a4c" if (rating or 0)>=4.7 else ("#b8860b" if (rating or 0)>=4.5 else "#c0392b")
+    ov=('<div style="flex:1;min-width:96px;border:1px solid #ece3d6;border-radius:10px;padding:8px 10px">'
+        '<div style="font-size:11px;color:#9a8a7c">Overall · lifetime</div>'
+        f'<div style="font-size:18px;font-weight:700;color:{ovc}">{(("%.2f"%rating)+chr(9733)) if rating is not None else "n/a"}</div>'
+        f'<div style="font-size:11px;color:#9a8a7c">{reviews:,} reviews</div></div>')
+    trio=ov+_rv_cell(f"QTD · {qlabel}", r.get('cust_qtd'))+_rv_cell("WTD", r.get('cust_wtd'))
+    v=r.get('cust_voice')
+    if v:
+        cc={'Positive':'#1f8a4c','Mixed':'#b8860b','Negative':'#c0392b'}.get(v['label'],'#9a8a7c')
+        themes=(" · "+" · ".join(v['themes'])) if v.get('themes') else ""
+        quotes="".join(f'<div class="quote" style="margin-top:5px">“{esc(q["t"])}” '
+                       f'<span class="who">— {q["stars"]}★ · {q["d"]}</span></div>' for q in v.get('quotes',[]))
+        voice=(f'<div style="margin-top:10px"><span style="font-weight:700;color:{cc}">Customer voice: {v["label"]}</span>'
+               f'<span style="font-size:12px;color:#9a8a7c">{themes}</span>{quotes}</div>')
+    else:
+        voice='<div class="note" style="margin-top:10px">No recent customer comments in the review feed yet (rating &amp; count only).</div>'
+    return ('<div class="panel" style="margin:0 0 14px">'
+            '<div class="section-title">⭐ Customer — Google reviews '
+            '<span style="font-weight:400;font-size:11px;color:#9a8a7c">· Overall (lifetime) · QTD · WTD — live from the Google-reviews sheet</span></div>'
+            f'<div style="display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 2px">{trio}</div>{voice}</div>')
+
+def inject_reviews(h, store):
+    """Idempotent: strip any prior REVIEWS block, then (re)insert at the top of the
+    Sentiment tab so the Overall/QTD/WTD trio + Customer Voice re-render cleanly each run."""
+    h=re.sub(r'\s*<!-- REVIEWS START -->.*?<!-- REVIEWS END -->', '', h, flags=re.S)
+    block='\n  <!-- REVIEWS START -->\n  '+reviews_block(store)+'\n  <!-- REVIEWS END -->'
+    h2,n=re.subn(r'(<section class="tab-panel" id="tab-sentiment">)', lambda m:m.group(1)+block, h, count=1)
+    return h2 if n else h
+
 def patch(fn,store,coach,mature):
     h=open(fn,encoding='utf-8').read(); log=[]
     def sub(pat,repl,n_expected,label,flags=0):
@@ -582,6 +631,7 @@ def patch(fn,store,coach,mature):
     h=inject_star(h,store)
     h=inject_compliance(h,store)
     h=inject_simply_lunch(h,store)   # Simply Lunch food order forecast on the Mix tab (Glenvale)
+    h=inject_reviews(h,store)        # Customer reviews trio (Overall/QTD/WTD) + Customer Voice on the Sentiment tab
     # 2) actbox value + week
     sub(r'(Last week actual sales · )w/c 1 Jun(</div><div class="ab-val">)£[\d,]+(</div>)',
         rf'\g<1>{NEWWK}\g<2>{gbp(LW)}\g<3>',1,"actbox £ + week")

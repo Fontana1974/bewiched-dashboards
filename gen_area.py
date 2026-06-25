@@ -340,12 +340,12 @@ def build(coach):
     area_reviews=sum(cu[s]['reviews'] for s in stores)
     def ratcol(v): return "#1f8a4c" if v>=4.7 else ("#b8860b" if v>=4.5 else "#c0392b")
     def ratk(v): return "t-ok" if v>=4.7 else ("t-amber" if v>=4.5 else "t-red")
-    cust_rows=""
-    for s in sorted(rated,key=lambda x:-cu[x]['rating']):
-        v=cu[s]['rating']; w=round(100*v/5)
-        cust_rows+=f'<tr><td class="ms">{SHORT[s]}</td><td style="width:55%"><div class="pbar" style="width:100%"><i style="width:{w}%;background:{ratcol(v)}"></i></div></td><td>{tag(f"{v:.1f}★",ratk(v))}</td><td class="mini">{cu[s]["reviews"]:,} reviews</td></tr>'
+    import reviews_render as _rv
+    cust_rows=_rv.cust_rows(stores,R,lambda s:SHORT[s])
+    cust_voice=_rv.cust_voice(stores,R,lambda s:SHORT[s])
+    cust_qlabel=_rv.qlabel()
     rsort=sorted(rated,key=lambda x:cu[x]['rating'])
-    cust_note=f"Live Google rating per store ({area_reviews:,} reviews across the area). Strongest <b>{SHORT[rsort[-1]]} ({cu[rsort[-1]]['rating']}★)</b>; lowest <b>{SHORT[rsort[0]]} ({cu[rsort[0]]['rating']}★, {cu[rsort[0]]['reviews']:,} reviews)</b> — high-volume sites naturally sit a touch lower."
+    cust_note=f"<b>Overall</b> = lifetime Google rating; <b>QTD/WTD</b> are live from the Google-reviews sheet ({cust_qlabel}). Strongest overall <b>{SHORT[rsort[-1]]} ({cu[rsort[-1]]['rating']}★)</b>; lowest <b>{SHORT[rsort[0]]} ({cu[rsort[0]]['rating']}★)</b>. A dash means no reviews captured in that window yet."
 
     # ---- forecast & hours tab ----
     import datetime as _dt
@@ -453,7 +453,7 @@ def build(coach):
      "{{F1TBL}}":f1tbl,"{{F1_FIN_DS}}":f1_fin_ds,"{{F1_FIN_LBLS}}":f1_fin_lbls,"{{F1_CHAMP_AVG}}":str(f1_champ_avg),"{{AVG_FIN2}}":str(avg_fin),
      "{{F1_TOP}}":f1_top,"{{F1_TOP_META}}":f1_top_meta,"{{CON_HTML}}":con_html,"{{CON_NOTE}}":con_note,"{{DRV_ROWS}}":drv_rows,"{{F1_NOTE}}":f1_note,"{{F1_FOCUS}}":f1_focus,"{{QUALI_DETAIL_ROWS}}":quali_rows,"{{RACE_DETAIL_ROWS}}":race_rows,
      "{{RMS_ROWS}}":rms_rows,"{{HR_ROWS}}":hr_rows,"{{AREA_RMS}}":str(area_rms),"{{AREA_SICK}}":str(area_sick),"{{AREA_SICKFS}}":str(area_sickfs),"{{AREA_LATE}}":str(area_late),
-     "{{RTW_COMP}}":str(rtw_comp),"{{RTW_COMP_K}}":rtw_k,"{{AREA_REP}}":str(area_rep),"{{AREA_RTW}}":str(area_rtw),"{{RMS_NOTE}}":rms_note,"{{RTW_NOTE}}":rtw_note,"{{AREA_RATING}}":str(area_rating),"{{AREA_REVIEWS}}":f"{area_reviews:,}","{{CUST_ROWS}}":cust_rows,"{{CUST_NOTE}}":cust_note,"{{WK_THIS}}":wk_this,"{{WK_N1}}":wk_n1,"{{WK_N2}}":wk_n2,"{{FCST_ROWS}}":fcst_rows,"{{FCST_AREA_THIS}}":GBP(sumf[0]),"{{FCST_HRS_THIS}}":str(sumh[0]),"{{FCST_BLENDED}}":str(fcst_blended),"{{TARGETS_LINK}}":TARGETS,
+     "{{RTW_COMP}}":str(rtw_comp),"{{RTW_COMP_K}}":rtw_k,"{{AREA_REP}}":str(area_rep),"{{AREA_RTW}}":str(area_rtw),"{{RMS_NOTE}}":rms_note,"{{RTW_NOTE}}":rtw_note,"{{AREA_RATING}}":str(area_rating),"{{AREA_REVIEWS}}":f"{area_reviews:,}","{{CUST_ROWS}}":cust_rows,"{{CUST_NOTE}}":cust_note,"{{CUST_VOICE}}":cust_voice,"{{CUST_QLABEL}}":cust_qlabel,"{{WK_THIS}}":wk_this,"{{WK_N1}}":wk_n1,"{{WK_N2}}":wk_n2,"{{FCST_ROWS}}":fcst_rows,"{{FCST_AREA_THIS}}":GBP(sumf[0]),"{{FCST_HRS_THIS}}":str(sumh[0]),"{{FCST_BLENDED}}":str(fcst_blended),"{{TARGETS_LINK}}":TARGETS,
     }
     html=open('TEMPLATE_AREA.html').read()
     for k,v in repl.items(): html=html.replace(k,v)

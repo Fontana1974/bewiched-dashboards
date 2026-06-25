@@ -259,12 +259,12 @@ area_rating=round(mean([cu[s]['rating'] for s in rated]),2) if rated else 0
 area_reviews=sum(cu[s]['reviews'] for s in stores)
 def ratcol(v): return "#1f8a4c" if v>=4.7 else ("#b8860b" if v>=4.5 else "#c0392b")
 def ratk(v): return "t-ok" if v>=4.7 else ("t-amber" if v>=4.5 else "t-red")
-cust_rows=""
-for s in sorted(rated,key=lambda x:-cu[x]['rating']):
-    v=cu[s]['rating']; w=round(100*v/5)
-    cust_rows+='<tr><td class="ms">%s</td><td style="width:55%%"><div class="pbar" style="width:100%%"><i style="width:%s%%;background:%s"></i></div></td><td>%s</td><td class="mini">%s reviews</td></tr>'%(sh(s),w,ratcol(v),tag("%.1f★"%v,ratk(v)),format(cu[s]["reviews"],",d"))
+import reviews_render as _rv
+cust_rows=_rv.cust_rows(stores,R,sh)
+cust_voice=_rv.cust_voice(stores,R,sh)
+cust_qlabel=_rv.qlabel()
 rsort=sorted(rated,key=lambda x:cu[x]['rating'])
-cust_note="Live Google rating per store (%s reviews across the company). Strongest <b>%s (%s★)</b>; lowest <b>%s (%s★)</b> — high-volume sites naturally sit a touch lower."%(format(area_reviews,",d"),sh(rsort[-1]),cu[rsort[-1]]['rating'],sh(rsort[0]),cu[rsort[0]]['rating'])
+cust_note="<b>Overall</b> = lifetime Google rating; <b>QTD/WTD</b> are live from the Google-reviews sheet (%s). Strongest overall <b>%s (%s★)</b>; lowest <b>%s (%s★)</b>. A dash means no reviews captured in that window yet."%(cust_qlabel,sh(rsort[-1]),cu[rsort[-1]]['rating'],sh(rsort[0]),cu[rsort[0]]['rating'])
 sent_focus="Close the return-to-work gap (currently %s%%): log an RTW chat after every absence, starting with Fletton &amp; Rushden."%rtw_comp
 
 # ---- focus bullets ----
@@ -395,7 +395,7 @@ repl={
  "{{F1_TOP}}":f1_top,"{{F1_TOP_META}}":f1_top_meta,"{{CON_HTML}}":con_html,"{{CON_NOTE}}":con_note,"{{DRV_ROWS}}":drv_rows,"{{F1_NOTE}}":f1_note,"{{F1_FOCUS}}":f1_focus,
  "{{RMS_ROWS}}":rms_rows,"{{HR_ROWS}}":hr_rows,"{{AREA_RMS}}":str(area_rms),"{{AREA_SICK}}":str(area_sick),"{{AREA_SICKFS}}":str(area_sickfs),"{{AREA_LATE}}":str(area_late),
  "{{RTW_COMP}}":str(rtw_comp),"{{RTW_COMP_K}}":rtw_k,"{{AREA_REP}}":str(area_rep),"{{AREA_RTW}}":str(area_rtw),"{{RMS_NOTE}}":rms_note,"{{RTW_NOTE}}":rtw_note,
- "{{AREA_RATING}}":str(area_rating),"{{AREA_REVIEWS}}":format(area_reviews,",d"),"{{CUST_ROWS}}":cust_rows,"{{CUST_NOTE}}":cust_note,"{{SENT_FOCUS}}":sent_focus,
+ "{{AREA_RATING}}":str(area_rating),"{{AREA_REVIEWS}}":format(area_reviews,",d"),"{{CUST_ROWS}}":cust_rows,"{{CUST_NOTE}}":cust_note,"{{CUST_VOICE}}":cust_voice,"{{CUST_QLABEL}}":cust_qlabel,"{{SENT_FOCUS}}":sent_focus,
 }
 html=open('TEMPLATE_COACH.html',encoding='utf-8').read()
 for k,v in repl.items(): html=html.replace(k,v)
