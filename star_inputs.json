@@ -1,9 +1,25 @@
 {
  "Glenvale Drive Thru": {
-  "remote_audit": 89, "remote_n": 10,
-  "coaching_cs_pct": 80.6, "coaching_barista_pct": 80.6,
-  "open_pct": 100, "close_pct": 100, "openclose_pct": 100,
+  "remote_audit": 89,
+  "remote_n": 10,
+  "coaching_cs_pct": 80.6,
+  "coaching_barista_pct": 80.6,
+  "open_pct": 100,
+  "close_pct": 100,
+  "openclose_pct": 100,
   "openclose_detail": "57 open & 56 close vs 56 trading days (20 Apr–14 Jun), Process Street feed",
   "rtw_detail": "RTW% from HRP sickness/RTW (Glenvale, QTD)"
+ },
+ "Leamington Parade": {
+  "remote_audit": null,
+  "remote_n": null,
+  "coaching_cs_pct": null,
+  "coaching_barista_pct": null,
+  "open_pct": null,
+  "close_pct": null,
+  "openclose_pct": null,
+  "openclose_detail": "",
+  "rtw_detail": "RTW% from HRP sickness/RTW (Leamington Parade, QTD)",
+  "_note": "MANUAL/slow inputs pending — remote-assessment tab, HRP coaching checklist, Process Street open/close for Leamington Parade. Until filled, Operations is computed from the brand audit alone (flagged) and the compliance panel is omitted."
  }
 }

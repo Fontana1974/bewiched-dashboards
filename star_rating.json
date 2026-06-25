@@ -1,6 +1,6 @@
 {
- "_method": "Grow composite star rating (TEST \u2014 Glenvale only). Each pillar scored 0-5 vs target by linear interpolation between anchors floor=0 / target=3 / stretch=5 stars (clamped). Anchors \u2014 Sales YoY: floor -8/target +8/stretch +20. CUSTOMER = 50/50 of Google-health (floor 1.66/target 3.32/stretch 5.0) and F1 race score (floor 320/target 190/stretch 130, lower better). PEOPLE = 50/50 of RMS-health (1.66/3.32/5.0) and RTW% (0/80/100). OPERATIONS = equal-thirds of brand audit /5 (4.0/4.5/5.0), remote audit /100 (50/85/100), and COMPLIANCE. COMPLIANCE = 50/50 of coaching-checklist % of standard and open/close completion %, normalised 50/85/100. Composite = average of the four pillars. All QTD (Q2 2026). Glenvale: Customer = Google 4.07->3.89 + F1 270->1.15 = 2.52; Operations = audit 4.67->3.68 + remote 89.4->3.59 + compliance 90.3%->3.71 = 3.66; People = RMS 4.14->3.98 + RTW 45%->1.69 = 2.83; Sales 5.0. F1 race now lives in CUSTOMER (was Operations).",
- "_window": "quarter-to-date \u00b7 Q2 2026 (rebuilt weekly)",
+ "_method": "Grow composite star rating. Each pillar scored 0-5 vs target by linear interpolation between anchors floor=0 / target=3 / stretch=5 stars (clamped). Anchors — Sales YoY (4-wk): floor -8 / target +8 / stretch +20. CUSTOMER = 50/50 of Google-health (1.66/3.32/5.0) and F1 race score (320/190/130, lower better). PEOPLE = 50/50 of RMS-health (1.66/3.32/5.0) and RTW% (0/80/100). OPERATIONS = equal blend of brand audit /5 (4.0/4.5/5.0), remote audit /100 (50/85/100) and COMPLIANCE (50/50 coaching-% and open/close-%, 50/85/100); where remote/compliance are not yet pulled for a store, Operations falls back to the brand audit alone (flagged). Composite = average of the four pillars. All QTD (Q2 2026). Google-health falls back to the store's live all-time rating when its QTD review feed is stale (flagged).",
+ "_window": "quarter-to-date · Q2 2026 (rebuilt weekly)",
  "stores": {
   "Glenvale Drive Thru": {
    "composite": 3.4,
@@ -8,19 +8,19 @@
     {
      "name": "Sales",
      "star": 5.0,
-     "qtd": "+32.8% YoY",
+     "qtd": "+30.1% YoY",
      "target": "target +8%"
     },
     {
      "name": "Operations",
      "star": 3.7,
-     "qtd": "audit 4.67 + remote 89 + compliance 90%",
-     "target": "equal-thirds: audit\u00b7remote\u00b7compliance"
+     "qtd": "audit 4.69 + remote 89 + compliance 90%",
+     "target": "equal blend: audit·remote·compliance"
     },
     {
      "name": "Customer",
      "star": 2.5,
-     "qtd": "Google health 4.07 + F1 270",
+     "qtd": "Google health 4.17 (QTD feed) + F1 274",
      "target": "Google health + F1 race (50/50)"
     },
     {
@@ -31,7 +31,7 @@
     }
    ],
    "ops": {
-    "brand_audit": 4.67,
+    "brand_audit": 4.69,
     "remote_audit": 89,
     "remote_n": 10,
     "compliance_pct": 90,
@@ -40,10 +40,39 @@
     "open_pct": 100,
     "close_pct": 100,
     "openclose_pct": 100,
-    "openclose_detail": "57 open & 56 close vs 56 trading days (20 Apr\u201314 Jun), Process Street feed",
+    "openclose_detail": "57 open & 56 close vs 56 trading days (20 Apr–14 Jun), Process Street feed",
     "rtw_pct": 45,
     "rtw_detail": "RTW% from HRP sickness/RTW (Glenvale, QTD)"
    }
+  },
+  "Leamington Parade": {
+   "composite": 4.1,
+   "pillars": [
+    {
+     "name": "Sales",
+     "star": 5.0,
+     "qtd": "+24.3% YoY",
+     "target": "target +8%"
+    },
+    {
+     "name": "Operations",
+     "star": 3.9,
+     "qtd": "audit 4.73 · remote & compliance pending",
+     "target": "brand audit only (remote/compliance not yet pulled)"
+    },
+    {
+     "name": "Customer",
+     "star": 3.9,
+     "qtd": "Google health 4.91 (live rating 4.82★/71) + F1 196",
+     "target": "Google health + F1 race (50/50)"
+    },
+    {
+     "name": "People",
+     "star": 3.7,
+     "qtd": "4.7 RMS + 73% RTW",
+     "target": "RMS health + RTW% (50/50)"
+    }
+   ]
   }
  }
 }
