@@ -30,6 +30,8 @@ def _load_txq(fn):
 TXQ_BY_STORE={'Glenvale Drive Thru':_load_txq('txquality_glenvale.json'),
               'Leamington Parade':_load_txq('txquality_leamington.json')}
 TXQ_STORES={k for k,v in TXQ_BY_STORE.items() if v}
+# Stores whose first tab is a merged 'Commercial' tab (Sales tab folded in, no separate Sales tab).
+COMMERCIAL_STORES={'Glenvale Drive Thru','Leamington Parade'}
 try: STAR=json.load(open('star_rating.json'))          # TEST: Grow composite star rating, gated to stores in this file (Glenvale only for now)
 except FileNotFoundError: STAR={}
 T_RMS=50*13/21.0  # per-store quarterly RMS submission target (area method / store)
@@ -242,9 +244,8 @@ def txquality_section(store):
 def sales_tab_section(store):
     d=(NS.get("stores") or {}).get(store); win=NS.get("_window",""); hrs=NS.get("hours",{})
     if not d:
-        return ('<!-- STORESALES START -->\n<section class="tab-panel" id="tab-storesales">\n'
-                f'  <div class="section-title">📊 Sales by day &amp; daypart — {store}</div>\n'
-                '  <p class="note">Store sales data not available this run.</p>\n</section>\n<!-- STORESALES END -->')
+        return (f'  <div class="section-title">📊 Sales by day &amp; daypart — {store}</div>\n'
+                '  <p class="note">Store sales data not available this run.</p>\n')
     has=d.get("has_ly")
     # day of week
     dow=d.get("dow",[]); maxc=max([c for _,c,_ in dow] or [1]) or 1; dowrows=""
@@ -316,29 +317,52 @@ def sales_tab_section(store):
         tail_section=(f'  <div class="section-title">🥪 Food &amp; bakery gaining traction by daypart</div>\n'
                       f'  <div class="note" style="margin-bottom:4px">{food_lead}</div>\n'
                       f'  <div class="cards">{fcards}</div>\n')
-    return (f'<!-- STORESALES START -->\n<!-- ===== TAB: Sales (store-scoped) ===== -->\n'
-            f'<section class="tab-panel" id="tab-storesales">\n'
-            f'  <div class="section-title">📊 Sales by day &amp; daypart — {store}</div>\n'
+    return (f'  <div class="section-title">📊 Sales by day &amp; daypart — {store}</div>\n'
             f'  <div class="note">This store only · {win}, shown as <b>averages for a typical day</b> (not 4-week totals). Day-of-week = 4-week total ÷ 4 weeks; daypart = 4-week total ÷ 28 days. Dayparts: <b>Morning 5am–11am</b>, <b>Lunch 11am–2pm</b>, <b>Afternoon 2pm–5pm</b>, <b>Evening 5pm+</b>.{food_paren}</div>\n'
             f'  <div class="section-title">🏆 All-time records</div>\n  {recs}\n'
             f'{dt_section}'
             f'  <div class="section-title">{dow_title}</div>\n  <div>{dowrows}</div>{dow_note}\n'
             f'  <div class="section-title">Average sales by daypart — a typical day</div>\n  <div class="cards">{dpcards}</div>\n'
-            f'{tail_section}</section>\n<!-- STORESALES END -->')
+            f'{tail_section}')
 
 def inject_sales_tab(h, store):
-    # 1) rename existing front tab button label (idempotent)
-    h=h.replace('data-tab="sales" role="tab"><span class="dot">📈</span>Sales &amp; Hours</button>',
-                'data-tab="sales" role="tab"><span class="dot">📈</span>Forecast / Review</button>')
-    # 2) ensure the new Sales nav button exists right after the Forecast/Review button
+    """Build the store Sales body and place it. For COMMERCIAL_STORES the first tab is renamed
+    'Commercial' and the Sales body is folded INTO it (the separate Sales tab is removed). The other
+    stores keep the legacy two-tab layout (Forecast / Review + Sales). Idempotent via the STORESALES
+    START/END markers (re-rendered each run, never double-injected or whitespace-drifting)."""
+    body=sales_tab_section(store)
+    DOT="\U0001F4C8"
+    if store in COMMERCIAL_STORES:
+        # 1) first tab button -> "Commercial"
+        h=re.sub(r'(data-tab="sales" role="tab"><span class="dot">'+DOT+r'</span>)[^<]*(</button>)',
+                 r'\g<1>Commercial\g<2>', h, count=1)
+        # 2) drop the standalone Sales nav button (if present)
+        h=re.sub(r'\s*<button class="tab-btn"[^>]*data-tab="storesales"[^>]*>.*?</button>', '', h, flags=re.S)
+        # 3) drop storesales from the TAB_STATUS dot map
+        for frag in (',storesales:"green"','storesales:"green",','storesales:"green"'):
+            h=h.replace(frag,'')
+        # 4) strip any prior Sales block (standalone tab OR already folded), then fold INTO the
+        #    Commercial (tab-sales) panel before its </section> — back up over trailing whitespace
+        #    first so re-running is byte-identical (no indent drift).
+        h=re.sub(r'\s*<!-- STORESALES START -->.*?<!-- STORESALES END -->', '', h, flags=re.S)
+        i=h.find('id="tab-sales">')
+        if i<0: return h
+        j=h.find('</section>', i)
+        if j<0: return h
+        k=j
+        while k>0 and h[k-1] in ' \t\n': k-=1
+        block='\n  <!-- STORESALES START -->\n'+body+'  <!-- STORESALES END -->\n  '
+        return h[:k]+block+h[j:]
+    # ---- legacy two-tab layout (non-commercial stores) ----
+    h=re.sub(r'(data-tab="sales" role="tab"><span class="dot">'+DOT+r'</span>)[^<]*(</button>)',
+             r'\g<1>Forecast / Review\g<2>', h, count=1)
     if 'data-tab="storesales"' not in h:
-        h=h.replace('data-tab="sales" role="tab"><span class="dot">📈</span>Forecast / Review</button>',
-                    'data-tab="sales" role="tab"><span class="dot">📈</span>Forecast / Review</button>\n    <button class="tab-btn" data-tab="storesales" role="tab"><span class="dot">📊</span>Sales</button>',1)
-    # 3) tab-status dot map (idempotent)
+        h=h.replace('data-tab="sales" role="tab"><span class="dot">'+DOT+'</span>Forecast / Review</button>',
+                    'data-tab="sales" role="tab"><span class="dot">'+DOT+'</span>Forecast / Review</button>\n    <button class="tab-btn" data-tab="storesales" role="tab"><span class="dot">\U0001F4CA</span>Sales</button>',1)
     if 'storesales:' not in h:
         h=h.replace('sentiment:"green"}','sentiment:"green",storesales:"green"}',1)
-    # 4) (re)build the section: replace prior injection else insert before the Wastage tab
-    sec=sales_tab_section(store)
+    sec=('<!-- STORESALES START -->\n<!-- ===== TAB: Sales (store-scoped) ===== -->\n'
+         '<section class="tab-panel" id="tab-storesales">\n'+body+'</section>\n<!-- STORESALES END -->')
     h2,n=re.subn(r'<!-- STORESALES START -->.*?<!-- STORESALES END -->', lambda m: sec, h, flags=re.S)
     if n: return h2
     m=re.search(r'(\n\s*(?:<!--[^>]*-->\s*)?<section class="tab-panel" id="tab-waste">)', h)
