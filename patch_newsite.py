@@ -223,9 +223,9 @@ def txquality_section(store):
     route=f'{lk["label"]} attach → {lk["fa_target"]:g}%'
     pat=(f'<div class="section-title" style="margin-top:18px">🎯 Profit after tax — daily target tracker <span class="mini" style="font-weight:400">· manual · {S.get("pat_basis","latest P&amp;L")}</span></div>'
          f'<div class="cards" style="grid-template-columns:repeat(3,1fr)">'
-         f'<div class="card"><div class="lbl">Current PAT / day</div><div class="val" style="color:#e67e22">£{S.get("pat_day_current",0):g}</div>'
+         f'<div class="card"><div class="lbl">Current Profit After Tax Per Day</div><div class="val" style="color:#e67e22">£{S.get("pat_day_current",0):g}</div>'
          f'<div class="meta">{S.get("pat_day_current_pct",0):g}% of ~£{S.get("daily_sales",0):g} daily sales<br>{S.get("pat_basis","")} · manual</div></div>'
-         f'<div class="card"><div class="lbl">Target PAT / day</div><div class="val" style="color:#2a9d8f">£{S.get("pat_day_target",0):g}</div>'
+         f'<div class="card"><div class="lbl">Target Profit After Tax Per Day</div><div class="val" style="color:#2a9d8f">£{S.get("pat_day_target",0):g}</div>'
          f'<div class="meta">{S.get("pat_pct_target",0):g}% of daily sales<br>gap: £{S.get("gap_day",0):g}/day · manual target</div></div>'
          f'<div class="card"><div class="lbl">Fastest sales-side route</div><div class="val" style="font-size:17px;color:#457b9d">{route}</div>'
          f'<div class="meta">{lk["label"]} food attach {lk["food_attach"]:g}% → {lk["fa_target"]:g}%<br>+ retail (beans/cups) on the counter</div></div></div>')
