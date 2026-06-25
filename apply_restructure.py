@@ -18,8 +18,10 @@ def apply(fn,store,coach):
     h=P.inject_audit(h,store)         # Operations: brand audit
     h=P.inject_compliance(h,store)    # Operations: remote audit / compliance / coaching / RTW
     h=P.inject_pat_card(h,store)      # Commercial: PAT KPI card
+    h=P.inject_cos_cards(h,store)     # Commercial: Holding-stock % + GP% cards
     h=P.inject_txquality(h,store)     # Commercial: transaction quality + PAT tracker
     h=P.simplify_mix_table(h)
+    h=P.merge_mix_capture(h)          # merge mix + capture into one table
     open(fn,'w',encoding='utf-8').write(h)
     print("restructured",fn)
 if __name__=='__main__':

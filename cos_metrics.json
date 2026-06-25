@@ -1,0 +1,9 @@
+{
+ "_source": "Cost of Sales sheet 1doPNL5yVh7swMysJMRVi0ECiBg50ZGBb7TbwStJtAL0 'Master COS Input' — latest week per store (Stock holding% col G, Gross Profit% col Q)",
+ "_pulled": "2026-06-25", "_week": "21/6/2026",
+ "_store_label_map": {"Glenvale Drive Thru": "Glenvale DT", "Leamington Parade": "Leamington Parade"},
+ "stores": {
+   "Glenvale Drive Thru": {"holding_pct": 20.7, "gp_pct": 69.06},
+   "Leamington Parade":   {"holding_pct": 29.1, "gp_pct": 73.14}
+ }
+}

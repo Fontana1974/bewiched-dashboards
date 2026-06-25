@@ -39,6 +39,8 @@ try: AUDIT=json.load(open('audit_themes.json'))        # brand-audit QTD score +
 except (FileNotFoundError, ValueError): AUDIT={}
 try: COMPLIANCE=json.load(open('compliance.json'))     # live HRP compliance QTD/MTD/WTD per store (build_compliance.py)
 except (FileNotFoundError, ValueError): COMPLIANCE={}
+try: COS=json.load(open('cos_metrics.json'))           # holding-stock %-of-sales + GP% per store (Cost of Sales sheet pull)
+except (FileNotFoundError, ValueError): COS={}
 T_RMS=50*13/21.0  # per-store quarterly RMS submission target (area method / store)
 import html as _html
 def esc(t): return _html.escape((t or "").strip())[:200]
@@ -794,6 +796,70 @@ def simplify_mix_table(h):
              lambda m: new, h, count=1, flags=re.S)
     return h
 
+def merge_mix_capture(h):
+    """Consolidate the two separate Commercial-tab tables (the simplified category-mix #cattbl and
+    the estate capture #peertbl) into ONE table (#mixtbl): one row per category showing Mix %,
+    Capture %, Holiday tilt, plus the estate columns Rank / Estate avg / Best in estate. Driven from
+    the SAME const ROWS + const PEER arrays the patcher refreshes each run (so no data is lost), joined
+    by category. Idempotent: fires while the two-table form exists (#peertbl present) and is a no-op
+    once merged."""
+    # 1) table HTML: the grid2 holding both panels -> a single panel with #mixtbl
+    panel=('<div class="panel" style="overflow-x:auto">'
+           '<div style="font-size:13px;font-weight:700;color:#5b3a29;margin-bottom:8px">Sales mix &amp; capture — by category, vs the estate (21 stores)</div>'
+           '<table id="mixtbl"><thead><tr><th>Category</th><th>Mix %</th><th>Capture %</th><th>Holiday tilt</th>'
+           '<th>Rank</th><th>Estate avg</th><th>Best in estate</th></tr></thead><tbody></tbody></table>'
+           '<div class="note" style="margin-top:10px"><b>One row per category.</b> <b>Mix %</b> = share of £ sales; '
+           '<b>Capture %</b> = share of transactions that include the category (attach rate, recent weeks) — green = above the estate average; '
+           '<b>Holiday tilt</b> = term-vs-holiday pts shift; <b>Rank / Estate avg / Best</b> compare this store\'s capture across all 21 stores '
+           '(rank chip green = top third, red = bottom third). Mix holds through the holidays — the cold-drink peak is weather-led (Jun–Jul), not the school calendar.</div></div>')
+    h=re.sub(r'<div class="grid2">[\s\S]*?Mix holds through the holidays[\s\S]*?</div>\s*</div>\s*</div>',
+             lambda m: panel, h, count=1)
+    # 2) render JS: replace the two innerHTML statements (#peertbl + #cattbl) with one merged #mixtbl
+    merged=('const PMAP={};PEER.forEach(p=>{PMAP[p[0]]=p;});'
+            'document.querySelector("#mixtbl tbody").innerHTML=ROWS.map(r=>{'
+            'const tc=r[2]>0?"#1f8a4c":r[2]<0?"#c0392b":"#8a7a6d";const p=PMAP[r[0]];'
+            'let rk="<td>—</td>",av="<td>—</td>",bs="<td>—</td>";'
+            'if(p){const top=p[2]<=p[3]/3,bot=p[2]>p[3]*2/3;const rc=top?["#e6f4ec","#1f8a4c"]:bot?["#fbeae8","#c0392b"]:["#f7f0dd","#b8860b"];'
+            'rk="<td><span style=\'display:inline-block;padding:2px 7px;border-radius:6px;font-weight:700;font-size:12px;background:"+rc[0]+";color:"+rc[1]+"\'>"+p[2]+"/"+p[3]+"</span></td>";'
+            'av="<td>"+p[4].toFixed(1)+"%</td>";bs="<td style=\'text-align:left;font-size:11.5px;color:#8a7a6d\'>"+p[5]+"</td>";}'
+            'const cc=p?(r[3]>=p[4]?"#1f8a4c":"#c0392b"):"#3f2d22";'
+            'return "<tr><td>"+r[0]+"</td><td style=\'font-weight:700\'>"+r[1].toFixed(1)+"%</td>'
+            '<td style=\'font-weight:700;color:"+cc+"\'>"+r[3].toFixed(1)+"%</td>'
+            '<td style=\'color:"+tc+"\'>"+(r[2]>0?"+":"")+r[2].toFixed(1)+" pts</td>"+rk+av+bs+"</tr>";}).join("");')
+    h=re.sub(r'document\.querySelector\("#peertbl tbody"\)\.innerHTML=PEER\.map\([\s\S]*?document\.querySelector\("#cattbl tbody"\)\.innerHTML=ROWS\.map\([\s\S]*?\}\)\.join\(""\);',
+             lambda m: merged, h, count=1)
+    return h
+
+def cos_cards(store):
+    """Holding-stock %-of-sales + GP% cards for the Commercial tab, from the Cost of Sales sheet pull."""
+    c=(COS.get('stores') or {}).get(store) if COS else None
+    if not c: return ""
+    wk=COS.get('_week',''); hp=c.get('holding_pct'); gp=c.get('gp_pct')
+    cards=""
+    if hp is not None:
+        hcol='#1f8a4c' if hp<=22 else ('#b8860b' if hp<=30 else '#c0392b')
+        cards+=(f'<div class="card"><div class="lbl">Holding stock — % of sales</div>'
+                f'<div class="val" style="color:{hcol}">{hp:g}%</div>'
+                f'<div class="meta">stock on hand ÷ sales · Cost of Sales sheet{(" · w/c "+wk) if wk else ""}</div></div>')
+    if gp is not None:
+        gcol='#1f8a4c' if gp>=72 else ('#b8860b' if gp>=68 else '#c0392b')
+        cards+=(f'<div class="card"><div class="lbl">GP% (gross profit)</div>'
+                f'<div class="val" style="color:{gcol}">{gp:g}%</div>'
+                f'<div class="meta">gross profit margin · Cost of Sales sheet{(" · w/c "+wk) if wk else ""}</div></div>')
+    return cards
+
+def inject_cos_cards(h, store):
+    """Add the Holding-stock %-of-sales and GP% cards ALONGSIDE the existing CPH card on the Commercial
+    tab (so it leads CPH · Holding stock %-of-sales · GP%). Idempotent via COSCARDS markers."""
+    h=re.sub(r'<!-- COSCARDS START -->.*?<!-- COSCARDS END -->', '', h, flags=re.S)
+    cc=cos_cards(store)
+    if not cc: return h
+    blk='<!-- COSCARDS START -->'+cc+'<!-- COSCARDS END -->'
+    pat=(r'(<div class="cards" style="grid-template-columns:repeat\()\d(,1fr\)">)'
+         r'(<div class="card"><div class="lbl">CPH \(sales per labour hour\)[\s\S]*?</div></div>)(</div>)')
+    h2,n=re.subn(pat, lambda m: m.group(1)+'3'+m.group(2)+m.group(3)+blk+m.group(4), h, count=1)
+    return h2 if n else h
+
 def _cut_marker(h, name):
     """Remove the first <!-- NAME START --> … <!-- NAME END --> block (and its leading whitespace).
     Returns (h_without, block_text or None)."""
@@ -1182,9 +1248,11 @@ def patch(fn,store,coach,mature):
         h=inject_audit(h,store)        # brand-audit QTD + themes on Operations (before compliance)
         h=inject_compliance(h,store)   # full Operations & compliance panel on Operations (pending-flagged if no feed)
         h=inject_pat_card(h,store)     # Profit-after-tax KPI card at the top of Commercial
+        h=inject_cos_cards(h,store)    # Holding-stock %-of-sales + GP% cards alongside the CPH card
         h=inject_txquality(h,store)    # transaction-quality + PAT tracker on Commercial
-        h=simplify_mix_table(h)        # clean the category-mix table to match the capture table
-        log.append("  ✓ 4-tab restructure (Sales · Commercial · Operations · People & Customer) + PAT card + audit/compliance")
+        h=simplify_mix_table(h)        # clean the category-mix table
+        h=merge_mix_capture(h)         # merge the mix + capture tables into ONE table (#mixtbl)
+        log.append("  ✓ 4-tab restructure (Sales · Commercial · Operations · People & Customer) + PAT/CPH/holding/GP cards + merged mix table")
     # FOCUS BOX (top of page) — rebuild LAST, from the page's now-current figures.
     _newbox=build_focus_box(h,store,coach)
     h2,_nn=re.subn(r'<div class="focusmod[^"]*">\s*<h2>\U0001F3AF Focus areas[\s\S]*?</ul>\s*</div>', lambda m:_newbox, h, count=1)
