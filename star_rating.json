@@ -1,97 +1,106 @@
 {
- "_method": "Grow composite, pillars REALIGNED to the four tabs (Sales · Commercial · Operations · People & Customer). Each metric scored 0-5 between anchors floor=0/target=3/stretch=5 (clamped); pillar = mean of its scored metrics; composite = mean of the four pillars. Sales = Sales YoY(-8/8/20) + ATV vs £6.80(5.5/6.8/8.0). Commercial = Profit-after-tax %(0/18/24) + CPH vs each store's OWN target(target*0.85/target/target*1.08; CPH shown-not-scored when the week's actual isn't posted). Operations = F1 race(320/190/130, lower better) + brand audit /5(4.0/4.5/5.0) + wastage %(5/3/1, lower better). People & Customer = RMS health(1.66/3.32/5.0) + RTW%(0/80/100) + Google health(1.66/3.32/5.0, QTD or live-rating fallback); lateness shown not scored, bench not per-store. GROW TARGET = 4.6 stars (below 4.6 = OFF TARGET); the per-metric 0/3/5 anchors are kept, 4.6 is the headline target line.",
- "_window": "quarter-to-date · Q2 2026 (rebuilt weekly)",
  "target": 4.6,
  "stores": {
   "Glenvale Drive Thru": {
-   "composite": 3.3,
+   "composite": 4.2,
    "target": 4.6,
    "on_target": false,
    "pillars": [
     {
      "name": "Sales",
-     "star": 4.8,
+     "star": 5.0,
      "target": 4.6,
      "on_target": true,
      "metrics": [
       {
        "label": "Sales YoY (4-wk)",
        "value": "+30.1%",
-       "star": 5.0
+       "star": 5.0,
+       "on_target": true
       },
       {
        "label": "ATV vs £6.80",
        "value": "£7.7",
-       "star": 4.5
+       "star": 4.9,
+       "on_target": true
       }
      ]
     },
     {
      "name": "Commercial",
-     "star": 2.7,
+     "star": 4.1,
      "target": 4.6,
      "on_target": false,
      "metrics": [
       {
        "label": "Profit after tax",
        "value": "£354/day · 16.6% vs 18% target",
-       "star": 2.8
+       "star": 4.2,
+       "on_target": false
       },
       {
        "label": "CPH vs £63 target",
        "value": "£61.6",
-       "star": 2.6
+       "star": 3.9,
+       "on_target": false
       }
      ]
     },
     {
      "name": "Operations",
-     "star": 2.7,
+     "star": 3.7,
      "target": 4.6,
      "on_target": false,
      "metrics": [
       {
-       "label": "F1 race score",
-       "value": "274",
-       "star": 1.1
+       "label": "F1 drivers' championship",
+       "value": "P13 of 21",
+       "star": 1.8,
+       "on_target": false
       },
       {
        "label": "Brand audit /5",
        "value": "4.69",
-       "star": 3.8
+       "star": 4.8,
+       "on_target": true
       },
       {
        "label": "Wastage %",
        "value": "2.7%",
-       "star": 3.3
+       "star": 4.7,
+       "on_target": true
       }
      ]
     },
     {
      "name": "People & Customer",
-     "star": 2.9,
+     "star": 4.0,
      "target": 4.6,
      "on_target": false,
      "metrics": [
       {
        "label": "RMS health /5",
        "value": "3.29",
-       "star": 2.9
+       "star": 4.5,
+       "on_target": false
       },
       {
        "label": "RTW completion",
        "value": "45%",
-       "star": 1.7
+       "star": 2.6,
+       "on_target": false
       },
       {
        "label": "Google health",
        "value": "4.17 (QTD)",
-       "star": 4.0
+       "star": 4.8,
+       "on_target": true
       },
       {
        "label": "Lateness (shown, not scored)",
        "value": "7 late",
-       "star": null
+       "star": null,
+       "on_target": false
       }
      ]
     }
@@ -107,102 +116,120 @@
     "openclose_detail": "57 open & 56 close vs 56 trading days (20 Apr–14 Jun), Process Street feed",
     "rtw_pct": 45,
     "rtw_detail": "RTW% from HRP sickness/RTW (Glenvale, QTD)"
-   }
+   },
+   "_cph_target": 63,
+   "_f1_pos": 13
   },
   "Leamington Parade": {
-   "composite": 3.3,
+   "composite": 4.1,
    "target": 4.6,
    "on_target": false,
    "pillars": [
     {
      "name": "Sales",
-     "star": 4.4,
+     "star": 4.9,
      "target": 4.6,
-     "on_target": false,
+     "on_target": true,
      "metrics": [
       {
        "label": "Sales YoY (4-wk)",
        "value": "+24.3%",
-       "star": 5.0
+       "star": 5.0,
+       "on_target": true
       },
       {
        "label": "ATV vs £6.80",
        "value": "£7.27",
-       "star": 3.8
+       "star": 4.8,
+       "on_target": true
       }
      ]
     },
     {
      "name": "Commercial",
-     "star": 1.3,
+     "star": 2.0,
      "target": 4.6,
      "on_target": false,
      "metrics": [
       {
        "label": "Profit after tax",
        "value": "£85/day · 7.8% vs 18% target",
-       "star": 1.3
+       "star": 2.0,
+       "on_target": false
       },
       {
        "label": "CPH vs £58 target",
        "value": "held — provisional, shown not scored",
-       "star": null
+       "star": null,
+       "on_target": false
       }
      ]
     },
     {
      "name": "Operations",
-     "star": 3.5,
+     "star": 4.7,
      "target": 4.6,
-     "on_target": false,
+     "on_target": true,
      "metrics": [
       {
-       "label": "F1 race score",
-       "value": "196",
-       "star": 2.9
+       "label": "F1 drivers' championship",
+       "value": "P1 of 21 · #1 = at target",
+       "star": 4.6,
+       "on_target": true
       },
       {
        "label": "Brand audit /5",
        "value": "4.73",
-       "star": 3.9
+       "star": 4.8,
+       "on_target": true
       },
       {
        "label": "Wastage %",
        "value": "2.2%",
-       "star": 3.8
+       "star": 4.8,
+       "on_target": true
       }
      ]
     },
     {
      "name": "People & Customer",
-     "star": 4.1,
+     "star": 4.7,
      "target": 4.6,
-     "on_target": false,
+     "on_target": true,
      "metrics": [
       {
        "label": "RMS health /5",
        "value": "4.7",
-       "star": 4.6
+       "star": 4.9,
+       "on_target": true
       },
       {
        "label": "RTW completion",
        "value": "73%",
-       "star": 2.7
+       "star": 4.2,
+       "on_target": false
       },
       {
        "label": "Google health",
        "value": "4.91 (live 4.82★/71 all-time (QTD feed stale))",
-       "star": 4.9
+       "star": 5.0,
+       "on_target": true
       },
       {
        "label": "Lateness (shown, not scored)",
        "value": "11 late",
-       "star": null
+       "star": null,
+       "on_target": false
       }
      ]
     }
    ],
-   "ops": null
+   "ops": null,
+   "_cph_target": 58,
+   "_f1_pos": 1
   }
- }
+ },
+ "_method": "Grow composite, pillars aligned to the four tabs (Sales · Commercial · Operations · People & Customer). Each metric scored 0-5 between floor=0 / target=4.6 / stretch=5 (clamped). TARGET maps to 4.6★ (the headline line) so meeting a metric's target reads ON the 4.6 line; a #1 drivers'-championship position = AT TARGET on F1. Pillar = mean of scored metrics; composite = mean of four pillars. Sales = Sales YoY(-8/8/20) + ATV vs £6.80(5.5/6.8/8.0). Commercial = Profit-after-tax %(0/18/24) + CPH vs the store's own target from the Store-Targets sheet(target*0.85/target/target*1.08). Operations = F1 drivers' championship position (P1=at target, linear to 0 at last) + brand audit /5(4.0/4.5/5.0) + wastage %(5/3/1, lower better). People & Customer = RMS health(1.66/3.32/5.0) + RTW%(0/80/100) + Google health. GROW TARGET = 4.6★ (below = OFF TARGET).",
+ "_window": "quarter-to-date · Q2 2026 (rebuilt weekly)",
+ "_rescaled": true
 }

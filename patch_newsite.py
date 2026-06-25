@@ -37,6 +37,8 @@ try: STAR=json.load(open('star_rating.json'))          # TEST: Grow composite st
 except FileNotFoundError: STAR={}
 try: AUDIT=json.load(open('audit_themes.json'))        # brand-audit QTD score + recurring themes (build_audit.py from the Brand Audit sheet)
 except (FileNotFoundError, ValueError): AUDIT={}
+try: COMPLIANCE=json.load(open('compliance.json'))     # live HRP compliance QTD/MTD/WTD per store (build_compliance.py)
+except (FileNotFoundError, ValueError): COMPLIANCE={}
 T_RMS=50*13/21.0  # per-store quarterly RMS submission target (area method / store)
 import html as _html
 def esc(t): return _html.escape((t or "").strip())[:200]
@@ -52,6 +54,12 @@ NEWDATE="2026-06-08"; NEWWK_DDMM="08/06"
 HOURS={'Olney':None,'Attleborough':161.0,'Billing Drive Thru':273.0,'Glenvale Drive Thru':277.0,'Northampton Drive-Thru':350.0}
 # CPH targets (Store Targets sheet) and the just-completed week's committed forecast £ (Master Populator "Forecasts last week", 15-Jun row)
 CPH_T={'Olney':49,'Attleborough':49,'Billing Drive Thru':56,'Glenvale Drive Thru':63,'Northampton Drive-Thru':70}
+# CPH targets are now SOURCED from the Store-Targets Google Sheet (cph_targets.json, pulled headlessly
+# each run) — overrides the hardcoded fallbacks above so the target can change without a code edit.
+try:
+    _cpht=json.load(open('cph_targets.json')).get('targets',{})
+    CPH_T.update({k:v for k,v in _cpht.items()})
+except (FileNotFoundError, ValueError): pass
 FCST={'Olney':5800,'Attleborough':6300,'Billing Drive Thru':12000,'Glenvale Drive Thru':18250,'Northampton Drive-Thru':26000}
 MINUS="−"  # unicode minus, matches the dashboards' existing style
 def pct1(v): return ("+" if v>=0 else MINUS)+f"{abs(v):.1f}%"
@@ -387,18 +395,31 @@ def star_card(store):
     badge=(f'<span style="background:{"#e6f4ec" if on else "#fdecea"};color:{head_col};font-weight:800;'
            f'border:1px solid {"#bfe3cd" if on else "#f0ccc5"};border-radius:999px;padding:2px 10px;font-size:11px;'
            f'margin-left:10px">{"ON TARGET" if on else "OFF TARGET"} · target {tgt:g}★</span>')
+    pct_t=round(tgt/5*100,1)   # position of the 4.6 line on a 0–5 star row
+    def pill_badge(okay):
+        bg="#e6f4ec" if okay else "#fdecea"; fg="#1f8a4c" if okay else "#c0392b"; bd="#bfe3cd" if okay else "#f0ccc5"
+        return (f'<span style="background:{bg};color:{fg};border:1px solid {bd};border-radius:999px;'
+                f'padding:1px 8px;font-size:10px;font-weight:800;white-space:nowrap">{"AT TARGET ✓" if okay else "OFF TARGET"}</span>')
+    def stars_with_line(score):
+        # the pillar's stars with the shared 4.6 target line drawn over them, so each pillar shows AT/OFF visually
+        return (f'<span style="position:relative;display:inline-block">{_stars(score,14)}'
+                f'<span title="target {tgt:g}★" style="position:absolute;top:-2px;bottom:-2px;left:{pct_t}%;width:2px;background:#c0392b;opacity:.8"></span></span>')
     rows=""
     for p in st["pillars"]:
         pon=p.get("on_target", p["star"]>=tgt); pcol="#1f8a4c" if pon else "#c0392b"
-        blend=" · ".join(
-            (f'{m["label"]} {m["value"]}'+(f' <span style="opacity:.65">({m["star"]:g}★)</span>' if m.get("star") is not None else ' <span style="opacity:.55">(shown, not scored)</span>'))
-            for m in p.get("metrics",[]))
+        parts=[]
+        for m in p.get("metrics",[]):
+            if m.get("star") is None:
+                parts.append(f'{m["label"]} {m["value"]} <span style="opacity:.55">(shown, not scored)</span>')
+            else:
+                mok=m.get("on_target", m["star"]>=tgt); mk="✓" if mok else "✗"; mc="#1f8a4c" if mok else "#c0392b"
+                parts.append(f'{m["label"]} {m["value"]} <span style="color:{mc};font-weight:700">{m["star"]:g}★ {mk}</span>')
+        blend=" · ".join(parts)
         rows+=(f'<div style="padding:6px 0;border-top:1px solid #efe7d6">'
-               f'<div style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:#3f2d22">'
-               f'<span style="width:124px;font-weight:800">{p["name"]}</span>{_stars(p["star"],14)}'
-               f'<span style="font-weight:800;width:30px;color:{pcol}">{p["star"]:g}</span>'
-               f'<span style="font-weight:700;color:{pcol};font-size:11px">{"on" if pon else "off"} target</span></div>'
-               f'<div class="mini" style="margin:2px 0 0 124px;line-height:1.5">Blend: {blend}</div></div>')
+               f'<div style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:#3f2d22;flex-wrap:wrap">'
+               f'<span style="width:128px;font-weight:800">{p["name"]}</span>{stars_with_line(p["star"])}'
+               f'<span style="font-weight:800;width:30px;color:{pcol}">{p["star"]:g}</span>{pill_badge(pon)}</div>'
+               f'<div class="mini" style="margin:2px 0 0 128px;line-height:1.5">Blend: {blend}</div></div>')
     # headline stars with a 4.6 target marker drawn over the row
     pct_tgt=round(tgt/5*100,1)
     head_stars=(f'<span style="position:relative;display:inline-block">{_stars(comp,34)}'
@@ -410,7 +431,7 @@ def star_card(store):
             f'<div style="display:flex;align-items:center;gap:12px;margin-top:6px">{head_stars}'
             f'<div style="font-size:30px;font-weight:800;color:{head_col}">{comp:g} <span style="font-size:15px;color:#9a8a7c">/ 5 · target {tgt:g}</span></div></div></div>'
             f'<div style="flex:1;min-width:320px;display:flex;flex-direction:column;gap:0">{rows}</div></div>'
-            f'<div class="mini" style="margin-top:10px">Four pillars aligned to the tabs — <b>Sales · Commercial · Operations · People &amp; Customer</b> — each the mean of the metrics shown (every metric scored 0–5 vs its target: target=3★, stretch=5★). <b>Commercial</b> now blends <b>Profit after tax</b> + <b>CPH</b> vs each store’s own target. Composite = the four-pillar average. <b>Grow target = {tgt:g}★</b> — below {tgt:g} is off target (the red line marks {tgt:g}★).</div>'
+            f'<div class="mini" style="margin-top:10px">Four pillars aligned to the tabs — <b>Sales · Commercial · Operations · People &amp; Customer</b>. Each metric scores 0–5, and <b>meeting its target lands on the {tgt:g}★ line</b> (the red marker on every row) — so <b>✓ AT TARGET</b> = on/above {tgt:g}★, <b>✗ OFF TARGET</b> = below. <b>Operations’ F1</b> is now the <b>drivers’ championship position</b> (#1 = at target); <b>Commercial</b> blends <b>Profit after tax</b> + <b>CPH</b> vs each store’s own target (read live from the Store-Targets sheet). Pillar = mean of its metrics; composite = the four-pillar average. <b>Grow target = {tgt:g}★</b>.</div>'
             f'</div>\n<!-- STARRATING END -->')
 
 def inject_star(h, store):
@@ -422,36 +443,45 @@ def inject_star(h, store):
     return re.sub(r'(</header>)', lambda m: m.group(1)+"\n  "+sc, h, count=1)
 
 def compliance_panel(store):
-    """Operations compliance block: remote audit, compliance %, coaching (CS & Barista), RTW %.
-    Reads st['ops'] (build_star). When ops isn't pulled for a store (e.g. Leamington), returns a
-    clearly-flagged 'pending' block rather than nothing — so the metrics are never silently dropped."""
+    """Operations & compliance panel — live from the HRP sheet (compliance.json), three tiers per
+    measure: QTD · MTD · WTD (previous complete week). Open/close (Process Street), coaching (Customer
+    Service), remote audit and RTW are each shown across the three periods where the HRP feed holds
+    them; any period/measure not in the sheet renders '—' with a precise flag (never fabricated)."""
     if store not in COMMERCIAL_STORES: return ""
-    st=(STAR.get("stores") or {}).get(store) if STAR else None
-    c=st and st.get("ops")
-    if not c:
+    cd=(COMPLIANCE.get("stores") or {}).get(store) if COMPLIANCE else None
+    if not cd:
         return ('<!-- COMPLIANCE START -->\n'
-                '  <div class="section-title" style="margin-top:18px">🛡️ Operations &amp; compliance — quarter to date</div>\n'
+                '  <div class="section-title" style="margin-top:18px">🛡️ Operations &amp; compliance — QTD · MTD · WTD</div>\n'
                 '  <div class="note" style="background:#fff8ec;border:1px solid #f0e0bf;color:#7a5e1e">'
-                'Remote audit, compliance %, coaching completion (CS &amp; Barista) and RTW % are <b>pending</b> for this store — '
-                'the remote-assessment, Process Street open/close and HRP coaching feeds are not yet wired in (star_inputs is null). '
-                'Brand audit (above) and RTW are shown where available; the rest will populate once those slow feeds are filled.</div>\n'
+                'Live HRP compliance not available this run (compliance.json missing). Run build_compliance.py after the HRP pull.</div>\n'
                 '  <!-- COMPLIANCE END -->')
-    cs=c.get("coaching_cs_pct"); ba=c.get("coaching_barista_pct")
-    coach_disp=(f'{cs:g}%' if cs is not None else 'n/a')+(f' · Barista {ba:g}%' if ba is not None else '')
-    return (f'<!-- COMPLIANCE START -->\n'
-            f'  <div class="section-title" style="margin-top:18px">🛡️ Operations &amp; compliance — quarter to date</div>\n'
-            f'  <div class="cards" style="grid-template-columns:repeat(4,1fr)">'
-            f'<div class="card"><div class="lbl">Remote audit</div><div class="val">{c.get("remote_audit"):g}<span style="font-size:15px;color:var(--muted)">/100</span></div>'
-            f'<div class="meta">avg of {c.get("remote_n")} QTD</div></div>'
-            f'<div class="card"><div class="lbl">Compliance</div><div class="val">{c.get("compliance_pct"):g}%</div>'
-            f'<div class="meta">coaching {coach_disp} + open/close {c.get("openclose_pct"):g}% (50/50)</div></div>'
-            f'<div class="card"><div class="lbl">Coaching completion</div><div class="val">{coach_disp}</div>'
-            f'<div class="meta">Customer Service &amp; Barista checklists · QTD</div></div>'
-            f'<div class="card"><div class="lbl">Return-to-work (RTW)</div><div class="val">{c.get("rtw_pct"):g}%</div>'
-            f'<div class="meta">{esc(c.get("rtw_detail",""))}</div></div>'
-            f'</div>\n'
-            f'  <div class="note" style="margin-top:8px">Remote audit, compliance (coaching CS {coach_disp.split(" · ")[0]} + open/close {c.get("openclose_pct"):g}%, from the Process Street → HRP feed: {esc(c.get("openclose_detail",""))}) and RTW sit on Operations alongside the brand audit &amp; F1. RTW also feeds the People &amp; Customer star.</div>\n'
-            f'  <!-- COMPLIANCE END -->')
+    per=COMPLIANCE.get("_periods",{"qtd":"QTD","mtd":"MTD","wtd":"WTD"})
+    ragc={"g":"#1f8a4c","a":"#b8860b","r":"#c0392b","x":"#9a8a7c"}
+    def tc(cell):
+        col=ragc.get(cell.get("rag","x"),"#9a8a7c"); return f'<td style="padding:6px 9px;text-align:right;font-weight:700;color:{col}">{cell.get("v","—")}</td>'
+    rows=""
+    for m in cd.get("measures",[]):
+        flag=(' <span class="mini" style="color:#b07a12">'+("⚑ "+m["flag"] if m.get("status")!="live" else "")+'</span>') if m.get("status")!="live" and m.get("flag") else ""
+        rows+=(f'<tr style="border-bottom:1px solid var(--line)"><td style="padding:6px 9px"><b>{m["label"]}</b>'
+               f'<br><span class="mini">{m.get("sub","")}{flag}</span></td>'
+               f'{tc(m["qtd"])}{tc(m["mtd"])}{tc(m["wtd"])}</tr>')
+    flags=cd.get("flags",[])
+    flagnote=(' <div class="note" style="margin-top:8px;background:#fff8ec;border:1px solid #f0e0bf;color:#7a5e1e">'
+              '<b>Flagged:</b> '+"; ".join(flags)+'.</div>') if flags else ''
+    return ('<!-- COMPLIANCE START -->\n'
+            '  <div class="section-title" style="margin-top:18px">🛡️ Operations &amp; compliance — QTD · MTD · WTD '
+            '<span class="mini" style="font-weight:400">· live from HRP</span></div>\n'
+            '  <div class="panel" style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:12.5px">'
+            '<thead><tr style="border-bottom:2px solid var(--line)">'
+            '<th style="text-align:left;padding:6px 9px;color:var(--muted);font-size:11px;text-transform:uppercase">Measure</th>'
+            f'<th style="text-align:right;padding:6px 9px;color:var(--muted);font-size:11px;text-transform:uppercase">{per.get("qtd","QTD")}</th>'
+            f'<th style="text-align:right;padding:6px 9px;color:var(--muted);font-size:11px;text-transform:uppercase">{per.get("mtd","MTD")}</th>'
+            f'<th style="text-align:right;padding:6px 9px;color:var(--muted);font-size:11px;text-transform:uppercase">{per.get("wtd","WTD")}</th>'
+            f'</tr></thead><tbody>{rows}</tbody></table>'
+            '<div class="mini" style="margin-top:6px">Live from the HRP Google Sheet (George Fountain automation account): open/close from the Process Street feed, '
+            'coaching from the CS &amp; Br % summary, RTW from sickness/RTW. Green ≥95% · amber ≥85% · red below.</div></div>\n'
+            f'{flagnote}'
+            '  <!-- COMPLIANCE END -->')
 
 def inject_compliance(h, store):
     h=re.sub(r'\s*<!-- COMPLIANCE START -->.*?<!-- COMPLIANCE END -->', '', h, flags=re.S)
@@ -466,17 +496,21 @@ def inject_compliance(h, store):
     return h[:k]+'\n  '+cp+'\n  '+h[e:]
 
 # ---- Simply Lunch food order forecast (chilled food-to-go) -------------------
-# Gated to stores with a simply_lunch_<key>.json file (Glenvale only for now).
-# Reads the file build_simply_lunch.py writes from the BigQuery day-of-week pull and
-# renders the recommended Mon/Wed/Sat delivery orders on the Mix & opportunity tab.
-# Idempotent + self-removing (markers), like the star/compliance cards — survives Monday.
-try: SLUNCH=json.load(open('simply_lunch_glenvale.json'))
-except (FileNotFoundError, ValueError): SLUNCH=None
-SL_STORES={'Glenvale Drive Thru'}
+# Gated to stores with a simply_lunch_<key>.json file (Glenvale + Leamington Parade; each adapts to
+# its OWN day-of-week demand / product mix). Reads what build_simply_lunch.py writes from the BigQuery
+# day-of-week pull and renders the recommended Mon/Wed/Sat delivery orders on the Commercial tab.
+# Idempotent + self-removing (markers), like the star/compliance cards — survives the weekly run.
+def _load_sl(fn):
+    try: return json.load(open(fn))
+    except (FileNotFoundError, ValueError): return None
+SLUNCH_BY_STORE={'Glenvale Drive Thru':_load_sl('simply_lunch_glenvale.json'),
+                 'Leamington Parade':_load_sl('simply_lunch_leamington.json')}
+SL_STORES={k for k,v in SLUNCH_BY_STORE.items() if v}
 
 def simply_lunch_card(store):
-    if store not in SL_STORES or not SLUNCH: return ""
-    d=SLUNCH; items=d.get('items',[])
+    d=SLUNCH_BY_STORE.get(store)
+    if not d: return ""
+    items=d.get('items',[])
     if not items: return ""
     cov={'mon':'covers Mon–Tue','wed':'covers Wed–Fri','sat':'covers Sat–Sun'}
     def th(label,sub):

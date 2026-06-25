@@ -1,0 +1,207 @@
+{
+ "_cur_end": "2026-06-21",
+ "_periods": {
+  "qtd": "QTD · Apr–Jun",
+  "mtd": "MTD · Jun",
+  "wtd": "WTD · prev wk"
+ },
+ "stores": {
+  "Glenvale Drive Thru": {
+   "measures": [
+    {
+     "label": "Open/close checklists",
+     "sub": "Process Street",
+     "qtd": {
+      "v": "100%",
+      "rag": "g"
+     },
+     "mtd": {
+      "v": "100%",
+      "rag": "g"
+     },
+     "wtd": {
+      "v": "100%",
+      "rag": "g"
+     },
+     "status": "live"
+    },
+    {
+     "label": "Coaching — Customer Service",
+     "sub": "HRP CS &amp; Br %",
+     "qtd": {
+      "v": "81%",
+      "rag": "r"
+     },
+     "mtd": {
+      "v": "75%",
+      "rag": "r"
+     },
+     "wtd": {
+      "v": "n/a",
+      "rag": "x"
+     },
+     "status": "live",
+     "flag": "weekly split not held in the HRP coaching summary (monthly/quarterly only)"
+    },
+    {
+     "label": "Coaching — Barista",
+     "sub": "HRP CS &amp; Br %",
+     "qtd": {
+      "v": "—",
+      "rag": "x"
+     },
+     "mtd": {
+      "v": "—",
+      "rag": "x"
+     },
+     "wtd": {
+      "v": "—",
+      "rag": "x"
+     },
+     "status": "pending",
+     "flag": "Barista % is not in the HRP summary block (per-event log only)"
+    },
+    {
+     "label": "Remote audit",
+     "sub": "avg of 10 QTD",
+     "qtd": {
+      "v": "89/100",
+      "rag": "a"
+     },
+     "mtd": {
+      "v": "—",
+      "rag": "x"
+     },
+     "wtd": {
+      "v": "—",
+      "rag": "x"
+     },
+     "status": "live",
+     "flag": "remote audit is a periodic assessment (QTD only)"
+    },
+    {
+     "label": "Return-to-work (RTW)",
+     "sub": "HRP sickness/RTW",
+     "qtd": {
+      "v": "45%",
+      "rag": "r"
+     },
+     "mtd": {
+      "v": "—",
+      "rag": "x"
+     },
+     "wtd": {
+      "v": "—",
+      "rag": "x"
+     },
+     "status": "live",
+     "flag": "RTW shown QTD"
+    }
+   ],
+   "flags": [
+    "coaching is monthly/quarterly in HRP — no weekly (WTD) split",
+    "Barista coaching % is not in the HRP summary block"
+   ]
+  },
+  "Leamington Parade": {
+   "measures": [
+    {
+     "label": "Open/close checklists",
+     "sub": "Process Street",
+     "qtd": {
+      "v": "—",
+      "rag": "x"
+     },
+     "mtd": {
+      "v": "—",
+      "rag": "x"
+     },
+     "wtd": {
+      "v": "—",
+      "rag": "x"
+     },
+     "status": "pending",
+     "flag": "not yet in the Process Street open/close feed for this store"
+    },
+    {
+     "label": "Coaching — Customer Service",
+     "sub": "HRP CS &amp; Br %",
+     "qtd": {
+      "v": "90%",
+      "rag": "a"
+     },
+     "mtd": {
+      "v": "80%",
+      "rag": "r"
+     },
+     "wtd": {
+      "v": "n/a",
+      "rag": "x"
+     },
+     "status": "live",
+     "flag": "weekly split not held in the HRP coaching summary (monthly/quarterly only)"
+    },
+    {
+     "label": "Coaching — Barista",
+     "sub": "HRP CS &amp; Br %",
+     "qtd": {
+      "v": "—",
+      "rag": "x"
+     },
+     "mtd": {
+      "v": "—",
+      "rag": "x"
+     },
+     "wtd": {
+      "v": "—",
+      "rag": "x"
+     },
+     "status": "pending",
+     "flag": "Barista % is not in the HRP summary block (per-event log only)"
+    },
+    {
+     "label": "Remote audit",
+     "sub": "remote-assessment feed",
+     "qtd": {
+      "v": "—",
+      "rag": "x"
+     },
+     "mtd": {
+      "v": "—",
+      "rag": "x"
+     },
+     "wtd": {
+      "v": "—",
+      "rag": "x"
+     },
+     "status": "pending",
+     "flag": "remote-assessment feed not wired for this store"
+    },
+    {
+     "label": "Return-to-work (RTW)",
+     "sub": "HRP sickness/RTW",
+     "qtd": {
+      "v": "73%",
+      "rag": "r"
+     },
+     "mtd": {
+      "v": "—",
+      "rag": "x"
+     },
+     "wtd": {
+      "v": "—",
+      "rag": "x"
+     },
+     "status": "live",
+     "flag": "RTW shown QTD"
+    }
+   ],
+   "flags": [
+    "open/close checklists are not yet logged in the Process Street feed for Leamington Parade",
+    "coaching is monthly/quarterly in HRP — no weekly (WTD) split",
+    "Barista coaching % is not in the HRP summary block",
+    "remote audit not wired for Leamington Parade"
+   ]
+  }
+ }
+}
