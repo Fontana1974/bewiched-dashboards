@@ -18,6 +18,63 @@
  "shelf_life_days": 3,
  "items": [
   {
+   "item": "Sausage Bap",
+   "category": "Breakfast baps & bagel",
+   "daily": {
+    "1": 8.12,
+    "2": 7.25,
+    "3": 8.62,
+    "4": 6.75,
+    "5": 6.0,
+    "6": 8.0,
+    "7": 11.0
+   },
+   "weekly_mean": 55.7,
+   "tue": 18,
+   "thu": 17,
+   "sat": 31,
+   "weekly_order": 66,
+   "sparse": false
+  },
+  {
+   "item": "Breakfast Bagel",
+   "category": "Breakfast baps & bagel",
+   "daily": {
+    "1": 5.38,
+    "2": 3.88,
+    "3": 3.62,
+    "4": 6.5,
+    "5": 6.25,
+    "6": 5.0,
+    "7": 9.75
+   },
+   "weekly_mean": 40.4,
+   "tue": 12,
+   "thu": 13,
+   "sat": 22,
+   "weekly_order": 47,
+   "sparse": false
+  },
+  {
+   "item": "Bacon Bap",
+   "category": "Breakfast baps & bagel",
+   "daily": {
+    "1": 5.25,
+    "2": 3.12,
+    "3": 3.0,
+    "4": 4.0,
+    "5": 3.62,
+    "6": 5.12,
+    "7": 7.5
+   },
+   "weekly_mean": 31.6,
+   "tue": 9,
+   "thu": 11,
+   "sat": 19,
+   "weekly_order": 39,
+   "sparse": false
+  },
+  {
    "item": "Egg & Spinach Sandwich",
    "category": "Sandwiches",
    "daily": {

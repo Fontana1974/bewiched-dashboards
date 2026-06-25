@@ -44,8 +44,10 @@ CATEGORY = {
     "Yoghurt Granola Pot": "Pots", "Egg & Spinach Pot": "Pots",
     "Golden Oat Porridge Pot": "Pots", "Simple Porridge Pot": "Pots",
     "Ham & Mozzarella Croissant": "Filled croissant",
+    "Bacon Bap": "Breakfast baps & bagel", "Sausage Bap": "Breakfast baps & bagel",
+    "Breakfast Bagel": "Breakfast baps & bagel",
 }
-CAT_ORDER = ["Sandwiches", "Croques", "Ciabattas", "Wraps", "Salads", "Pots", "Filled croissant"]
+CAT_ORDER = ["Breakfast baps & bagel", "Sandwiches", "Croques", "Ciabattas", "Wraps", "Salads", "Pots", "Filled croissant"]
 
 STORES = {
     "Glenvale Drive Thru": ("sl_glenvale_raw.json", "simply_lunch_glenvale.json"),
