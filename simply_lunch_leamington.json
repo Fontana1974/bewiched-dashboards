@@ -4,6 +4,16 @@
  "window_weeks": 8,
  "buffer_pct": 15,
  "sparse_threshold_weekly": 10,
+ "delivery_days": [
+  "Tue",
+  "Thu",
+  "Sat"
+ ],
+ "cover_label": {
+  "Tue": "covers Tue\u2013Wed",
+  "Thu": "covers Thu\u2013Fri",
+  "Sat": "covers Sat\u2013Mon"
+ },
  "max_coverage_days": 3,
  "shelf_life_days": 3,
  "items": [
@@ -20,10 +30,10 @@
     "7": 1.75
    },
    "weekly_mean": 9.0,
-   "mon": 4,
-   "wed": 4,
-   "sat": 5,
-   "weekly_order": 13,
+   "tue": 2,
+   "thu": 3,
+   "sat": 7,
+   "weekly_order": 12,
    "sparse": true
   },
   {
@@ -39,10 +49,10 @@
     "7": 2.25
    },
    "weekly_mean": 8.5,
-   "mon": 3,
-   "wed": 3,
-   "sat": 5,
-   "weekly_order": 11,
+   "tue": 3,
+   "thu": 2,
+   "sat": 7,
+   "weekly_order": 12,
    "sparse": true
   },
   {
@@ -58,10 +68,10 @@
     "7": 4.62
    },
    "weekly_mean": 23.5,
-   "mon": 8,
-   "wed": 11,
-   "sat": 9,
-   "weekly_order": 28,
+   "tue": 7,
+   "thu": 8,
+   "sat": 14,
+   "weekly_order": 29,
    "sparse": false
   },
   {
@@ -77,9 +87,9 @@
     "7": 4.5
    },
    "weekly_mean": 19.8,
-   "mon": 7,
-   "wed": 8,
-   "sat": 9,
+   "tue": 5,
+   "thu": 6,
+   "sat": 13,
    "weekly_order": 24,
    "sparse": false
   },
@@ -96,9 +106,9 @@
     "7": 3.25
    },
    "weekly_mean": 15.1,
-   "mon": 6,
-   "wed": 7,
-   "sat": 6,
+   "tue": 7,
+   "thu": 3,
+   "sat": 9,
    "weekly_order": 19,
    "sparse": false
   },
@@ -115,9 +125,9 @@
     "7": 1.75
    },
    "weekly_mean": 10.9,
-   "mon": 4,
-   "wed": 6,
-   "sat": 4,
+   "tue": 4,
+   "thu": 4,
+   "sat": 6,
    "weekly_order": 14,
    "sparse": false
   },
@@ -134,10 +144,10 @@
     "7": 2.12
    },
    "weekly_mean": 9.2,
-   "mon": 4,
-   "wed": 4,
-   "sat": 5,
-   "weekly_order": 13,
+   "tue": 4,
+   "thu": 2,
+   "sat": 6,
+   "weekly_order": 12,
    "sparse": true
   },
   {
@@ -153,10 +163,10 @@
     "7": 2.62
    },
    "weekly_mean": 9.4,
-   "mon": 3,
-   "wed": 4,
-   "sat": 6,
-   "weekly_order": 13,
+   "tue": 2,
+   "thu": 3,
+   "sat": 7,
+   "weekly_order": 12,
    "sparse": true
   },
   {
@@ -172,9 +182,9 @@
     "7": 1.25
    },
    "weekly_mean": 5.6,
-   "mon": 2,
-   "wed": 3,
-   "sat": 3,
+   "tue": 2,
+   "thu": 2,
+   "sat": 4,
    "weekly_order": 8,
    "sparse": true
   },
@@ -191,10 +201,10 @@
     "7": 1.25
    },
    "weekly_mean": 3.9,
-   "mon": 1,
-   "wed": 2,
-   "sat": 2,
-   "weekly_order": 5,
+   "tue": 1,
+   "thu": 2,
+   "sat": 3,
+   "weekly_order": 6,
    "sparse": true
   },
   {
@@ -210,10 +220,10 @@
     "7": 0.12
    },
    "weekly_mean": 2.0,
-   "mon": 2,
-   "wed": 2,
+   "tue": 1,
+   "thu": 1,
    "sat": 1,
-   "weekly_order": 5,
+   "weekly_order": 3,
    "sparse": true
   },
   {
@@ -229,9 +239,9 @@
     "7": 2.0
    },
    "weekly_mean": 8.7,
-   "mon": 4,
-   "wed": 3,
-   "sat": 5,
+   "tue": 3,
+   "thu": 2,
+   "sat": 7,
    "weekly_order": 12,
    "sparse": true
   }

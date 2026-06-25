@@ -512,7 +512,8 @@ def simply_lunch_card(store):
     if not d: return ""
     items=d.get('items',[])
     if not items: return ""
-    cov={'mon':'covers Mon–Tue','wed':'covers Wed–Fri','sat':'covers Sat–Sun'}
+    _cl=d.get('cover_label',{})
+    cov={'tue':_cl.get('Tue','covers Tue–Wed'),'thu':_cl.get('Thu','covers Thu–Fri'),'sat':_cl.get('Sat','covers Sat–Mon')}
     def th(label,sub):
         return (f'<th style="padding:6px 9px;text-align:right;font-weight:700">{label}'
                 f'<br><span style="font-weight:600;color:var(--muted);font-size:10.5px">{sub}</span></th>')
@@ -528,8 +529,8 @@ def simply_lunch_card(store):
             f'<tr style="border-bottom:1px solid var(--line){muted}">'
             f'<td style="padding:6px 9px">{nm}</td>'
             f'<td style="padding:6px 9px;text-align:right;color:var(--muted)">{it["weekly_mean"]:g}</td>'
-            f'<td style="padding:6px 9px;text-align:right;font-weight:700">{it["mon"]}</td>'
-            f'<td style="padding:6px 9px;text-align:right;font-weight:700">{it["wed"]}</td>'
+            f'<td style="padding:6px 9px;text-align:right;font-weight:700">{it["tue"]}</td>'
+            f'<td style="padding:6px 9px;text-align:right;font-weight:700">{it["thu"]}</td>'
             f'<td style="padding:6px 9px;text-align:right;font-weight:700">{it["sat"]}</td>'
             f'<td style="padding:6px 9px;text-align:right;font-weight:800;color:var(--brown)">{it["weekly_order"]}</td></tr>')
     tot=lambda k: sum(i[k] for i in items)
@@ -537,8 +538,8 @@ def simply_lunch_card(store):
         f'<tr style="border-top:2px solid var(--line);font-weight:800;color:var(--brown)">'
         f'<td style="padding:7px 9px">Weekly total (all lines)</td>'
         f'<td style="padding:7px 9px;text-align:right">{tot("weekly_mean"):g}</td>'
-        f'<td style="padding:7px 9px;text-align:right">{tot("mon")}</td>'
-        f'<td style="padding:7px 9px;text-align:right">{tot("wed")}</td>'
+        f'<td style="padding:7px 9px;text-align:right">{tot("tue")}</td>'
+        f'<td style="padding:7px 9px;text-align:right">{tot("thu")}</td>'
         f'<td style="padding:7px 9px;text-align:right">{tot("sat")}</td>'
         f'<td style="padding:7px 9px;text-align:right">{tot("weekly_order")}</td></tr>')
     return (
@@ -546,18 +547,18 @@ def simply_lunch_card(store):
         '<div class="section-title" style="margin-top:26px">🥪 Simply Lunch food order forecast — chilled food-to-go</div>\n'
         f'<div class="mini" style="margin-bottom:10px">Recommended order quantities for the three weekly <b>Simply Lunch</b> deliveries, '
         f'built from this store\'s average daily demand by day of week over the last <b>{d["window_weeks"]} complete weeks</b> (to {esc(d["cur_end"])}). '
-        f'Deliveries land <b>Mon</b>, <b>Wed</b> and <b>Sat</b>; each order covers demand until the next delivery, plus a <b>{d["buffer_pct"]}% buffer</b>, rounded up.</div>\n'
+        f'Deliveries land <b>Tue</b>, <b>Thu</b> and <b>Sat</b> (midday); each order covers demand until the next delivery, plus a <b>{d["buffer_pct"]}% buffer</b>, rounded up.</div>\n'
         '<table style="width:100%;border-collapse:collapse;font-size:13px">\n'
         '<thead><tr style="text-align:left;color:var(--brown);border-bottom:2px solid var(--line)">'
         '<th style="padding:6px 9px;font-weight:700">Item</th>'
         '<th style="padding:6px 9px;text-align:right;font-weight:700">Avg sold/wk</th>'
-        + th('Mon order',cov['mon']) + th('Wed order',cov['wed']) + th('Sat order',cov['sat'])
+        + th('Tue order',cov['tue']) + th('Thu order',cov['thu']) + th('Sat order',cov['sat'])
         + '<th style="padding:6px 9px;text-align:right;font-weight:700">Weekly total</th>'
         '</tr></thead>\n<tbody>\n' + "\n".join(rows) + '\n</tbody></table>\n'
         f'<div class="note" style="margin-top:12px"><b>Method.</b> For each item we take the average units sold on each day of the week '
         f'(last {d["window_weeks"]} complete weeks) and add up the days a delivery must cover: '
-        f'<b>Mon</b> covers Mon–Tue (2 days), <b>Wed</b> covers Wed–Fri (3 days), <b>Sat</b> covers Sat–Sun (2 days). '
-        f'Longest run is {d["max_coverage_days"]} days — within the {d["shelf_life_days"]}-day shelf life. '
+        f'<b>Tue</b> covers Tue–Wed (2 days), <b>Thu</b> covers Thu–Fri (2 days), <b>Sat</b> covers Sat–Sun–Mon (3 days). '
+        f'Longest run is {d["max_coverage_days"]} days (the Saturday order — Monday is day 3, the last day in date) — within the {d["shelf_life_days"]}-day shelf life. '
         f'We then add a <b>{d["buffer_pct"]}% buffer</b> and round up. The buffer is a balance: too small and you risk lunchtime stockouts, '
         f'too large and you waste stock given the {d["shelf_life_days"]}-day life. '
         f'<span style="color:var(--amber)">†</span> = demand too sparse to forecast reliably (under {d["sparse_threshold_weekly"]}/week) — treat these as a guide and adjust by eye.</div>\n'
