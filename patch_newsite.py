@@ -458,7 +458,7 @@ def compliance_panel(store):
                 'Live HRP compliance not available this run (compliance.json missing). Run build_compliance.py after the HRP pull.</div>\n'
                 '  <!-- COMPLIANCE END -->')
     per=COMPLIANCE.get("_periods",{"qtd":"QTD","mtd":"MTD","wtd":"WTD"})
-    ragc={"g":"#1f8a4c","a":"#b8860b","r":"#c0392b","x":"#9a8a7c"}
+    ragc={"g":"#1f8a4c","a":"#b8860b","r":"#c0392b","x":"#9a8a7c","w":"#457b9d"}  # w = awaiting first data
     def tc(cell):
         col=ragc.get(cell.get("rag","x"),"#9a8a7c"); return f'<td style="padding:6px 9px;text-align:right;font-weight:700;color:{col}">{cell.get("v","—")}</td>'
     rows=""

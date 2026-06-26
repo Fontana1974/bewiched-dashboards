@@ -109,19 +109,19 @@
      "label": "Open/close checklists",
      "sub": "Process Street",
      "qtd": {
-      "v": "—",
-      "rag": "x"
+      "v": "awaiting",
+      "rag": "w"
      },
      "mtd": {
-      "v": "—",
-      "rag": "x"
+      "v": "awaiting",
+      "rag": "w"
      },
      "wtd": {
-      "v": "—",
-      "rag": "x"
+      "v": "awaiting",
+      "rag": "w"
      },
-     "status": "pending",
-     "flag": "not yet in the Process Street open/close feed for this store"
+     "status": "awaiting",
+     "flag": "checklist is live in Process Street (store completes it); its dated audit-trail isn't feeding the QTD log yet — auto-populates once it does"
     },
     {
      "label": "Coaching — Customer Service",
@@ -197,7 +197,7 @@
     }
    ],
    "flags": [
-    "open/close checklists are not yet logged in the Process Street feed for Leamington Parade",
+    "Leamington Parade open/close: the store completes the Process Street checklist (live), but its dated history isn't in the 'Process St - Data' feed yet — awaiting first dated data; add Leamington Parade to that automation at source",
     "coaching is monthly/quarterly in HRP — no weekly (WTD) split",
     "Barista coaching % is not in the HRP summary block",
     "remote audit not wired for Leamington Parade"

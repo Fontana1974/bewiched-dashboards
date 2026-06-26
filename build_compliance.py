@@ -26,12 +26,21 @@ out = {"_cur_end": CUR_END, "_periods": PERIODS, "stores": {}}
 for s in STORES:
     measures = []
     flags = []
-    # 1) Open/close (Process Street)
+    # 1) Open/close (Process Street) — SAME code path for every store. A store with dated rows shows
+    #    its live completion %; a store that is set up in Process Street but whose dated history isn't
+    #    feeding yet (openclose marked {"awaiting": true}) shows "awaiting first checklist data" and
+    #    auto-goes-live the moment dated rows appear in the pull.
     oc = (RAW.get("openclose") or {}).get(s)
-    if oc:
+    if oc and (oc.get("qtd") or oc.get("mtd") or oc.get("wtd")):
         measures.append({"label": "Open/close checklists", "sub": "Process Street",
                          "qtd": cell(oc_pct(oc.get("qtd"))), "mtd": cell(oc_pct(oc.get("mtd"))), "wtd": cell(oc_pct(oc.get("wtd"))),
                          "status": "live"})
+    elif oc and oc.get("awaiting"):
+        aw = {"v": "awaiting", "rag": "w"}
+        measures.append({"label": "Open/close checklists", "sub": "Process Street",
+                         "qtd": dict(aw), "mtd": dict(aw), "wtd": dict(aw), "status": "awaiting",
+                         "flag": "checklist is live in Process Street (store completes it); its dated audit-trail isn't feeding the QTD log yet — auto-populates once it does"})
+        flags.append(s + " open/close: the store completes the Process Street checklist (live), but its dated history isn't in the 'Process St - Data' feed yet — awaiting first dated data; add " + s + " to that automation at source")
     else:
         measures.append({"label": "Open/close checklists", "sub": "Process Street",
                          "qtd": {"v": "—", "rag": "x"}, "mtd": {"v": "—", "rag": "x"}, "wtd": {"v": "—", "rag": "x"},
