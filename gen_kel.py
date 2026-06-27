@@ -338,31 +338,34 @@ if BENCH and BENCH.get('rows'):
         else: st,sl="thin","Thin"; na+=1
         key=BMAP.get(nm,nm); rec=REC.get(key); coords=rec.get('coords') if rec else None
         lab=sh(key) if rec else nm
-        if coords: pts.append((coords,st,SCOL[st],lab))
+        if coords: pts.append((coords,st,SCOL[st],lab,nm,sl,bench))
         tbl.append((nm,len(leaders),(", ".join(bench) if bench else "—"),sl,st))
-    # inline SVG map (dependency-free; north up; lat/long projection over plotted stores)
-    lats=[c[0] for c,_,_,_ in pts]; lons=[c[1] for c,_,_,_ in pts]
-    la0,la1=min(lats),max(lats); lo0,lo1=min(lons),max(lons)
-    W,H,m=720,470,48
-    Xp=lambda lon:m+(lon-lo0)/((lo1-lo0) or 1)*(W-2*m)
-    Yp=lambda lat:m+(la1-lat)/((la1-la0) or 1)*(H-2*m)
-    GOLD="#e7b35a"; GSTK="#a9781f"; STAR="14,2 17.5,10.5 26.5,11 20,17 22,26 14,21.5 6,26 8,17 1.5,11 10.5,10.5"
-    marks=""
-    for i,(c,st,col,lab) in enumerate(sorted(pts,key=lambda z:-z[0][0])):
-        x=Xp(c[1]); y=Yp(c[0]); dy=-13 if i%2==0 else 20
-        fill=GOLD if st=="bench" else col; strk=GSTK if st=="bench" else "#fff"
-        marks+=('<g transform="translate(%.1f,%.1f) scale(0.72) translate(-14,-14)"><polygon points="%s" fill="%s" stroke="%s" stroke-width="2" stroke-linejoin="round"><title>%s — %s</title></polygon></g>'
-                '<text x="%.1f" y="%.1f" font-size="9.5" text-anchor="middle" fill="#2b211b" paint-order="stroke" stroke="#fff" stroke-width="2.5">%s</text>'
-                %(x,y,STAR,fill,strk,lab,st,x,y+dy,lab))
-    svg=('<svg viewBox="0 0 %d %d" width="100%%" style="max-width:760px;height:auto;background:#f3efe9;border:1px solid var(--line);border-radius:12px" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Estate bench map">'
-         '<text x="%d" y="28" font-size="13" font-weight="700" fill="#5b3a29">Estate bench map · North up · one marker per store</text>%s</svg>'%(W,H,m,marks))
-    _sw=lambda col,stk:'<svg width="13" height="13" viewBox="0 0 28 28" style="vertical-align:-2px"><polygon points="%s" fill="%s" stroke="%s" stroke-width="2" stroke-linejoin="round"/></svg>'%(STAR,col,stk)
-    legend=('<div style="margin-top:10px;font-size:11.5px;color:#6b5a47;display:flex;gap:16px;flex-wrap:wrap">'
-            '<span style="display:inline-flex;align-items:center;gap:6px">%s Bench in place (named successor)</span>'
-            '<span style="display:inline-flex;align-items:center;gap:6px">%s Bench-ready status</span>'
+    # ---- real map: Leaflet 1.9.4 + OpenStreetMap tiles; one star divIcon per store, coloured by bench status ----
+    _STAR="14,2 17.5,10.5 26.5,11 20,17 22,26 14,21.5 6,26 8,17 1.5,11 10.5,10.5"
+    mpts=[{"lat":c[0],"lng":c[1],"color":col,"label":lab,"name":nm,"status":sl,
+           "bench":(", ".join(bench) if bench else "")} for (c,st,col,lab,nm,sl,bench) in pts]
+    svg=('<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>'
+         '<div id="benchmap" style="height:460px;width:100%%;max-width:820px;border:1px solid var(--line);border-radius:12px;overflow:hidden;z-index:0"></div>'
+         '<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>'
+         '<script>(function(){var PTS=%s,STAR=%s,map=null;'
+         'function star(c){return L.divIcon({className:"",iconSize:[28,28],iconAnchor:[14,14],popupAnchor:[0,-13],'
+         'html:\'<svg width="28" height="28" viewBox="0 0 28 28"><polygon points="\'+STAR+\'" fill="\'+c+\'" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>\'});}'
+         'function init(){if(map)return;map=L.map("benchmap",{scrollWheelZoom:false});'
+         'L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:"&copy; OpenStreetMap contributors"}).addTo(map);'
+         'var b=[];PTS.forEach(function(p){var m=L.marker([p.lat,p.lng],{icon:star(p.color)}).addTo(map);'
+         'm.bindTooltip(p.label,{direction:"top",offset:[0,-13]});'
+         'm.bindPopup("<b>"+p.name+"</b><br>"+p.status+(p.bench?("<br>Bench: "+p.bench):""));b.push([p.lat,p.lng]);});'
+         'if(b.length)map.fitBounds(b,{padding:[34,34]});setTimeout(function(){map.invalidateSize();},60);}'
+         'var btn=document.querySelector(\'[data-tab="bench"]\');'
+         'if(btn)btn.addEventListener("click",function(){setTimeout(function(){init();if(map)map.invalidateSize();},80);});'
+         'var bp=document.getElementById("tab-bench");if(bp&&bp.classList.contains("active"))init();'
+         '})();</script>')%(json.dumps(mpts),json.dumps(_STAR))
+    _sw=lambda col:'<svg width="13" height="13" viewBox="0 0 28 28" style="vertical-align:-2px"><polygon points="%s" fill="%s" stroke="#fff" stroke-width="2" stroke-linejoin="round"/></svg>'%(_STAR,col)
+    legend=('<div style="margin-top:10px;font-size:11.5px;color:#6b5a47;display:flex;gap:18px;flex-wrap:wrap">'
+            '<span style="display:inline-flex;align-items:center;gap:6px">%s Bench ready (named successor)</span>'
             '<span style="display:inline-flex;align-items:center;gap:6px">%s Thin (team, no named bench)</span>'
             '<span style="display:inline-flex;align-items:center;gap:6px">%s Gap (manager vacancy)</span></div>'
-            %(_sw(GOLD,GSTK),_sw('#1f8a4c','#fff'),_sw('#b8860b','#fff'),_sw('#c0392b','#fff')))
+            %(_sw('#1f8a4c'),_sw('#b8860b'),_sw('#c0392b')))
     rows="".join('<tr><td style="text-align:left">%s</td><td>%s</td><td style="text-align:left">%s</td><td>%s</td></tr>'%(n,ld,bn,tag(sl,STAG[st])) for (n,ld,bn,sl,st) in tbl)
     upd=BENCH.get('_updated','')
     BENCH_NAV='<button class="tab-btn" data-tab="bench"><span>🪑</span>Bench</button>'
@@ -371,7 +374,7 @@ if BENCH and BENCH.get('rows'):
       '<div class="card"><div class="lbl">Bench-ready stores</div><div class="val" style="color:#1f8a4c">%d</div><div class="meta">named Bench Manager / pipeline</div></div>'
       '<div class="card"><div class="lbl">Thin bench</div><div class="val" style="color:#b8860b">%d</div><div class="meta">leadership team, no named successor</div></div>'
       '<div class="card"><div class="lbl">Capability gap</div><div class="val" style="color:#c0392b">%d</div><div class="meta">Store Manager vacancy</div></div></div>'
-      '<div class="note" style="margin-top:12px"><b>Bench</b> = succession cover from the HRP ‘Bench and HRP’ roster. <b style="color:#1c6b3d">Green</b> = a named Bench Manager (promotion-ready) is in place; <b style="color:#7a5b12">amber</b> = a full leadership line but no named successor; <b style="color:#9a2f22">red</b> = a Store Manager vacancy. A <b style="color:#a9781f">gold star</b> marks any store where a bench/successor exists. Refreshed Monday.</div>'
+      '<div class="note" style="margin-top:12px"><b>Bench</b> = succession cover from the HRP ‘Bench and HRP’ roster. <b style="color:#1c6b3d">Green</b> = a named Bench Manager (promotion-ready) is in place; <b style="color:#7a5b12">amber</b> = a full leadership line but no named successor; <b style="color:#9a2f22">red</b> = a Store Manager vacancy. Refreshed Monday.</div>'
       '<div class="section-title">Where the bench is &mdash; and the gaps</div>'
       '<div class="panel">%s%s</div>'
       '<div class="section-title" style="margin-top:18px">Per-store bench &amp; succession</div>'
