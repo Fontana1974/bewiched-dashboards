@@ -342,30 +342,38 @@ if BENCH and BENCH.get('rows'):
         tbl.append((nm,len(leaders),(", ".join(bench) if bench else "—"),sl,st))
     # ---- real map: Leaflet 1.9.4 + OpenStreetMap tiles; one star divIcon per store, coloured by bench status ----
     _STAR="14,2 17.5,10.5 26.5,11 20,17 22,26 14,21.5 6,26 8,17 1.5,11 10.5,10.5"
-    mpts=[{"lat":c[0],"lng":c[1],"color":col,"label":lab,"name":nm,"status":sl,
-           "bench":(", ".join(bench) if bench else "")} for (c,st,col,lab,nm,sl,bench) in pts]
+    NEW_OPENINGS=[("Daventry (new site)",52.2650,-1.1480),("Grantham Designer Village",52.9116,-0.6416),
+                  ("Hinckley",52.5408,-1.3703),("Warwick",52.2812,-1.5846),("Bromsgrove",52.3351,-2.0580),
+                  ("Derby Drive-Thru",52.9225,-1.4746),("Hemel Hempstead",51.7526,-0.4692)]
+    def _benchpop(nm,sl,bench):
+        return "<b>%s</b><br>%s%s"%(nm,sl,("<br>Bench: "+", ".join(bench)) if bench else "")
+    mpts=[{"lat":c[0],"lng":c[1],"color":col,"stroke":"#fff","label":lab,"pop":_benchpop(nm,sl,bench)}
+          for (c,st,col,lab,nm,sl,bench) in pts]
+    mpts+=[{"lat":la,"lng":lo,"color":"#88aaff","stroke":"#2244aa","label":nm,
+            "pop":"<b>%s</b><br>Potential new opening"%nm} for (nm,la,lo) in NEW_OPENINGS]
     svg=('<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>'
          '<div id="benchmap" style="height:460px;width:100%%;max-width:820px;border:1px solid var(--line);border-radius:12px;overflow:hidden;z-index:0"></div>'
          '<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>'
          '<script>(function(){var PTS=%s,STAR=%s,map=null;'
-         'function star(c){return L.divIcon({className:"",iconSize:[28,28],iconAnchor:[14,14],popupAnchor:[0,-13],'
-         'html:\'<svg width="28" height="28" viewBox="0 0 28 28"><polygon points="\'+STAR+\'" fill="\'+c+\'" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>\'});}'
+         'function star(c,s){return L.divIcon({className:"",iconSize:[28,28],iconAnchor:[14,14],popupAnchor:[0,-13],'
+         'html:\'<svg width="28" height="28" viewBox="0 0 28 28"><polygon points="\'+STAR+\'" fill="\'+c+\'" stroke="\'+s+\'" stroke-width="1.6" stroke-linejoin="round"/></svg>\'});}'
          'function init(){if(map)return;map=L.map("benchmap",{scrollWheelZoom:false});'
          'L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:"&copy; OpenStreetMap contributors"}).addTo(map);'
-         'var b=[];PTS.forEach(function(p){var m=L.marker([p.lat,p.lng],{icon:star(p.color)}).addTo(map);'
+         'var b=[];PTS.forEach(function(p){var m=L.marker([p.lat,p.lng],{icon:star(p.color,p.stroke)}).addTo(map);'
          'm.bindTooltip(p.label,{direction:"top",offset:[0,-13]});'
-         'm.bindPopup("<b>"+p.name+"</b><br>"+p.status+(p.bench?("<br>Bench: "+p.bench):""));b.push([p.lat,p.lng]);});'
+         'm.bindPopup(p.pop);b.push([p.lat,p.lng]);});'
          'if(b.length)map.fitBounds(b,{padding:[34,34]});setTimeout(function(){map.invalidateSize();},60);}'
          'var btn=document.querySelector(\'[data-tab="bench"]\');'
          'if(btn)btn.addEventListener("click",function(){setTimeout(function(){init();if(map)map.invalidateSize();},80);});'
          'var bp=document.getElementById("tab-bench");if(bp&&bp.classList.contains("active"))init();'
          '})();</script>')%(json.dumps(mpts),json.dumps(_STAR))
-    _sw=lambda col:'<svg width="13" height="13" viewBox="0 0 28 28" style="vertical-align:-2px"><polygon points="%s" fill="%s" stroke="#fff" stroke-width="2" stroke-linejoin="round"/></svg>'%(_STAR,col)
+    _sw=lambda col,stk="#fff":'<svg width="13" height="13" viewBox="0 0 28 28" style="vertical-align:-2px"><polygon points="%s" fill="%s" stroke="%s" stroke-width="2" stroke-linejoin="round"/></svg>'%(_STAR,col,stk)
     legend=('<div style="margin-top:10px;font-size:11.5px;color:#6b5a47;display:flex;gap:18px;flex-wrap:wrap">'
             '<span style="display:inline-flex;align-items:center;gap:6px">%s Bench ready (named successor)</span>'
             '<span style="display:inline-flex;align-items:center;gap:6px">%s Thin (team, no named bench)</span>'
-            '<span style="display:inline-flex;align-items:center;gap:6px">%s Gap (manager vacancy)</span></div>'
-            %(_sw('#1f8a4c'),_sw('#b8860b'),_sw('#c0392b')))
+            '<span style="display:inline-flex;align-items:center;gap:6px">%s Gap (manager vacancy)</span>'
+            '<span style="display:inline-flex;align-items:center;gap:6px">%s Potential opening</span></div>'
+            %(_sw('#1f8a4c'),_sw('#b8860b'),_sw('#c0392b'),_sw('#88aaff','#2244aa')))
     rows="".join('<tr><td style="text-align:left">%s</td><td>%s</td><td style="text-align:left">%s</td><td>%s</td></tr>'%(n,ld,bn,tag(sl,STAG[st])) for (n,ld,bn,sl,st) in tbl)
     upd=BENCH.get('_updated','')
     BENCH_NAV='<button class="tab-btn" data-tab="bench"><span>🪑</span>Bench</button>'
