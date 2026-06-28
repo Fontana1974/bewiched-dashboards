@@ -1,5 +1,6 @@
 import json,sys
 from collections import defaultdict
+from bench_render import build_bench
 from statistics import mean,median
 A=json.load(open('allstores.json')); REC=A['rec']; champ=A['champ']; CATS=A['cats']
 try: DPFOOD_AREA=json.load(open('daypart_food_area.json'))
@@ -433,7 +434,9 @@ def build(coach):
     else:
         kpw_people_k='grey'; kpw_people_v="n/a"; kpw_people_n="0 ratings"
 
+    _BN,_BP=build_bench(REC,SHORT,stores)
     repl={
+     "{{BENCH_NAV}}":_BN,"{{BENCH_PANEL}}":_BP,
      "{{KPW_SALES_K}}":kpw_sales_k,"{{KPW_SALES_V}}":kpw_sales_v,"{{KPW_OPS_K}}":kpw_ops_k,"{{KPW_OPS_V}}":kpw_ops_v,
      "{{KPW_CUST_K}}":kpw_cust_k,"{{KPW_CUST_V}}":kpw_cust_v,"{{KPW_CUST_N}}":kpw_cust_n,
      "{{KPW_PEOPLE_K}}":kpw_people_k,"{{KPW_PEOPLE_V}}":kpw_people_v,"{{KPW_PEOPLE_N}}":kpw_people_n,

@@ -1,5 +1,6 @@
 import json,re
 from collections import defaultdict
+from bench_render import build_bench
 from statistics import mean,median
 A=json.load(open('allstores.json')); REC=A['rec']; champ=A['champ']; CATS=A['cats']
 try: DPFOOD=json.load(open('daypart_food.json'))
@@ -423,7 +424,9 @@ def build():
     kpw_ops_k=('green' if ops_lw<=190 else 'red') if ops_lw is not None else 'red'; kpw_ops_v=(str(ops_lw) if ops_lw is not None else "n/a")
     kpw_cust_k=('green' if _ch>=3.32 else 'red') if _ch is not None else 'red'; kpw_cust_v=(("%.2f"%_ch) if _ch is not None else "n/a")
     kpw_people_k=('green' if _rh>=3.32 else 'red') if _rh is not None else 'red'; kpw_people_v=(("%.2f"%_rh) if _rh is not None else "n/a")
+    _BN,_BP=build_bench(REC,SHORT)
     repl={
+     "{{BENCH_NAV}}":_BN,"{{BENCH_PANEL}}":_BP,
      "{{WX_NUDGE}}":wx_nudge([R[s]['coords'] for s in stores if R[s].get('coords')],wx_recent(amix)),
      "{{WX_NUDGE_TOP}}":WX_TOP,"{{WX_FOOD}}":WX_FOOD,
      "{{GEN_STAMP}}":GEN_STAMP,"{{LW_LABEL}}":lw_label,"{{FOCUS_WEEK}}":focus_week,"{{AVF_WK}}":ACT.get('_week_label','last week'),"{{AVF_ROWS}}":avf,
