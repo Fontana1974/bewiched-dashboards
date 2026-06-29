@@ -89,12 +89,19 @@ def parse_any_date(v):
     if m:
         try: return datetime.date(int(m.group(1)), int(m.group(2)) + 1, int(m.group(3)))
         except ValueError: return None
+    m = re.match(r"(\d{4})-(\d{1,2})-(\d{1,2})", s)       # ISO, with optional ' HH:MM:SS' tail
+    if m:                                                 # e.g. reviews '2026-06-29 10:05:31'
+        try: return datetime.date(int(m.group(1)), int(m.group(2)), int(m.group(3)))
+        except ValueError: return None
     for fmt in ("%Y-%m-%d", "%d-%b-%Y", "%b %d %Y", "%d %b %Y", "%m/%d/%Y", "%d/%m/%Y"):
         try: return datetime.datetime.strptime(s, fmt).date()
         except ValueError: pass
-    m = re.search(r"([A-Za-z]{3})\s+(\d{1,2})\b.*?(\d{4})", s)   # 'Fri Mar 11 ... 2022'
-    if m and m.group(1).lower() in _MONTHS:
-        try: return datetime.date(int(m.group(3)), _MONTHS[m.group(1).lower()], int(m.group(2)))
+    # JS Date string e.g. 'Fri Mar 11 10:11:00 -0000 2022': take the month+day token and the
+    # 19xx/20xx year — NOT the first 4 digits (the '-0000' TZ offset used to be grabbed as year 0).
+    md = re.search(r"\b([A-Za-z]{3})\s+(\d{1,2})\b", s)
+    yr = re.search(r"\b(?:19|20)\d{2}\b", s)
+    if md and yr and md.group(1).lower() in _MONTHS:
+        try: return datetime.date(int(yr.group(0)), _MONTHS[md.group(1).lower()], int(md.group(2)))
         except ValueError: return None
     return None
 
@@ -523,18 +530,25 @@ def pull_cph_targets():
 def pull_cos():
     """B4 — Cost of Sales 'Master COS Input': latest row per store, Stock holding% (G=6),
     Gross Profit% (Q=16) -> cos_metrics.json."""
-    rows = sheet(SID["cos"], "'Master COS Input'!A1:Z6000")
+    rows = sheet(SID["cos"], "'Master COS Input'!A1:R20000")
     label = {"Glenvale DT": "Glenvale Drive Thru", "Leamington Parade": "Leamington Parade"}
-    latest = {}                       # store -> (rownum, holding, gp, weeklabel)
-    for i, r in enumerate(rows):
-        if not r or not r[0]: continue
-        st = label.get(str(r[0]).strip()) or normalize(r[0])
+    latest = {}                       # store -> (holding, gp, weeklabel)
+    # REAL layout: A blank, B=Date, C=Store, F=Stock Holding £, G=Stock holding%, Q=Gross Profit%.
+    # (The store is in col C / idx 2 — reading r[0] was always the empty col A, so nothing matched.)
+    for r in rows:
+        if len(r) < 3 or not r[2]: continue
+        st = label.get(str(r[2]).strip()) or normalize(r[2])
         if st not in COMMERCIAL_STORES: continue
-        g = fnum(r[6]) if len(r) > 6 else None
-        q = fnum(r[16]) if len(r) > 16 else None
-        wk = r[1] if len(r) > 1 else ""
+        gc = r[6] if len(r) > 6 else ""          # col G = Stock holding%
+        qc = r[16] if len(r) > 16 else ""         # col Q = Gross Profit%
+        if gc is None or str(gc).strip() == "":   # in-progress week (sales in, stock count not done) -> skip
+            continue
+        g = fnum(gc)
+        q = fnum(qc) if qc not in (None, "") else None
+        wk = r[1] if len(r) > 1 else ""           # col B = week-ending date
         latest[st] = (round(g * 100, 1) if g and g < 2 else round(g, 1),
-                      round(q * 100, 2) if q and q < 2 else round(q, 2), wk)
+                      (round(q * 100, 2) if q and q < 2 else round(q, 2)) if q is not None else None,
+                      wk)
     out = {"_source": "Cost of Sales sheet %s 'Master COS Input' — latest week per store "
                       "(Stock holding%% col G, Gross Profit%% col Q)" % SID["cos"],
            "_pulled": CUR_END.isoformat(), "stores": {}}
@@ -607,7 +621,10 @@ def pull_sickness():
         st = normalize(r[1])
         if st is None: continue
         dt = parse_any_date(r[2]) if len(r) > 2 else None
-        if dt and dt.year != yr: continue
+        # Must be dated AND this year, same basis as the sickness denominator. Previously an
+        # unparseable JS date (dt=None) fell through and was counted, so ALL RTW rows since 2022
+        # were tallied -> rtw_rate ran to 169/213/1350%. Pair it 1:1 with this-year sickness.
+        if not dt or dt.year != yr: continue
         RT[st] = RT.get(st, 0) + 1
     for st in rec:
         e = S.get(st, {})
