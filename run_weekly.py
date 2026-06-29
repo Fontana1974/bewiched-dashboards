@@ -545,7 +545,8 @@ def pull_cos():
             continue
         g = fnum(gc)
         q = fnum(qc) if qc not in (None, "") else None
-        wk = r[1] if len(r) > 1 else ""           # col B = week-ending date
+        wk = r[1] if len(r) > 1 else ""           # col B = week-ending date (serial when unformatted)
+        wk = serial_to_iso(wk) or wk if isinstance(wk, (int, float)) else wk
         latest[st] = (round(g * 100, 1) if g and g < 2 else round(g, 1),
                       (round(q * 100, 2) if q and q < 2 else round(q, 2)) if q is not None else None,
                       wk)
