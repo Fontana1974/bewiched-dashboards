@@ -141,11 +141,12 @@
   <div class="kpws">
     <a class="kpw green"><div class="kl">📈 Sales</div><div class="kv">+27.5%</div><div class="kt">store sales YoY · last week · target ≥8%</div></a>
     <a class="kpw red"><div class="kl">🏁 Operations</div><div class="kv">289</div><div class="kt">F1 race score · last wk · target ≤190 (lower=better)</div></a>
-    <a class="kpw grey"><div class="kl">⭐ Customer</div><div class="kv">no feed</div><div class="kt">Google health · QTD · target ≥3.32 · no live feed</div></a>
+    <a class="kpw red"><div class="kl">⭐ Customer</div><div class="kv">1.60</div><div class="kt">Google health · QTD · target ≥3.32 · 2 reviews</div></a>
     <a class="kpw green"><div class="kl">👥 People</div><div class="kv">4.62</div><div class="kt">RMS health · QTD · target ≥3.32 · 36 ratings</div></a>
   </div>
   <div class="note" style="margin:2px 0 8px;background:#fff8ec;border:1px solid #f0e0bf;color:#7a5e1e;border-radius:10px;padding:8px 12px;font-size:12px"><b>At a glance</b> — <b style="color:#1c6b3d">green</b> on/above target · <b style="color:#9a2f22">red</b> below · <b style="color:#8a7a6d">grey</b> = no data/feed. Sales &amp; Operations are last week; Customer &amp; People are quarter-to-date.</div>
   <!-- PILLARS END -->
+
 
 
 
@@ -449,6 +450,7 @@ else{bg=warm?"#fdf3e6":"#eef4fb";bd=warm?"#f0d8b0":"#cfe0f2";fg="#4a3a2a";
 
 
 
+
 <div style="display:grid;grid-template-columns:30px 1fr 78px;gap:10px;align-items:center;padding:8px 10px;border-radius:8px;background:#fff7e9;box-shadow:inset 0 0 0 1.5px #e7c873;margin-bottom:6px">
      <div style="font-weight:800;font-size:15px;color:#5b3a29;text-align:center">1</div>
      <div>
@@ -476,6 +478,7 @@ else{bg=warm?"#fdf3e6":"#eef4fb";bd=warm?"#f0d8b0":"#cfe0f2";fg="#4a3a2a";
      </div>
      <div style="text-align:right"><div style="font-weight:800;font-size:18px;color:#3f2d22">113.1</div><div style="font-size:9.5px;color:#9a8a7c;margin-top:-2px">pts/store</div></div>
    </div>
+   
    
    
    
@@ -683,7 +686,7 @@ else{bg=warm?"#fdf3e6":"#eef4fb";bd=warm?"#f0d8b0":"#cfe0f2";fg="#4a3a2a";
       <div class="card"><div class="lbl">Sick absences</div><div class="val">11</div><div class="meta">Mar–Jun 2026</div></div>
       <div class="card"><div class="lbl">Lateness</div><div class="val">2</div><div class="meta">tracked separately</div></div>
       <div class="card"><div class="lbl">Reported correctly</div><div class="val" style="color:var(--green)">11 / 11</div><div class="meta">all called in per policy</div></div>
-      <div class="card"><div class="lbl">Return-to-work (RTW) completed</div><div class="val" style="color:var(--green)">71 / 11</div><div class="meta">return-to-work logged</div></div>
+      <div class="card"><div class="lbl">Return-to-work (RTW) completed</div><div class="val" style="color:var(--green)">9 / 11</div><div class="meta">return-to-work logged</div></div>
     </div>
     <div class="sent-grid" style="margin-top:16px">
       <div class="panel">
@@ -715,7 +718,7 @@ window.CHARTS=window.CHARTS||[];
 
 <script>
 /* ---- Sales & hours ---- */
-const ACT=[["2026-03-09",24715],["2026-03-16",25487],["2026-03-23",24958],["2026-03-30",24398],["2026-04-06",25897],["2026-04-13",26437],["2026-04-20",27349],["2026-04-27",26888],["2026-05-04",26859],["2026-05-11",25472],["2026-05-18",24645],["2026-05-25",25540],["2026-06-01",26446],["2026-06-08",26378],["2026-06-15",24898],["2026-06-22",29723],["2026-06-22",29723],["2026-06-22",29723],["2026-06-22",29723.0]];
+const ACT=[["2026-03-09",24715],["2026-03-16",25487],["2026-03-23",24958],["2026-03-30",24398],["2026-04-06",25897],["2026-04-13",26437],["2026-04-20",27349],["2026-04-27",26888],["2026-05-04",26859],["2026-05-11",25472],["2026-05-18",24645],["2026-05-25",25540],["2026-06-01",26446],["2026-06-08",26378],["2026-06-15",24898],["2026-06-22",29723],["2026-06-22",29723],["2026-06-22",29723],["2026-06-22",29723.0],["2026-06-22",29723.0]];
 const FC=[["2026-06-29",26500,70,353,"schools in"],["2026-07-06",26500,70,379,"summer hols"],["2026-07-13",27000,70,386,"summer hols"],["2026-07-20",27500,70,393,"summer hols"],["2026-07-27",27000,70,386,"summer hols"]];
 
 const gbp0=n=>"£"+Math.round(n).toLocaleString("en-GB");
@@ -760,7 +763,7 @@ document.getElementById("foot").innerHTML="Generated "+new Date().toLocaleString
 <script>
 /* ---- Wastage ---- */
 (function(){
-const WK=[["13/04", 2.2], ["20/04", 1.2], ["27/04", 1.1], ["04/05", 1.6], ["11/05", 0.6], ["18/05", 1.5], ["25/05", 1.7], ["01/06", 1.0], ["08/06", 0.7], ["15/06", 1.1], ["22/06", 1.1], ["22/06", 1.4], ["22/06", 1.4], ["22/06", 1.5]];
+const WK=[["13/04", 2.2], ["20/04", 1.2], ["27/04", 1.1], ["04/05", 1.6], ["11/05", 0.6], ["18/05", 1.5], ["25/05", 1.7], ["01/06", 1.0], ["08/06", 0.7], ["15/06", 1.1], ["22/06", 1.1], ["22/06", 1.4], ["22/06", 1.4], ["22/06", 1.5], ["22/06", 1.5]];
 const ITEMS=[["3 Chicken & Chorizo Ciabatta", 137, 25, 0], ["3 Bacon Bap", 106, 25, 0], ["3 Tuna Ciabatta", 77, 14, 0], ["3 Chicken Caprese Sandwich", 69, 14, 0], ["Croissant Pastry", 67, 31, 0], ["3 Falafel Wrap", 66, 15, 0], ["3 Green & Grain Salad", 64, 12, 0], ["3* Sausage and Egg Muffin", 56, 12, 0], ["3 Egg & Spinach Sandwich", 53, 12, 0], ["Sausage Roll Pastry", 53, 16, 0]];
 new Chart(document.getElementById('waste'),{type:'line',data:{labels:WK.map(r=>r[0]),datasets:[
 {label:'Wastage %',data:WK.map(r=>r[1]),borderColor:'#c0392b',backgroundColor:'#c0392b',tension:.3,pointRadius:4,borderWidth:2.5},
@@ -841,7 +844,7 @@ document.querySelector("#cattbl tbody").innerHTML=ROWS.map(r=>{const s=r[2]>0?"#
     options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>" "+c.parsed.y+" / 5"}}},
       scales:{y:{min:1,max:5,grid:{color:"#eee"},title:{display:true,text:"avg / 5"}},x:{grid:{display:false}}}}}));
   window.CHARTS.push(new Chart(document.getElementById("absChart"),{type:"bar",
-    data:{labels:["Sick absences","Return-to-work (RTW) completed"],datasets:[{data:[11,71],backgroundColor:["#b8860b","#1f8a4c"],borderRadius:4}]},
+    data:{labels:["Sick absences","Return-to-work (RTW) completed"],datasets:[{data:[11,9],backgroundColor:["#b8860b","#1f8a4c"],borderRadius:4}]},
     options:{indexAxis:"y",responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>" "+c.parsed.x}}},
       scales:{x:{grid:{color:"#eee"},ticks:{precision:0,stepSize:1},suggestedMax:8},y:{grid:{display:false}}}}}));
 })();

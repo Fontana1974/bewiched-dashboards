@@ -104,7 +104,7 @@
    "name": "All Butter Flapjack",
    "peak": "Lunch",
    "share": 37,
-   "hour": "10am",
+   "hour": "11am",
    "units": 1034,
    "sales": 2913,
    "sparse": false
@@ -230,7 +230,7 @@
    "name": "Toffee Millionaires Cake",
    "peak": "Lunch",
    "share": 45,
-   "hour": "1pm",
+   "hour": "11am",
    "units": 191,
    "sales": 663,
    "sparse": false
@@ -245,21 +245,21 @@
    "sparse": false
   },
   {
+   "name": "GF Double Brownie",
+   "peak": "Lunch",
+   "share": 36,
+   "hour": "10am",
+   "units": 164,
+   "sales": 424,
+   "sparse": false
+  },
+  {
    "name": "Almond Croissant",
    "peak": "Lunch",
    "share": 41,
    "hour": "11am",
    "units": 164,
    "sales": 407,
-   "sparse": false
-  },
-  {
-   "name": "GF Double Brownie",
-   "peak": "Lunch",
-   "share": 36,
-   "hour": "12pm",
-   "units": 164,
-   "sales": 424,
    "sparse": false
   },
   {
@@ -273,7 +273,7 @@
   },
   {
    "name": "Tea Time Coffee Cake",
-   "peak": "Afternoon",
+   "peak": "Lunch",
    "share": 38,
    "hour": "12pm",
    "units": 111,

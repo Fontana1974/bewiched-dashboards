@@ -2,7 +2,7 @@
  "target": 4.6,
  "stores": {
   "Glenvale Drive Thru": {
-   "composite": 4.4,
+   "composite": 4.3,
    "target": 4.6,
    "on_target": false,
    "pillars": [
@@ -74,9 +74,9 @@
     },
     {
      "name": "People & Customer",
-     "star": 4.7,
+     "star": 4.4,
      "target": 4.6,
-     "on_target": true,
+     "on_target": false,
      "metrics": [
       {
        "label": "RMS health /5",
@@ -86,14 +86,14 @@
       },
       {
        "label": "RTW completion",
-       "value": "169%",
-       "star": 5.0,
-       "on_target": true
+       "value": "69%",
+       "star": 4.0,
+       "on_target": false
       },
       {
        "label": "Google health",
-       "value": "4.92 (live 4.84★/157 all-time (QTD feed stale))",
-       "star": 5.0,
+       "value": "4.27 (QTD)",
+       "star": 4.8,
        "on_target": true
       },
       {
@@ -114,14 +114,14 @@
     "coaching_barista_pct": 80.6,
     "openclose_pct": 100,
     "openclose_detail": "57 open & 56 close vs 56 trading days (20 Apr–14 Jun), Process Street feed",
-    "rtw_pct": 169.0,
+    "rtw_pct": 69.0,
     "rtw_detail": "RTW% from HRP sickness/RTW (Glenvale, QTD)"
    },
    "_cph_target": 63,
    "_f1_pos": 11
   },
   "Leamington Parade": {
-   "composite": 4.2,
+   "composite": 3.8,
    "target": 4.6,
    "on_target": false,
    "pillars": [
@@ -193,9 +193,9 @@
     },
     {
      "name": "People & Customer",
-     "star": 5.0,
+     "star": 3.5,
      "target": 4.6,
-     "on_target": true,
+     "on_target": false,
      "metrics": [
       {
        "label": "RMS health /5",
@@ -205,15 +205,15 @@
       },
       {
        "label": "RTW completion",
-       "value": "213%",
-       "star": 5.0,
-       "on_target": true
+       "value": "53%",
+       "star": 3.0,
+       "on_target": false
       },
       {
        "label": "Google health",
-       "value": "4.86 (live 4.72★/75 all-time (QTD feed stale))",
-       "star": 5.0,
-       "on_target": true
+       "value": "2.53 (QTD)",
+       "star": 2.4,
+       "on_target": false
       },
       {
        "label": "Lateness (shown, not scored)",

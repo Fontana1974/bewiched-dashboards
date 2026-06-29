@@ -1,9 +1,9 @@
 {
- "company_health": 0.0,
- "sum_store_avg": 0,
- "stores_with_reviews": 0,
- "reviews": 0,
- "avg_rating_last_week": null,
+ "company_health": 1.5,
+ "sum_store_avg": 42.4,
+ "stores_with_reviews": 9,
+ "reviews": 24,
+ "avg_rating_last_week": 4.8,
  "window": "w/c 22 Jun 2026 (Mon-Sun)",
  "target": 3.32,
  "reviews_target": 125
