@@ -1,0 +1,32 @@
+name: Weekly dashboard refresh
+# Two scheduled runs (script auto-detects mode by weekday):
+#   Sunday 21:00 UK  -> FULL refresh (labour hours not posted yet, shown as "—")
+#   Monday 09:30 UK  -> HOURS update (re-pull planners: posted hours + finalised forecasts)
+# Crons are UTC and do NOT auto-adjust for BST. Values below = summer (BST). In winter add 1h.
+# Leave schedule commented until run_weekly.py is finished + a manual run is green.
+on:
+  workflow_dispatch: {}          # on-demand "Run workflow" button for testing
+  # schedule:
+  #   - cron: '0 20 * * 0'      # Sun 21:00 UK (BST) — full
+  #   - cron: '30 8 * * 1'      # Mon 09:30 UK (BST) — hours
+permissions:
+  contents: write
+concurrency: { group: weekly-refresh, cancel-in-progress: false }
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: pip install -r requirements.txt
+      - name: Build dashboards
+        env: { GCP_SA_JSON: '${{ secrets.GCP_SA_JSON }}' }
+        run: python run_weekly.py          # auto-detects full (Sun) vs hours (Mon)
+      - name: Commit & push
+        run: |
+          git config user.name "Bewiched Dashboards Bot"
+          git config user.email "matt@bewiched.co.uk"
+          git add -A
+          git commit -m "Automated refresh $(date +%F)" || { echo "no changes"; exit 0; }
+          git push
