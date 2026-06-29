@@ -158,7 +158,7 @@ DT_STORES = ["Billing Drive Thru", "Glenvale Drive Thru", "Northampton Drive-Thr
 STORE_PAGES = ["Olney", "Attleborough", "Billing Drive Thru", "Glenvale Drive Thru",
                "Northampton Drive-Thru", "Leamington Parade"]
 COMMERCIAL_STORES = ["Glenvale Drive Thru", "Leamington Parade"]
-CATS = ["Hot drinks", "Cold drinks", "Milkshakes", "Food", "Bakery", "Retail", "Other"]
+CATS = ["Hot drinks", "Cold drinks", "Milkshakes", "Food", "Bakery", "Other & retail"]
 
 # informal source label -> canonical (lower-cased keys; competitors flagged separately)
 _MAP = {
@@ -328,7 +328,7 @@ def pull_mix():
     def build(winmap):
         tot_s = sum(v[0] for v in winmap.values())
         tot_d = sum(v[1] for v in winmap.values())
-        out = {}
+        out = {c: {"sales": 0, "cap": 0, "mix": 0} for c in CATS}
         for cat, (sales, dcnt) in winmap.items():
             out[CATLABEL[cat]] = {"sales": round(sales),
                                   "cap": round(100 * dcnt / tot_d, 1) if tot_d else 0,
