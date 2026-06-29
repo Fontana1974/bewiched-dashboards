@@ -363,7 +363,7 @@ def pull_wastage():
       WHERE date BETWEEN {d(27)} AND {CE} AND {WQ}>0
       GROUP BY nm ORDER BY wr DESC LIMIT 40""")
     W("company_wastage.json", {"_window": "last 28 days",
-        "rows": [[r["nm"], r["wq"], r["wr"], r["sq"]] for r in comp]}, indent=1)
+        "rows": [[r["nm"], r["wq"] or 0, r["wr"] or 0, r["sq"] or 0] for r in comp]}, indent=1)
     store = bq(f"""
       SELECT outlet s,
         ROUND(SUM(IF(date BETWEEN {d(27)} AND {CE} AND {WQ}>0,{RV},0))) wr,
@@ -387,7 +387,7 @@ def pull_wastage():
         rec[s]["waste_pct"] = round(100 * wr / s4, 1) if s4 else 0
         rec[s]["waste_pct_lw"] = round(100 * wr_lw / (rec[s].get("lw26") or 1), 1) if rec[s].get("lw26") else 0
         ol = sorted(olm.get(s, []), key=lambda x: -x[1])[:10]
-        rec[s]["outliers"] = [[nm, wr_, wq, sq, wr_] for nm, wr_, wq, sq in ol]
+        rec[s]["outliers"] = [[nm, wr_ or 0, wq or 0, sq or 0, wr_ or 0] for nm, wr_, wq, sq in ol]
     save_all(a)
     print("[pull] wastage: company rows %d, stores %d" % (len(comp), len(wm)))
 
