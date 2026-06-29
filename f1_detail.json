@@ -12,13 +12,13 @@
    "2026-06-21"
   ],
   "race_qtd": {
-   "n": 11,
-   "score": 329.1,
-   "queue_s": 256.4,
-   "qcall": 41.8,
-   "hello": 100,
-   "goodbye": 94,
-   "howareyou": 93
+   "n": 12,
+   "score": 339.4,
+   "queue_s": 266,
+   "qcall": 38,
+   "hello": 93,
+   "goodbye": 88,
+   "howareyou": 94
   },
   "quali": [
    187.0,
@@ -31,13 +31,13 @@
    "2026-06-09"
   ],
   "quali_qtd": {
-   "n": 11,
-   "rank": 16.5,
-   "queue_s": 236.5,
-   "qcall": 84.2,
-   "hello": 71,
-   "goodbye": 65,
-   "howareyou": 91
+   "n": 13,
+   "rank": 17.3,
+   "queue_s": 238,
+   "qcall": 86,
+   "hello": 70,
+   "goodbye": 63,
+   "howareyou": 92
   }
  },
  "Glenvale Drive Thru": {
@@ -53,13 +53,13 @@
    "2026-06-20"
   ],
   "race_qtd": {
-   "n": 11,
-   "score": 274.2,
-   "queue_s": 220.1,
-   "qcall": 76.8,
-   "hello": 72,
-   "goodbye": 78,
-   "howareyou": 83
+   "n": 13,
+   "score": 260.7,
+   "queue_s": 210,
+   "qcall": 80,
+   "hello": 71,
+   "goodbye": 71,
+   "howareyou": 85
   },
   "quali": [
    164.0,
@@ -72,13 +72,13 @@
    "2026-06-15"
   ],
   "quali_qtd": {
-   "n": 12,
-   "rank": 9.1,
-   "queue_s": 157.6,
-   "qcall": 100.0,
-   "hello": 85,
-   "goodbye": 74,
-   "howareyou": 100
+   "n": 15,
+   "rank": 10.1,
+   "queue_s": 155,
+   "qcall": 100,
+   "hello": 84,
+   "goodbye": 69,
+   "howareyou": 98
   }
  },
  "Wellingborough Train Station": {
@@ -94,12 +94,12 @@
    "2026-06-19"
   ],
   "race_qtd": {
-   "n": 11,
-   "score": 238.2,
-   "queue_s": 176.4,
-   "qcall": 78.6,
+   "n": 12,
+   "score": 232.2,
+   "queue_s": 173,
+   "qcall": 80,
    "hello": 100,
-   "goodbye": 91,
+   "goodbye": 92,
    "howareyou": 93
   },
   "quali": [
@@ -113,13 +113,13 @@
    "2026-06-16"
   ],
   "quali_qtd": {
-   "n": 11,
-   "rank": 2.8,
-   "queue_s": 97.7,
-   "qcall": 100.0,
+   "n": 13,
+   "rank": 2.7,
+   "queue_s": 95,
+   "qcall": 100,
    "hello": 97,
-   "goodbye": 93,
-   "howareyou": 91
+   "goodbye": 94,
+   "howareyou": 92
   }
  },
  "Rothwell": {
@@ -135,10 +135,10 @@
    "2026-06-20"
   ],
   "race_qtd": {
-   "n": 11,
-   "score": 264.7,
-   "queue_s": 208.1,
-   "qcall": 55.9,
+   "n": 12,
+   "score": 266.0,
+   "queue_s": 214,
+   "qcall": 60,
    "hello": 100,
    "goodbye": 100,
    "howareyou": 100
@@ -154,13 +154,13 @@
    "2026-06-18"
   ],
   "quali_qtd": {
-   "n": 12,
-   "rank": 11.7,
-   "queue_s": 182.5,
-   "qcall": 57.1,
-   "hello": 82,
-   "goodbye": 83,
-   "howareyou": 98
+   "n": 17,
+   "rank": 10.5,
+   "queue_s": 166,
+   "qcall": 73,
+   "hello": 86,
+   "goodbye": 85,
+   "howareyou": 99
   }
  },
  "Northampton": {
@@ -176,12 +176,12 @@
    "2026-06-20"
   ],
   "race_qtd": {
-   "n": 11,
-   "score": 226.2,
-   "queue_s": 164.7,
-   "qcall": 63.2,
+   "n": 12,
+   "score": 229.6,
+   "queue_s": 168,
+   "qcall": 58,
    "hello": 70,
-   "goodbye": 55,
+   "goodbye": 59,
    "howareyou": 94
   },
   "quali": [
@@ -195,13 +195,13 @@
    "2026-06-16"
   ],
   "quali_qtd": {
-   "n": 11,
-   "rank": 13.3,
-   "queue_s": 177.0,
-   "qcall": 50.0,
-   "hello": 24,
+   "n": 13,
+   "rank": 13.9,
+   "queue_s": 170,
+   "qcall": 43,
+   "hello": 21,
    "goodbye": 38,
-   "howareyou": 88
+   "howareyou": 84
   }
  },
  "Northampton Drive-Thru": {
@@ -217,13 +217,13 @@
    "2026-06-19"
   ],
   "race_qtd": {
-   "n": 11,
-   "score": 320.5,
-   "queue_s": 244.7,
-   "qcall": 50.9,
-   "hello": 78,
-   "goodbye": 57,
-   "howareyou": 72
+   "n": 12,
+   "score": 317.9,
+   "queue_s": 240,
+   "qcall": 47,
+   "hello": 72,
+   "goodbye": 52,
+   "howareyou": 75
   },
   "quali": [
    125.0,
@@ -236,13 +236,13 @@
    "2026-06-16"
   ],
   "quali_qtd": {
-   "n": 11,
-   "rank": 13.4,
-   "queue_s": 186.8,
-   "qcall": 60.8,
-   "hello": 34,
+   "n": 13,
+   "rank": 14.5,
+   "queue_s": 188,
+   "qcall": 52,
+   "hello": 37,
    "goodbye": 24,
-   "howareyou": 100
+   "howareyou": 94
   }
  },
  "Wellingborough": {
@@ -260,8 +260,8 @@
   "race_qtd": {
    "n": 11,
    "score": 254.7,
-   "queue_s": 204.5,
-   "qcall": 54.5,
+   "queue_s": 205,
+   "qcall": 55,
    "hello": 97,
    "goodbye": 74,
    "howareyou": 72
@@ -277,12 +277,12 @@
    "2026-06-15"
   ],
   "quali_qtd": {
-   "n": 11,
-   "rank": 9.9,
-   "queue_s": 150.5,
-   "qcall": 50.0,
-   "hello": 48,
-   "goodbye": 48,
+   "n": 14,
+   "rank": 9.4,
+   "queue_s": 152,
+   "qcall": 50,
+   "hello": 56,
+   "goodbye": 55,
    "howareyou": 91
   }
  },
@@ -299,12 +299,12 @@
    "2026-06-20"
   ],
   "race_qtd": {
-   "n": 11,
-   "score": 252.7,
-   "queue_s": 196.5,
-   "qcall": 80.0,
-   "hello": 70,
-   "goodbye": 65,
+   "n": 12,
+   "score": 242.1,
+   "queue_s": 189,
+   "qcall": 82,
+   "hello": 73,
+   "goodbye": 68,
    "howareyou": 100
   },
   "quali": [
@@ -318,13 +318,13 @@
    "2026-06-15"
   ],
   "quali_qtd": {
-   "n": 10,
-   "rank": 13.0,
-   "queue_s": 178.8,
-   "qcall": 66.7,
+   "n": 12,
+   "rank": 13.5,
+   "queue_s": 177,
+   "qcall": 62,
    "hello": 25,
-   "goodbye": 46,
-   "howareyou": 100
+   "goodbye": 49,
+   "howareyou": 97
   }
  },
  "Lower Heathcote": {
@@ -340,13 +340,13 @@
    "2026-06-20"
   ],
   "race_qtd": {
-   "n": 11,
-   "score": 298.4,
-   "queue_s": 243.6,
-   "qcall": 61.8,
-   "hello": 85,
-   "goodbye": 89,
-   "howareyou": 79
+   "n": 12,
+   "score": 296.7,
+   "queue_s": 241,
+   "qcall": 57,
+   "hello": 87,
+   "goodbye": 90,
+   "howareyou": 74
   },
   "quali": [
    181.5,
@@ -359,13 +359,13 @@
    "2026-06-17"
   ],
   "quali_qtd": {
-   "n": 10,
-   "rank": 12.4,
-   "queue_s": 254.4,
-   "qcall": 83.3,
-   "hello": 57,
-   "goodbye": 74,
-   "howareyou": 83
+   "n": 13,
+   "rank": 12.8,
+   "queue_s": 234,
+   "qcall": 74,
+   "hello": 56,
+   "goodbye": 70,
+   "howareyou": 78
   }
  },
  "Leamington Parade": {
@@ -381,13 +381,13 @@
    "2026-06-21"
   ],
   "race_qtd": {
-   "n": 11,
-   "score": 196.4,
-   "queue_s": 162.7,
-   "qcall": 37.3,
+   "n": 12,
+   "score": 189.3,
+   "queue_s": 156,
+   "qcall": 35,
    "hello": 98,
-   "goodbye": 97,
-   "howareyou": 94
+   "goodbye": 98,
+   "howareyou": 95
   },
   "quali": [
    101.5,
@@ -400,11 +400,11 @@
    "2026-06-16"
   ],
   "quali_qtd": {
-   "n": 11,
-   "rank": 5.3,
-   "queue_s": 121.8,
-   "qcall": 66.7,
-   "hello": 75,
+   "n": 13,
+   "rank": 5.2,
+   "queue_s": 118,
+   "qcall": 71,
+   "hello": 77,
    "goodbye": 71,
    "howareyou": 100
   }
@@ -422,13 +422,13 @@
    "2026-06-20"
   ],
   "race_qtd": {
-   "n": 11,
-   "score": 294.3,
-   "queue_s": 246.8,
-   "qcall": 83.2,
-   "hello": 84,
+   "n": 12,
+   "score": 296.9,
+   "queue_s": 250,
+   "qcall": 85,
+   "hello": 82,
    "goodbye": 71,
-   "howareyou": 87
+   "howareyou": 85
   },
   "quali": [
    251.0,
@@ -441,13 +441,13 @@
    "2026-06-15"
   ],
   "quali_qtd": {
-   "n": 11,
+   "n": 12,
    "rank": 19.3,
-   "queue_s": 286.8,
-   "qcall": 16.7,
-   "hello": 46,
-   "goodbye": 19,
-   "howareyou": 94
+   "queue_s": 287,
+   "qcall": 29,
+   "hello": 45,
+   "goodbye": 25,
+   "howareyou": 91
   }
  },
  "Kettering": {
@@ -463,13 +463,13 @@
    "2026-06-21"
   ],
   "race_qtd": {
-   "n": 11,
-   "score": 259.4,
-   "queue_s": 193.5,
-   "qcall": 51.4,
-   "hello": 71,
-   "goodbye": 56,
-   "howareyou": 91
+   "n": 12,
+   "score": 264.7,
+   "queue_s": 198,
+   "qcall": 47,
+   "hello": 70,
+   "goodbye": 57,
+   "howareyou": 83
   },
   "quali": [
    123.0,
@@ -482,13 +482,13 @@
    "2026-06-15"
   ],
   "quali_qtd": {
-   "n": 11,
-   "rank": 13.2,
-   "queue_s": 175.1,
-   "qcall": 16.7,
-   "hello": 35,
-   "goodbye": 31,
-   "howareyou": 92
+   "n": 12,
+   "rank": 12.8,
+   "queue_s": 174,
+   "qcall": 29,
+   "hello": 40,
+   "goodbye": 37,
+   "howareyou": 93
   }
  },
  "Higham Ferrers": {
@@ -504,12 +504,12 @@
    "2026-06-20"
   ],
   "race_qtd": {
-   "n": 11,
-   "score": 350.2,
-   "queue_s": 271.1,
-   "qcall": 32.7,
+   "n": 12,
+   "score": 344.7,
+   "queue_s": 268,
+   "qcall": 30,
    "hello": 94,
-   "goodbye": 90,
+   "goodbye": 88,
    "howareyou": 95
   },
   "quali": [
@@ -523,13 +523,13 @@
    "2026-06-15"
   ],
   "quali_qtd": {
-   "n": 11,
-   "rank": 15.8,
-   "queue_s": 275.3,
-   "qcall": 33.3,
-   "hello": 65,
-   "goodbye": 65,
-   "howareyou": 92
+   "n": 14,
+   "rank": 16,
+   "queue_s": 267,
+   "qcall": 33,
+   "hello": 72,
+   "goodbye": 73,
+   "howareyou": 94
   }
  },
  "Corby": {
@@ -545,12 +545,12 @@
    "2026-06-19"
   ],
   "race_qtd": {
-   "n": 11,
-   "score": 266.3,
-   "queue_s": 199.0,
-   "qcall": 28.6,
-   "hello": 60,
-   "goodbye": 54,
+   "n": 12,
+   "score": 260.0,
+   "queue_s": 195,
+   "qcall": 26,
+   "hello": 64,
+   "goodbye": 57,
    "howareyou": 90
   },
   "quali": [
@@ -564,13 +564,13 @@
    "2026-06-15"
   ],
   "quali_qtd": {
-   "n": 12,
-   "rank": 7.8,
-   "queue_s": 157.0,
-   "qcall": 50.0,
-   "hello": 70,
-   "goodbye": 72,
-   "howareyou": 100
+   "n": 14,
+   "rank": 8,
+   "queue_s": 153,
+   "qcall": 57,
+   "hello": 71,
+   "goodbye": 74,
+   "howareyou": 98
   }
  },
  "Peterborough Bridge Street": {
@@ -586,13 +586,13 @@
    "2026-06-20"
   ],
   "race_qtd": {
-   "n": 11,
-   "score": 376.4,
-   "queue_s": 303.8,
-   "qcall": 51.4,
-   "hello": 88,
-   "goodbye": 88,
-   "howareyou": 84
+   "n": 12,
+   "score": 393.9,
+   "queue_s": 324,
+   "qcall": 55,
+   "hello": 89,
+   "goodbye": 89,
+   "howareyou": 85
   },
   "quali": [
    167.5,
@@ -605,12 +605,12 @@
    "2026-06-15"
   ],
   "quali_qtd": {
-   "n": 13,
-   "rank": 9.8,
-   "queue_s": 159.8,
-   "qcall": 28.6,
-   "hello": 72,
-   "goodbye": 90,
+   "n": 16,
+   "rank": 10.4,
+   "queue_s": 162,
+   "qcall": 50,
+   "hello": 77,
+   "goodbye": 92,
    "howareyou": 100
   }
  },
@@ -627,13 +627,13 @@
    "2026-06-21"
   ],
   "race_qtd": {
-   "n": 11,
-   "score": 216.2,
-   "queue_s": 170.4,
-   "qcall": 81.8,
+   "n": 12,
+   "score": 210.2,
+   "queue_s": 165,
+   "qcall": 83,
    "hello": 97,
    "goodbye": 97,
-   "howareyou": 80
+   "howareyou": 75
   },
   "quali": [
    66.0,
@@ -646,13 +646,13 @@
    "2026-06-17"
   ],
   "quali_qtd": {
-   "n": 13,
-   "rank": 5.2,
-   "queue_s": 117.1,
-   "qcall": 62.5,
-   "hello": 81,
-   "goodbye": 80,
-   "howareyou": 92
+   "n": 14,
+   "rank": 5.4,
+   "queue_s": 120,
+   "qcall": 67,
+   "hello": 82,
+   "goodbye": 81,
+   "howareyou": 93
   }
  },
  "Peterborough Fletton Quays": {
@@ -668,13 +668,13 @@
    "2026-06-19"
   ],
   "race_qtd": {
-   "n": 10,
-   "score": 267.1,
-   "queue_s": 218.9,
-   "qcall": 88.0,
-   "hello": 93,
-   "goodbye": 89,
-   "howareyou": 80
+   "n": 11,
+   "score": 257.7,
+   "queue_s": 212,
+   "qcall": 89,
+   "hello": 94,
+   "goodbye": 90,
+   "howareyou": 82
   },
   "quali": [
    282.5,
@@ -687,13 +687,13 @@
    "2026-06-15"
   ],
   "quali_qtd": {
-   "n": 11,
-   "rank": 11.5,
-   "queue_s": 181.3,
-   "qcall": 50.0,
-   "hello": 58,
-   "goodbye": 61,
-   "howareyou": 100
+   "n": 17,
+   "rank": 11.8,
+   "queue_s": 176,
+   "qcall": 55,
+   "hello": 72,
+   "goodbye": 58,
+   "howareyou": 96
   }
  },
  "Olney": {
@@ -709,12 +709,12 @@
    "2026-06-20"
   ],
   "race_qtd": {
-   "n": 10,
-   "score": 357.8,
-   "queue_s": 284.1,
-   "qcall": 38.5,
-   "hello": 97,
-   "goodbye": 97,
+   "n": 11,
+   "score": 357.4,
+   "queue_s": 287,
+   "qcall": 44,
+   "hello": 94,
+   "goodbye": 94,
    "howareyou": 67
   },
   "quali": [
@@ -728,12 +728,12 @@
    "2026-06-17"
   ],
   "quali_qtd": {
-   "n": 11,
-   "rank": 16.7,
-   "queue_s": 318.0,
-   "qcall": 33.3,
-   "hello": 88,
-   "goodbye": 82,
+   "n": 13,
+   "rank": 17.1,
+   "queue_s": 302,
+   "qcall": 43,
+   "hello": 90,
+   "goodbye": 85,
    "howareyou": 100
   }
  },
@@ -750,13 +750,13 @@
    "2026-06-20"
   ],
   "race_qtd": {
-   "n": 10,
-   "score": 278.2,
-   "queue_s": 221.2,
-   "qcall": 81.5,
-   "hello": 80,
-   "goodbye": 70,
-   "howareyou": 76
+   "n": 11,
+   "score": 292.1,
+   "queue_s": 238,
+   "qcall": 83,
+   "hello": 82,
+   "goodbye": 73,
+   "howareyou": 75
   },
   "quali": [
    153.5,
@@ -769,13 +769,13 @@
    "2026-06-16"
   ],
   "quali_qtd": {
-   "n": 13,
-   "rank": 12.0,
-   "queue_s": 180.4,
-   "qcall": 87.5,
-   "hello": 63,
-   "goodbye": 65,
-   "howareyou": 92
+   "n": 15,
+   "rank": 12.3,
+   "queue_s": 179,
+   "qcall": 89,
+   "hello": 62,
+   "goodbye": 69,
+   "howareyou": 93
   }
  },
  "Attleborough": {
@@ -791,12 +791,12 @@
    "2026-06-21"
   ],
   "race_qtd": {
-   "n": 8,
-   "score": 240.4,
-   "queue_s": 194.9,
-   "qcall": 81.2,
-   "hello": 91,
-   "goodbye": 91,
+   "n": 9,
+   "score": 283.9,
+   "queue_s": 239,
+   "qcall": 72,
+   "hello": 92,
+   "goodbye": 92,
    "howareyou": 100
   },
   "quali": [
@@ -810,13 +810,13 @@
    "2026-06-17"
   ],
   "quali_qtd": {
-   "n": 8,
-   "rank": 9.2,
-   "queue_s": 180.5,
-   "qcall": 83.3,
-   "hello": 64,
-   "goodbye": 92,
-   "howareyou": 91
+   "n": 9,
+   "rank": 8.9,
+   "queue_s": 177,
+   "qcall": 86,
+   "hello": 68,
+   "goodbye": 93,
+   "howareyou": 92
   }
  },
  "Billing Drive Thru": {
@@ -832,13 +832,13 @@
    "2026-06-21"
   ],
   "race_qtd": {
-   "n": 4,
-   "score": 381.5,
-   "queue_s": 273.6,
-   "qcall": 75.0,
-   "hello": 91,
-   "goodbye": 91,
-   "howareyou": 50
+   "n": 5,
+   "score": 320.2,
+   "queue_s": 234,
+   "qcall": 80,
+   "hello": 93,
+   "goodbye": 93,
+   "howareyou": 60
   },
   "quali": [
    350.5,
@@ -851,12 +851,12 @@
    "2026-06-16"
   ],
   "quali_qtd": {
-   "n": 2,
-   "rank": 19.5,
-   "queue_s": 296.0,
-   "qcall": 100.0,
-   "hello": 40,
-   "goodbye": 8,
+   "n": 3,
+   "rank": 13.7,
+   "queue_s": 236,
+   "qcall": 100,
+   "hello": 60,
+   "goodbye": 38,
    "howareyou": 100
   }
  },
