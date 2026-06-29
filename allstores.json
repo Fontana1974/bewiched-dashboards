@@ -7459,7 +7459,7 @@
     37
    ]
   ],
-  "constructors": [
+  "cons": [
    [
     "Rich",
     1017,
@@ -7478,7 +7478,8 @@
     9,
     102.4
    ]
-  ]
+  ],
+  "window": "since 25 Apr 2026"
  },
  "cats": [
   "Hot drinks",
