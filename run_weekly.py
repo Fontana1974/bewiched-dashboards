@@ -109,18 +109,30 @@ def build():
     subprocess.run([sys.executable, "build_newsite_sales.py"], check=True)
     subprocess.run([sys.executable, "patch_newsite.py"], check=True)
 
-def freshness_gate():
+def freshness_gate(mode='full'):
     """Refuse to publish a partial run. Assert key outputs moved to THIS week."""
     ns = json.load(open("newsite_sales.json"))
     assert CUR_END.strftime("%-d %b") in ns["_window"], f"newsite_sales stale: {ns['_window']}"
     # ... assert f1_detail newest race == CUR_END; allstores lw26 changed; etc.
     print("[gate] freshness OK")
 
+# ---------- run mode ----------
+# Sunday 21:00 = FULL refresh (hours not posted yet -> show "—").
+# Monday 09:30 = HOURS update: re-pull planners only (hours + finalised forecasts),
+#               rebuild over Sunday's data, push. Everything else stays as Sunday.
+def run_mode():
+    if len(sys.argv) > 1 and sys.argv[1] in ("full","hours"): return sys.argv[1]
+    return "hours" if TODAY.weekday() == 0 else "full"   # Mon=hours, else full
+
 def main():
-    pull_sales(); pull_planner()   # + the rest as they're ported
+    mode = run_mode(); print(f"[mode] {mode}")
+    if mode == "full":
+        pull_sales(); pull_planner()        # + wastage/f1/mix/daypart/actuals/... (ported)
+    else:  # hours — light Monday pass
+        pull_planner()                      # finalised forecasts + now-posted hours only
     build()
-    freshness_gate()
-    print("[done] dashboards rebuilt — workflow will commit & push")
+    freshness_gate(mode)
+    print(f"[done] {mode} run rebuilt — workflow will commit & push")
 
 if __name__ == "__main__":
     main()
