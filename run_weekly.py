@@ -451,18 +451,25 @@ def pull_f1():
     a = load_all(); rec = a["rec"]
     drivers = []
     cons = {}
+    cons_n = {}
     CHAMP_FROM = datetime.date(2026, 4, 25)
     for st, rows in racer.items():
         pts = sum(fnum(r[29]) for dt, r in rows if dt >= CHAMP_FROM)
         coach = COACH.get(st, "")
         drivers.append([st, coach, round(pts)])
         cons[coach] = cons.get(coach, 0) + round(pts)
+        cons_n[coach] = cons_n.get(coach, 0) + 1
         if st in rec and st in fd:
             fin = fd[st]["race"][7]
             rec[st]["f1"] = [fin, fd[st]["race"][6], fd[st]["last6"]]
             rec[st]["f1_finish"] = fin
     drivers.sort(key=lambda x: -x[2])
-    a["champ"] = {"drivers": drivers, "cons": sorted(cons.items(), key=lambda x: -x[1])}
+    # constructor standings: [coach, total_pts, n_stores, pts_per_store];
+    # gen_company sorts and labels by pts/store (index 3)
+    cons_rows = [[c, tot, cons_n[c], round(tot / cons_n[c], 1) if cons_n[c] else 0]
+                 for c, tot in cons.items()]
+    cons_rows.sort(key=lambda x: -x[3])
+    a["champ"] = {"drivers": drivers, "cons": cons_rows}
     save_all(a)
     with open(os.path.join(HERE, "the_race.csv"), "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f); w.writerow(["Date", "Store Name", "Queue average", "Area Coach"])
