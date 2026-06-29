@@ -146,7 +146,8 @@
    369.0,
    340.0
   ],
-  "used_lastwk": 330
+  "used_lastwk": 364,
+  "actual_cph_lastwk": 81.7
  },
  "Billing Drive Thru": {
   "cph": 56.0,
@@ -160,7 +161,8 @@
    270.0,
    270.0
   ],
-  "used_lastwk": 275
+  "used_lastwk": 263,
+  "actual_cph_lastwk": 57.5
  },
  "Market Harborough": {
   "cph": 58.0,
@@ -174,7 +176,8 @@
    190.0,
    171.0
   ],
-  "used_lastwk": 164
+  "used_lastwk": 179,
+  "actual_cph_lastwk": 62.6
  },
  "Northampton": {
   "cph": 60.0,
@@ -188,7 +191,8 @@
    163.0,
    167.0
   ],
-  "used_lastwk": 175
+  "used_lastwk": 174,
+  "actual_cph_lastwk": 56.2
  },
  "Leamington Parade": {
   "cph": 58.0,
@@ -202,7 +206,8 @@
    158.0,
    158.0
   ],
-  "used_lastwk": 154
+  "used_lastwk": 159,
+  "actual_cph_lastwk": 58.1
  },
  "Rugby": {
   "cph": 55.0,
@@ -216,7 +221,8 @@
    140.0,
    159.0
   ],
-  "used_lastwk": 157
+  "used_lastwk": 154,
+  "actual_cph_lastwk": 58.1
  },
  "Wellingborough Train Station": {
   "cph": 55.0,
@@ -230,7 +236,8 @@
    129.0,
    129.0
   ],
-  "used_lastwk": 100
+  "used_lastwk": 41,
+  "actual_cph_lastwk": 24.4
  },
  "Wellingborough": {
   "cph": 53.0,
@@ -244,7 +251,8 @@
    137.0,
    128.0
   ],
-  "used_lastwk": 131
+  "used_lastwk": 137,
+  "actual_cph_lastwk": 49.5
  },
  "Lower Heathcote": {
   "cph": 40.0,
@@ -258,7 +266,8 @@
    117.0,
    121.0
   ],
-  "used_lastwk": 108
+  "used_lastwk": 108,
+  "actual_cph_lastwk": 45.3
  },
  "Glenvale Drive Thru": {
   "cph": 63.0,
@@ -271,8 +280,7 @@
    289.0,
    286.0,
    289.0
-  ],
-  "used_lastwk": 291
+  ]
  },
  "HOE Balsall Common": {
   "cph": 48.0,
@@ -285,8 +293,7 @@
    140.0,
    135.0,
    134.0
-  ],
-  "used_lastwk": 148
+  ]
  },
  "Attleborough": {
   "cph": 49.0,
@@ -299,7 +306,6 @@
    139.0,
    139.0,
    139.0
-  ],
-  "used_lastwk": 164
+  ]
  }
 }

@@ -53,15 +53,16 @@ def _f1score(s):
         except: return None
     return None
 def _avf_rows(stores,R):
-    body=""; sfc=sa=ssc=su=0
+    body=""; sfc=sa=ssc=su=sa_u=scu=nr=nu=0
     for s in sorted(stores,key=lambda x:-R[x]['lw26']):
         a=ACT.get(s)
         if not isinstance(a,list): continue
         fc=a[1] or 0; sched=a[2] or 0; used=a[3] or 0; act=R[s]['lw26']; tcph=(OVR[s].get('cph') if isinstance(OVR.get(s),dict) and OVR[s].get('cph') else R[s].get('cph',55))
         if isinstance(OVR.get(s),dict) and OVR[s].get('used_lastwk') is not None: used=OVR[s]['used_lastwk']
-        sfc+=fc; sa+=act; ssc+=sched; su+=used
+        sfc+=fc; sa+=act; ssc+=sched; nr+=1
+        if used: su+=used; sa_u+=act; scu+=sched; nu+=1
         sv=round(100*(act/fc-1)) if fc else None
-        hv=round(used-sched,1) if (used or sched) else None
+        hv=round(used-sched,1) if used else None
         ac=round(act/used,2) if used else None
         svk='t-ok' if (sv is not None and sv>=0) else 't-red'
         cpk='t-ok' if (ac is not None and ac>=tcph) else 't-red'
@@ -69,11 +70,11 @@ def _avf_rows(stores,R):
         svt=(("+" if sv>=0 else "")+str(sv)+"%") if sv is not None else "n/a"
         hvt=(("+" if hv>=0 else "")+("%g"%hv)) if hv is not None else "n/a"
         body+=(f'<tr><td style="font-weight:700">{s}</td><td>£{fc:,.0f}</td><td style="font-weight:700">£{act:,.0f}</td>'
-               f'<td>{tag(svt,svk)}</td><td>{"%g"%sched}</td><td>{"%g"%used}</td><td>{tag(hvt,hvk)}</td>'
+               f'<td>{tag(svt,svk)}</td><td>{"%g"%sched}</td><td>{("%g"%used) if used else "—"}</td><td>{tag(hvt,hvk)}</td>'
                f'<td>£{tcph}</td><td>{tag(("£%.2f"%ac) if ac is not None else "n/a",cpk)}</td></tr>')
-    tsv=round(100*(sa/sfc-1)) if sfc else 0; tac=round(sa/su,2) if su else 0; thv=round(su-ssc,1)
+    tsv=round(100*(sa/sfc-1)) if sfc else 0; _cmp=(nu==nr and nu>0); tac=round(sa_u/su,2) if su else None; thv=round(su-scu,1) if _cmp else None
     body+=(f'<tr style="font-weight:700;background:#EFE6DC"><td>TOTAL</td><td>£{sfc:,.0f}</td><td>£{sa:,.0f}</td>'
-           f'<td>{("+" if tsv>=0 else "")+str(tsv)}%</td><td>{"%g"%ssc}</td><td>{"%g"%su}</td><td>{("+" if thv>=0 else "")+("%g"%thv)}</td><td></td><td>£{tac:.2f}</td></tr>')
+           f'<td>{("+" if tsv>=0 else "")+str(tsv)}%</td><td>{"%g"%ssc}</td><td>{("%g"%su) if su else "—"}</td><td>{((("+" if thv>=0 else "")+("%g"%thv)) if thv is not None else "—")}</td><td></td><td>{("£%.2f"%tac) if tac is not None else "—"}</td></tr>')
     return body
 SHORT={"Burton Latimer":"Burton","Corby":"Corby","Higham Ferrers":"Higham","Kettering":"Kettering","Olney":"Olney",
 "Peterborough Bridge Street":"P'boro Bridge St","Peterborough Fletton Quays":"P'boro Fletton","Rothwell":"Rothwell","Rushden Lakes":"Rushden Lakes",
