@@ -12,7 +12,7 @@ BASE = sys.argv[1] if len(sys.argv) > 1 else os.path.dirname(os.path.abspath(__f
 def L(fn): return json.load(open(os.path.join(BASE, fn), encoding="utf-8"))
 
 # cur_end = last complete Sunday (the Sunday before this week's Monday) — matches the BigQuery window
-_t = _dt.date.today(); _mon = _t - _dt.timedelta(days=_t.weekday()); _cur_end = _mon - _dt.timedelta(days=1)
+_t = _dt.date.today(); _cur_end = _t - _dt.timedelta(days=(_t.weekday()+1) % 7)  # last complete Sunday (=today on a Sunday run), matching the SQL cur_end override
 WINDOW = "4 weeks to %d %s %d vs the same 4 weeks in %d" % (_cur_end.day, _cur_end.strftime("%b"), _cur_end.year, _cur_end.year-1)
 HOURS  = {"Morning":"5am–11am","Lunch":"11am–2pm","Afternoon":"2pm–5pm","Evening":"5pm+"}
 DP_ORDER = ["Morning","Lunch","Afternoon","Evening"]
