@@ -212,14 +212,14 @@
    "name": "Victoria Sponge Cake",
    "peak": "Afternoon",
    "share": 38,
-   "hour": "3pm",
+   "hour": "2pm",
    "units": 255,
    "sales": 883,
    "sparse": false
   },
   {
    "name": "Granola Traybake",
-   "peak": "Lunch",
+   "peak": "Morning",
    "share": 42,
    "hour": "11am",
    "units": 195,
@@ -245,21 +245,21 @@
    "sparse": false
   },
   {
-   "name": "GF Double Brownie",
-   "peak": "Lunch",
-   "share": 36,
-   "hour": "10am",
-   "units": 164,
-   "sales": 424,
-   "sparse": false
-  },
-  {
    "name": "Almond Croissant",
    "peak": "Lunch",
    "share": 41,
    "hour": "11am",
    "units": 164,
    "sales": 407,
+   "sparse": false
+  },
+  {
+   "name": "GF Double Brownie",
+   "peak": "Lunch",
+   "share": 36,
+   "hour": "12pm",
+   "units": 164,
+   "sales": 424,
    "sparse": false
   },
   {
