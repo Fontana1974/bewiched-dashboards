@@ -1087,8 +1087,14 @@ RUN_START = datetime.datetime.now().timestamp()
 GEN_LEFTOVER = {}
 
 def _run(script, *args):
-    p = subprocess.run([sys.executable, os.path.join(HERE, script), *args],
-                       cwd=HERE, check=True, capture_output=True, text=True)
+    try:
+        p = subprocess.run([sys.executable, os.path.join(HERE, script), *args],
+                           cwd=HERE, check=True, capture_output=True, text=True)
+    except subprocess.CalledProcessError as e:
+        sys.stdout.write("[builder FAILED] %s\n" % script)
+        sys.stdout.write((e.stdout or "") + (e.stderr or ""))
+        sys.stdout.flush()
+        raise
     out = (p.stdout or "") + (p.stderr or "")
     sys.stdout.write(out)
     if "leftover placeholders" in out:
