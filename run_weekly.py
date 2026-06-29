@@ -749,6 +749,14 @@ def pull_rms_storehealth():
         "_basis": "Quarter-to-date (from %s). NOT last week." % QSTART.isoformat(),
         "rms": {st: [len(v), round(sum(v) / len(v), 3)] for st, v in qtd.items()},
         "google": {st: v for st, v in google.items()}}, indent=1)
+    # surface per-store QTD RMS into rec.sent (rms avg + count) — all generators read sent[s]['rms']/['rms_n']
+    a = load_all(); rec = a["rec"]
+    for st in rec:
+        sent = rec[st].setdefault("sent", {})
+        v = qtd.get(st)
+        sent["rms"] = round(sum(v) / len(v), 2) if v else None
+        sent["rms_n"] = len(v) if v else 0
+    save_all(a)
     print("[pull] rms/storehealth: company subs %d avg %s; %d rms stores qtd" % (subs, avg, len(qtd)))
 
 
