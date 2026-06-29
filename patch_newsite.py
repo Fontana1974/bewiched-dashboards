@@ -2,7 +2,7 @@
 # Headless refresh + pillar injection for the 5 store dashboards.
 # Data sources (all headless): allstores.json / f1_detail.json / storehealth.json (area pipeline, BigQuery+F1, w/c 22 Jun)
 # + Master Populator "hours used" (passed in HOURS map, gviz).  No Chrome needed.
-import json, re, sys
+import json, re, sys, datetime
 
 def relocate_coaching(h):
     """Ensure the 'Documented coaching' block lives ONLY on the Op's Excellence (tab-f1)
@@ -63,6 +63,24 @@ try:
     CPH_T.update({k:v for k,v in _cpht.items()})
 except (FileNotFoundError, ValueError): pass
 FCST={'Olney':5450,'Attleborough':6350,'Billing Drive Thru':12000,'Glenvale Drive Thru':18450,'Northampton Drive-Thru':26000}
+CURWK=(datetime.date.fromisoformat(NEWDATE)+datetime.timedelta(days=7)).isoformat()  # forward-forecast start = just-completed week (NEWDATE) + 7
+try: _OVR=json.load(open('planner_overrides.json'))
+except (FileNotFoundError, ValueError): _OVR={}
+def roll_fc(h, store):
+    """Forward forecast self-maintains each run: drop weeks before the current Monday (CURWK)
+    and overlay the live planner forecast/hours/CPH onto the first 3 forward weeks (event notes kept)."""
+    m=re.search(r'const FC=(\[\[.*?\]\]);', h)
+    if not m: return h
+    try: arr=json.loads(m.group(1))
+    except ValueError: return h
+    arr=[e for e in arr if str(e[0])>=CURWK]
+    ov=_OVR.get(store) or {}
+    fc=ov.get('fc') or []; hrs=ov.get('hrs') or []; cph=ov.get('cph')
+    for i,e in enumerate(arr[:3]):
+        if i<len(fc) and fc[i]: e[1]=round(fc[i])
+        if cph: e[2]=round(cph)
+        if i<len(hrs) and hrs[i]: e[3]=round(hrs[i])
+    return h.replace(m.group(0),'const FC='+json.dumps(arr,separators=(',',':'))+';',1)
 MINUS="−"  # unicode minus, matches the dashboards' existing style
 def pct1(v): return ("+" if v>=0 else MINUS)+f"{abs(v):.1f}%"
 
@@ -1046,10 +1064,9 @@ def patch(fn,store,coach,mature):
     # 3) sales series append + FC[0] drop
     if mature:
         sub(r'(const ACT=\[\[.*?)\]\];', rf'\1],["{NEWDATE}",{LW}]];',1,"mature ACT append",flags=re.S)
-        sub(r'const FC=\[\["2026-06-15",[^\]]*\],', 'const FC=[',1,"mature FC[0] drop")
     else:
         sub(r'(const \w+_ACT=\[[^\]]*)\];', rf'\1,{LW}];',1,"newsite ACT append")
-        sub(r'const FC=\[\["2026-06-15",[^\]]*\],', 'const FC=[',1,"newsite FC[0] drop")
+    h=roll_fc(h, store)
     # 4) ACT_WK + ACT_CPH (only if hours posted for w/c 22 Jun)
     hrs=HOURS.get(store)
     if hrs:

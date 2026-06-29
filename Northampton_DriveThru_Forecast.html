@@ -151,6 +151,7 @@
 
 
 
+
   <!-- ===== Focus areas (above tabs) ===== -->
   <div class="focusmod">
     <h2>🎯 Focus areas — week of 22 Jun</h2>
@@ -445,6 +446,7 @@ else{bg=warm?"#fdf3e6":"#eef4fb";bd=warm?"#f0d8b0":"#cfe0f2";fg="#4a3a2a";
 
 
 
+
 <div style="display:grid;grid-template-columns:30px 1fr 78px;gap:10px;align-items:center;padding:8px 10px;border-radius:8px;background:#fff7e9;box-shadow:inset 0 0 0 1.5px #e7c873;margin-bottom:6px">
      <div style="font-weight:800;font-size:15px;color:#5b3a29;text-align:center">1</div>
      <div>
@@ -472,6 +474,7 @@ else{bg=warm?"#fdf3e6":"#eef4fb";bd=warm?"#f0d8b0":"#cfe0f2";fg="#4a3a2a";
      </div>
      <div style="text-align:right"><div style="font-weight:800;font-size:18px;color:#3f2d22">112.7</div><div style="font-size:9.5px;color:#9a8a7c;margin-top:-2px">pts/store</div></div>
    </div>
+   
    
    
    
@@ -709,8 +712,8 @@ window.CHARTS=window.CHARTS||[];
 
 <script>
 /* ---- Sales & hours ---- */
-const ACT=[["2026-03-09",24715],["2026-03-16",25487],["2026-03-23",24958],["2026-03-30",24398],["2026-04-06",25897],["2026-04-13",26437],["2026-04-20",27349],["2026-04-27",26888],["2026-05-04",26859],["2026-05-11",25472],["2026-05-18",24645],["2026-05-25",25540],["2026-06-01",26446],["2026-06-08",26378],["2026-06-15",24898],["2026-06-22",29723],["2026-06-22",29723]];
-const FC=[["2026-06-22",26500,70,379,""],["2026-06-29",26800,70,383,"schools in"],["2026-07-06",27200,70,389,"summer hols"],["2026-07-13",27500,70,393,"summer hols"],["2026-07-20",27500,70,393,"summer hols"],["2026-07-27",27000,70,386,"summer hols"]];
+const ACT=[["2026-03-09",24715],["2026-03-16",25487],["2026-03-23",24958],["2026-03-30",24398],["2026-04-06",25897],["2026-04-13",26437],["2026-04-20",27349],["2026-04-27",26888],["2026-05-04",26859],["2026-05-11",25472],["2026-05-18",24645],["2026-05-25",25540],["2026-06-01",26446],["2026-06-08",26378],["2026-06-15",24898],["2026-06-22",29723],["2026-06-22",29723],["2026-06-22",29723]];
+const FC=[["2026-06-29",25750,70,350,"schools in"],["2026-07-06",25851,70,369,"summer hols"],["2026-07-13",23831,70,340,"summer hols"],["2026-07-20",27500,70,393,"summer hols"],["2026-07-27",27000,70,386,"summer hols"]];
 
 const gbp0=n=>"£"+Math.round(n).toLocaleString("en-GB");
 const ddmm=s=>{const[y,m,d]=s.split("-");return d+"/"+m;};
@@ -754,7 +757,7 @@ document.getElementById("foot").innerHTML="Generated "+new Date().toLocaleString
 <script>
 /* ---- Wastage ---- */
 (function(){
-const WK=[["13/04", 2.2], ["20/04", 1.2], ["27/04", 1.1], ["04/05", 1.6], ["11/05", 0.6], ["18/05", 1.5], ["25/05", 1.7], ["01/06", 1.0], ["08/06", 0.7], ["15/06", 1.1], ["22/06", 1.1], ["22/06", 1.4]];
+const WK=[["13/04", 2.2], ["20/04", 1.2], ["27/04", 1.1], ["04/05", 1.6], ["11/05", 0.6], ["18/05", 1.5], ["25/05", 1.7], ["01/06", 1.0], ["08/06", 0.7], ["15/06", 1.1], ["22/06", 1.1], ["22/06", 1.4], ["22/06", 1.4]];
 const ITEMS=[["3 Chicken & Chorizo Ciabatta", 137, 25, 85], ["3 Bacon Bap", 106, 25, 63], ["3 Tuna Ciabatta", 77, 14, 81], ["Croissant Pastry", 67, 31, 64], ["3 Falafel Wrap", 66, 15, 31], ["Sausage Roll Pastry", 53, 16, 159]];
 new Chart(document.getElementById('waste'),{type:'line',data:{labels:WK.map(r=>r[0]),datasets:[
 {label:'Wastage %',data:WK.map(r=>r[1]),borderColor:'#c0392b',backgroundColor:'#c0392b',tension:.3,pointRadius:4,borderWidth:2.5},
