@@ -1,6 +1,6 @@
 {
  "store": "Glenvale Drive Thru",
- "cur_end": "2026-06-21",
+ "cur_end": "2026-06-28",
  "window_weeks": 8,
  "buffer_pct": 15,
  "sparse_threshold_weekly": 10,
@@ -21,76 +21,76 @@
    "item": "Sausage Bap",
    "category": "Breakfast baps & bagel",
    "daily": {
-    "1": 8.12,
-    "2": 7.25,
-    "3": 8.62,
-    "4": 6.75,
-    "5": 6.0,
-    "6": 8.0,
-    "7": 11.0
+    "1": 8.0,
+    "2": 6.62,
+    "3": 8.75,
+    "4": 6.12,
+    "5": 6.12,
+    "6": 8.38,
+    "7": 10.5
    },
-   "weekly_mean": 55.7,
+   "weekly_mean": 54.5,
    "tue": 18,
    "thu": 17,
-   "sat": 31,
-   "weekly_order": 66,
+   "sat": 29,
+   "weekly_order": 64,
    "sparse": false
   },
   {
    "item": "Breakfast Bagel",
    "category": "Breakfast baps & bagel",
    "daily": {
-    "1": 5.38,
-    "2": 3.88,
-    "3": 3.62,
-    "4": 6.5,
-    "5": 6.25,
+    "1": 5.62,
+    "2": 4.62,
+    "3": 3.5,
+    "4": 7.12,
+    "5": 7.62,
     "6": 5.0,
-    "7": 9.75
+    "7": 9.38
    },
-   "weekly_mean": 40.4,
-   "tue": 12,
-   "thu": 13,
-   "sat": 22,
-   "weekly_order": 47,
+   "weekly_mean": 42.9,
+   "tue": 13,
+   "thu": 15,
+   "sat": 23,
+   "weekly_order": 51,
    "sparse": false
   },
   {
    "item": "Bacon Bap",
    "category": "Breakfast baps & bagel",
    "daily": {
-    "1": 5.25,
-    "2": 3.12,
-    "3": 3.0,
+    "1": 6.0,
+    "2": 3.38,
+    "3": 3.25,
     "4": 4.0,
-    "5": 3.62,
+    "5": 4.5,
     "6": 5.12,
-    "7": 7.5
+    "7": 7.12
    },
-   "weekly_mean": 31.6,
+   "weekly_mean": 33.4,
    "tue": 9,
-   "thu": 11,
+   "thu": 12,
    "sat": 19,
-   "weekly_order": 39,
+   "weekly_order": 40,
    "sparse": false
   },
   {
    "item": "Egg & Spinach Sandwich",
    "category": "Sandwiches",
    "daily": {
-    "1": 1.0,
-    "2": 2.0,
-    "3": 2.12,
-    "4": 2.25,
-    "5": 2.0,
-    "6": 1.75,
-    "7": 2.25
+    "1": 0.88,
+    "2": 1.62,
+    "3": 2.5,
+    "4": 2.12,
+    "5": 1.75,
+    "6": 2.12,
+    "7": 2.12
    },
-   "weekly_mean": 13.4,
+   "weekly_mean": 13.1,
    "tue": 6,
    "thu": 5,
-   "sat": 7,
-   "weekly_order": 18,
+   "sat": 6,
+   "weekly_order": 17,
    "sparse": false
   },
   {
@@ -98,31 +98,50 @@
    "category": "Sandwiches",
    "daily": {
     "1": 0.88,
-    "2": 2.75,
-    "3": 1.62,
-    "4": 2.0,
+    "2": 2.38,
+    "3": 1.75,
+    "4": 1.88,
     "5": 2.5,
-    "6": 1.62,
+    "6": 1.88,
     "7": 1.5
    },
-   "weekly_mean": 12.9,
+   "weekly_mean": 12.8,
    "tue": 5,
-   "thu": 5,
+   "thu": 6,
    "sat": 6,
-   "weekly_order": 16,
+   "weekly_order": 17,
    "sparse": false
+  },
+  {
+   "item": "Kids Ham Sandwich",
+   "category": "Sandwiches",
+   "daily": {
+    "1": 0.88,
+    "2": 0.38,
+    "3": 0.0,
+    "4": 0.0,
+    "5": 0.12,
+    "6": 0.0,
+    "7": 0.88
+   },
+   "weekly_mean": 2.3,
+   "tue": 0,
+   "thu": 1,
+   "sat": 3,
+   "weekly_order": 4,
+   "sparse": true
   },
   {
    "item": "Kids Cheese Sandwich",
    "category": "Sandwiches",
    "daily": {
-    "1": 1.12,
+    "1": 0.88,
     "2": 0.62,
     "3": 0.0,
     "4": 0.12,
     "5": 0.0,
     "6": 0.0,
-    "7": 0.38
+    "7": 0.62
    },
    "weekly_mean": 2.2,
    "tue": 1,
@@ -132,174 +151,98 @@
    "sparse": true
   },
   {
-   "item": "Kids Ham Sandwich",
-   "category": "Sandwiches",
+   "item": "Chicken & Chorizo Ciabatta",
+   "category": "Ciabattas",
    "daily": {
-    "1": 0.75,
-    "2": 0.38,
-    "3": 0.0,
-    "4": 0.0,
-    "5": 0.12,
-    "6": 0.0,
-    "7": 0.88
+    "1": 3.0,
+    "2": 3.88,
+    "3": 2.25,
+    "4": 3.5,
+    "5": 4.12,
+    "6": 5.0,
+    "7": 2.75
    },
-   "weekly_mean": 2.1,
-   "tue": 0,
-   "thu": 1,
-   "sat": 3,
-   "weekly_order": 4,
-   "sparse": true
-  },
-  {
-   "item": "Ham & Cheese Croque",
-   "category": "Croques",
-   "daily": {
-    "1": 8.88,
-    "2": 4.62,
-    "3": 6.75,
-    "4": 6.75,
-    "5": 9.25,
-    "6": 10.25,
-    "7": 8.0
-   },
-   "weekly_mean": 54.5,
-   "tue": 16,
-   "thu": 23,
-   "sat": 25,
-   "weekly_order": 64,
-   "sparse": false
-  },
-  {
-   "item": "Cheese & Onion Croque",
-   "category": "Croques",
-   "daily": {
-    "1": 4.25,
-    "2": 4.25,
-    "3": 3.75,
-    "4": 4.5,
-    "5": 4.38,
-    "6": 4.5,
-    "7": 5.38
-   },
-   "weekly_mean": 31.0,
-   "tue": 10,
+   "weekly_mean": 24.5,
+   "tue": 7,
    "thu": 11,
-   "sat": 16,
-   "weekly_order": 37,
+   "sat": 12,
+   "weekly_order": 30,
    "sparse": false
   },
   {
    "item": "Tuna Ciabatta",
    "category": "Ciabattas",
    "daily": {
-    "1": 3.38,
-    "2": 3.25,
-    "3": 2.38,
-    "4": 5.25,
+    "1": 4.0,
+    "2": 2.38,
+    "3": 2.12,
+    "4": 4.75,
     "5": 1.75,
-    "6": 3.75,
-    "7": 4.12
+    "6": 3.62,
+    "7": 4.0
    },
-   "weekly_mean": 23.9,
-   "tue": 9,
+   "weekly_mean": 22.6,
+   "tue": 8,
    "thu": 7,
-   "sat": 13,
-   "weekly_order": 29,
-   "sparse": false
-  },
-  {
-   "item": "Chicken & Chorizo Ciabatta",
-   "category": "Ciabattas",
-   "daily": {
-    "1": 2.88,
-    "2": 3.5,
-    "3": 2.38,
-    "4": 2.75,
-    "5": 4.38,
-    "6": 4.75,
-    "7": 3.12
-   },
-   "weekly_mean": 23.8,
-   "tue": 6,
-   "thu": 11,
-   "sat": 11,
-   "weekly_order": 28,
+   "sat": 12,
+   "weekly_order": 27,
    "sparse": false
   },
   {
    "item": "Mozzarella & Tomato Ciabatta",
    "category": "Ciabattas",
    "daily": {
-    "1": 1.62,
+    "1": 1.88,
     "2": 2.0,
-    "3": 3.38,
+    "3": 3.62,
     "4": 3.12,
-    "5": 2.5,
+    "5": 2.25,
     "6": 3.75,
-    "7": 1.88
+    "7": 1.75
    },
-   "weekly_mean": 18.2,
+   "weekly_mean": 18.4,
    "tue": 8,
-   "thu": 8,
+   "thu": 7,
    "sat": 7,
-   "weekly_order": 23,
+   "weekly_order": 22,
    "sparse": false
   },
   {
    "item": "Caesar Wrap",
    "category": "Wraps",
    "daily": {
-    "1": 1.62,
-    "2": 1.38,
-    "3": 2.25,
-    "4": 2.62,
-    "5": 3.0,
-    "6": 2.25,
-    "7": 2.62
+    "1": 1.88,
+    "2": 1.75,
+    "3": 2.5,
+    "4": 2.88,
+    "5": 3.25,
+    "6": 1.88,
+    "7": 2.88
    },
-   "weekly_mean": 15.7,
-   "tue": 6,
-   "thu": 7,
-   "sat": 7,
-   "weekly_order": 20,
+   "weekly_mean": 17.0,
+   "tue": 7,
+   "thu": 6,
+   "sat": 8,
+   "weekly_order": 21,
    "sparse": false
   },
   {
    "item": "Falafel Wrap",
    "category": "Wraps",
    "daily": {
-    "1": 0.5,
-    "2": 0.88,
-    "3": 0.88,
-    "4": 1.12,
-    "5": 1.5,
-    "6": 1.12,
-    "7": 0.5
+    "1": 0.38,
+    "2": 0.75,
+    "3": 1.0,
+    "4": 1.0,
+    "5": 1.38,
+    "6": 1.25,
+    "7": 0.62
    },
-   "weekly_mean": 6.5,
+   "weekly_mean": 6.4,
    "tue": 3,
    "thu": 4,
    "sat": 3,
    "weekly_order": 10,
-   "sparse": true
-  },
-  {
-   "item": "Green & Grain Salad",
-   "category": "Salads",
-   "daily": {
-    "1": 0.38,
-    "2": 0.12,
-    "3": 0.25,
-    "4": 0.88,
-    "5": 1.0,
-    "6": 1.12,
-    "7": 0.25
-   },
-   "weekly_mean": 4.0,
-   "tue": 2,
-   "thu": 3,
-   "sat": 1,
-   "weekly_order": 6,
    "sparse": true
   },
   {
@@ -308,13 +251,13 @@
    "daily": {
     "1": 0.75,
     "2": 0.25,
-    "3": 0.62,
+    "3": 1.0,
     "4": 0.5,
-    "5": 0.88,
+    "5": 1.12,
     "6": 0.88,
-    "7": 0.12
+    "7": 0.38
    },
-   "weekly_mean": 4.0,
+   "weekly_mean": 4.9,
    "tue": 2,
    "thu": 3,
    "sat": 2,
@@ -322,99 +265,23 @@
    "sparse": true
   },
   {
-   "item": "Yoghurt Granola Pot",
-   "category": "Pots",
+   "item": "Green & Grain Salad",
+   "category": "Salads",
    "daily": {
-    "1": 2.75,
-    "2": 2.62,
-    "3": 4.75,
-    "4": 3.12,
-    "5": 4.5,
-    "6": 3.38,
-    "7": 2.38
+    "1": 0.5,
+    "2": 0.25,
+    "3": 0.25,
+    "4": 0.88,
+    "5": 0.88,
+    "6": 1.25,
+    "7": 0.25
    },
-   "weekly_mean": 23.5,
-   "tue": 10,
-   "thu": 10,
-   "sat": 9,
-   "weekly_order": 29,
-   "sparse": false
-  },
-  {
-   "item": "Egg & Spinach Pot",
-   "category": "Pots",
-   "daily": {
-    "1": 0.12,
-    "2": 0.38,
-    "3": 1.5,
-    "4": 0.25,
-    "5": 0.38,
-    "6": 0.75,
-    "7": 1.0
-   },
-   "weekly_mean": 4.4,
-   "tue": 3,
-   "thu": 2,
+   "weekly_mean": 4.3,
+   "tue": 2,
+   "thu": 3,
    "sat": 2,
    "weekly_order": 7,
    "sparse": true
-  },
-  {
-   "item": "Golden Oat Porridge Pot",
-   "category": "Pots",
-   "daily": {
-    "1": 0.38,
-    "2": 0.5,
-    "3": 0.5,
-    "4": 0.38,
-    "5": 1.0,
-    "6": 0.38,
-    "7": 0.5
-   },
-   "weekly_mean": 3.6,
-   "tue": 2,
-   "thu": 2,
-   "sat": 2,
-   "weekly_order": 6,
-   "sparse": true
-  },
-  {
-   "item": "Simple Porridge Pot",
-   "category": "Pots",
-   "daily": {
-    "1": 0.12,
-    "2": 0.12,
-    "3": 0.25,
-    "4": 0.25,
-    "5": 0.25,
-    "6": 0.38,
-    "7": 0.38
-   },
-   "weekly_mean": 1.8,
-   "tue": 1,
-   "thu": 1,
-   "sat": 1,
-   "weekly_order": 3,
-   "sparse": true
-  },
-  {
-   "item": "Ham & Mozzarella Croissant",
-   "category": "Filled croissant",
-   "daily": {
-    "1": 4.62,
-    "2": 3.5,
-    "3": 3.62,
-    "4": 3.5,
-    "5": 4.25,
-    "6": 4.62,
-    "7": 7.12
-   },
-   "weekly_mean": 31.2,
-   "tue": 9,
-   "thu": 11,
-   "sat": 18,
-   "weekly_order": 38,
-   "sparse": false
   }
  ]
 }

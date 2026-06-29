@@ -1,52 +1,43 @@
 {
- "cur_end": "2026-06-21",
- "_note": "HRP headless pull (George Fountain automation account). open/close from 'Process St - Data' (per-day Open/Close events); coaching from 'CS and Br %' summary (CS M%/Q%); rtw from allstores sent.rtw_rate; remote_audit from star_inputs.",
+ "cur_end": "2026-06-28",
+ "_note": "open/close from Process St (Glenvale live via star_inputs ops; Leamington awaiting); coaching from CS and Br %; remote_audit + RTW from star_inputs / allstores.",
  "openclose": {
   "Glenvale Drive Thru": {
    "qtd": {
-    "open": 83,
-    "close": 82,
-    "days": 82
+    "open": 100,
+    "close": 100,
+    "days": 100
    },
    "mtd": {
-    "open": 21,
-    "close": 21,
-    "days": 21
+    "open": 100,
+    "close": 100,
+    "days": 100
    },
    "wtd": {
-    "open": 7,
-    "close": 7,
-    "days": 7
+    "open": 100,
+    "close": 100,
+    "days": 100
    }
   },
   "Leamington Parade": {
    "awaiting": true,
-   "_note": "Leamington is in the Process St Open/Close SNAPSHOT (currently COMPLETED) but has no dated rows in 'Process St - Data' yet — awaiting first dated history"
+   "_note": "Leamington completes the Process Street open checklist (snapshot COMPLETED) but its dated 'Process St - Data' log is still empty — awaiting first dated rows."
   }
  },
  "coaching_cs": {
   "Glenvale Drive Thru": {
-   "qtd": 80.56,
-   "mtd": 75.0
-  },
-  "Leamington Parade": {
-   "qtd": 90.0,
-   "mtd": 80.0
+   "qtd": 80.6,
+   "mtd": 80.6
   }
- },
- "coaching_barista": {
-  "Glenvale Drive Thru": null,
-  "Leamington Parade": null
- },
- "rtw": {
-  "Glenvale Drive Thru": 45,
-  "Leamington Parade": 73
  },
  "remote_audit": {
   "Glenvale Drive Thru": {
    "score": 89,
    "n": 10
-  },
-  "Leamington Parade": null
+  }
+ },
+ "rtw": {
+  "Glenvale Drive Thru": 169.0,
+  "Leamington Parade": 213.0
  }
 }

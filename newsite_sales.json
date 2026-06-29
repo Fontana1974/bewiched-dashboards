@@ -531,9 +531,9 @@
        136
       ],
       [
-       "Chicken & Chorizo Ciabatta",
-       264,
-       39,
+       "Sausage Roll Pastry",
+       249,
+       42,
        74
       ]
      ],
@@ -808,8 +808,8 @@
     "label": "22 Jun 2026"
    },
    "rec_hour": {
-    "gbp": 754,
-    "label": "Sun 7 Jun 2026, 11am–12pm"
+    "gbp": 758,
+    "label": "Thu 25 Jun 2026, 1pm–2pm"
    },
    "drivethru": {
     "cars": 1804,
@@ -981,7 +981,10 @@
     "gbp": 11058,
     "label": "8 Dec 2025"
    },
-   "rec_hour": null,
+   "rec_hour": {
+    "gbp": 467,
+    "label": "Sun 21 Dec 2025, 12pm–1pm"
+   },
    "drivethru": null
   }
  }

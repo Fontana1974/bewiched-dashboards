@@ -1,13 +1,30 @@
 {
- "_updated": "2026-06-22",
+ "_source": "F1 'The Race' tab — Queue average seconds, quarter-to-date; competitors = Area Coach 'Check Name' (Costa/Nero/Starbucks/Coffee#1)",
+ "_window": "this quarter to date",
  "company": {
-  "ours": 221,
-  "comp": 300,
-  "n_ours": 217,
-  "n_comp": 29
+  "ours": 223,
+  "n_ours": 237,
+  "comp": 297,
+  "n_comp": 30
  },
- "Jon": 235,
- "Ian": 214,
- "Rich": 209,
- "comp": 300
+ "areas": {
+  "Jon": {
+   "ours": 237,
+   "n_ours": 105,
+   "comp": 297,
+   "n_comp": 30
+  },
+  "Ian": {
+   "ours": 230,
+   "n_ours": 32,
+   "comp": 297,
+   "n_comp": 30
+  },
+  "Rich": {
+   "ours": 206,
+   "n_ours": 100,
+   "comp": 297,
+   "n_comp": 30
+  }
+ }
 }

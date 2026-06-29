@@ -1,5 +1,5 @@
 {
- "_cur_end": "2026-06-21",
+ "_cur_end": "2026-06-28",
  "_periods": {
   "qtd": "QTD · Apr–Jun",
   "mtd": "MTD · Jun",
@@ -33,7 +33,7 @@
       "rag": "r"
      },
      "mtd": {
-      "v": "75%",
+      "v": "81%",
       "rag": "r"
      },
      "wtd": {
@@ -83,8 +83,8 @@
      "label": "Return-to-work (RTW)",
      "sub": "HRP sickness/RTW",
      "qtd": {
-      "v": "45%",
-      "rag": "r"
+      "v": "169%",
+      "rag": "g"
      },
      "mtd": {
       "v": "—",
@@ -122,24 +122,6 @@
      },
      "status": "awaiting",
      "flag": "checklist is live in Process Street (store completes it); its dated audit-trail isn't feeding the QTD log yet — auto-populates once it does"
-    },
-    {
-     "label": "Coaching — Customer Service",
-     "sub": "HRP CS &amp; Br %",
-     "qtd": {
-      "v": "90%",
-      "rag": "a"
-     },
-     "mtd": {
-      "v": "80%",
-      "rag": "r"
-     },
-     "wtd": {
-      "v": "n/a",
-      "rag": "x"
-     },
-     "status": "live",
-     "flag": "weekly split not held in the HRP coaching summary (monthly/quarterly only)"
     },
     {
      "label": "Coaching — Barista",
@@ -181,8 +163,8 @@
      "label": "Return-to-work (RTW)",
      "sub": "HRP sickness/RTW",
      "qtd": {
-      "v": "73%",
-      "rag": "r"
+      "v": "213%",
+      "rag": "g"
      },
      "mtd": {
       "v": "—",
@@ -198,7 +180,6 @@
    ],
    "flags": [
     "Leamington Parade open/close: the store completes the Process Street checklist (live), but its dated history isn't in the 'Process St - Data' feed yet — awaiting first dated data; add Leamington Parade to that automation at source",
-    "coaching is monthly/quarterly in HRP — no weekly (WTD) split",
     "Barista coaching % is not in the HRP summary block",
     "remote audit not wired for Leamington Parade"
    ]

@@ -14,31 +14,31 @@
      "top": [
       [
        "Cherry Bakewell Slice Traybake",
-       700,
-       7678,
-       691
+       701.0,
+       7688.9,
+       692
       ],
       [
        "Breakfast Meal Deal",
-       1755,
-       39,
-       491
+       1757.0,
+       39.0,
+       493
       ],
       [
        "Bacon Bap",
-       1083,
-       42,
+       1084.0,
+       42.3,
        322
       ]
      ],
      "new": [
       [
        "Breakfast Bagel",
-       157
+       157.0
       ],
       [
-       "Sausage Roll Meal Deal",
-       150
+       "Sausage Roll Meal Deal Large",
+       151.0
       ]
      ]
     },
@@ -47,31 +47,31 @@
      "top": [
       [
        "Cherry Bakewell Slice Traybake",
-       1476,
-       10443,
+       1476.0,
+       10442.9,
        1462
       ],
       [
        "Tuna Ciabatta",
-       1717,
-       23,
-       323
+       1717.0,
+       23.1,
+       322
       ],
       [
        "Chicken & Chorizo Ciabatta",
-       1343,
-       19,
-       218
+       1343.0,
+       19.5,
+       219
       ]
      ],
      "new": [
       [
        "Chicken Caprese Sandwich",
-       500
+       501.0
       ],
       [
        "Breakfast Bagel",
-       256
+       256.0
       ]
      ]
     },
@@ -80,28 +80,47 @@
      "top": [
       [
        "Cherry Bakewell Slice Traybake",
-       861,
-       3814,
-       839
+       862.0,
+       3818.2,
+       840
       ],
       [
        "Tuna Ciabatta",
-       605,
-       71,
+       603.0,
+       71.8,
        252
       ],
       [
        "Ham & Cheese Croque",
-       961,
-       23,
-       179
+       962.0,
+       23.0,
+       180
       ]
      ],
      "new": []
     },
     "Evening": {
      "hours": "5pm+",
-     "top": [],
+     "top": [
+      [
+       "Fudge Topped Brownie",
+       137.0,
+       45.7,
+       43
+      ],
+      [
+       "Luxury Millionaires Triangle Traybake",
+       176.0,
+       22.2,
+       32
+      ],
+      [
+       "Yoghurt & Cranberry Slice Traybake",
+       55.0,
+       83.3,
+       25
+      ]
+     ],
      "new": []
     }
    }
@@ -113,31 +132,31 @@
      "top": [
       [
        "Large Breakfast Pastry Meal Deal",
-       1132,
-       105,
-       580
+       1133.0,
+       105.3,
+       581
       ],
       [
        "Bacon Bap",
-       931,
-       69,
+       931.0,
+       69.0,
        380
       ],
       [
        "Sausage Bap",
-       1307,
-       38,
-       363
+       1307.0,
+       38.3,
+       362
       ]
      ],
      "new": [
       [
        "Breakfast Bagel",
-       725
+       725.0
       ],
       [
        "Sausage Roll Meal Deal Large",
-       226
+       226.0
       ]
      ]
     },
@@ -146,31 +165,31 @@
      "top": [
       [
        "Cherry Bakewell Slice Traybake",
-       421,
-       4578,
+       421.0,
+       4577.8,
        412
       ],
       [
        "Cheese & Onion Croque",
-       855,
-       54,
+       855.0,
+       53.5,
        298
       ],
       [
        "Chicken & Chorizo Ciabatta",
-       522,
-       98,
+       522.0,
+       98.5,
        259
       ]
      ],
      "new": [
       [
        "Breakfast Bagel",
-       548
+       547.0
       ],
       [
        "Chicken Caprese Sandwich",
-       175
+       175.0
       ]
      ]
     },
@@ -179,22 +198,47 @@
      "top": [
       [
        "Cherry Bakewell Slice Traybake",
-       288,
-       4700,
+       288.0,
+       4700.0,
        282
       ],
       [
        "Luxury Millionaires Triangle Traybake",
-       426,
-       73,
-       180
+       426.0,
+       73.9,
+       181
+      ],
+      [
+       "All Butter Flapjack",
+       126.0,
+       1045.5,
+       115
       ]
      ],
      "new": []
     },
     "Evening": {
      "hours": "5pm+",
-     "top": [],
+     "top": [
+      [
+       "Ham & Cheese Croque",
+       89.0,
+       102.3,
+       45
+      ],
+      [
+       "Cheese & Onion Croque",
+       42.0,
+       180.0,
+       27
+      ],
+      [
+       "Chicken & Chorizo Ciabatta",
+       57.0,
+       54.1,
+       20
+      ]
+     ],
      "new": []
     }
    }
@@ -206,31 +250,31 @@
      "top": [
       [
        "Breakfast Meal Deal",
-       3935,
-       84,
-       1798
+       3936.0,
+       84.3,
+       1800
       ],
       [
        "Bacon Bap",
-       2877,
-       43,
-       865
+       2876.0,
+       42.9,
+       863
       ],
       [
-       "Cherry Bakewell Slice Traybake",
-       739,
-       2074,
-       705
+       "Large Breakfast Pastry Meal Deal (Copy)",
+       931.0,
+       1063.8,
+       851
       ]
      ],
      "new": [
       [
        "Breakfast Bagel",
-       1070
+       1070.0
       ],
       [
        "Sausage Roll Meal Deal",
-       623
+       624.0
       ]
      ]
     },
@@ -239,31 +283,31 @@
      "top": [
       [
        "Cherry Bakewell Slice Traybake",
-       1415,
-       2258,
+       1415.0,
+       2258.3,
        1355
       ],
       [
        "Cheese & Onion Croque",
-       2122,
-       40,
+       2122.0,
+       40.2,
        608
       ],
       [
        "Sausage Roll Pastry",
-       1484,
-       61,
-       560
+       1486.0,
+       61.0,
+       563
       ]
      ],
      "new": [
       [
        "Breakfast Bagel",
-       680
+       680.0
       ],
       [
        "Chicken Caprese Sandwich",
-       592
+       592.0
       ]
      ]
     },
@@ -272,38 +316,62 @@
      "top": [
       [
        "Cherry Bakewell Slice Traybake",
-       1038,
-       4843,
-       1017
+       1040.0,
+       4852.4,
+       1019
       ],
       [
        "Mozzarella & Tomato Ciabatta",
-       516,
-       70,
-       212
+       514.0,
+       69.6,
+       211
       ],
       [
        "Caesar Wrap",
-       354,
-       116,
+       355.0,
+       115.2,
        190
       ]
      ],
      "new": [
       [
        "Breakfast Bagel",
-       197
+       196.0
       ],
       [
        "Chicken Caprese Sandwich",
-       183
+       182.0
       ]
      ]
     },
     "Evening": {
      "hours": "5pm+",
-     "top": [],
-     "new": []
+     "top": [
+      [
+       "Luxury Millionaires Triangle Traybake",
+       215.0,
+       97.2,
+       106
+      ],
+      [
+       "Rocky Road Traybake",
+       146.0,
+       111.6,
+       77
+      ],
+      [
+       "Fudge Topped Brownie",
+       120.0,
+       110.5,
+       63
+      ]
+     ],
+     "new": [
+      [
+       "Cherry Bakewell Slice Traybake",
+       198.0
+      ]
+     ]
     }
    }
   }

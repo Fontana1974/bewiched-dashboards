@@ -12,31 +12,31 @@
    "top": [
     [
      "Breakfast Meal Deal",
-     6750,
-     64,
-     2645
+     6753.0,
+     64.6,
+     2650
     ],
     [
      "Cherry Bakewell Slice Traybake",
-     1659,
-     3507,
-     1613
+     1661.0,
+     3510.9,
+     1615
     ],
     [
      "Bacon Bap",
-     4891,
-     44,
-     1503
+     4891.0,
+     44.3,
+     1502
     ]
    ],
    "new": [
     [
      "Breakfast Bagel",
-     1952
+     1952.0
     ],
     [
      "Sausage Roll Meal Deal",
-     970
+     972.0
     ]
    ]
   },
@@ -45,31 +45,31 @@
    "top": [
     [
      "Cherry Bakewell Slice Traybake",
-     3312,
-     3890,
+     3312.0,
+     3890.4,
      3229
     ],
     [
      "Cheese & Onion Croque",
-     4961,
-     25,
-     980
+     4961.0,
+     24.6,
+     979
     ],
     [
      "Chicken & Chorizo Ciabatta",
-     3289,
-     28,
-     718
+     3291.0,
+     28.1,
+     721
     ]
    ],
    "new": [
     [
      "Breakfast Bagel",
-     1485
+     1483.0
     ],
     [
      "Chicken Caprese Sandwich",
-     1267
+     1268.0
     ]
    ]
   },
@@ -78,31 +78,31 @@
    "top": [
     [
      "Cherry Bakewell Slice Traybake",
-     2188,
-     4365,
-     2139
+     2190.0,
+     4369.4,
+     2141
     ],
     [
      "Caesar Wrap",
-     826,
-     84,
-     376
+     824.0,
+     82.7,
+     373
     ],
     [
      "Mozzarella & Tomato Ciabatta",
-     1071,
-     51,
-     361
+     1069.0,
+     50.4,
+     358
     ]
    ],
    "new": [
     [
      "Chicken Caprese Sandwich",
-     388
+     386.0
     ],
     [
      "Breakfast Bagel",
-     340
+     339.0
     ]
    ]
   },
@@ -111,15 +111,27 @@
    "top": [
     [
      "Luxury Millionaires Triangle Traybake",
-     464,
-     37,
-     125
+     463.0,
+     37.4,
+     126
+    ],
+    [
+     "Fudge Topped Brownie",
+     297.0,
+     61.4,
+     113
+    ],
+    [
+     "Rocky Road Traybake",
+     228.0,
+     49.0,
+     75
     ]
    ],
    "new": [
     [
      "Cherry Bakewell Slice Traybake",
-     412
+     412.0
     ]
    ]
   }

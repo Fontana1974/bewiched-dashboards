@@ -1,225 +1,269 @@
-"Date","Store Name","Queue average","Area Coach"
-"11-Apr-2026","Rugby","149","Rich"
-"11-Apr-2026","Glenvale Drive Thru","210","Ian"
-"10-Apr-2026","Train Station","126.5","Rich"
-"11-Apr-2026","Rothwell","145.5","Jon"
-"11-Apr-2026","Northampton Grosvenor","133.5","Rich"
-"11-Apr-2026","Northampton Drive Thru","411.5","Rich"
-"11-Apr-2026","Market Street","145","Rich"
-"12-Apr-2026","Market Harborough","208.5","Rich"
-"11-Apr-2026","Lower Heathcote, Warwick","253.5","Rich"
-"11-Apr-2026","Leamington Parade","169","Rich"
-"11-Apr-2026","Lakes","123","Jon"
-"12-Apr-2026","Kettering","169.5","Jon"
-"12-Apr-2026","Higham","165.5","Jon"
-"11-Apr-2026","Corby","160.5","Jon"
-"11-Apr-2026","Peterborough","166.5","Jon"
-"12-Apr-2026","Burton","172","Jon"
-"17-Apr-2026","Costa","149","Check Name"
-"17-Apr-2026","Corby","163","Jon"
-"17-Apr-2026","Burton","167","Jon"
-"17-Apr-2026","Peterborough","259","Jon"
-"17-Apr-2026","Fletton","374.5","Jon"
-"17-Apr-2026","Lakes","205.5","Jon"
-"17-Apr-2026","Kettering","0","Jon"
-"17-Apr-2026","Market Harborough","181.5","Rich"
-"17-Apr-2026","Northampton Drive Thru","145.5","Rich"
-"17-Apr-2026","Northampton Grosvenor","165","Rich"
-"17-Apr-2026","Train Station","159","Rich"
-"17-Apr-2026","Glenvale Drive Thru","146","Ian"
-"17-Apr-2026","Olney","236","Jon"
-"17-Apr-2026","Costa","212","Check Name"
-"18-Apr-2026","Higham","231","Jon"
-"18-Apr-2026","Leamington Parade","162","Rich"
-"18-Apr-2026","Lower Heathcote, Warwick","235.5","Rich"
-"18-Apr-2026","Market Street","203","Rich"
-"18-Apr-2026","Rothwell","155","Jon"
-"18-Apr-2026","Rugby","265","Rich"
-"18-Apr-2026","Balsall Common","165.5","Ian"
-"25-Apr-2026","Coffee#1","855.5","Check Name"
-"25-Apr-2026","Nero's","97","Check Name"
-"25-Apr-2026","Starbucks","305.5","Check Name"
-"24-Apr-2026","Fletton","233","Jon"
-"25-Apr-2026","Train Station","128.5","Rich"
-"25-Apr-2026","Burton","159.5","Jon"
-"25-Apr-2026","Peterborough","287","Jon"
-"25-Apr-2026","Corby","192","Jon"
-"25-Apr-2026","Higham","285","Jon"
-"25-Apr-2026","Kettering","279","Jon"
-"25-Apr-2026","Lakes","225","Jon"
-"25-Apr-2026","Leamington Parade","155.5","Rich"
-"25-Apr-2026","Lower Heathcote, Warwick","157","Rich"
-"25-Apr-2026","Market Harborough","161.5","Rich"
-"25-Apr-2026","Market Street","165","Rich"
-"25-Apr-2026","Costa","273.5","Check Name"
-"25-Apr-2026","Northampton Drive Thru","214","Rich"
-"25-Apr-2026","Northampton Grosvenor","143","Rich"
-"25-Apr-2026","Rothwell","288.5","Jon"
-"25-Apr-2026","Rugby","249.5","Rich"
-"25-Apr-2026","Balsall Common","173","Ian"
-"25-Apr-2026","Glenvale Drive Thru","233","Ian"
-"25-Apr-2026","Olney","248.5","Jon"
-"2-May-2026","Costa","257","Check Name"
-"1-May-2026","Fletton","181","Jon"
-"2-May-2026","Train Station","177","Rich"
-"1-May-2026","Balsall Common","179","Ian"
-"2-May-2026","Glenvale Drive Thru","219","Ian"
-"2-May-2026","Olney","206","Jon"
-"2-May-2026","Attleborough","180.5","Ian"
-"2-May-2026","Rugby","322.5","Rich"
-"1-May-2026","Rothwell","194.5","Jon"
-"2-May-2026","Starbucks","230","Check Name"
-"1-May-2026","Northampton Grosvenor","174.5","Rich"
-"2-May-2026","Market Street","194","Rich"
-"2-May-2026","Burton","159.5","Jon"
-"2-May-2026","Peterborough","157.5","Jon"
-"2-May-2026","Higham","231","Jon"
-"1-May-2026","Corby","205","Jon"
-"3-May-2026","Kettering","328.5","Jon"
-"3-May-2026","Lakes","230","Jon"
-"May 03 2026","Leamington Parade","180.5","Rich"
-"May 03 2026","Lower Heathcote, Warwick","252","Rich"
-"May 02 2026","Market Harborough","212.5","Rich"
-"May 03 2026","Northampton Drive Thru","211","Rich"
-"May 03 2026","Coffee#1","472","Check Name"
-"May 08 2026","Fletton","163","Jon"
-"May 09 2026","Nero's","204","Check Name"
-"May 08 2026","Higham","303.5","Jon"
-"May 08 2026","Lower Heathcote, Warwick","215","Rich"
-"May 08 2026","Northampton Drive Thru","302","Rich"
-"May 08 2026","Northampton Grosvenor","202.5","Rich"
-"May 08 2026","Train Station","158.5","Rich"
-"May 09 2026","Corby","212","Jon"
-"May 09 2026","Olney","360.5","Jon"
-"May 09 2026","Attleborough","230.5","Ian"
-"May 09 2026","Balsall Common","197.5","Ian"
-"May 09 2026","Burton","169.5","Jon"
-"May 10 2026","Peterborough","283","Jon"
-"May 10 2026","Lakes","187.5","Jon"
-"May 10 2026","Coffee#1","146.5","Check Name"
-"May 09 2026","Kettering","196","Jon"
-"May 10 2026","Rugby","383.5","Rich"
-"May 09 2026","Leamington Parade","164.5","Rich"
-"May 09 2026","Market Street","285.5","Rich"
-"May 10 2026","Rothwell","400.5","Jon"
-"May 09 2026","Glenvale Drive Thru","199.5","Ian"
-"May 10 2026","Market Harborough","187","Rich"
-"May 09 2026","Starbucks","383.5","Check Name"
-"May 15 2026","Starbucks","48.5","Check Name"
-"May 15 2026","Coffee#1","412.5","Check Name"
-"May 15 2026","Fletton","169","Jon"
-"May 15 2026","Peterborough","347","Jon"
-"May 15 2026","Higham","178","Jon"
-"May 15 2026","Glenvale Drive Thru","210.5","Ian"
-"May 16 2026","Attleborough","168.5","Ian"
-"May 16 2026","Market Harborough","132","Rich"
-"May 15 2026","Olney","207.5","Jon"
-"May 16 2026","Market Street","280.5","Rich"
-"May 16 2026","Balsall Common","157.5","Ian"
-"May 16 2026","Northampton Drive Thru","144.5","Rich"
-"May 16 2026","Train Station","148","Rich"
-"May 17 2026","Burton","140","Jon"
-"May 16 2026","Rugby","370","Rich"
-"May 16 2026","Leamington Parade","131","Rich"
-"May 16 2026","Rothwell","166.5","Jon"
-"May 17 2026","Corby","136.5","Jon"
-"May 17 2026","Northampton Grosvenor","159","Rich"
-"May 17 2026","Kettering","291.5","Jon"
-"May 17 2026","Costa","239","Check Name"
-"May 16 2026","Lower Heathcote, Warwick","229.5","Rich"
-"May 16 2026","Lakes","190.5","Jon"
-"May 22 2026","Nero's","233","Check Name"
-"May 22 2026","Starbucks","304","Check Name"
-"May 22 2026","Attleborough","163","Ian"
-"May 22 2026","Olney","450.5","Jon"
-"May 23 2026","Glenvale Drive Thru","218","Ian"
-"May 22 2026","Corby","297.5","Jon"
-"May 22 2026","Kettering","167.5","Jon"
-"May 22 2026","Train Station","161.5","Rich"
-"May 23 2026","Balsall Common","340.5","Ian"
-"May 24 2026","Burton","215.5","Jon"
-"May 23 2026","Rugby","210","Rich"
-"May 24 2026","Rothwell","183.5","Jon"
-"May 23 2026","Peterborough","759","Jon"
-"May 23 2026","Northampton Grosvenor","81","Rich"
-"May 22 2026","Fletton","222.5","Jon"
-"May 23 2026","Higham","164","Jon"
-"May 24 2026","Northampton Drive Thru","312","Rich"
-"May 24 2026","Market Street","132","Rich"
-"May 24 2026","Lakes","289","Jon"
-"May 22 2026","Lower Heathcote, Warwick","307","Rich"
-"May 24 2026","Market Harborough","241","Rich"
-"May 24 2026","Leamington Parade","203","Rich"
-"May 29 2026","Fletton","302","Jon"
-"May 29 2026","Nero's","390.5","Check Name"
-"May 29 2026","Costa","284","Check Name"
-"May 29 2026","Lakes","349","Jon"
-"May 29 2026","Leamington Parade","170.5","Rich"
-"May 29 2026","Market Harborough","234","Rich"
-"May 29 2026","Market Street","290","Rich"
-"May 29 2026","Northampton Drive Thru","291","Rich"
-"May 29 2026","Train Station","270.5","Rich"
-"May 29 2026","Rugby","151","Rich"
-"May 29 2026","Rothwell","148.5","Jon"
-"May 29 2026","Glenvale Drive Thru","206","Ian"
-"May 29 2026","Balsall Common","354.5","Ian"
-"May 30 2026","Starbucks","290.5","Check Name"
-"May 29 2026","Northampton Grosvenor","165.5","Rich"
-"May 30 2026","Corby","161.5","Jon"
-"May 30 2026","Lower Heathcote, Warwick","172.5","Rich"
-"May 31 2026","Billing Drive Thru","535","Rich"
-"May 30 2026","Kettering","142","Jon"
-"May 30 2026","Attleborough","141","Ian"
-"May 30 2026","Olney","399.5","Jon"
-"May 31 2026","Higham","734","Jon"
-"May 30 2026","Burton","176","Jon"
-"May 30 2026","Peterborough","229.5","Jon"
-"Jun 05 2026","Coffee#1","406","Check Name"
-"Jun 05 2026","Costa","191.5","Check Name"
-"Jun 05 2026","Starbucks","344.5","Check Name"
-"Jun 06 2026","Nero's","260","Check Name"
-"Jun 05 2026","Burton","191.5","Jon"
-"Jun 05 2026","Peterborough","191","Jon"
-"Jun 05 2026","Corby","246.5","Jon"
-"Jun 05 2026","Fletton","191","Jon"
-"Jun 05 2026","Higham","243","Jon"
-"Jun 05 2026","Kettering","229.5","Jon"
-"Jun 05 2026","Lakes","200.5","Jon"
-"Jun 05 2026","Leamington Parade","180","Rich"
-"Jun 06 2026","Lower Heathcote, Warwick","243","Rich"
-"Jun 06 2026","Market Harborough","206","Rich"
-"Jun 06 2026","Market Street","241","Rich"
-"Jun 06 2026","Northampton Drive Thru","211","Rich"
-"Jun 06 2026","Northampton Grosvenor","222.5","Rich"
-"Jun 06 2026","Rothwell","245","Jon"
-"Jun 06 2026","Rugby","203","Rich"
-"Jun 07 2026","Train Station","221","Rich"
-"Jun 07 2026","Billing Drive Thru","177.5","Rich"
-"Jun 07 2026","Balsall Common","281","Ian"
-"Jun 07 2026","Glenvale Drive Thru","203","Ian"
-"Jun 07 2026","Attleborough","158","Ian"
-"Jun 07 2026","Olney","292.5","Jon"
-"Jun 12 2026","Costa","239","Check Name"
-"Jun 12 2026","Lower Heathcote, Warwick","339","Rich"
-"Jun 12 2026","Fletton","183","Jon"
-"Jun 12 2026","Rugby","170","Rich"
-"Jun 12 2026","Balsall Common","263","Ian"
-"Jun 12 2026","Glenvale Drive Thru","277","Ian"
-"Jun 13 2026","Starbucks","283.5","Check Name"
-"Jun 13 2026","Train Station","251","Rich"
-"Jun 13 2026","Attleborough","220","Ian"
-"Jun 12 2026","Olney","256.5","Jon"
-"Jun 12 2026","Northampton Grosvenor","178.5","Rich"
-"Jun 13 2026","Northampton Drive Thru","265.5","Rich"
-"Jun 12 2026","Rothwell","174","Jon"
-"Jun 13 2026","Kettering","186","Jon"
-"Jun 13 2026","Lakes","443","Jon"
-"Jun 13 2026","Corby","221","Jon"
-"Jun 14 2026","Billing Drive Thru","248.5","Rich"
-"Jun 14 2026","Burton","163.5","Jon"
-"Jun 13 2026","Peterborough","244.5","Jon"
-"Jun 14 2026","Higham","279","Jon"
-"Jun 14 2026","Market Street","178.5","Rich"
-"Jun 14 2026","Market Harborough","235.5","Rich"
-"Jun 13 2026","Leamington Parade","199","Rich"
-"Jun 14 2026","Nero's","321","Check Name"
+Date,Store Name,Queue average,Area Coach
+2026-04-11,Rugby,149.0,Rich
+2026-04-11,Glenvale Drive Thru,210.0,Ian
+2026-04-10,Train Station,126.5,Rich
+2026-04-11,Rothwell,145.5,Jon
+2026-04-11,Northampton Grosvenor,133.5,Rich
+2026-04-11,Northampton Drive Thru,411.5,Rich
+2026-04-11,Market Street,145.0,Rich
+2026-04-12,Market Harborough,208.5,Rich
+2026-04-11,"Lower Heathcote, Warwick",253.5,Rich
+2026-04-11,Leamington Parade,169.0,Rich
+2026-04-11,Lakes,123.0,Jon
+2026-04-12,Kettering,169.5,Jon
+2026-04-12,Higham,165.5,Jon
+2026-04-11,Corby,160.5,Jon
+2026-04-11,Peterborough,166.5,Jon
+2026-04-12,Burton,172.0,Jon
+2026-04-17,Costa,149.0,Check Name
+2026-04-17,Corby,163.0,Jon
+2026-04-17,Burton,167.0,Jon
+2026-04-17,Peterborough,259.0,Jon
+2026-04-17,Fletton,374.5,Jon
+2026-04-17,Lakes,205.5,Jon
+2026-04-17,Kettering,0.0,Jon
+2026-04-17,Market Harborough,181.5,Rich
+2026-04-17,Northampton Drive Thru,145.5,Rich
+2026-04-17,Northampton Grosvenor,165.0,Rich
+2026-04-17,Train Station,159.0,Rich
+2026-04-17,Glenvale Drive Thru,146.0,Ian
+2026-04-17,Olney,236.0,Jon
+2026-04-17,Costa,212.0,Check Name
+2026-04-18,Higham,231.0,Jon
+2026-04-18,Leamington Parade,162.0,Rich
+2026-04-18,"Lower Heathcote, Warwick",235.5,Rich
+2026-04-18,Market Street,203.0,Rich
+2026-04-18,Rothwell,155.0,Jon
+2026-04-18,Rugby,265.0,Rich
+2026-04-18,Balsall Common,165.5,Ian
+2026-04-25,Coffee#1,855.5,Check Name
+2026-04-25,Nero's,97.0,Check Name
+2026-04-25,Starbucks,305.5,Check Name
+2026-04-24,Fletton,233.0,Jon
+2026-04-25,Train Station,128.5,Rich
+2026-04-25,Burton,159.5,Jon
+2026-04-25,Peterborough,287.0,Jon
+2026-04-25,Corby,192.0,Jon
+2026-04-25,Higham,285.0,Jon
+2026-04-25,Kettering,279.0,Jon
+2026-04-25,Lakes,225.0,Jon
+2026-04-25,Leamington Parade,155.5,Rich
+2026-04-25,"Lower Heathcote, Warwick",157.0,Rich
+2026-04-25,Market Harborough,161.5,Rich
+2026-04-25,Market Street,165.0,Rich
+2026-04-25,Costa,273.5,Check Name
+2026-04-25,Northampton Drive Thru,214.0,Rich
+2026-04-25,Northampton Grosvenor,143.0,Rich
+2026-04-25,Rothwell,288.5,Jon
+2026-04-25,Rugby,249.5,Rich
+2026-04-25,Balsall Common,173.0,Ian
+2026-04-25,Glenvale Drive Thru,233.0,Ian
+2026-04-25,Olney,248.5,Jon
+2026-05-02,Costa,257.0,Check Name
+2026-05-01,Fletton,181.0,Jon
+2026-05-02,Train Station,177.0,Rich
+2026-05-01,Balsall Common,179.0,Ian
+2026-05-02,Glenvale Drive Thru,219.0,Ian
+2026-05-02,Olney,206.0,Jon
+2026-05-02,Attleborough,180.5,Ian
+2026-05-02,Rugby,322.5,Rich
+2026-05-01,Rothwell,194.5,Jon
+2026-05-02,Starbucks,230.0,Check Name
+2026-05-01,Northampton Grosvenor,174.5,Rich
+2026-05-02,Market Street,194.0,Rich
+2026-05-02,Burton,159.5,Jon
+2026-05-02,Peterborough,157.5,Jon
+2026-05-02,Higham,231.0,Jon
+2026-05-01,Corby,205.0,Jon
+2026-05-03,Kettering,328.5,Jon
+2026-05-03,Lakes,230.0,Jon
+2026-05-03,Leamington Parade,180.5,Rich
+2026-05-03,"Lower Heathcote, Warwick",252.0,Rich
+2026-05-02,Market Harborough,212.5,Rich
+2026-05-03,Northampton Drive Thru,211.0,Rich
+2026-05-03,Coffee#1,472.0,Check Name
+2026-05-08,Fletton,163.0,Jon
+2026-05-09,Nero's,204.0,Check Name
+2026-05-08,Higham,303.5,Jon
+2026-05-08,"Lower Heathcote, Warwick",215.0,Rich
+2026-05-08,Northampton Drive Thru,302.0,Rich
+2026-05-08,Northampton Grosvenor,202.5,Rich
+2026-05-08,Train Station,158.5,Rich
+2026-05-09,Corby,212.0,Jon
+2026-05-09,Olney,360.5,Jon
+2026-05-09,Attleborough,230.5,Ian
+2026-05-09,Balsall Common,197.5,Ian
+2026-05-09,Burton,169.5,Jon
+2026-05-10,Peterborough,283.0,Jon
+2026-05-10,Lakes,187.5,Jon
+2026-05-10,Coffee#1,146.5,Check Name
+2026-05-09,Kettering,196.0,Jon
+2026-05-10,Rugby,383.5,Rich
+2026-05-09,Leamington Parade,164.5,Rich
+2026-05-09,Market Street,285.5,Rich
+2026-05-10,Rothwell,400.5,Jon
+2026-05-09,Glenvale Drive Thru,199.5,Ian
+2026-05-10,Market Harborough,187.0,Rich
+2026-05-09,Starbucks,383.5,Check Name
+2026-05-15,Starbucks,48.5,Check Name
+2026-05-15,Coffee#1,412.5,Check Name
+2026-05-15,Fletton,169.0,Jon
+2026-05-15,Peterborough,347.0,Jon
+2026-05-15,Higham,178.0,Jon
+2026-05-15,Glenvale Drive Thru,210.5,Ian
+2026-05-16,Attleborough,168.5,Ian
+2026-05-16,Market Harborough,132.0,Rich
+2026-05-15,Olney,207.5,Jon
+2026-05-16,Market Street,280.5,Rich
+2026-05-16,Balsall Common,157.5,Ian
+2026-05-16,Northampton Drive Thru,144.5,Rich
+2026-05-16,Train Station,148.0,Rich
+2026-05-17,Burton,140.0,Jon
+2026-05-16,Rugby,370.0,Rich
+2026-05-16,Leamington Parade,131.0,Rich
+2026-05-16,Rothwell,166.5,Jon
+2026-05-17,Corby,136.5,Jon
+2026-05-17,Northampton Grosvenor,159.0,Rich
+2026-05-17,Kettering,291.5,Jon
+2026-05-17,Costa,239.0,Check Name
+2026-05-16,"Lower Heathcote, Warwick",229.5,Rich
+2026-05-16,Lakes,190.5,Jon
+2026-05-22,Nero's,233.0,Check Name
+2026-05-22,Starbucks,304.0,Check Name
+2026-05-22,Attleborough,163.0,Ian
+2026-05-22,Olney,450.5,Jon
+2026-05-23,Glenvale Drive Thru,218.0,Ian
+2026-05-22,Corby,297.5,Jon
+2026-05-22,Kettering,167.5,Jon
+2026-05-22,Train Station,161.5,Rich
+2026-05-23,Balsall Common,340.5,Ian
+2026-05-24,Burton,215.5,Jon
+2026-05-23,Rugby,210.0,Rich
+2026-05-24,Rothwell,183.5,Jon
+2026-05-23,Peterborough,759.0,Jon
+2026-05-23,Northampton Grosvenor,81.0,Rich
+2026-05-22,Fletton,222.5,Jon
+2026-05-23,Higham,164.0,Jon
+2026-05-24,Northampton Drive Thru,312.0,Rich
+2026-05-24,Market Street,132.0,Rich
+2026-05-24,Lakes,289.0,Jon
+2026-05-22,"Lower Heathcote, Warwick",307.0,Rich
+2026-05-24,Market Harborough,241.0,Rich
+2026-05-24,Leamington Parade,203.0,Rich
+2026-05-29,Fletton,302.0,Jon
+2026-05-29,Nero's,390.5,Check Name
+2026-05-29,Costa,284.0,Check Name
+2026-05-29,Lakes,349.0,Jon
+2026-05-29,Leamington Parade,170.5,Rich
+2026-05-29,Market Harborough,234.0,Rich
+2026-05-29,Market Street,290.0,Rich
+2026-05-29,Northampton Drive Thru,291.0,Rich
+2026-05-29,Train Station,270.5,Rich
+2026-05-29,Rugby,151.0,Rich
+2026-05-29,Rothwell,148.5,Jon
+2026-05-29,Glenvale Drive Thru,206.0,Ian
+2026-05-29,Balsall Common,354.5,Ian
+2026-05-30,Starbucks,290.5,Check Name
+2026-05-29,Northampton Grosvenor,165.5,Rich
+2026-05-30,Corby,161.5,Jon
+2026-05-30,"Lower Heathcote, Warwick",172.5,Rich
+2026-05-31,Billing Drive Thru,535.0,Rich
+2026-05-30,Kettering,142.0,Jon
+2026-05-30,Attleborough,141.0,Ian
+2026-05-30,Olney,399.5,Jon
+2026-05-31,Higham,734.0,Jon
+2026-05-30,Burton,176.0,Jon
+2026-05-30,Peterborough,229.5,Jon
+2026-06-05,Coffee#1,406.0,Check Name
+2026-06-05,Costa,191.5,Check Name
+2026-06-05,Starbucks,344.5,Check Name
+2026-06-06,Nero's,260.0,Check Name
+2026-06-05,Burton,191.5,Jon
+2026-06-05,Peterborough,191.0,Jon
+2026-06-05,Corby,246.5,Jon
+2026-06-05,Fletton,191.0,Jon
+2026-06-05,Higham,243.0,Jon
+2026-06-05,Kettering,229.5,Jon
+2026-06-05,Lakes,200.5,Jon
+2026-06-05,Leamington Parade,180.0,Rich
+2026-06-06,"Lower Heathcote, Warwick",243.0,Rich
+2026-06-06,Market Harborough,206.0,Rich
+2026-06-06,Market Street,241.0,Rich
+2026-06-06,Northampton Drive Thru,211.0,Rich
+2026-06-06,Northampton Grosvenor,222.5,Rich
+2026-06-06,Rothwell,245.0,Jon
+2026-06-06,Rugby,203.0,Rich
+2026-06-07,Train Station,221.0,Rich
+2026-06-07,Billing Drive Thru,177.5,Rich
+2026-06-07,Balsall Common,281.0,Ian
+2026-06-07,Glenvale Drive Thru,203.0,Ian
+2026-06-07,Attleborough,158.0,Ian
+2026-06-07,Olney,292.5,Jon
+2026-06-12,Costa,239.0,Check Name
+2026-06-12,"Lower Heathcote, Warwick",339.0,Rich
+2026-06-12,Fletton,183.0,Jon
+2026-06-12,Rugby,170.0,Rich
+2026-06-12,Balsall Common,263.0,Ian
+2026-06-12,Glenvale Drive Thru,277.0,Ian
+2026-06-13,Starbucks,283.5,Check Name
+2026-06-13,Train Station,251.0,Rich
+2026-06-13,Attleborough,220.0,Ian
+2026-06-12,Olney,256.5,Jon
+2026-06-12,Northampton Grosvenor,178.5,Rich
+2026-06-13,Northampton Drive Thru,265.5,Rich
+2026-06-12,Rothwell,174.0,Jon
+2026-06-13,Kettering,186.0,Jon
+2026-06-13,Lakes,443.0,Jon
+2026-06-13,Corby,221.0,Jon
+2026-06-14,Billing Drive Thru,248.5,Rich
+2026-06-14,Burton,163.5,Jon
+2026-06-13,Peterborough,244.5,Jon
+2026-06-14,Higham,279.0,Jon
+2026-06-14,Market Street,178.5,Rich
+2026-06-14,Market Harborough,235.5,Rich
+2026-06-13,Leamington Parade,199.0,Rich
+2026-06-14,Nero's,321.0,Check Name
+2026-06-19,Starbucks,313.5,Check Name
+2026-06-19,Costa,236.5,Check Name
+2026-06-20,Northampton Grosvenor,187.0,Rich
+2026-06-20,Market Harborough,162.0,Rich
+2026-06-20,Lakes,272.0,Jon
+2026-06-19,Fletton,170.5,Jon
+2026-06-20,Peterborough,418.0,Jon
+2026-06-19,Corby,194.0,Jon
+2026-06-19,Northampton Drive Thru,183.5,Rich
+2026-06-20,Higham,168.5,Jon
+2026-06-20,"Lower Heathcote, Warwick",275.5,Rich
+2026-06-21,Billing Drive Thru,133.5,Rich
+2026-06-21,Coffee#1,531.5,Check Name
+2026-06-21,Kettering,139.0,Jon
+2026-06-20,Balsall Common,100.5,Ian
+2026-06-20,Olney,183.5,Jon
+2026-06-20,Rothwell,188.0,Jon
+2026-06-21,Market Street,135.5,Rich
+2026-06-21,Burton,160.0,Jon
+2026-06-19,Train Station,139.0,Rich
+2026-06-21,Leamington Parade,74.5,Rich
+2026-06-21,Rugby,347.0,Rich
+2026-06-20,Glenvale Drive Thru,299.0,Ian
+2026-06-21,Attleborough,298.0,Ian
+2026-06-28,Lakes,279.0,Jon
+2026-06-27,Kettering,247.5,Jon
+2026-06-26,Higham,230.0,Jon
+2026-06-27,Corby,153.5,Jon
+2026-06-26,Fletton,145.5,Jon
+2026-06-26,Peterborough,546.5,Jon
+2026-06-27,Burton,104.0,Jon
+2026-06-27,Leamington Parade,86.5,Rich
+2026-06-28,"Lower Heathcote, Warwick",207.5,Rich
+2026-06-26,Market Harborough,109.5,Rich
+2026-06-28,Northampton Drive Thru,189.0,Rich
+2026-06-28,Billing Drive Thru,73.0,Rich
+2026-06-26,Northampton Grosvenor,208.0,Rich
+2026-06-28,Rothwell,275.0,Jon
+2026-06-27,Rugby,366.0,Rich
+2026-06-27,Train Station,133.5,Rich
+2026-06-28,Balsall Common,408.5,Ian
+2026-06-26,Glenvale Drive Thru,151.5,Ian
+2026-06-27,Attleborough,593.0,Ian
+2026-06-28,Olney,318.0,Jon
