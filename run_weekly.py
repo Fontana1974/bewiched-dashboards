@@ -146,6 +146,8 @@ SID = dict(
     smt="1IGL3sLWSI7k1vuXEMFBWplgk3uS4tTUU1-MtGYDk-bQ",
     eos="1HimYAjZg4zlMQG91-KUefkeYMPvrU4ddVuO2IuERTqg",  # Bewiched EOS Scorecard Inputs (manual rows)
     npat_pnl="1RTsnnz5F9XIdkg4j8m8MiuKqeAvZaAWcndbFifNNLhM",  # Bewiched Ltd by-site monthly P&L (currently "Bewiched May 2026 P&L")
+    employees="11QhNGGM5BIJrO1NOflso5I1VnSzlWGWcC5FbXJoLQgM",  # Employee List (headcount for Brew Crew Kudos participation)
+    # Brew Crew Kudos contributors live in the F1 workbook (SID["f1"]) tab "BCKH"
 )
 
 # ---------- canonical estate (21) + mappings ----------
@@ -1214,6 +1216,27 @@ def pull_eos_scorecard():
     audit_lastwk_n = jload("audit_raw.json").get("_lastwk_n", 0)
     # ---- Food GP% — Cost-of-Sales sheet is weekly; cos estate avg already = latest CoS week ----
     cos_week = jload("cos_metrics.json").get("_week", "")
+    # ---- Brew Crew Kudos Participation: distinct employees who have given kudos (BCKH) / total employees ----
+    kudos_pct = None; kudos_n = kudos_total = 0
+    try:
+        emp_rows = sheet(SID["employees"], "'Employee List'!A2:D2000")
+        emp_emails = set()
+        for r in emp_rows:
+            if not r or not r[0]: continue
+            em = (r[3] if len(r) > 3 and r[3] not in (None, "") else
+                  (r[2] if len(r) > 2 and r[2] not in (None, "") else None))
+            if em: emp_emails.add(str(em).strip().lower())
+        kudos_total = len(emp_emails)
+        bckh = sheet(SID["f1"], "'BCKH'!A2:E20000")             # contributor email in col B; tail-safe range
+        contrib = set(str(r[1]).strip().lower() for r in bckh if len(r) > 1 and r[1] not in (None, ""))
+        participants = contrib & emp_emails
+        kudos_n = len(participants)
+        if kudos_total:
+            kudos_pct = round(100 * kudos_n / kudos_total, 1)
+    except Exception as e:
+        flags.append("Brew Crew Kudos: could not read Employee List (%s) or BCKH tab — share the Employee List "
+                     "(ID %s, Viewer) with dashboards-bot@%s.iam.gserviceaccount.com (the BCKH tab is in the F1 "
+                     "workbook, already shared). Tile shown as awaiting." % (str(e)[:60], SID["employees"], PROJECT))
     # ---- Net Profit After Tax % (projected) from the Bewiched Ltd monthly P&L ----
     # Snapshot from the May 2026 P&L (Profit after Taxation £50,182.10 / Total Turnover £633,064.53);
     # used as a fallback so the tile is populated even if the SA cannot yet read the P&L sheet.
@@ -1305,8 +1328,9 @@ def pull_eos_scorecard():
                "Blend: avg of reviews÷40 and rating÷4.6, each capped 100%. Green at 100%."),
         metric("rms_health", "Rate My Shift Health", 100, rh, "%", "pct0", "derived", rh_detail,
                "Blend: avg of submissions÷70 and avgScore÷4.6, each capped 100%."),
-        metric("brew_crew_kudos", "Brew Crew Kudos Participation", 50, None, "%", "pct0", "manual", "",
-               "Manual weekly input — % of team giving kudos. Enter in the EOS Scorecard Inputs sheet."),
+        metric("brew_crew_kudos", "Brew Crew Kudos Participation", 50, kudos_pct, "%", "pct0", "derived",
+               ("%d of %d employees have given kudos (BCKH tab)" % (kudos_n, kudos_total)) if kudos_pct is not None else "",
+               "Distinct employees who have contributed to Brew Crew Kudos (BCKH tab, F1 workbook), matched by email to the Employee List, ÷ total employees. All-time contributors."),
         metric("social_media", "Social Media Engagement", None, None, "%", "pct0", "tbc", "",
                "Metric and target not yet defined.", tbc=True),
         metric("sph_labour", "SPH Labour (incl holiday pay)", 50, sph, "£", "gbp1", "derived",
