@@ -145,6 +145,7 @@ SID = dict(
     availability="1CeTBvZ610zfEMe118m76LgMW5gw_SDS-2Eel1HMuM78",
     smt="1IGL3sLWSI7k1vuXEMFBWplgk3uS4tTUU1-MtGYDk-bQ",
     eos="1HimYAjZg4zlMQG91-KUefkeYMPvrU4ddVuO2IuERTqg",  # Bewiched EOS Scorecard Inputs (manual rows)
+    npat_pnl="1RTsnnz5F9XIdkg4j8m8MiuKqeAvZaAWcndbFifNNLhM",  # Bewiched Ltd by-site monthly P&L (currently "Bewiched May 2026 P&L")
 )
 
 # ---------- canonical estate (21) + mappings ----------
@@ -750,7 +751,7 @@ def pull_rms_storehealth():
     """STEP 2g2/2g3 — F1 'Shift Ratings' tab. rms.json (company last week) + storehealth_raw.json
     (per-store QTD RMS + per-store QTD Google) for the refactored storehealth_calc.py.
     VALIDATED layout via Zapier 29 Jun: Date0(serial) Store1 Rating2."""
-    rows = sheet(SID["f1"], "'Shift Ratings'!A1:N6000")
+    rows = sheet(SID["f1"], "'Shift Ratings'!A1:N20000")   # FULL tail — latest submissions are at the BOTTOM (>6k rows); A1:N6000 missed them
     lastwk = []                        # company last completed week
     qtd = {}                           # store -> [ratings] (QTD)
     for r in rows[1:]:
@@ -1206,14 +1207,44 @@ def pull_eos_scorecard():
             f1_wk_xs.append(r[5])                       # race Total Score (col 18) for last week's race
     f1_wk = round(sum(f1_wk_xs) / len(f1_wk_xs), 1) if f1_wk_xs else None
     F1_PLAN = 280   # PROVISIONAL — on the raw race Total-Score scale (~282 now); confirm real target.
-    f1_note = ("PROVISIONAL PLAN (%d) — F1 race 'Total Score' scale (estate avg ~282), NOT the /5 or "
-               "stated 75 scale. Confirm the target on this scale, or switch to championship position / "
-               "a /100 normalised score." % F1_PLAN)
+    f1_note = ("Metric confirmed = AVERAGE RACE TOTAL SCORE (estate avg ~282). PROVISIONAL plan %d — "
+               "Matt to confirm the target NUMBER on this score scale; the old '75' target is retired." % F1_PLAN)
     # ---- Brand Audit, last completed week (audits are periodic; awaiting if none logged that week) ----
     audit_lastwk = jload("audit_raw.json").get("_lastwk_avg")
     audit_lastwk_n = jload("audit_raw.json").get("_lastwk_n", 0)
     # ---- Food GP% — Cost-of-Sales sheet is weekly; cos estate avg already = latest CoS week ----
     cos_week = jload("cos_metrics.json").get("_week", "")
+    # ---- Net Profit After Tax % (projected) from the Bewiched Ltd monthly P&L ----
+    # Snapshot from the May 2026 P&L (Profit after Taxation £50,182.10 / Total Turnover £633,064.53);
+    # used as a fallback so the tile is populated even if the SA cannot yet read the P&L sheet.
+    NPAT_SNAPSHOT, NPAT_MONTH = 7.9, "May 2026"
+    npat_pct, npat_src, npat_detail = NPAT_SNAPSHOT, "derived", "May 2026 P&L: Profit after Tax £50,182 ÷ turnover £633,065 (snapshot)"
+    try:
+        prows = sheet(SID["npat_pnl"], "A1:AB300")           # first tab = by-site P&L; last numeric per row = Total column
+        def _last_num(row):
+            v = None
+            for c in row[1:]:
+                if isinstance(c, (int, float)): v = c
+                else:
+                    t = str(c).replace(",", "").replace("£", "").replace("%", "").strip()
+                    if t.startswith("(") and t.endswith(")"): t = "-" + t[1:-1]
+                    try: v = float(t)
+                    except Exception: pass
+            return v
+        pat = turn = None
+        for r in prows:
+            if not r or r[0] in (None, ""): continue
+            lab = str(r[0]).strip().lower()
+            if lab == "profit after taxation": pat = _last_num(r)
+            elif lab == "total turnover": turn = _last_num(r)
+        if pat is not None and turn:
+            npat_pct = round(100 * pat / turn, 1)
+            npat_src = "sheet"
+            npat_detail = "%s P&L: Profit after Tax ÷ Total Turnover (live)" % NPAT_MONTH
+    except Exception as e:
+        flags.append("Net Profit After Tax: P&L sheet not readable by the service account (%s) — share '%s P&L' "
+                     "(ID %s, Viewer) with dashboards-bot@%s.iam.gserviceaccount.com. Using the %s snapshot (%.1f%%) meanwhile."
+                     % (str(e)[:70], NPAT_MONTH, SID["npat_pnl"], PROJECT, NPAT_MONTH, NPAT_SNAPSHOT))
 
     # ---- live quarterly: YoY sales / tx (QTD LFL) ----
     yoy_sales = yoy_tx = None; lfl_n = None
@@ -1298,8 +1329,9 @@ def pull_eos_scorecard():
         metric("f1_score", "F1 Score", F1_PLAN, f1_qtd, "", "num1", "sheet",
                ("QTD race 'Total Score', estate avg (%d stores)" % len(f1_qtd_xs)) if f1_qtd_xs else "Awaiting F1 race data",
                f1_note),
-        metric("npat", "Net Profit After Tax (projected)", 18, None, "%", "pct1", "manual", "",
-               "Projected NPAT % of turnover — not in POS data. Enter from management accounts in the inputs sheet."),
+        metric("npat", "Net Profit After Tax (projected)", 18, npat_pct, "%", "pct1", npat_src,
+               "%s · %s" % (NPAT_MONTH, npat_detail),
+               "Derived from the Bewiched Ltd monthly P&L (Profit after Taxation ÷ Total Turnover). No corporation tax is booked monthly, so this is effectively the net margin. Uses the latest month available."),
         metric("food_gp", "Food GP%", 71, fg, "%", "pct1", "derived",
                "Estate GP% from Cost of Sales (commercial stores)",
                "PROXY: company food-specific GP% not yet sourced — using CoS estate GP%. Override in the inputs sheet."),
@@ -1311,10 +1343,10 @@ def pull_eos_scorecard():
         "Status is strictly binary: GREEN when actual ≥ plan, RED when below — no near-target band. Bench is green when ≥ 3.",
         "Google Health & Rate My Shift Health blend divisors (40 reviews / 4.6★ ; 70 submissions / 4.6★) are default assumptions — adjust if you prefer different volume targets.",
         "Plans (Matt's stated defaults): SPH Labour 50, Brew Crew Kudos 50%%, Bench 3, NPAT 18%%, Food GP%% 71%%. YoY Sales 12%% / Transactions 5%% on both tabs.",
-        "F1 Score is now LIVE from the F1 sheet (Matt Fountain's F1 workbook, ID %s) — weekly = last week's race Total Score, quarterly = QTD avg. SCALE TO CONFIRM: values are the raw race 'Total Score' (~282), so the plan is a PROVISIONAL 280 on that scale, NOT the stated 75. Tell me the real target on the Total-Score scale, or whether F1 should be championship position / a /100 normalised score." % SID["f1"],
+        "F1 Score = AVERAGE RACE TOTAL SCORE (Matt confirmed), live from the F1 sheet (ID %s) — weekly = last week's race, quarterly = QTD avg. The old '75' target is retired. Plan is a PROVISIONAL 280 on this scale — Matt still needs to give the target NUMBER on the ~280 average-race-total-score scale (being asked separately)." % SID["f1"],
         "Weekly tab now mirrors the quarterly measures wherever a genuine weekly value exists: YoY Sales, YoY Transactions, F1 Score (last week's race), Food GP%% (weekly CoS, posted a week in arrears), and Brand Audit (last week's audits — periodic, so it shows 'awaiting' in weeks with none; latest audit on file is currently 18 Jun).",
         "Net Profit After Tax and New Starter Health are intentionally QUARTERLY-ONLY — no weekly tile (NPAT is monthly/quarterly management-accounts data; New Starter Health is a quarterly measure).",
-        "Net Profit After Tax % is not available from POS/BigQuery — manual entry from management accounts.",
+        "Net Profit After Tax % is derived from the Bewiched Ltd monthly P&L (Profit after Taxation ÷ Total Turnover); currently May 2026 = 7.9%%. Share the P&L sheet with the service account so it auto-refreshes each month (see flag above if it 403s).",
         "Food GP% uses the Cost of Sales estate GP% as a proxy until a company food-specific GP source exists.",
         "Social Media Engagement and New Starter Health are greyed TBC placeholders pending metric + target definitions.",
         "Manual inputs sheet 'Bewiched EOS Scorecard Inputs' (ID %s) must be shared (Viewer) with dashboards-bot@%s.iam.gserviceaccount.com for the automated run to read it." % (SID["eos"], PROJECT),

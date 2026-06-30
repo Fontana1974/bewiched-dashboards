@@ -43,7 +43,7 @@
    "dir": "high",
    "source": "sheet",
    "detail": "Last week's race result, estate avg (21 stores)",
-   "note": "PROVISIONAL PLAN (280) — F1 race 'Total Score' scale (estate avg ~282), NOT the /5 or stated 75 scale. Confirm the target on this scale, or switch to championship position / a /100 normalised score."
+   "note": "Metric confirmed = AVERAGE RACE TOTAL SCORE (estate avg ~282). PROVISIONAL plan 280 — Matt to confirm the target NUMBER on this score scale; the old '75' target is retired."
   },
   {
    "id": "brand_audit_wk",
@@ -85,12 +85,12 @@
    "id": "rms_health",
    "name": "Rate My Shift Health",
    "plan": 100,
-   "actual": null,
+   "actual": 79.4,
    "unit": "%",
    "fmt": "pct0",
    "dir": "high",
    "source": "derived",
-   "detail": "No Rate My Shift submissions logged last week",
+   "detail": "55 submissions (÷70) · 3.69★ (÷4.6) last week",
    "note": "Blend: avg of submissions÷70 and avgScore÷4.6, each capped 100%."
   },
   {
@@ -190,19 +190,19 @@
    "dir": "high",
    "source": "sheet",
    "detail": "QTD race 'Total Score', estate avg (21 stores)",
-   "note": "PROVISIONAL PLAN (280) — F1 race 'Total Score' scale (estate avg ~282), NOT the /5 or stated 75 scale. Confirm the target on this scale, or switch to championship position / a /100 normalised score."
+   "note": "Metric confirmed = AVERAGE RACE TOTAL SCORE (estate avg ~282). PROVISIONAL plan 280 — Matt to confirm the target NUMBER on this score scale; the old '75' target is retired."
   },
   {
    "id": "npat",
    "name": "Net Profit After Tax (projected)",
    "plan": 18,
-   "actual": null,
+   "actual": 7.9,
    "unit": "%",
    "fmt": "pct1",
    "dir": "high",
-   "source": "manual",
-   "detail": "",
-   "note": "Projected NPAT % of turnover — not in POS data. Enter from management accounts in the inputs sheet."
+   "source": "derived",
+   "detail": "May 2026 · May 2026 P&L: Profit after Tax £50,182 ÷ turnover £633,065 (snapshot)",
+   "note": "Derived from the Bewiched Ltd monthly P&L (Profit after Taxation ÷ Total Turnover). No corporation tax is booked monthly, so this is effectively the net margin. Uses the latest month available."
   },
   {
    "id": "food_gp",
@@ -234,13 +234,14 @@
   "Status is strictly binary: GREEN when actual ≥ plan, RED when below — no near-target band. Bench is green when ≥ 3.",
   "Google Health & Rate My Shift Health blend divisors (40 reviews / 4.6★ ; 70 submissions / 4.6★) are default assumptions — adjust if you prefer different volume targets.",
   "Plans (Matt's stated defaults): SPH Labour 50, Brew Crew Kudos 50%%, Bench 3, NPAT 18%%, Food GP%% 71%%. YoY Sales 12%% / Transactions 5%% on both tabs.",
-  "F1 Score is now LIVE from the F1 sheet (Matt Fountain's F1 workbook, ID 1YFqpR9_ftlQEbfwc5ZVMjtS5tFO0j-7ccwB8rwG56wQ) — weekly = last week's race Total Score, quarterly = QTD avg. SCALE TO CONFIRM: values are the raw race 'Total Score' (~282), so the plan is a PROVISIONAL 280 on that scale, NOT the stated 75. Tell me the real target on the Total-Score scale, or whether F1 should be championship position / a /100 normalised score.",
+  "F1 Score = AVERAGE RACE TOTAL SCORE (Matt confirmed), live from the F1 sheet (ID 1YFqpR9_ftlQEbfwc5ZVMjtS5tFO0j-7ccwB8rwG56wQ) — weekly = last week's race, quarterly = QTD avg. The old '75' target is retired. Plan is a PROVISIONAL 280 on this scale — Matt still needs to give the target NUMBER on the ~280 average-race-total-score scale (being asked separately).",
   "Weekly tab now mirrors the quarterly measures wherever a genuine weekly value exists: YoY Sales, YoY Transactions, F1 Score (last week's race), Food GP%% (weekly CoS, posted a week in arrears), and Brand Audit (last week's audits — periodic, so it shows 'awaiting' in weeks with none; latest audit on file is currently 18 Jun).",
   "Net Profit After Tax and New Starter Health are intentionally QUARTERLY-ONLY — no weekly tile (NPAT is monthly/quarterly management-accounts data; New Starter Health is a quarterly measure).",
-  "Net Profit After Tax % is not available from POS/BigQuery — manual entry from management accounts.",
+  "Net Profit After Tax % is derived from the Bewiched Ltd monthly P&L (Profit after Taxation ÷ Total Turnover); currently May 2026 = 7.9%. Share the P&L sheet with the service account so it auto-refreshes each month.",
   "Food GP% uses the Cost of Sales estate GP% as a proxy until a company food-specific GP source exists.",
   "Social Media Engagement and New Starter Health are greyed TBC placeholders pending metric + target definitions.",
   "Manual inputs sheet 'Bewiched EOS Scorecard Inputs' (ID 1HimYAjZg4zlMQG91-KUefkeYMPvrU4ddVuO2IuERTqg) must be shared (Viewer) with dashboards-bot@bewiched-coffee-368116.iam.gserviceaccount.com for the automated run to read it.",
-  "Manual inputs sheet not readable (<HttpError 403 when requesting https://sheets.googleapis.com/v4/spreadsheets/1HimYAjZg4zlM) — share it (Viewer) with the service account dashboards-bot@bewiched-coffee-368116.iam.gserviceaccount.com. Manual metrics shown as awaiting."
+  "Manual inputs sheet not readable (<HttpError 403 when requesting https://sheets.googleapis.com/v4/spreadsheets/1HimYAjZg4zlM) — share it (Viewer) with the service account dashboards-bot@bewiched-coffee-368116.iam.gserviceaccount.com. Manual metrics shown as awaiting.",
+  "ACTION: share the P&L sheet 'Bewiched May 2026 P&L' (ID 1RTsnnz5F9XIdkg4j8m8MiuKqeAvZaAWcndbFifNNLhM) as Viewer with dashboards-bot@bewiched-coffee-368116.iam.gserviceaccount.com — until then NPAT uses the May snapshot (7.9%). Also update the P&L sheet ID in run_weekly when the month rolls."
  ]
 }
