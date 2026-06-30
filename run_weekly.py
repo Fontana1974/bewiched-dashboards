@@ -1214,6 +1214,34 @@ def pull_eos_scorecard():
         c = v.get("actual_cph_lastwk"); h = v.get("used_lastwk")
         if c and h: cnum += c * h; cden += h
     cph_estate = round(cnum / cden, 1) if cden else sph        # fall back to BQ SPH if planners blank
+    estate_sales_wk = sum(r.get("lw26", 0) or 0 for r in rec.values())
+    # ---- committed weekly-performance history (weekly_history.csv) for accumulating QTD ----
+    HIST = os.path.join(HERE, "weekly_history.csv")
+    HCOLS = ["week_ending", "estate_sales", "estate_gp_pct", "estate_cph", "sph", "npat_proj_pct",
+             "yoy_sales_pct", "yoy_tx_pct", "f1_avg", "rms_pct", "kudos_pct", "brand_audit", "google_health_pct"]
+    hist_rows = []
+    if os.path.exists(HIST):
+        try:
+            with open(HIST, newline="") as fh:
+                hist_rows = [r for r in csv.DictReader(fh)]
+        except Exception:
+            hist_rows = []
+    def _hf(x):
+        try: return float(x)
+        except Exception: return None
+    QS = QSTART.isoformat()
+    q_prior = [r for r in hist_rows if r.get("week_ending", "") >= QS and r.get("week_ending") != CUR_END.isoformat()]
+    def _qtd_rate(prior, cur_sales, cur_rate, col):
+        """hours-weighted rate over the quarter: Σsales / Σ(sales/rate), incl this week."""
+        ts = th = 0.0
+        for r in prior:
+            sa = _hf(r.get("estate_sales")); rt = _hf(r.get(col))
+            if sa and rt: ts += sa; th += sa / rt
+        if cur_sales and cur_rate: ts += cur_sales; th += cur_sales / cur_rate
+        return round(ts / th, 1) if th else None
+    qtd_cph = _qtd_rate(q_prior, estate_sales_wk, cph_estate, "estate_cph") or cph_estate
+    qtd_sph = _qtd_rate(q_prior, estate_sales_wk, sph, "sph") or sph
+    n_hist_q = len(q_prior) + 1          # quarter weeks contributing (incl current)
     au = [r["audit_qtd"] for r in rec.values() if r.get("audit_qtd")]
     ba = round(sum(au) / len(au), 2) if au else None
     gps = [v["gp_pct"] for v in cos.values() if v.get("gp_pct")]
@@ -1340,17 +1368,17 @@ def pull_eos_scorecard():
         lab_c = round(B["labour_pct"] - live_lab, 1)                  # +ve when labour% below baseline (CPH up)
         return round(B["npat"] + gp_c + lab_c, 1), gp_c, lab_c
     npat_wk, npat_wk_gp, npat_wk_lab = _npat_project(gp_wk_live, cph_estate)
-    npat_qtd, npat_qtd_gp, npat_qtd_lab = _npat_project(gp_qtd_live, cph_estate)
+    npat_qtd, npat_qtd_gp, npat_qtd_lab = _npat_project(gp_qtd_live, qtd_cph)   # labour side uses QTD CPH from weekly_history
     def _npat_detail(tag, gp_c, lab_c):
         return "%s · baseline %.1f%% · GP %+.1fpp · labour %+.1fpp" % (tag, B["npat"], gp_c, lab_c)
     npat_note = ("Projected (GP + labour flex off the %s P&L). NPAT%% = baseline %.1f%% + (estate GP%% − %s baseline) "
                  "− (labour%% − baseline). Baseline: product GP %.1f%%, labour %.1f%%, admin %.1f%% (held), avg labour £%.2f/hr. "
                  "GP movement = estate-wide blended GP from the COS master tab (CoG basis; %s baseline %.2f%%, latest week %s%%, QTD %s%%). "
-                 "Labour flexes via planner actual CPH £%.1f ÷ baseline £%.1f (avg £%.2f/hr ÷ live CPH). QTD CPH uses current-week planner CPH "
-                 "(no maintained weekly CPH history yet)."
+                 "Labour flexes via planner actual CPH £%.1f ÷ baseline £%.1f (avg £%.2f/hr ÷ live CPH). Weekly CPH = this week\'s "
+                 "planner CPH; QTD CPH £%.1f is hours-weighted from weekly_history.csv (%d week%s so far)."
                  % (NPAT_MONTH, B["npat"], NPAT_MONTH, B["gp_prod"], B["labour_pct"], B["admin_pct"], B["hourly"],
                     NPAT_MONTH, gp_may if gp_may is not None else 0, gp_wk_live, gp_qtd_live,
-                    cph_estate or 0, B["cph_base"], B["hourly"]))
+                    cph_estate or 0, B["cph_base"], B["hourly"], qtd_cph or 0, n_hist_q, "" if n_hist_q == 1 else "s"))
 
     # ---- QTD health blends (Google / RMS) from storehealth_raw.json (QTD per-store [n, avg]) ----
     weeks_q = max(1, round((CUR_END - QSTART).days / 7.0))
@@ -1460,9 +1488,9 @@ def pull_eos_scorecard():
                "Distinct employees who contributed to Brew Crew Kudos (BCKH tab) QUARTER-TO-DATE, matched by email to the Employee List, ÷ total employees."),
         metric("social_media_qtd", "Social Media Engagement", None, None, "%", "pct0", "tbc", "",
                "Metric and target not yet defined.", tbc=True),
-        metric("sph_labour_qtd", "SPH Labour (incl holiday pay)", 50, sph, "£", "gbp1", "derived",
-               "Current £/hr rate — QTD labour-hour totals not separately sourced",
-               "SPH is a rate; quarterly labour-hour totals aren't separately available, so this shows the current weekly £/hr rate. Same figure as the weekly tile."),
+        metric("sph_labour_qtd", "SPH Labour (incl holiday pay)", 50, qtd_sph, "£", "gbp1", "derived",
+               "QTD £/hr, hours-weighted from weekly_history (%d week%s so far)" % (n_hist_q, "" if n_hist_q == 1 else "s"),
+               "QTD sales per labour hour, hours-weighted across the weekly_history.csv rows since quarter start. Thin until several weeks accumulate (falls back to the current week)."),
         metric("bench_qtd", "Bench", 3, bench_val, "", "num0", "derived",
                ("%d managers ready on the bench (HRP bench sheet)" % bench_val) if bench_val is not None else "",
                "Bench headcount is point-in-time, not a period sum — shows the current count. Green when ≥ 3."),
@@ -1493,6 +1521,7 @@ def pull_eos_scorecard():
         "Food GP% uses the Cost of Sales estate GP% as a proxy until a company food-specific GP source exists.",
         "Social Media Engagement and New Starter Health are greyed TBC placeholders pending metric + target definitions.",
         "Each metric now shows an accountable OWNER (EOS-style): YoY Sales/Transactions & Food GP% = Rich; Google Health, Social Media & SPH Labour = Jon; Rate My Shift, Brew Crew Kudos, Bench & New Starter = Kel; F1 & Brand Audit = Claire. Net Profit After Tax is UNASSIGNED (shown as —) — Matt to confirm the owner (likely Matt/MD). Owners are a config block in gen_eos_scorecard.py.",
+        "QTD CPH/SPH and the labour side of QTD NPAT now read from the committed weekly_history.csv (one row per week-ending, upserted each run — re-runs update, no dupes). Thin until several weeks accumulate; until then QTD ≈ the current week. YoY (BigQuery), Kudos QTD (BCKH), GP QTD (COS master) keep their own source-of-truth and are also logged to history.",
         "Manual inputs sheet 'Bewiched EOS Scorecard Inputs' (ID %s) must be shared (Viewer) with dashboards-bot@%s.iam.gserviceaccount.com for the automated run to read it." % (SID["eos"], PROJECT),
     ] + flags
 
@@ -1509,6 +1538,21 @@ def pull_eos_scorecard():
         "quarterly": quarterly,
         "flags": flags,
     }
+    # ---- upsert this week's row into weekly_history.csv (dedupe by week_ending: re-runs UPDATE, not duplicate) ----
+    def _hc(v): return "" if v is None else v
+    new_row = {"week_ending": CUR_END.isoformat(), "estate_sales": round(estate_sales_wk),
+               "estate_gp_pct": _hc(gp_wk_live), "estate_cph": _hc(cph_estate), "sph": _hc(sph),
+               "npat_proj_pct": _hc(npat_wk), "yoy_sales_pct": _hc(yoy_sales_wk), "yoy_tx_pct": _hc(yoy_tx_wk),
+               "f1_avg": _hc(f1_wk), "rms_pct": _hc(rh), "kudos_pct": _hc(kudos_wk_pct),
+               "brand_audit": _hc(audit_lastwk), "google_health_pct": _hc(gh)}
+    by_wk = {r.get("week_ending"): r for r in hist_rows}
+    by_wk[new_row["week_ending"]] = new_row
+    ordered = sorted(by_wk.values(), key=lambda r: r.get("week_ending", ""))
+    with open(HIST, "w", newline="") as fh:
+        wr = csv.DictWriter(fh, fieldnames=HCOLS); wr.writeheader()
+        for r in ordered: wr.writerow({k: r.get(k, "") for k in HCOLS})
+    print("[pull] weekly_history: upserted %s (%d rows total, %d in quarter)" % (CUR_END.isoformat(), len(ordered), n_hist_q))
+
     W("eos_scorecard.json", out, indent=1)
     print("[pull] eos_scorecard: weekly %d / quarterly %d metrics (yoy_sales=%s yoy_tx=%s)"
           % (len(weekly), len(quarterly), yoy_sales, yoy_tx))

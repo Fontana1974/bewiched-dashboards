@@ -152,7 +152,7 @@
    "dir": "high",
    "source": "derived",
    "detail": "Weekly flex · baseline 7.9% · GP +2.1pp · labour +0.0pp",
-   "note": "Projected (GP + labour flex off the May 2026 P&L). NPAT% = baseline 7.9% + (estate GP% − May 2026 baseline) − (labour% − baseline). Baseline: product GP 66.1%, labour 33.9%, admin 24.3% (held), avg labour £19.53/hr. GP movement = estate-wide blended GP from the COS master tab (CoG basis; May 2026 baseline 73.96%, latest week 76.03%, QTD 74.21%). Labour flexes via planner actual CPH £57.7 ÷ baseline £57.7 (avg £19.53/hr ÷ live CPH). QTD CPH uses current-week planner CPH (no maintained weekly CPH history yet)."
+   "note": "Projected (GP + labour flex off the May 2026 P&L). NPAT% = baseline 7.9% + (estate GP% − May 2026 baseline) − (labour% − baseline). Baseline: product GP 66.1%, labour 33.85%, admin 24.33% (held), avg labour £19.53/hr. GP movement = estate-wide blended GP from the COS master tab (CoG basis; May 2026 baseline 73.96%, latest week 76.03%, QTD 74.21%). Labour flexes via planner actual CPH £57.7 ÷ baseline £57.7 (avg £19.53/hr ÷ live CPH). Weekly CPH = this week's planner CPH; QTD CPH £57.7 is hours-weighted from weekly_history.csv (1 week so far)."
   },
   {
    "id": "new_starter_health_wk",
@@ -251,8 +251,8 @@
    "fmt": "gbp1",
    "dir": "high",
    "source": "derived",
-   "detail": "Current £/hr rate — QTD labour-hour totals not separately sourced",
-   "note": "SPH is a rate; quarterly labour-hour totals aren't separately available, so this shows the current weekly £/hr rate. Same figure as the weekly tile."
+   "detail": "QTD £/hr, hours-weighted from weekly_history (1 week so far)",
+   "note": "QTD sales per labour hour, hours-weighted across the weekly_history.csv rows since quarter start. Thin until several weeks accumulate (falls back to the current week)."
   },
   {
    "id": "bench_qtd",
@@ -312,7 +312,7 @@
    "dir": "high",
    "source": "derived",
    "detail": "QTD flex · baseline 7.9% · GP +0.2pp · labour +0.0pp",
-   "note": "Projected (GP + labour flex off the May 2026 P&L). NPAT% = baseline 7.9% + (estate GP% − May 2026 baseline) − (labour% − baseline). Baseline: product GP 66.1%, labour 33.9%, admin 24.3% (held), avg labour £19.53/hr. GP movement = estate-wide blended GP from the COS master tab (CoG basis; May 2026 baseline 73.96%, latest week 76.03%, QTD 74.21%). Labour flexes via planner actual CPH £57.7 ÷ baseline £57.7 (avg £19.53/hr ÷ live CPH). QTD CPH uses current-week planner CPH (no maintained weekly CPH history yet)."
+   "note": "Projected (GP + labour flex off the May 2026 P&L). NPAT% = baseline 7.9% + (estate GP% − May 2026 baseline) − (labour% − baseline). Baseline: product GP 66.1%, labour 33.85%, admin 24.33% (held), avg labour £19.53/hr. GP movement = estate-wide blended GP from the COS master tab (CoG basis; May 2026 baseline 73.96%, latest week 76.03%, QTD 74.21%). Labour flexes via planner actual CPH £57.7 ÷ baseline £57.7 (avg £19.53/hr ÷ live CPH). Weekly CPH = this week's planner CPH; QTD CPH £57.7 is hours-weighted from weekly_history.csv (1 week so far)."
   },
   {
    "id": "new_starter_health",
@@ -329,6 +329,7 @@
   }
  ],
  "flags": [
+  "QTD CPH/SPH and the labour side of QTD NPAT now read from the committed weekly_history.csv (one row per week-ending, upserted each run — re-runs update, no dupes). Thin until several weeks accumulate; until then QTD ≈ the current week. YoY (BigQuery), Kudos QTD (BCKH), GP QTD (COS master) keep their own source-of-truth and are also logged to history.",
   "Status is strictly binary: GREEN when actual ≥ plan, RED when below — no near-target band. Bench is green when ≥ 3.",
   "Google Health & Rate My Shift Health blend divisors (40 reviews / 4.6★ ; 70 submissions / 4.6★) are default assumptions — adjust if you prefer different volume targets.",
   "Plans (Matt's stated defaults): SPH Labour 50, Brew Crew Kudos 50%, Bench 3, NPAT 18%, Food GP% 71%. YoY Sales 12% / Transactions 5% on both tabs.",
