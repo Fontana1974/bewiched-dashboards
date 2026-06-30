@@ -41,7 +41,7 @@
    "unit": "",
    "fmt": "num1",
    "dir": "high",
-   "source": "live",
+   "source": "sheet",
    "detail": "Last week's race result, estate avg (21 stores)",
    "note": "PROVISIONAL PLAN (280) — F1 race 'Total Score' scale (estate avg ~282), NOT the /5 or stated 75 scale. Confirm the target on this scale, or switch to championship position / a /100 normalised score."
   },
@@ -188,7 +188,7 @@
    "unit": "",
    "fmt": "num1",
    "dir": "high",
-   "source": "live",
+   "source": "sheet",
    "detail": "QTD race 'Total Score', estate avg (21 stores)",
    "note": "PROVISIONAL PLAN (280) — F1 race 'Total Score' scale (estate avg ~282), NOT the /5 or stated 75 scale. Confirm the target on this scale, or switch to championship position / a /100 normalised score."
   },

@@ -53,7 +53,7 @@ def widget(m):
     actual_txt = "TBC" if st == "tbc" else ("—" if st == "nodata" else fmt_val(m.get("actual"), fmt))
     plan_txt   = fmt_val(m.get("plan"), fmt) if m.get("plan") is not None else "—"
     src = (m.get("source") or "").lower()
-    src_lab = {"live": "live · BigQuery", "derived": "auto-derived",
+    src_lab = {"live": "live · BigQuery", "sheet": "live · F1 sheet", "derived": "auto-derived",
                "manual": "manual input", "tbc": "to be defined"}.get(src, src or "")
     detail = m.get("detail") or ""
     note = m.get("note") or ""
@@ -125,7 +125,7 @@ HTML = f"""<!DOCTYPE html>
   .w-top{{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:10px}}
   .w-name{{font-size:15px;font-weight:800;color:var(--ink);line-height:1.25}}
   .w-src{{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;padding:2px 7px;border-radius:6px;white-space:nowrap;background:#eee;color:#777}}
-  .w-src.live{{background:#e6f4ec;color:#1c6b3d}} .w-src.derived{{background:#eef4fb;color:#2d6fb3}}
+  .w-src.live,.w-src.sheet{{background:#e6f4ec;color:#1c6b3d}} .w-src.derived{{background:#eef4fb;color:#2d6fb3}}
   .w-src.manual{{background:#f3ece0;color:#8a6d3b}} .w-src.tbc{{background:#ece6dd;color:#9a8c7c}}
   .w-nums{{display:flex;align-items:center;gap:12px}}
   .w-cell{{text-align:center}} .w-lab{{font-size:9.5px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);font-weight:700}}
