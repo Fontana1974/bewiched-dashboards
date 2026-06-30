@@ -104,7 +104,7 @@
    "name": "All Butter Flapjack",
    "peak": "Lunch",
    "share": 37,
-   "hour": "10am",
+   "hour": "11am",
    "units": 1034,
    "sales": 2913,
    "sparse": false
@@ -212,7 +212,7 @@
    "name": "Victoria Sponge Cake",
    "peak": "Afternoon",
    "share": 38,
-   "hour": "2pm",
+   "hour": "3pm",
    "units": 255,
    "sales": 883,
    "sparse": false
@@ -273,7 +273,7 @@
   },
   {
    "name": "Tea Time Coffee Cake",
-   "peak": "Afternoon",
+   "peak": "Lunch",
    "share": 38,
    "hour": "12pm",
    "units": 111,

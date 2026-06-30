@@ -92,7 +92,7 @@
       },
       {
        "label": "Google health",
-       "value": "4.27 (QTD)",
+       "value": "4.32 (QTD)",
        "star": 4.8,
        "on_target": true
       },
@@ -121,7 +121,7 @@
    "_f1_pos": 11
   },
   "Leamington Parade": {
-   "composite": 3.8,
+   "composite": 4.0,
    "target": 4.6,
    "on_target": false,
    "pillars": [
@@ -193,7 +193,7 @@
     },
     {
      "name": "People & Customer",
-     "star": 3.5,
+     "star": 4.2,
      "target": 4.6,
      "on_target": false,
      "metrics": [
@@ -211,9 +211,9 @@
       },
       {
        "label": "Google health",
-       "value": "2.53 (QTD)",
-       "star": 2.4,
-       "on_target": false
+       "value": "3.77 (QTD)",
+       "star": 4.7,
+       "on_target": true
       },
       {
        "label": "Lateness (shown, not scored)",

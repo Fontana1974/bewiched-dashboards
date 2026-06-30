@@ -40,10 +40,10 @@
    "r_rag": "green"
   },
   "Billing Drive Thru": {
-   "g_n": 22,
+   "g_n": 27,
    "g_avg": 5.0,
    "g_target": 49,
-   "g_health": 3.62,
+   "g_health": 3.88,
    "g_rag": "green",
    "g_stale": false,
    "r_n": 4,
@@ -73,10 +73,10 @@
    "r_rag": "red"
   },
   "Glenvale Drive Thru": {
-   "g_n": 38,
-   "g_avg": 4.658,
+   "g_n": 39,
+   "g_avg": 4.667,
    "g_target": 49,
-   "g_health": 4.27,
+   "g_health": 4.32,
    "g_rag": "green",
    "g_stale": false,
    "r_n": 25,
@@ -111,21 +111,21 @@
    "r_rag": "amber"
   },
   "Leamington Parade": {
-   "g_n": 5,
-   "g_avg": 3.4,
+   "g_n": 10,
+   "g_avg": 4.2,
    "g_target": 15,
-   "g_health": 2.53,
-   "g_rag": "red",
+   "g_health": 3.77,
+   "g_rag": "green",
    "g_stale": false,
    "r_n": 65,
    "r_avg": 4.72,
    "r_rag": "green"
   },
   "Lower Heathcote": {
-   "g_n": 1,
+   "g_n": 2,
    "g_avg": 5.0,
    "g_target": 8,
-   "g_health": 2.81,
+   "g_health": 3.12,
    "g_rag": "red",
    "g_stale": false,
    "r_n": 12,
@@ -133,11 +133,11 @@
    "r_rag": "green"
   },
   "Market Harborough": {
-   "g_n": 8,
-   "g_avg": 4.875,
+   "g_n": 11,
+   "g_avg": 4.909,
    "g_target": 24,
-   "g_health": 3.27,
-   "g_rag": "red",
+   "g_health": 3.6,
+   "g_rag": "green",
    "g_stale": false,
    "r_n": 9,
    "r_avg": 4.11,
@@ -153,10 +153,10 @@
    "r_rag": "green"
   },
   "Northampton Drive-Thru": {
-   "g_n": 2,
-   "g_avg": 3.0,
+   "g_n": 3,
+   "g_avg": 3.667,
    "g_target": 49,
-   "g_health": 1.6,
+   "g_health": 1.99,
    "g_rag": "red",
    "g_stale": false,
    "r_n": 36,
@@ -217,10 +217,12 @@
    "r_rag": "green"
   },
   "Rushden Lakes": {
-   "g_n": null,
-   "g_health": null,
-   "g_rag": "na",
-   "g_stale": true,
+   "g_n": 2,
+   "g_avg": 5.0,
+   "g_target": 49,
+   "g_health": 2.6,
+   "g_rag": "red",
+   "g_stale": false,
    "r_n": 16,
    "r_avg": 3.25,
    "r_rag": "red"

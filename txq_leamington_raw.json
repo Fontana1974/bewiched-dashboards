@@ -2,11 +2,11 @@
  "days": 28,
  "grid": [
   {
-   "ch": "EI",
-   "dp": "Afternoon",
-   "txns": 1242,
-   "sales": 8879.0,
-   "foodtxns": 382
+   "ch": "TA",
+   "dp": "Evening",
+   "txns": 29,
+   "sales": 182.0,
+   "foodtxns": 3
   },
   {
    "ch": "TA",
@@ -51,11 +51,11 @@
    "foodtxns": 35
   },
   {
-   "ch": "TA",
-   "dp": "Evening",
-   "txns": 29,
-   "sales": 182.0,
-   "foodtxns": 3
+   "ch": "EI",
+   "dp": "Afternoon",
+   "txns": 1242,
+   "sales": 8879.0,
+   "foodtxns": 382
   }
  ]
 }

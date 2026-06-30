@@ -1,6 +1,6 @@
 {
- "_about": "Bewiched EOS Scorecard data. Written by run_weekly.py pull_eos_scorecard(); rendered by gen_eos_scorecard.py. Live rows from BigQuery + F1/reviews/RMS feeds; manual rows from the EOS Scorecard Inputs sheet.",
- "generated": "30 Jun 2026, 17:02",
+ "_about": "Bewiched EOS Scorecard data. Written by run_weekly.py pull_eos_scorecard(); rendered by gen_eos_scorecard.py. Live = BigQuery; derived = other feeds; manual = inputs sheet.",
+ "generated": "30 Jun 2026, 18:09",
  "cur_end": "2026-06-28",
  "week_label": "w/c 22 Jun 2026",
  "quarter_label": "Q2 2026 (Apr–Jun)",
@@ -31,7 +31,7 @@
    "dir": "high",
    "source": "derived",
    "detail": "No Rate My Shift submissions logged last week",
-   "note": "Blend: avg of submissions÷70 and avgScore÷4.6."
+   "note": "Blend: avg of submissions÷70 and avgScore÷4.6, each capped 100%."
   },
   {
    "id": "brew_crew_kudos",
@@ -43,7 +43,7 @@
    "dir": "high",
    "source": "manual",
    "detail": "",
-   "note": "Manual weekly input. Enter % of team giving kudos in the EOS Scorecard Inputs sheet."
+   "note": "Manual weekly input — % of team giving kudos. Enter in the EOS Scorecard Inputs sheet."
   },
   {
    "id": "social_media",
@@ -54,9 +54,9 @@
    "fmt": "pct0",
    "dir": "high",
    "source": "tbc",
-   "tbc": true,
    "detail": "",
-   "note": "Metric and target not yet defined."
+   "note": "Metric and target not yet defined.",
+   "tbc": true
   },
   {
    "id": "sph_labour",
@@ -67,8 +67,8 @@
    "fmt": "gbp1",
    "dir": "high",
    "source": "derived",
-   "detail": "£168257 sales ÷ 2916 hours used (last week, 17 stores reporting hours)",
-   "note": "Sales per labour hour incl holiday pay. Provisional on Sunday run; finalised Monday once planner hours post."
+   "detail": "£168257 sales ÷ 2916 hours used (last week, 17 stores reporting)",
+   "note": "Sales per labour hour incl holiday pay. Provisional on Sunday; finalised Monday once planner hours post."
   },
   {
    "id": "bench",
@@ -105,7 +105,7 @@
    "fmt": "pct_signed",
    "dir": "high",
    "source": "live",
-   "detail": "LFL QTD transactions vs same period last year (19 like-for-like stores)",
+   "detail": "LFL QTD transactions vs last year (19 like-for-like stores)",
    "note": "Auto from BigQuery v_sales_details_flat."
   },
   {
@@ -130,7 +130,7 @@
    "dir": "high",
    "source": "manual",
    "detail": "",
-   "note": "CONFIRM SCALE: the F1 'Total Score' QTD estate avg is ~282 pts, not /100. Enter the figure on plan-75 scale in the inputs sheet, or update the plan."
+   "note": "CONFIRM SCALE: F1 'Total Score' QTD estate avg is ~282 pts, not /100. Enter on the plan-75 scale in the inputs sheet, or update the plan."
   },
   {
    "id": "npat",
@@ -142,7 +142,7 @@
    "dir": "high",
    "source": "manual",
    "detail": "",
-   "note": "Projected NPAT % of turnover. Not in POS data — enter from management accounts in the inputs sheet."
+   "note": "Projected NPAT % of turnover — not in POS data. Enter from management accounts in the inputs sheet."
   },
   {
    "id": "food_gp",
@@ -153,7 +153,7 @@
    "fmt": "pct1",
    "dir": "high",
    "source": "derived",
-   "detail": "Estate GP%% from Cost of Sales (currently 2 commercial stores)",
+   "detail": "Estate GP% from Cost of Sales (commercial stores)",
    "note": "PROXY: company food-specific GP% not yet sourced — using CoS estate GP%. Override in the inputs sheet."
   },
   {
@@ -165,19 +165,20 @@
    "fmt": "pct0",
    "dir": "high",
    "source": "tbc",
-   "tbc": true,
    "detail": "",
-   "note": "Metric and target not yet defined."
+   "note": "Metric and target not yet defined.",
+   "tbc": true
   }
  ],
  "flags": [
-  "AMBER band = 5% under plan (config.amber_band). Bench is green when ≥3.",
-  "Google Health & Rate My Shift Health blends (reviews÷40 / rating÷4.6 ; submissions÷70 / score÷4.6) are default assumptions — adjust the divisors if you prefer different volume targets.",
-  "SPH Labour, Brew Crew Kudos, Bench, F1 Score, NPAT and Food GP% plans are Matt's stated defaults (50 / 50% / 3 / 75 / 18% / 71%).",
-  "F1 Score: scale needs confirming — the sheet's QTD Total Score averages ~282 pts, so a plan of 75 implies a different (e.g. /100) scale. Shown as TBC until a value on the plan scale is entered.",
-  "Net Profit After Tax % is not available from POS/BigQuery — it is a manual entry from management accounts.",
-  "Food GP% is shown from the Cost of Sales sheet (estate GP, 2 commercial stores) as a proxy until a company food-specific GP source exists.",
+  "AMBER band = 5% under plan (gen_eos_scorecard.py config.amber_band). Bench is green when ≥ 3.",
+  "Google Health & Rate My Shift Health blend divisors (40 reviews / 4.6★ ; 70 submissions / 4.6★) are default assumptions — adjust if you prefer different volume targets.",
+  "Plans for SPH Labour, Brew Crew Kudos, Bench, F1 Score, NPAT and Food GP% are Matt's stated defaults (50 / 50%% / 3 / 75 / 18%% / 71%%).",
+  "F1 Score scale needs confirming — sheet QTD Total Score averages ~282 pts, so plan 75 implies a different scale. Shown as awaiting until a value on the plan scale is entered.",
+  "Net Profit After Tax % is not available from POS/BigQuery — manual entry from management accounts.",
+  "Food GP% uses the Cost of Sales estate GP% as a proxy until a company food-specific GP source exists.",
   "Social Media Engagement and New Starter Health are greyed TBC placeholders pending metric + target definitions.",
-  "Manual inputs live in the new Google Sheet 'Bewiched EOS Scorecard Inputs' (ID 1HimYAjZg4zlMQG91-KUefkeYMPvrU4ddVuO2IuERTqg). It must be shared (Viewer) with dashboards-bot@bewiched-coffee-368116.iam.gserviceaccount.com for the automated run to read it."
+  "Manual inputs sheet 'Bewiched EOS Scorecard Inputs' (ID 1HimYAjZg4zlMQG91-KUefkeYMPvrU4ddVuO2IuERTqg) must be shared (Viewer) with dashboards-bot@bewiched-coffee-368116.iam.gserviceaccount.com for the automated run to read it.",
+  "Manual inputs sheet not readable (<HttpError 403 when requesting https://sheets.googleapis.com/v4/spreadsheets/1HimYAjZg4zlM) — share it (Viewer) with the service account dashboards-bot@bewiched-coffee-368116.iam.gserviceaccount.com. Manual metrics shown as awaiting."
  ]
 }
