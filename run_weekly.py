@@ -1492,6 +1492,7 @@ def pull_eos_scorecard():
         "Net Profit After Tax is a PROJECTION model: May P&L baseline (product GP 66.1%, labour 33.85%, admin 24.33%, NPAT 7.9%, avg labour £19.53/hr) flexed by live GP movement (CoS blended GP, commercial-store proxy) and live SPH labour. This period GP/SPH match baseline so both tiles read ~7.9%; they flex as GP/SPH move. Share the P&L sheet with the SA so the baseline auto-refreshes monthly.",
         "Food GP% uses the Cost of Sales estate GP% as a proxy until a company food-specific GP source exists.",
         "Social Media Engagement and New Starter Health are greyed TBC placeholders pending metric + target definitions.",
+        "Each metric now shows an accountable OWNER (EOS-style): YoY Sales/Transactions & Food GP% = Rich; Google Health, Social Media & SPH Labour = Jon; Rate My Shift, Brew Crew Kudos, Bench & New Starter = Kel; F1 & Brand Audit = Claire. Net Profit After Tax is UNASSIGNED (shown as —) — Matt to confirm the owner (likely Matt/MD). Owners are a config block in gen_eos_scorecard.py.",
         "Manual inputs sheet 'Bewiched EOS Scorecard Inputs' (ID %s) must be shared (Viewer) with dashboards-bot@%s.iam.gserviceaccount.com for the automated run to read it." % (SID["eos"], PROJECT),
     ] + flags
 

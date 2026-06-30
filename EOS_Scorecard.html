@@ -35,6 +35,7 @@
   .widget.tbc{border-left-color:#cfc4b5;background:var(--greybg);opacity:.85;}
   .w-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:10px}
   .w-name{font-size:15px;font-weight:800;color:var(--ink);line-height:1.25}
+  .w-owner{font-size:11px;color:var(--muted);font-weight:600;margin:-4px 0 8px} .w-owner b{color:var(--brown);font-weight:800}
   .w-src{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;padding:2px 7px;border-radius:6px;white-space:nowrap;background:#eee;color:#777}
   .w-src.live,.w-src.sheet{background:#e6f4ec;color:#1c6b3d} .w-src.derived{background:#eef4fb;color:#2d6fb3}
   .w-src.manual{background:#f3ece0;color:#8a6d3b} .w-src.tbc{background:#ece6dd;color:#9a8c7c}
@@ -84,6 +85,7 @@
     </div>
     <div class="grid"><div class="widget red">
       <div class="w-top"><span class="w-name">YoY Sales Growth</span><span class="w-src derived">auto-derived</span></div>
+      <div class="w-owner">Owner: <b>Rich</b></div>
       <div class="w-nums">
         <div class="w-cell actual"><div class="w-lab">Actual</div><div class="w-big">+11.1%</div></div>
         <div class="w-vs">vs</div>
@@ -93,6 +95,7 @@
       <div class="w-detail">w/c 22 Jun vs 2025 (18 like-for-like stores)</div><div class="w-note">Last completed week vs same week last year (LFL); reuses the weekly sales pull (lw26/lw25).</div>
     </div><div class="widget red">
       <div class="w-top"><span class="w-name">YoY Transactional Growth</span><span class="w-src derived">auto-derived</span></div>
+      <div class="w-owner">Owner: <b>Rich</b></div>
       <div class="w-nums">
         <div class="w-cell actual"><div class="w-lab">Actual</div><div class="w-big">-0.6%</div></div>
         <div class="w-vs">vs</div>
@@ -102,6 +105,7 @@
       <div class="w-detail">w/c 22 Jun vs 2025 (18 like-for-like stores)</div><div class="w-note">Last completed week transactions vs same week last year (LFL); reuses tx26/tx25.</div>
     </div><div class="widget red">
       <div class="w-top"><span class="w-name">Google Health</span><span class="w-src derived">auto-derived</span></div>
+      <div class="w-owner">Owner: <b>Jon</b></div>
       <div class="w-nums">
         <div class="w-cell actual"><div class="w-lab">Actual</div><div class="w-big">80%</div></div>
         <div class="w-vs">vs</div>
@@ -111,6 +115,7 @@
       <div class="w-detail">24 reviews (÷40) · 4.8★ rating (÷4.6) last week</div><div class="w-note">Blend: avg of reviews÷40 and rating÷4.6, each capped 100%. Last completed week.</div>
     </div><div class="widget red">
       <div class="w-top"><span class="w-name">Rate My Shift Health</span><span class="w-src derived">auto-derived</span></div>
+      <div class="w-owner">Owner: <b>Kel</b></div>
       <div class="w-nums">
         <div class="w-cell actual"><div class="w-lab">Actual</div><div class="w-big">79%</div></div>
         <div class="w-vs">vs</div>
@@ -120,6 +125,7 @@
       <div class="w-detail">55 submissions (÷70) · 3.69★ (÷4.6) last week</div><div class="w-note">Blend: avg of submissions÷70 and avgScore÷4.6, each capped 100%. Last completed week.</div>
     </div><div class="widget red">
       <div class="w-top"><span class="w-name">Brew Crew Kudos Participation</span><span class="w-src derived">auto-derived</span></div>
+      <div class="w-owner">Owner: <b>Kel</b></div>
       <div class="w-nums">
         <div class="w-cell actual"><div class="w-lab">Actual</div><div class="w-big">28%</div></div>
         <div class="w-vs">vs</div>
@@ -129,6 +135,7 @@
       <div class="w-detail">51 of 185 employees gave kudos last week (BCKH)</div><div class="w-note">Distinct employees who contributed to Brew Crew Kudos (BCKH tab, F1 workbook) in the LAST COMPLETED WEEK, matched by email to the Employee List, ÷ total employees. Awaiting if no entries that week.</div>
     </div><div class="widget tbc">
       <div class="w-top"><span class="w-name">Social Media Engagement</span><span class="w-src tbc">to be defined</span></div>
+      <div class="w-owner">Owner: <b>Jon</b></div>
       <div class="w-nums">
         <div class="w-cell actual"><div class="w-lab">Actual</div><div class="w-big">TBC</div></div>
         <div class="w-vs">vs</div>
@@ -138,6 +145,7 @@
       <div class="w-note">Metric and target not yet defined.</div>
     </div><div class="widget green">
       <div class="w-top"><span class="w-name">SPH Labour (incl holiday pay)</span><span class="w-src derived">auto-derived</span></div>
+      <div class="w-owner">Owner: <b>Jon</b></div>
       <div class="w-nums">
         <div class="w-cell actual"><div class="w-lab">Actual</div><div class="w-big">£57.7</div></div>
         <div class="w-vs">vs</div>
@@ -147,6 +155,7 @@
       <div class="w-detail">£168257 sales ÷ 2916 hours used (last week, 17 stores reporting)</div><div class="w-note">Sales per labour hour incl holiday pay. Last completed week; provisional on Sunday, finalised Monday once planner hours post.</div>
     </div><div class="widget green">
       <div class="w-top"><span class="w-name">Bench</span><span class="w-src derived">auto-derived</span></div>
+      <div class="w-owner">Owner: <b>Kel</b></div>
       <div class="w-nums">
         <div class="w-cell actual"><div class="w-lab">Actual</div><div class="w-big">5</div></div>
         <div class="w-vs">vs</div>
@@ -156,6 +165,7 @@
       <div class="w-detail">5 managers ready on the bench (HRP bench sheet)</div><div class="w-note">Count of named Bench Managers in the HRP bench sheet (point-in-time). Green when ≥ 3.</div>
     </div><div class="widget green">
       <div class="w-top"><span class="w-name">F1 Score</span><span class="w-src sheet">live · F1 sheet</span></div>
+      <div class="w-owner">Owner: <b>Claire</b></div>
       <div class="w-nums">
         <div class="w-cell actual"><div class="w-lab">Actual</div><div class="w-big">282.8</div></div>
         <div class="w-vs">vs</div>
@@ -165,6 +175,7 @@
       <div class="w-detail">Last week&#x27;s race result, estate avg (21 stores)</div><div class="w-note">Metric confirmed = AVERAGE RACE TOTAL SCORE (estate avg ~282). PROVISIONAL plan 280 — Matt to confirm the target NUMBER on this score scale; the old &#x27;75&#x27; target is retired.</div>
     </div><div class="widget tbc">
       <div class="w-top"><span class="w-name">Brand Audit Score</span><span class="w-src derived">auto-derived</span></div>
+      <div class="w-owner">Owner: <b>Claire</b></div>
       <div class="w-nums">
         <div class="w-cell actual"><div class="w-lab">Actual</div><div class="w-big">—</div></div>
         <div class="w-vs">vs</div>
@@ -174,6 +185,7 @@
       <div class="w-detail">No brand audits logged last week</div><div class="w-note">Last completed week&#x27;s audits. Brand audits are periodic — tile stays awaiting in weeks with none; the QTD tile is the reliable one.</div>
     </div><div class="widget green">
       <div class="w-top"><span class="w-name">Food GP%</span><span class="w-src derived">auto-derived</span></div>
+      <div class="w-owner">Owner: <b>Rich</b></div>
       <div class="w-nums">
         <div class="w-cell actual"><div class="w-lab">Actual</div><div class="w-big">71.1%</div></div>
         <div class="w-vs">vs</div>
@@ -183,6 +195,7 @@
       <div class="w-detail">Cost-of-Sales latest week (ending 2026-06-21), estate GP%</div><div class="w-note">PROXY: company food-specific GP% not yet sourced — weekly CoS estate GP% (posts a week in arrears).</div>
     </div><div class="widget red">
       <div class="w-top"><span class="w-name">Net Profit After Tax (projected)</span><span class="w-src derived">auto-derived</span></div>
+      <div class="w-owner">Owner: <b>—</b></div>
       <div class="w-nums">
         <div class="w-cell actual"><div class="w-lab">Actual</div><div class="w-big">10.0%</div></div>
         <div class="w-vs">vs</div>
@@ -192,6 +205,7 @@
       <div class="w-detail">Weekly flex · baseline 7.9% · GP +2.1pp · labour +0.0pp</div><div class="w-note">Projected (GP + labour flex off the May 2026 P&amp;L). NPAT% = baseline 7.9% + (estate GP% − May 2026 baseline) − (labour% − baseline). Baseline: product GP 66.1%, labour 33.9%, admin 24.3% (held), avg labour £19.53/hr. GP movement = estate-wide blended GP from the COS master tab (CoG basis; May 2026 baseline 73.96%, latest week 76.03%, QTD 74.21%). Labour flexes via planner actual CPH £57.7 ÷ baseline £57.7 (avg £19.53/hr ÷ live CPH). QTD CPH uses current-week planner CPH (no maintained weekly CPH history yet).</div>
     </div><div class="widget tbc">
       <div class="w-top"><span class="w-name">New Starter Health</span><span class="w-src tbc">to be defined</span></div>
+      <div class="w-owner">Owner: <b>Kel</b></div>
       <div class="w-nums">
         <div class="w-cell actual"><div class="w-lab">Actual</div><div class="w-big">TBC</div></div>
         <div class="w-vs">vs</div>
@@ -209,6 +223,7 @@
     </div>
     <div class="grid"><div class="widget red">
       <div class="w-top"><span class="w-name">YoY Sales Growth</span><span class="w-src live">live · BigQuery</span></div>
+      <div class="w-owner">Owner: <b>Rich</b></div>
       <div class="w-nums">
         <div class="w-cell actual"><div class="w-lab">Actual</div><div class="w-big">+7.6%</div></div>
         <div class="w-vs">vs</div>
@@ -218,6 +233,7 @@
       <div class="w-detail">LFL QTD sales vs same period last year (19 like-for-like stores)</div><div class="w-note">Auto from BigQuery v_sales_details_flat (quarter-to-date).</div>
     </div><div class="widget red">
       <div class="w-top"><span class="w-name">YoY Transactional Growth</span><span class="w-src live">live · BigQuery</span></div>
+      <div class="w-owner">Owner: <b>Rich</b></div>
       <div class="w-nums">
         <div class="w-cell actual"><div class="w-lab">Actual</div><div class="w-big">+0.9%</div></div>
         <div class="w-vs">vs</div>
@@ -227,6 +243,7 @@
       <div class="w-detail">LFL QTD transactions vs last year (19 like-for-like stores)</div><div class="w-note">Auto from BigQuery v_sales_details_flat (quarter-to-date).</div>
     </div><div class="widget red">
       <div class="w-top"><span class="w-name">Google Health</span><span class="w-src derived">auto-derived</span></div>
+      <div class="w-owner">Owner: <b>Jon</b></div>
       <div class="w-nums">
         <div class="w-cell actual"><div class="w-lab">Actual</div><div class="w-big">72%</div></div>
         <div class="w-vs">vs</div>
@@ -236,6 +253,7 @@
       <div class="w-detail">232 reviews (÷520) · 4.86★ (÷4.6) QTD</div><div class="w-note">Blend: avg of QTD reviews÷(40×13 wks) and avg rating÷4.6, each capped 100%.</div>
     </div><div class="widget red">
       <div class="w-top"><span class="w-name">Rate My Shift Health</span><span class="w-src derived">auto-derived</span></div>
+      <div class="w-owner">Owner: <b>Kel</b></div>
       <div class="w-nums">
         <div class="w-cell actual"><div class="w-lab">Actual</div><div class="w-big">87%</div></div>
         <div class="w-vs">vs</div>
@@ -245,6 +263,7 @@
       <div class="w-detail">730 submissions (÷910) · 4.29★ (÷4.6) QTD</div><div class="w-note">Blend: avg of QTD submissions÷(70×13 wks) and avg score÷4.6, each capped 100%.</div>
     </div><div class="widget green">
       <div class="w-top"><span class="w-name">Brew Crew Kudos Participation</span><span class="w-src derived">auto-derived</span></div>
+      <div class="w-owner">Owner: <b>Kel</b></div>
       <div class="w-nums">
         <div class="w-cell actual"><div class="w-lab">Actual</div><div class="w-big">58%</div></div>
         <div class="w-vs">vs</div>
@@ -254,6 +273,7 @@
       <div class="w-detail">108 of 185 employees gave kudos this quarter (BCKH)</div><div class="w-note">Distinct employees who contributed to Brew Crew Kudos (BCKH tab) QUARTER-TO-DATE, matched by email to the Employee List, ÷ total employees.</div>
     </div><div class="widget tbc">
       <div class="w-top"><span class="w-name">Social Media Engagement</span><span class="w-src tbc">to be defined</span></div>
+      <div class="w-owner">Owner: <b>Jon</b></div>
       <div class="w-nums">
         <div class="w-cell actual"><div class="w-lab">Actual</div><div class="w-big">TBC</div></div>
         <div class="w-vs">vs</div>
@@ -263,6 +283,7 @@
       <div class="w-note">Metric and target not yet defined.</div>
     </div><div class="widget green">
       <div class="w-top"><span class="w-name">SPH Labour (incl holiday pay)</span><span class="w-src derived">auto-derived</span></div>
+      <div class="w-owner">Owner: <b>Jon</b></div>
       <div class="w-nums">
         <div class="w-cell actual"><div class="w-lab">Actual</div><div class="w-big">£57.7</div></div>
         <div class="w-vs">vs</div>
@@ -272,6 +293,7 @@
       <div class="w-detail">Current £/hr rate — QTD labour-hour totals not separately sourced</div><div class="w-note">SPH is a rate; quarterly labour-hour totals aren&#x27;t separately available, so this shows the current weekly £/hr rate. Same figure as the weekly tile.</div>
     </div><div class="widget green">
       <div class="w-top"><span class="w-name">Bench</span><span class="w-src derived">auto-derived</span></div>
+      <div class="w-owner">Owner: <b>Kel</b></div>
       <div class="w-nums">
         <div class="w-cell actual"><div class="w-lab">Actual</div><div class="w-big">5</div></div>
         <div class="w-vs">vs</div>
@@ -281,6 +303,7 @@
       <div class="w-detail">5 managers ready on the bench (HRP bench sheet)</div><div class="w-note">Bench headcount is point-in-time, not a period sum — shows the current count. Green when ≥ 3.</div>
     </div><div class="widget green">
       <div class="w-top"><span class="w-name">F1 Score</span><span class="w-src sheet">live · F1 sheet</span></div>
+      <div class="w-owner">Owner: <b>Claire</b></div>
       <div class="w-nums">
         <div class="w-cell actual"><div class="w-lab">Actual</div><div class="w-big">281.8</div></div>
         <div class="w-vs">vs</div>
@@ -290,6 +313,7 @@
       <div class="w-detail">QTD race &#x27;Total Score&#x27;, estate avg (21 stores)</div><div class="w-note">Metric confirmed = AVERAGE RACE TOTAL SCORE (estate avg ~282). PROVISIONAL plan 280 — Matt to confirm the target NUMBER on this score scale; the old &#x27;75&#x27; target is retired.</div>
     </div><div class="widget green">
       <div class="w-top"><span class="w-name">Brand Audit Score</span><span class="w-src derived">auto-derived</span></div>
+      <div class="w-owner">Owner: <b>Claire</b></div>
       <div class="w-nums">
         <div class="w-cell actual"><div class="w-lab">Actual</div><div class="w-big">4.66</div></div>
         <div class="w-vs">vs</div>
@@ -299,6 +323,7 @@
       <div class="w-detail">Estate average brand audit (QTD), out of 5</div><div class="w-note">Auto-derived from the Brand Audit sheet (quarter-to-date); override in the inputs sheet if needed.</div>
     </div><div class="widget green">
       <div class="w-top"><span class="w-name">Food GP%</span><span class="w-src derived">auto-derived</span></div>
+      <div class="w-owner">Owner: <b>Rich</b></div>
       <div class="w-nums">
         <div class="w-cell actual"><div class="w-lab">Actual</div><div class="w-big">71.1%</div></div>
         <div class="w-vs">vs</div>
@@ -308,6 +333,7 @@
       <div class="w-detail">Estate GP% from Cost of Sales (commercial stores)</div><div class="w-note">PROXY: company food-specific GP% not yet sourced — using CoS estate GP%. Override in the inputs sheet.</div>
     </div><div class="widget red">
       <div class="w-top"><span class="w-name">Net Profit After Tax (projected)</span><span class="w-src derived">auto-derived</span></div>
+      <div class="w-owner">Owner: <b>—</b></div>
       <div class="w-nums">
         <div class="w-cell actual"><div class="w-lab">Actual</div><div class="w-big">8.1%</div></div>
         <div class="w-vs">vs</div>
@@ -317,6 +343,7 @@
       <div class="w-detail">QTD flex · baseline 7.9% · GP +0.2pp · labour +0.0pp</div><div class="w-note">Projected (GP + labour flex off the May 2026 P&amp;L). NPAT% = baseline 7.9% + (estate GP% − May 2026 baseline) − (labour% − baseline). Baseline: product GP 66.1%, labour 33.9%, admin 24.3% (held), avg labour £19.53/hr. GP movement = estate-wide blended GP from the COS master tab (CoG basis; May 2026 baseline 73.96%, latest week 76.03%, QTD 74.21%). Labour flexes via planner actual CPH £57.7 ÷ baseline £57.7 (avg £19.53/hr ÷ live CPH). QTD CPH uses current-week planner CPH (no maintained weekly CPH history yet).</div>
     </div><div class="widget tbc">
       <div class="w-top"><span class="w-name">New Starter Health</span><span class="w-src tbc">to be defined</span></div>
+      <div class="w-owner">Owner: <b>Kel</b></div>
       <div class="w-nums">
         <div class="w-cell actual"><div class="w-lab">Actual</div><div class="w-big">TBC</div></div>
         <div class="w-vs">vs</div>
@@ -335,7 +362,7 @@
 
   <div class="info notebox">
     <h2>Defaults &amp; assumptions — please confirm or adjust</h2>
-    <ul><li>Status is strictly binary: GREEN when actual ≥ plan, RED when below — no near-target band. Bench is green when ≥ 3.</li><li>Google Health &amp; Rate My Shift Health blend divisors (40 reviews / 4.6★ ; 70 submissions / 4.6★) are default assumptions — adjust if you prefer different volume targets.</li><li>Plans (Matt&#x27;s stated defaults): SPH Labour 50, Brew Crew Kudos 50%, Bench 3, NPAT 18%, Food GP% 71%. YoY Sales 12% / Transactions 5% on both tabs.</li><li>F1 Score = AVERAGE RACE TOTAL SCORE (Matt confirmed), live from the F1 sheet (ID 1YFqpR9_ftlQEbfwc5ZVMjtS5tFO0j-7ccwB8rwG56wQ) — weekly = last week&#x27;s race, quarterly = QTD avg. The old &#x27;75&#x27; target is retired. Plan is a PROVISIONAL 280 on this scale — Matt still needs to give the target NUMBER on the ~280 average-race-total-score scale (being asked separately).</li><li>SYMMETRIC: both tabs now carry the SAME 13 KPIs — Weekly measured on the last completed week, Quarterly the identical 13 measured QTD (since quarter start). Where a measure has no natural weekly/QTD split it shows the same figure on both tabs (see below).</li><li>Same figure on both tabs (by nature): NPAT (latest-month P&amp;L projection — no weekly actual), SPH Labour (a £/hr rate — QTD labour hours not separately sourced), Bench (point-in-time headcount), Food GP% (weekly CoS, a week in arrears). Brand Audit weekly shows &#x27;awaiting&#x27; in weeks with no audits; the QTD tile is the reliable one.</li><li>Still need definitions/sources: New Starter Health and Social Media Engagement are greyed TBC placeholders on BOTH tabs until Matt defines the metric + source. NPAT needs the P&amp;L sheet shared with the service account to go beyond the May snapshot.</li><li>Net Profit After Tax is a PROJECTION model: May P&amp;L baseline (product GP 66.1%, labour 33.85%, admin 24.33%, NPAT 7.9%, avg labour £19.53/hr) flexed by live GP movement (CoS blended GP, commercial-store proxy) and live SPH labour. This period GP/SPH match baseline so both tiles read ~7.9%; they flex as GP/SPH move. Share the P&amp;L sheet with the SA so the baseline auto-refreshes monthly.</li><li>Food GP% uses the Cost of Sales estate GP% as a proxy until a company food-specific GP source exists.</li><li>Social Media Engagement and New Starter Health are greyed TBC placeholders pending metric + target definitions.</li><li>Manual inputs sheet &#x27;Bewiched EOS Scorecard Inputs&#x27; (ID 1HimYAjZg4zlMQG91-KUefkeYMPvrU4ddVuO2IuERTqg) must be shared (Viewer) with dashboards-bot@bewiched-coffee-368116.iam.gserviceaccount.com for the automated run to read it.</li><li>Manual inputs sheet not readable (&lt;HttpError 403 when requesting https://sheets.googleapis.com/v4/spreadsheets/1HimYAjZg4zlM) — share it (Viewer) with the service account dashboards-bot@bewiched-coffee-368116.iam.gserviceaccount.com. Manual metrics shown as awaiting.</li><li>Net Profit After Tax: P&amp;L sheet not readable by the service account (&lt;HttpError 403 when requesting https://sheets.googleapis.com) — share &#x27;May 2026 P&amp;L&#x27; (ID 1RTsnnz5F9XIdkg4j8m8MiuKqeAvZaAWcndbFifNNLhM, Viewer) with dashboards-bot@bewiched-coffee-368116.iam.gserviceaccount.com. Using FROZEN May baseline constants.</li></ul>
+    <ul><li>Status is strictly binary: GREEN when actual ≥ plan, RED when below — no near-target band. Bench is green when ≥ 3.</li><li>Google Health &amp; Rate My Shift Health blend divisors (40 reviews / 4.6★ ; 70 submissions / 4.6★) are default assumptions — adjust if you prefer different volume targets.</li><li>Plans (Matt&#x27;s stated defaults): SPH Labour 50, Brew Crew Kudos 50%, Bench 3, NPAT 18%, Food GP% 71%. YoY Sales 12% / Transactions 5% on both tabs.</li><li>F1 Score = AVERAGE RACE TOTAL SCORE (Matt confirmed), live from the F1 sheet (ID 1YFqpR9_ftlQEbfwc5ZVMjtS5tFO0j-7ccwB8rwG56wQ) — weekly = last week&#x27;s race, quarterly = QTD avg. The old &#x27;75&#x27; target is retired. Plan is a PROVISIONAL 280 on this scale — Matt still needs to give the target NUMBER on the ~280 average-race-total-score scale (being asked separately).</li><li>SYMMETRIC: both tabs now carry the SAME 13 KPIs — Weekly measured on the last completed week, Quarterly the identical 13 measured QTD (since quarter start). Where a measure has no natural weekly/QTD split it shows the same figure on both tabs (see below).</li><li>Same figure on both tabs (by nature): NPAT (latest-month P&amp;L projection — no weekly actual), SPH Labour (a £/hr rate — QTD labour hours not separately sourced), Bench (point-in-time headcount), Food GP% (weekly CoS, a week in arrears). Brand Audit weekly shows &#x27;awaiting&#x27; in weeks with no audits; the QTD tile is the reliable one.</li><li>Still need definitions/sources: New Starter Health and Social Media Engagement are greyed TBC placeholders on BOTH tabs until Matt defines the metric + source. NPAT needs the P&amp;L sheet shared with the service account to go beyond the May snapshot.</li><li>Net Profit After Tax is a PROJECTION model: May P&amp;L baseline (product GP 66.1%, labour 33.85%, admin 24.33%, NPAT 7.9%, avg labour £19.53/hr) flexed by live GP movement (CoS blended GP, commercial-store proxy) and live SPH labour. This period GP/SPH match baseline so both tiles read ~7.9%; they flex as GP/SPH move. Share the P&amp;L sheet with the SA so the baseline auto-refreshes monthly.</li><li>Food GP% uses the Cost of Sales estate GP% as a proxy until a company food-specific GP source exists.</li><li>Social Media Engagement and New Starter Health are greyed TBC placeholders pending metric + target definitions.</li><li>Manual inputs sheet &#x27;Bewiched EOS Scorecard Inputs&#x27; (ID 1HimYAjZg4zlMQG91-KUefkeYMPvrU4ddVuO2IuERTqg) must be shared (Viewer) with dashboards-bot@bewiched-coffee-368116.iam.gserviceaccount.com for the automated run to read it.</li><li>Manual inputs sheet not readable (&lt;HttpError 403 when requesting https://sheets.googleapis.com/v4/spreadsheets/1HimYAjZg4zlM) — share it (Viewer) with the service account dashboards-bot@bewiched-coffee-368116.iam.gserviceaccount.com. Manual metrics shown as awaiting.</li><li>Net Profit After Tax: P&amp;L sheet not readable by the service account (&lt;HttpError 403 when requesting https://sheets.googleapis.com) — share &#x27;May 2026 P&amp;L&#x27; (ID 1RTsnnz5F9XIdkg4j8m8MiuKqeAvZaAWcndbFifNNLhM, Viewer) with dashboards-bot@bewiched-coffee-368116.iam.gserviceaccount.com. Using FROZEN May baseline constants.</li><li>Each metric now shows an accountable OWNER (EOS-style): YoY Sales/Transactions &amp; Food GP% = Rich; Google Health, Social Media &amp; SPH Labour = Jon; Rate My Shift, Brew Crew Kudos, Bench &amp; New Starter = Kel; F1 &amp; Brand Audit = Claire. Net Profit After Tax is UNASSIGNED (shown as —) — Matt to confirm the owner (likely Matt/MD). Owners are a config block in gen_eos_scorecard.py.</li></ul>
   </div>
 
   <footer>Bewiched Limited · internal use · EOS Scorecard. Live rows from BigQuery POS (bewiched_coffee, europe-west2) + F1 / reviews / RMS feeds; manual rows from the EOS Scorecard Inputs sheet. Generated 30 Jun 2026, 21:54. Sales gross inc VAT.</footer>

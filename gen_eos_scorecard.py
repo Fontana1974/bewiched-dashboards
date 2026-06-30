@@ -10,6 +10,24 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 D = json.load(open(os.path.join(HERE, "eos_scorecard.json")))
 GEN = D.get("generated") or dt.datetime.now().strftime("%d %b %Y, %H:%M")
 
+# ---- OWNERS: one accountable name per metric (EOS-style), keyed by metric NAME — same on both tabs.
+# Edit here to reassign. "" / missing => shown as "—" (unassigned).
+OWNERS = {
+    "YoY Sales Growth": "Rich",
+    "YoY Transactional Growth": "Rich",
+    "Google Health": "Jon",
+    "Rate My Shift Health": "Kel",
+    "Brew Crew Kudos Participation": "Kel",
+    "Social Media Engagement": "Jon",
+    "SPH Labour (incl holiday pay)": "Jon",
+    "Bench": "Kel",
+    "F1 Score": "Claire",
+    "Brand Audit Score": "Claire",
+    "Food GP%": "Rich",
+    "New Starter Health": "Kel",
+    "Net Profit After Tax (projected)": "",   # unassigned — Matt to confirm (likely Matt/MD)
+}
+
 # ---------- formatting ----------
 def esc(s): return html.escape(str(s)) if s is not None else ""
 
@@ -61,6 +79,7 @@ def widget(m):
     notehtml = ('<div class="w-note">%s</div>' % esc(note)) if note else ""
     return f"""<div class="widget {css}">
       <div class="w-top"><span class="w-name">{esc(m['name'])}</span><span class="w-src {src}">{esc(src_lab)}</span></div>
+      <div class="w-owner">Owner: <b>{esc(OWNERS.get(m['name']) or "—")}</b></div>
       <div class="w-nums">
         <div class="w-cell actual"><div class="w-lab">Actual</div><div class="w-big">{actual_txt}</div></div>
         <div class="w-vs">vs</div>
@@ -124,6 +143,7 @@ HTML = f"""<!DOCTYPE html>
   .widget.tbc{{border-left-color:#cfc4b5;background:var(--greybg);opacity:.85;}}
   .w-top{{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:10px}}
   .w-name{{font-size:15px;font-weight:800;color:var(--ink);line-height:1.25}}
+  .w-owner{{font-size:11px;color:var(--muted);font-weight:600;margin:-4px 0 8px}} .w-owner b{{color:var(--brown);font-weight:800}}
   .w-src{{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;padding:2px 7px;border-radius:6px;white-space:nowrap;background:#eee;color:#777}}
   .w-src.live,.w-src.sheet{{background:#e6f4ec;color:#1c6b3d}} .w-src.derived{{background:#eef4fb;color:#2d6fb3}}
   .w-src.manual{{background:#f3ece0;color:#8a6d3b}} .w-src.tbc{{background:#ece6dd;color:#9a8c7c}}
