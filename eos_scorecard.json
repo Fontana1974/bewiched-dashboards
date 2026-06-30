@@ -1,6 +1,6 @@
 {
  "_about": "Bewiched EOS Scorecard data. Written by run_weekly.py pull_eos_scorecard(); rendered by gen_eos_scorecard.py. Live = BigQuery; derived = other feeds; manual = inputs sheet.",
- "generated": "30 Jun 2026, 20:38",
+ "generated": "30 Jun 2026, 21:22",
  "cur_end": "2026-06-28",
  "week_label": "w/c 22 Jun 2026",
  "quarter_label": "Q2 2026 (Apr–Jun)",
@@ -152,7 +152,7 @@
    "dir": "high",
    "source": "derived",
    "detail": "Weekly flex · baseline 7.9% · GP +0.0pp · labour +0.0pp",
-   "note": "Projected (GP + labour flex off the May 2026 P&L). NPAT% = baseline 7.9% + (live GP% − baseline) − (live labour% − baseline). Baseline: product GP 66.1%, labour 33.85%, admin 24.33% (held), avg labour £19.53/hr. GP movement uses the CoS blended GP (commercial-store proxy, baseline 71.1%); labour flexes as £19.53/hr ÷ live SPH. Weekly & QTD use the current GP/SPH until window-specific feeds exist."
+   "note": "Projected (GP + labour flex off the May 2026 P&L). NPAT% = baseline 7.9% + (live GP% − baseline) − (live labour% − baseline). Baseline: product GP 66.1%, labour 33.9%, admin 24.3% (held), avg labour £19.53/hr. GP movement uses the CoS blended GP (commercial-store proxy, baseline 71.1%); labour flexes as £19.53/hr ÷ live SPH. Weekly & QTD use the current GP/SPH until window-specific feeds exist."
   },
   {
    "id": "new_starter_health_wk",
@@ -312,7 +312,7 @@
    "dir": "high",
    "source": "derived",
    "detail": "QTD flex · baseline 7.9% · GP +0.0pp · labour +0.0pp",
-   "note": "Projected (GP + labour flex off the May 2026 P&L). NPAT% = baseline 7.9% + (live GP% − baseline) − (live labour% − baseline). Baseline: product GP 66.1%, labour 33.85%, admin 24.33% (held), avg labour £19.53/hr. GP movement uses the CoS blended GP (commercial-store proxy, baseline 71.1%); labour flexes as £19.53/hr ÷ live SPH. Weekly & QTD use the current GP/SPH until window-specific feeds exist."
+   "note": "Projected (GP + labour flex off the May 2026 P&L). NPAT% = baseline 7.9% + (live GP% − baseline) − (live labour% − baseline). Baseline: product GP 66.1%, labour 33.9%, admin 24.3% (held), avg labour £19.53/hr. GP movement uses the CoS blended GP (commercial-store proxy, baseline 71.1%); labour flexes as £19.53/hr ÷ live SPH. Weekly & QTD use the current GP/SPH until window-specific feeds exist."
   },
   {
    "id": "new_starter_health",
@@ -336,11 +336,11 @@
   "SYMMETRIC: both tabs now carry the SAME 13 KPIs — Weekly measured on the last completed week, Quarterly the identical 13 measured QTD (since quarter start). Where a measure has no natural weekly/QTD split it shows the same figure on both tabs (see below).",
   "Same figure on both tabs (by nature): NPAT (latest-month P&L projection — no weekly actual), SPH Labour (a £/hr rate — QTD labour hours not separately sourced), Bench (point-in-time headcount), Food GP% (weekly CoS, a week in arrears). Brand Audit weekly shows 'awaiting' in weeks with no audits; the QTD tile is the reliable one.",
   "Still need definitions/sources: New Starter Health and Social Media Engagement are greyed TBC placeholders on BOTH tabs until Matt defines the metric + source. NPAT needs the P&L sheet shared with the service account to go beyond the May snapshot.",
-  "Net Profit After Tax is a PROJECTION model: May P&L baseline (product GP 66.1%, labour 33.85%, admin 24.33%, NPAT 7.9%, avg labour £19.53/hr) flexed by live GP movement (CoS blended GP, commercial-store proxy) and live SPH labour. This period GP/SPH match baseline so both tiles read ~7.9%; they flex as GP/SPH move. Share the P&L sheet with the SA so the baseline auto-refreshes monthly.",
+  "Net Profit After Tax is a PROJECTION model: May P&L baseline (product GP 66.1%%, labour 33.85%%, admin 24.33%%, NPAT 7.9%%, avg labour 19.53/hr) flexed by live GP movement (CoS blended GP, commercial-store proxy) and live SPH labour. This period GP/SPH match baseline so both tiles read ~7.9%%; they flex as GP/SPH move. Share the P&L sheet with the SA so the baseline auto-refreshes monthly.",
   "Food GP% uses the Cost of Sales estate GP% as a proxy until a company food-specific GP source exists.",
   "Social Media Engagement and New Starter Health are greyed TBC placeholders pending metric + target definitions.",
   "Manual inputs sheet 'Bewiched EOS Scorecard Inputs' (ID 1HimYAjZg4zlMQG91-KUefkeYMPvrU4ddVuO2IuERTqg) must be shared (Viewer) with dashboards-bot@bewiched-coffee-368116.iam.gserviceaccount.com for the automated run to read it.",
   "Manual inputs sheet not readable (<HttpError 403 when requesting https://sheets.googleapis.com/v4/spreadsheets/1HimYAjZg4zlM) — share it (Viewer) with the service account dashboards-bot@bewiched-coffee-368116.iam.gserviceaccount.com. Manual metrics shown as awaiting.",
-  "Net Profit After Tax: P&L sheet not readable by the service account (<HttpError 403 when requesting https://sheets.googleapis.com/v4/spread) — share 'May 2026 P&L' (ID 1RTsnnz5F9XIdkg4j8m8MiuKqeAvZaAWcndbFifNNLhM, Viewer) with dashboards-bot@bewiched-coffee-368116.iam.gserviceaccount.com. Using the May 2026 snapshot (7.9%) meanwhile."
+  "Net Profit After Tax: P&L sheet not readable by the service account (<HttpError 403 when requesting https://sheets.googleapis.com) — share 'May 2026 P&L' (ID 1RTsnnz5F9XIdkg4j8m8MiuKqeAvZaAWcndbFifNNLhM, Viewer) with dashboards-bot@bewiched-coffee-368116.iam.gserviceaccount.com. Using FROZEN May baseline constants."
  ]
 }
