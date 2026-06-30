@@ -1255,13 +1255,19 @@ def pull_eos_scorecard():
         flags.append("Brew Crew Kudos: could not read Employee List (%s) or BCKH tab — share the Employee List "
                      "(ID %s, Viewer) with dashboards-bot@%s.iam.gserviceaccount.com (the BCKH tab is in the F1 "
                      "workbook, already shared). Tiles shown as awaiting." % (str(e)[:60], SID["employees"], PROJECT))
-    # ---- Net Profit After Tax % (projected) from the Bewiched Ltd monthly P&L ----
-    # Snapshot from the May 2026 P&L (Profit after Taxation £50,182.10 / Total Turnover £633,064.53);
-    # used as a fallback so the tile is populated even if the SA cannot yet read the P&L sheet.
-    NPAT_SNAPSHOT, NPAT_MONTH = 7.9, "May 2026"
-    npat_pct, npat_src, npat_detail = NPAT_SNAPSHOT, "derived", "May 2026 P&L: Profit after Tax £50,182 ÷ turnover £633,065 (snapshot)"
+    # ---- Projected Net Profit After Tax % — margin bridge off the May P&L baseline ----
+    # Baseline from the Bewiched Ltd monthly P&L (validated 30 Jun via the agent Sheets read; the SA may
+    # 403, in which case these FROZEN May constants are used and the share is flagged).
+    # STRUCTURE: labour sits INSIDE Cost of Sales, so P&L "Gross Profit" is AFTER labour. We decompose to
+    # product-GP-before-labour so GP and labour flex independently (no double count):
+    #   product COGS = Total CoS - labour ;  product GP% = (turnover - product COGS)/turnover
+    #   NPAT% = product GP% - labour% - admin%   (admin held at baseline in the bridge)
+    NPAT_MONTH = "May 2026"
+    B = dict(turn=633064.53, cogs=428931.11, labour=214300.18, admin=154051.31, npat=7.9,
+             gp_prod=66.1, labour_pct=33.85, admin_pct=24.33, sph=57.7, hourly=19.53, gp_cos=71.1)
+    npat_src = "derived"
     try:
-        prows = sheet(SID["npat_pnl"], "A1:AB300")           # first tab = by-site P&L; last numeric per row = Total column
+        prows = sheet(SID["npat_pnl"], "A1:AB300")
         def _last_num(row):
             v = None
             for c in row[1:]:
@@ -1272,20 +1278,44 @@ def pull_eos_scorecard():
                     try: v = float(t)
                     except Exception: pass
             return v
-        pat = turn = None
+        WANT = {"total turnover": "turn", "total cost of sales": "cogs", "gross wages": "w1",
+                "employers n.i. (non-directors)": "w2", "employers pensions": "w3",
+                "total administrative costs": "admin", "profit after taxation": "pat"}
+        vals = {}
         for r in prows:
             if not r or r[0] in (None, ""): continue
             lab = str(r[0]).strip().lower()
-            if lab == "profit after taxation": pat = _last_num(r)
-            elif lab == "total turnover": turn = _last_num(r)
-        if pat is not None and turn:
-            npat_pct = round(100 * pat / turn, 1)
+            if lab in WANT: vals[WANT[lab]] = _last_num(r)
+        if vals.get("turn") and vals.get("cogs") is not None and all(k in vals for k in ("w1", "w2", "w3")):
+            turn = vals["turn"]; cogs = vals["cogs"]; labour = vals["w1"] + vals["w2"] + vals["w3"]
+            B["turn"], B["cogs"], B["labour"] = turn, cogs, labour
+            B["admin"] = vals.get("admin", B["admin"])
+            B["gp_prod"] = round((turn - (cogs - labour)) / turn * 100, 2)
+            B["labour_pct"] = round(labour / turn * 100, 2)
+            B["admin_pct"] = round(B["admin"] / turn * 100, 2)
+            if vals.get("pat"): B["npat"] = round(vals["pat"] / turn * 100, 1)
+            B["hourly"] = round(labour / (turn / B["sph"]), 2)
+            if fg is not None: B["gp_cos"] = fg
             npat_src = "sheet"
-            npat_detail = "%s P&L: Profit after Tax ÷ Total Turnover (live)" % NPAT_MONTH
     except Exception as e:
         flags.append("Net Profit After Tax: P&L sheet not readable by the service account (%s) — share '%s P&L' "
-                     "(ID %s, Viewer) with dashboards-bot@%s.iam.gserviceaccount.com. Using the %s snapshot (%.1f%%) meanwhile."
-                     % (str(e)[:70], NPAT_MONTH, SID["npat_pnl"], PROJECT, NPAT_MONTH, NPAT_SNAPSHOT))
+                     "(ID %s, Viewer) with dashboards-bot@%s.iam.gserviceaccount.com. Using FROZEN May baseline constants."
+                     % (str(e)[:60], NPAT_MONTH, SID["npat_pnl"], PROJECT))
+
+    def _npat_project(live_gp_cos, live_sph):
+        gp_c = round(live_gp_cos - B["gp_cos"], 1) if live_gp_cos is not None else 0.0
+        live_lab = (B["hourly"] / live_sph * 100) if live_sph else B["labour_pct"]
+        lab_c = round(B["labour_pct"] - live_lab, 1)
+        return round(B["npat"] + gp_c + lab_c, 1), gp_c, lab_c
+    npat_wk, npat_wk_gp, npat_wk_lab = _npat_project(fg, sph)
+    npat_qtd, npat_qtd_gp, npat_qtd_lab = _npat_project(fg, sph)
+    def _npat_detail(tag, gp_c, lab_c):
+        return "%s · baseline %.1f%% · GP %+.1fpp · labour %+.1fpp" % (tag, B["npat"], gp_c, lab_c)
+    npat_note = ("Projected (GP + labour flex off the %s P&L). NPAT%% = baseline %.1f%% + (live GP%% − baseline) "
+                 "− (live labour%% − baseline). Baseline: product GP %.1f%%, labour %.1f%%, admin %.1f%% (held), "
+                 "avg labour £%.2f/hr. GP movement uses the CoS blended GP (commercial-store proxy, baseline %.1f%%); "
+                 "labour flexes as £%.2f/hr ÷ live SPH. Weekly & QTD use the current GP/SPH until window-specific feeds exist."
+                 % (NPAT_MONTH, B["npat"], B["gp_prod"], B["labour_pct"], B["admin_pct"], B["hourly"], B["gp_cos"], B["hourly"]))
 
     # ---- QTD health blends (Google / RMS) from storehealth_raw.json (QTD per-store [n, avg]) ----
     weeks_q = max(1, round((CUR_END - QSTART).days / 7.0))
@@ -1371,9 +1401,9 @@ def pull_eos_scorecard():
         metric("food_gp_wk", "Food GP%", 71, fg, "%", "pct1", "derived",
                ("Cost-of-Sales latest week (ending %s), estate GP%%" % cos_week) if cos_week else "Estate GP% from Cost of Sales",
                "PROXY: company food-specific GP% not yet sourced — weekly CoS estate GP% (posts a week in arrears)."),
-        metric("npat_wk", "Net Profit After Tax (projected)", 18, npat_pct, "%", "pct1", npat_src,
-               "%s projection (latest month) — P&L is monthly, no weekly actual" % NPAT_MONTH,
-               "P&L is monthly so there is no weekly actual; shows the latest-month projected NPAT % (Profit after Taxation ÷ Total Turnover). Same figure as the QTD tile."),
+        metric("npat_wk", "Net Profit After Tax (projected)", 18, npat_wk, "%", "pct1", npat_src,
+               _npat_detail("Weekly flex", npat_wk_gp, npat_wk_lab),
+               npat_note),
         metric("new_starter_health_wk", "New Starter Health", None, None, "%", "pct0", "tbc", "",
                "Metric and target not yet defined.", tbc=True),
     ]
@@ -1410,9 +1440,9 @@ def pull_eos_scorecard():
         metric("food_gp", "Food GP%", 71, fg, "%", "pct1", "derived",
                "Estate GP% from Cost of Sales (commercial stores)",
                "PROXY: company food-specific GP% not yet sourced — using CoS estate GP%. Override in the inputs sheet."),
-        metric("npat", "Net Profit After Tax (projected)", 18, npat_pct, "%", "pct1", npat_src,
-               "%s · %s" % (NPAT_MONTH, npat_detail),
-               "Derived from the Bewiched Ltd monthly P&L (Profit after Taxation ÷ Total Turnover). No corporation tax is booked monthly, so this is effectively the net margin. Latest month available."),
+        metric("npat", "Net Profit After Tax (projected)", 18, npat_qtd, "%", "pct1", npat_src,
+               _npat_detail("QTD flex", npat_qtd_gp, npat_qtd_lab),
+               npat_note),
         metric("new_starter_health", "New Starter Health", None, None, "%", "pct0", "tbc", "",
                "Metric and target not yet defined.", tbc=True),
     ]
@@ -1424,7 +1454,7 @@ def pull_eos_scorecard():
         "SYMMETRIC: both tabs now carry the SAME 13 KPIs — Weekly measured on the last completed week, Quarterly the identical 13 measured QTD (since quarter start). Where a measure has no natural weekly/QTD split it shows the same figure on both tabs (see below).",
         "Same figure on both tabs (by nature): NPAT (latest-month P&L projection — no weekly actual), SPH Labour (a £/hr rate — QTD labour hours not separately sourced), Bench (point-in-time headcount), Food GP% (weekly CoS, a week in arrears). Brand Audit weekly shows 'awaiting' in weeks with no audits; the QTD tile is the reliable one.",
         "Still need definitions/sources: New Starter Health and Social Media Engagement are greyed TBC placeholders on BOTH tabs until Matt defines the metric + source. NPAT needs the P&L sheet shared with the service account to go beyond the May snapshot.",
-        "Net Profit After Tax % is derived from the Bewiched Ltd monthly P&L (Profit after Taxation ÷ Total Turnover); currently May 2026 = 7.9%%. Share the P&L sheet with the service account so it auto-refreshes each month (see flag above if it 403s).",
+        "Net Profit After Tax is a PROJECTION model: May P&L baseline (product GP 66.1%%, labour 33.85%%, admin 24.33%%, NPAT 7.9%%, avg labour 19.53/hr) flexed by live GP movement (CoS blended GP, commercial-store proxy) and live SPH labour. This period GP/SPH match baseline so both tiles read ~7.9%%; they flex as GP/SPH move. Share the P&L sheet with the SA so the baseline auto-refreshes monthly.",
         "Food GP% uses the Cost of Sales estate GP% as a proxy until a company food-specific GP source exists.",
         "Social Media Engagement and New Starter Health are greyed TBC placeholders pending metric + target definitions.",
         "Manual inputs sheet 'Bewiched EOS Scorecard Inputs' (ID %s) must be shared (Viewer) with dashboards-bot@%s.iam.gserviceaccount.com for the automated run to read it." % (SID["eos"], PROJECT),
