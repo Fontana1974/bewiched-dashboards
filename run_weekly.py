@@ -554,13 +554,36 @@ def pull_cos():
         latest[st] = (round(g * 100, 1) if g and g < 2 else round(g, 1),
                       (round(q * 100, 2) if q and q < 2 else round(q, 2)) if q is not None else None,
                       wk)
+    # estate-wide blended GP% (Cost-of-Goods basis: (ΣSales-ΣCoG)/ΣSales) by date window, for the NPAT model.
+    # Cols: date=idx1, Sales=idx7, Cost of Goods=idx8.
+    QSTART_S = (QSTART - EPOCH).days
+    MAY1_S = (datetime.date(CUR_END.year, 5, 1) - EPOCH).days
+    MAY31_S = (datetime.date(CUR_END.year, 5, 31) - EPOCH).days
+    agg = {}
+    for r in rows:
+        if len(r) < 9 or not isinstance(r[1], (int, float)): continue
+        sales = r[7] if isinstance(r[7], (int, float)) else None
+        if not sales or sales <= 0: continue
+        ds = int(r[1]); cog = fnum(r[8]) if isinstance(r[8], (int, float)) else 0.0
+        a = agg.setdefault(ds, [0.0, 0.0]); a[0] += sales; a[1] += cog
+    def _egp(filt):
+        ts = tc = 0.0
+        for ds, (sa, co) in agg.items():
+            if filt(ds): ts += sa; tc += co
+        return round((ts - tc) / ts * 100, 2) if ts else None
+    maxd = max(agg) if agg else None
     out = {"_source": "Cost of Sales sheet %s 'Master COS Input' — latest week per store "
                       "(Stock holding%% col G, Gross Profit%% col Q)" % SID["cos"],
-           "_pulled": CUR_END.isoformat(), "stores": {}}
+           "_pulled": CUR_END.isoformat(), "stores": {},
+           "_estate_gp_basis": "Master COS Input, all stores, (ΣSales-ΣCoG)/ΣSales",
+           "estate_gp_wk": _egp(lambda d: d == maxd) if maxd else None,
+           "estate_gp_qtd": _egp(lambda d: d >= QSTART_S),
+           "estate_gp_may": _egp(lambda d: MAY1_S <= d <= MAY31_S),
+           "estate_gp_wk_date": serial_to_iso(maxd) if maxd else None}
     for st, (h, gp, wk) in latest.items():
         out["_week"] = str(wk); out["stores"][st] = {"holding_pct": h, "gp_pct": gp}
     W("cos_metrics.json", out, indent=1)
-    print("[pull] cos: %d stores" % len(latest))
+    print("[pull] cos: %d stores; estate GP wk %s / qtd %s / may %s" % (len(latest), out.get("estate_gp_wk"), out.get("estate_gp_qtd"), out.get("estate_gp_may")))
 
 
 def pull_smt():
@@ -1185,6 +1208,12 @@ def pull_eos_scorecard():
         if h and rec.get(st, {}).get("lw26"):
             num += rec[st]["lw26"]; den += h; nrep += 1
     sph = round(num / den, 1) if den else None
+    # planner CPH (actual sales-per-labour-hour from the 3 area planners, Section A) — hours-weighted estate avg.
+    cnum = cden = 0.0
+    for st, v in ovr.items():
+        c = v.get("actual_cph_lastwk"); h = v.get("used_lastwk")
+        if c and h: cnum += c * h; cden += h
+    cph_estate = round(cnum / cden, 1) if cden else sph        # fall back to BQ SPH if planners blank
     au = [r["audit_qtd"] for r in rec.values() if r.get("audit_qtd")]
     ba = round(sum(au) / len(au), 2) if au else None
     gps = [v["gp_pct"] for v in cos.values() if v.get("gp_pct")]
@@ -1264,7 +1293,11 @@ def pull_eos_scorecard():
     #   NPAT% = product GP% - labour% - admin%   (admin held at baseline in the bridge)
     NPAT_MONTH = "May 2026"
     B = dict(turn=633064.53, cogs=428931.11, labour=214300.18, admin=154051.31, npat=7.9,
-             gp_prod=66.1, labour_pct=33.85, admin_pct=24.33, sph=57.7, hourly=19.53, gp_cos=71.1)
+             gp_prod=66.1, labour_pct=33.85, admin_pct=24.33, cph_base=57.7, hourly=19.53)
+    cosj = jload("cos_metrics.json")
+    gp_may = cosj.get("estate_gp_may") or 73.96     # CoS estate GP (CoG basis) for the P&L baseline month — frozen anchor
+    gp_wk_live = cosj.get("estate_gp_wk")           # latest complete week, estate-wide (Master COS)
+    gp_qtd_live = cosj.get("estate_gp_qtd")         # quarter-to-date, estate-wide
     npat_src = "derived"
     try:
         prows = sheet(SID["npat_pnl"], "A1:AB300")
@@ -1294,28 +1327,30 @@ def pull_eos_scorecard():
             B["labour_pct"] = round(labour / turn * 100, 2)
             B["admin_pct"] = round(B["admin"] / turn * 100, 2)
             if vals.get("pat"): B["npat"] = round(vals["pat"] / turn * 100, 1)
-            B["hourly"] = round(labour / (turn / B["sph"]), 2)
-            if fg is not None: B["gp_cos"] = fg
+            B["hourly"] = round(labour / (turn / B["cph_base"]), 2)   # avg £/hr = labour ÷ (turnover ÷ baseline CPH)
             npat_src = "sheet"
     except Exception as e:
         flags.append("Net Profit After Tax: P&L sheet not readable by the service account (%s) — share '%s P&L' "
                      "(ID %s, Viewer) with dashboards-bot@%s.iam.gserviceaccount.com. Using FROZEN May baseline constants."
                      % (str(e)[:60], NPAT_MONTH, SID["npat_pnl"], PROJECT))
 
-    def _npat_project(live_gp_cos, live_sph):
-        gp_c = round(live_gp_cos - B["gp_cos"], 1) if live_gp_cos is not None else 0.0
-        live_lab = (B["hourly"] / live_sph * 100) if live_sph else B["labour_pct"]
-        lab_c = round(B["labour_pct"] - live_lab, 1)
+    def _npat_project(live_gp, live_cph):
+        gp_c = round(live_gp - gp_may, 1) if (live_gp is not None and gp_may is not None) else 0.0
+        live_lab = (B["hourly"] / live_cph * 100) if live_cph else B["labour_pct"]
+        lab_c = round(B["labour_pct"] - live_lab, 1)                  # +ve when labour% below baseline (CPH up)
         return round(B["npat"] + gp_c + lab_c, 1), gp_c, lab_c
-    npat_wk, npat_wk_gp, npat_wk_lab = _npat_project(fg, sph)
-    npat_qtd, npat_qtd_gp, npat_qtd_lab = _npat_project(fg, sph)
+    npat_wk, npat_wk_gp, npat_wk_lab = _npat_project(gp_wk_live, cph_estate)
+    npat_qtd, npat_qtd_gp, npat_qtd_lab = _npat_project(gp_qtd_live, cph_estate)
     def _npat_detail(tag, gp_c, lab_c):
         return "%s · baseline %.1f%% · GP %+.1fpp · labour %+.1fpp" % (tag, B["npat"], gp_c, lab_c)
-    npat_note = ("Projected (GP + labour flex off the %s P&L). NPAT%% = baseline %.1f%% + (live GP%% − baseline) "
-                 "− (live labour%% − baseline). Baseline: product GP %.1f%%, labour %.1f%%, admin %.1f%% (held), "
-                 "avg labour £%.2f/hr. GP movement uses the CoS blended GP (commercial-store proxy, baseline %.1f%%); "
-                 "labour flexes as £%.2f/hr ÷ live SPH. Weekly & QTD use the current GP/SPH until window-specific feeds exist."
-                 % (NPAT_MONTH, B["npat"], B["gp_prod"], B["labour_pct"], B["admin_pct"], B["hourly"], B["gp_cos"], B["hourly"]))
+    npat_note = ("Projected (GP + labour flex off the %s P&L). NPAT%% = baseline %.1f%% + (estate GP%% − %s baseline) "
+                 "− (labour%% − baseline). Baseline: product GP %.1f%%, labour %.1f%%, admin %.1f%% (held), avg labour £%.2f/hr. "
+                 "GP movement = estate-wide blended GP from the COS master tab (CoG basis; %s baseline %.2f%%, latest week %s%%, QTD %s%%). "
+                 "Labour flexes via planner actual CPH £%.1f ÷ baseline £%.1f (avg £%.2f/hr ÷ live CPH). QTD CPH uses current-week planner CPH "
+                 "(no maintained weekly CPH history yet)."
+                 % (NPAT_MONTH, B["npat"], NPAT_MONTH, B["gp_prod"], B["labour_pct"], B["admin_pct"], B["hourly"],
+                    NPAT_MONTH, gp_may if gp_may is not None else 0, gp_wk_live, gp_qtd_live,
+                    cph_estate or 0, B["cph_base"], B["hourly"]))
 
     # ---- QTD health blends (Google / RMS) from storehealth_raw.json (QTD per-store [n, avg]) ----
     weeks_q = max(1, round((CUR_END - QSTART).days / 7.0))
