@@ -10,6 +10,30 @@
  },
  "weekly": [
   {
+   "id": "yoy_sales_wk",
+   "name": "YoY Sales Growth",
+   "plan": 12,
+   "actual": 11.1,
+   "unit": "%",
+   "fmt": "pct_signed",
+   "dir": "high",
+   "source": "derived",
+   "detail": "w/c 22 Jun vs 2025 (18 like-for-like stores)",
+   "note": "Last completed week vs same week last year (LFL). Weekly counterpart of the quarterly YoY; reuses the weekly sales pull (lw26/lw25)."
+  },
+  {
+   "id": "yoy_tx_wk",
+   "name": "YoY Transactional Growth",
+   "plan": 5,
+   "actual": -0.6,
+   "unit": "%",
+   "fmt": "pct_signed",
+   "dir": "high",
+   "source": "derived",
+   "detail": "w/c 22 Jun vs 2025 (18 like-for-like stores)",
+   "note": "Last completed week transactions vs same week last year (LFL); reuses tx26/tx25."
+  },
+  {
    "id": "google_health",
    "name": "Google Health",
    "plan": 100,

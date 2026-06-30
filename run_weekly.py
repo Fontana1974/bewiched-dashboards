@@ -1181,6 +1181,14 @@ def pull_eos_scorecard():
     ba = round(sum(au) / len(au), 2) if au else None
     gps = [v["gp_pct"] for v in cos.values() if v.get("gp_pct")]
     fg = round(sum(gps) / len(gps), 1) if gps else None
+    # ---- derived weekly: YoY sales/tx, last completed week vs same week last year (LFL) ----
+    lfl = [r for r in rec.values() if (r.get("lw25") or 0) > 0]          # exclude new sites (no LY week)
+    slw = sum(r.get("lw26", 0) or 0 for r in lfl); sly = sum(r.get("lw25", 0) or 0 for r in lfl)
+    yoy_sales_wk = round(100 * (slw / sly - 1), 1) if sly else None
+    lflx = [r for r in lfl if (r.get("tx25") or 0) > 0]
+    tlw = sum(r.get("tx26", 0) or 0 for r in lflx); tly = sum(r.get("tx25", 0) or 0 for r in lflx)
+    yoy_tx_wk = round(100 * (tlw / tly - 1), 1) if tly else None
+    wk_ref = "w/c %s vs %d" % (LASTWK_MON.strftime("%-d %b"), CUR_END.year - 1)
 
     # ---- live quarterly: YoY sales / tx (QTD LFL) ----
     yoy_sales = yoy_tx = None; lfl_n = None
@@ -1222,6 +1230,12 @@ def pull_eos_scorecard():
     qlabel = "Q%d %d (%s–%s)" % (qn, QSTART.year, QSTART.strftime("%b"), m3.strftime("%b"))
 
     weekly = [
+        metric("yoy_sales_wk", "YoY Sales Growth", 12, yoy_sales_wk, "%", "pct_signed", "derived",
+               "%s (%d like-for-like stores)" % (wk_ref, len(lfl)),
+               "Last completed week vs same week last year (LFL). Weekly counterpart of the quarterly YoY; reuses the weekly sales pull (lw26/lw25)."),
+        metric("yoy_tx_wk", "YoY Transactional Growth", 5, yoy_tx_wk, "%", "pct_signed", "derived",
+               "%s (%d like-for-like stores)" % (wk_ref, len(lflx)),
+               "Last completed week transactions vs same week last year (LFL); reuses tx26/tx25."),
         metric("google_health", "Google Health", 100, gh, "%", "pct0", "derived", gh_detail,
                "Blend: avg of reviews÷40 and rating÷4.6, each capped 100%. Green at 100%."),
         metric("rms_health", "Rate My Shift Health", 100, rh, "%", "pct0", "derived", rh_detail,
