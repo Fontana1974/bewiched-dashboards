@@ -1130,8 +1130,7 @@ def pull_eos_scorecard():
             OVERRIDES the derived/live value for any metric.
     Fault-tolerant: any source that fails degrades that metric to awaiting and is flagged —
     it must never break the weekly run. STATUS thresholds live in gen_eos_scorecard.py
-    (config.amber_band, default 5%)."""
-    AMBER_BAND = 0.05
+    Status is strictly binary (no near-target band)."""
     flags = []
     # ---- manual inputs sheet (optional; 403s until shared Viewer with the SA) ----
     manual = {}
@@ -1260,7 +1259,7 @@ def pull_eos_scorecard():
     ]
 
     flags = [
-        "AMBER band = %d%% under plan (gen_eos_scorecard.py config.amber_band). Bench is green when ≥ 3." % int(AMBER_BAND * 100),
+        "Status is strictly binary: GREEN when actual ≥ plan, RED when below — no near-target band. Bench is green when ≥ 3.",
         "Google Health & Rate My Shift Health blend divisors (40 reviews / 4.6★ ; 70 submissions / 4.6★) are default assumptions — adjust if you prefer different volume targets.",
         "Plans for SPH Labour, Brew Crew Kudos, Bench, F1 Score, NPAT and Food GP% are Matt's stated defaults (50 / 50%% / 3 / 75 / 18%% / 71%%).",
         "F1 Score scale needs confirming — sheet QTD Total Score averages ~282 pts, so plan 75 implies a different scale. Shown as awaiting until a value on the plan scale is entered.",
@@ -1278,7 +1277,7 @@ def pull_eos_scorecard():
         "week_label": wlabel(LASTWK_MON),
         "quarter_label": qlabel,
         "manual_sheet_id": SID["eos"],
-        "config": {"amber_band": AMBER_BAND},
+        "config": {"binary": True},
         "weekly": weekly,
         "quarterly": quarterly,
         "flags": flags,

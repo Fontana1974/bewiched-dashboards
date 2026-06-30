@@ -5,7 +5,7 @@
 <title>Bewiched — EOS Scorecard</title>
 <style>
   :root{--bg:#f4efe9;--card:#fff;--ink:#2b211b;--muted:#8a7a6d;--line:#e7ddd2;--brown:#5b3a29;--brown2:#3f281c;--cream:#efe6dc;--gold:#e7b35a;
-    --green:#1f8a4c;--red:#c0392b;--amber:#b8860b;--redbg:#fbeae8;--amberbg:#f7f0dd;--greenbg:#e6f4ec;--greybg:#f1ece5;}
+    --green:#1f8a4c;--red:#c0392b;--redbg:#fbeae8;--greenbg:#e6f4ec;--greybg:#f1ece5;}
   *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
   .brandbar{background:linear-gradient(180deg,var(--brown) 0%,var(--brown2) 100%);color:#f6efe7;}
   .brandbar .inner{max-width:1180px;margin:0 auto;padding:14px 22px;display:flex;align-items:center;gap:13px;}
@@ -26,12 +26,11 @@
   .panehead .lbl{font-size:12.5px;color:var(--muted);font-weight:600}
   .tallychips span{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;margin-right:10px}
   .dot{width:10px;height:10px;border-radius:50%;display:inline-block}
-  .dot.green{background:var(--green)} .dot.amber{background:var(--amber)} .dot.red{background:var(--red)} .dot.tbc{background:#c9bdae}
+  .dot.green{background:var(--green)} .dot.red{background:var(--red)} .dot.tbc{background:#c9bdae}
   /* widget grid */
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:14px;margin-top:10px;}
   .widget{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 15px;border-left:6px solid var(--line);box-shadow:0 1px 2px rgba(80,50,30,.05);position:relative;}
   .widget.green{border-left-color:var(--green);box-shadow:0 0 0 1px #cfe6d8, 0 0 14px rgba(31,138,76,.18);}
-  .widget.amber{border-left-color:var(--amber);box-shadow:0 0 0 1px #ece0c0, 0 0 14px rgba(184,134,11,.16);}
   .widget.red{border-left-color:var(--red);box-shadow:0 0 0 1px #eccfca, 0 0 14px rgba(192,57,43,.16);}
   .widget.tbc{border-left-color:#cfc4b5;background:var(--greybg);opacity:.85;}
   .w-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:10px}
@@ -42,19 +41,19 @@
   .w-nums{display:flex;align-items:center;gap:12px}
   .w-cell{text-align:center} .w-lab{font-size:9.5px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);font-weight:700}
   .w-big{font-size:30px;font-weight:800;line-height:1.05;margin-top:1px}
-  .widget.green .w-cell.actual .w-big{color:var(--green)} .widget.amber .w-cell.actual .w-big{color:var(--amber)}
+  .widget.green .w-cell.actual .w-big{color:var(--green)}
   .widget.red .w-cell.actual .w-big{color:var(--red)} .widget.tbc .w-cell.actual .w-big{color:#b3a899}
   .w-big.plan{color:#6f5d4e;font-weight:700;font-size:26px}
   .w-vs{font-size:11px;color:var(--muted);font-weight:700;align-self:center;padding-top:12px}
   .w-flag{margin-left:auto;align-self:center;font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;padding:5px 9px;border-radius:8px;}
-  .widget.green .w-flag{background:var(--greenbg);color:var(--green)} .widget.amber .w-flag{background:var(--amberbg);color:var(--amber)}
+  .widget.green .w-flag{background:var(--greenbg);color:var(--green)}
   .widget.red .w-flag{background:var(--redbg);color:var(--red)} .widget.tbc .w-flag{background:#e7e0d6;color:#9a8c7c}
   .w-detail{margin-top:10px;font-size:12px;color:#5b4a3d;line-height:1.45}
   .w-note{margin-top:6px;font-size:11px;color:var(--muted);line-height:1.45;font-style:italic}
   .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:11.5px;color:var(--muted);margin:18px 4px 2px} .legend span{display:inline-flex;align-items:center;gap:5px} .sw{width:12px;height:12px;border-radius:3px;display:inline-block}
   .info{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 20px;margin-top:18px}
   .info h2{margin:0 0 8px;font-size:15px;color:var(--brown)} .info ul{margin:6px 0 0;padding-left:18px} .info li{font-size:12.5px;line-height:1.5;margin:6px 0}
-  .info.amberbox{background:#fff8ec;border-color:#f0e0bf} .info.amberbox h2{color:#7a5e1e}
+  .info.notebox{background:#fff8ec;border-color:#f0e0bf} .info.notebox h2{color:#7a5e1e}
   footer{color:var(--muted);font-size:12px;margin-top:26px;line-height:1.6}
 </style>
 </head>
@@ -69,8 +68,8 @@
   <header class="page">
     <h1>📋 Bewiched — EOS Scorecard <span class="pill">Weekly + Quarterly</span></h1>
     <div class="sub">EOS-style traffic-light scorecard: each measurable shows <b>actual vs plan</b> side by side and glows
-      <b style="color:var(--green)">green</b> when on plan, <b style="color:var(--amber)">amber</b> within 5% under,
-      <b style="color:var(--red)">red</b> when clearly below. Greyed tiles are not yet defined.</div>
+      <b style="color:var(--green)">green</b> when actual meets or beats plan, <b style="color:var(--red)">red</b> when below — a
+      strict pass/fail, no in-between. Greyed tiles are not yet defined or awaiting data.</div>
   </header>
 
   <div class="tabs">
@@ -81,7 +80,7 @@
   <section class="pane active" id="pane-weekly">
     <div class="panehead">
       <span class="lbl">Week: <b>w/c 22 Jun 2026</b></span>
-      <span class="tallychips"><span><span class="dot green"></span>2 on plan</span><span><span class="dot amber"></span>0 just under</span><span><span class="dot red"></span>1 off plan</span><span><span class="dot tbc"></span>3 TBC</span></span>
+      <span class="tallychips"><span><span class="dot green"></span>2 on plan</span><span><span class="dot red"></span>1 off plan</span><span><span class="dot tbc"></span>3 TBC / awaiting</span></span>
     </div>
     <div class="grid"><div class="widget red">
       <div class="w-top"><span class="w-name">Google Health</span><span class="w-src derived">auto-derived</span></div>
@@ -143,7 +142,7 @@
   <section class="pane" id="pane-quarterly">
     <div class="panehead">
       <span class="lbl">Quarter: <b>Q2 2026 (Apr–Jun)</b></span>
-      <span class="tallychips"><span><span class="dot green"></span>2 on plan</span><span><span class="dot amber"></span>0 just under</span><span><span class="dot red"></span>2 off plan</span><span><span class="dot tbc"></span>3 TBC</span></span>
+      <span class="tallychips"><span><span class="dot green"></span>2 on plan</span><span><span class="dot red"></span>2 off plan</span><span><span class="dot tbc"></span>3 TBC / awaiting</span></span>
     </div>
     <div class="grid"><div class="widget red">
       <div class="w-top"><span class="w-name">YoY Sales Growth</span><span class="w-src live">live · BigQuery</span></div>
@@ -212,15 +211,14 @@
   </section>
 
   <div class="legend">
-    <span><span class="sw" style="background:var(--greenbg);border:1px solid #cfe6d8"></span>actual ≥ plan</span>
-    <span><span class="sw" style="background:var(--amberbg);border:1px solid #ece0c0"></span>within 5% under plan</span>
-    <span><span class="sw" style="background:var(--redbg);border:1px solid #eccfca"></span>clearly below plan</span>
-    <span><span class="sw" style="background:var(--greybg);border:1px solid var(--line)"></span>not yet defined (TBC)</span>
+    <span><span class="sw" style="background:var(--greenbg);border:1px solid #cfe6d8"></span>actual ≥ plan (on plan)</span>
+    <span><span class="sw" style="background:var(--redbg);border:1px solid #eccfca"></span>below plan (off plan)</span>
+    <span><span class="sw" style="background:var(--greybg);border:1px solid var(--line)"></span>not yet defined / awaiting data</span>
   </div>
 
-  <div class="info amberbox">
+  <div class="info notebox">
     <h2>Defaults &amp; assumptions — please confirm or adjust</h2>
-    <ul><li>AMBER band = 5% under plan (gen_eos_scorecard.py config.amber_band). Bench is green when ≥ 3.</li><li>Google Health &amp; Rate My Shift Health blend divisors (40 reviews / 4.6★ ; 70 submissions / 4.6★) are default assumptions — adjust if you prefer different volume targets.</li><li>Plans for SPH Labour, Brew Crew Kudos, Bench, F1 Score, NPAT and Food GP% are Matt&#x27;s stated defaults (50 / 50%% / 3 / 75 / 18%% / 71%%).</li><li>F1 Score scale needs confirming — sheet QTD Total Score averages ~282 pts, so plan 75 implies a different scale. Shown as awaiting until a value on the plan scale is entered.</li><li>Net Profit After Tax % is not available from POS/BigQuery — manual entry from management accounts.</li><li>Food GP% uses the Cost of Sales estate GP% as a proxy until a company food-specific GP source exists.</li><li>Social Media Engagement and New Starter Health are greyed TBC placeholders pending metric + target definitions.</li><li>Manual inputs sheet &#x27;Bewiched EOS Scorecard Inputs&#x27; (ID 1HimYAjZg4zlMQG91-KUefkeYMPvrU4ddVuO2IuERTqg) must be shared (Viewer) with dashboards-bot@bewiched-coffee-368116.iam.gserviceaccount.com for the automated run to read it.</li><li>Manual inputs sheet not readable (&lt;HttpError 403 when requesting https://sheets.googleapis.com/v4/spreadsheets/1HimYAjZg4zlM) — share it (Viewer) with the service account dashboards-bot@bewiched-coffee-368116.iam.gserviceaccount.com. Manual metrics shown as awaiting.</li></ul>
+    <ul><li>Status is strictly binary: GREEN when actual ≥ plan, RED when below — no near-target band. Bench is green when ≥ 3.</li><li>Google Health &amp; Rate My Shift Health blend divisors (40 reviews / 4.6★ ; 70 submissions / 4.6★) are default assumptions — adjust if you prefer different volume targets.</li><li>Plans for SPH Labour, Brew Crew Kudos, Bench, F1 Score, NPAT and Food GP% are Matt&#x27;s stated defaults (50 / 50%% / 3 / 75 / 18%% / 71%%).</li><li>F1 Score scale needs confirming — sheet QTD Total Score averages ~282 pts, so plan 75 implies a different scale. Shown as awaiting until a value on the plan scale is entered.</li><li>Net Profit After Tax % is not available from POS/BigQuery — manual entry from management accounts.</li><li>Food GP% uses the Cost of Sales estate GP% as a proxy until a company food-specific GP source exists.</li><li>Social Media Engagement and New Starter Health are greyed TBC placeholders pending metric + target definitions.</li><li>Manual inputs sheet &#x27;Bewiched EOS Scorecard Inputs&#x27; (ID 1HimYAjZg4zlMQG91-KUefkeYMPvrU4ddVuO2IuERTqg) must be shared (Viewer) with dashboards-bot@bewiched-coffee-368116.iam.gserviceaccount.com for the automated run to read it.</li><li>Manual inputs sheet not readable (&lt;HttpError 403 when requesting https://sheets.googleapis.com/v4/spreadsheets/1HimYAjZg4zlM) — share it (Viewer) with the service account dashboards-bot@bewiched-coffee-368116.iam.gserviceaccount.com. Manual metrics shown as awaiting.</li></ul>
   </div>
 
   <footer>Bewiched Limited · internal use · EOS Scorecard. Live rows from BigQuery POS (bewiched_coffee, europe-west2) + F1 / reviews / RMS feeds; manual rows from the EOS Scorecard Inputs sheet. Generated 30 Jun 2026, 18:09. Sales gross inc VAT.</footer>

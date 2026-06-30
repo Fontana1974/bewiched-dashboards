@@ -2,14 +2,13 @@
 # Bewiched EOS Weekly & Quarterly Scorecard generator.
 # Reads eos_scorecard.json -> writes EOS_Scorecard.html, matching the Bewiched dashboards stack.
 # Two tabs (Weekly / Quarterly); each metric = an EOS traffic-light widget (plan vs actual).
-# Status: GREEN actual>=plan | AMBER within AMBER_BAND under plan | RED below | grey TBC.
+# STRICTLY BINARY status: GREEN actual>=plan | RED below. No near-target band.
+# Greyed tiles: TBC (not yet defined) and AWAITING DATA (defined but no actual yet) — never red.
 import json, datetime as dt, os, html
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 D = json.load(open(os.path.join(HERE, "eos_scorecard.json")))
 GEN = D.get("generated") or dt.datetime.now().strftime("%d %b %Y, %H:%M")
-CFG = D.get("config", {})
-AMBER_BAND = float(CFG.get("amber_band", 0.05))   # amber if actual within this fraction under plan
 
 # ---------- formatting ----------
 def esc(s): return html.escape(str(s)) if s is not None else ""
@@ -29,26 +28,22 @@ def fmt_val(v, f):
     return ("%g" % v)
 
 def status(m):
-    """green | amber | red | nodata | tbc.
+    """green | red | nodata | tbc — STRICTLY BINARY (pass/fail only).
     tbc    = metric not yet defined (greyed placeholder, never coloured).
-    nodata = metric is defined but has no actual this week/quarter yet (greyed, awaiting)."""
+    nodata = metric is defined but has no actual yet (greyed, awaiting — never red).
+    green  = actual meets or beats plan ; red = actual below plan."""
     if m.get("tbc"):
         return "tbc"
     if m.get("actual") is None or m.get("plan") is None:
         return "nodata"
     a = float(m["actual"]); p = float(m["plan"])
-    d = m.get("dir", "high")
-    if d == "high":
-        if a >= p:                  return "green"
-        if a >= p * (1 - AMBER_BAND): return "amber"
-        return "red"
+    if m.get("dir", "high") == "high":
+        return "green" if a >= p else "red"
     else:  # lower is better
-        if a <= p:                  return "green"
-        if a <= p * (1 + AMBER_BAND): return "amber"
-        return "red"
+        return "green" if a <= p else "red"
 
 GREY = ("tbc", "nodata")
-STATUS_LAB = {"green": "ON PLAN", "amber": "JUST UNDER", "red": "OFF PLAN",
+STATUS_LAB = {"green": "ON PLAN", "red": "OFF PLAN",
               "nodata": "AWAITING DATA", "tbc": "NOT YET DEFINED"}
 
 def widget(m):
@@ -77,15 +72,14 @@ def widget(m):
 
 def tally(metrics):
     g = sum(1 for m in metrics if status(m) == "green")
-    a = sum(1 for m in metrics if status(m) == "amber")
     r = sum(1 for m in metrics if status(m) == "red")
     t = sum(1 for m in metrics if status(m) in GREY)
-    return g, a, r, t
+    return g, r, t
 
 weekly = D.get("weekly", [])
 quarterly = D.get("quarterly", [])
-wg, wa, wr, wt = tally(weekly)
-qg, qa, qr, qt = tally(quarterly)
+wg, wr, wt = tally(weekly)
+qg, qr, qt = tally(quarterly)
 weekly_html    = "".join(widget(m) for m in weekly)
 quarterly_html = "".join(widget(m) for m in quarterly)
 flags = D.get("flags", [])
@@ -100,7 +94,7 @@ HTML = f"""<!DOCTYPE html>
 <title>Bewiched — EOS Scorecard</title>
 <style>
   :root{{--bg:#f4efe9;--card:#fff;--ink:#2b211b;--muted:#8a7a6d;--line:#e7ddd2;--brown:#5b3a29;--brown2:#3f281c;--cream:#efe6dc;--gold:#e7b35a;
-    --green:#1f8a4c;--red:#c0392b;--amber:#b8860b;--redbg:#fbeae8;--amberbg:#f7f0dd;--greenbg:#e6f4ec;--greybg:#f1ece5;}}
+    --green:#1f8a4c;--red:#c0392b;--redbg:#fbeae8;--greenbg:#e6f4ec;--greybg:#f1ece5;}}
   *{{box-sizing:border-box}} body{{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}}
   .brandbar{{background:linear-gradient(180deg,var(--brown) 0%,var(--brown2) 100%);color:#f6efe7;}}
   .brandbar .inner{{max-width:1180px;margin:0 auto;padding:14px 22px;display:flex;align-items:center;gap:13px;}}
@@ -121,12 +115,11 @@ HTML = f"""<!DOCTYPE html>
   .panehead .lbl{{font-size:12.5px;color:var(--muted);font-weight:600}}
   .tallychips span{{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;margin-right:10px}}
   .dot{{width:10px;height:10px;border-radius:50%;display:inline-block}}
-  .dot.green{{background:var(--green)}} .dot.amber{{background:var(--amber)}} .dot.red{{background:var(--red)}} .dot.tbc{{background:#c9bdae}}
+  .dot.green{{background:var(--green)}} .dot.red{{background:var(--red)}} .dot.tbc{{background:#c9bdae}}
   /* widget grid */
   .grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:14px;margin-top:10px;}}
   .widget{{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 15px;border-left:6px solid var(--line);box-shadow:0 1px 2px rgba(80,50,30,.05);position:relative;}}
   .widget.green{{border-left-color:var(--green);box-shadow:0 0 0 1px #cfe6d8, 0 0 14px rgba(31,138,76,.18);}}
-  .widget.amber{{border-left-color:var(--amber);box-shadow:0 0 0 1px #ece0c0, 0 0 14px rgba(184,134,11,.16);}}
   .widget.red{{border-left-color:var(--red);box-shadow:0 0 0 1px #eccfca, 0 0 14px rgba(192,57,43,.16);}}
   .widget.tbc{{border-left-color:#cfc4b5;background:var(--greybg);opacity:.85;}}
   .w-top{{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:10px}}
@@ -137,19 +130,19 @@ HTML = f"""<!DOCTYPE html>
   .w-nums{{display:flex;align-items:center;gap:12px}}
   .w-cell{{text-align:center}} .w-lab{{font-size:9.5px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);font-weight:700}}
   .w-big{{font-size:30px;font-weight:800;line-height:1.05;margin-top:1px}}
-  .widget.green .w-cell.actual .w-big{{color:var(--green)}} .widget.amber .w-cell.actual .w-big{{color:var(--amber)}}
+  .widget.green .w-cell.actual .w-big{{color:var(--green)}}
   .widget.red .w-cell.actual .w-big{{color:var(--red)}} .widget.tbc .w-cell.actual .w-big{{color:#b3a899}}
   .w-big.plan{{color:#6f5d4e;font-weight:700;font-size:26px}}
   .w-vs{{font-size:11px;color:var(--muted);font-weight:700;align-self:center;padding-top:12px}}
   .w-flag{{margin-left:auto;align-self:center;font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;padding:5px 9px;border-radius:8px;}}
-  .widget.green .w-flag{{background:var(--greenbg);color:var(--green)}} .widget.amber .w-flag{{background:var(--amberbg);color:var(--amber)}}
+  .widget.green .w-flag{{background:var(--greenbg);color:var(--green)}}
   .widget.red .w-flag{{background:var(--redbg);color:var(--red)}} .widget.tbc .w-flag{{background:#e7e0d6;color:#9a8c7c}}
   .w-detail{{margin-top:10px;font-size:12px;color:#5b4a3d;line-height:1.45}}
   .w-note{{margin-top:6px;font-size:11px;color:var(--muted);line-height:1.45;font-style:italic}}
   .legend{{display:flex;gap:16px;flex-wrap:wrap;font-size:11.5px;color:var(--muted);margin:18px 4px 2px}} .legend span{{display:inline-flex;align-items:center;gap:5px}} .sw{{width:12px;height:12px;border-radius:3px;display:inline-block}}
   .info{{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 20px;margin-top:18px}}
   .info h2{{margin:0 0 8px;font-size:15px;color:var(--brown)}} .info ul{{margin:6px 0 0;padding-left:18px}} .info li{{font-size:12.5px;line-height:1.5;margin:6px 0}}
-  .info.amberbox{{background:#fff8ec;border-color:#f0e0bf}} .info.amberbox h2{{color:#7a5e1e}}
+  .info.notebox{{background:#fff8ec;border-color:#f0e0bf}} .info.notebox h2{{color:#7a5e1e}}
   footer{{color:var(--muted);font-size:12px;margin-top:26px;line-height:1.6}}
 </style>
 </head>
@@ -164,8 +157,8 @@ HTML = f"""<!DOCTYPE html>
   <header class="page">
     <h1>📋 Bewiched — EOS Scorecard <span class="pill">Weekly + Quarterly</span></h1>
     <div class="sub">EOS-style traffic-light scorecard: each measurable shows <b>actual vs plan</b> side by side and glows
-      <b style="color:var(--green)">green</b> when on plan, <b style="color:var(--amber)">amber</b> within {int(round(AMBER_BAND*100))}% under,
-      <b style="color:var(--red)">red</b> when clearly below. Greyed tiles are not yet defined.</div>
+      <b style="color:var(--green)">green</b> when actual meets or beats plan, <b style="color:var(--red)">red</b> when below — a
+      strict pass/fail, no in-between. Greyed tiles are not yet defined or awaiting data.</div>
   </header>
 
   <div class="tabs">
@@ -176,7 +169,7 @@ HTML = f"""<!DOCTYPE html>
   <section class="pane active" id="pane-weekly">
     <div class="panehead">
       <span class="lbl">Week: <b>{WK}</b></span>
-      <span class="tallychips"><span><span class="dot green"></span>{wg} on plan</span><span><span class="dot amber"></span>{wa} just under</span><span><span class="dot red"></span>{wr} off plan</span><span><span class="dot tbc"></span>{wt} TBC</span></span>
+      <span class="tallychips"><span><span class="dot green"></span>{wg} on plan</span><span><span class="dot red"></span>{wr} off plan</span><span><span class="dot tbc"></span>{wt} TBC / awaiting</span></span>
     </div>
     <div class="grid">{weekly_html}</div>
   </section>
@@ -184,19 +177,18 @@ HTML = f"""<!DOCTYPE html>
   <section class="pane" id="pane-quarterly">
     <div class="panehead">
       <span class="lbl">Quarter: <b>{QL}</b></span>
-      <span class="tallychips"><span><span class="dot green"></span>{qg} on plan</span><span><span class="dot amber"></span>{qa} just under</span><span><span class="dot red"></span>{qr} off plan</span><span><span class="dot tbc"></span>{qt} TBC</span></span>
+      <span class="tallychips"><span><span class="dot green"></span>{qg} on plan</span><span><span class="dot red"></span>{qr} off plan</span><span><span class="dot tbc"></span>{qt} TBC / awaiting</span></span>
     </div>
     <div class="grid">{quarterly_html}</div>
   </section>
 
   <div class="legend">
-    <span><span class="sw" style="background:var(--greenbg);border:1px solid #cfe6d8"></span>actual ≥ plan</span>
-    <span><span class="sw" style="background:var(--amberbg);border:1px solid #ece0c0"></span>within {int(round(AMBER_BAND*100))}% under plan</span>
-    <span><span class="sw" style="background:var(--redbg);border:1px solid #eccfca"></span>clearly below plan</span>
-    <span><span class="sw" style="background:var(--greybg);border:1px solid var(--line)"></span>not yet defined (TBC)</span>
+    <span><span class="sw" style="background:var(--greenbg);border:1px solid #cfe6d8"></span>actual ≥ plan (on plan)</span>
+    <span><span class="sw" style="background:var(--redbg);border:1px solid #eccfca"></span>below plan (off plan)</span>
+    <span><span class="sw" style="background:var(--greybg);border:1px solid var(--line)"></span>not yet defined / awaiting data</span>
   </div>
 
-  <div class="info amberbox">
+  <div class="info notebox">
     <h2>Defaults &amp; assumptions — please confirm or adjust</h2>
     <ul>{flags_html}</ul>
   </div>
@@ -218,5 +210,5 @@ HTML = f"""<!DOCTYPE html>
 
 open(os.path.join(HERE, "EOS_Scorecard.html"), "w").write(HTML)
 print("Wrote EOS_Scorecard.html  (%d bytes)" % len(HTML))
-print("Weekly: %dG/%dA/%dR/%dTBC | Quarterly: %dG/%dA/%dR/%dTBC" % (wg, wa, wr, wt, qg, qa, qr, qt))
+print("Weekly: %dG/%dR/%dgrey | Quarterly: %dG/%dR/%dgrey" % (wg, wr, wt, qg, qr, qt))
 print("leftover placeholders: none")
