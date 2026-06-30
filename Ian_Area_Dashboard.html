@@ -77,7 +77,7 @@
 <div class="brandbar"><div class="inner">
   <div class="logo"><div><div class="word">Be<span>wiched</span></div><div class="eyebrow">Area Performance</div></div></div>
   <div class="spacer"></div>
-  <div class="ctx">Area: <b>Ian</b> · 3 stores<br>4-week window: <b>11 May → 7 Jun 2026</b> · YoY vs 2025<br><span style="color:#e7b35a;font-weight:700">🔄 Refreshed 30 Jun 2026, 18:41 · auto Mon 9am</span></div>
+  <div class="ctx">Area: <b>Ian</b> · 3 stores<br>4-week window: <b>11 May → 7 Jun 2026</b> · YoY vs 2025<br><span style="color:#e7b35a;font-weight:700">🔄 Refreshed 30 Jun 2026, 18:55 · auto Mon 9am</span></div>
 </div></div>
 <div class="wrap">
   <header class="page">
@@ -89,7 +89,7 @@
     <a class="kpw green" onclick="goTab('sales')"><div class="kl">📈 Sales</div><div class="kv">+35.2%</div><div class="kt">area sales YoY · last week · target ≥8%</div></a>
     <a class="kpw red" onclick="goTab('f1')"><div class="kl">🏁 Operations</div><div class="kv">416</div><div class="kt">F1 avg race score · last wk · target ≤190 (lower=better)</div></a>
     <a class="kpw red" onclick="goTab('sentiment')"><div class="kl">⭐ Customer</div><div class="kv">2.91</div><div class="kt">Google health · QTD · target ≥3.32 · 2/3 live feeds</div></a>
-    <a class="kpw red" onclick="goTab('sentiment')"><div class="kl">👥 People</div><div class="kv">2.79</div><div class="kt">RMS health · QTD · target ≥3.32 · 77 ratings</div></a>
+    <a class="kpw green" onclick="goTab('sentiment')"><div class="kl">👥 People</div><div class="kv">4.47</div><div class="kt">RMS health · QTD · target ≥3.32 · 140 ratings</div></a>
   </div>
   <div class="note" style="margin:-2px 0 8px"><b>At a glance</b> — <b style="color:#1c6b3d">green</b> on/above target · <b style="color:#9a2f22">red</b> below target · <b style="color:#8a7a6d">grey</b> = no data / no feed. Sales &amp; Operations are last-week; Customer &amp; People are quarter-to-date (last-week per-area review/RMS volumes are too sparse). Tap a widget for the detail.</div>
   <div class="focusmod"><h2>🎯 Area focus — week of 22 Jun</h2><div class="focus" style="margin:0 0 10px">⏱️ On average this area's queue time is <b>230 seconds</b> (vs competition <b>297 seconds</b>) — <b>67 seconds faster</b> than the chains <span class="mini" style="font-weight:400">· F1 race audits, this quarter</span></div><ul><li style="list-style:none;margin:2px 0 9px -18px;padding:9px 13px;border-radius:10px;font-weight:700;background:#fbeae8;border:1px solid #eccfca;color:#8c2f22">🩹 RTWs to do &mdash; last 45 days: 7 &mdash; of 7 sick-for-shift in window · worst Glenvale DT (5)</li><li><b>Sales:</b> area ran <b>£33,832</b> last week (+35.2% YoY); 4-week +25.4% YoY. <b>Glenvale DT +34.4%</b> leads.</li><li><b>Op's Excellence:</b> best <b>Glenvale DT P7.0</b>; reset <b>Attleborough P21.0</b>.</li><li><b>Wastage:</b> area 3.3% retail; worst <b>Attleborough (4.6%)</b>.</li><li><b>Presence &amp; team:</b> Ian averages <b>10%</b> coverage; RTW completion just <b>86%</b> across 14 sick-for-shift (lateness excluded).</li></ul></div>
@@ -325,7 +325,7 @@ else{bg=warm?"#fdf3e6":"#eef4fb";bd=warm?"#f0d8b0":"#cfe0f2";fg="#4a3a2a";
   <!-- SENTIMENT -->
   <section class="tab-panel" id="tab-sentiment">
     <div class="cards">
-      <div class="card"><div class="lbl">Team — avg RMS rating</div><div class="val">4.32<small style="font-size:14px;color:#9a8a7c">/5</small></div><div class="meta">Rate My Shift · 2026</div></div>
+      <div class="card"><div class="lbl">Team — avg RMS rating</div><div class="val">4.2<small style="font-size:14px;color:#9a8a7c">/5</small></div><div class="meta">Rate My Shift · 2026</div></div>
       <div class="card"><div class="lbl">Sickness incidents (2026)</div><div class="val">16</div><div class="meta">11 of which late · reported correctly 98%</div></div>
       <div class="card"><div class="lbl">Return-to-work (RTW) completion</div><div class="val"><span class="tag t-ok" style="font-size:22px;padding:2px 10px">86%</span></div><div class="meta">12 done / 14 sick-for-shift</div></div>
       <div class="card"><div class="lbl">Customer — Google rating</div><div class="val">4.81<small style="font-size:14px;color:#9a8a7c">/5</small></div><div class="meta">273 reviews · live GMB</div></div>
@@ -334,8 +334,8 @@ else{bg=warm?"#fdf3e6":"#eef4fb";bd=warm?"#f0d8b0":"#cfe0f2";fg="#4a3a2a";
     <div class="grid2" style="margin-top:18px">
       <div class="panel">
         <div style="font-size:13px;font-weight:700;color:#5b3a29;margin-bottom:8px">Team sentiment — Rate My Shift (out of 5)</div>
-        <table class="mov"><tbody><tr><td class="ms">Balsall Common</td><td style="width:55%"><div class="pbar" style="width:100%"><i style="width:98%;background:#1f8a4c"></i></div></td><td><span class="tag t-ok">4.90</span></td><td class="mini">31 ratings</td></tr><tr><td class="ms">Attleborough</td><td style="width:55%"><div class="pbar" style="width:100%"><i style="width:97%;background:#1f8a4c"></i></div></td><td><span class="tag t-ok">4.86</span></td><td class="mini">21 ratings</td></tr><tr><td class="ms">Glenvale DT</td><td style="width:55%"><div class="pbar" style="width:100%"><i style="width:64%;background:#c0392b"></i></div></td><td><span class="tag t-red">3.20</span></td><td class="mini">25 ratings</td></tr></tbody></table>
-        <div class="note">RMS is the team's own shift rating. Softest at <b>Glenvale DT (3.2)</b> and <b>Attleborough (4.86)</b>; strongest <b>Balsall Common (4.9)</b>.</div>
+        <table class="mov"><tbody><tr><td class="ms">Balsall Common</td><td style="width:55%"><div class="pbar" style="width:100%"><i style="width:98%;background:#1f8a4c"></i></div></td><td><span class="tag t-ok">4.92</span></td><td class="mini">40 ratings</td></tr><tr><td class="ms">Attleborough</td><td style="width:55%"><div class="pbar" style="width:100%"><i style="width:93%;background:#1f8a4c"></i></div></td><td><span class="tag t-ok">4.66</span></td><td class="mini">38 ratings</td></tr><tr><td class="ms">Glenvale DT</td><td style="width:55%"><div class="pbar" style="width:100%"><i style="width:60%;background:#c0392b"></i></div></td><td><span class="tag t-red">3.02</span></td><td class="mini">62 ratings</td></tr></tbody></table>
+        <div class="note">RMS is the team's own shift rating. Softest at <b>Glenvale DT (3.02)</b> and <b>Attleborough (4.66)</b>; strongest <b>Balsall Common (4.92)</b>.</div>
       </div>
       <div class="panel">
         <div style="font-size:13px;font-weight:700;color:#5b3a29;margin-bottom:8px">Sickness, late &amp; return-to-work — 2026</div>
@@ -393,7 +393,7 @@ function renderWaste(store){
     b.classList.add("active");document.getElementById("tab-"+b.dataset.tab).classList.add("active");
     requestAnimationFrame(()=>{(window.CHARTS||[]).forEach(c=>{try{c.resize();}catch(e){}});});}));})();
 function goTab(t){var b=document.querySelector('.tab-btn[data-tab="'+t+'"]');if(b){b.click();window.scrollTo({top:0,behavior:"smooth"});}}
-document.getElementById("foot").innerHTML="Data refreshed 30 Jun 2026, 18:41 · auto-refreshes every Monday 9am. Sources: live BigQuery POS, polling sheet, F1 audit, the visit rota, HRP &amp; Google reviews.";
+document.getElementById("foot").innerHTML="Data refreshed 30 Jun 2026, 18:55 · auto-refreshes every Monday 9am. Sources: live BigQuery POS, polling sheet, F1 audit, the visit rota, HRP &amp; Google reviews.";
 </script>
 </body>
 </html>

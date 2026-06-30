@@ -74,14 +74,14 @@
     },
     {
      "name": "People & Customer",
-     "star": 4.4,
+     "star": 4.2,
      "target": 4.6,
      "on_target": false,
      "metrics": [
       {
        "label": "RMS health /5",
-       "value": "3.2",
-       "star": 4.3,
+       "value": "3.02",
+       "star": 3.8,
        "on_target": false
       },
       {
@@ -199,7 +199,7 @@
      "metrics": [
       {
        "label": "RMS health /5",
-       "value": "4.72",
+       "value": "4.68",
        "star": 4.9,
        "on_target": true
       },

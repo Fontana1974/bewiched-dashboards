@@ -1,6 +1,6 @@
 {
  "_about": "Bewiched EOS Scorecard data. Written by run_weekly.py pull_eos_scorecard(); rendered by gen_eos_scorecard.py. Live = BigQuery; derived = other feeds; manual = inputs sheet.",
- "generated": "30 Jun 2026, 19:39",
+ "generated": "30 Jun 2026, 19:54",
  "cur_end": "2026-06-28",
  "week_label": "w/c 22 Jun 2026",
  "quarter_label": "Q2 2026 (Apr–Jun)",
@@ -237,11 +237,11 @@
   "F1 Score = AVERAGE RACE TOTAL SCORE (Matt confirmed), live from the F1 sheet (ID 1YFqpR9_ftlQEbfwc5ZVMjtS5tFO0j-7ccwB8rwG56wQ) — weekly = last week's race, quarterly = QTD avg. The old '75' target is retired. Plan is a PROVISIONAL 280 on this scale — Matt still needs to give the target NUMBER on the ~280 average-race-total-score scale (being asked separately).",
   "Weekly tab now mirrors the quarterly measures wherever a genuine weekly value exists: YoY Sales, YoY Transactions, F1 Score (last week's race), Food GP%% (weekly CoS, posted a week in arrears), and Brand Audit (last week's audits — periodic, so it shows 'awaiting' in weeks with none; latest audit on file is currently 18 Jun).",
   "Net Profit After Tax and New Starter Health are intentionally QUARTERLY-ONLY — no weekly tile (NPAT is monthly/quarterly management-accounts data; New Starter Health is a quarterly measure).",
-  "Net Profit After Tax % is derived from the Bewiched Ltd monthly P&L (Profit after Taxation ÷ Total Turnover); currently May 2026 = 7.9%. Share the P&L sheet with the service account so it auto-refreshes each month.",
+  "Net Profit After Tax % is derived from the Bewiched Ltd monthly P&L (Profit after Taxation ÷ Total Turnover); currently May 2026 = 7.9%%. Share the P&L sheet with the service account so it auto-refreshes each month (see flag above if it 403s).",
   "Food GP% uses the Cost of Sales estate GP% as a proxy until a company food-specific GP source exists.",
   "Social Media Engagement and New Starter Health are greyed TBC placeholders pending metric + target definitions.",
   "Manual inputs sheet 'Bewiched EOS Scorecard Inputs' (ID 1HimYAjZg4zlMQG91-KUefkeYMPvrU4ddVuO2IuERTqg) must be shared (Viewer) with dashboards-bot@bewiched-coffee-368116.iam.gserviceaccount.com for the automated run to read it.",
   "Manual inputs sheet not readable (<HttpError 403 when requesting https://sheets.googleapis.com/v4/spreadsheets/1HimYAjZg4zlM) — share it (Viewer) with the service account dashboards-bot@bewiched-coffee-368116.iam.gserviceaccount.com. Manual metrics shown as awaiting.",
-  "ACTION: share the P&L sheet 'Bewiched May 2026 P&L' (ID 1RTsnnz5F9XIdkg4j8m8MiuKqeAvZaAWcndbFifNNLhM) as Viewer with dashboards-bot@bewiched-coffee-368116.iam.gserviceaccount.com — until then NPAT uses the May snapshot (7.9%). Also update the P&L sheet ID in run_weekly when the month rolls."
+  "Net Profit After Tax: P&L sheet not readable by the service account (<HttpError 403 when requesting https://sheets.googleapis.com/v4/spread) — share 'May 2026 P&L' (ID 1RTsnnz5F9XIdkg4j8m8MiuKqeAvZaAWcndbFifNNLhM, Viewer) with dashboards-bot@bewiched-coffee-368116.iam.gserviceaccount.com. Using the May 2026 snapshot (7.9%) meanwhile."
  ]
 }

@@ -35,8 +35,8 @@
    "g_health": 2.83,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 21,
-   "r_avg": 4.86,
+   "r_n": 38,
+   "r_avg": 4.66,
    "r_rag": "green"
   },
   "Billing Drive Thru": {
@@ -46,8 +46,8 @@
    "g_health": 3.88,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 4,
-   "r_avg": 5.0,
+   "r_n": 28,
+   "r_avg": 4.82,
    "r_rag": "green"
   },
   "Burton Latimer": {
@@ -57,8 +57,8 @@
    "g_health": 4.97,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 15,
-   "r_avg": 4.87,
+   "r_n": 19,
+   "r_avg": 4.89,
    "r_rag": "green"
   },
   "Corby": {
@@ -68,8 +68,8 @@
    "g_health": 3.4,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 44,
-   "r_avg": 3.61,
+   "r_n": 69,
+   "r_avg": 3.44,
    "r_rag": "red"
   },
   "Glenvale Drive Thru": {
@@ -79,8 +79,8 @@
    "g_health": 4.32,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 25,
-   "r_avg": 3.2,
+   "r_n": 62,
+   "r_avg": 3.02,
    "r_rag": "red"
   },
   "HOE Balsall Common": {
@@ -88,8 +88,8 @@
    "g_health": null,
    "g_rag": "na",
    "g_stale": true,
-   "r_n": 31,
-   "r_avg": 4.9,
+   "r_n": 40,
+   "r_avg": 4.92,
    "r_rag": "green"
   },
   "Higham Ferrers": {
@@ -97,18 +97,18 @@
    "g_health": null,
    "g_rag": "na",
    "g_stale": true,
-   "r_n": 4,
-   "r_avg": 4.25,
-   "r_rag": "amber"
+   "r_n": 14,
+   "r_avg": 4.57,
+   "r_rag": "green"
   },
   "Kettering": {
    "g_n": null,
    "g_health": null,
    "g_rag": "na",
    "g_stale": true,
-   "r_n": 14,
-   "r_avg": 4.43,
-   "r_rag": "amber"
+   "r_n": 25,
+   "r_avg": 4.52,
+   "r_rag": "green"
   },
   "Leamington Parade": {
    "g_n": 10,
@@ -117,8 +117,8 @@
    "g_health": 3.77,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 65,
-   "r_avg": 4.72,
+   "r_n": 141,
+   "r_avg": 4.68,
    "r_rag": "green"
   },
   "Lower Heathcote": {
@@ -128,9 +128,9 @@
    "g_health": 3.12,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 12,
-   "r_avg": 4.5,
-   "r_rag": "green"
+   "r_n": 26,
+   "r_avg": 4.15,
+   "r_rag": "amber"
   },
   "Market Harborough": {
    "g_n": 11,
@@ -139,17 +139,17 @@
    "g_health": 3.6,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 9,
-   "r_avg": 4.11,
-   "r_rag": "amber"
+   "r_n": 20,
+   "r_avg": 4.5,
+   "r_rag": "green"
   },
   "Northampton": {
    "g_n": null,
    "g_health": null,
    "g_rag": "na",
    "g_stale": true,
-   "r_n": 19,
-   "r_avg": 4.84,
+   "r_n": 29,
+   "r_avg": 4.69,
    "r_rag": "green"
   },
   "Northampton Drive-Thru": {
@@ -159,8 +159,8 @@
    "g_health": 1.99,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 36,
-   "r_avg": 4.25,
+   "r_n": 44,
+   "r_avg": 4.04,
    "r_rag": "amber"
   },
   "Olney": {
@@ -170,17 +170,17 @@
    "g_health": 3.5,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 3,
-   "r_avg": 5.0,
-   "r_rag": "green"
+   "r_n": 4,
+   "r_avg": 4.0,
+   "r_rag": "amber"
   },
   "Peterborough Bridge Street": {
    "g_n": null,
    "g_health": null,
    "g_rag": "na",
    "g_stale": true,
-   "r_n": 4,
-   "r_avg": 4.75,
+   "r_n": 23,
+   "r_avg": 4.7,
    "r_rag": "green"
   },
   "Peterborough Fletton Quays": {
@@ -190,9 +190,9 @@
    "g_health": 2.67,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 6,
-   "r_avg": 4.67,
-   "r_rag": "green"
+   "r_n": 15,
+   "r_avg": 4.33,
+   "r_rag": "amber"
   },
   "Rothwell": {
    "g_n": 1,
@@ -201,8 +201,8 @@
    "g_health": 2.71,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 11,
-   "r_avg": 4.36,
+   "r_n": 17,
+   "r_avg": 4.24,
    "r_rag": "amber"
   },
   "Rugby": {
@@ -212,8 +212,8 @@
    "g_health": 2.9,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 39,
-   "r_avg": 4.87,
+   "r_n": 70,
+   "r_avg": 4.93,
    "r_rag": "green"
   },
   "Rushden Lakes": {
@@ -223,8 +223,8 @@
    "g_health": 2.6,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 16,
-   "r_avg": 3.25,
+   "r_n": 21,
+   "r_avg": 3.29,
    "r_rag": "red"
   },
   "Wellingborough": {
@@ -232,8 +232,8 @@
    "g_health": null,
    "g_rag": "na",
    "g_stale": true,
-   "r_n": 7,
-   "r_avg": 5.0,
+   "r_n": 12,
+   "r_avg": 4.67,
    "r_rag": "green"
   },
   "Wellingborough Train Station": {
@@ -243,8 +243,8 @@
    "g_health": 4.98,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 10,
-   "r_avg": 2.1,
+   "r_n": 13,
+   "r_avg": 1.85,
    "r_rag": "red"
   }
  }
