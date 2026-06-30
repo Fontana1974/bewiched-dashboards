@@ -34,6 +34,42 @@
    "note": "Last completed week transactions vs same week last year (LFL); reuses tx26/tx25."
   },
   {
+   "id": "f1_score_wk",
+   "name": "F1 Score",
+   "plan": 280,
+   "actual": 282.8,
+   "unit": "",
+   "fmt": "num1",
+   "dir": "high",
+   "source": "live",
+   "detail": "Last week's race result, estate avg (21 stores)",
+   "note": "PROVISIONAL PLAN (280) — F1 race 'Total Score' scale (estate avg ~282), NOT the /5 or stated 75 scale. Confirm the target on this scale, or switch to championship position / a /100 normalised score."
+  },
+  {
+   "id": "brand_audit_wk",
+   "name": "Brand Audit Score",
+   "plan": 4.6,
+   "actual": null,
+   "unit": "",
+   "fmt": "score2",
+   "dir": "high",
+   "source": "derived",
+   "detail": "No brand audits logged last week",
+   "note": "Last completed week's audits. Brand audits are periodic — tile stays awaiting in weeks with none; the quarterly QTD tile is the reliable one."
+  },
+  {
+   "id": "food_gp_wk",
+   "name": "Food GP%",
+   "plan": 71,
+   "actual": 71.1,
+   "unit": "%",
+   "fmt": "pct1",
+   "dir": "high",
+   "source": "derived",
+   "detail": "Cost-of-Sales latest week (ending 2026-06-21), estate GP%",
+   "note": "PROXY: company food-specific GP% not yet sourced — using the weekly CoS estate GP%. The CoS sheet posts a week in arrears."
+  },
+  {
    "id": "google_health",
    "name": "Google Health",
    "plan": 100,
@@ -147,14 +183,14 @@
   {
    "id": "f1_score",
    "name": "F1 Score",
-   "plan": 75,
-   "actual": null,
+   "plan": 280,
+   "actual": 281.8,
    "unit": "",
    "fmt": "num1",
    "dir": "high",
-   "source": "manual",
-   "detail": "",
-   "note": "CONFIRM SCALE: F1 'Total Score' QTD estate avg is ~282 pts, not /100. Enter on the plan-75 scale in the inputs sheet, or update the plan."
+   "source": "live",
+   "detail": "QTD race 'Total Score', estate avg (21 stores)",
+   "note": "PROVISIONAL PLAN (280) — F1 race 'Total Score' scale (estate avg ~282), NOT the /5 or stated 75 scale. Confirm the target on this scale, or switch to championship position / a /100 normalised score."
   },
   {
    "id": "npat",
@@ -197,8 +233,10 @@
  "flags": [
   "Status is strictly binary: GREEN when actual ≥ plan, RED when below — no near-target band. Bench is green when ≥ 3.",
   "Google Health & Rate My Shift Health blend divisors (40 reviews / 4.6★ ; 70 submissions / 4.6★) are default assumptions — adjust if you prefer different volume targets.",
-  "Plans for SPH Labour, Brew Crew Kudos, Bench, F1 Score, NPAT and Food GP% are Matt's stated defaults (50 / 50%% / 3 / 75 / 18%% / 71%%).",
-  "F1 Score scale needs confirming — sheet QTD Total Score averages ~282 pts, so plan 75 implies a different scale. Shown as awaiting until a value on the plan scale is entered.",
+  "Plans (Matt's stated defaults): SPH Labour 50, Brew Crew Kudos 50%, Bench 3, NPAT 18%, Food GP% 71%. YoY Sales 12% / Transactions 5% on both tabs.",
+  "F1 Score is now LIVE from the F1 sheet (Matt Fountain's F1 workbook, ID 1YFqpR9_ftlQEbfwc5ZVMjtS5tFO0j-7ccwB8rwG56wQ) — weekly = last week's race Total Score, quarterly = QTD avg. SCALE TO CONFIRM: values are the raw race 'Total Score' (~282), so the plan is a PROVISIONAL 280 on that scale, NOT the stated 75. Tell me the real target on the Total-Score scale, or whether F1 should be championship position / a /100 normalised score.",
+  "Weekly tab now mirrors the quarterly measures wherever a genuine weekly value exists: YoY Sales, YoY Transactions, F1 Score (last week's race), Food GP% (weekly CoS, posted a week in arrears), and Brand Audit (last week's audits — periodic, so it shows 'awaiting' in weeks with none; latest audit on file is currently 18 Jun).",
+  "Net Profit After Tax and New Starter Health are intentionally QUARTERLY-ONLY — no weekly tile (NPAT is monthly/quarterly management-accounts data; New Starter Health is a quarterly measure).",
   "Net Profit After Tax % is not available from POS/BigQuery — manual entry from management accounts.",
   "Food GP% uses the Cost of Sales estate GP% as a proxy until a company food-specific GP source exists.",
   "Social Media Engagement and New Starter Health are greyed TBC placeholders pending metric + target definitions.",

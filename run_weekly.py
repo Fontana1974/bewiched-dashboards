@@ -647,6 +647,7 @@ def pull_audit():
     rows = sheet(SID["audit"], "'Brand Audit Date (NEW24/25)'!A1:L4000")
     a = load_all(); rec = a["rec"]
     qtd = {}                          # store -> [totals]
+    lastwk = []                       # estate totals for audits dated in the last completed week
     raw_rows = {}
     for r in rows[1:]:
         if not r or not r[0]: continue
@@ -657,6 +658,8 @@ def pull_audit():
         total = fnum(r[9]) if len(r) > 9 else None
         if dt >= QSTART and total:
             qtd.setdefault(st, []).append(total)
+        if total and LASTWK_MON <= dt <= CUR_END:
+            lastwk.append(total)
         if st in COMMERCIAL_STORES and dt >= QSTART:
             sub = [fnum(r[i]) for i in range(4, 9)] if len(r) > 8 else []
             plan = r[10] if len(r) > 10 else ""
@@ -667,9 +670,11 @@ def pull_audit():
     save_all(a)
     W("audit_raw.json", {"_pulled": CUR_END.isoformat(),
         "_sheet": "%s / Brand Audit Date (NEW24/25)" % SID["audit"],
+        "_lastwk_avg": round(sum(lastwk) / len(lastwk), 2) if lastwk else None,
+        "_lastwk_n": len(lastwk),
         "_cols": ["Store", "Date", "Culture", "ShiftMgmt", "Cleanliness", "Product",
                   "Maintenance", "Total", "ActionPlan"], "rows": raw_rows}, indent=1)
-    print("[pull] audit: %d stores qtd, %d raw stores" % (len(qtd), len(raw_rows)))
+    print("[pull] audit: %d stores qtd, %d raw stores, %d audits last week" % (len(qtd), len(raw_rows), len(lastwk)))
 
 
 def pull_availability():
@@ -1189,6 +1194,26 @@ def pull_eos_scorecard():
     tlw = sum(r.get("tx26", 0) or 0 for r in lflx); tly = sum(r.get("tx25", 0) or 0 for r in lflx)
     yoy_tx_wk = round(100 * (tlw / tly - 1), 1) if tly else None
     wk_ref = "w/c %s vs %d" % (LASTWK_MON.strftime("%-d %b"), CUR_END.year - 1)
+    # ---- F1 (auto-rebuilt from the F1 sheet by pull_f1 -> f1_detail.json). Total Score scale. ----
+    fdet = jload("f1_detail.json")
+    f1_qtd_xs = [v["race_qtd"]["score"] for v in fdet.values()
+                 if v.get("race_qtd") and v["race_qtd"].get("score") is not None]
+    f1_qtd = round(sum(f1_qtd_xs) / len(f1_qtd_xs), 1) if f1_qtd_xs else None
+    f1_wk_xs = []
+    for v in fdet.values():
+        r = v.get("race")
+        if r and r[8] and LASTWK_MON.isoformat() <= r[8] <= CUR_END.isoformat():
+            f1_wk_xs.append(r[5])                       # race Total Score (col 18) for last week's race
+    f1_wk = round(sum(f1_wk_xs) / len(f1_wk_xs), 1) if f1_wk_xs else None
+    F1_PLAN = 280   # PROVISIONAL — on the raw race Total-Score scale (~282 now); confirm real target.
+    f1_note = ("PROVISIONAL PLAN (%d) — F1 race 'Total Score' scale (estate avg ~282), NOT the /5 or "
+               "stated 75 scale. Confirm the target on this scale, or switch to championship position / "
+               "a /100 normalised score." % F1_PLAN)
+    # ---- Brand Audit, last completed week (audits are periodic; awaiting if none logged that week) ----
+    audit_lastwk = jload("audit_raw.json").get("_lastwk_avg")
+    audit_lastwk_n = jload("audit_raw.json").get("_lastwk_n", 0)
+    # ---- Food GP% — Cost-of-Sales sheet is weekly; cos estate avg already = latest CoS week ----
+    cos_week = jload("cos_metrics.json").get("_week", "")
 
     # ---- live quarterly: YoY sales / tx (QTD LFL) ----
     yoy_sales = yoy_tx = None; lfl_n = None
@@ -1236,6 +1261,15 @@ def pull_eos_scorecard():
         metric("yoy_tx_wk", "YoY Transactional Growth", 5, yoy_tx_wk, "%", "pct_signed", "derived",
                "%s (%d like-for-like stores)" % (wk_ref, len(lflx)),
                "Last completed week transactions vs same week last year (LFL); reuses tx26/tx25."),
+        metric("f1_score_wk", "F1 Score", F1_PLAN, f1_wk, "", "num1", "live",
+               ("Last week's race result, estate avg (%d stores)" % len(f1_wk_xs)) if f1_wk_xs else "No race scores logged last week",
+               f1_note),
+        metric("brand_audit_wk", "Brand Audit Score", 4.6, audit_lastwk, "", "score2", "derived",
+               ("Audits logged last week, estate avg (%d audits)" % audit_lastwk_n) if audit_lastwk_n else "No brand audits logged last week",
+               "Last completed week's audits. Brand audits are periodic — tile stays awaiting in weeks with none; the quarterly QTD tile is the reliable one."),
+        metric("food_gp_wk", "Food GP%", 71, fg, "%", "pct1", "derived",
+               ("Cost-of-Sales latest week (ending %s), estate GP%%" % cos_week) if cos_week else "Estate GP% from Cost of Sales",
+               "PROXY: company food-specific GP% not yet sourced — using the weekly CoS estate GP%. The CoS sheet posts a week in arrears."),
         metric("google_health", "Google Health", 100, gh, "%", "pct0", "derived", gh_detail,
                "Blend: avg of reviews÷40 and rating÷4.6, each capped 100%. Green at 100%."),
         metric("rms_health", "Rate My Shift Health", 100, rh, "%", "pct0", "derived", rh_detail,
@@ -1261,8 +1295,9 @@ def pull_eos_scorecard():
         metric("brand_audit", "Brand Audit Score", 4.6, ba, "", "score2", "derived",
                "Estate average brand audit (QTD), out of 5",
                "Auto-derived from the Brand Audit sheet; override in the inputs sheet if needed."),
-        metric("f1_score", "F1 Score", 75, None, "", "num1", "manual", "",
-               "CONFIRM SCALE: F1 'Total Score' QTD estate avg is ~282 pts, not /100. Enter on the plan-75 scale in the inputs sheet, or update the plan."),
+        metric("f1_score", "F1 Score", F1_PLAN, f1_qtd, "", "num1", "live",
+               ("QTD race 'Total Score', estate avg (%d stores)" % len(f1_qtd_xs)) if f1_qtd_xs else "Awaiting F1 race data",
+               f1_note),
         metric("npat", "Net Profit After Tax (projected)", 18, None, "%", "pct1", "manual", "",
                "Projected NPAT % of turnover — not in POS data. Enter from management accounts in the inputs sheet."),
         metric("food_gp", "Food GP%", 71, fg, "%", "pct1", "derived",
@@ -1275,8 +1310,10 @@ def pull_eos_scorecard():
     flags = [
         "Status is strictly binary: GREEN when actual ≥ plan, RED when below — no near-target band. Bench is green when ≥ 3.",
         "Google Health & Rate My Shift Health blend divisors (40 reviews / 4.6★ ; 70 submissions / 4.6★) are default assumptions — adjust if you prefer different volume targets.",
-        "Plans for SPH Labour, Brew Crew Kudos, Bench, F1 Score, NPAT and Food GP% are Matt's stated defaults (50 / 50%% / 3 / 75 / 18%% / 71%%).",
-        "F1 Score scale needs confirming — sheet QTD Total Score averages ~282 pts, so plan 75 implies a different scale. Shown as awaiting until a value on the plan scale is entered.",
+        "Plans (Matt's stated defaults): SPH Labour 50, Brew Crew Kudos 50%%, Bench 3, NPAT 18%%, Food GP%% 71%%. YoY Sales 12%% / Transactions 5%% on both tabs.",
+        "F1 Score is now LIVE from the F1 sheet (Matt Fountain's F1 workbook, ID %s) — weekly = last week's race Total Score, quarterly = QTD avg. SCALE TO CONFIRM: values are the raw race 'Total Score' (~282), so the plan is a PROVISIONAL 280 on that scale, NOT the stated 75. Tell me the real target on the Total-Score scale, or whether F1 should be championship position / a /100 normalised score." % SID["f1"],
+        "Weekly tab now mirrors the quarterly measures wherever a genuine weekly value exists: YoY Sales, YoY Transactions, F1 Score (last week's race), Food GP%% (weekly CoS, posted a week in arrears), and Brand Audit (last week's audits — periodic, so it shows 'awaiting' in weeks with none; latest audit on file is currently 18 Jun).",
+        "Net Profit After Tax and New Starter Health are intentionally QUARTERLY-ONLY — no weekly tile (NPAT is monthly/quarterly management-accounts data; New Starter Health is a quarterly measure).",
         "Net Profit After Tax % is not available from POS/BigQuery — manual entry from management accounts.",
         "Food GP% uses the Cost of Sales estate GP% as a proxy until a company food-specific GP source exists.",
         "Social Media Engagement and New Starter Health are greyed TBC placeholders pending metric + target definitions.",
