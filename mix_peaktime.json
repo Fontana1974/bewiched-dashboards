@@ -212,14 +212,14 @@
    "name": "Victoria Sponge Cake",
    "peak": "Afternoon",
    "share": 38,
-   "hour": "2pm",
+   "hour": "3pm",
    "units": 255,
    "sales": 883,
    "sparse": false
   },
   {
    "name": "Granola Traybake",
-   "peak": "Lunch",
+   "peak": "Morning",
    "share": 42,
    "hour": "11am",
    "units": 195,
@@ -230,7 +230,7 @@
    "name": "Toffee Millionaires Cake",
    "peak": "Lunch",
    "share": 45,
-   "hour": "11am",
+   "hour": "1pm",
    "units": 191,
    "sales": 663,
    "sparse": false
