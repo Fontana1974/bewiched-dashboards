@@ -1723,8 +1723,6 @@ def build():
     _run("gen_area.py")
     _run("gen_kel.py")
     _run("gen_claire.py")
-    if os.path.exists(os.path.join(HERE, "gen_scorecard.py")):
-        _run("gen_scorecard.py")
     if os.path.exists(os.path.join(HERE, "gen_eos_scorecard.py")) and \
        os.path.exists(os.path.join(HERE, "eos_scorecard.json")):
         _run("gen_eos_scorecard.py")
