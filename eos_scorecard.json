@@ -1,6 +1,6 @@
 {
  "_about": "Bewiched EOS Scorecard data. Written by run_weekly.py pull_eos_scorecard(); rendered by gen_eos_scorecard.py. Live = BigQuery; derived = other feeds; manual = inputs sheet.",
- "generated": "30 Jun 2026, 22:08",
+ "generated": "01 Jul 2026, 06:52",
  "cur_end": "2026-06-28",
  "week_label": "w/c 22 Jun 2026",
  "quarter_label": "Q2 2026 (Apr–Jun)",
@@ -152,7 +152,7 @@
    "dir": "high",
    "source": "derived",
    "detail": "Weekly flex · baseline 7.9% · GP +2.1pp · labour +0.0pp",
-   "note": "Projected (GP + labour flex off the May 2026 P&L). NPAT% = baseline 7.9% + (estate GP% − May 2026 baseline) − (labour% − baseline). Baseline: product GP 66.1%, labour 33.85%, admin 24.33% (held), avg labour £19.53/hr. GP movement = estate-wide blended GP from the COS master tab (CoG basis; May 2026 baseline 73.96%, latest week 76.03%, QTD 74.21%). Labour flexes via planner actual CPH £57.7 ÷ baseline £57.7 (avg £19.53/hr ÷ live CPH). Weekly CPH = this week's planner CPH; QTD CPH £57.7 is hours-weighted from weekly_history.csv (1 week so far)."
+   "note": "Projected (GP + labour flex off the May 2026 P&L). NPAT% = baseline 7.9% + (estate GP% − May 2026 baseline) − (labour% − baseline). Baseline: product GP 66.1%, labour 33.9%, admin 24.3% (held), avg labour £19.53/hr. GP movement = estate-wide blended GP from the COS master tab (CoG basis; May 2026 baseline 73.96%, latest week 76.03%, QTD 74.21%). Labour flexes via planner actual CPH £57.7 ÷ baseline £57.7 (avg £19.53/hr ÷ live CPH). Weekly CPH = this week's planner CPH; QTD CPH £57.7 is hours-weighted from weekly_history.csv (13 weeks so far)."
   },
   {
    "id": "new_starter_health_wk",
@@ -251,7 +251,7 @@
    "fmt": "gbp1",
    "dir": "high",
    "source": "derived",
-   "detail": "QTD £/hr, hours-weighted from weekly_history (1 week so far)",
+   "detail": "QTD £/hr, hours-weighted from weekly_history (13 weeks so far)",
    "note": "QTD sales per labour hour, hours-weighted across the weekly_history.csv rows since quarter start. Thin until several weeks accumulate (falls back to the current week)."
   },
   {
@@ -312,7 +312,7 @@
    "dir": "high",
    "source": "derived",
    "detail": "QTD flex · baseline 7.9% · GP +0.2pp · labour +0.0pp",
-   "note": "Projected (GP + labour flex off the May 2026 P&L). NPAT% = baseline 7.9% + (estate GP% − May 2026 baseline) − (labour% − baseline). Baseline: product GP 66.1%, labour 33.85%, admin 24.33% (held), avg labour £19.53/hr. GP movement = estate-wide blended GP from the COS master tab (CoG basis; May 2026 baseline 73.96%, latest week 76.03%, QTD 74.21%). Labour flexes via planner actual CPH £57.7 ÷ baseline £57.7 (avg £19.53/hr ÷ live CPH). Weekly CPH = this week's planner CPH; QTD CPH £57.7 is hours-weighted from weekly_history.csv (1 week so far)."
+   "note": "Projected (GP + labour flex off the May 2026 P&L). NPAT% = baseline 7.9% + (estate GP% − May 2026 baseline) − (labour% − baseline). Baseline: product GP 66.1%, labour 33.9%, admin 24.3% (held), avg labour £19.53/hr. GP movement = estate-wide blended GP from the COS master tab (CoG basis; May 2026 baseline 73.96%, latest week 76.03%, QTD 74.21%). Labour flexes via planner actual CPH £57.7 ÷ baseline £57.7 (avg £19.53/hr ÷ live CPH). Weekly CPH = this week's planner CPH; QTD CPH £57.7 is hours-weighted from weekly_history.csv (13 weeks so far)."
   },
   {
    "id": "new_starter_health",
@@ -329,8 +329,6 @@
   }
  ],
  "flags": [
-  "NEW third tab 'Quarterly Scorecard' — the 13 metrics as rows (owner + plan) × each week of the quarter as columns, traffic-lit binary, back-filled from source (BigQuery sales/YoY, COS estate GP + NPAT, F1, RMS, Google, Kudos per week). SPH/Bench/Brand Audit fill going forward; Social/New Starter TBC. Reads weekly_history.csv.",
-  "QTD CPH/SPH and the labour side of QTD NPAT now read from the committed weekly_history.csv (one row per week-ending, upserted each run — re-runs update, no dupes). Thin until several weeks accumulate; until then QTD ≈ the current week. YoY (BigQuery), Kudos QTD (BCKH), GP QTD (COS master) keep their own source-of-truth and are also logged to history.",
   "Status is strictly binary: GREEN when actual ≥ plan, RED when below — no near-target band. Bench is green when ≥ 3.",
   "Google Health & Rate My Shift Health blend divisors (40 reviews / 4.6★ ; 70 submissions / 4.6★) are default assumptions — adjust if you prefer different volume targets.",
   "Plans (Matt's stated defaults): SPH Labour 50, Brew Crew Kudos 50%, Bench 3, NPAT 18%, Food GP% 71%. YoY Sales 12% / Transactions 5% on both tabs.",
@@ -342,6 +340,8 @@
   "Food GP% uses the Cost of Sales estate GP% as a proxy until a company food-specific GP source exists.",
   "Social Media Engagement and New Starter Health are greyed TBC placeholders pending metric + target definitions.",
   "Each metric now shows an accountable OWNER (EOS-style): YoY Sales/Transactions & Food GP% = Rich; Google Health, Social Media & SPH Labour = Jon; Rate My Shift, Brew Crew Kudos, Bench & New Starter = Kel; F1 & Brand Audit = Claire. Net Profit After Tax is UNASSIGNED (shown as —) — Matt to confirm the owner (likely Matt/MD). Owners are a config block in gen_eos_scorecard.py.",
+  "NEW third tab 'Quarterly Scorecard' — classic EOS grid: the 13 metrics as rows (owner + plan) × each week of the quarter as columns, traffic-lit binary. Back-filled from source: BigQuery (sales, YoY sales/tx per week), COS master (estate GP + NPAT projection per week), F1 sheet (race score), Shift Ratings (RMS), Reviews (Google Health), BCKH (Kudos). SPH (no historical hours), Bench (point-in-time) and Brand Audit (sparse) fill going forward; Social Media & New Starter stay TBC. The grid reads weekly_history.csv.",
+  "QTD CPH/SPH and the labour side of QTD NPAT now read from the committed weekly_history.csv (one row per week-ending, upserted each run — re-runs update, no dupes). Thin until several weeks accumulate; until then QTD ≈ the current week. YoY (BigQuery), Kudos QTD (BCKH), GP QTD (COS master) keep their own source-of-truth and are also logged to history.",
   "Manual inputs sheet 'Bewiched EOS Scorecard Inputs' (ID 1HimYAjZg4zlMQG91-KUefkeYMPvrU4ddVuO2IuERTqg) must be shared (Viewer) with dashboards-bot@bewiched-coffee-368116.iam.gserviceaccount.com for the automated run to read it.",
   "Manual inputs sheet not readable (<HttpError 403 when requesting https://sheets.googleapis.com/v4/spreadsheets/1HimYAjZg4zlM) — share it (Viewer) with the service account dashboards-bot@bewiched-coffee-368116.iam.gserviceaccount.com. Manual metrics shown as awaiting.",
   "Net Profit After Tax: P&L sheet not readable by the service account (<HttpError 403 when requesting https://sheets.googleapis.com) — share 'May 2026 P&L' (ID 1RTsnnz5F9XIdkg4j8m8MiuKqeAvZaAWcndbFifNNLhM, Viewer) with dashboards-bot@bewiched-coffee-368116.iam.gserviceaccount.com. Using FROZEN May baseline constants."
