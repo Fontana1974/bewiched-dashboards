@@ -105,9 +105,9 @@ def build(coach):
     atv_med=median([R[s]['atv'] for s in stores])
     # area aggregates
     area_last=sum(R[s]['lw26'] for s in stores); area_4wk=sum(R[s]['s4'] for s in stores)
-    comp=[s for s in stores if R[s]['lw25']>0]
+    comp=[s for s in stores if R[s]['lw25']>0 and R[s]['lw26']>0]
     ylw=round(100*(sum(R[s]['lw26'] for s in comp)/sum(R[s]['lw25'] for s in comp)-1),1) if comp else 0
-    comp4=[s for s in stores if R[s]['s4_25']>0]
+    comp4=[s for s in stores if R[s]['s4_25']>0 and R[s]['s4']>0]
     y4=round(100*(sum(R[s]['s4'] for s in comp4)/sum(R[s]['s4_25'] for s in comp4)-1),1) if comp4 else 0
     awr=sum(R[s]['wr'] for s in stores); awpct=round(100*awr/area_4wk,1); awr_lw=sum(R[s].get('wr_lw',0) for s in stores); area_lw_sales=sum(R[s].get('lw_sales',0) for s in stores); awpct_lw=round(100*awr_lw/area_lw_sales,1) if area_lw_sales else 0; awr_wk=round(awr/4)
     avgcov=round(mean([R[s]['visdow']['total'] for s in stores]))
@@ -169,7 +169,7 @@ def build(coach):
         r=R[s]; lw=r['lw26']; lw25=r['lw25']; t26=r['tx26']; t25=r['tx25']; sl+=lw; st_+=t26
         sy=None if lw25==0 else 100*(lw/lw25-1); avs=lw/t26 if t26 else 0
         avs25=(lw25/t25) if t25 else None; ay=None if avs25 is None else 100*(avs/avs25-1); gy=None if t25==0 else 100*(t26/t25-1)
-        if lw25>0: A0[0]+=lw;A0[1]+=lw25;A0[2]+=t26;A0[3]+=t25
+        if lw25>0 and lw>0: A0[0]+=lw;A0[1]+=lw25;A0[2]+=t26;A0[3]+=t25
         lw_rows+=(f'<tr><td>{s}</td><td style="font-weight:700">{GBP(lw)}</td>{yoycell(sy)}<td>£{avs:.2f}</td>{yoycell(ay)}<td>{t26:,}</td>{yoycell(gy)}</tr>')
     asy=100*(A0[0]/A0[1]-1) if A0[1] else 0; aavs=sl/st_; aay=100*((A0[0]/A0[2])/(A0[1]/A0[3])-1) if A0[3] else 0; agy=100*(A0[2]/A0[3]-1) if A0[3] else 0
     lw_total=f'<tr><td>AREA ({len(stores)} stores)</td><td>{GBP(sl)}</td>{yoycell(asy)}<td>£{aavs:.2f}</td>{yoycell(aay)}<td>{st_:,}</td>{yoycell(agy)}</tr>'
