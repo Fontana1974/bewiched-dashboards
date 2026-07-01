@@ -952,14 +952,21 @@ def pull_daypart_food():
 
 
 def pull_bench():
-    """STEP 2o — HRP 'Bench and HRP' -> bench.json (rendered by bench_render.py)."""
+    """STEP 2o — HRP 'HRP & Bench' -> bench.json (rendered by bench_render.py).
+    Columns B-J: Store Manager, Assistant Manager, Culture Coach(D), Supervisor 1, Supervisor 2,
+    Bench Manager(G), Pipeline 1/2/3(H-J). Full names."""
     rows = sheet(SID["hrp"], "'HRP & Bench'!A1:K200", unformatted=False)
-    cols = ["Store Manager", "Assistant Manager", "Assistant Manager 2", "Supervisor 1",
-            "Supervisor 2", "Bench Manager", "Pipeline 1", "Pipeline 2", "Pipeline 3"]
+    cols = ["Store Manager", "Assistant Manager", "Culture Coach", "Supervisor 1",
+            "Supervisor 2", "Bench Manager", "Pipeline 1", "Pipeline 2", "Pipeline 3"]  # D is now Culture Coach (new HRP layout)
+    # HRP tab uses some informal store labels normalize() doesn't catch -> map them (matches bench_render._BMAP)
+    HRPMAP = {"Drive Thru Northampton": "Northampton Drive-Thru", "Train Station": "Wellingborough Train Station",
+              "Wellingborough Market St": "Wellingborough", "Fletton Quays": "Peterborough Fletton Quays",
+              "Peterborough": "Peterborough Bridge Street", "Balsall Common": "HOE Balsall Common"}
     out_rows = []
     for r in rows[1:]:
         if not r or not r[0]: continue
-        st = normalize(r[0])
+        raw = str(r[0]).strip()
+        st = HRPMAP.get(raw) or normalize(raw)
         if st is None: continue
         out_rows.append([st] + [(r[i] if len(r) > i else "") for i in range(1, 10)])
     W("bench.json", {"_source": "HRP sheet %s, tab 'HRP & Bench' (Sheets API)" % SID["hrp"],
@@ -1201,7 +1208,8 @@ def pull_eos_scorecard():
     cos = jload("cos_metrics.json").get("stores", {})
     ovr = jload("planner_overrides.json")
     benchj = jload("bench.json")
-    bench_n = sum(1 for row in benchj.get("rows", []) if len(row) > 6 and str(row[6]).strip())
+    # bench-ready store = a named successor in Bench Manager (G) OR Pipeline 1-3 (H-J) — cols row[6..9]
+    bench_n = sum(1 for row in benchj.get("rows", []) if any(len(row) > i and str(row[i]).strip() for i in range(6, 10)))
     bench_val = bench_n if benchj.get("rows") else None
 
     # ---- derived weekly ----
@@ -1465,7 +1473,7 @@ def pull_eos_scorecard():
                ("£%.0f sales ÷ %.0f hours used (last week, %d stores reporting)" % (num, den, nrep)) if den else "Awaiting posted hours",
                "Sales per labour hour incl holiday pay. Last completed week; provisional on Sunday, finalised Monday once planner hours post."),
         metric("bench", "Bench", 3, bench_val, "", "num0", "derived",
-               ("%d managers ready on the bench (HRP bench sheet)" % bench_val) if bench_val is not None else "",
+               ("%d stores with a named bench successor (HRP & Bench roster)" % bench_val) if bench_val is not None else "",
                "Count of named Bench Managers in the HRP bench sheet (point-in-time). Green when ≥ 3."),
         metric("f1_score_wk", "F1 Score", F1_PLAN, f1_wk, "", "num1", "sheet",
                ("Last week's race result, estate avg (%d stores)" % len(f1_wk_xs)) if f1_wk_xs else "No race scores logged last week",
@@ -1504,7 +1512,7 @@ def pull_eos_scorecard():
                "QTD £/hr, hours-weighted from weekly_history (%d week%s so far)" % (n_hist_q, "" if n_hist_q == 1 else "s"),
                "QTD sales per labour hour, hours-weighted across the weekly_history.csv rows since quarter start. Thin until several weeks accumulate (falls back to the current week)."),
         metric("bench_qtd", "Bench", 3, bench_val, "", "num0", "derived",
-               ("%d managers ready on the bench (HRP bench sheet)" % bench_val) if bench_val is not None else "",
+               ("%d stores with a named bench successor (HRP & Bench roster)" % bench_val) if bench_val is not None else "",
                "Bench headcount is point-in-time, not a period sum — shows the current count. Green when ≥ 3."),
         metric("f1_score", "F1 Score", F1_PLAN, f1_qtd, "", "num1", "sheet",
                ("QTD race 'Total Score', estate avg (%d stores)" % len(f1_qtd_xs)) if f1_qtd_xs else "Awaiting F1 race data",

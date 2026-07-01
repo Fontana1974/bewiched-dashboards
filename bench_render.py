@@ -1,6 +1,8 @@
-# Shared bench-map renderer used by gen_kel.py, gen_company.py and gen_area.py.
-# Builds the Leaflet/OSM star map + per-store bench roster table from the HRP
-# 'Bench and HRP' roster (bench.json). One code path; callers pass a store filter.
+# Shared bench renderer used by gen_kel.py, gen_company.py and gen_area.py.
+# Builds the Leaflet/OSM star map + a per-store MANAGEMENT-TEAM names table from the HRP
+# 'HRP & Bench' roster (bench.json). One code path; callers pass a store filter.
+# HRP & Bench columns B-J: Store Manager, Assistant Manager, Culture Coach (D, new), Supervisor 1,
+# Supervisor 2, Bench Manager (G), Pipeline 1/2/3 (H-J). Full names.
 import json
 
 _STAR="14,2 17.5,10.5 26.5,11 20,17 22,26 14,21.5 6,26 8,17 1.5,11 10.5,10.5"
@@ -9,6 +11,9 @@ _BMAP={"Drive Thru Northampton":"Northampton Drive-Thru","Train Station":"Wellin
        "Peterborough":"Peterborough Bridge Street","Balsall Common":"HOE Balsall Common"}
 _SCOL={"bench":"#1f8a4c","thin":"#b8860b","gap":"#c0392b"}
 _STAG={"bench":"t-ok","thin":"t-amber","gap":"t-red"}
+# Position labels for the management-team table (cells[0..8] = HRP & Bench cols B..J).
+_POS=["Store Manager","Assistant Manager","Culture Coach","Supervisor 1","Supervisor 2",
+      "Bench Manager","Pipeline 1","Pipeline 2","Pipeline 3"]
 # Potential new openings (not in allstores.json) — estate growth context. Fit-outs/moves excluded by design.
 NEW_OPENINGS=[("Daventry (new site)",52.2650,-1.1480),("Grantham Designer Village",52.9116,-0.6416),
               ("Hinckley",52.5408,-1.3703),("Warwick",52.2812,-1.5846),("Bromsgrove",52.3351,-2.0580),
@@ -18,20 +23,25 @@ def build_bench(REC, SHORT=None, include_keys=None):
     """Return (BENCH_NAV, BENCH_PANEL).
     REC: allstores rec dict. SHORT: short-name map for labels.
     include_keys: iterable of REC keys to include (current-store stars+table); None = full estate.
-    Potential openings are always shown (blue). Markers/colours/legend identical across dashboards."""
+    Potential openings are always shown (blue). Markers/colours/legend identical across dashboards.
+    Bench status keys on cols G-J (Bench Manager + Pipeline 1/2/3); leadership on B-F."""
     SHORT=SHORT or {}
     sh=lambda n:SHORT.get(n,n)
     tag=lambda t,k:'<span class="tag %s">%s</span>'%(k,t)
+    esc=lambda x:(str(x).replace("&","&amp;").replace("<","&lt;").replace(">","&gt;") if x else "")
     try: BENCH=json.load(open('bench.json'))
     except Exception: BENCH=None
     if not (BENCH and BENCH.get('rows')): return "",""
     inc=set(include_keys) if include_keys is not None else None
     pts=[]; tbl=[]; ng=na=nr=0; unplotted=[]
     for row in BENCH['rows']:
-        nm=(row[0] or "").strip(); cells=[(c or "").strip() for c in row[1:10]]
+        nm=(row[0] or "").strip()
+        cells=([(c or "").strip() for c in row[1:10]]+[""]*9)[:9]   # B..J, padded to 9
         key=_BMAP.get(nm,nm)
         if inc is not None and key not in inc: continue
-        sm=cells[0]; leaders=[c for c in cells[0:5] if c]; bench=[c for c in cells[5:9] if c]
+        sm=cells[0]                                    # Store Manager (B)
+        leaders=[c for c in cells[0:5] if c]           # SM, AM, Culture Coach, Sup1, Sup2 (B-F)
+        bench=[c for c in cells[5:9] if c]             # Bench Manager + Pipeline 1/2/3 (G-J)
         if bench: st,sl="bench","Bench ready"; ng+=1
         elif not sm: st,sl="gap","Gap (no SM)"; nr+=1
         else: st,sl="thin","Thin"; na+=1
@@ -39,7 +49,7 @@ def build_bench(REC, SHORT=None, include_keys=None):
         lab=sh(key) if rec else nm
         if coords: pts.append((coords,st,_SCOL[st],lab,nm,sl,bench))
         else: unplotted.append(nm)
-        tbl.append((nm,len(leaders),(", ".join(bench) if bench else "—"),sl,st))
+        tbl.append((nm,cells,sl,st))
     if not tbl: return "",""
     # ---- real map: Leaflet 1.9.4 + OpenStreetMap tiles; one star divIcon per store, coloured by bench status ----
     def _benchpop(nm,sl,bench):
@@ -71,7 +81,15 @@ def build_bench(REC, SHORT=None, include_keys=None):
             '<span style="display:inline-flex;align-items:center;gap:6px">%s Gap (manager vacancy)</span>'
             '<span style="display:inline-flex;align-items:center;gap:6px">%s Potential opening</span></div>'
             %(_sw('#1f8a4c'),_sw('#b8860b'),_sw('#c0392b'),_sw('#88aaff','#2244aa')))
-    rows="".join('<tr><td style="text-align:left">%s</td><td>%s</td><td style="text-align:left">%s</td><td>%s</td></tr>'%(n,ld,bn,tag(sl,_STAG[st])) for (n,ld,bn,sl,st) in tbl)
+    # ---- management-team names table (every position per store; — where vacant) ----
+    mt_head="<th style=\"text-align:left\">Store</th>"+"".join("<th>%s</th>"%p for p in _POS)+"<th>Status</th>"
+    mt_rows="".join(
+        '<tr><td style="text-align:left;font-weight:600">%s</td>%s<td>%s</td></tr>'
+        %(esc(nm),
+          "".join('<td style="text-align:left">%s</td>'%(esc(c) if c else "&mdash;") for c in cells),
+          tag(sl,_STAG[st]))
+        for (nm,cells,sl,st) in tbl)
+    mt_table='<table class="scorecard" style="min-width:1080px"><thead><tr>%s</tr></thead><tbody>%s</tbody></table>'%(mt_head,mt_rows)
     upd=BENCH.get('_updated','')
     upnote=(" %s has no mapped location so it is listed but not plotted."%(", ".join(unplotted))) if unplotted else ""
     BENCH_NAV='<button class="tab-btn" data-tab="bench"><span>🪑</span>Bench</button>'
@@ -80,11 +98,11 @@ def build_bench(REC, SHORT=None, include_keys=None):
       '<div class="card"><div class="lbl">Bench-ready stores</div><div class="val" style="color:#1f8a4c">%d</div><div class="meta">named Bench Manager / pipeline</div></div>'
       '<div class="card"><div class="lbl">Thin bench</div><div class="val" style="color:#b8860b">%d</div><div class="meta">leadership team, no named successor</div></div>'
       '<div class="card"><div class="lbl">Capability gap</div><div class="val" style="color:#c0392b">%d</div><div class="meta">Store Manager vacancy</div></div></div>'
-      '<div class="note" style="margin-top:12px"><b>Bench</b> = succession cover from the HRP ‘Bench and HRP’ roster. <b style="color:#1c6b3d">Green</b> = a named Bench Manager (promotion-ready) is in place; <b style="color:#7a5b12">amber</b> = a full leadership line but no named successor; <b style="color:#9a2f22">red</b> = a Store Manager vacancy. Refreshed Monday.</div>'
+      '<div class="note" style="margin-top:12px"><b>Bench</b> = succession cover from the HRP ‘HRP &amp; Bench’ roster. <b style="color:#1c6b3d">Green</b> = a named Bench Manager or pipeline successor is in place; <b style="color:#7a5b12">amber</b> = a full leadership line but no named successor; <b style="color:#9a2f22">red</b> = a Store Manager vacancy. Refreshed Monday.</div>'
       '<div class="section-title">Where the bench is &mdash; and the gaps</div>'
       '<div class="panel">%s%s</div>'
-      '<div class="section-title" style="margin-top:18px">Per-store bench &amp; succession</div>'
-      '<div class="panel"><div style="overflow-x:auto"><table class="scorecard"><thead><tr><th>Store</th><th>Leadership team</th><th>Bench / successor</th><th>Status</th></tr></thead><tbody>%s</tbody></table></div>'
-      '<div class="mini" style="margin-top:8px">Leadership team = filled Store Manager + Assistant Managers + Supervisors.%s Source: HRP ‘Bench and HRP’ tab, pulled %s.</div></div>'
-      '</section>')%(ng,na,nr,svg,legend,rows,upnote,upd)
+      '<div class="section-title" style="margin-top:18px">Store management teams</div>'
+      '<div class="panel"><div style="overflow-x:auto">%s</div>'
+      '<div class="mini" style="margin-top:8px">Every leadership position per store from the HRP ‘HRP &amp; Bench’ tab (full names; &mdash; where vacant). Status keys on Bench Manager + Pipeline 1-3. <b>Culture Coach</b> is a new column and is currently unassigned across the estate.%s Pulled %s.</div></div>'
+      '</section>')%(ng,na,nr,svg,legend,mt_table,upnote,upd)
     return BENCH_NAV, BENCH_PANEL

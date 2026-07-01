@@ -98,12 +98,12 @@
    "id": "bench",
    "name": "Bench",
    "plan": 3,
-   "actual": 5,
+   "actual": 6,
    "unit": "",
    "fmt": "num0",
    "dir": "high",
    "source": "derived",
-   "detail": "5 managers ready on the bench (HRP bench sheet)",
+   "detail": "6 stores with a named bench successor (HRP & Bench roster)",
    "note": "Count of named Bench Managers in the HRP bench sheet (point-in-time). Green when ≥ 3."
   },
   {
@@ -258,12 +258,12 @@
    "id": "bench_qtd",
    "name": "Bench",
    "plan": 3,
-   "actual": 5,
+   "actual": 6,
    "unit": "",
    "fmt": "num0",
    "dir": "high",
    "source": "derived",
-   "detail": "5 managers ready on the bench (HRP bench sheet)",
+   "detail": "6 stores with a named bench successor (HRP & Bench roster)",
    "note": "Bench headcount is point-in-time, not a period sum — shows the current count. Green when ≥ 3."
   },
   {
