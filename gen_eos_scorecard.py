@@ -410,6 +410,178 @@ def yoy_extras_html():
     parts.append(_extra_dual(YOY.get("food_attach"), None, "high", "pct1", informational=True))
     return "".join(parts)
 
+# ============ F1 Op's Excellence detail (mirrors the Company Dashboard 'Op's Excellence' tab) ============
+# Reuses the SAME source files the company dashboard renders from — f1_detail.json (race / qualifying /
+# QTD aggregates) and allstores.json['champ'] (drivers + constructors standings) — so the EOS F1 detail
+# and the Company Op's Excellence tab are identical and in sync. Fully fault-tolerant: any missing or
+# broken input degrades to an empty string and never breaks the EOS build. Idempotent (pure function of
+# the committed JSONs). Column layout & colour thresholds are copied verbatim from gen_company.py.
+F1_SHORT = {"Burton Latimer":"Burton","Corby":"Corby","Higham Ferrers":"Higham","Kettering":"Kettering","Olney":"Olney",
+"Peterborough Bridge Street":"P'boro Bridge St","Peterborough Fletton Quays":"P'boro Fletton","Rothwell":"Rothwell","Rushden Lakes":"Rushden Lakes",
+"Attleborough":"Attleborough","Billing Drive Thru":"Billing DT","Glenvale Drive Thru":"Glenvale DT","HOE Balsall Common":"Balsall Common",
+"Leamington Parade":"Leam Parade","Lower Heathcote":"Lower Heathcote","Market Harborough":"Mkt Harborough","Northampton":"Northampton",
+"Northampton Drive-Thru":"Northampton DT","Rugby":"Rugby","Wellingborough":"Wellingborough","Wellingborough Train Station":"W'boro Train Stn",
+"Leam Retail":"Leam Retail"}
+
+def f1_ops_html():
+    """Build the F1 'Op's Excellence' presentation for the EOS metric-detail view, mirroring the
+    Company Dashboard tab. Returns '' on any failure so the EOS build is never broken."""
+    try:
+        F1D = json.load(open(os.path.join(HERE, "f1_detail.json")))
+        champ = json.load(open(os.path.join(HERE, "allstores.json"))).get("champ", {}) or {}
+    except Exception:
+        return ""
+    from statistics import mean
+    def SH(s): return F1_SHORT.get(s, s)
+    def tag(t, k): return '<span class="tag %s">%s</span>' % (k, t)
+    def cls(v, g, a, rev=False):
+        if v is None: return "t-na"
+        if rev: return "t-ok" if v <= g else ("t-amber" if v <= a else "t-red")
+        return "t-ok" if v >= g else ("t-amber" if v >= a else "t-red")
+    def _iscomp(s): return isinstance(F1D.get(s), dict) and F1D[s].get('comp')
+    def _nm(s): return SH(s) + (' <span class="tag t-na">benchmark</span>' if _iscomp(s) else '')
+    def _rs(s): return ' style="background:#f6efe7;color:#8a7a6d"' if _iscomp(s) else ''
+    def _hosp(x):
+        try: v = float(x)
+        except Exception: return tag("n/a", "t-na")
+        p = round(v * 100); k = "t-ok" if v >= 1 else ("t-amber" if v >= 0.5 else "t-red"); return tag("%d%%" % p, k)
+    def _q(x):
+        try: v = float(x)
+        except Exception: return tag("n/a", "t-na")
+        k = "t-ok" if v <= 180 else ("t-amber" if v <= 300 else "t-red"); return tag("%ds" % int(round(v)), k)
+    def _rk(x):
+        try: v = int(float(x))
+        except Exception: return tag(str(x), "t-na")
+        k = "t-ok" if v <= 6 else ("t-amber" if v <= 15 else "t-red"); return tag(str(v), k)
+    def _scrag(x):
+        try: v = float(x)
+        except Exception: return tag(str(x), "t-na")
+        return tag(("%g" % v), cls(v, 210, 285, rev=True))
+    def _qcallpct(x):
+        if x is None: return tag("n/a", "t-na")
+        k = "t-ok" if x >= 75 else ("t-amber" if x >= 50 else "t-red"); return tag("%d%%" % int(round(x)), k)
+    def _na(): return tag("n/a", "t-na")
+    def _greet(x):
+        if x is None: return _na()
+        k = "t-ok" if x >= 90 else ("t-amber" if x >= 70 else "t-red"); return tag("%d%%" % int(round(x)), k)
+
+    stores = [s for s in F1D if not str(s).startswith('_') and isinstance(F1D[s], dict)
+              and F1D[s].get('race') and not _iscomp(s)]
+    if not stores:
+        return ""
+    def fin(s): return F1D[s]['race'][7]
+    def cpts(s): return F1D[s]['race'][6]
+    def scr(s): return F1D[s]['race'][5]
+
+    avg_fin = round(mean([fin(s) for s in stores]), 1)
+    champ_avg = round(mean([cpts(s) for s in stores]), 1)
+    bestf = sorted(stores, key=lambda x: fin(x)); worstf = bestf[::-1]
+    f1_top = "%s P%s" % (SH(bestf[0]), int(fin(bestf[0])))
+    f1_top_meta = ("%s P%s next" % (SH(bestf[1]), int(fin(bestf[1])))) if len(bestf) > 1 else ""
+
+    cards = ('<div class="f1cards">'
+             '<div class="f1card"><div class="lbl">Constructor &mdash; avg race finish</div><div class="val">P%s</div><div class="meta">across %d stores &middot; latest race</div></div>'
+             '<div class="f1card"><div class="lbl">Avg championship points</div><div class="val">%s</div><div class="meta">latest race &middot; higher = better</div></div>'
+             '<div class="f1card"><div class="lbl">Top of the grid</div><div class="val" style="color:var(--green)">%s</div><div class="meta">%s</div></div>'
+             '</div>' % (avg_fin, len(stores), champ_avg, f1_top, f1_top_meta))
+    intro = ('<div class="f1note"><b>How F1 works.</b> Stores are audited unannounced weekly. Each Area '
+             'Coach is a <b>constructor</b>; their stores are the drivers (Jon, Ian &amp; Rich across %d stores). '
+             'Field of ~25 includes competitor benchmark audits.</div>' % len(stores))
+
+    # ---- Constructors' Championship + Drivers' leaderboard ----
+    cons = sorted(champ.get('cons', []), key=lambda x: -x[3])
+    con_html = ""; con_note = ""
+    if cons:
+        maxavg = max(c[3] for c in cons) or 1
+        for i, c in enumerate(cons):
+            cc, total, nst, avg = c; w = round(100 * avg / maxavg)
+            con_html += ('<div class="crow"><div class="crank">%d</div><div class="cbody"><div class="cname">%s</div>'
+                         '<div class="cbar"><i style="width:%d%%"></i></div><div class="csub">%s pts total &middot; %s stores</div></div>'
+                         '<div class="cval">%s<small>pts/store</small></div></div>'
+                         % (i + 1, cc, w, total, nst, avg))
+        leadc = cons[0]
+        con_note = ("Constructors&rsquo; Championship across all three areas &mdash; <b>%s</b> leads on %s pts/store. "
+                    "Every weekend finish lifts a constructor&rsquo;s average; the bottom-third stores are where the title is won."
+                    % (leadc[0], leadc[3]))
+    COACHCHIP = {"Jon": "t-ok", "Rich": "t-amber", "Ian": "t-amber"}
+    drv_rows = ""
+    for i, row in enumerate(champ.get('drivers', [])):
+        stn, cc, pts = row[0], row[1], row[2]
+        drv_rows += ('<tr><td>%d</td><td class="l">%s</td><td>%s</td><td style="font-weight:700">%s</td></tr>'
+                     % (i + 1, stn, tag(cc, COACHCHIP.get(cc, "t-na")), pts))
+    champ_block = ('<div class="f1sub">&#127942; Constructors&rsquo; Championship <span class="mini">&middot; avg points/store &middot; since 25 Apr</span></div>'
+                   '<div class="f1grid2">'
+                   '<div class="f1panel"><div class="f1ph">Constructors&rsquo; standings <span class="mini">&middot; area coaches by avg pts/store</span></div>%s<div class="mini" style="margin-top:9px">%s</div></div>'
+                   '<div class="f1panel"><div class="f1ph">Drivers&rsquo; leaderboard <span class="mini">&middot; all stores by total pts</span></div>'
+                   '<table class="f1t"><thead><tr><th>#</th><th class="l">Store (driver)</th><th>Coach</th><th>Pts</th></tr></thead><tbody>%s</tbody></table></div>'
+                   '</div>' % (con_html, con_note, drv_rows))
+
+    # ---- Latest race finish by store (finish / champ pts / score / last-6 sparkline) ----
+    f1tbl = ""
+    for s in sorted(stores, key=lambda x: fin(x)):
+        last6 = F1D[s].get('last6', []) or []
+        spk = "".join('<span class="spk" style="height:%dpx" title="P%s"></span>'
+                      % (max(2, round((26 - int(p)) / 26 * 18)), p) for p in last6)
+        _sc = scr(s)
+        f1tbl += ('<tr><td class="l">%s</td><td>%s</td><td>%s</td><td>%s</td><td class="l"><span class="spkwrap">%s</span></td></tr>'
+                  % (s, tag("P" + str(fin(s)), cls(fin(s), 6, 15, rev=True)),
+                     cpts(s), tag(("%g" % _sc) if _sc is not None else "n/a", cls(_sc, 210, 285, rev=True)), spk))
+    finish_block = ('<div class="f1sub">Latest race finish by store <span class="mini">&middot; lower is better</span></div>'
+                    '<div class="f1panel"><table class="f1t"><thead><tr><th class="l">Store</th><th>Finish</th><th>Champ pts</th><th>Score</th><th class="l">Last 6 races</th></tr></thead><tbody>%s</tbody></table>'
+                    '<div class="mini" style="margin-top:9px"><b>Race Total Score benchmark</b> (lower = better): '
+                    '<span style="color:var(--green);font-weight:700">&le;210 good</span> &middot; <span style="color:#b8860b;font-weight:700">&le;285 watch</span> &middot; '
+                    '<span style="color:var(--red);font-weight:700">&gt;285 act</span>.</div></div>' % f1tbl)
+
+    # ---- Qualifying detail (latest audit by store) ----
+    qlist = [(s, F1D[s]['quali']) for s in F1D if not str(s).startswith('_')
+             and isinstance(F1D[s], dict) and F1D[s].get('quali')]
+    qlist.sort(key=lambda x: int(float(x[1][6])))
+    quali_rows = "".join('<tr%s><td class="l">%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td class="mini">%s</td></tr>'
+                         % (_rs(s), _nm(s), _rk(q[6]), _q(q[0]), _hosp(q[1]), _hosp(q[2]), _hosp(q[3]), _hosp(q[4]), q[5], q[7]) for s, q in qlist)
+    quali_block = ('<div class="f1sub">Qualifying detail <span class="mini">&middot; latest audit by store</span></div>'
+                   '<div class="f1panel"><table class="f1t"><thead><tr><th class="l">Store</th><th>Rank</th><th>Queue avg</th><th>Hello</th><th>Goodbye</th><th>How are you</th><th>Working queue</th><th>Total score</th><th>Audited</th></tr></thead><tbody>%s</tbody></table>'
+                   '<div class="mini" style="margin-top:9px">Hospitality scored 0&ndash;100%% per greeting; queue average in seconds (lower is better).</div></div>' % quali_rows)
+
+    # ---- Qualifying — quarter-to-date by store ----
+    qqlist = [(s, F1D[s]['quali_qtd']) for s in F1D if not str(s).startswith('_')
+              and isinstance(F1D.get(s), dict) and F1D[s].get('quali_qtd') and not _iscomp(s)]
+    qqlist.sort(key=lambda x: (x[1]['rank'] if x[1].get('rank') is not None else 99))
+    quali_qtd_rows = "".join('<tr><td class="l">%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>'
+                             % (_nm(s), d["n"], _rk(round(d["rank"])) if d.get("rank") is not None else _na(),
+                                _q(d["queue_s"]) if d.get("queue_s") is not None else _na(),
+                                _qcallpct(d.get("qcall")), _greet(d.get("hello")), _greet(d.get("goodbye")), _greet(d.get("howareyou"))) for s, d in qqlist)
+    quali_qtd_block = ('<div class="f1sub">Qualifying <span class="mini">&middot; quarter-to-date by store</span></div>'
+                       '<div class="f1panel"><table class="f1t"><thead><tr><th class="l">Store</th><th>Audits</th><th>Avg rank</th><th>Avg queue</th><th>Queue calling</th><th>Hello</th><th>Goodbye</th><th>How are you</th></tr></thead><tbody>%s</tbody></table>'
+                       '<div class="mini" style="margin-top:9px">Quarter-to-date averages across every qualifying audit this quarter (rank 1 = top of the grid). Queue-calling &amp; sub-scores are on an inconsistent scale in the qualifying sheet, so the race view below is the clean source for those.</div></div>' % quali_qtd_rows)
+
+    # ---- Race detail (latest audit by store) ----
+    rlist = [(s, F1D[s]['race']) for s in F1D if not str(s).startswith('_')
+             and isinstance(F1D[s], dict) and F1D[s].get('race')]
+    rlist.sort(key=lambda x: int(float(x[1][7])))
+    race_rows = "".join('<tr%s><td class="l">%s</td><td>%s</td><td style="font-weight:700">%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td class="mini">%s</td></tr>'
+                        % (_rs(s), _nm(s), _rk(r[7]), r[6], _q(r[0]), _hosp(r[1]), _hosp(r[2]), _hosp(r[3]), _hosp(r[4]), _scrag(r[5]), r[8]) for s, r in rlist)
+    race_block = ('<div class="f1sub">Race detail <span class="mini">&middot; latest audit by store</span></div>'
+                  '<div class="f1panel"><table class="f1t"><thead><tr><th class="l">Store</th><th>Finish</th><th>Champ pts</th><th>Queue avg</th><th>Hello</th><th>Goodbye</th><th>How are you</th><th>Working queue</th><th>Total score</th><th>Audited</th></tr></thead><tbody>%s</tbody></table>'
+                  '<div class="mini" style="margin-top:9px">Finishing position across the full field of ~25 (incl. competitor benchmark audits).</div></div>' % race_rows)
+
+    # ---- Race — quarter-to-date by store ----
+    rqlist = [(s, F1D[s]['race_qtd']) for s in F1D if not str(s).startswith('_')
+              and isinstance(F1D.get(s), dict) and F1D[s].get('race_qtd') and F1D[s]['race_qtd'].get('score') is not None and not _iscomp(s)]
+    rqlist.sort(key=lambda x: x[1]['score'])
+    race_qtd_rows = "".join('<tr><td class="l">%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>'
+                            % (_nm(s), d["n"], _scrag(d["score"]),
+                               _q(d["queue_s"]) if d.get("queue_s") is not None else _na(),
+                               _qcallpct(d.get("qcall")), _greet(d.get("hello")), _greet(d.get("goodbye")), _greet(d.get("howareyou"))) for s, d in rqlist)
+    race_qtd_block = ('<div class="f1sub">Race <span class="mini">&middot; quarter-to-date by store</span></div>'
+                      '<div class="f1panel"><table class="f1t"><thead><tr><th class="l">Store</th><th>Audits</th><th>Avg total score</th><th>Avg queue</th><th>Avg queue-calling</th><th>Hello</th><th>Goodbye</th><th>How are you</th></tr></thead><tbody>%s</tbody></table>'
+                      '<div class="mini" style="margin-top:9px">Quarter-to-date averages across every race audit this quarter. Lower total score &amp; queue seconds = better; higher queue-calling = better. This is the same QTD average that feeds the F1 Score KPI headline above.</div></div>' % race_qtd_rows)
+
+    focus = ('<div class="f1focus"><span class="ar">&rarr;</span> Reset the weekend routine at <b>%s</b> &amp; <b>%s</b>; lift qualifying to fix the handicapped grid start.</div>'
+             % (SH(worstf[0]), SH(worstf[1]) if len(worstf) > 1 else SH(worstf[0])))
+
+    return (cards + intro + champ_block + finish_block + quali_block + quali_qtd_block + race_block + race_qtd_block + focus)
+
+
 md_options = ""
 md_details = ""
 for i, (wm, qm) in enumerate(zip(weekly, quarterly)):
@@ -421,21 +593,29 @@ for i, (wm, qm) in enumerate(zip(weekly, quarterly)):
     calc = esc(CALCS.get(name, ""))
     plan_txt = fmt_val(plan, fm) if plan is not None else "not set (TBC)"
     dir_txt = ("Lower is better (green ≤ %s)" % esc(plan_txt)) if dirn == "low" else "Higher is better"
-    ps_block = ps_section(name, plan, dirn, fm, qm)   # weekly + QTD sub-tables (period selector)
-    extras = yoy_extras_html() if name == "YoY Sales Growth" else ""   # ATV + food-attach, YoY view only
     disp = "block" if i == 0 else "none"
+    # Headline (KPI status) block shared by all metrics
+    headline = ('<div class="md-section-h">Current status</div>'
+        + '<div class="md-stats">%s%s</div>' % (ministat(wm, "This week"), ministat(qm, "Quarter to date")))
+    if name == "F1 Score":
+        # Detail mirrors the Company Dashboard 'Op's Excellence' tab (same f1_detail.json + champ data).
+        _ops = f1_ops_html()
+        detail = ('<div class="md-section-h">Op\'s Excellence — F1 detail</div>'
+                  + (_ops if _ops else '<div class="md-note">F1 detail unavailable this run (f1_detail.json / champ missing).</div>'))
+    else:
+        ps_block = ps_section(name, plan, dirn, fm, qm)   # weekly + QTD sub-tables (period selector)
+        extras = yoy_extras_html() if name == "YoY Sales Growth" else ""   # ATV + food-attach, YoY view only
+        detail = ('<div class="md-section-h">13-week trend</div>'
+                  + trend_svg(name, plan, dirn)
+                  + '<div class="md-section-h">Per-store breakdown</div>'
+                  + ps_block + extras)
     md_details += (
         '<div class="md-detail" id="md-%d" style="display:%s">' % (i, disp)
         + '<div class="md-title">%s<span class="md-owner">Owner: <b>%s</b></span></div>' % (esc(name), esc(owner))
         + '<div class="md-def">%s</div>' % definition
         + '<div class="md-planline">Plan: <b>%s</b> · Owner: <b>%s</b> · %s</div>' % (esc(plan_txt), esc(owner), dir_txt)
-        + '<div class="md-section-h">Current status</div>'
-        + '<div class="md-stats">%s%s</div>' % (ministat(wm, "This week"), ministat(qm, "Quarter to date"))
-        + '<div class="md-section-h">13-week trend</div>'
-        + trend_svg(name, plan, dirn)
-        + '<div class="md-section-h">Per-store breakdown</div>'
-        + ps_block
-        + extras
+        + headline
+        + detail
         + '<div class="md-section-h">How it\'s calculated</div>'
         + '<div class="md-calc">%s</div>' % calc
         + '</div>'
@@ -556,6 +736,35 @@ HTML = f"""<!DOCTYPE html>
   .md-company{{display:flex;gap:16px;align-items:center;background:var(--greybg);border:1px solid var(--line);border-radius:10px;padding:14px 16px}}
   .md-company .big{{font-size:30px;font-weight:800;color:var(--brown);line-height:1}}
   .md-company-txt{{font-size:12.5px;color:#5b4a3d;line-height:1.5}}
+  /* F1 Op's Excellence detail (mirrors Company Dashboard) */
+  .tag{{display:inline-block;padding:2px 7px;border-radius:6px;font-size:11px;font-weight:800;line-height:1.3}}
+  .tag.t-ok{{background:var(--greenbg);color:var(--green)}} .tag.t-amber{{background:#f6ecd7;color:#8a6d3b}}
+  .tag.t-red{{background:var(--redbg);color:var(--red)}} .tag.t-na{{background:#efe8df;color:#9a8c7c}}
+  .f1cards{{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:2px 0 12px}}
+  .f1card{{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px}}
+  .f1card .lbl{{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);font-weight:800}}
+  .f1card .val{{font-size:26px;font-weight:800;color:var(--brown);line-height:1.1;margin-top:3px}}
+  .f1card .meta{{font-size:11px;color:var(--muted);margin-top:2px}}
+  .f1note{{font-size:12px;color:#3f5b45;background:var(--greenbg);border:1px solid #cfe6d8;border-radius:10px;padding:10px 13px;margin:4px 0 14px;line-height:1.5}}
+  .f1sub{{font-size:13px;font-weight:800;color:var(--brown);margin:18px 0 9px}}
+  .f1grid2{{display:grid;grid-template-columns:1fr 1fr;gap:14px}}
+  @media (max-width:720px){{.f1grid2{{grid-template-columns:1fr}} .f1cards{{grid-template-columns:1fr}}}}
+  .f1panel{{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;overflow-x:auto}}
+  .f1ph{{font-size:12.5px;font-weight:800;color:var(--brown);margin-bottom:9px}}
+  table.f1t{{border-collapse:collapse;width:100%;font-size:12px;min-width:420px}}
+  table.f1t th,table.f1t td{{padding:5px 8px;border-bottom:1px solid var(--line);text-align:center;white-space:nowrap}}
+  table.f1t th{{font-size:10px;text-transform:uppercase;color:var(--muted);font-weight:700}}
+  table.f1t td.l,table.f1t th.l{{text-align:left}}
+  .crow{{display:flex;align-items:center;gap:10px;margin:7px 0}}
+  .crank{{width:20px;height:20px;border-radius:50%;background:var(--brown);color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex:none}}
+  .cbody{{flex:1;min-width:0}} .cname{{font-size:12.5px;font-weight:800;color:var(--ink)}}
+  .cbar{{height:9px;border-radius:5px;background:var(--greybg);overflow:hidden;margin:3px 0}} .cbar>i{{display:block;height:100%;background:var(--gold)}}
+  .csub{{font-size:10.5px;color:var(--muted)}}
+  .cval{{font-size:16px;font-weight:800;color:var(--brown);text-align:right;flex:none}} .cval small{{font-size:9px;color:var(--muted);display:block;font-weight:600}}
+  .spkwrap{{display:inline-flex;align-items:flex-end;gap:2px;height:20px}}
+  .spk{{width:5px;background:var(--brown);border-radius:1px;display:inline-block}}
+  .f1focus{{margin-top:16px;background:#fdf1ef;border:1px solid #eccfca;border-left:5px solid var(--red);border-radius:12px;padding:11px 15px;font-size:13px;color:#5b4a3d;line-height:1.5}} .f1focus .ar{{color:var(--red);font-weight:800;margin-right:6px}}
+  .mini{{font-size:10.5px;color:var(--muted)}}
   footer{{color:var(--muted);font-size:12px;margin-top:26px;line-height:1.6}}
 </style>
 </head>
