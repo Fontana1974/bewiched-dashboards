@@ -1,6 +1,6 @@
 {
  "_about": "Bewiched EOS Scorecard data. Written by run_weekly.py pull_eos_scorecard(); rendered by gen_eos_scorecard.py. Live = BigQuery; derived = other feeds; manual = inputs sheet.",
- "generated": "02 Jul 2026, 08:22",
+ "generated": "02 Jul 2026, 09:45",
  "cur_end": "2026-06-28",
  "week_label": "w/c 22 Jun 2026",
  "quarter_label": "Q2 2026 (Apr–Jun)",
@@ -1003,6 +1003,186 @@
    ],
    "plan": null
   }
+ },
+ "yoy_detail": {
+  "atv_target": 6.8,
+  "atv_trend_col": "estate_atv",
+  "atv_wk": 7.76,
+  "atv_per_store": [
+   {
+    "store": "Burton Latimer",
+    "value": 7.89
+   },
+   {
+    "store": "Corby",
+    "value": 7.62
+   },
+   {
+    "store": "Higham Ferrers",
+    "value": 7.5
+   },
+   {
+    "store": "Kettering",
+    "value": 7.2
+   },
+   {
+    "store": "Olney",
+    "value": 7.69
+   },
+   {
+    "store": "Peterborough Bridge Street",
+    "value": 6.99
+   },
+   {
+    "store": "Peterborough Fletton Quays",
+    "value": 6.73
+   },
+   {
+    "store": "Rothwell",
+    "value": 6.81
+   },
+   {
+    "store": "Rushden Lakes",
+    "value": 8.96
+   },
+   {
+    "store": "Attleborough",
+    "value": 8.27
+   },
+   {
+    "store": "Billing Drive Thru",
+    "value": 8.45
+   },
+   {
+    "store": "Glenvale Drive Thru",
+    "value": 8.15
+   },
+   {
+    "store": "HOE Balsall Common",
+    "value": 7.99
+   },
+   {
+    "store": "Leamington Parade",
+    "value": 7.21
+   },
+   {
+    "store": "Lower Heathcote",
+    "value": 7.24
+   },
+   {
+    "store": "Market Harborough",
+    "value": 7.82
+   },
+   {
+    "store": "Northampton",
+    "value": 6.96
+   },
+   {
+    "store": "Northampton Drive-Thru",
+    "value": 8.36
+   },
+   {
+    "store": "Rugby",
+    "value": 7.72
+   },
+   {
+    "store": "Wellingborough",
+    "value": 6.29
+   },
+   {
+    "store": "Wellingborough Train Station",
+    "value": 5.41
+   }
+  ],
+  "atv_basis": "Last completed week sales ÷ transactions (per store)",
+  "food_attach_per_store": [
+   {
+    "store": "Rushden Lakes",
+    "value": 25.6
+   },
+   {
+    "store": "Northampton Drive-Thru",
+    "value": 24.2
+   },
+   {
+    "store": "Kettering",
+    "value": 21.6
+   },
+   {
+    "store": "Northampton",
+    "value": 26.0
+   },
+   {
+    "store": "Glenvale Drive Thru",
+    "value": 24.0
+   },
+   {
+    "store": "Leamington Parade",
+    "value": 25.1
+   },
+   {
+    "store": "Rothwell",
+    "value": 17.9
+   },
+   {
+    "store": "Burton Latimer",
+    "value": 25.2
+   },
+   {
+    "store": "Corby",
+    "value": 24.6
+   },
+   {
+    "store": "Lower Heathcote",
+    "value": 21.4
+   },
+   {
+    "store": "Rugby",
+    "value": 23.4
+   },
+   {
+    "store": "Market Harborough",
+    "value": 29.4
+   },
+   {
+    "store": "Olney",
+    "value": 22.8
+   },
+   {
+    "store": "Wellingborough",
+    "value": 12.1
+   },
+   {
+    "store": "Higham Ferrers",
+    "value": 21.2
+   },
+   {
+    "store": "Attleborough",
+    "value": 35.2
+   },
+   {
+    "store": "Billing Drive Thru",
+    "value": 27.5
+   },
+   {
+    "store": "Peterborough Bridge Street",
+    "value": 29.4
+   },
+   {
+    "store": "HOE Balsall Common",
+    "value": 32.3
+   },
+   {
+    "store": "Peterborough Fletton Quays",
+    "value": 34.0
+   },
+   {
+    "store": "Wellingborough Train Station",
+    "value": 14.1
+   }
+  ],
+  "food_attach_basis": "Food or Bakery guest-checks ÷ transactions, last completed week (per store)",
+  "food_attach_note": "Informational — no single estate plan (txquality carries Dine-In 32% / Drive-Thru 20% references). Food = any transaction containing a Food or Bakery item; derived estate-wide from BigQuery."
  },
  "flags": [
   "Status is strictly binary: GREEN when actual ≥ plan, RED when below — no near-target band. Bench is green when ≥ 3.",
