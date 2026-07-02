@@ -1363,16 +1363,34 @@ def pull_eos_scorecard():
     kudos_wk_n = kudos_qtd_n = kudos_total = kudos_wk_rows = 0
     bckh_latest = None
     emp_emails = set(); bckh_rows = []
+    # Per-STORE participation. Reuse the pipeline canon map (normalize()) on the Employee List
+    # "Location" column (col B). Head Office / unknown locations resolve to None → excluded from the
+    # per-store split (but still counted in the company headcount, exactly like the company calc).
+    emp_store = {}                     # email -> canonical store (only when Location resolves to a store)
+    kudos_store_hc = {}                # canonical store -> distinct-employee headcount
+    kudos_ps_weekly = []; kudos_ps_qtd = []   # [{store, value}] participation % per store (weekly / QTD)
+    kudos_unmatched_n = 0              # BCKH contributors (QTD) with NO matching employee (head-office/ex-staff)
+    kudos_ho_excluded_n = 0           # matched contributors whose employee has no store (e.g. Head Office)
+    kudos_stores_resolved = 0
     try:
-        emp_rows = sheet(SID["employees"], "'Employee List'!A2:D2000")
+        emp_rows = sheet(SID["employees"], "'Employee List'!A2:D2000")   # A=Name, B=Location, C=Email, D=Email Clean
         for r in emp_rows:
             if not r or not r[0]: continue
             em = (r[3] if len(r) > 3 and r[3] not in (None, "") else
                   (r[2] if len(r) > 2 and r[2] not in (None, "") else None))
-            if em: emp_emails.add(str(em).strip().lower())
+            if not em: continue
+            em = str(em).strip().lower()
+            emp_emails.add(em)
+            st = normalize(r[1]) if len(r) > 1 and r[1] not in (None, "") else None   # col B = Location -> canon
+            if st: emp_store[em] = st
         kudos_total = len(emp_emails)
+        for em, st in emp_store.items():
+            kudos_store_hc[st] = kudos_store_hc.get(st, 0) + 1
+        kudos_stores_resolved = len(kudos_store_hc)
         bckh_rows = sheet(SID["f1"], "'BCKH'!A2:E20000")        # tail-safe; date col A, email col B
         wk_emp = set(); qtd_emp = set()
+        wk_store = {}; qtd_store = {}   # canonical store -> set(distinct contributor emails) in each window
+        qtd_unmatched = set()
         for r in bckh_rows:
             if len(r) < 2 or r[1] in (None, ""): continue
             dt = parse_any_date(r[0]) if r[0] not in (None, "") else None
@@ -1381,17 +1399,41 @@ def pull_eos_scorecard():
             em = str(r[1]).strip().lower()
             if LASTWK_MON <= dt <= CUR_END:
                 kudos_wk_rows += 1
-                if em in emp_emails: wk_emp.add(em)
-            if dt >= QSTART and em in emp_emails:
-                qtd_emp.add(em)
+                if em in emp_emails:
+                    wk_emp.add(em)
+                    st = emp_store.get(em)
+                    if st: wk_store.setdefault(st, set()).add(em)
+            if dt >= QSTART:
+                if em in emp_emails:
+                    qtd_emp.add(em)
+                    st = emp_store.get(em)
+                    if st: qtd_store.setdefault(st, set()).add(em)
+                else:
+                    qtd_unmatched.add(em)
         kudos_wk_n, kudos_qtd_n = len(wk_emp), len(qtd_emp)
+        kudos_unmatched_n = len(qtd_unmatched)
+        kudos_ho_excluded_n = len([e for e in qtd_emp if not emp_store.get(e)])
         if kudos_total:
             kudos_qtd_pct = round(100 * kudos_qtd_n / kudos_total, 1)
             kudos_wk_pct = round(100 * kudos_wk_n / kudos_total, 1) if kudos_wk_rows > 0 else None
+        # Per-store participation % = distinct store contributors ÷ store headcount, vs the 50% plan.
+        # Zero-headcount stores are skipped (nothing to measure); a store WITH headcount but no
+        # contributors shows 0%. Weekly rows only when there were BCKH entries that week (else awaiting).
+        for st, hc in sorted(kudos_store_hc.items()):
+            if hc <= 0: continue
+            kudos_ps_qtd.append({"store": st, "value": round(100 * len(qtd_store.get(st, set())) / hc, 1)})
+            if kudos_wk_rows > 0:
+                kudos_ps_weekly.append({"store": st, "value": round(100 * len(wk_store.get(st, set())) / hc, 1)})
         if kudos_wk_rows == 0:
             flags.append("Brew Crew Kudos (weekly) shows awaiting — no BCKH entries in the last completed week "
                          "(latest BCKH row %s). The QTD tile reflects activity since quarter start."
                          % (bckh_latest.isoformat() if bckh_latest else "n/a"))
+        if kudos_unmatched_n or kudos_ho_excluded_n:
+            flags.append("Brew Crew Kudos per-store: %d QTD contributor(s) matched no employee "
+                         "(head-office/ex-staff — excluded, as in the company calc); %d matched contributor(s) "
+                         "have no store Location (e.g. Head Office — excluded from the per-store split but still "
+                         "in the company headcount). %d stores resolved from the Employee List Location column."
+                         % (kudos_unmatched_n, kudos_ho_excluded_n, kudos_stores_resolved))
     except Exception as e:
         flags.append("Brew Crew Kudos: could not read Employee List (%s) or BCKH tab — share the Employee List "
                      "(ID %s, Viewer) with dashboards-bot@%s.iam.gserviceaccount.com (the BCKH tab is in the F1 "
@@ -1717,6 +1759,11 @@ def pull_eos_scorecard():
     _ps2("Brand Audit Score", plan=4.6,
          qtd=[{"store": st, "value": round(r["audit_qtd"], 2)} for st, r in rec.items() if r.get("audit_qtd")],
          qbasis="QTD brand audit score out of 5 (per store)")
+    _ps2("Brew Crew Kudos Participation", plan=50,
+         weekly=kudos_ps_weekly,
+         wbasis="Distinct employees at the store who gave kudos last week ÷ store headcount (per store, vs 50% plan)",
+         qtd=kudos_ps_qtd,
+         qbasis="Distinct employees at the store who gave kudos this quarter ÷ store headcount (per store, vs 50% plan)")
 
     # ---- YoY Sales detail extras: per-store ATV + food-attachment %, DUAL basis (weekly + QTD) ----
     atv_ps = [{"store": st, "value": round(r["lw26"] / r["tx26"], 2)}
