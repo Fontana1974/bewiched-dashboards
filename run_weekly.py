@@ -1215,7 +1215,7 @@ def pull_maintenance():
         planned  = sheet(SID["maint_planned"], "'Maintenance'!A1:C3000")
         audit    = sheet(SID["audit"],         "'Brand Audit Date (NEW24/25)'!A1:L4000")
         out = compute_maintenance(reactive, coffee, planned, audit, CUR_END)
-        W("maintenance.json", out, ensure_ascii=False)
+        W("maintenance.json", out)  # W() already sets ensure_ascii=False; passing again = duplicate-kwarg TypeError
         co = out["DATA"]["company"]["reactive"]
         print("[pull] maintenance: %d reactive(90d) %d planned stores, %d coffee w/record (%d overdue), %d audit action-plans"
               % (co["total"], out["DATA"]["company"]["planned"]["nstores"],
@@ -1935,7 +1935,10 @@ def build():
         _run("gen_eos_scorecard.py")
     if os.path.exists(os.path.join(HERE, "gen_maintenance.py")) and \
        os.path.exists(os.path.join(HERE, "maintenance.json")):
-        _run("gen_maintenance.py")
+        try:
+            _run("gen_maintenance.py")            # NON-FATAL: maintenance must never abort the whole build/commit
+        except Exception as e:
+            print("[build] gen_maintenance FAILED - Maintenance section degraded, run continues: %s" % e)
     # B9 store sales + E patcher (LAST)
     _run("build_newsite_sales.py")
     _run("patch_newsite.py")

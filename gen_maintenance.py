@@ -272,10 +272,14 @@ def compute_maintenance(reactive_rows, coffee_rows, planned_rows, audit_rows, ru
 
 def render():
     mp = os.path.join(HERE, "maintenance.json")
-    if not os.path.exists(mp):
-        print("[gen_maintenance] no maintenance.json - leaving Maintenance_Dashboard.html untouched (source degraded)")
+    if not os.path.exists(mp) or os.path.getsize(mp) == 0:
+        print("[gen_maintenance] no/empty maintenance.json - leaving Maintenance_Dashboard.html untouched (source degraded)")
         return
-    m = json.load(open(mp, encoding="utf-8"))
+    try:
+        m = json.load(open(mp, encoding="utf-8"))
+    except Exception as e:
+        print("[gen_maintenance] maintenance.json unreadable (%s) - leaving Maintenance_Dashboard.html untouched (source degraded)" % e)
+        return
     tpl = open(os.path.join(HERE, "maint_template.html"), encoding="utf-8").read()
     j = lambda o: json.dumps(o, ensure_ascii=False, separators=(",", ":"))
     out = (tpl.replace("__DATA__", j(m["DATA"]))
