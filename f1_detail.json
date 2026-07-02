@@ -12,27 +12,34 @@
    "2026-06-27"
   ],
   "quali": [
+   174.0,
    0.65,
    0.25,
    0.65,
    0.0,
    235.25,
-   174.0,
    13.0,
    "2026-07-01"
   ],
   "race_qtd": {
    "n": 12,
    "score": 134.19,
+   "queue_s": 265.54,
+   "qcall": 38.0,
+   "hello": 93.0,
+   "goodbye": 88.0,
+   "howareyou": 94.0,
    "queue": 265.54,
-   "wtq": 0.38,
-   "hello": 0.93,
-   "goodbye": 0.88,
-   "howareyou": 0.94
+   "wtq": 0.38
   },
   "quali_qtd": {
    "n": 14,
    "rank": 17.0,
+   "queue_s": 233.89,
+   "qcall": 76.0,
+   "hello": 69.0,
+   "goodbye": 60.0,
+   "howareyou": 90.0,
    "queue": 233.89
   },
   "last6": [
@@ -57,27 +64,34 @@
    "2026-06-26"
   ],
   "quali": [
+   164.5,
    0.65,
    1.0,
    0.65,
    1.0,
    182.0,
-   164.5,
    10.0,
    "2026-06-23"
   ],
   "race_qtd": {
    "n": 12,
    "score": 107.38,
+   "queue_s": 214.38,
+   "qcall": 79.0,
+   "hello": 71.0,
+   "goodbye": 74.0,
+   "howareyou": 84.0,
    "queue": 214.38,
-   "wtq": 0.79,
-   "hello": 0.71,
-   "goodbye": 0.74,
-   "howareyou": 0.84
+   "wtq": 0.79
   },
   "quali_qtd": {
    "n": 15,
    "rank": 10.13,
+   "queue_s": 155.07,
+   "qcall": 100.0,
+   "hello": 84.0,
+   "goodbye": 69.0,
+   "howareyou": 98.0,
    "queue": 155.07
   },
   "last6": [
@@ -102,27 +116,34 @@
    "2026-06-27"
   ],
   "quali": [
+   112.5,
    0.05,
    0.0,
    0.0,
    0.0,
    218.25,
-   112.5,
    11.0,
    "2026-06-30"
   ],
   "race_qtd": {
    "n": 12,
    "score": 105.89,
+   "queue_s": 172.83,
+   "qcall": 80.0,
+   "hello": 100.0,
+   "goodbye": 92.0,
+   "howareyou": 85.0,
    "queue": 172.83,
-   "wtq": 0.8,
-   "hello": 1.0,
-   "goodbye": 0.92,
-   "howareyou": 0.85
+   "wtq": 0.8
   },
   "quali_qtd": {
    "n": 14,
    "rank": 3.29,
+   "queue_s": 96.64,
+   "qcall": 88.0,
+   "hello": 91.0,
+   "goodbye": 88.0,
+   "howareyou": 86.0,
    "queue": 96.64
   },
   "last6": [
@@ -147,27 +168,34 @@
    "2026-06-28"
   ],
   "quali": [
+   162.5,
    0.65,
    1.0,
    0.65,
    0.0,
    205.0,
-   162.5,
    9.0,
    "2026-06-30"
   ],
   "race_qtd": {
    "n": 12,
    "score": 102.92,
+   "queue_s": 213.71,
+   "qcall": 60.0,
+   "hello": 100.0,
+   "goodbye": 100.0,
+   "howareyou": 100.0,
    "queue": 213.71,
-   "wtq": 0.6,
-   "hello": 1.0,
-   "goodbye": 1.0,
-   "howareyou": 1.0
+   "wtq": 0.6
   },
   "quali_qtd": {
    "n": 18,
    "rank": 10.39,
+   "queue_s": 165.56,
+   "qcall": 67.0,
+   "hello": 84.0,
+   "goodbye": 86.0,
+   "howareyou": 97.0,
    "queue": 165.56
   },
   "last6": [
@@ -192,27 +220,34 @@
    "2026-06-26"
   ],
   "quali": [
+   251.0,
    0.15,
    0.0,
    0.25,
    0.0,
    341.0,
-   251.0,
    17.0,
    "2026-06-29"
   ],
   "race_qtd": {
    "n": 12,
    "score": 107.95,
+   "queue_s": 168.33,
+   "qcall": 58.0,
+   "hello": 70.0,
+   "goodbye": 59.0,
+   "howareyou": 94.0,
    "queue": 168.33,
-   "wtq": 0.58,
-   "hello": 0.7,
-   "goodbye": 0.59,
-   "howareyou": 0.94
+   "wtq": 0.58
   },
   "quali_qtd": {
    "n": 14,
    "rank": 14.14,
+   "queue_s": 175.64,
+   "qcall": 38.0,
+   "hello": 20.0,
+   "goodbye": 35.0,
+   "howareyou": 80.0,
    "queue": 175.64
   },
   "last6": [
@@ -237,27 +272,34 @@
    "2026-06-28"
   ],
   "quali": [
+   224.5,
    0.25,
    1.0,
    0.65,
    0.0,
    277.0,
-   224.5,
    15.0,
    "2026-06-29"
   ],
   "race_qtd": {
    "n": 12,
    "score": 136.09,
+   "queue_s": 240.04,
+   "qcall": 47.0,
+   "hello": 72.0,
+   "goodbye": 53.0,
+   "howareyou": 75.0,
    "queue": 240.04,
-   "wtq": 0.47,
-   "hello": 0.72,
-   "goodbye": 0.53,
-   "howareyou": 0.75
+   "wtq": 0.47
   },
   "quali_qtd": {
    "n": 15,
    "rank": 14.53,
+   "queue_s": 192.77,
+   "qcall": 41.0,
+   "hello": 35.0,
+   "goodbye": 34.0,
+   "howareyou": 90.0,
    "queue": 192.77
   },
   "last6": [
@@ -282,11 +324,11 @@
    "2026-06-28"
   ],
   "quali": [
-   1.0,
-   1.0,
-   1.0,
-   1.0,
    103.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
    103.0,
    2.0,
    "2026-07-01"
@@ -294,15 +336,22 @@
   "race_qtd": {
    "n": 12,
    "score": 108.02,
+   "queue_s": 207.71,
+   "qcall": 58.0,
+   "hello": 94.0,
+   "goodbye": 73.0,
+   "howareyou": 72.0,
    "queue": 207.71,
-   "wtq": 0.58,
-   "hello": 0.94,
-   "goodbye": 0.73,
-   "howareyou": 0.72
+   "wtq": 0.58
   },
   "quali_qtd": {
    "n": 14,
    "rank": 9.5,
+   "queue_s": 142.29,
+   "qcall": 50.0,
+   "hello": 59.0,
+   "goodbye": 58.0,
+   "howareyou": 93.0,
    "queue": 142.29
   },
   "last6": [
@@ -327,27 +376,34 @@
    "2026-06-26"
   ],
   "quali": [
+   69.5,
    0.35,
    1.0,
    1.0,
    0.0,
    110.75,
-   69.5,
    3.0,
    "2026-06-29"
   ],
   "race_qtd": {
    "n": 12,
    "score": 99.22,
+   "queue_s": 189.25,
+   "qcall": 82.0,
+   "hello": 73.0,
+   "goodbye": 68.0,
+   "howareyou": 100.0,
    "queue": 189.25,
-   "wtq": 0.82,
-   "hello": 0.73,
-   "goodbye": 0.68,
-   "howareyou": 1.0
+   "wtq": 0.82
   },
   "quali_qtd": {
    "n": 13,
    "rank": 12.69,
+   "queue_s": 169.08,
+   "qcall": 54.0,
+   "hello": 26.0,
+   "goodbye": 53.0,
+   "howareyou": 97.0,
    "queue": 169.08
   },
   "last6": [
@@ -372,27 +428,34 @@
    "2026-06-28"
   ],
   "quali": [
+   159.5,
    0.05,
    0.0,
    1.0,
    0.0,
    233.25,
-   159.5,
    12.0,
    "2026-06-29"
   ],
   "race_qtd": {
    "n": 12,
    "score": 150.48,
+   "queue_s": 240.58,
+   "qcall": 57.0,
+   "hello": 87.0,
+   "goodbye": 90.0,
+   "howareyou": 74.0,
    "queue": 240.58,
-   "wtq": 0.57,
-   "hello": 0.87,
-   "goodbye": 0.9,
-   "howareyou": 0.74
+   "wtq": 0.57
   },
   "quali_qtd": {
    "n": 14,
    "rank": 12.71,
+   "queue_s": 228.5,
+   "qcall": 64.0,
+   "hello": 52.0,
+   "goodbye": 65.0,
+   "howareyou": 79.0,
    "queue": 228.5
   },
   "last6": [
@@ -417,11 +480,11 @@
    "2026-06-27"
   ],
   "quali": [
-   1.0,
-   1.0,
-   1.0,
-   1.0,
    49.5,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
    49.5,
    1.0,
    "2026-06-30"
@@ -429,15 +492,22 @@
   "race_qtd": {
    "n": 12,
    "score": 76.25,
+   "queue_s": 156.33,
+   "qcall": 35.0,
+   "hello": 98.0,
+   "goodbye": 97.0,
+   "howareyou": 95.0,
    "queue": 156.33,
-   "wtq": 0.35,
-   "hello": 0.98,
-   "goodbye": 0.97,
-   "howareyou": 0.95
+   "wtq": 0.35
   },
   "quali_qtd": {
    "n": 14,
    "rank": 4.86,
+   "queue_s": 113.11,
+   "qcall": 75.0,
+   "hello": 79.0,
+   "goodbye": 73.0,
+   "howareyou": 100.0,
    "queue": 113.11
   },
   "last6": [
@@ -462,27 +532,34 @@
    "2026-06-28"
   ],
   "quali": [
+   150.0,
    1.0,
    1.0,
    1.0,
    0.0,
    175.0,
-   150.0,
    6.0,
    "2026-07-01"
   ],
   "race_qtd": {
    "n": 12,
    "score": 102.77,
+   "queue_s": 249.5,
+   "qcall": 85.0,
+   "hello": 83.0,
+   "goodbye": 71.0,
+   "howareyou": 85.0,
    "queue": 249.5,
-   "wtq": 0.85,
-   "hello": 0.83,
-   "goodbye": 0.71,
-   "howareyou": 0.85
+   "wtq": 0.85
   },
   "quali_qtd": {
    "n": 13,
    "rank": 18.31,
+   "queue_s": 276.77,
+   "qcall": 25.0,
+   "hello": 50.0,
+   "goodbye": 31.0,
+   "howareyou": 92.0,
    "queue": 276.77
   },
   "last6": [
@@ -507,27 +584,34 @@
    "2026-06-27"
   ],
   "quali": [
+   380.5,
    0.25,
    0.15,
    0.65,
    0.0,
    454.25,
-   380.5,
    18.0,
    "2026-06-29"
   ],
   "race_qtd": {
    "n": 12,
    "score": 124.63,
+   "queue_s": 198.0,
+   "qcall": 47.0,
+   "hello": 70.0,
+   "goodbye": 57.0,
+   "howareyou": 83.0,
    "queue": 198.0,
-   "wtq": 0.47,
-   "hello": 0.7,
-   "goodbye": 0.57,
-   "howareyou": 0.83
+   "wtq": 0.47
   },
   "quali_qtd": {
    "n": 13,
    "rank": 13.15,
+   "queue_s": 189.58,
+   "qcall": 25.0,
+   "hello": 39.0,
+   "goodbye": 35.0,
+   "howareyou": 91.0,
    "queue": 189.58
   },
   "last6": [
@@ -552,27 +636,34 @@
    "2026-06-26"
   ],
   "quali": [
+   136.5,
    1.0,
    0.65,
    1.0,
    1.0,
    145.25,
-   136.5,
    4.0,
    "2026-06-30"
   ],
   "race_qtd": {
    "n": 12,
    "score": 163.31,
+   "queue_s": 267.71,
+   "qcall": 30.0,
+   "hello": 94.0,
+   "goodbye": 88.0,
+   "howareyou": 95.0,
    "queue": 267.71,
-   "wtq": 0.3,
-   "hello": 0.94,
-   "goodbye": 0.88,
-   "howareyou": 0.95
+   "wtq": 0.3
   },
   "quali_qtd": {
    "n": 15,
    "rank": 15.2,
+   "queue_s": 258.07,
+   "qcall": 40.0,
+   "hello": 74.0,
+   "goodbye": 72.0,
+   "howareyou": 94.0,
    "queue": 258.07
   },
   "last6": [
@@ -597,11 +688,11 @@
    "2026-06-27"
   ],
   "quali": [
-   1.0,
-   1.0,
-   1.0,
-   1.0,
    214.5,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
    214.5,
    10.0,
    "2026-06-29"
@@ -609,15 +700,22 @@
   "race_qtd": {
    "n": 12,
    "score": 125.08,
+   "queue_s": 195.25,
+   "qcall": 26.0,
+   "hello": 64.0,
+   "goodbye": 58.0,
+   "howareyou": 90.0,
    "queue": 195.25,
-   "wtq": 0.26,
-   "hello": 0.64,
-   "goodbye": 0.58,
-   "howareyou": 0.9
+   "wtq": 0.26
   },
   "quali_qtd": {
    "n": 15,
    "rank": 8.13,
+   "queue_s": 157.5,
+   "qcall": 62.0,
+   "hello": 73.0,
+   "goodbye": 76.0,
+   "howareyou": 98.0,
    "queue": 157.5
   },
   "last6": [
@@ -642,11 +740,11 @@
    "2026-06-26"
   ],
   "quali": [
-   1.0,
-   1.0,
-   1.0,
-   1.0,
    159.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
    159.0,
    5.0,
    "2026-06-29"
@@ -654,15 +752,22 @@
   "race_qtd": {
    "n": 12,
    "score": 160.26,
+   "queue_s": 324.04,
+   "qcall": 55.0,
+   "hello": 89.0,
+   "goodbye": 89.0,
+   "howareyou": 85.0,
    "queue": 324.04,
-   "wtq": 0.55,
-   "hello": 0.89,
-   "goodbye": 0.89,
-   "howareyou": 0.85
+   "wtq": 0.55
   },
   "quali_qtd": {
    "n": 17,
    "rank": 10.06,
+   "queue_s": 161.91,
+   "qcall": 55.0,
+   "hello": 78.0,
+   "goodbye": 92.0,
+   "howareyou": 100.0,
    "queue": 161.91
   },
   "last6": [
@@ -687,27 +792,34 @@
    "2026-06-27"
   ],
   "quali": [
+   152.5,
    1.0,
    1.0,
    1.0,
    0.0,
    177.5,
-   152.5,
    7.0,
    "2026-06-30"
   ],
   "race_qtd": {
    "n": 12,
    "score": 104.31,
+   "queue_s": 164.83,
+   "qcall": 83.0,
+   "hello": 97.0,
+   "goodbye": 97.0,
+   "howareyou": 75.0,
    "queue": 164.83,
-   "wtq": 0.83,
-   "hello": 0.97,
-   "goodbye": 0.97,
-   "howareyou": 0.75
+   "wtq": 0.83
   },
   "quali_qtd": {
    "n": 15,
    "rank": 5.47,
+   "queue_s": 121.9,
+   "qcall": 60.0,
+   "hello": 83.0,
+   "goodbye": 83.0,
+   "howareyou": 93.0,
    "queue": 121.9
   },
   "last6": [
@@ -732,27 +844,34 @@
    "2026-06-26"
   ],
   "quali": [
+   165.0,
    1.0,
    0.35,
    0.65,
    1.0,
    190.0,
-   165.0,
    8.0,
    "2026-06-29"
   ],
   "race_qtd": {
    "n": 11,
    "score": 100.21,
+   "queue_s": 212.27,
+   "qcall": 89.0,
+   "hello": 94.0,
+   "goodbye": 90.0,
+   "howareyou": 82.0,
    "queue": 212.27,
-   "wtq": 0.89,
-   "hello": 0.94,
-   "goodbye": 0.9,
-   "howareyou": 0.82
+   "wtq": 0.89
   },
   "quali_qtd": {
    "n": 18,
    "rank": 11.56,
+   "queue_s": 175.36,
+   "qcall": 58.0,
+   "hello": 73.0,
+   "goodbye": 57.0,
+   "howareyou": 94.0,
    "queue": 175.36
   },
   "last6": [
@@ -777,11 +896,11 @@
    "2026-06-28"
   ],
   "quali": [
-   1.0,
-   1.0,
-   1.0,
-   1.0,
    171.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
    171.0,
    9.0,
    "2026-06-22"
@@ -789,15 +908,22 @@
   "race_qtd": {
    "n": 11,
    "score": 168.68,
+   "queue_s": 287.18,
+   "qcall": 44.0,
+   "hello": 94.0,
+   "goodbye": 94.0,
+   "howareyou": 67.0,
    "queue": 287.18,
-   "wtq": 0.44,
-   "hello": 0.94,
-   "goodbye": 0.94,
-   "howareyou": 0.67
+   "wtq": 0.44
   },
   "quali_qtd": {
    "n": 13,
    "rank": 17.08,
+   "queue_s": 301.58,
+   "qcall": 43.0,
+   "hello": 90.0,
+   "goodbye": 85.0,
+   "howareyou": 100.0,
    "queue": 301.58
   },
   "last6": [
@@ -822,11 +948,11 @@
    "2026-06-28"
   ],
   "quali": [
-   1.0,
-   1.0,
-   1.0,
-   1.0,
    215.5,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
    215.5,
    14.0,
    "2026-06-22"
@@ -834,15 +960,22 @@
   "race_qtd": {
    "n": 11,
    "score": 137.9,
+   "queue_s": 238.23,
+   "qcall": 83.0,
+   "hello": 82.0,
+   "goodbye": 73.0,
+   "howareyou": 75.0,
    "queue": 238.23,
-   "wtq": 0.83,
-   "hello": 0.82,
-   "goodbye": 0.73,
-   "howareyou": 0.75
+   "wtq": 0.83
   },
   "quali_qtd": {
    "n": 15,
    "rank": 12.33,
+   "queue_s": 178.87,
+   "qcall": 89.0,
+   "hello": 62.0,
+   "goodbye": 69.0,
+   "howareyou": 93.0,
    "queue": 178.87
   },
   "last6": [
@@ -867,11 +1000,11 @@
    "2026-06-27"
   ],
   "quali": [
-   1.0,
-   1.0,
-   1.0,
-   1.0,
    152.5,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
    152.5,
    6.0,
    "2026-06-24"
@@ -879,15 +1012,22 @@
   "race_qtd": {
    "n": 9,
    "score": 141.06,
+   "queue_s": 239.17,
+   "qcall": 72.0,
+   "hello": 92.0,
+   "goodbye": 92.0,
+   "howareyou": 100.0,
    "queue": 239.17,
-   "wtq": 0.72,
-   "hello": 0.92,
-   "goodbye": 0.92,
-   "howareyou": 1.0
+   "wtq": 0.72
   },
   "quali_qtd": {
    "n": 9,
    "rank": 8.89,
+   "queue_s": 177.39,
+   "qcall": 86.0,
+   "hello": 68.0,
+   "goodbye": 93.0,
+   "howareyou": 92.0,
    "queue": 177.39
   },
   "last6": [
@@ -912,11 +1052,11 @@
    "2026-06-28"
   ],
   "quali": [
-   1.0,
-   1.0,
-   1.0,
-   1.0,
    292.5,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
    292.5,
    16.0,
    "2026-07-01"
@@ -924,15 +1064,22 @@
   "race_qtd": {
    "n": 5,
    "score": 193.79,
+   "queue_s": 233.5,
+   "qcall": 80.0,
+   "hello": 93.0,
+   "goodbye": 93.0,
+   "howareyou": 60.0,
    "queue": 233.5,
-   "wtq": 0.8,
-   "hello": 0.93,
-   "goodbye": 0.93,
-   "howareyou": 0.6
+   "wtq": 0.8
   },
   "quali_qtd": {
    "n": 4,
    "rank": 14.25,
+   "queue_s": 250.25,
+   "qcall": 100.0,
+   "hello": 70.0,
+   "goodbye": 54.0,
+   "howareyou": 100.0,
    "queue": 250.25
   },
   "last6": [
