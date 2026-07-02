@@ -1257,10 +1257,13 @@ def pull_eos_scorecard():
         if c and h: cnum += c * h; cden += h
     cph_estate = round(cnum / cden, 1) if cden else sph        # fall back to BQ SPH if planners blank
     estate_sales_wk = sum(r.get("lw26", 0) or 0 for r in rec.values())
+    estate_tx_wk = sum(r.get("tx26", 0) or 0 for r in rec.values())
+    atv_wk = round(estate_sales_wk / estate_tx_wk, 2) if estate_tx_wk else None   # estate ATV, last completed week
     # ---- committed weekly-performance history (weekly_history.csv) for accumulating QTD ----
     HIST = os.path.join(HERE, "weekly_history.csv")
     HCOLS = ["week_ending", "estate_sales", "estate_gp_pct", "estate_cph", "sph", "npat_proj_pct",
-             "yoy_sales_pct", "yoy_tx_pct", "f1_avg", "rms_pct", "kudos_pct", "brand_audit", "google_health_pct"]
+             "yoy_sales_pct", "yoy_tx_pct", "f1_avg", "rms_pct", "kudos_pct", "brand_audit", "google_health_pct",
+             "estate_atv"]
     hist_rows = []
     if os.path.exists(HIST):
         try:
@@ -1624,6 +1627,42 @@ def pull_eos_scorecard():
             [{"store": st, "value": round(r["audit_qtd"], 2)} for st, r in rec.items() if r.get("audit_qtd")],
             "QTD brand audit score out of 5 (per store)")
 
+    # ---- YoY Sales detail extras: per-store ATV (sales/tx) + per-store food-attachment % ----
+    # ATV per store, last completed week = lw26 sales ÷ tx26 transactions (already in rec).
+    atv_ps = [{"store": st, "value": round(r["lw26"] / r["tx26"], 2)}
+              for st, r in rec.items() if (r.get("tx26") or 0) > 0 and (r.get("lw26") or 0) > 0]
+    # Food attachment % per store, ESTATE-WIDE from BigQuery: share of transactions that contain a
+    # Food or Bakery item (matches the txquality 'hasfood' definition), last completed week.
+    food_attach = []
+    try:
+        fa_rows = bq(f"""
+          WITH t AS (
+            SELECT item_outlet_name s, id, MAX(IF(cat IN ('Food','Bakery'),1,0)) hasfood
+            FROM (SELECT item_outlet_name, id, {cat_case('item_product_name')} cat
+                  FROM {FLAT}
+                  WHERE DATE(sales_date) BETWEEN DATE('{LASTWK_MON.isoformat()}') AND {CE}
+                    AND item_outlet_name NOT IN ('Royal Leamington Spa','Leamington Retail','Leamington Spa'))
+            GROUP BY s, id)
+          SELECT s, COUNT(*) txns, SUM(hasfood) foodtx, ROUND(100*SUM(hasfood)/COUNT(*),1) fa
+          FROM t GROUP BY s""")
+        food_attach = [{"store": r["s"], "value": r["fa"]} for r in fa_rows
+                       if r.get("s") in rec and (r.get("txns") or 0) > 0]
+    except Exception as e:
+        flags.append("YoY detail: per-store food-attach (BigQuery) failed (%s) — food-attach shown as "
+                     "not available." % str(e)[:70])
+    yoy_detail = {
+        "atv_target": 6.8,
+        "atv_trend_col": "estate_atv",          # gen reads this weekly_history column for the estate ATV trend
+        "atv_wk": atv_wk,
+        "atv_per_store": atv_ps,
+        "atv_basis": "Last completed week sales ÷ transactions (per store)",
+        "food_attach_per_store": food_attach,
+        "food_attach_basis": "Food or Bakery guest-checks ÷ transactions, last completed week (per store)",
+        "food_attach_note": ("Informational — no single estate plan (txquality carries Dine-In 32% / "
+                             "Drive-Thru 20% references). Food = any transaction containing a Food or Bakery item; "
+                             "derived estate-wide from BigQuery."),
+    }
+
     out = {
         "_about": "Bewiched EOS Scorecard data. Written by run_weekly.py pull_eos_scorecard(); "
                   "rendered by gen_eos_scorecard.py. Live = BigQuery; derived = other feeds; manual = inputs sheet.",
@@ -1636,6 +1675,7 @@ def pull_eos_scorecard():
         "weekly": weekly,
         "quarterly": quarterly,
         "per_store": per_store,
+        "yoy_detail": yoy_detail,
         "flags": flags,
     }
     # ---- BACK-FILL prior weeks of the quarter into weekly_history.csv (idempotent; cell-level) ----
@@ -1663,13 +1703,15 @@ def pull_eos_scorecard():
                    COUNT(DISTINCT IF(x.dd BETWEEN DATE_SUB(w.we,INTERVAL 370 DAY) AND DATE_SUB(w.we,INTERVAL 364 DAY), x.id,NULL)) lytx
                  FROM weeks w CROSS JOIN b x GROUP BY w.we, x.s)
           SELECT CAST(we AS STRING) we, ROUND(SUM(cur)) sales,
+                 ROUND(SUM(cur)/NULLIF(SUM(curtx),0),2) atv,
                  ROUND(100*(SUM(IF(cur>0 AND ly>0,cur,0))/NULLIF(SUM(IF(cur>0 AND ly>0,ly,0)),0)-1),1) yoy_sales,
                  ROUND(100*(SUM(IF(cur>0 AND ly>0,curtx,0))/NULLIF(SUM(IF(cur>0 AND ly>0,lytx,0)),0)-1),1) yoy_tx
           FROM sw GROUP BY we""")
         for r in rows:
             w = r["we"]
             if w in bf:
-                bf[w].update(estate_sales=r["sales"], yoy_sales_pct=r["yoy_sales"], yoy_tx_pct=r["yoy_tx"])
+                bf[w].update(estate_sales=r["sales"], estate_atv=r["atv"],
+                             yoy_sales_pct=r["yoy_sales"], yoy_tx_pct=r["yoy_tx"])
     except Exception as e:
         flags.append("Grid back-fill: BigQuery per-week sales/YoY failed (%s)." % str(e)[:70])
     # (b) COS estate GP per week + NPAT projection (GP flex only; labour held at baseline for history)
@@ -1754,7 +1796,7 @@ def pull_eos_scorecard():
                "estate_gp_pct": _hc(gp_wk_live), "estate_cph": _hc(cph_estate), "sph": _hc(sph),
                "npat_proj_pct": _hc(npat_wk), "yoy_sales_pct": _hc(yoy_sales_wk), "yoy_tx_pct": _hc(yoy_tx_wk),
                "f1_avg": _hc(f1_wk), "rms_pct": _hc(rh), "kudos_pct": _hc(kudos_wk_pct),
-               "brand_audit": _hc(audit_lastwk), "google_health_pct": _hc(gh)}
+               "brand_audit": _hc(audit_lastwk), "google_health_pct": _hc(gh), "estate_atv": _hc(atv_wk)}
     by_wk = {r.get("week_ending"): r for r in hist_rows}
     by_wk[new_row["week_ending"]] = new_row
     ordered = sorted(by_wk.values(), key=lambda r: r.get("week_ending", ""))

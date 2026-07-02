@@ -43,6 +43,7 @@ def fmt_val(v, f):
     if f == "score2":     return "%.2f" % v
     if f == "gbp0":       return "£%d" % round(v)
     if f == "gbp1":       return "£%.1f" % v
+    if f == "gbp2":       return "£%.2f" % v
     return ("%g" % v)
 
 def status(m):
@@ -177,6 +178,7 @@ QL = esc(D.get("quarter_label", ""))
 # ============================ Metric detail tab (selector) ============================
 # Static, non-data config. Definitions = one-liner what-it-measures; CALCS = plain-terms formula.
 PS = D.get("per_store", {})
+YOY = D.get("yoy_detail", {})   # extra ATV + food-attach detail, YoY Sales Growth view only
 DEFINITIONS = {
     "YoY Sales Growth": "Like-for-like sales growth versus the same period last year.",
     "YoY Transactional Growth": "Like-for-like transaction (order count) growth versus last year.",
@@ -223,6 +225,9 @@ def trend_svg(name, plan, dirn):
     if not col:
         return ('<div class="md-note">History building — this measure is not banked in the weekly '
                 'history yet (fills going forward).</div>')
+    return _trend_core(col, fm, plan, dirn)
+
+def _trend_core(col, fm, plan, dirn):
     # x-axis is numbered Week 1 … Week N across the quarter; the week-ending date stays in the tooltip.
     series = [(r.get("week_ending", ""), _hnum(r.get(col))) for r in _hist]
     vals = [v for _, v in series if v is not None]
@@ -278,33 +283,43 @@ def ministat(m, lab):
             '<div class="md-stat-plan">plan %s</div><div class="md-stat-flag">%s</div></div>'
             % (css, lab, a, p, STATUS_LAB[st]))
 
+def ps_table(rows_in, basis, psplan, dirn, fmt, informational=False):
+    """Render a per-store table (store · value · vs-plan chip · bar). Ranks best-to-worst:
+    higher-is-better -> descending; lower-is-better -> ascending. informational=True => no
+    green/red vs plan (neutral bars, 'info' chip) for measures without a formal target."""
+    present = [r for r in rows_in if r.get("value") is not None]
+    missing = [r for r in rows_in if r.get("value") is None]
+    present.sort(key=lambda r: r["value"], reverse=(dirn != "low"))
+    rows = present + missing
+    mx = max((abs(r["value"]) for r in present), default=1) or 1
+    body = ""
+    for r in rows:
+        v = r.get("value")
+        if informational or psplan is None:
+            cls = "info"; barcol = "var(--gold)"; chiptxt = "info"
+        else:
+            cls = _cellcls(v, psplan, dirn); barcol = {"green": "var(--green)", "red": "var(--red)", "tbc": "var(--gold)"}[cls]
+            chiptxt = "ON" if cls == "green" else ("OFF" if cls == "red" else "—")
+        vt = fmt_val(v, fmt) if v is not None else "—"
+        chip = '<span class="chip %s">%s</span>' % (cls, chiptxt)
+        w = max(2, min(100, abs(v) / mx * 100)) if v is not None else 0
+        bar = '<div class="md-bar"><i style="width:%.0f%%;background:%s"></i></div>' % (w, barcol)
+        body += ('<tr><td class="s">%s</td><td class="v">%s</td><td class="st">%s</td><td class="bar">%s</td></tr>'
+                 % (esc(r.get("store", "—")), vt, chip, bar))
+    ref_lbl = "reference" if informational else "store target"
+    ref_txt = "informational" if (informational or psplan is None) else fmt_val(psplan, fmt)
+    return ('<div class="md-ps-basis">%s · %s <b>%s</b> · %d stores</div>'
+            '<table class="md-ps"><thead><tr><th>Store</th><th class="v">Value</th><th class="st">%s</th>'
+            '<th class="bar"></th></tr></thead><tbody>%s</tbody></table>'
+            % (esc(basis), ref_lbl, ref_txt, len(rows), ("" if informational else "vs plan"), body))
+
 def perstore_html(name, plan, dirn, fmt):
     entry = PS.get(name)
     if not entry or not entry.get("rows"):
         return None
     psplan = entry.get("plan")
     if psplan is None: psplan = plan
-    # Rank best-to-worst: higher-is-better -> descending; lower-is-better -> ascending (lowest score ranks best).
-    present = [r for r in entry["rows"] if r.get("value") is not None]
-    missing = [r for r in entry["rows"] if r.get("value") is None]
-    present.sort(key=lambda r: r["value"], reverse=(dirn != "low"))
-    rows = present + missing
-    mx = max((abs(r["value"]) for r in rows if r.get("value") is not None), default=1) or 1
-    body = ""
-    for r in rows:
-        v = r.get("value"); cls = _cellcls(v, psplan, dirn)
-        vt = fmt_val(v, fmt)
-        chip = ('<span class="chip %s">%s</span>' % (cls, "ON" if cls == "green" else ("OFF" if cls == "red" else "—")))
-        w = max(2, min(100, abs(v) / mx * 100)) if v is not None else 0
-        barcol = {"green": "var(--green)", "red": "var(--red)", "tbc": "var(--gold)"}[cls]
-        bar = '<div class="md-bar"><i style="width:%.0f%%;background:%s"></i></div>' % (w, barcol)
-        body += ('<tr><td class="s">%s</td><td class="v">%s</td><td class="st">%s</td><td class="bar">%s</td></tr>'
-                 % (esc(r.get("store", "—")), vt, chip, bar))
-    basis = esc(entry.get("basis", ""))
-    plan_txt = fmt_val(psplan, fmt) if psplan is not None else "—"
-    return ('<div class="md-ps-basis">%s · store target <b>%s</b> · %d stores</div>'
-            '<table class="md-ps"><thead><tr><th>Store</th><th class="v">Value</th><th class="st">vs plan</th>'
-            '<th class="bar"></th></tr></thead><tbody>%s</tbody></table>' % (basis, plan_txt, len(rows), body))
+    return ps_table(entry["rows"], entry.get("basis", ""), psplan, dirn, fmt)
 
 def company_only(name, qm):
     fm = qm.get("fmt", "num1"); st = status(qm)
@@ -314,6 +329,40 @@ def company_only(name, qm):
     return ('<div class="md-company"><div class="big">%s</div><div class="md-company-txt">'
             'Company-level measure — not broken out per store. Figure shown is the quarter-to-date company value.'
             '</div></div>' % big)
+
+def yoy_extras_html():
+    """Extra sections shown ONLY on the YoY Sales Growth detail view: average spend (ATV) trend +
+    per-store, and per-store food-attachment %."""
+    if not YOY:
+        return ""
+    parts = []
+    atv_target = YOY.get("atv_target")
+    atv_col = YOY.get("atv_trend_col", "estate_atv")
+    # ATV estate trend (higher-is-better vs the £6.80 reference)
+    parts.append('<div class="md-section-h">Average spend (ATV) — estate trend</div>')
+    if atv_col in {c for _n, c, _p, _f in GRID} or any(r.get(atv_col) not in (None, "") for r in _hist):
+        parts.append(_trend_core(atv_col, "gbp2", atv_target, "high"))
+    else:
+        parts.append('<div class="md-note">History building — estate ATV fills going forward.</div>')
+    # ATV per store (vs £6.80 target)
+    aps = YOY.get("atv_per_store") or []
+    parts.append('<div class="md-section-h">Average spend (ATV) — by store</div>')
+    if aps:
+        parts.append(ps_table(aps, YOY.get("atv_basis", "") + " · target £6.80", atv_target, "high", "gbp2"))
+    else:
+        parts.append('<div class="md-note">Per-store ATV not available this week.</div>')
+    # Food attachment % per store (informational — no formal estate plan)
+    fps = YOY.get("food_attach_per_store") or []
+    parts.append('<div class="md-section-h">Food attachment % — by store</div>')
+    if fps:
+        parts.append(ps_table(fps, YOY.get("food_attach_basis", ""), None, "high", "pct1", informational=True))
+        if YOY.get("food_attach_note"):
+            parts.append('<div class="md-note">%s</div>' % esc(YOY["food_attach_note"]))
+    else:
+        parts.append('<div class="md-note">Food attachment % not available — the estate-wide BigQuery '
+                     'derivation did not return this run (per-store food-attach also exists in the txquality '
+                     'views for Glenvale &amp; Leamington Parade).</div>')
+    return "".join(parts)
 
 md_options = ""
 md_details = ""
@@ -328,6 +377,7 @@ for i, (wm, qm) in enumerate(zip(weekly, quarterly)):
     dir_txt = ("Lower is better (green ≤ %s)" % esc(plan_txt)) if dirn == "low" else "Higher is better"
     ps = perstore_html(name, plan, dirn, fm)
     ps_block = ps if ps is not None else company_only(name, qm)
+    extras = yoy_extras_html() if name == "YoY Sales Growth" else ""   # ATV + food-attach, YoY view only
     disp = "block" if i == 0 else "none"
     md_details += (
         '<div class="md-detail" id="md-%d" style="display:%s">' % (i, disp)
@@ -340,6 +390,7 @@ for i, (wm, qm) in enumerate(zip(weekly, quarterly)):
         + trend_svg(name, plan, dirn)
         + '<div class="md-section-h">Per-store breakdown</div>'
         + ps_block
+        + extras
         + '<div class="md-section-h">How it\'s calculated</div>'
         + '<div class="md-calc">%s</div>' % calc
         + '</div>'
@@ -444,6 +495,7 @@ HTML = f"""<!DOCTYPE html>
   table.md-ps td.bar{{width:180px}}
   .md-ps .chip{{display:inline-block;padding:2px 7px;border-radius:6px;font-size:10px;font-weight:800}}
   .md-ps .chip.green{{background:var(--greenbg);color:var(--green)}} .md-ps .chip.red{{background:var(--redbg);color:var(--red)}} .md-ps .chip.tbc{{background:#e7e0d6;color:#9a8c7c}}
+  .md-ps .chip.info{{background:#f3ece0;color:#8a6d3b}}
   .md-bar{{height:9px;border-radius:5px;background:var(--greybg);overflow:hidden}} .md-bar > i{{display:block;height:100%}}
   .md-company{{display:flex;gap:16px;align-items:center;background:var(--greybg);border:1px solid var(--line);border-radius:10px;padding:14px 16px}}
   .md-company .big{{font-size:30px;font-weight:800;color:var(--brown);line-height:1}}
