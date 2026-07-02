@@ -1,6 +1,6 @@
 {
  "_about": "Bewiched EOS Scorecard data. Written by run_weekly.py pull_eos_scorecard(); rendered by gen_eos_scorecard.py. Live = BigQuery; derived = other feeds; manual = inputs sheet.",
- "generated": "02 Jul 2026, 09:45",
+ "generated": "02 Jul 2026, 10:01",
  "cur_end": "2026-06-28",
  "week_label": "w/c 22 Jun 2026",
  "quarter_label": "Q2 2026 (Apr–Jun)",
@@ -1097,28 +1097,68 @@
   "atv_basis": "Last completed week sales ÷ transactions (per store)",
   "food_attach_per_store": [
    {
-    "store": "Rushden Lakes",
-    "value": 25.6
+    "store": "Glenvale Drive Thru",
+    "value": 24.0
    },
    {
     "store": "Northampton Drive-Thru",
     "value": 24.2
    },
    {
+    "store": "Attleborough",
+    "value": 35.2
+   },
+   {
+    "store": "Market Harborough",
+    "value": 29.4
+   },
+   {
+    "store": "Rushden Lakes",
+    "value": 25.6
+   },
+   {
+    "store": "HOE Balsall Common",
+    "value": 32.3
+   },
+   {
+    "store": "Leamington Parade",
+    "value": 25.1
+   },
+   {
+    "store": "Billing Drive Thru",
+    "value": 27.5
+   },
+   {
     "store": "Kettering",
     "value": 21.6
+   },
+   {
+    "store": "Peterborough Bridge Street",
+    "value": 29.4
    },
    {
     "store": "Northampton",
     "value": 26.0
    },
    {
-    "store": "Glenvale Drive Thru",
-    "value": 24.0
+    "store": "Rugby",
+    "value": 23.4
    },
    {
-    "store": "Leamington Parade",
-    "value": 25.1
+    "store": "Lower Heathcote",
+    "value": 21.4
+   },
+   {
+    "store": "Corby",
+    "value": 24.6
+   },
+   {
+    "store": "Wellingborough",
+    "value": 12.1
+   },
+   {
+    "store": "Olney",
+    "value": 22.8
    },
    {
     "store": "Rothwell",
@@ -1129,52 +1169,12 @@
     "value": 25.2
    },
    {
-    "store": "Corby",
-    "value": 24.6
-   },
-   {
-    "store": "Lower Heathcote",
-    "value": 21.4
-   },
-   {
-    "store": "Rugby",
-    "value": 23.4
-   },
-   {
-    "store": "Market Harborough",
-    "value": 29.4
-   },
-   {
-    "store": "Olney",
-    "value": 22.8
-   },
-   {
-    "store": "Wellingborough",
-    "value": 12.1
+    "store": "Peterborough Fletton Quays",
+    "value": 34.0
    },
    {
     "store": "Higham Ferrers",
     "value": 21.2
-   },
-   {
-    "store": "Attleborough",
-    "value": 35.2
-   },
-   {
-    "store": "Billing Drive Thru",
-    "value": 27.5
-   },
-   {
-    "store": "Peterborough Bridge Street",
-    "value": 29.4
-   },
-   {
-    "store": "HOE Balsall Common",
-    "value": 32.3
-   },
-   {
-    "store": "Peterborough Fletton Quays",
-    "value": 34.0
    },
    {
     "store": "Wellingborough Train Station",
