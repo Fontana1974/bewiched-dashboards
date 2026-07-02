@@ -1309,9 +1309,10 @@ def pull_eos_scorecard():
         if r and r[8] and LASTWK_MON.isoformat() <= r[8] <= CUR_END.isoformat():
             f1_wk_xs.append(r[5])                       # race Total Score (col 18) for last week's race
     f1_wk = round(sum(f1_wk_xs) / len(f1_wk_xs), 1) if f1_wk_xs else None
-    F1_PLAN = 280   # PROVISIONAL — on the raw race Total-Score scale (~282 now); confirm real target.
-    f1_note = ("Metric confirmed = AVERAGE RACE TOTAL SCORE (estate avg ~282). PROVISIONAL plan %d — "
-               "Matt to confirm the target NUMBER on this score scale; the old '75' target is retired." % F1_PLAN)
+    F1_PLAN = 220   # LOWER IS BETTER on this race Total-Score scale — target ≤220 (estate ~282 now, so RED).
+    f1_note = ("Metric = AVERAGE RACE TOTAL SCORE, and LOWER IS BETTER on this scale. Target ≤%d — "
+               "green when the average score is at or below %d, red when above. (Estate ~282 now, so RED.) "
+               "The old '75' higher-is-better target is retired." % (F1_PLAN, F1_PLAN))
     # ---- Brand Audit, last completed week (audits are periodic; awaiting if none logged that week) ----
     audit_lastwk = jload("audit_raw.json").get("_lastwk_avg")
     audit_lastwk_n = jload("audit_raw.json").get("_lastwk_n", 0)
@@ -1463,15 +1464,15 @@ def pull_eos_scorecard():
     except Exception as e:
         flags.append("YoY (BigQuery QTD) pull failed (%s) — YoY rows shown as awaiting." % str(e)[:90])
 
-    def metric(mid, name, plan_def, derived, unit, fmt, source, detail, note, tbc=False):
+    def metric(mid, name, plan_def, derived, unit, fmt, source, detail, note, tbc=False, dirn="high"):
         a = ma(mid)
         if tbc:
             return {"id": mid, "name": name, "plan": None, "actual": None, "unit": unit,
-                    "fmt": fmt, "dir": "high", "source": "tbc", "detail": detail, "note": note, "tbc": True}
+                    "fmt": fmt, "dir": dirn, "source": "tbc", "detail": detail, "note": note, "tbc": True}
         actual = a if a is not None else derived
         src = "manual" if (a is not None and source in ("derived", "live")) else source
         return {"id": mid, "name": name, "plan": mp(mid, plan_def), "actual": actual, "unit": unit,
-                "fmt": fmt, "dir": "high", "source": src, "detail": detail, "note": note}
+                "fmt": fmt, "dir": dirn, "source": src, "detail": detail, "note": note}
 
     qn = (QSTART.month - 1) // 3 + 1
     m3 = QSTART.replace(month=QSTART.month + 2)
@@ -1501,8 +1502,8 @@ def pull_eos_scorecard():
                ("%d stores with a named bench successor (HRP & Bench roster)" % bench_val) if bench_val is not None else "",
                "Count of named Bench Managers in the HRP bench sheet (point-in-time). Green when ≥ 3."),
         metric("f1_score_wk", "F1 Score", F1_PLAN, f1_wk, "", "num1", "sheet",
-               ("Last week's race result, estate avg (%d stores)" % len(f1_wk_xs)) if f1_wk_xs else "No race scores logged last week",
-               f1_note),
+               ("Last week's race result, estate avg (%d stores) — lower is better" % len(f1_wk_xs)) if f1_wk_xs else "No race scores logged last week",
+               f1_note, dirn="low"),
         metric("brand_audit_wk", "Brand Audit Score", 4.6, audit_lastwk, "", "score2", "derived",
                ("Audits logged last week, estate avg (%d audits)" % audit_lastwk_n) if audit_lastwk_n else "No brand audits logged last week",
                "Last completed week's audits. Brand audits are periodic — tile stays awaiting in weeks with none; the QTD tile is the reliable one."),
@@ -1540,8 +1541,8 @@ def pull_eos_scorecard():
                ("%d stores with a named bench successor (HRP & Bench roster)" % bench_val) if bench_val is not None else "",
                "Bench headcount is point-in-time, not a period sum — shows the current count. Green when ≥ 3."),
         metric("f1_score", "F1 Score", F1_PLAN, f1_qtd, "", "num1", "sheet",
-               ("QTD race 'Total Score', estate avg (%d stores)" % len(f1_qtd_xs)) if f1_qtd_xs else "Awaiting F1 race data",
-               f1_note),
+               ("QTD race 'Total Score', estate avg (%d stores) — lower is better" % len(f1_qtd_xs)) if f1_qtd_xs else "Awaiting F1 race data",
+               f1_note, dirn="low"),
         metric("brand_audit", "Brand Audit Score", 4.6, ba, "", "score2", "derived",
                "Estate average brand audit (QTD), out of 5",
                "Auto-derived from the Brand Audit sheet (quarter-to-date); override in the inputs sheet if needed."),
@@ -1558,7 +1559,7 @@ def pull_eos_scorecard():
         "Status is strictly binary: GREEN when actual ≥ plan, RED when below — no near-target band. Bench is green when ≥ 3.",
         "Google Health & Rate My Shift Health blend divisors (40 reviews / 4.6★ ; 70 submissions / 4.6★) are default assumptions — adjust if you prefer different volume targets.",
         "Plans (Matt's stated defaults): SPH Labour 55, Brew Crew Kudos 50%, Bench 3, NPAT 18%, Food GP% 71%. YoY Sales 12% / Transactions 5% on both tabs.",
-        "F1 Score = AVERAGE RACE TOTAL SCORE (Matt confirmed), live from the F1 sheet (ID %s) — weekly = last week's race, quarterly = QTD avg. The old '75' target is retired. Plan is a PROVISIONAL 280 on this scale — Matt still needs to give the target NUMBER on the ~280 average-race-total-score scale (being asked separately)." % SID["f1"],
+        "F1 Score = AVERAGE RACE TOTAL SCORE (Matt confirmed), live from the F1 sheet (ID %s) — weekly = last week's race, quarterly = QTD avg. LOWER IS BETTER on this scale: target ≤220, green at or below 220 and red above (estate ~282 now, so RED). The old '75' higher-is-better target is retired." % SID["f1"],
         "SYMMETRIC: both tabs now carry the SAME 13 KPIs — Weekly measured on the last completed week, Quarterly the identical 13 measured QTD (since quarter start). Where a measure has no natural weekly/QTD split it shows the same figure on both tabs (see below).",
         "Same figure on both tabs (by nature): NPAT (latest-month P&L projection — no weekly actual), SPH Labour (a £/hr rate — QTD labour hours not separately sourced), Bench (point-in-time headcount), Food GP% (weekly CoS, a week in arrears). Brand Audit weekly shows 'awaiting' in weeks with no audits; the QTD tile is the reliable one.",
         "Still need definitions/sources: New Starter Health and Social Media Engagement are greyed TBC placeholders on BOTH tabs until Matt defines the metric + source. NPAT needs the P&L sheet shared with the service account to go beyond the May snapshot.",

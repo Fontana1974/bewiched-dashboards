@@ -113,12 +113,14 @@ GRID = [
     ("Social Media Engagement", None, None, "pct0"),
     ("SPH Labour (incl holiday pay)", "sph", 55, "gbp1"),
     ("Bench", None, 3, "num0"),
-    ("F1 Score", "f1_avg", 280, "num1"),
+    ("F1 Score", "f1_avg", 220, "num1"),
     ("Brand Audit Score", "brand_audit", 4.6, "score2"),
     ("Food GP%", "estate_gp_pct", 71, "pct1"),
     ("Net Profit After Tax (projected)", "npat_proj_pct", 18, "pct1"),
     ("New Starter Health", None, None, "pct0"),
 ]
+# Metrics where a LOWER value is better (green when actual <= plan). All others are higher-is-better.
+LOWER_BETTER = {"F1 Score"}
 _hp = os.path.join(HERE, "weekly_history.csv")
 _hist = []
 if os.path.exists(_hp):
@@ -133,26 +135,30 @@ def _wshort(iso):
         d = dt.date.fromisoformat(iso); return "%d/%-m" % (d.day, d.month)
     except Exception:
         return esc(iso)
-def _cell_stat(val, plan):
+def _cell_stat(val, plan, dirn="high"):
     if val in (None, "") or plan is None: return "tbc"
     try: v = float(val)
     except Exception: return "tbc"
+    if dirn == "low":
+        return "green" if v <= float(plan) else "red"
     return "green" if v >= float(plan) else "red"
 def _cell_fmt(val, fm):
     if val in (None, ""): return ""
     try: return fmt_val(float(val), fm)
     except Exception: return esc(val)
 _weeks = [r.get("week_ending", "") for r in _hist]
-_ghead = "".join(f'<th>{_wshort(w)}</th>' for w in _weeks)
+# x-axis / grid columns are numbered by their position in the quarter: Week 1 … Week N.
+_ghead = "".join(f'<th title="{esc(w)}">Week {i + 1}</th>' for i, w in enumerate(_weeks))
 _gbody = ""
 _gg = _gr = 0
 for name, col, plan, fm in GRID:
     owner = OWNERS.get(name) or "—"
+    dirn = "low" if name in LOWER_BETTER else "high"
     plan_txt = "—" if plan is None else fmt_val(plan, fm)
     cells = ""
     for r in _hist:
         val = r.get(col) if col else None
-        st = _cell_stat(val, plan)
+        st = _cell_stat(val, plan, dirn)
         if st == "green": _gg += 1
         elif st == "red": _gr += 1
         txt = _cell_fmt(val, fm) if st != "tbc" else ""
@@ -180,7 +186,7 @@ DEFINITIONS = {
     "Social Media Engagement": "Engagement across Bewiched social channels (metric still to be defined).",
     "SPH Labour (incl holiday pay)": "Sales generated per labour hour, including holiday pay.",
     "Bench": "How many stores have a named, ready successor — management bench strength.",
-    "F1 Score": "Average F1 'race' total score across the estate — operational excellence.",
+    "F1 Score": "Average F1 'race' total score across the estate — operational excellence. Lower is better (target ≤220).",
     "Brand Audit Score": "Average brand-audit score out of 5.",
     "Food GP%": "Gross-profit margin from Cost of Sales (food GP proxy).",
     "Net Profit After Tax (projected)": "Projected net-profit margin after tax, flexed off the latest P&L.",
@@ -195,7 +201,7 @@ CALCS = {
     "Social Media Engagement": "Not yet defined — awaiting the metric definition and target.",
     "SPH Labour (incl holiday pay)": "Estate sales ÷ labour hours used (from the area planners, Section A), hours-weighted. QTD is hours-weighted across the quarter's weeks in weekly_history.csv.",
     "Bench": "Count of stores with at least one named successor in the HRP 'Bench Manager' / pipeline columns (point-in-time). Green estate-wide when ≥ 3 stores have one.",
-    "F1 Score": "Average of each store's race Total Score. Weekly = last completed week's race; QTD = quarter-to-date average.",
+    "F1 Score": "Average of each store's race Total Score. Weekly = last completed week's race; QTD = quarter-to-date average. LOWER IS BETTER on this scale — green at or below the target of ≤220, red above.",
     "Brand Audit Score": "Estate average of store brand-audit scores logged in the period, out of 5.",
     "Food GP%": "(Turnover − cost of goods) ÷ turnover from the Cost-of-Sales master (estate proxy; posts roughly one week in arrears).",
     "Net Profit After Tax (projected)": "Baseline 7.9% (May P&L) + GP flex (estate GP% − baseline) − labour flex (labour% − baseline, via live CPH). A projection, not a booked figure.",
@@ -217,7 +223,8 @@ def trend_svg(name, plan, dirn):
     if not col:
         return ('<div class="md-note">History building — this measure is not banked in the weekly '
                 'history yet (fills going forward).</div>')
-    series = [(_wshort(r.get("week_ending", "")), _hnum(r.get(col))) for r in _hist]
+    # x-axis is numbered Week 1 … Week N across the quarter; the week-ending date stays in the tooltip.
+    series = [(r.get("week_ending", ""), _hnum(r.get(col))) for r in _hist]
     vals = [v for _, v in series if v is not None]
     if not vals:
         return '<div class="md-note">History building — no values banked for this measure yet.</div>'
@@ -241,17 +248,17 @@ def trend_svg(name, plan, dirn):
         x = padL + i * bw
         cx = x + bw * 0.5
         if v is None:
-            parts.append('<rect x="%.1f" y="%.1f" width="%.1f" height="3" fill="#e2d8cc"><title>%s: no data</title></rect>'
-                         % (x + bw * 0.2, yB - 3, bw * 0.6, esc(lab)))
+            parts.append('<rect x="%.1f" y="%.1f" width="%.1f" height="3" fill="#e2d8cc"><title>Week %d (%s): no data</title></rect>'
+                         % (x + bw * 0.2, yB - 3, bw * 0.6, i + 1, esc(lab)))
         else:
             cls = _cellcls(v, plan, dirn)
             fill = {"green": "var(--green)", "red": "var(--red)", "tbc": "var(--gold)"}[cls]
             top = Y(v); ht = max(1.5, yB - top)
             parts.append('<rect x="%.1f" y="%.1f" width="%.1f" height="%.1f" rx="2" fill="%s" opacity="0.9">'
-                         '<title>%s: %s</title></rect>'
-                         % (x + bw * 0.16, top, bw * 0.68, ht, fill, esc(lab), esc(fmt_val(v, fm))))
-        parts.append('<text x="%.1f" y="%.1f" font-size="8.5" fill="var(--muted)" text-anchor="middle">%s</text>'
-                     % (cx, H - padB + 12, esc(lab)))
+                         '<title>Week %d (%s): %s</title></rect>'
+                         % (x + bw * 0.16, top, bw * 0.68, ht, fill, i + 1, esc(lab), esc(fmt_val(v, fm))))
+        parts.append('<text x="%.1f" y="%.1f" font-size="8.5" fill="var(--muted)" text-anchor="middle">Week %d</text>'
+                     % (cx, H - padB + 12, i + 1))
     # plan reference line
     if plan is not None:
         yp = Y(plan)
@@ -277,7 +284,11 @@ def perstore_html(name, plan, dirn, fmt):
         return None
     psplan = entry.get("plan")
     if psplan is None: psplan = plan
-    rows = sorted(entry["rows"], key=lambda r: (r.get("value") is None, -(r.get("value") or 0)))
+    # Rank best-to-worst: higher-is-better -> descending; lower-is-better -> ascending (lowest score ranks best).
+    present = [r for r in entry["rows"] if r.get("value") is not None]
+    missing = [r for r in entry["rows"] if r.get("value") is None]
+    present.sort(key=lambda r: r["value"], reverse=(dirn != "low"))
+    rows = present + missing
     mx = max((abs(r["value"]) for r in rows if r.get("value") is not None), default=1) or 1
     body = ""
     for r in rows:
@@ -314,6 +325,7 @@ for i, (wm, qm) in enumerate(zip(weekly, quarterly)):
     definition = esc(DEFINITIONS.get(name, ""))
     calc = esc(CALCS.get(name, ""))
     plan_txt = fmt_val(plan, fm) if plan is not None else "not set (TBC)"
+    dir_txt = ("Lower is better (green ≤ %s)" % esc(plan_txt)) if dirn == "low" else "Higher is better"
     ps = perstore_html(name, plan, dirn, fm)
     ps_block = ps if ps is not None else company_only(name, qm)
     disp = "block" if i == 0 else "none"
@@ -321,7 +333,7 @@ for i, (wm, qm) in enumerate(zip(weekly, quarterly)):
         '<div class="md-detail" id="md-%d" style="display:%s">' % (i, disp)
         + '<div class="md-title">%s<span class="md-owner">Owner: <b>%s</b></span></div>' % (esc(name), esc(owner))
         + '<div class="md-def">%s</div>' % definition
-        + '<div class="md-planline">Plan: <b>%s</b> · Owner: <b>%s</b> · Higher is better</div>' % (esc(plan_txt), esc(owner))
+        + '<div class="md-planline">Plan: <b>%s</b> · Owner: <b>%s</b> · %s</div>' % (esc(plan_txt), esc(owner), dir_txt)
         + '<div class="md-section-h">Current status</div>'
         + '<div class="md-stats">%s%s</div>' % (ministat(wm, "This week"), ministat(qm, "Quarter to date"))
         + '<div class="md-section-h">13-week trend</div>'
@@ -479,10 +491,10 @@ HTML = f"""<!DOCTYPE html>
 
   <section class="pane" id="pane-grid">
     <div class="panehead">
-      <span class="lbl">Quarter: <b>{QL}</b> · {n_grid_weeks} week{'' if n_grid_weeks==1 else 's'} · one column per week-ending · each cell traffic-lit vs plan</span>
+      <span class="lbl">Quarter: <b>{QL}</b> · {n_grid_weeks} week{'' if n_grid_weeks==1 else 's'} · one column per week (Week 1…{n_grid_weeks}, hover for the date) · each cell traffic-lit vs plan</span>
     </div>
     <div class="gridwrap">{grid_html}</div>
-    <div class="legend"><span><span class="sw" style="background:var(--greenbg);border:1px solid #cfe6d8"></span>≥ plan</span><span><span class="sw" style="background:var(--redbg);border:1px solid #eccfca"></span>below plan</span><span><span class="sw" style="background:var(--greybg);border:1px solid var(--line)"></span>no data / not defined (Bench is point-in-time; Social Media &amp; New Starter are TBC; SPH &amp; Brand Audit fill going forward). Food GP% row shows the estate blended GP per week.</span></div>
+    <div class="legend"><span><span class="sw" style="background:var(--greenbg);border:1px solid #cfe6d8"></span>on plan</span><span><span class="sw" style="background:var(--redbg);border:1px solid #eccfca"></span>off plan</span><span><span class="sw" style="background:var(--greybg);border:1px solid var(--line)"></span>no data / not defined (Bench is point-in-time; Social Media &amp; New Starter are TBC; SPH &amp; Brand Audit fill going forward). Food GP% row shows the estate blended GP per week. F1 is lower-is-better (green ≤ 220); all other rows are higher-is-better.</span></div>
   </section>
 
   <section class="pane" id="pane-detail">
