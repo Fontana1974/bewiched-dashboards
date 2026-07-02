@@ -563,6 +563,7 @@ def pull_cos():
     MAY31_S = (datetime.date(CUR_END.year, 5, 31) - EPOCH).days
     agg = {}            # date-serial -> [Σsales, Σ(sales*gp)]  (sales-weighted col Q)
     latest = {}         # store -> (holding%, gp%, date-serial)
+    qtd_ps = {}         # store -> [Σsales, Σ(sales*gp)] over the quarter (per-store QTD GP)
     for r in rows:
         if len(r) < 17 or not isinstance(r[1], (int, float)): continue
         sales = r[7] if isinstance(r[7], (int, float)) else None
@@ -576,6 +577,8 @@ def pull_cos():
             hold = (round(hc * 100, 1) if hc and hc < 2 else round(hc, 1)) if hc is not None else None
             if st not in latest or ds >= latest[st][2]:
                 latest[st] = (hold, round(gp * 100, 2), ds)
+            if ds >= QSTART_S:
+                qa = qtd_ps.setdefault(st, [0.0, 0.0]); qa[0] += sales; qa[1] += sales * gp
     def _egp(filt):
         ts = tw = 0.0
         for ds, (sa, gw) in agg.items():
@@ -602,6 +605,9 @@ def pull_cos():
     out["estate_gp_by_week"] = {we: round(gw / sa * 100, 2) for we, (sa, gw) in wagg.items() if sa}
     for st, (h, gp, ds) in latest.items():
         out["stores"][st] = {"holding_pct": h, "gp_pct": gp}
+    for st, (sa, gw) in qtd_ps.items():                       # per-store QTD GP (sales-weighted col Q)
+        if sa:
+            out["stores"].setdefault(st, {})["gp_qtd"] = round(gw / sa * 100, 2)
     W("cos_metrics.json", out, indent=1)
     print("[pull] cos: %d stores; estate GP wk %s / qtd %s / may %s (authoritative col Q, sales-weighted)"
           % (len(latest), out.get("estate_gp_wk"), out.get("estate_gp_qtd"), out.get("estate_gp_may")))
@@ -1588,64 +1594,116 @@ def pull_eos_scorecard():
         "Manual inputs sheet 'Bewiched EOS Scorecard Inputs' (ID %s) must be shared (Viewer) with dashboards-bot@%s.iam.gserviceaccount.com for the automated run to read it." % (SID["eos"], PROJECT),
     ] + flags
 
-    # ---- per-store breakdown arrays for the Metric detail tab (reuse pulls already computed) ----
-    # Keyed by metric NAME (matches gen_eos_scorecard.py). Store-level metrics only; company-only /
-    # manual metrics (NPAT, Social Media TBC, New Starter TBC, Kudos) are intentionally omitted so the
-    # renderer shows the company figure / "not store-level" rather than faking per-store detail.
-    per_store = {}
-    def _psrows(name, rows, basis, plan=None):
-        rows = [r for r in rows if r.get("value") is not None]
-        if rows:
-            per_store[name] = {"basis": basis, "rows": rows, "plan": plan}
-    # YoY sales / transactions — last completed week, like-for-like, per store
-    _psrows("YoY Sales Growth",
-            [{"store": st, "value": round(100 * (r["lw26"] / r["lw25"] - 1), 1)}
-             for st, r in rec.items() if (r.get("lw25") or 0) > 0 and (r.get("lw26") or 0) > 0],
-            "Last completed week vs 2025, like-for-like (per store)")
-    _psrows("YoY Transactional Growth",
-            [{"store": st, "value": round(100 * (r["tx26"] / r["tx25"] - 1), 1)}
-             for st, r in rec.items() if (r.get("tx25") or 0) > 0 and (r.get("tx26") or 0) > 0],
-            "Last completed week transactions vs 2025, like-for-like (per store)")
-    # Food GP% — Cost of Sales, per store (only stores reporting CoS)
-    _psrows("Food GP%",
-            [{"store": st, "value": round(v["gp_pct"], 1)} for st, v in cos.items() if v.get("gp_pct")],
-            "Cost-of-Sales latest week, per store (stores reporting CoS only)")
-    # SPH Labour — last completed week sales / planner hours used, per store
-    _psrows("SPH Labour (incl holiday pay)",
-            [{"store": st, "value": round(rec[st]["lw26"] / v["used_lastwk"], 1)}
-             for st, v in ovr.items() if v.get("used_lastwk") and rec.get(st, {}).get("lw26")],
-            "Last completed week sales ÷ planner hours used (per store)")
-    # Bench — named successors per store (point-in-time); per-store target = at least 1 named
-    _psrows("Bench",
-            [{"store": row[0], "value": sum(1 for i in range(6, 10) if len(row) > i and str(row[i]).strip())}
-             for row in benchj.get("rows", []) if row and row[0]],
-            "Named bench successors per store (green when ≥ 1)", plan=1)
-    # F1 Score — QTD average race Total Score, per store
-    _psrows("F1 Score",
-            [{"store": st, "value": round(v["race_qtd"]["score"], 1)} for st, v in fdet.items()
-             if v.get("race_qtd") and v["race_qtd"].get("score") is not None],
-            "QTD average race Total Score (per store)")
-    # Google Health — QTD blend (review volume & rating), per store
-    _psrows("Google Health",
-            [{"store": st, "value": round((min(nv[0] / (40 * weeks_q), 1) + min(nv[1] / 4.6, 1)) / 2 * 100, 1)}
-             for st, nv in sh.get("google", {}).items() if nv and nv[0]],
-            "QTD blend: review volume (÷%d) & rating (÷4.6), per store" % (40 * weeks_q))
-    # Rate My Shift Health — QTD blend (submission volume & score), per store
-    _psrows("Rate My Shift Health",
-            [{"store": st, "value": round((min(nv[0] / (70 * weeks_q), 1) + min(nv[1] / 4.6, 1)) / 2 * 100, 1)}
-             for st, nv in sh.get("rms", {}).items() if nv and nv[0]],
-            "QTD blend: submission volume (÷%d) & score (÷4.6), per store" % (70 * weeks_q))
-    # Brand Audit Score — QTD estate brand audit, per store
-    _psrows("Brand Audit Score",
-            [{"store": st, "value": round(r["audit_qtd"], 2)} for st, r in rec.items() if r.get("audit_qtd")],
-            "QTD brand audit score out of 5 (per store)")
+    # ---- per-store QTD sources (BigQuery) for the Metric detail Weekly/Quarterly toggle ----
+    # Per-store QTD sales/tx vs last year (LFL: closed 'Royal Leamington Spa' excluded; new stores drop
+    # out via the qtd_ly>0 gate). Reused for YoY Sales QTD, YoY Transactions QTD and ATV QTD.
+    qsales_ps = {}
+    try:
+        for r in bq(f"""
+          WITH b AS (SELECT item_outlet_name s, DATE(sales_date) dd, id,
+                            SAFE_CAST(item_line_total_after_discount AS FLOAT64) v
+                     FROM {FLAT} WHERE DATE(sales_date) BETWEEN {qstart_ly_lit} AND {CE}
+                       AND item_outlet_name NOT IN ('Royal Leamington Spa','Leamington Retail','Leamington Spa'))
+          SELECT s,
+            ROUND(SUM(IF(dd BETWEEN {qstart_lit} AND {CE}, v, 0))) qtd,
+            COUNT(DISTINCT IF(dd BETWEEN {qstart_lit} AND {CE}, id, NULL)) qtx,
+            ROUND(SUM(IF(dd BETWEEN {qstart_ly_lit} AND {d(364)}, v, 0))) qtd_ly,
+            COUNT(DISTINCT IF(dd BETWEEN {qstart_ly_lit} AND {d(364)}, id, NULL)) qtx_ly
+          FROM b GROUP BY s"""):
+            st = normalize(r.get("s"))
+            if st: qsales_ps[st] = r
+    except Exception as e:
+        flags.append("Per-store QTD sales/tx (BigQuery) failed (%s)." % str(e)[:70])
+    def _yoy_qtd(kind):
+        out = []
+        for st, r in qsales_ps.items():
+            qd = r.get("qtd") or 0; qdl = r.get("qtd_ly") or 0
+            if qd <= 0 or qdl <= 0: continue                 # LFL: trading BOTH periods
+            if kind == "sales":
+                out.append({"store": st, "value": round(100 * (qd / qdl - 1), 1)})
+            else:
+                qx = r.get("qtx") or 0; qxl = r.get("qtx_ly") or 0
+                if qxl > 0: out.append({"store": st, "value": round(100 * (qx / qxl - 1), 1)})
+        return out
+    atv_qtd_ps = [{"store": st, "value": round(r["qtd"] / r["qtx"], 2)}
+                  for st, r in qsales_ps.items() if (r.get("qtx") or 0) > 0 and (r.get("qtd") or 0) > 0]
+    # Per-store QTD food attachment % (Food/Bakery guest-checks ÷ transactions, quarter-to-date)
+    food_qtd_ps = {}
+    try:
+        for r in bq(f"""
+          WITH t AS (SELECT item_outlet_name s, id, MAX(IF(cat IN ('Food','Bakery'),1,0)) hasfood
+            FROM (SELECT item_outlet_name, id, {cat_case('item_product_name')} cat FROM {FLAT}
+                  WHERE DATE(sales_date) BETWEEN {qstart_lit} AND {CE}
+                    AND item_outlet_name NOT IN ('Royal Leamington Spa','Leamington Retail','Leamington Spa'))
+            GROUP BY s, id)
+          SELECT s, COUNT(*) txns, ROUND(100*SUM(hasfood)/COUNT(*),1) fa FROM t GROUP BY s"""):
+            st = normalize(r.get("s"))
+            if st and (r.get("txns") or 0) > 0: food_qtd_ps[st] = r.get("fa")
+    except Exception as e:
+        flags.append("Per-store QTD food-attach (BigQuery) failed (%s)." % str(e)[:70])
+    # Per-store WEEKLY F1 (last completed week's race Total Score)
+    f1_wk_ps = []
+    for st, v in fdet.items():
+        rr = v.get("race")
+        if rr and len(rr) > 8 and rr[8] and LASTWK_MON.isoformat() <= str(rr[8]) <= CUR_END.isoformat():
+            f1_wk_ps.append({"store": st, "value": round(rr[5], 1)})
 
-    # ---- YoY Sales detail extras: per-store ATV (sales/tx) + per-store food-attachment % ----
-    # ATV per store, last completed week = lw26 sales ÷ tx26 transactions (already in rec).
+    # ---- per-store breakdown, DUAL basis (weekly + QTD) for the Metric detail toggle ----
+    # per_store[name] = {"plan":…, "weekly":{"basis","rows"}?, "qtd":{"basis","rows"}?}. A basis is
+    # omitted when not sourced per store (renderer shows a graceful note). Company-only / TBC metrics
+    # (NPAT, Kudos, Social Media, New Starter) carry no per_store — renderer shows the company figure.
+    per_store = {}
+    def _clean(rows): return [r for r in (rows or []) if r.get("value") is not None]
+    def _ps2(name, plan=None, weekly=None, wbasis="", qtd=None, qbasis=""):
+        e = {"plan": plan}
+        wr, qr = _clean(weekly), _clean(qtd)
+        if wr: e["weekly"] = {"basis": wbasis, "rows": wr}
+        if qr: e["qtd"] = {"basis": qbasis, "rows": qr}
+        if "weekly" in e or "qtd" in e: per_store[name] = e
+    _ps2("YoY Sales Growth", plan=12,
+         weekly=[{"store": st, "value": round(100 * (r["lw26"] / r["lw25"] - 1), 1)}
+                 for st, r in rec.items() if (r.get("lw25") or 0) > 0 and (r.get("lw26") or 0) > 0],
+         wbasis="Last completed week vs 2025, like-for-like (per store)",
+         qtd=_yoy_qtd("sales"), qbasis="Quarter-to-date vs 2025, like-for-like (per store)")
+    _ps2("YoY Transactional Growth", plan=5,
+         weekly=[{"store": st, "value": round(100 * (r["tx26"] / r["tx25"] - 1), 1)}
+                 for st, r in rec.items() if (r.get("tx25") or 0) > 0 and (r.get("tx26") or 0) > 0],
+         wbasis="Last completed week transactions vs 2025, like-for-like (per store)",
+         qtd=_yoy_qtd("tx"), qbasis="Quarter-to-date transactions vs 2025, like-for-like (per store)")
+    _ps2("Food GP%", plan=71,
+         weekly=[{"store": st, "value": round(v["gp_pct"], 1)} for st, v in cos.items() if v.get("gp_pct") is not None],
+         wbasis="Cost-of-Sales latest week, per store (col Q Gross Profit%)",
+         qtd=[{"store": st, "value": round(v["gp_qtd"], 1)} for st, v in cos.items() if v.get("gp_qtd") is not None],
+         qbasis="Cost-of-Sales quarter-to-date, per store (col Q, sales-weighted)")
+    _ps2("SPH Labour (incl holiday pay)", plan=55,
+         weekly=[{"store": st, "value": round(rec[st]["lw26"] / v["used_lastwk"], 1)}
+                 for st, v in ovr.items() if v.get("used_lastwk") and rec.get(st, {}).get("lw26")],
+         wbasis="Last completed week sales ÷ planner hours used (per store)")   # QTD hours not sourced per store
+    _bench_rows = [{"store": row[0], "value": sum(1 for i in range(6, 10) if len(row) > i and str(row[i]).strip())}
+                   for row in benchj.get("rows", []) if row and row[0]]
+    _ps2("Bench", plan=1,
+         weekly=_bench_rows, wbasis="Named bench successors per store (point-in-time — same each period)",
+         qtd=[dict(x) for x in _bench_rows], qbasis="Named bench successors per store (point-in-time — same each period)")
+    _ps2("F1 Score", plan=F1_PLAN,
+         weekly=f1_wk_ps, wbasis="Last completed week race Total Score (per store)",
+         qtd=[{"store": st, "value": round(v["race_qtd"]["score"], 1)} for st, v in fdet.items()
+              if v.get("race_qtd") and v["race_qtd"].get("score") is not None],
+         qbasis="QTD average race Total Score (per store)")
+    _ps2("Google Health", plan=100,
+         qtd=[{"store": st, "value": round((min(nv[0] / (40 * weeks_q), 1) + min(nv[1] / 4.6, 1)) / 2 * 100, 1)}
+              for st, nv in sh.get("google", {}).items() if nv and nv[0]],
+         qbasis="QTD blend: review volume (÷%d) & rating (÷4.6), per store" % (40 * weeks_q))
+    _ps2("Rate My Shift Health", plan=100,
+         qtd=[{"store": st, "value": round((min(nv[0] / (70 * weeks_q), 1) + min(nv[1] / 4.6, 1)) / 2 * 100, 1)}
+              for st, nv in sh.get("rms", {}).items() if nv and nv[0]],
+         qbasis="QTD blend: submission volume (÷%d) & score (÷4.6), per store" % (70 * weeks_q))
+    _ps2("Brand Audit Score", plan=4.6,
+         qtd=[{"store": st, "value": round(r["audit_qtd"], 2)} for st, r in rec.items() if r.get("audit_qtd")],
+         qbasis="QTD brand audit score out of 5 (per store)")
+
+    # ---- YoY Sales detail extras: per-store ATV + food-attachment %, DUAL basis (weekly + QTD) ----
     atv_ps = [{"store": st, "value": round(r["lw26"] / r["tx26"], 2)}
               for st, r in rec.items() if (r.get("tx26") or 0) > 0 and (r.get("lw26") or 0) > 0]
-    # Food attachment % per store, ESTATE-WIDE from BigQuery: share of transactions that contain a
-    # Food or Bakery item (matches the txquality 'hasfood' definition), last completed week.
     food_attach = []
     try:
         fa_rows = bq(f"""
@@ -1658,22 +1716,19 @@ def pull_eos_scorecard():
             GROUP BY s, id)
           SELECT s, COUNT(*) txns, SUM(hasfood) foodtx, ROUND(100*SUM(hasfood)/COUNT(*),1) fa
           FROM t GROUP BY s""")
-        food_attach = [{"store": r["s"], "value": r["fa"]} for r in fa_rows
-                       if r.get("s") in rec and (r.get("txns") or 0) > 0]
+        food_attach = [{"store": normalize(r["s"]), "value": r["fa"]} for r in fa_rows
+                       if normalize(r["s"]) and (r.get("txns") or 0) > 0]
     except Exception as e:
-        flags.append("YoY detail: per-store food-attach (BigQuery) failed (%s) — food-attach shown as "
-                     "not available." % str(e)[:70])
+        flags.append("YoY detail: per-store food-attach (BigQuery) failed (%s)." % str(e)[:70])
     yoy_detail = {
         "atv_target": 6.8,
         "atv_trend_col": "estate_atv",          # gen reads this weekly_history column for the estate ATV trend
         "atv_wk": atv_wk,
-        "atv_per_store": atv_ps,
-        "atv_basis": "Last completed week sales ÷ transactions (per store)",
-        "food_attach_per_store": food_attach,
-        "food_attach_basis": "Food or Bakery guest-checks ÷ transactions, last completed week (per store)",
-        "food_attach_note": ("Informational — no single estate plan (txquality carries Dine-In 32% / "
-                             "Drive-Thru 20% references). Food = any transaction containing a Food or Bakery item; "
-                             "derived estate-wide from BigQuery."),
+        "atv": {"weekly": {"basis": "Last completed week sales ÷ transactions (per store)", "rows": atv_ps},
+                "qtd": {"basis": "Quarter-to-date sales ÷ transactions (per store)", "rows": atv_qtd_ps}},
+        "food_attach": {"weekly": {"basis": "Food or Bakery guest-checks ÷ transactions, last completed week (per store)", "rows": food_attach},
+                        "qtd": {"basis": "Food or Bakery guest-checks ÷ transactions, quarter-to-date (per store)",
+                                "rows": [{"store": st, "value": v} for st, v in food_qtd_ps.items() if v is not None]}},
     }
 
     out = {

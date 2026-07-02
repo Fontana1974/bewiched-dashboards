@@ -341,13 +341,46 @@ def ps_table(rows_in, basis, psplan, dirn, fmt, informational=False):
             '<th class="bar"></th></tr></thead><tbody>%s</tbody></table>'
             % (esc(basis), ref_lbl, ref_txt, len(rows), ("" if informational else "vs plan"), body))
 
-def perstore_html(name, plan, dirn, fmt):
+def _ps_one(name, basis_key, plan, dirn, fmt):
+    """One per-store table for the given basis ('weekly'|'qtd'), or None if absent."""
     entry = PS.get(name)
-    if not entry or not entry.get("rows"):
-        return None
+    if not entry: return None
+    b = entry.get(basis_key)
+    if not b or not b.get("rows"): return None
     psplan = entry.get("plan")
     if psplan is None: psplan = plan
-    return ps_table(entry["rows"], entry.get("basis", ""), psplan, dirn, fmt)
+    return ps_table(b["rows"], b.get("basis", ""), psplan, dirn, fmt)
+
+def ps_section(name, plan, dirn, fmt, qm):
+    """Per-store breakdown with weekly + QTD sub-divs, switched by the period selector. Company-only
+    metrics (no per_store) show the company figure on both; a basis missing per store shows a note."""
+    parts = []
+    for key in ("weekly", "qtd"):
+        disp = "block" if key == "weekly" else "none"
+        inner = _ps_one(name, key, plan, dirn, fmt)
+        if inner is None:
+            if name not in PS:
+                inner = company_only(name, qm)
+            else:
+                lbl = "weekly" if key == "weekly" else "quarter-to-date"
+                other = "quarter-to-date" if key == "weekly" else "weekly"
+                inner = ('<div class="md-note">No per-store %s breakdown for this measure — '
+                         'switch to the %s view.</div>' % (lbl, other))
+        parts.append('<div class="ps-basis" data-basis="%s" style="display:%s">%s</div>' % (key, disp, inner))
+    return '<div class="ps-dual">%s</div>' % "".join(parts)
+
+def _extra_dual(d, plan, dirn, fmt, informational=False, target_txt=""):
+    """weekly+QTD sub-divs for the ATV / food-attach extras (same period selector)."""
+    parts = []
+    for key in ("weekly", "qtd"):
+        disp = "block" if key == "weekly" else "none"
+        b = (d or {}).get(key)
+        if b and b.get("rows"):
+            inner = ps_table(b["rows"], b.get("basis", "") + target_txt, plan, dirn, fmt, informational=informational)
+        else:
+            inner = '<div class="md-note">Not available for this period.</div>'
+        parts.append('<div class="ps-basis" data-basis="%s" style="display:%s">%s</div>' % (key, disp, inner))
+    return '<div class="ps-dual">%s</div>' % "".join(parts)
 
 def company_only(name, qm):
     fm = qm.get("fmt", "num1"); st = status(qm)
@@ -360,32 +393,21 @@ def company_only(name, qm):
 
 def yoy_extras_html():
     """Extra sections shown ONLY on the YoY Sales Growth detail view: average spend (ATV) trend +
-    per-store, and per-store food-attachment %."""
+    per-store (weekly/QTD), and per-store food-attachment % (weekly/QTD)."""
     if not YOY:
         return ""
     parts = []
     atv_target = YOY.get("atv_target")
     atv_col = YOY.get("atv_trend_col", "estate_atv")
-    # ATV estate trend (higher-is-better vs the £6.80 reference)
     parts.append('<div class="md-section-h">Average spend (ATV) — estate trend</div>')
-    if atv_col in {c for _n, c, _p, _f in GRID} or any(r.get(atv_col) not in (None, "") for r in _hist):
+    if any(r.get(atv_col) not in (None, "") for r in _hist):
         parts.append(_trend_core(atv_col, "gbp2", atv_target, "high"))
     else:
         parts.append('<div class="md-note">No weekly ATV trend yet.</div>')
-    # ATV per store (vs £6.80 target)
-    aps = YOY.get("atv_per_store") or []
     parts.append('<div class="md-section-h">Average spend (ATV) — by store</div>')
-    if aps:
-        parts.append(ps_table(aps, YOY.get("atv_basis", "") + " · target £6.80", atv_target, "high", "gbp2"))
-    else:
-        parts.append('<div class="md-note">Per-store ATV not available this week.</div>')
-    # Food attachment % per store (informational — no formal estate plan)
-    fps = YOY.get("food_attach_per_store") or []
+    parts.append(_extra_dual(YOY.get("atv"), atv_target, "high", "gbp2", target_txt=" · target £6.80"))
     parts.append('<div class="md-section-h">Food attachment % — by store</div>')
-    if fps:
-        parts.append(ps_table(fps, YOY.get("food_attach_basis", ""), None, "high", "pct1", informational=True))
-    else:
-        parts.append('<div class="md-note">Food attachment % not available this run.</div>')
+    parts.append(_extra_dual(YOY.get("food_attach"), None, "high", "pct1", informational=True))
     return "".join(parts)
 
 md_options = ""
@@ -399,8 +421,7 @@ for i, (wm, qm) in enumerate(zip(weekly, quarterly)):
     calc = esc(CALCS.get(name, ""))
     plan_txt = fmt_val(plan, fm) if plan is not None else "not set (TBC)"
     dir_txt = ("Lower is better (green ≤ %s)" % esc(plan_txt)) if dirn == "low" else "Higher is better"
-    ps = perstore_html(name, plan, dirn, fm)
-    ps_block = ps if ps is not None else company_only(name, qm)
+    ps_block = ps_section(name, plan, dirn, fm, qm)   # weekly + QTD sub-tables (period selector)
     extras = yoy_extras_html() if name == "YoY Sales Growth" else ""   # ATV + food-attach, YoY view only
     disp = "block" if i == 0 else "none"
     md_details += (
@@ -588,9 +609,10 @@ HTML = f"""<!DOCTYPE html>
 
   <section class="pane" id="pane-detail">
     <div class="panehead mdbar">
-      <span class="lbl">Choose a measurable:</span>
+      <span class="lbl">Measurable:</span>
       <select id="mdsel" class="mdsel">{md_options}</select>
-      <span class="lbl">— definition, plan &amp; owner, weekly + QTD status, 13-week trend, and per-store breakdown.</span>
+      <span class="lbl">Per-store basis:</span>
+      <select id="pdsel" class="mdsel"><option value="weekly" selected>Weekly (last week)</option><option value="qtd">Quarterly (QTD)</option></select>
     </div>
     <div class="md-wrap">{md_details}</div>
   </section>
@@ -622,6 +644,17 @@ HTML = f"""<!DOCTYPE html>
     }}
     sel.addEventListener('change', function(){{ show(sel.value); }});
     show(sel.value);
+  }})();
+  (function(){{
+    var pd = document.getElementById('pdsel');
+    if(!pd) return;
+    function period(basis){{
+      document.querySelectorAll('.ps-basis').forEach(function(d){{
+        d.style.display = (d.getAttribute('data-basis') === basis) ? 'block' : 'none';
+      }});
+    }}
+    pd.addEventListener('change', function(){{ period(pd.value); }});
+    period(pd.value);
   }})();
 </script>
 </body>
