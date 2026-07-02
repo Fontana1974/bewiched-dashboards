@@ -579,7 +579,18 @@ def f1_ops_html():
     focus = ('<div class="f1focus"><span class="ar">&rarr;</span> Reset the weekend routine at <b>%s</b> &amp; <b>%s</b>; lift qualifying to fix the handicapped grid start.</div>'
              % (SH(worstf[0]), SH(worstf[1]) if len(worstf) > 1 else SH(worstf[0])))
 
-    return (cards + intro + champ_block + finish_block + quali_block + quali_qtd_block + race_block + race_qtd_block + focus)
+    # Gate the tables by the existing Weekly/Quarterly period toggle (#pdsel -> .ps-basis divs).
+    # WEEKLY = this week's race only (latest-race cards + latest race finish + weekly race detail +
+    # weekly qualifying detail + focus). QUARTERLY = cumulative championship + QTD tables. The KPI
+    # headline (This week / QTD) sits above this, on both. Same data/layout as the Company Op's tab.
+    hint = ('<div class="md-note" style="margin-bottom:12px">Use the <b>period toggle</b> above '
+            '(Weekly / Quarterly) to switch between <b>this week&rsquo;s race</b> and the '
+            '<b>quarter-to-date</b> championship &amp; averages.</div>')
+    weekly_group = ('<div class="ps-basis" data-basis="weekly" style="display:block">'
+                    + cards + finish_block + race_block + quali_block + focus + '</div>')
+    qtd_group = ('<div class="ps-basis" data-basis="qtd" style="display:none">'
+                 + champ_block + race_qtd_block + quali_qtd_block + '</div>')
+    return (intro + hint + weekly_group + qtd_group)
 
 
 md_options = ""
