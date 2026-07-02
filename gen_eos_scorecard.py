@@ -75,9 +75,8 @@ def widget(m):
     src_lab = {"live": "live · BigQuery", "sheet": "live · F1 sheet", "derived": "auto-derived",
                "manual": "manual input", "tbc": "to be defined"}.get(src, src or "")
     detail = m.get("detail") or ""
-    note = m.get("note") or ""
+    # Per-tile caveat 'note' narration intentionally not rendered — dashboard reads clean.
     sub = ('<div class="w-detail">%s</div>' % esc(detail)) if detail else ""
-    notehtml = ('<div class="w-note">%s</div>' % esc(note)) if note else ""
     return f"""<div class="widget {css}">
       <div class="w-top"><span class="w-name">{esc(m['name'])}</span><span class="w-src {src}">{esc(src_lab)}</span></div>
       <div class="w-owner">Owner: <b>{esc(OWNERS.get(m['name']) or "—")}</b></div>
@@ -87,7 +86,7 @@ def widget(m):
         <div class="w-cell plan"><div class="w-lab">Plan</div><div class="w-big plan">{plan_txt}</div></div>
         <div class="w-flag">{STATUS_LAB[st]}</div>
       </div>
-      {sub}{notehtml}
+      {sub}
     </div>"""
 
 def tally(metrics):
@@ -96,12 +95,42 @@ def tally(metrics):
     t = sum(1 for m in metrics if status(m) in GREY)
     return g, r, t
 
+def _relgap(m):
+    """Relative shortfall vs plan (comparable across units) — bigger = worse."""
+    try:
+        a = float(m["actual"]); p = float(m["plan"])
+    except Exception:
+        return 0.0
+    if not p: return 0.0
+    return (a - p) / abs(p) if m.get("dir", "high") == "low" else (p - a) / abs(p)
+
+def issues_html(metrics, period):
+    """EOS 'home in on' list of the genuinely RED metrics (never grey/TBC/awaiting),
+    worst gap first. Driven off the same binary status() so it stays in sync each run."""
+    reds = sorted((m for m in metrics if status(m) == "red"), key=_relgap, reverse=True)
+    head = '<div class="issues"><div class="iss-h">Issues to home in on (%s)</div>' % esc(period)
+    if not reds:
+        return head + '<div class="iss-none">No issues — all on plan.</div></div>'
+    items = ""
+    for m in reds:
+        fm = m.get("fmt", "num1"); owner = OWNERS.get(m["name"]) or "—"
+        a = fmt_val(m.get("actual"), fm)
+        p = fmt_val(m.get("plan"), fm)
+        p = ("≤" + p) if m.get("dir", "high") == "low" else p
+        items += ('<li><span class="iss-name">%s</span>'
+                  '<span class="iss-vs"><b>%s</b> vs plan %s</span>'
+                  '<span class="iss-own">%s</span></li>'
+                  % (esc(m["name"]), esc(a), esc(p), esc(owner)))
+    return head + '<ol class="iss-list">%s</ol></div>' % items
+
 weekly = D.get("weekly", [])
 quarterly = D.get("quarterly", [])
 wg, wr, wt = tally(weekly)
 qg, qr, qt = tally(quarterly)
 weekly_html    = "".join(widget(m) for m in weekly)
 quarterly_html = "".join(widget(m) for m in quarterly)
+weekly_issues_html    = issues_html(weekly, "this week")
+quarterly_issues_html = issues_html(quarterly, "QTD")
 
 # ---- Quarterly Scorecard grid (metrics as ROWS, quarter weeks as COLUMNS) from weekly_history.csv ----
 import csv as _csv
@@ -223,8 +252,7 @@ def _cellcls(v, plan, dirn):
 def trend_svg(name, plan, dirn):
     col, fm = HIST_COL.get(name, (None, "num1"))
     if not col:
-        return ('<div class="md-note">History building — this measure is not banked in the weekly '
-                'history yet (fills going forward).</div>')
+        return '<div class="md-note">No weekly trend for this measure.</div>'
     return _trend_core(col, fm, plan, dirn)
 
 def _trend_core(col, fm, plan, dirn):
@@ -232,7 +260,7 @@ def _trend_core(col, fm, plan, dirn):
     series = [(r.get("week_ending", ""), _hnum(r.get(col))) for r in _hist]
     vals = [v for _, v in series if v is not None]
     if not vals:
-        return '<div class="md-note">History building — no values banked for this measure yet.</div>'
+        return '<div class="md-note">No weekly trend for this measure.</div>'
     n = len(series)
     W, H, padL, padR, padT, padB = 660, 190, 46, 12, 14, 30
     plotW = W - padL - padR; plotH = H - padT - padB
@@ -343,7 +371,7 @@ def yoy_extras_html():
     if atv_col in {c for _n, c, _p, _f in GRID} or any(r.get(atv_col) not in (None, "") for r in _hist):
         parts.append(_trend_core(atv_col, "gbp2", atv_target, "high"))
     else:
-        parts.append('<div class="md-note">History building — estate ATV fills going forward.</div>')
+        parts.append('<div class="md-note">No weekly ATV trend yet.</div>')
     # ATV per store (vs £6.80 target)
     aps = YOY.get("atv_per_store") or []
     parts.append('<div class="md-section-h">Average spend (ATV) — by store</div>')
@@ -356,12 +384,8 @@ def yoy_extras_html():
     parts.append('<div class="md-section-h">Food attachment % — by store</div>')
     if fps:
         parts.append(ps_table(fps, YOY.get("food_attach_basis", ""), None, "high", "pct1", informational=True))
-        if YOY.get("food_attach_note"):
-            parts.append('<div class="md-note">%s</div>' % esc(YOY["food_attach_note"]))
     else:
-        parts.append('<div class="md-note">Food attachment % not available — the estate-wide BigQuery '
-                     'derivation did not return this run (per-store food-attach also exists in the txquality '
-                     'views for Glenvale &amp; Leamington Parade).</div>')
+        parts.append('<div class="md-note">Food attachment % not available this run.</div>')
     return "".join(parts)
 
 md_options = ""
@@ -453,6 +477,17 @@ HTML = f"""<!DOCTYPE html>
   .info{{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 20px;margin-top:18px}}
   .info h2{{margin:0 0 8px;font-size:15px;color:var(--brown)}} .info ul{{margin:6px 0 0;padding-left:18px}} .info li{{font-size:12.5px;line-height:1.5;margin:6px 0}}
   .info.notebox{{background:#fff8ec;border-color:#f0e0bf}} .info.notebox h2{{color:#7a5e1e}}
+  /* Issues 'home in on' panel */
+  .issues{{background:#fdf1ef;border:1px solid #eccfca;border-left:5px solid var(--red);border-radius:12px;padding:12px 16px;margin:12px 0 2px;}}
+  .iss-h{{font-size:12px;text-transform:uppercase;letter-spacing:.6px;font-weight:800;color:var(--red);margin-bottom:8px}}
+  .iss-none{{font-size:13px;font-weight:700;color:var(--green)}}
+  ol.iss-list{{list-style:none;margin:0;padding:0;counter-reset:iss}}
+  ol.iss-list li{{counter-increment:iss;display:flex;align-items:baseline;gap:10px;padding:6px 0;border-top:1px solid #f2ded9;font-size:13px}}
+  ol.iss-list li:first-child{{border-top:0}}
+  ol.iss-list li::before{{content:counter(iss);flex:none;width:18px;height:18px;border-radius:50%;background:var(--red);color:#fff;font-size:10.5px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;align-self:center}}
+  .iss-name{{font-weight:800;color:var(--ink);flex:1;min-width:150px}}
+  .iss-vs{{color:#8a3b30;font-variant-numeric:tabular-nums}} .iss-vs b{{color:var(--red)}}
+  .iss-own{{margin-left:auto;font-size:11.5px;font-weight:700;color:var(--brown);background:var(--cream);border:1px solid var(--line);border-radius:999px;padding:2px 10px;white-space:nowrap}}
   .gridwrap{{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--card);padding:6px;box-shadow:0 1px 2px rgba(80,50,30,.04)}}
   table.scgrid{{border-collapse:collapse;font-size:12px;width:100%;min-width:820px}}
   table.scgrid th,table.scgrid td{{padding:6px 8px;text-align:center;border-bottom:1px solid var(--line);white-space:nowrap}}
@@ -530,6 +565,7 @@ HTML = f"""<!DOCTYPE html>
       <span class="lbl">Week: <b>{WK}</b></span>
       <span class="tallychips"><span><span class="dot green"></span>{wg} on plan</span><span><span class="dot red"></span>{wr} off plan</span><span><span class="dot tbc"></span>{wt} TBC / awaiting</span></span>
     </div>
+    {weekly_issues_html}
     <div class="grid">{weekly_html}</div>
   </section>
 
@@ -538,6 +574,7 @@ HTML = f"""<!DOCTYPE html>
       <span class="lbl">Quarter: <b>{QL}</b></span>
       <span class="tallychips"><span><span class="dot green"></span>{qg} on plan</span><span><span class="dot red"></span>{qr} off plan</span><span><span class="dot tbc"></span>{qt} TBC / awaiting</span></span>
     </div>
+    {quarterly_issues_html}
     <div class="grid">{quarterly_html}</div>
   </section>
 
@@ -546,7 +583,7 @@ HTML = f"""<!DOCTYPE html>
       <span class="lbl">Quarter: <b>{QL}</b> · {n_grid_weeks} week{'' if n_grid_weeks==1 else 's'} · one column per week (Week 1…{n_grid_weeks}, hover for the date) · each cell traffic-lit vs plan</span>
     </div>
     <div class="gridwrap">{grid_html}</div>
-    <div class="legend"><span><span class="sw" style="background:var(--greenbg);border:1px solid #cfe6d8"></span>on plan</span><span><span class="sw" style="background:var(--redbg);border:1px solid #eccfca"></span>off plan</span><span><span class="sw" style="background:var(--greybg);border:1px solid var(--line)"></span>no data / not defined (Bench is point-in-time; Social Media &amp; New Starter are TBC; SPH &amp; Brand Audit fill going forward). Food GP% row shows the estate blended GP per week. F1 is lower-is-better (green ≤ 220); all other rows are higher-is-better.</span></div>
+    <div class="legend"><span><span class="sw" style="background:var(--greenbg);border:1px solid #cfe6d8"></span>on plan</span><span><span class="sw" style="background:var(--redbg);border:1px solid #eccfca"></span>off plan</span><span><span class="sw" style="background:var(--greybg);border:1px solid var(--line)"></span>no data</span><span>F1 is lower-is-better (green ≤ 220)</span></div>
   </section>
 
   <section class="pane" id="pane-detail">
@@ -564,12 +601,7 @@ HTML = f"""<!DOCTYPE html>
     <span><span class="sw" style="background:var(--greybg);border:1px solid var(--line)"></span>not yet defined / awaiting data</span>
   </div>
 
-  <div class="info notebox">
-    <h2>Defaults &amp; assumptions — please confirm or adjust</h2>
-    <ul>{flags_html}</ul>
-  </div>
-
-  <footer>Bewiched Limited · internal use · EOS Scorecard. Live rows from BigQuery POS (bewiched_coffee, europe-west2) + F1 / reviews / RMS feeds; manual rows from the EOS Scorecard Inputs sheet. Generated {GEN}. Sales gross inc VAT.</footer>
+  <footer>Bewiched Limited · internal use · EOS Scorecard. Generated {GEN}.</footer>
 </div>
 <script>
   document.querySelectorAll('.tab').forEach(function(t){{
