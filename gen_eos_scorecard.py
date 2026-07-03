@@ -335,26 +335,46 @@ def ps_table(rows_in, basis, psplan, dirn, fmt, informational=False):
     present.sort(key=lambda r: r["value"], reverse=(dirn != "low"))
     rows = present + missing
     mx = max((abs(r["value"]) for r in present), default=1) or 1
+    # Per-store targets: when rows carry their own "target", each store is judged against ITS OWN
+    # target (a Target column is shown); a row missing a target falls back to psplan and is flagged
+    # 'default'. Metrics without per-row targets keep the single-plan behaviour unchanged.
+    per_tgt = (not informational) and any(r.get("target") is not None for r in rows_in)
+    any_fb = False
     body = ""
     for r in rows:
         v = r.get("value")
-        if informational or psplan is None:
+        rtgt = psplan; fb = False
+        if per_tgt:
+            if r.get("target") is not None:
+                rtgt = r["target"]
+            else:
+                rtgt = psplan; fb = True; any_fb = True
+        if informational or rtgt is None:
             cls = "info"; barcol = "var(--gold)"; chiptxt = "info"
         else:
-            cls = _cellcls(v, psplan, dirn); barcol = {"green": "var(--green)", "red": "var(--red)", "tbc": "var(--gold)"}[cls]
+            cls = _cellcls(v, rtgt, dirn); barcol = {"green": "var(--green)", "red": "var(--red)", "tbc": "var(--gold)"}[cls]
             chiptxt = "ON" if cls == "green" else ("OFF" if cls == "red" else "—")
         vt = fmt_val(v, fmt) if v is not None else "—"
         chip = '<span class="chip %s">%s</span>' % (cls, chiptxt)
         w = max(2, min(100, abs(v) / mx * 100)) if v is not None else 0
         bar = '<div class="md-bar"><i style="width:%.0f%%;background:%s"></i></div>' % (w, barcol)
-        body += ('<tr><td class="s">%s</td><td class="v">%s</td><td class="st">%s</td><td class="bar">%s</td></tr>'
-                 % (esc(r.get("store", "—")), vt, chip, bar))
+        tgt_cell = ""
+        if per_tgt:
+            tt = fmt_val(rtgt, fmt) if rtgt is not None else "—"
+            if fb: tt += ' <span class="chip tbc">default</span>'
+            tgt_cell = '<td class="tg">%s</td>' % tt
+        body += ('<tr><td class="s">%s</td><td class="v">%s</td>%s<td class="st">%s</td><td class="bar">%s</td></tr>'
+                 % (esc(r.get("store", "—")), vt, tgt_cell, chip, bar))
     ref_lbl = "reference" if informational else "store target"
-    ref_txt = "informational" if (informational or psplan is None) else fmt_val(psplan, fmt)
+    if per_tgt:
+        ref_txt = "individual per-store targets" + ((" · some default %s" % fmt_val(psplan, fmt)) if any_fb else "")
+    else:
+        ref_txt = "informational" if (informational or psplan is None) else fmt_val(psplan, fmt)
+    tgt_head = '<th class="tg">Target</th>' if per_tgt else ''
     return ('<div class="md-ps-basis">%s · %s <b>%s</b> · %d stores</div>'
-            '<table class="md-ps"><thead><tr><th>Store</th><th class="v">Value</th><th class="st">%s</th>'
+            '<table class="md-ps"><thead><tr><th>Store</th><th class="v">Value</th>%s<th class="st">%s</th>'
             '<th class="bar"></th></tr></thead><tbody>%s</tbody></table>'
-            % (esc(basis), ref_lbl, ref_txt, len(rows), ("" if informational else "vs plan"), body))
+            % (esc(basis), ref_lbl, ref_txt, len(rows), tgt_head, ("" if informational else "vs plan"), body))
 
 def _ps_one(name, basis_key, plan, dirn, fmt):
     """One per-store table for the given basis ('weekly'|'qtd'), or None if absent."""

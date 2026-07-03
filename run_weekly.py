@@ -1743,10 +1743,18 @@ def pull_eos_scorecard():
          wbasis="Cost-of-Sales latest week, per store (col Q Gross Profit%)",
          qtd=[{"store": st, "value": round(v["gp_qtd"], 1)} for st, v in cos.items() if v.get("gp_qtd") is not None],
          qbasis="Cost-of-Sales quarter-to-date, per store (col Q, sales-weighted)")
+    # Per-store SPH targets from the Store-Targets sheet (cph_targets.json, col C £/hr). Each store is
+    # judged against ITS OWN target; the company headline SPH tile stays on the blanket 55. A store with
+    # no target in the sheet falls back to 55 (target=None -> renderer flags it as a default).
+    _sph_tgt = jload("cph_targets.json").get("targets", {})
+    _sph_weekly = [{"store": st, "value": round(rec[st]["lw26"] / v["used_lastwk"], 1),
+                    "target": _sph_tgt.get(st)}
+                   for st, v in ovr.items() if v.get("used_lastwk") and rec.get(st, {}).get("lw26")]
     _ps2("SPH Labour (incl holiday pay)", plan=55,
-         weekly=[{"store": st, "value": round(rec[st]["lw26"] / v["used_lastwk"], 1)}
-                 for st, v in ovr.items() if v.get("used_lastwk") and rec.get(st, {}).get("lw26")],
-         wbasis="Last completed week sales ÷ planner hours used (per store)")   # QTD hours not sourced per store
+         weekly=_sph_weekly,
+         wbasis="Last completed week sales ÷ planner hours used, vs each store's own £/hr target (Store-Targets sheet)",
+         qtd=[dict(r) for r in _sph_weekly],
+         qbasis="Per-store SPH vs each store's own target — QTD labour hours aren't separately sourced, so this mirrors the last completed week")   # company QTD tile stays on 55
     _bench_rows = [{"store": row[0], "value": sum(1 for i in range(6, 10) if len(row) > i and str(row[i]).strip())}
                    for row in benchj.get("rows", []) if row and row[0]]
     _ps2("Bench", plan=1,
