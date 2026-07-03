@@ -3,7 +3,7 @@
  "window_weeks": 8,
  "dowdays": [
   {
-   "dow": 6,
+   "dow": 4,
    "nd": 8
   },
   {
@@ -11,7 +11,11 @@
    "nd": 8
   },
   {
-   "dow": 7,
+   "dow": 5,
+   "nd": 8
+  },
+  {
+   "dow": 6,
    "nd": 8
   },
   {
@@ -19,11 +23,7 @@
    "nd": 8
   },
   {
-   "dow": 5,
-   "nd": 8
-  },
-  {
-   "dow": 4,
+   "dow": 7,
    "nd": 8
   },
   {
@@ -33,24 +33,14 @@
  ],
  "itemdow": [
   {
-   "nm": "Sausage Bap",
-   "dow": 3,
-   "units": 70
-  },
-  {
-   "nm": "Chicken & Chorizo Ciabatta",
-   "dow": 6,
-   "units": 40
+   "nm": "Tuna Ciabatta",
+   "dow": 2,
+   "units": 19
   },
   {
    "nm": "Sausage Bap",
-   "dow": 4,
-   "units": 49
-  },
-  {
-   "nm": "Chicken Caprese Sandwich",
-   "dow": 6,
-   "units": 15
+   "dow": 7,
+   "units": 84
   },
   {
    "nm": "Egg & Spinach Sandwich",
@@ -58,84 +48,24 @@
    "units": 17
   },
   {
-   "nm": "Bacon Bap",
+   "nm": "Mozzarella & Tomato Ciabatta",
    "dow": 4,
-   "units": 32
+   "units": 25
   },
   {
-   "nm": "Breakfast Bagel",
+   "nm": "Chicken Caprese Sandwich",
    "dow": 7,
-   "units": 75
-  },
-  {
-   "nm": "Bacon Bap",
-   "dow": 1,
-   "units": 48
-  },
-  {
-   "nm": "Tuna Ciabatta",
-   "dow": 2,
-   "units": 19
-  },
-  {
-   "nm": "Green & Grain Salad",
-   "dow": 3,
-   "units": 2
-  },
-  {
-   "nm": "Falafel Wrap",
-   "dow": 4,
-   "units": 8
-  },
-  {
-   "nm": "Caesar Wrap",
-   "dow": 4,
-   "units": 23
-  },
-  {
-   "nm": "Greek Style Chicken Salad",
-   "dow": 1,
-   "units": 6
-  },
-  {
-   "nm": "Breakfast Bagel",
-   "dow": 5,
-   "units": 61
-  },
-  {
-   "nm": "Chicken Caprese Sandwich",
-   "dow": 3,
-   "units": 14
-  },
-  {
-   "nm": "Bacon Bap",
-   "dow": 2,
-   "units": 27
-  },
-  {
-   "nm": "Chicken Caprese Sandwich",
-   "dow": 2,
-   "units": 19
-  },
-  {
-   "nm": "Breakfast Bagel",
-   "dow": 6,
-   "units": 40
-  },
-  {
-   "nm": "Tuna Ciabatta",
-   "dow": 4,
-   "units": 38
+   "units": 12
   },
   {
    "nm": "Egg & Spinach Sandwich",
-   "dow": 5,
-   "units": 14
+   "dow": 6,
+   "units": 17
   },
   {
-   "nm": "Chicken & Chorizo Ciabatta",
-   "dow": 2,
-   "units": 31
+   "nm": "Falafel Wrap",
+   "dow": 5,
+   "units": 11
   },
   {
    "nm": "Sausage Bap",
@@ -143,19 +73,19 @@
    "units": 64
   },
   {
-   "nm": "Breakfast Bagel",
-   "dow": 1,
-   "units": 45
-  },
-  {
-   "nm": "Mozzarella & Tomato Ciabatta",
+   "nm": "Chicken & Chorizo Ciabatta",
    "dow": 6,
-   "units": 30
+   "units": 40
   },
   {
-   "nm": "Sausage Bap",
-   "dow": 7,
-   "units": 84
+   "nm": "Breakfast Bagel",
+   "dow": 5,
+   "units": 61
+  },
+  {
+   "nm": "Green & Grain Salad",
+   "dow": 6,
+   "units": 10
   },
   {
    "nm": "Bacon Bap",
@@ -164,43 +94,13 @@
   },
   {
    "nm": "Sausage Bap",
-   "dow": 2,
-   "units": 53
-  },
-  {
-   "nm": "Bacon Bap",
-   "dow": 7,
-   "units": 57
-  },
-  {
-   "nm": "Tuna Ciabatta",
-   "dow": 6,
-   "units": 29
-  },
-  {
-   "nm": "Mozzarella & Tomato Ciabatta",
-   "dow": 4,
-   "units": 25
-  },
-  {
-   "nm": "Breakfast Bagel",
-   "dow": 2,
-   "units": 37
-  },
-  {
-   "nm": "Sausage Bap",
    "dow": 6,
    "units": 67
   },
   {
-   "nm": "Chicken & Chorizo Ciabatta",
-   "dow": 4,
-   "units": 28
-  },
-  {
-   "nm": "Egg & Spinach Sandwich",
+   "nm": "Mozzarella & Tomato Ciabatta",
    "dow": 3,
-   "units": 20
+   "units": 29
   },
   {
    "nm": "Sausage Bap",
@@ -208,14 +108,59 @@
    "units": 49
   },
   {
-   "nm": "Chicken Caprese Sandwich",
-   "dow": 4,
-   "units": 15
+   "nm": "Falafel Wrap",
+   "dow": 1,
+   "units": 3
   },
   {
-   "nm": "Kids Ham Sandwich",
+   "nm": "Bacon Bap",
+   "dow": 3,
+   "units": 26
+  },
+  {
+   "nm": "Greek Style Chicken Salad",
+   "dow": 1,
+   "units": 6
+  },
+  {
+   "nm": "Tuna Ciabatta",
+   "dow": 6,
+   "units": 29
+  },
+  {
+   "nm": "Falafel Wrap",
+   "dow": 4,
+   "units": 8
+  },
+  {
+   "nm": "Kids Cheese Sandwich",
+   "dow": 4,
+   "units": 1
+  },
+  {
+   "nm": "Bacon Bap",
+   "dow": 5,
+   "units": 36
+  },
+  {
+   "nm": "Egg & Spinach Sandwich",
+   "dow": 2,
+   "units": 13
+  },
+  {
+   "nm": "Breakfast Bagel",
+   "dow": 4,
+   "units": 57
+  },
+  {
+   "nm": "Caesar Wrap",
    "dow": 7,
-   "units": 7
+   "units": 23
+  },
+  {
+   "nm": "Greek Style Chicken Salad",
+   "dow": 2,
+   "units": 2
   },
   {
    "nm": "Mozzarella & Tomato Ciabatta",
@@ -223,14 +168,289 @@
    "units": 18
   },
   {
+   "nm": "Chicken Caprese Sandwich",
+   "dow": 6,
+   "units": 15
+  },
+  {
    "nm": "Chicken & Chorizo Ciabatta",
-   "dow": 5,
-   "units": 33
+   "dow": 2,
+   "units": 31
+  },
+  {
+   "nm": "Breakfast Bagel",
+   "dow": 6,
+   "units": 40
+  },
+  {
+   "nm": "Sausage Bap",
+   "dow": 2,
+   "units": 53
+  },
+  {
+   "nm": "Egg & Spinach Sandwich",
+   "dow": 4,
+   "units": 17
+  },
+  {
+   "nm": "Tuna Ciabatta",
+   "dow": 4,
+   "units": 38
+  },
+  {
+   "nm": "Bacon Bap",
+   "dow": 4,
+   "units": 32
+  },
+  {
+   "nm": "Chicken Caprese Sandwich",
+   "dow": 2,
+   "units": 19
+  },
+  {
+   "nm": "Tuna Ciabatta",
+   "dow": 1,
+   "units": 32
+  },
+  {
+   "nm": "Breakfast Bagel",
+   "dow": 7,
+   "units": 75
+  },
+  {
+   "nm": "Sausage Bap",
+   "dow": 4,
+   "units": 49
   },
   {
    "nm": "Chicken & Chorizo Ciabatta",
    "dow": 1,
    "units": 24
+  },
+  {
+   "nm": "Chicken Caprese Sandwich",
+   "dow": 1,
+   "units": 7
+  },
+  {
+   "nm": "Tuna Ciabatta",
+   "dow": 3,
+   "units": 17
+  },
+  {
+   "nm": "Breakfast Bagel",
+   "dow": 1,
+   "units": 45
+  },
+  {
+   "nm": "Bacon Bap",
+   "dow": 7,
+   "units": 57
+  },
+  {
+   "nm": "Chicken & Chorizo Ciabatta",
+   "dow": 5,
+   "units": 33
+  },
+  {
+   "nm": "Chicken Caprese Sandwich",
+   "dow": 4,
+   "units": 15
+  },
+  {
+   "nm": "Chicken & Chorizo Ciabatta",
+   "dow": 3,
+   "units": 18
+  },
+  {
+   "nm": "Greek Style Chicken Salad",
+   "dow": 6,
+   "units": 7
+  },
+  {
+   "nm": "Bacon Bap",
+   "dow": 1,
+   "units": 48
+  },
+  {
+   "nm": "Breakfast Bagel",
+   "dow": 3,
+   "units": 28
+  },
+  {
+   "nm": "Sausage Bap",
+   "dow": 3,
+   "units": 70
+  },
+  {
+   "nm": "Greek Style Chicken Salad",
+   "dow": 4,
+   "units": 4
+  },
+  {
+   "nm": "Breakfast Bagel",
+   "dow": 2,
+   "units": 37
+  },
+  {
+   "nm": "Bacon Bap",
+   "dow": 2,
+   "units": 27
+  },
+  {
+   "nm": "Chicken & Chorizo Ciabatta",
+   "dow": 7,
+   "units": 22
+  },
+  {
+   "nm": "Kids Ham Sandwich",
+   "dow": 1,
+   "units": 7
+  },
+  {
+   "nm": "Caesar Wrap",
+   "dow": 6,
+   "units": 15
+  },
+  {
+   "nm": "Falafel Wrap",
+   "dow": 6,
+   "units": 10
+  },
+  {
+   "nm": "Green & Grain Salad",
+   "dow": 1,
+   "units": 4
+  },
+  {
+   "nm": "Greek Style Chicken Salad",
+   "dow": 3,
+   "units": 8
+  },
+  {
+   "nm": "Chicken & Chorizo Ciabatta",
+   "dow": 4,
+   "units": 28
+  },
+  {
+   "nm": "Caesar Wrap",
+   "dow": 2,
+   "units": 14
+  },
+  {
+   "nm": "Caesar Wrap",
+   "dow": 3,
+   "units": 20
+  },
+  {
+   "nm": "Chicken Caprese Sandwich",
+   "dow": 3,
+   "units": 14
+  },
+  {
+   "nm": "Caesar Wrap",
+   "dow": 4,
+   "units": 23
+  },
+  {
+   "nm": "Green & Grain Salad",
+   "dow": 5,
+   "units": 7
+  },
+  {
+   "nm": "Egg & Spinach Sandwich",
+   "dow": 3,
+   "units": 20
+  },
+  {
+   "nm": "Kids Ham Sandwich",
+   "dow": 7,
+   "units": 7
+  },
+  {
+   "nm": "Green & Grain Salad",
+   "dow": 2,
+   "units": 2
+  },
+  {
+   "nm": "Chicken Caprese Sandwich",
+   "dow": 5,
+   "units": 20
+  },
+  {
+   "nm": "Egg & Spinach Sandwich",
+   "dow": 5,
+   "units": 14
+  },
+  {
+   "nm": "Falafel Wrap",
+   "dow": 7,
+   "units": 5
+  },
+  {
+   "nm": "Mozzarella & Tomato Ciabatta",
+   "dow": 6,
+   "units": 30
+  },
+  {
+   "nm": "Egg & Spinach Sandwich",
+   "dow": 1,
+   "units": 7
+  },
+  {
+   "nm": "Caesar Wrap",
+   "dow": 5,
+   "units": 26
+  },
+  {
+   "nm": "Tuna Ciabatta",
+   "dow": 7,
+   "units": 32
+  },
+  {
+   "nm": "Mozzarella & Tomato Ciabatta",
+   "dow": 7,
+   "units": 14
+  },
+  {
+   "nm": "Mozzarella & Tomato Ciabatta",
+   "dow": 1,
+   "units": 15
+  },
+  {
+   "nm": "Caesar Wrap",
+   "dow": 1,
+   "units": 15
+  },
+  {
+   "nm": "Greek Style Chicken Salad",
+   "dow": 5,
+   "units": 9
+  },
+  {
+   "nm": "Green & Grain Salad",
+   "dow": 4,
+   "units": 7
+  },
+  {
+   "nm": "Falafel Wrap",
+   "dow": 3,
+   "units": 8
+  },
+  {
+   "nm": "Greek Style Chicken Salad",
+   "dow": 7,
+   "units": 3
+  },
+  {
+   "nm": "Tuna Ciabatta",
+   "dow": 5,
+   "units": 14
+  },
+  {
+   "nm": "Falafel Wrap",
+   "dow": 2,
+   "units": 6
   },
   {
    "nm": "Mozzarella & Tomato Ciabatta",
@@ -239,196 +459,6 @@
   },
   {
    "nm": "Kids Cheese Sandwich",
-   "dow": 1,
-   "units": 7
-  },
-  {
-   "nm": "Tuna Ciabatta",
-   "dow": 1,
-   "units": 32
-  },
-  {
-   "nm": "Mozzarella & Tomato Ciabatta",
-   "dow": 3,
-   "units": 29
-  },
-  {
-   "nm": "Tuna Ciabatta",
-   "dow": 7,
-   "units": 32
-  },
-  {
-   "nm": "Mozzarella & Tomato Ciabatta",
-   "dow": 7,
-   "units": 14
-  },
-  {
-   "nm": "Mozzarella & Tomato Ciabatta",
-   "dow": 1,
-   "units": 15
-  },
-  {
-   "nm": "Caesar Wrap",
-   "dow": 7,
-   "units": 23
-  },
-  {
-   "nm": "Chicken & Chorizo Ciabatta",
-   "dow": 7,
-   "units": 22
-  },
-  {
-   "nm": "Falafel Wrap",
-   "dow": 5,
-   "units": 11
-  },
-  {
-   "nm": "Chicken & Chorizo Ciabatta",
-   "dow": 3,
-   "units": 18
-  },
-  {
-   "nm": "Bacon Bap",
-   "dow": 5,
-   "units": 36
-  },
-  {
-   "nm": "Falafel Wrap",
-   "dow": 2,
-   "units": 6
-  },
-  {
-   "nm": "Tuna Ciabatta",
-   "dow": 3,
-   "units": 17
-  },
-  {
-   "nm": "Egg & Spinach Sandwich",
-   "dow": 6,
-   "units": 17
-  },
-  {
-   "nm": "Breakfast Bagel",
-   "dow": 3,
-   "units": 28
-  },
-  {
-   "nm": "Caesar Wrap",
-   "dow": 5,
-   "units": 26
-  },
-  {
-   "nm": "Green & Grain Salad",
-   "dow": 4,
-   "units": 7
-  },
-  {
-   "nm": "Breakfast Bagel",
-   "dow": 4,
-   "units": 57
-  },
-  {
-   "nm": "Greek Style Chicken Salad",
-   "dow": 5,
-   "units": 9
-  },
-  {
-   "nm": "Tuna Ciabatta",
-   "dow": 5,
-   "units": 14
-  },
-  {
-   "nm": "Green & Grain Salad",
-   "dow": 6,
-   "units": 10
-  },
-  {
-   "nm": "Chicken Caprese Sandwich",
-   "dow": 7,
-   "units": 12
-  },
-  {
-   "nm": "Falafel Wrap",
-   "dow": 3,
-   "units": 8
-  },
-  {
-   "nm": "Bacon Bap",
-   "dow": 3,
-   "units": 26
-  },
-  {
-   "nm": "Greek Style Chicken Salad",
-   "dow": 4,
-   "units": 4
-  },
-  {
-   "nm": "Kids Cheese Sandwich",
-   "dow": 2,
-   "units": 5
-  },
-  {
-   "nm": "Caesar Wrap",
-   "dow": 1,
-   "units": 15
-  },
-  {
-   "nm": "Green & Grain Salad",
-   "dow": 5,
-   "units": 7
-  },
-  {
-   "nm": "Greek Style Chicken Salad",
-   "dow": 3,
-   "units": 8
-  },
-  {
-   "nm": "Chicken Caprese Sandwich",
-   "dow": 5,
-   "units": 20
-  },
-  {
-   "nm": "Caesar Wrap",
-   "dow": 3,
-   "units": 20
-  },
-  {
-   "nm": "Caesar Wrap",
-   "dow": 6,
-   "units": 15
-  },
-  {
-   "nm": "Greek Style Chicken Salad",
-   "dow": 7,
-   "units": 3
-  },
-  {
-   "nm": "Greek Style Chicken Salad",
-   "dow": 6,
-   "units": 7
-  },
-  {
-   "nm": "Caesar Wrap",
-   "dow": 2,
-   "units": 14
-  },
-  {
-   "nm": "Egg & Spinach Sandwich",
-   "dow": 4,
-   "units": 17
-  },
-  {
-   "nm": "Egg & Spinach Sandwich",
-   "dow": 1,
-   "units": 7
-  },
-  {
-   "nm": "Green & Grain Salad",
-   "dow": 2,
-   "units": 2
-  },
-  {
-   "nm": "Kids Cheese Sandwich",
    "dow": 7,
    "units": 5
   },
@@ -438,39 +468,14 @@
    "units": 2
   },
   {
-   "nm": "Egg & Spinach Sandwich",
+   "nm": "Kids Cheese Sandwich",
+   "dow": 1,
+   "units": 7
+  },
+  {
+   "nm": "Kids Cheese Sandwich",
    "dow": 2,
-   "units": 13
-  },
-  {
-   "nm": "Chicken Caprese Sandwich",
-   "dow": 1,
-   "units": 7
-  },
-  {
-   "nm": "Falafel Wrap",
-   "dow": 1,
-   "units": 3
-  },
-  {
-   "nm": "Falafel Wrap",
-   "dow": 6,
-   "units": 10
-  },
-  {
-   "nm": "Falafel Wrap",
-   "dow": 7,
    "units": 5
-  },
-  {
-   "nm": "Kids Ham Sandwich",
-   "dow": 1,
-   "units": 7
-  },
-  {
-   "nm": "Green & Grain Salad",
-   "dow": 1,
-   "units": 4
   },
   {
    "nm": "Kids Ham Sandwich",
@@ -483,13 +488,8 @@
    "units": 1
   },
   {
-   "nm": "Kids Cheese Sandwich",
-   "dow": 4,
-   "units": 1
-  },
-  {
-   "nm": "Greek Style Chicken Salad",
-   "dow": 2,
+   "nm": "Green & Grain Salad",
+   "dow": 3,
    "units": 2
   }
  ]
