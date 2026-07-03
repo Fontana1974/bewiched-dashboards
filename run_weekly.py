@@ -1998,12 +1998,16 @@ def freshness_gate():
     def fresh(fn):
         p = os.path.join(HERE, fn)
         return os.path.exists(p) and os.path.getmtime(p) >= RUN_START - 1
-    # 1. F1: newest raw Race date == this run's cur_end
+    # 1. F1: newest raw Race date must be FRESH for this run — on OR AFTER cur_end.
+    #    The gate only catches STALE F1 (newest race BEHIND the reporting week, i.e. the
+    #    F1 pull was skipped / audits not entered). An F1 audit dated in the current,
+    #    incomplete week (AHEAD of cur_end) is legitimately newer than the reporting
+    #    week-end and must NOT block publishing. ISO date strings compare chronologically.
     try:
         fd = json.load(open(os.path.join(HERE, "f1_detail.json")))
         newest = max((v["race"][8] for v in fd.values() if v.get("race")), default=None)
-        if newest != CUR_END.isoformat():
-            errs.append("f1_detail newest race %s != cur_end %s (F1 pull skipped or audits pending)"
+        if newest is None or newest < CUR_END.isoformat():
+            errs.append("f1_detail newest race %s < cur_end %s (F1 pull skipped or audits pending — stale)"
                         % (newest, CUR_END))
     except Exception as e:
         errs.append("f1_detail unreadable: %s" % e)
