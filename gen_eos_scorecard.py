@@ -628,6 +628,26 @@ def f1_ops_html():
     return (intro + hint + weekly_group + qtd_group)
 
 
+# ============ Bench detail (mirrors the Company Dashboard 'Bench' tab) ============
+# Reuses the SAME shared renderer the company/area/kel dashboards use (bench_render.build_bench off
+# bench.json) with the SAME store REC + short-name map, so the EOS Bench detail and the Company
+# Dashboard bench tab are byte-identical and always in sync — including the NEW hierarchy-gap status
+# rule (green = full core line SM+AM+Sup1 + a named successor; amber = AM/Sup1 gap or thin; red = SM
+# vacancy), the estate star map, and the per-store management-team names table. Fault-tolerant:
+# any missing input degrades to '' and never breaks the EOS build. The map's own script initialises
+# when its (hidden) data-tab="bench" control is clicked — the metric selector triggers that on show.
+def bench_detail_html():
+    try:
+        from bench_render import build_bench
+        REC = json.load(open(os.path.join(HERE, "allstores.json"))).get("rec", {})
+        _BN, _BP = build_bench(REC, F1_SHORT)
+        if not _BP:
+            return ""
+        return '<div class="eosbench"><div style="display:none">%s</div>%s</div>' % (_BN, _BP)
+    except Exception:
+        return ""
+
+
 md_options = ""
 md_details = ""
 for i, (wm, qm) in enumerate(zip(weekly, quarterly)):
@@ -648,6 +668,11 @@ for i, (wm, qm) in enumerate(zip(weekly, quarterly)):
         _ops = f1_ops_html()
         detail = ('<div class="md-section-h">Op\'s Excellence — F1 detail</div>'
                   + (_ops if _ops else '<div class="md-note">F1 detail unavailable this run (f1_detail.json / champ missing).</div>'))
+    elif name == "Bench":
+        # Detail mirrors the Company Dashboard 'Bench' tab (same bench.json via build_bench).
+        _bd = bench_detail_html()
+        detail = ('<div class="md-section-h">Bench — estate &amp; succession (mirrors the Company Dashboard bench tab)</div>'
+                  + (_bd if _bd else '<div class="md-note">Bench detail unavailable this run (bench.json missing).</div>'))
     else:
         ps_block = ps_section(name, plan, dirn, fm, qm)   # weekly + QTD sub-tables (period selector)
         extras = yoy_extras_html() if name == "YoY Sales Growth" else ""   # ATV + food-attach, YoY view only
@@ -786,6 +811,20 @@ HTML = f"""<!DOCTYPE html>
   .tag{{display:inline-block;padding:2px 7px;border-radius:6px;font-size:11px;font-weight:800;line-height:1.3}}
   .tag.t-ok{{background:var(--greenbg);color:var(--green)}} .tag.t-amber{{background:#f6ecd7;color:#8a6d3b}}
   .tag.t-red{{background:var(--redbg);color:var(--red)}} .tag.t-na{{background:#efe8df;color:#9a8c7c}}
+  /* Bench detail — mirrors the Company Dashboard bench tab; scoped so panel classes don't clash */
+  .eosbench .tab-panel{{display:block}}
+  .eosbench .cards{{display:grid;gap:12px;margin:4px 0 10px}}
+  .eosbench .card{{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px}}
+  .eosbench .card .lbl{{font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.03em}}
+  .eosbench .card .val{{font-size:26px;font-weight:800;line-height:1.1;margin-top:2px}}
+  .eosbench .card .meta{{font-size:11px;color:var(--muted);margin-top:3px}}
+  .eosbench .note{{font-size:12px;color:#5b4a3d;line-height:1.5;margin:8px 0}}
+  .eosbench .section-title{{font-size:14px;font-weight:800;color:var(--ink);margin:16px 0 7px}}
+  .eosbench .panel{{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}}
+  .eosbench .mini{{font-size:11px;color:var(--muted);line-height:1.45;margin-top:8px}}
+  .eosbench table.scorecard{{border-collapse:collapse;width:100%;font-size:12px}}
+  .eosbench table.scorecard th,.eosbench table.scorecard td{{border:1px solid var(--line);padding:5px 8px;text-align:center}}
+  .eosbench table.scorecard thead th{{background:var(--greybg);font-weight:800;color:var(--brown)}}
   .f1cards{{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:2px 0 12px}}
   .f1card{{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px}}
   .f1card .lbl{{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);font-weight:800}}
@@ -895,7 +934,10 @@ HTML = f"""<!DOCTYPE html>
     function show(id){{
       document.querySelectorAll('.md-detail').forEach(function(d){{d.style.display='none'}});
       var el = document.getElementById(id);
-      if(el) el.style.display='block';
+      if(el){{ el.style.display='block';
+        var bb = el.querySelector('[data-tab="bench"]');
+        if(bb) bb.click();   // fires the bench map's own init()+invalidateSize once visible
+      }}
     }}
     sel.addEventListener('change', function(){{ show(sel.value); }});
     show(sel.value);
