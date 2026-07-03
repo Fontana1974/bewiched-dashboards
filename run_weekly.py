@@ -1266,8 +1266,17 @@ def pull_eos_scorecard():
     cos = jload("cos_metrics.json").get("stores", {})
     ovr = jload("planner_overrides.json")
     benchj = jload("bench.json")
-    # bench-ready store = a named successor in Bench Manager (G) OR Pipeline 1-3 (H-J) — cols row[6..9]
-    bench_n = sum(1 for row in benchj.get("rows", []) if any(len(row) > i and str(row[i]).strip() for i in range(6, 10)))
+    # bench-ready store = complete core leadership line (Store Manager row[1], Assistant Manager
+    # row[2], Supervisor 1 row[4] all present) AND a named successor in Bench Manager (G) or
+    # Pipeline 1-3 (H-J) — cols row[6..9]. A hierarchy gap at AM/Sup1 (or a SM vacancy)
+    # disqualifies bench-readiness, matching the dashboard bench status (bench_render.py).
+    def _cell(row, i):
+        return str(row[i]).strip() if len(row) > i and row[i] else ""
+    def _bench_ready(row):
+        core_ok = bool(_cell(row, 1) and _cell(row, 2) and _cell(row, 4))
+        has_succ = any(_cell(row, i) for i in range(6, 10))
+        return core_ok and has_succ
+    bench_n = sum(1 for row in benchj.get("rows", []) if _bench_ready(row))
     bench_val = bench_n if benchj.get("rows") else None
 
     # ---- derived weekly ----
@@ -1580,7 +1589,7 @@ def pull_eos_scorecard():
                ("£%.0f sales ÷ %.0f hours used (last week, %d stores reporting)" % (num, den, nrep)) if den else "Awaiting posted hours",
                "Sales per labour hour incl holiday pay. Last completed week; provisional on Sunday, finalised Monday once planner hours post."),
         metric("bench", "Bench", 3, bench_val, "", "num0", "derived",
-               ("%d stores with a named bench successor (HRP & Bench roster)" % bench_val) if bench_val is not None else "",
+               ("%d stores bench-ready: full core line (SM+AM+Sup1) + named successor (HRP & Bench roster)" % bench_val) if bench_val is not None else "",
                "Count of named Bench Managers in the HRP bench sheet (point-in-time). Green when ≥ 3."),
         metric("f1_score_wk", "F1 Score", F1_PLAN, f1_wk, "", "num1", "sheet",
                ("Last week's race result, estate avg (%d stores) — lower is better" % len(f1_wk_xs)) if f1_wk_xs else "No race scores logged last week",
@@ -1619,7 +1628,7 @@ def pull_eos_scorecard():
                "QTD £/hr, hours-weighted from weekly_history (%d week%s so far)" % (n_hist_q, "" if n_hist_q == 1 else "s"),
                "QTD sales per labour hour, hours-weighted across the weekly_history.csv rows since quarter start. Thin until several weeks accumulate (falls back to the current week)."),
         metric("bench_qtd", "Bench", 3, bench_val, "", "num0", "derived",
-               ("%d stores with a named bench successor (HRP & Bench roster)" % bench_val) if bench_val is not None else "",
+               ("%d stores bench-ready: full core line (SM+AM+Sup1) + named successor (HRP & Bench roster)" % bench_val) if bench_val is not None else "",
                "Bench headcount is point-in-time, not a period sum — shows the current count. Green when ≥ 3."),
         metric("f1_score", "F1 Score", F1_PLAN, f1_qtd, "", "num1", "sheet",
                ("QTD race 'Total Score', estate avg (%d stores) — lower is better" % len(f1_qtd_xs)) if f1_qtd_xs else "Awaiting F1 race data",

@@ -40,11 +40,21 @@ def build_bench(REC, SHORT=None, include_keys=None):
         key=_BMAP.get(nm,nm)
         if inc is not None and key not in inc: continue
         sm=cells[0]                                    # Store Manager (B)
+        am=cells[1]                                    # Assistant Manager (C)
+        sup1=cells[3]                                  # Supervisor 1 (E)
         leaders=[c for c in cells[0:5] if c]           # SM, AM, Culture Coach, Sup1, Sup2 (B-F)
         bench=[c for c in cells[5:9] if c]             # Bench Manager + Pipeline 1/2/3 (G-J)
-        if bench: st,sl="bench","Bench ready"; ng+=1
-        elif not sm: st,sl="gap","Gap (no SM)"; nr+=1
-        else: st,sl="thin","Thin"; na+=1
+        core_ok=bool(sm and am and sup1)               # core leadership line complete (SM+AM+Sup1)
+        # Bench-ready now REQUIRES a complete core line above the successor. A hole at AM or
+        # Sup1 (or a SM vacancy) disqualifies green even when a successor is named.
+        if not sm:
+            st,sl="gap","Gap (no SM)"; nr+=1
+        elif bench and core_ok:
+            st,sl="bench","Bench ready"; ng+=1
+        elif not (am and sup1):
+            st,sl="thin","Hierarchy gap (AM/Sup1)"; na+=1
+        else:
+            st,sl="thin","Thin (no successor)"; na+=1
         rec=REC.get(key); coords=rec.get('coords') if rec else None
         lab=sh(key) if rec else nm
         if coords: pts.append((coords,st,_SCOL[st],lab,nm,sl,bench))
@@ -76,8 +86,8 @@ def build_bench(REC, SHORT=None, include_keys=None):
          '})();</script>')%(json.dumps(mpts),json.dumps(_STAR))
     _sw=lambda col,stk="#fff":'<svg width="13" height="13" viewBox="0 0 28 28" style="vertical-align:-2px"><polygon points="%s" fill="%s" stroke="%s" stroke-width="2" stroke-linejoin="round"/></svg>'%(_STAR,col,stk)
     legend=('<div style="margin-top:10px;font-size:11.5px;color:#6b5a47;display:flex;gap:18px;flex-wrap:wrap">'
-            '<span style="display:inline-flex;align-items:center;gap:6px">%s Bench ready (named successor)</span>'
-            '<span style="display:inline-flex;align-items:center;gap:6px">%s Thin (team, no named bench)</span>'
+            '<span style="display:inline-flex;align-items:center;gap:6px">%s Bench ready (full core line + successor)</span>'
+            '<span style="display:inline-flex;align-items:center;gap:6px">%s Thin / hierarchy gap (AM or Sup1 missing, or no successor)</span>'
             '<span style="display:inline-flex;align-items:center;gap:6px">%s Gap (manager vacancy)</span>'
             '<span style="display:inline-flex;align-items:center;gap:6px">%s Potential opening</span></div>'
             %(_sw('#1f8a4c'),_sw('#b8860b'),_sw('#c0392b'),_sw('#88aaff','#2244aa')))
@@ -95,10 +105,10 @@ def build_bench(REC, SHORT=None, include_keys=None):
     BENCH_NAV='<button class="tab-btn" data-tab="bench"><span>🪑</span>Bench</button>'
     BENCH_PANEL=('<section class="tab-panel" id="tab-bench">'
       '<div class="cards" style="grid-template-columns:repeat(3,1fr)">'
-      '<div class="card"><div class="lbl">Bench-ready stores</div><div class="val" style="color:#1f8a4c">%d</div><div class="meta">named Bench Manager / pipeline</div></div>'
-      '<div class="card"><div class="lbl">Thin bench</div><div class="val" style="color:#b8860b">%d</div><div class="meta">leadership team, no named successor</div></div>'
+      '<div class="card"><div class="lbl">Bench-ready stores</div><div class="val" style="color:#1f8a4c">%d</div><div class="meta">full core line + named successor</div></div>'
+      '<div class="card"><div class="lbl">Thin bench</div><div class="val" style="color:#b8860b">%d</div><div class="meta">AM/Sup1 gap or no named successor</div></div>'
       '<div class="card"><div class="lbl">Capability gap</div><div class="val" style="color:#c0392b">%d</div><div class="meta">Store Manager vacancy</div></div></div>'
-      '<div class="note" style="margin-top:12px"><b>Bench</b> = succession cover from the HRP ‘HRP &amp; Bench’ roster. <b style="color:#1c6b3d">Green</b> = a named Bench Manager or pipeline successor is in place; <b style="color:#7a5b12">amber</b> = a full leadership line but no named successor; <b style="color:#9a2f22">red</b> = a Store Manager vacancy. Refreshed Monday.</div>'
+      '<div class="note" style="margin-top:12px"><b>Bench</b> = succession cover from the HRP ‘HRP &amp; Bench’ roster. <b style="color:#1c6b3d">Green</b> = the core leadership line is complete (Store Manager, Assistant Manager &amp; Supervisor 1 all in place) AND a named Bench Manager or pipeline successor is ready; <b style="color:#7a5b12">amber</b> = a hierarchy gap at Assistant Manager or Supervisor 1, or a complete line with no named successor yet; <b style="color:#9a2f22">red</b> = a Store Manager vacancy. A gap higher up the line disqualifies bench-readiness. Refreshed Monday.</div>'
       '<div class="section-title">Where the bench is &mdash; and the gaps</div>'
       '<div class="panel">%s%s</div>'
       '<div class="section-title" style="margin-top:18px">Store management teams</div>'
