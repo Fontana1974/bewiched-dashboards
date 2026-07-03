@@ -40,10 +40,10 @@
    "r_rag": "green"
   },
   "Billing Drive Thru": {
-   "g_n": 29,
+   "g_n": 30,
    "g_avg": 5.0,
    "g_target": 49,
-   "g_health": 3.98,
+   "g_health": 4.03,
    "g_rag": "green",
    "g_stale": false,
    "r_n": 30,
@@ -186,10 +186,10 @@
    "r_rag": "green"
   },
   "Peterborough Fletton Quays": {
-   "g_n": 1,
-   "g_avg": 5.0,
+   "g_n": 5,
+   "g_avg": 4.8,
    "g_target": 15,
-   "g_health": 2.67,
+   "g_health": 3.23,
    "g_rag": "red",
    "g_stale": false,
    "r_n": 15,

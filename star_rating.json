@@ -48,14 +48,14 @@
     },
     {
      "name": "Operations",
-     "star": 3.9,
+     "star": 4.1,
      "target": 4.6,
      "on_target": false,
      "metrics": [
       {
        "label": "F1 drivers' championship",
-       "value": "P11 of 21",
-       "star": 2.3,
+       "value": "P8 of 21",
+       "star": 3.0,
        "on_target": false
       },
       {
@@ -118,7 +118,7 @@
     "rtw_detail": "RTW% from HRP sickness/RTW (Glenvale, QTD)"
    },
    "_cph_target": 63,
-   "_f1_pos": 11
+   "_f1_pos": 8
   },
   "Leamington Parade": {
    "composite": 4.0,
