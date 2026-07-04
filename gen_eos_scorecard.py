@@ -39,6 +39,7 @@ def fmt_val(v, f):
     if f == "pct1":       return "%.1f%%" % v
     if f == "pct_signed": return ("+" if v >= 0 else "") + "%.1f%%" % v
     if f == "num0":       return "%d" % round(v)
+    if f == "num_signed": return ("+%d" % round(v)) if v > 0 else ("%d" % round(v))
     if f == "num1":       return "%.1f" % v
     if f == "score2":     return "%.2f" % v
     if f == "gbp0":       return "£%d" % round(v)
@@ -142,7 +143,7 @@ GRID = [
     ("Brew Crew Kudos Participation", "kudos_pct", 50, "pct0"),
     ("Social Media Engagement", None, None, "pct0"),
     ("SPH Labour (incl holiday pay)", "sph", 55, "gbp1"),
-    ("Bench", None, 3, "num0"),
+    ("Bench", None, 3, "num_signed"),
     ("F1 Score", "f1_avg", 220, "num1"),
     ("Brand Audit Score", "brand_audit", 4.6, "score2"),
     ("Food GP%", "estate_gp_pct", 71, "pct1"),
@@ -231,7 +232,7 @@ DEFINITIONS = {
     "Brew Crew Kudos Participation": "Share of employees who gave peer kudos in the period.",
     "Social Media Engagement": "Engagement across Bewiched social channels (metric still to be defined).",
     "SPH Labour (incl holiday pay)": "Sales generated per labour hour, including holiday pay.",
-    "Bench": "How many stores have a named, ready successor — management bench strength.",
+    "Bench": "Net Store Managers on the bench — the surplus (or shortfall) of ready SM cover. Target is a +3 surplus; the actual goes negative while SM vacancies exist (each open Store Manager = -1).",
     "F1 Score": "Average F1 'race' total score across the estate — operational excellence. Lower is better (target ≤220).",
     "Brand Audit Score": "Average brand-audit score out of 5.",
     "Food GP%": "Estate gross-profit margin from the Cost-of-Sales sheet (authoritative Gross Profit%, col Q).",
@@ -246,7 +247,7 @@ CALCS = {
     "Brew Crew Kudos Participation": "Distinct employees who gave kudos (BCKH tab, matched by email to the Employee List) ÷ total employee headcount.",
     "Social Media Engagement": "Not yet defined — awaiting the metric definition and target.",
     "SPH Labour (incl holiday pay)": "Estate sales ÷ labour hours used (from the area planners, Section A), hours-weighted. QTD is hours-weighted across the quarter's weeks in weekly_history.csv.",
-    "Bench": "Count of stores with at least one named successor in the HRP 'Bench Manager' / pipeline columns (point-in-time). Green estate-wide when ≥ 3 stores have one.",
+    "Bench": "MAIN KPI = net SM on the bench. Actual = -(number of Store Manager vacancies) from the HRP 'HRP & Bench' roster (the red 'Gap / no SM' stores); target = +3; miss = target - actual (e.g. -3 vs +3 = 6 off, red). The star map, management-team table and Bench-ready / Thin / Capability-gap cards below are unchanged and byte-identical to the Company Dashboard bench tab (hierarchy-gap rule).",
     "F1 Score": "Average of each store's race Total Score. Weekly = last completed week's race; QTD = quarter-to-date average. LOWER IS BETTER on this scale — green at or below the target of ≤220, red above.",
     "Brand Audit Score": "Estate average of store brand-audit scores logged in the period, out of 5.",
     "Food GP%": "The Cost-of-Sales sheet's own Gross Profit% (col Q), which nets off all cost-of-sales — sales-weighted across stores for the estate figure. Posts roughly one week in arrears.",

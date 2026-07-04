@@ -1278,6 +1278,12 @@ def pull_eos_scorecard():
         return core_ok and has_succ
     bench_n = sum(1 for row in benchj.get("rows", []) if _bench_ready(row))
     bench_val = bench_n if benchj.get("rows") else None
+    # Bench MAIN KPI reframed as NET store managers on the bench. Target = +3 (a surplus of ready SM
+    # cover); actual = -(Store Manager vacancies) right now — each open SM = -1 — read from the HRP
+    # 'HRP & Bench' roster (row[1] = Store Manager). This is the SAME red 'Gap / no SM' store count the
+    # dashboard bench status shows, so the KPI and the detail reconcile. Miss = target - actual.
+    sm_vacancies = sum(1 for row in benchj.get("rows", []) if not _cell(row, 1)) if benchj.get("rows") else None
+    bench_net = (-sm_vacancies) if sm_vacancies is not None else None
 
     # ---- derived weekly ----
     rev = cust.get("reviews"); rat = cust.get("avg_rating_last_week")
@@ -1588,9 +1594,9 @@ def pull_eos_scorecard():
         metric("sph_labour", "SPH Labour (incl holiday pay)", 55, sph, "£", "gbp1", "derived",
                ("£%.0f sales ÷ %.0f hours used (last week, %d stores reporting)" % (num, den, nrep)) if den else "Awaiting posted hours",
                "Sales per labour hour incl holiday pay. Last completed week; provisional on Sunday, finalised Monday once planner hours post."),
-        metric("bench", "Bench", 3, bench_val, "", "num0", "derived",
-               ("%d stores bench-ready: full core line (SM+AM+Sup1) + named successor (HRP & Bench roster)" % bench_val) if bench_val is not None else "",
-               "Count of named Bench Managers in the HRP bench sheet (point-in-time). Green when ≥ 3."),
+        metric("bench", "Bench", 3, bench_net, "", "num_signed", "derived",
+               ("Net SM on the bench: %d live Store Manager vacanc%s now (actual %+d) vs a +3 surplus target — %d off plan." % (sm_vacancies, "y" if sm_vacancies == 1 else "ies", bench_net, 3 - bench_net)) if bench_net is not None else "",
+               "MAIN KPI = NET Store Managers on the bench. Actual = -(Store Manager vacancies) from the HRP 'HRP & Bench' roster (the red 'Gap / no SM' stores); target = +3 (a surplus of ready SM cover); miss = target - actual. The star map, management-team table and Bench-ready / Thin / Capability-gap cards below use the hierarchy-gap rule, unchanged and byte-identical to the Company Dashboard bench tab."),
         metric("f1_score_wk", "F1 Score", F1_PLAN, f1_wk, "", "num1", "sheet",
                ("Last week's race result, estate avg (%d stores) — lower is better" % len(f1_wk_xs)) if f1_wk_xs else "No race scores logged last week",
                f1_note, dirn="low"),
@@ -1627,9 +1633,9 @@ def pull_eos_scorecard():
         metric("sph_labour_qtd", "SPH Labour (incl holiday pay)", 55, qtd_sph, "£", "gbp1", "derived",
                "QTD £/hr, hours-weighted from weekly_history (%d week%s so far)" % (n_hist_q, "" if n_hist_q == 1 else "s"),
                "QTD sales per labour hour, hours-weighted across the weekly_history.csv rows since quarter start. Thin until several weeks accumulate (falls back to the current week)."),
-        metric("bench_qtd", "Bench", 3, bench_val, "", "num0", "derived",
-               ("%d stores bench-ready: full core line (SM+AM+Sup1) + named successor (HRP & Bench roster)" % bench_val) if bench_val is not None else "",
-               "Bench headcount is point-in-time, not a period sum — shows the current count. Green when ≥ 3."),
+        metric("bench_qtd", "Bench", 3, bench_net, "", "num_signed", "derived",
+               ("Net SM on the bench: %d live Store Manager vacanc%s now (actual %+d) vs a +3 surplus target — %d off plan." % (sm_vacancies, "y" if sm_vacancies == 1 else "ies", bench_net, 3 - bench_net)) if bench_net is not None else "",
+               "Point-in-time net Store Managers on the bench (same as weekly): actual = -(SM vacancies), target = +3, miss = target - actual. Detail below is byte-identical to the Company Dashboard bench tab (hierarchy-gap rule)."),
         metric("f1_score", "F1 Score", F1_PLAN, f1_qtd, "", "num1", "sheet",
                ("QTD race 'Total Score', estate avg (%d stores) — lower is better" % len(f1_qtd_xs)) if f1_qtd_xs else "Awaiting F1 race data",
                f1_note, dirn="low"),
