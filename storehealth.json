@@ -73,10 +73,10 @@
    "r_rag": "red"
   },
   "Glenvale Drive Thru": {
-   "g_n": 40,
-   "g_avg": 4.675,
+   "g_n": 42,
+   "g_avg": 4.69,
    "g_target": 49,
-   "g_health": 4.38,
+   "g_health": 4.49,
    "g_rag": "green",
    "g_stale": false,
    "r_n": 67,
@@ -88,8 +88,8 @@
    "g_health": null,
    "g_rag": "na",
    "g_stale": true,
-   "r_n": 42,
-   "r_avg": 4.83,
+   "r_n": 43,
+   "r_avg": 4.84,
    "r_rag": "green"
   },
   "Higham Ferrers": {
@@ -117,15 +117,15 @@
    "g_health": 3.77,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 144,
+   "r_n": 146,
    "r_avg": 4.69,
    "r_rag": "green"
   },
   "Lower Heathcote": {
-   "g_n": 4,
+   "g_n": 5,
    "g_avg": 5.0,
    "g_target": 8,
-   "g_health": 3.75,
+   "g_health": 4.06,
    "g_rag": "green",
    "g_stale": false,
    "r_n": 26,
@@ -133,14 +133,14 @@
    "r_rag": "amber"
   },
   "Market Harborough": {
-   "g_n": 14,
-   "g_avg": 4.929,
+   "g_n": 15,
+   "g_avg": 4.933,
    "g_target": 24,
-   "g_health": 3.92,
+   "g_health": 4.03,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 21,
-   "r_avg": 4.52,
+   "r_n": 22,
+   "r_avg": 4.54,
    "r_rag": "green"
   },
   "Northampton": {
@@ -175,10 +175,10 @@
    "r_rag": "red"
   },
   "Peterborough Bridge Street": {
-   "g_n": 1,
+   "g_n": 2,
    "g_avg": 5.0,
    "g_target": 18,
-   "g_health": 2.64,
+   "g_health": 2.78,
    "g_rag": "red",
    "g_stale": false,
    "r_n": 23,
@@ -239,7 +239,7 @@
    "r_rag": "green"
   },
   "Wellingborough Train Station": {
-   "g_n": 100,
+   "g_n": 101,
    "g_avg": 4.97,
    "g_target": 10,
    "g_health": 4.98,

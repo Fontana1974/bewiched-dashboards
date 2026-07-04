@@ -74,7 +74,7 @@
     },
     {
      "name": "People & Customer",
-     "star": 4.1,
+     "star": 4.0,
      "target": 4.6,
      "on_target": false,
      "metrics": [
@@ -86,13 +86,13 @@
       },
       {
        "label": "RTW completion",
-       "value": "64%",
-       "star": 3.7,
+       "value": "60%",
+       "star": 3.5,
        "on_target": false
       },
       {
        "label": "Google health",
-       "value": "4.38 (QTD)",
+       "value": "4.49 (QTD)",
        "star": 4.9,
        "on_target": true
       },
@@ -114,7 +114,7 @@
     "coaching_barista_pct": 80.6,
     "openclose_pct": 100,
     "openclose_detail": "57 open & 56 close vs 56 trading days (20 Apr–14 Jun), Process Street feed",
-    "rtw_pct": 64.0,
+    "rtw_pct": 60.0,
     "rtw_detail": "RTW% from HRP sickness/RTW (Glenvale, QTD)"
    },
    "_cph_target": 63,
