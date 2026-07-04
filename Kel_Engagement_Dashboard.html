@@ -72,7 +72,7 @@
 <div class="brandbar"><div class="inner">
   <div class="logo"><div><div class="word">Be<span>wiched</span></div><div class="eyebrow">Engagement Coach</div></div></div>
   <div class="spacer"></div>
-  <div class="ctx">Engagement Coach: <b>Kel</b> · 21 stores (company-wide)<br>4-week window: <b>11 May → 7 Jun 2026</b> · YoY vs 2025<br><span style="color:#e7b35a;font-weight:700">🔄 Refreshed 04 Jul 2026, 20:48 · auto Mon 9am</span></div>
+  <div class="ctx">Engagement Coach: <b>Kel</b> · 21 stores (company-wide)<br>4-week window: <b>11 May → 7 Jun 2026</b> · YoY vs 2025<br><span style="color:#e7b35a;font-weight:700">🔄 Refreshed 04 Jul 2026, 20:59 · auto Mon 9am</span></div>
 </div></div>
 <div class="wrap">
   <header class="page">
@@ -180,7 +180,7 @@
       <div class="card"><div class="lbl">Waste &pound; (retail lost)</div>
         <div style="display:flex;gap:20px;align-items:flex-end;margin:3px 0 4px">
           <div><div style="font-size:21px;font-weight:800;line-height:1">£6,652</div><div style="font-size:10px;color:#9a8a7c;margin-top:2px">last week</div></div>
-          <div><div style="font-size:21px;font-weight:800;line-height:1">£5,572</div><div style="font-size:10px;color:#9a8a7c;margin-top:2px">4-week weekly average</div></div>
+          <div><div style="font-size:21px;font-weight:800;line-height:1">£5,573</div><div style="font-size:10px;color:#9a8a7c;margin-top:2px">4-week weekly average</div></div>
         </div>
         <div class="meta">over-production cost &middot; the per-product tables below cover the last 4 weeks</div></div>
     </div>
@@ -369,7 +369,7 @@ function renderWaste(store){
   btns.forEach(b=>b.addEventListener("click",()=>{btns.forEach(x=>x.classList.remove("active"));panels.forEach(p=>p.classList.remove("active"));
     b.classList.add("active");document.getElementById("tab-"+b.dataset.tab).classList.add("active");
     requestAnimationFrame(()=>{(window.CHARTS||[]).forEach(c=>{try{c.resize();}catch(e){}});});}));})();
-document.getElementById("foot").innerHTML="Data refreshed 04 Jul 2026, 20:48 · company-wide engagement view · auto-refreshes every Monday 9am. Sources: live BigQuery POS, polling sheet, F1 audit, SMT visit diary, HRP &amp; Google reviews.";
+document.getElementById("foot").innerHTML="Data refreshed 04 Jul 2026, 20:59 · company-wide engagement view · auto-refreshes every Monday 9am. Sources: live BigQuery POS, polling sheet, F1 audit, SMT visit diary, HRP &amp; Google reviews.";
 </script>
 </body>
 </html>
