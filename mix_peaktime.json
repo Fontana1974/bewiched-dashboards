@@ -104,9 +104,9 @@
    "name": "All Butter Flapjack",
    "peak": "Lunch",
    "share": 37,
-   "hour": "10am",
+   "hour": "11am",
    "units": 1034,
-   "sales": 2913,
+   "sales": 2914,
    "sparse": false
   },
   {
@@ -219,7 +219,7 @@
   },
   {
    "name": "Granola Traybake",
-   "peak": "Morning",
+   "peak": "Lunch",
    "share": 42,
    "hour": "11am",
    "units": 195,
@@ -273,7 +273,7 @@
   },
   {
    "name": "Tea Time Coffee Cake",
-   "peak": "Afternoon",
+   "peak": "Lunch",
    "share": 38,
    "hour": "12pm",
    "units": 111,
