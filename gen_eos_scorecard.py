@@ -446,6 +446,62 @@ def yoy_extras_html():
     parts.append(_extra_dual(YOY.get("food_attach"), None, "high", "pct1", informational=True))
     return "".join(parts)
 
+
+def _weekend_svg(days, this_vals, last_vals, fmt, label_this, label_last):
+    """Grouped-bar SVG: for each of Fri/Sat/Sun, this year vs the equivalent day last year, with a
+    per-day YoY% underneath. Pure function of the numbers -> auto-refreshes each week."""
+    W, H = 680, 300
+    padL, padR, padT, padB = 44, 16, 40, 60
+    plotW = W - padL - padR; plotH = H - padT - padB
+    allv = [x for x in (list(this_vals) + list(last_vals)) if x is not None]
+    mx = max(allv) if allv else 1
+    if mx <= 0: mx = 1
+    yB = padT + plotH
+    def Y(v): return padT + plotH * (1 - (v or 0) / mx)
+    n = len(days); groupW = plotW / n; barW = groupW * 0.30; gap = groupW * 0.06
+    C_THIS, C_LAST = "var(--brown)", "#d9c39a"
+    P = ['<svg class="md-svg" viewBox="0 0 %d %d" xmlns="http://www.w3.org/2000/svg">' % (W, H)]
+    P.append('<line x1="%.1f" y1="%.1f" x2="%.1f" y2="%.1f" stroke="var(--line)"/>' % (padL, yB, W - padR, yB))
+    for i, day in enumerate(days):
+        cx = padL + groupW * i + groupW / 2
+        tv = this_vals[i] or 0; lv = last_vals[i] or 0
+        x_last = cx - barW - gap / 2; x_this = cx + gap / 2
+        P.append('<rect x="%.1f" y="%.1f" width="%.1f" height="%.1f" rx="3" fill="%s"/>' % (x_last, Y(lv), barW, yB - Y(lv), C_LAST))
+        P.append('<rect x="%.1f" y="%.1f" width="%.1f" height="%.1f" rx="3" fill="%s"/>' % (x_this, Y(tv), barW, yB - Y(tv), C_THIS))
+        P.append('<text x="%.1f" y="%.1f" font-size="9.5" text-anchor="middle" fill="var(--muted)">%s</text>' % (x_last + barW / 2, Y(lv) - 4, esc(fmt_val(lv, fmt))))
+        P.append('<text x="%.1f" y="%.1f" font-size="10" font-weight="700" text-anchor="middle" fill="var(--brown)">%s</text>' % (x_this + barW / 2, Y(tv) - 4, esc(fmt_val(tv, fmt))))
+        yoy = (100 * (tv / lv - 1)) if lv else None
+        yoytxt = ("%+.1f%%" % yoy) if yoy is not None else "n/a"
+        yoycol = "var(--green)" if (yoy is not None and yoy >= 0) else "var(--red)"
+        P.append('<text x="%.1f" y="%.1f" font-size="12" font-weight="700" text-anchor="middle" fill="var(--ink)">%s</text>' % (cx, yB + 18, esc(day)))
+        P.append('<text x="%.1f" y="%.1f" font-size="11" font-weight="800" text-anchor="middle" fill="%s">%s</text>' % (cx, yB + 34, yoycol, yoytxt))
+    ly = H - 8
+    P.append('<rect x="%.1f" y="%.1f" width="11" height="11" rx="2" fill="%s"/><text x="%.1f" y="%.1f" font-size="10.5" fill="var(--muted)">This weekend (%s)</text>' % (padL, ly - 10, C_THIS, padL + 15, ly - 1, esc(label_this)))
+    lx2 = padL + 200
+    P.append('<rect x="%.1f" y="%.1f" width="11" height="11" rx="2" fill="%s"/><text x="%.1f" y="%.1f" font-size="10.5" fill="var(--muted)">Last year (%s)</text>' % (lx2, ly - 10, C_LAST, lx2 + 15, ly - 1, esc(label_last)))
+    P.append('</svg>')
+    return "".join(P)
+
+
+def weekend_html(kind):
+    """Fri/Sat/Sun weekend visual for the YoY detail views. kind='sales' (£) or 'tx' (transactions)."""
+    wk = YOY.get("weekend")
+    if not wk:
+        return ""
+    data = (wk.get("sales") if kind == "sales" else wk.get("tx")) or {}
+    fmt = "gbp0" if kind == "sales" else "num0"
+    unit = "sales" if kind == "sales" else "transactions"
+    tv, lv = data.get("this"), data.get("last")
+    if not tv or not lv:
+        return ""
+    tt = sum(x or 0 for x in tv); tl = sum(x or 0 for x in lv)
+    overall = ("%+.1f%%" % (100 * (tt / tl - 1))) if tl else "n/a"
+    svg = _weekend_svg(wk.get("days", ["Fri", "Sat", "Sun"]), tv, lv, fmt, wk.get("label_this", ""), wk.get("label_last", ""))
+    return ('<div class="md-section-h">Last weekend &mdash; Fri / Sat / Sun %s vs last year</div>'
+            '<div class="md-note">Weekend total %s vs %s the equivalent weekend last year (<b>%s</b>). '
+            'Each bar pair is this year vs the same day of last year&rsquo;s weekend.</div>%s'
+            % (unit, esc(fmt_val(tt, fmt)), esc(fmt_val(tl, fmt)), overall, svg))
+
 # ============ F1 Op's Excellence detail (mirrors the Company Dashboard 'Op's Excellence' tab) ============
 # Reuses the SAME source files the company dashboard renders from — f1_detail.json (race / qualifying /
 # QTD aggregates) and allstores.json['champ'] (drivers + constructors standings) — so the EOS F1 detail
@@ -734,7 +790,12 @@ for i, (wm, qm) in enumerate(zip(weekly, quarterly)):
                   + (_rms if _rms else '<div class="md-note">Rate My Shift detail unavailable this run (rms_feed.json missing).</div>'))
     else:
         ps_block = ps_section(name, plan, dirn, fm, qm)   # weekly + QTD sub-tables (period selector)
-        extras = yoy_extras_html() if name == "YoY Sales Growth" else ""   # ATV + food-attach, YoY view only
+        if name == "YoY Sales Growth":
+            extras = weekend_html("sales") + yoy_extras_html()   # weekend Fri/Sat/Sun + ATV/food-attach
+        elif name == "YoY Transactional Growth":
+            extras = weekend_html("tx")                          # weekend Fri/Sat/Sun transactions
+        else:
+            extras = ""
         detail = ('<div class="md-section-h">This quarter, week by week</div>'
                   + trend_svg(name, plan, dirn)
                   + '<div class="md-section-h">Per-store breakdown</div>'
