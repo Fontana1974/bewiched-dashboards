@@ -649,6 +649,58 @@ def bench_detail_html():
         return ""
 
 
+# ============ Rate My Shift detail (store-by-store participation + 'shift voice' comments) ============
+# Reads rms_feed.json (written by run_weekly.pull_rms_storehealth): per-store weekly + QTD submission
+# counts / avg ratings for EVERY store (non-posters shown as 0 / 'no submissions'), plus recent (last
+# ~2 weeks) free-text shift comments with sentiment (from the 1-5 rating) and the manager's SMT reply
+# when present — mirroring the Google-reviews 'Customer Voice' box. Fault-tolerant: '' on any failure.
+def rms_detail_html():
+    try:
+        F = json.load(open(os.path.join(HERE, "rms_feed.json")))
+    except Exception:
+        return ""
+    ps = F.get("per_store") or {}
+    if not ps:
+        return ""
+    SH = lambda x: F1_SHORT.get(x, x)
+    STAR = "\u2605"
+    def _avg(a):
+        return ("%.2f%s" % (a, STAR)) if a is not None else "&mdash;"
+    rows = sorted(ps.items(), key=lambda kv: (-(kv[1]["weekly"]["n"] or 0), -(kv[1]["qtd"]["n"] or 0)))
+    posted = sum(1 for _, v in rows if (v["weekly"]["n"] or 0) > 0)
+    silent = len(rows) - posted
+    body = ""
+    for st, v in rows:
+        wn = v["weekly"]["n"] or 0; qn = v["qtd"]["n"] or 0
+        chip = '<span class="chip green">posting</span>' if wn > 0 else '<span class="chip red">no submissions</span>'
+        body += ('<tr><td class="s">%s</td><td class="v">%d</td><td class="v">%s</td>'
+                 '<td class="v">%d</td><td class="v">%s</td><td class="st">%s</td></tr>'
+                 % (esc(SH(st)), wn, _avg(v["weekly"]["avg"]), qn, _avg(v["qtd"]["avg"]), chip))
+    table = ('<div class="md-ps-basis">Last completed week (%s) &amp; quarter-to-date (%s) &middot; '
+             '<b>%d of %d stores</b> submitted last week &middot; %d silent</div>'
+             '<table class="md-ps"><thead><tr><th>Store</th><th class="v">Last wk subs</th>'
+             '<th class="v">Last wk %s</th><th class="v">QTD subs</th><th class="v">QTD %s</th>'
+             '<th class="st">Participation</th></tr></thead><tbody>%s</tbody></table>'
+             % (esc(F.get("_weekly_label", "")), esc(F.get("_qtd_label", "")), posted, len(rows), silent, STAR, STAR, body))
+    TAGK = {"Positive": "t-ok", "Negative": "t-red", "Mixed": "t-amber"}
+    cm = F.get("comments") or []
+    if cm:
+        cards = ""
+        for c in cm[:14]:
+            chip = '<span class="tag %s">%s</span>' % (TAGK.get(c.get("sentiment"), "t-na"), esc(c.get("sentiment", "")))
+            smt = ('<div style="font-size:11.5px;color:#8a7a6d;margin-top:4px">&#8627; Manager: %s</div>' % esc(c["smt"])) if c.get("smt") else ""
+            try: rt = ("%g" % float(c.get("rating")))
+            except Exception: rt = esc(str(c.get("rating", "")))
+            cards += ('<div style="border:1px solid #ece3d6;border-radius:10px;padding:8px 11px;margin-bottom:8px">'
+                      '<div style="font-size:12.5px"><b>%s</b> %s <span class="mini">%s%s &middot; %s</span></div>'
+                      '<div style="font-size:12px;color:#5b4a37;margin:3px 0 0;line-height:1.45">&ldquo;%s&rdquo;</div>%s</div>'
+                      % (esc(SH(c.get("store", ""))), chip, rt, STAR, esc(c.get("date", "")), esc(c.get("text", "")), smt))
+        voice = '<div class="md-section-h">%s</div>%s' % (esc(F.get("_comments_label", "Recent shift voice")), cards)
+    else:
+        voice = '<div class="md-note">No recent shift-rating comments in the last two weeks.</div>'
+    return '<div class="md-section-h">Store-by-store &mdash; who is posting</div>' + table + voice
+
+
 md_options = ""
 md_details = ""
 for i, (wm, qm) in enumerate(zip(weekly, quarterly)):
@@ -674,6 +726,12 @@ for i, (wm, qm) in enumerate(zip(weekly, quarterly)):
         _bd = bench_detail_html()
         detail = ('<div class="md-section-h">Bench — estate &amp; succession (mirrors the Company Dashboard bench tab)</div>'
                   + (_bd if _bd else '<div class="md-note">Bench detail unavailable this run (bench.json missing).</div>'))
+    elif name == "Rate My Shift Health":
+        # Store-by-store participation (weekly + QTD, non-posters surfaced) + 'shift voice' comments.
+        _rms = rms_detail_html()
+        detail = ('<div class="md-section-h">This quarter, week by week</div>'
+                  + trend_svg(name, plan, dirn)
+                  + (_rms if _rms else '<div class="md-note">Rate My Shift detail unavailable this run (rms_feed.json missing).</div>'))
     else:
         ps_block = ps_section(name, plan, dirn, fm, qm)   # weekly + QTD sub-tables (period selector)
         extras = yoy_extras_html() if name == "YoY Sales Growth" else ""   # ATV + food-attach, YoY view only

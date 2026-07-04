@@ -821,16 +821,28 @@ def pull_rms_storehealth():
     (per-store QTD RMS + per-store QTD Google) for the refactored storehealth_calc.py.
     VALIDATED layout via Zapier 29 Jun: Date0(serial) Store1 Rating2."""
     rows = sheet(SID["f1"], "'Shift Ratings'!A1:N20000")   # FULL tail — latest submissions are at the BOTTOM (>6k rows); A1:N6000 missed them
+    # Cols: A Date, B Store, C Rating(1-5), D Description(team comment), E SMT Comment(mgr reply), F DoW, G Area.
     lastwk = []                        # company last completed week
     qtd = {}                           # store -> [ratings] (QTD)
+    wk_store = {}                      # store -> [ratings] (last completed week, per store)
+    COMMENT_LO = TODAY - datetime.timedelta(days=13)   # 'recent shift voice' = last ~2 weeks to the run date
+    comment_rows = []                  # (date, store_disp, rating, description, smt_reply)
     for r in rows[1:]:
         if not r or len(r) < 3 or not r[1]: continue
         dt = parse_any_date(r[0]); st = normalize(r[1])
         try: rating = float(r[2])
         except Exception: continue
         if not dt: continue
-        if LASTWK_MON <= dt <= CUR_END: lastwk.append(rating)
+        if LASTWK_MON <= dt <= CUR_END:
+            lastwk.append(rating)
+            if st: wk_store.setdefault(st, []).append(rating)
         if st and dt >= QSTART: qtd.setdefault(st, []).append(rating)
+        # recent free-text comments (col D), with the manager's reply (col E) when present
+        if COMMENT_LO <= dt <= TODAY:
+            desc = re.sub(r"\s+", " ", str(r[3])).strip() if len(r) > 3 and r[3] not in (None, "") else ""
+            if desc:
+                smt = re.sub(r"\s+", " ", str(r[4])).strip() if len(r) > 4 and r[4] not in (None, "") else ""
+                comment_rows.append((dt, st or str(r[1]).strip(), rating, desc, smt))
     avg = round(sum(lastwk) / len(lastwk), 2) if lastwk else None
     subs = len(lastwk)
     W("rms.json", {"avg_rating": avg, "submissions": subs,
@@ -851,7 +863,33 @@ def pull_rms_storehealth():
         sent["rms"] = round(sum(v) / len(v), 2) if v else None
         sent["rms_n"] = len(v) if v else 0
     save_all(a)
-    print("[pull] rms/storehealth: company subs %d avg %s; %d rms stores qtd" % (subs, avg, len(qtd)))
+    # ---- rms_feed.json: the expanded Rate My Shift detail (per-store weekly+QTD participation +
+    #      recent 'shift voice' comments with sentiment). Rendered by gen_eos_scorecard.py; mirrors
+    #      the reviews_feed / Customer Voice pattern. EVERY store appears (non-posters shown as 0).
+    def _rsent(rt):
+        return "Positive" if rt >= 4 else ("Negative" if rt <= 2 else "Mixed")
+    per_store = {}
+    for st in rec:
+        wv = wk_store.get(st, []); qv = qtd.get(st, [])
+        per_store[st] = {
+            "weekly": {"n": len(wv), "avg": round(sum(wv) / len(wv), 2) if wv else None},
+            "qtd":    {"n": len(qv), "avg": round(sum(qv) / len(qv), 2) if qv else None}}
+    comments = []
+    for (dt, st_disp, rt, desc, smt) in comment_rows:
+        comments.append({"store": st_disp, "date": dt.isoformat(), "rating": rt,
+                         "text": desc[:300], "smt": (smt[:300] or None), "sentiment": _rsent(rt)})
+    comments.sort(key=lambda c: (c["date"], c["rating"]), reverse=True)
+    _qn = (CUR_END.month - 1) // 3 + 1
+    W("rms_feed.json", {
+        "_weekly_label": wlabel(LASTWK_MON),
+        "_weekly_window": [LASTWK_MON.isoformat(), CUR_END.isoformat()],
+        "_qtd_label": "Q%d %d" % (_qn, CUR_END.year),
+        "_qtd_window": [QSTART.isoformat(), CUR_END.isoformat()],
+        "_comments_label": "recent shift voice — last 2 weeks to %s" % TODAY.strftime("%-d %b %Y"),
+        "_comments_window": [COMMENT_LO.isoformat(), TODAY.isoformat()],
+        "per_store": per_store,
+        "comments": comments[:24]}, indent=1)
+    print("[pull] rms/storehealth: company subs %d avg %s; %d rms stores qtd; %d recent comments" % (subs, avg, len(qtd), len(comments)))
 
 
 def pull_planner():
