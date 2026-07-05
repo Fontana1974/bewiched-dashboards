@@ -502,6 +502,70 @@ def weekend_html(kind):
             'Each bar pair is this year vs the same day of last year&rsquo;s weekend.</div>%s'
             % (unit, esc(fmt_val(tt, fmt)), esc(fmt_val(tl, fmt)), overall, svg))
 
+
+def _yoycell(v):
+    if v is None:
+        return '<td><span class="tag t-na">n/a</span></td>'
+    return '<td><span class="tag %s">%s%s%%</span></td>' % (("t-ok" if v >= 0 else "t-red"), ("+" if v >= 0 else ""), round(v, 1))
+
+
+def yoy_bystore_html(title):
+    """By-store last-week table mirroring the Company Dashboard Sales tab exactly:
+    Store | Sales | YoY | Av spend | YoY | Guest counts | YoY. Sorted by last-week sales desc,
+    COMPANY total row at the bottom (YoY on the like-for-like subset, as the company dashboard does)."""
+    rows = YOY.get("by_store") or []
+    if not rows:
+        return ""
+    rows = sorted(rows, key=lambda r: -(r.get("lw26") or 0))
+    body = ""; A = [0, 0, 0, 0]; sl = 0; stt = 0
+    for r in rows:
+        lw = r.get("lw26") or 0; lw25 = r.get("lw25") or 0; t26 = r.get("tx26") or 0; t25 = r.get("tx25") or 0
+        sl += lw; stt += t26
+        sy = None if not lw25 else 100 * (lw / lw25 - 1)
+        avs = (lw / t26) if t26 else 0
+        avs25 = (lw25 / t25) if t25 else None
+        ay = None if avs25 in (None, 0) else 100 * (avs / avs25 - 1)
+        gy = None if not t25 else 100 * (t26 / t25 - 1)
+        if lw25 > 0 and lw > 0:
+            A[0] += lw; A[1] += lw25; A[2] += t26; A[3] += t25
+        body += ('<tr><td>%s</td><td style="font-weight:700">£%s</td>%s<td>£%.2f</td>%s<td>%s</td>%s</tr>'
+                 % (esc(r.get("store", "")), format(int(round(lw)), ","), _yoycell(sy), avs, _yoycell(ay), format(int(t26), ","), _yoycell(gy)))
+    asy = 100 * (A[0] / A[1] - 1) if A[1] else None
+    aavs = (sl / stt) if stt else 0
+    aay = 100 * ((A[0] / A[2]) / (A[1] / A[3]) - 1) if (A[3] and A[2]) else None
+    agy = 100 * (A[2] / A[3] - 1) if A[3] else None
+    total = ('<tr style="border-top:2px solid var(--line)"><td style="font-weight:800">COMPANY (%d stores)</td>'
+             '<td style="font-weight:800">£%s</td>%s<td style="font-weight:700">£%.2f</td>%s<td style="font-weight:700">%s</td>%s</tr>'
+             % (len(rows), format(int(round(sl)), ","), _yoycell(asy), aavs, _yoycell(aay), format(int(stt), ","), _yoycell(agy)))
+    return ('<div class="md-section-h">%s</div>'
+            '<table class="md-ps" style="max-width:760px"><thead><tr><th>Store</th><th>Sales</th><th>YoY</th>'
+            '<th>Av spend</th><th>YoY</th><th>Guest counts</th><th>YoY</th></tr></thead><tbody>%s%s</tbody></table>'
+            % (esc(title), body, total))
+
+
+def weekend_bystore_html(kind):
+    """Per-store weekend cut: each store's Fri / Sat / Sun this year vs the equivalent day last year
+    (YoY%, traffic-lit), mirroring the company dashboard's by-store day-of-week growth grid."""
+    wbs = YOY.get("weekend_by_store") or {}
+    if not wbs:
+        return ""
+    SH = lambda x: F1_SHORT.get(x, x)
+    def _yoy(t, l):
+        return None if not l else 100 * (t / l - 1)
+    items = []
+    for st, v in wbs.items():
+        d = v.get(kind) or {}
+        tv = d.get("this") or [0, 0, 0]; lv = d.get("last") or [0, 0, 0]
+        items.append((st, tv, lv, sum(tv)))
+    items.sort(key=lambda x: -x[3])
+    body = "".join('<tr><td>%s</td>%s</tr>' % (esc(SH(st)), "".join(_yoycell(_yoy(tv[i], lv[i])) for i in range(3)))
+                   for (st, tv, lv, _tot) in items)
+    unit = "sales" if kind == "sales" else "guest checks"
+    return ('<div class="md-section-h">Weekend by store &mdash; Fri / Sat / Sun %s YoY</div>'
+            '<div class="md-ps-basis">Each store&rsquo;s previous weekend vs the equivalent day of last year&rsquo;s weekend (%s), best first.</div>'
+            '<table class="md-ps" style="max-width:480px"><thead><tr><th>Store</th><th>Fri</th><th>Sat</th><th>Sun</th></tr></thead><tbody>%s</tbody></table>'
+            % (unit, unit, body))
+
 # ============ F1 Op's Excellence detail (mirrors the Company Dashboard 'Op's Excellence' tab) ============
 # Reuses the SAME source files the company dashboard renders from — f1_detail.json (race / qualifying /
 # QTD aggregates) and allstores.json['champ'] (drivers + constructors standings) — so the EOS F1 detail
@@ -788,18 +852,23 @@ for i, (wm, qm) in enumerate(zip(weekly, quarterly)):
         detail = ('<div class="md-section-h">This quarter, week by week</div>'
                   + trend_svg(name, plan, dirn)
                   + (_rms if _rms else '<div class="md-note">Rate My Shift detail unavailable this run (rms_feed.json missing).</div>'))
+    elif name == "YoY Sales Growth":
+        detail = ('<div class="md-section-h">This quarter, week by week</div>'
+                  + trend_svg(name, plan, dirn)
+                  + yoy_bystore_html("Sales last week (%s) — by store, this year vs last year" % D.get("week_label", ""))
+                  + weekend_html("sales") + weekend_bystore_html("sales")
+                  + yoy_extras_html())
+    elif name == "YoY Transactional Growth":
+        detail = ('<div class="md-section-h">This quarter, week by week</div>'
+                  + trend_svg(name, plan, dirn)
+                  + yoy_bystore_html("Guest checks last week (%s) — by store, this year vs last year" % D.get("week_label", ""))
+                  + weekend_html("tx") + weekend_bystore_html("tx"))
     else:
         ps_block = ps_section(name, plan, dirn, fm, qm)   # weekly + QTD sub-tables (period selector)
-        if name == "YoY Sales Growth":
-            extras = weekend_html("sales") + yoy_extras_html()   # weekend Fri/Sat/Sun + ATV/food-attach
-        elif name == "YoY Transactional Growth":
-            extras = weekend_html("tx")                          # weekend Fri/Sat/Sun transactions
-        else:
-            extras = ""
         detail = ('<div class="md-section-h">This quarter, week by week</div>'
                   + trend_svg(name, plan, dirn)
                   + '<div class="md-section-h">Per-store breakdown</div>'
-                  + ps_block + extras)
+                  + ps_block)
     md_details += (
         '<div class="md-detail" id="md-%d" style="display:%s">' % (i, disp)
         + '<div class="md-title">%s<span class="md-owner">Owner: <b>%s</b></span></div>' % (esc(name), esc(owner))
