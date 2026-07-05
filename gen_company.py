@@ -387,7 +387,7 @@ def build():
     def _greet(x):
         if x is None: return _na()
         k="t-ok" if x>=90 else ("t-amber" if x>=70 else "t-red"); return tag(f"{int(round(x))}%",k)
-    rqlist=[(s,F1D[s]['race_qtd']) for s in F1D if not s.startswith('_') and isinstance(F1D.get(s),dict) and F1D[s].get('race_qtd') and not _iscomp(s)]
+    rqlist=[(s,F1D[s]['race_qtd']) for s in F1D if not s.startswith('_') and isinstance(F1D.get(s),dict) and F1D[s].get('race_qtd') and F1D[s]['race_qtd'].get('score') is not None and not _iscomp(s)]
     rqlist.sort(key=lambda x:x[1]['score'])
     race_qtd_rows="".join(f'<tr><td>{_nm(s)}</td><td>{d["n"]}</td><td>{_scrag(d["score"])}</td><td>{_q(d["queue_s"]) if d.get("queue_s") is not None else _na()}</td><td>{_qcallpct(d.get("qcall"))}</td><td>{_greet(d.get("hello"))}</td><td>{_greet(d.get("goodbye"))}</td><td>{_greet(d.get("howareyou"))}</td></tr>' for s,d in rqlist)
     qqlist=[(s,F1D[s]['quali_qtd']) for s in F1D if not s.startswith('_') and isinstance(F1D.get(s),dict) and F1D[s].get('quali_qtd') and not _iscomp(s)]
