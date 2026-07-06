@@ -2198,8 +2198,28 @@ def pulls():
     pull_maintenance()        # maintenance.json (reactive/planned/coffee/audit)  [non-fatal]
 
 
+def _run_smt_diary():
+    """Non-fatal, idempotent housekeeping: keep the 'Weekly SMT Visit Diary' sheet ~4 weeks of
+    tabs ahead and its Master roll-up formula in sync. Independent of the dashboard build/gate —
+    it writes only to that external sheet (via the service account), never to this repo, and must
+    never abort the weekly run."""
+    smt = os.path.join(HERE, "smt_diary.py")
+    if not os.path.exists(smt):
+        return
+    try:
+        r = subprocess.run([sys.executable, smt], check=False, timeout=180,
+                           capture_output=True, text=True)
+        for line in (r.stdout or "").splitlines():
+            print(line)
+        if r.returncode not in (0,):
+            print("[smt] diary maintenance exited %d (non-fatal): %s" % (r.returncode, (r.stderr or "")[:200]))
+    except Exception as e:
+        print("[smt] diary maintenance skipped (non-fatal): %s" % str(e)[:160])
+
+
 def main():
     print("[run] Bewiched weekly — mode=%s cur_end=%s" % (MODE, CUR_END))
+    _run_smt_diary()
     pulls()
     build()
     freshness_gate()
