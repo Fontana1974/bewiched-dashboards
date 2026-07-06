@@ -201,8 +201,8 @@
     "avg": 5.0
    },
    "qtd": {
-    "n": 3,
-    "avg": 5.0
+    "n": 5,
+    "avg": 4.8
    }
   },
   "Wellingborough": {
@@ -232,6 +232,22 @@
    "date": "2026-07-06",
    "rating": 5.0,
    "text": "Slay",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Rugby",
+   "date": "2026-07-06",
+   "rating": 5.0,
+   "text": "Great shift. Hi Claire.",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Rugby",
+   "date": "2026-07-06",
+   "rating": 4.0,
+   "text": "Can we get some sort of funnel for putting marshmallows in the domed lids please?",
    "smt": null,
    "sentiment": "Positive"
   },
@@ -402,22 +418,6 @@
    "text": "Temp manager never here.",
    "smt": "KF - Apologised and asked respondent to reach out an dtalk issue through with assurance of help/support.",
    "sentiment": "Negative"
-  },
-  {
-   "store": "Leamington Parade",
-   "date": "2026-07-02",
-   "rating": 5.0,
-   "text": "Lovely shift, good energy",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Glenvale Drive Thru",
-   "date": "2026-07-02",
-   "rating": 4.0,
-   "text": "Is there any way we can start doing ice teas? Customers keep asking for them",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
   }
  ]
 }

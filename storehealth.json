@@ -107,19 +107,21 @@
    "r_rag": "na"
   },
   "Leamington Parade": {
-   "g_n": null,
-   "g_health": null,
-   "g_rag": "na",
-   "g_stale": true,
+   "g_n": 1,
+   "g_avg": 5.0,
+   "g_target": 15,
+   "g_health": 2.67,
+   "g_rag": "red",
+   "g_stale": false,
    "r_n": 7,
    "r_avg": 5.0,
    "r_rag": "green"
   },
   "Lower Heathcote": {
-   "g_n": 3,
+   "g_n": 4,
    "g_avg": 5.0,
    "g_target": 8,
-   "g_health": 3.44,
+   "g_health": 3.75,
    "g_rag": "green",
    "g_stale": false,
    "r_n": 1,
@@ -206,8 +208,8 @@
    "g_health": null,
    "g_rag": "na",
    "g_stale": true,
-   "r_n": 3,
-   "r_avg": 5.0,
+   "r_n": 5,
+   "r_avg": 4.8,
    "r_rag": "green"
   },
   "Rushden Lakes": {
