@@ -1,119 +1,118 @@
 {
  "_source": "Cost of Sales sheet 1doPNL5yVh7swMysJMRVi0ECiBg50ZGBb7TbwStJtAL0 'Master COS Input' — AUTHORITATIVE Gross Profit% (col Q), sales-weighted for estate; latest col Q per store.",
- "_pulled": "2026-06-28",
+ "_pulled": "2026-07-05",
  "stores": {
   "Northampton Drive-Thru": {
-   "holding_pct": null,
-   "gp_pct": 69.71,
-   "gp_qtd": 70.16
+   "holding_pct": 0.0,
+   "gp_pct": 71.05,
+   "gp_qtd": 71.05
   },
   "Rushden Lakes": {
-   "holding_pct": null,
-   "gp_pct": 66.93,
-   "gp_qtd": 68.41
+   "holding_pct": 0.0,
+   "gp_pct": 68.54,
+   "gp_qtd": 68.54
   },
   "Kettering": {
-   "holding_pct": null,
-   "gp_pct": 70.95,
-   "gp_qtd": 72.0
+   "holding_pct": 28.4,
+   "gp_pct": 72.73,
+   "gp_qtd": 72.73
   },
   "Corby": {
-   "holding_pct": null,
-   "gp_pct": 70.32,
-   "gp_qtd": 69.58
+   "holding_pct": 39.8,
+   "gp_pct": 72.88,
+   "gp_qtd": 72.88
   },
   "Peterborough Bridge Street": {
-   "holding_pct": null,
-   "gp_pct": 70.38,
-   "gp_qtd": 71.04
+   "holding_pct": 0.0,
+   "gp_pct": 70.96,
+   "gp_qtd": 70.96
   },
   "Rugby": {
-   "holding_pct": null,
-   "gp_pct": 70.36,
-   "gp_qtd": 69.33
+   "holding_pct": 0.0,
+   "gp_pct": 71.43,
+   "gp_qtd": 71.43
   },
   "Wellingborough": {
-   "holding_pct": null,
-   "gp_pct": 71.83,
-   "gp_qtd": 71.48
+   "holding_pct": 23.6,
+   "gp_pct": 72.24,
+   "gp_qtd": 72.24
   },
   "Rothwell": {
-   "holding_pct": null,
-   "gp_pct": 68.96,
-   "gp_qtd": 68.79
+   "holding_pct": 0.0,
+   "gp_pct": 71.06,
+   "gp_qtd": 71.06
   },
   "Northampton": {
-   "holding_pct": null,
-   "gp_pct": 70.37,
-   "gp_qtd": 71.35
+   "holding_pct": 21.6,
+   "gp_pct": 70.11,
+   "gp_qtd": 70.11
   },
   "Wellingborough Train Station": {
-   "holding_pct": null,
-   "gp_pct": 54.25,
-   "gp_qtd": 68.11
+   "holding_pct": 0.0,
+   "gp_pct": 70.31,
+   "gp_qtd": 70.31
   },
   "Higham Ferrers": {
-   "holding_pct": null,
-   "gp_pct": 68.05,
-   "gp_qtd": 68.41
+   "holding_pct": 47.2,
+   "gp_pct": 68.58,
+   "gp_qtd": 68.58
   },
   "HOE Balsall Common": {
-   "holding_pct": null,
-   "gp_pct": 70.12,
-   "gp_qtd": 69.63
+   "holding_pct": 0.0,
+   "gp_pct": 70.61,
+   "gp_qtd": 70.61
   },
   "Burton Latimer": {
-   "holding_pct": null,
-   "gp_pct": 69.01,
-   "gp_qtd": 69.77
+   "holding_pct": 27.1,
+   "gp_pct": 70.83,
+   "gp_qtd": 70.83
   },
   "Peterborough Fletton Quays": {
-   "holding_pct": null,
-   "gp_pct": 67.0,
-   "gp_qtd": 68.27
+   "holding_pct": 0.0,
+   "gp_pct": 68.75,
+   "gp_qtd": 68.75
   },
   "Lower Heathcote": {
    "holding_pct": null,
-   "gp_pct": 72.49,
-   "gp_qtd": 71.93
+   "gp_pct": 72.49
   },
   "Market Harborough": {
-   "holding_pct": null,
-   "gp_pct": 70.86,
-   "gp_qtd": 72.74
+   "holding_pct": 0.0,
+   "gp_pct": 72.57,
+   "gp_qtd": 72.57
   },
   "Leamington Parade": {
-   "holding_pct": null,
-   "gp_pct": 72.66,
-   "gp_qtd": 73.55
+   "holding_pct": 31.4,
+   "gp_pct": 74.27,
+   "gp_qtd": 74.27
   },
   "Glenvale Drive Thru": {
-   "holding_pct": null,
-   "gp_pct": 68.59,
-   "gp_qtd": 68.86
+   "holding_pct": 21.0,
+   "gp_pct": 69.75,
+   "gp_qtd": 69.75
   },
   "Olney": {
-   "holding_pct": null,
-   "gp_pct": 71.51,
-   "gp_qtd": 70.16
+   "holding_pct": 0.0,
+   "gp_pct": 70.52,
+   "gp_qtd": 70.52
   },
   "Attleborough": {
-   "holding_pct": null,
-   "gp_pct": 67.93,
-   "gp_qtd": 68.19
+   "holding_pct": 0.0,
+   "gp_pct": 67.89,
+   "gp_qtd": 67.89
   },
   "Billing Drive Thru": {
-   "holding_pct": null,
-   "gp_pct": 67.81,
-   "gp_qtd": 67.51
+   "holding_pct": 23.7,
+   "gp_pct": 68.77,
+   "gp_qtd": 68.77
   }
  },
  "_estate_gp_basis": "Master COS Input col Q Gross Profit%, sales-weighted: Σ(Sales×GP)/ΣSales",
- "estate_gp_wk": 69.4,
- "estate_gp_qtd": 69.98,
+ "estate_gp_wk": 70.57,
+ "estate_gp_qtd": 70.57,
  "estate_gp_may": 70.11,
- "estate_gp_wk_date": "2026-06-29",
- "_week": "2026-06-29",
+ "estate_gp_wk_date": "2026-07-06",
+ "_week": "2026-07-06",
  "estate_gp_by_week": {
   "2023-04-23": 78.81,
   "2023-04-30": 77.46,
@@ -277,6 +276,7 @@
   "2026-06-07": 70.18,
   "2026-06-14": 69.83,
   "2026-06-21": 70.21,
-  "2026-06-28": 69.4
+  "2026-06-28": 69.4,
+  "2026-07-05": 70.57
  }
 }

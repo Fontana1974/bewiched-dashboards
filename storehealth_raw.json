@@ -1,155 +1,103 @@
 {
- "_updated": "2026-06-28",
- "_basis": "Quarter-to-date (from 2026-04-01). NOT last week.",
+ "_updated": "2026-07-05",
+ "_basis": "Quarter-to-date (from 2026-07-01). NOT last week.",
  "rms": {
   "Corby": [
-   74,
-   3.297
+   6,
+   1.333
   ],
-  "Glenvale Drive Thru": [
-   67,
-   3.03
-  ],
-  "Northampton": [
-   32,
-   4.656
-  ],
-  "Kettering": [
-   25,
-   4.52
+  "Olney": [
+   1,
+   2.0
   ],
   "HOE Balsall Common": [
-   43,
-   4.837
-  ],
-  "Northampton Drive-Thru": [
-   44,
-   4.045
-  ],
-  "Peterborough Fletton Quays": [
-   15,
-   4.333
-  ],
-  "Rugby": [
-   72,
-   4.931
-  ],
-  "Market Harborough": [
-   22,
-   4.545
-  ],
-  "Rothwell": [
-   17,
-   4.235
-  ],
-  "Wellingborough": [
-   12,
-   4.667
-  ],
-  "Rushden Lakes": [
-   21,
-   3.286
-  ],
-  "Peterborough Bridge Street": [
-   23,
-   4.696
-  ],
-  "Leamington Parade": [
-   146,
-   4.692
-  ],
-  "Lower Heathcote": [
-   26,
-   4.154
-  ],
-  "Burton Latimer": [
-   20,
-   4.9
-  ],
-  "Wellingborough Train Station": [
-   13,
-   1.846
-  ],
-  "Higham Ferrers": [
-   14,
-   4.571
-  ],
-  "Billing Drive Thru": [
-   30,
-   4.833
-  ],
-  "Olney": [
-   5,
-   3.6
-  ],
-  "Attleborough": [
-   40,
-   4.625
-  ]
- },
- "google": {
-  "Wellingborough Train Station": [
-   101,
-   4.97
-  ],
-  "Burton Latimer": [
-   17,
-   4.941
-  ],
-  "Corby": [
-   10,
-   4.8
-  ],
-  "Glenvale Drive Thru": [
-   42,
-   4.69
-  ],
-  "Billing Drive Thru": [
-   30,
-   5.0
-  ],
-  "Olney": [
-   5,
-   5.0
-  ],
-  "Attleborough": [
-   2,
-   5.0
-  ],
-  "Rugby": [
-   4,
-   5.0
-  ],
-  "Leamington Parade": [
-   10,
-   4.2
-  ],
-  "Northampton Drive-Thru": [
-   3,
-   3.667
-  ],
-  "Market Harborough": [
-   15,
-   4.933
-  ],
-  "Rothwell": [
-   2,
-   5.0
-  ],
-  "Lower Heathcote": [
-   5,
-   5.0
-  ],
-  "Peterborough Fletton Quays": [
-   5,
-   4.8
-  ],
-  "Rushden Lakes": [
    4,
    4.0
   ],
+  "Attleborough": [
+   3,
+   4.0
+  ],
+  "Northampton": [
+   3,
+   4.333
+  ],
+  "Rugby": [
+   3,
+   5.0
+  ],
+  "Billing Drive Thru": [
+   2,
+   5.0
+  ],
+  "Glenvale Drive Thru": [
+   7,
+   3.429
+  ],
+  "Leamington Parade": [
+   7,
+   5.0
+  ],
+  "Market Harborough": [
+   2,
+   5.0
+  ],
+  "Burton Latimer": [
+   2,
+   5.0
+  ],
+  "Lower Heathcote": [
+   1,
+   3.0
+  ]
+ },
+ "google": {
   "Peterborough Bridge Street": [
    2,
+   5.0
+  ],
+  "Lower Heathcote": [
+   3,
+   5.0
+  ],
+  "Rothwell": [
+   1,
+   5.0
+  ],
+  "Glenvale Drive Thru": [
+   4,
+   5.0
+  ],
+  "Billing Drive Thru": [
+   6,
+   5.0
+  ],
+  "Rushden Lakes": [
+   2,
+   3.0
+  ],
+  "Olney": [
+   1,
+   5.0
+  ],
+  "Market Harborough": [
+   7,
+   5.0
+  ],
+  "Peterborough Fletton Quays": [
+   4,
+   4.75
+  ],
+  "Burton Latimer": [
+   1,
+   5.0
+  ],
+  "Wellingborough Train Station": [
+   1,
+   5.0
+  ],
+  "Northampton Drive-Thru": [
+   1,
    5.0
   ]
  }

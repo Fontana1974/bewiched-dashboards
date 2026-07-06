@@ -1,8 +1,8 @@
 {
- "_cur_end": "2026-06-28",
+ "_cur_end": "2026-07-05",
  "_periods": {
-  "qtd": "QTD · Apr–Jun",
-  "mtd": "MTD · Jun",
+  "qtd": "QTD · Jul–Sep",
+  "mtd": "MTD · Jul",
   "wtd": "WTD · prev wk"
  },
  "stores": {
@@ -83,7 +83,7 @@
      "label": "Return-to-work (RTW)",
      "sub": "HRP sickness/RTW",
      "qtd": {
-      "v": "60%",
+      "v": "67%",
       "rag": "r"
      },
      "mtd": {

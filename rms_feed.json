@@ -1,48 +1,48 @@
 {
- "_weekly_label": "w/c 22 Jun 2026",
+ "_weekly_label": "w/c 29 Jun 2026",
  "_weekly_window": [
-  "2026-06-22",
-  "2026-06-28"
+  "2026-06-29",
+  "2026-07-05"
  ],
- "_qtd_label": "Q2 2026",
+ "_qtd_label": "Q3 2026",
  "_qtd_window": [
-  "2026-04-01",
-  "2026-06-28"
+  "2026-07-01",
+  "2026-07-05"
  ],
- "_comments_label": "recent shift voice — last 2 weeks to 4 Jul 2026",
+ "_comments_label": "recent shift voice — last 2 weeks to 6 Jul 2026",
  "_comments_window": [
-  "2026-06-21",
-  "2026-07-04"
+  "2026-06-23",
+  "2026-07-06"
  ],
  "per_store": {
   "Burton Latimer": {
+   "weekly": {
+    "n": 2,
+    "avg": 5.0
+   },
+   "qtd": {
+    "n": 2,
+    "avg": 5.0
+   }
+  },
+  "Corby": {
+   "weekly": {
+    "n": 7,
+    "avg": 1.71
+   },
+   "qtd": {
+    "n": 6,
+    "avg": 1.33
+   }
+  },
+  "Higham Ferrers": {
    "weekly": {
     "n": 1,
     "avg": 5.0
    },
    "qtd": {
-    "n": 20,
-    "avg": 4.9
-   }
-  },
-  "Corby": {
-   "weekly": {
-    "n": 5,
-    "avg": 2.8
-   },
-   "qtd": {
-    "n": 74,
-    "avg": 3.3
-   }
-  },
-  "Higham Ferrers": {
-   "weekly": {
-    "n": 4,
-    "avg": 4.25
-   },
-   "qtd": {
-    "n": 14,
-    "avg": 4.57
+    "n": 0,
+    "avg": null
    }
   },
   "Kettering": {
@@ -51,28 +51,28 @@
     "avg": null
    },
    "qtd": {
-    "n": 25,
-    "avg": 4.52
+    "n": 0,
+    "avg": null
    }
   },
   "Olney": {
    "weekly": {
     "n": 1,
-    "avg": 1.0
+    "avg": 2.0
    },
    "qtd": {
-    "n": 5,
-    "avg": 3.6
+    "n": 1,
+    "avg": 2.0
    }
   },
   "Peterborough Bridge Street": {
    "weekly": {
-    "n": 2,
-    "avg": 3.5
+    "n": 0,
+    "avg": null
    },
    "qtd": {
-    "n": 23,
-    "avg": 4.7
+    "n": 0,
+    "avg": null
    }
   },
   "Peterborough Fletton Quays": {
@@ -81,8 +81,8 @@
     "avg": null
    },
    "qtd": {
-    "n": 15,
-    "avg": 4.33
+    "n": 0,
+    "avg": null
    }
   },
   "Rothwell": {
@@ -91,118 +91,118 @@
     "avg": null
    },
    "qtd": {
-    "n": 17,
-    "avg": 4.24
+    "n": 0,
+    "avg": null
    }
   },
   "Rushden Lakes": {
    "weekly": {
-    "n": 1,
-    "avg": 2.0
+    "n": 0,
+    "avg": null
    },
    "qtd": {
-    "n": 21,
-    "avg": 3.29
+    "n": 0,
+    "avg": null
    }
   },
   "Attleborough": {
    "weekly": {
-    "n": 4,
-    "avg": 4.25
+    "n": 3,
+    "avg": 4.0
    },
    "qtd": {
-    "n": 40,
-    "avg": 4.62
+    "n": 3,
+    "avg": 4.0
    }
   },
   "Billing Drive Thru": {
    "weekly": {
     "n": 2,
-    "avg": 4.5
+    "avg": 5.0
    },
    "qtd": {
-    "n": 30,
-    "avg": 4.83
+    "n": 2,
+    "avg": 5.0
    }
   },
   "Glenvale Drive Thru": {
    "weekly": {
-    "n": 9,
-    "avg": 1.44
+    "n": 8,
+    "avg": 3.38
    },
    "qtd": {
-    "n": 67,
-    "avg": 3.03
+    "n": 7,
+    "avg": 3.43
    }
   },
   "HOE Balsall Common": {
+   "weekly": {
+    "n": 3,
+    "avg": 3.67
+   },
+   "qtd": {
+    "n": 4,
+    "avg": 4.0
+   }
+  },
+  "Leamington Parade": {
+   "weekly": {
+    "n": 8,
+    "avg": 5.0
+   },
+   "qtd": {
+    "n": 7,
+    "avg": 5.0
+   }
+  },
+  "Lower Heathcote": {
+   "weekly": {
+    "n": 1,
+    "avg": 3.0
+   },
+   "qtd": {
+    "n": 1,
+    "avg": 3.0
+   }
+  },
+  "Market Harborough": {
    "weekly": {
     "n": 2,
     "avg": 5.0
    },
    "qtd": {
-    "n": 43,
-    "avg": 4.84
-   }
-  },
-  "Leamington Parade": {
-   "weekly": {
-    "n": 14,
-    "avg": 4.57
-   },
-   "qtd": {
-    "n": 146,
-    "avg": 4.69
-   }
-  },
-  "Lower Heathcote": {
-   "weekly": {
-    "n": 3,
-    "avg": 3.0
-   },
-   "qtd": {
-    "n": 26,
-    "avg": 4.15
-   }
-  },
-  "Market Harborough": {
-   "weekly": {
-    "n": 4,
+    "n": 2,
     "avg": 5.0
-   },
-   "qtd": {
-    "n": 22,
-    "avg": 4.55
    }
   },
   "Northampton": {
    "weekly": {
-    "n": 1,
-    "avg": 5.0
+    "n": 3,
+    "avg": 4.33
    },
    "qtd": {
-    "n": 32,
-    "avg": 4.66
+    "n": 3,
+    "avg": 4.33
    }
   },
   "Northampton Drive-Thru": {
    "weekly": {
-    "n": 1,
-    "avg": 5.0
+    "n": 0,
+    "avg": null
    },
    "qtd": {
-    "n": 44,
-    "avg": 4.05
+    "n": 0,
+    "avg": null
    }
   },
   "Rugby": {
    "weekly": {
-    "n": 1,
+    "n": 3,
     "avg": 5.0
    },
    "qtd": {
-    "n": 72,
-    "avg": 4.93
+    "n": 3,
+    "avg": 5.0
    }
   },
   "Wellingborough": {
@@ -211,8 +211,8 @@
     "avg": null
    },
    "qtd": {
-    "n": 12,
-    "avg": 4.67
+    "n": 0,
+    "avg": null
    }
   },
   "Wellingborough Train Station": {
@@ -221,12 +221,92 @@
     "avg": null
    },
    "qtd": {
-    "n": 13,
-    "avg": 1.85
+    "n": 0,
+    "avg": null
    }
   }
  },
  "comments": [
+  {
+   "store": "HOE Balsall Common",
+   "date": "2026-07-06",
+   "rating": 5.0,
+   "text": "Slay",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Rugby",
+   "date": "2026-07-05",
+   "rating": 5.0,
+   "text": "Lovely shift today. Quiet though. Lots of cleaning done",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Burton Latimer",
+   "date": "2026-07-05",
+   "rating": 5.0,
+   "text": "Over 1k made by only 2 people in 6hours ! Bloody great achievement and teamwork",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Leamington Parade",
+   "date": "2026-07-05",
+   "rating": 5.0,
+   "text": "Amazing shift teamwork",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Leamington Parade",
+   "date": "2026-07-05",
+   "rating": 5.0,
+   "text": "Lovely shift Sylwia Melika Rui",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Glenvale Drive Thru",
+   "date": "2026-07-05",
+   "rating": 4.0,
+   "text": "Customers asking for lunch time meal deal and kids meal deal",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Glenvale Drive Thru",
+   "date": "2026-07-05",
+   "rating": 4.0,
+   "text": "We need kids smoothie cartons! Not many options for kids drinks",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Attleborough",
+   "date": "2026-07-05",
+   "rating": 4.0,
+   "text": "Good proactive team",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Lower Heathcote",
+   "date": "2026-07-05",
+   "rating": 3.0,
+   "text": "Music, is, demotivating",
+   "smt": null,
+   "sentiment": "Mixed"
+  },
+  {
+   "store": "Corby",
+   "date": "2026-07-05",
+   "rating": 1.0,
+   "text": "rota not out",
+   "smt": null,
+   "sentiment": "Negative"
+  },
   {
    "store": "Market Harborough",
    "date": "2026-07-04",
@@ -338,86 +418,6 @@
    "text": "Is there any way we can start doing ice teas? Customers keep asking for them",
    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
    "sentiment": "Positive"
-  },
-  {
-   "store": "HOE Balsall Common",
-   "date": "2026-07-01",
-   "rating": 5.0,
-   "text": "quiet but fun with the girlies x",
-   "smt": "KF - Responded to low score previous to this.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Rugby",
-   "date": "2026-07-01",
-   "rating": 5.0,
-   "text": "James scared the life out of me. Why you leave the door open???",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Rugby",
-   "date": "2026-07-01",
-   "rating": 5.0,
-   "text": "Great interactions with customers from Jamie today, so lovely to see!! Would we be able to get some more espresso cups please?",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions. Reached out to RW to order cups.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Billing Drive Thru",
-   "date": "2026-07-01",
-   "rating": 5.0,
-   "text": "F1 peak race? Completed it mate",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Billing Drive Thru",
-   "date": "2026-07-01",
-   "rating": 5.0,
-   "text": "Shift rating amirite",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Northampton",
-   "date": "2026-07-01",
-   "rating": 5.0,
-   "text": "Great shift,amazing teamwork. Still struggling with the clear lids though",
-   "smt": "KF - Asked store to reach out and outline issues with clear lids directly in order to resolve.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Leamington Parade",
-   "date": "2026-07-01",
-   "rating": 5.0,
-   "text": "Lovely shift",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Leamington Parade",
-   "date": "2026-07-01",
-   "rating": 5.0,
-   "text": "Lovely shift",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Attleborough",
-   "date": "2026-07-01",
-   "rating": 3.0,
-   "text": "Still waiting for remote feedback from the weekend when I have already requested it, how can I inform team of where to improve when I’m not told what was marked down",
-   "smt": "KF - Apologised and re-sent email as this was sent to store. Asked respondent to reach out directly when these frustrations occur in future to enable a speedier resolution.",
-   "sentiment": "Mixed"
-  },
-  {
-   "store": "Northampton",
-   "date": "2026-07-01",
-   "rating": 3.0,
-   "text": "No youda, I beg",
-   "smt": "KF - Apologised and re-sent email as this was sent to store. Asked respondent to reach out directly when these frustrations occur in future to enable a speedier resolution.",
-   "sentiment": "Mixed"
   }
  ]
 }
