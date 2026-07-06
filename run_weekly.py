@@ -475,6 +475,14 @@ def pull_f1():
         last6 = [fnum(x[1][30]) for x in rows[-6:]][::-1]
         fd[st] = {"race": race_arr, "quali": quali_arr,
                   "race_qtd": race_qtd, "quali_qtd": quali_qtd, "last6": last6}
+    # F1 staleness marker (read by the generators to badge the section, and by the freshness
+    # gate as a SOFT warning). Stale = the newest race audit is behind this reporting week's
+    # Sunday (audits pending) — the F1 pull still ran, so we publish and badge rather than block.
+    _f1_stale = (newest is None) or (newest < CUR_END)
+    fd["_stale"] = {"stale": bool(_f1_stale),
+                    "newest": newest.isoformat() if newest else None,
+                    "cur_end": CUR_END.isoformat(),
+                    "badge": "F1 awaiting this week's audit (w/e %s)" % CUR_END.strftime("%-d %b %Y")}
     W("f1_detail.json", fd, indent=1)
 
     # rec.f1 / f1_finish + champ (drivers since 25 Apr 2026; constructors by coach)
@@ -2103,21 +2111,21 @@ def build():
 
 def freshness_gate():
     """Refuse to publish a partial run (the 28 Jun failure). Fail loudly, publish nothing."""
-    errs = []
+    errs = []; warns = []
     def fresh(fn):
         p = os.path.join(HERE, fn)
         return os.path.exists(p) and os.path.getmtime(p) >= RUN_START - 1
-    # 1. F1: newest raw Race date must be FRESH for this run — on OR AFTER cur_end.
-    #    The gate only catches STALE F1 (newest race BEHIND the reporting week, i.e. the
-    #    F1 pull was skipped / audits not entered). An F1 audit dated in the current,
-    #    incomplete week (AHEAD of cur_end) is legitimately newer than the reporting
-    #    week-end and must NOT block publishing. ISO date strings compare chronologically.
+    # 1. F1 date: SOFT (per-metric). If the F1 pull RAN (f1_detail.json rewritten — enforced HARD by
+    #    check #3) but its newest race is behind cur_end (audits pending for this reporting week),
+    #    DO NOT block the whole publish. Publish everything else that's fresh and degrade only the F1
+    #    section — the generators badge it 'awaiting this week's audit' from f1_detail._stale. A
+    #    genuinely SKIPPED F1 pull is still caught HARD by check #3 below (file not rewritten).
     try:
         fd = json.load(open(os.path.join(HERE, "f1_detail.json")))
-        newest = max((v["race"][8] for v in fd.values() if v.get("race")), default=None)
+        newest = max((v["race"][8] for v in fd.values() if isinstance(v, dict) and v.get("race")), default=None)
         if newest is None or newest < CUR_END.isoformat():
-            errs.append("f1_detail newest race %s < cur_end %s (F1 pull skipped or audits pending — stale)"
-                        % (newest, CUR_END))
+            warns.append("F1 stale: newest race %s < cur_end %s — publishing other metrics; F1 section badged 'awaiting this week's audit'."
+                         % (newest, CUR_END))
     except Exception as e:
         errs.append("f1_detail unreadable: %s" % e)
     # 2. Reviews: _wtd_window == [cur_end-6, cur_end] AND rec carries cust_qtd/cust_wtd
@@ -2150,11 +2158,14 @@ def freshness_gate():
     for g in ("gen_company.py", "gen_area.py", "gen_kel.py", "gen_claire.py"):
         if GEN_LEFTOVER.get(g, 0) < 1:
             errs.append("%s did not report 'leftover placeholders: none'" % g)
+    if warns:
+        print("[gate] SOFT — published, section(s) degraded (not a partial-build failure):")
+        for w in warns: print("   ! " + w)
     if errs:
-        print("[gate] FAILED — partial run, publishing nothing:")
+        print("[gate] FAILED — partial/broken build, publishing nothing:")
         for e in errs: print("   x " + e)
         sys.exit(1)
-    print("[gate] freshness OK — all estate outputs refreshed to %s" % CUR_END)
+    print("[gate] freshness OK — estate outputs refreshed to %s%s" % (CUR_END, " (F1 degraded)" if warns else ""))
 
 
 # ============================ ORCHESTRATION ============================

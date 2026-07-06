@@ -426,6 +426,8 @@ def build():
     kpw_cust_k=('green' if _ch>=3.32 else 'red') if _ch is not None else 'red'; kpw_cust_v=(("%.2f"%_ch) if _ch is not None else "n/a")
     kpw_people_k=('green' if _rh>=3.32 else 'red') if _rh is not None else 'red'; kpw_people_v=(("%.2f"%_rh) if _rh is not None else "n/a")
     _BN,_BP=build_bench(REC,SHORT)
+    _f1st=F1D.get('_stale') or {}
+    f1_stale_badge=('<div class="note red" style="font-weight:800;margin:0 0 12px">&#9888; %s &mdash; the F1 figures below are the last completed audit, not this week\'s.</div>' % _f1st.get('badge','F1 awaiting this week\'s audit')) if _f1st.get('stale') else ''
     repl={
      "{{BENCH_NAV}}":_BN,"{{BENCH_PANEL}}":_BP,
      "{{WX_NUDGE}}":wx_nudge([R[s]['coords'] for s in stores if R[s].get('coords')],wx_recent(amix)),
@@ -448,7 +450,7 @@ def build():
      "{{YJS}}":json.dumps(yjs),"{{OUTJS}}":json.dumps(outjs),
      "{{MIX_AREA_ROWS}}":mar,"{{CAPHDR}}":caphdr,"{{CAPMAT}}":capmat,"{{MIX_DS}}":mix_ds,"{{MIX_LBLS}}":mix_lbls,"{{MIX_NOTE}}":mix_note,"{{MIX_FOCUS}}":mix_focus,"{{BAKERY_PEAK_ROWS}}":bakery_peak_rows,"{{PEAK_WINDOW}}":peak_window,
      "{{F1TBL}}":f1tbl,"{{F1_FIN_DS}}":f1_fin_ds,"{{F1_FIN_LBLS}}":f1_fin_lbls,"{{F1_CHAMP_AVG}}":str(f1_champ_avg),"{{AVG_FIN2}}":str(avg_fin),
-     "{{F1_TOP}}":f1_top,"{{F1_TOP_META}}":f1_top_meta,"{{CON_HTML}}":con_html,"{{CON_NOTE}}":con_note,"{{DRV_ROWS}}":drv_rows,"{{F1_NOTE}}":f1_note,"{{F1_FOCUS}}":f1_focus,
+     "{{F1_TOP}}":f1_top,"{{F1_TOP_META}}":f1_top_meta,"{{CON_HTML}}":con_html,"{{CON_NOTE}}":con_note,"{{DRV_ROWS}}":drv_rows,"{{F1_NOTE}}":f1_note,"{{F1_FOCUS}}":f1_focus,"{{F1_STALE_BADGE}}":f1_stale_badge,
      "{{RMS_ROWS}}":rms_rows,"{{HR_ROWS}}":hr_rows,"{{AREA_RMS}}":str(area_rms),"{{AREA_SICK}}":str(area_sick),"{{AREA_SICKFS}}":str(area_sickfs),"{{AREA_LATE}}":str(area_late),
      "{{RTW_COMP}}":str(rtw_comp),"{{RTW_COMP_K}}":rtw_k,"{{AREA_REP}}":str(area_rep),"{{AREA_RTW}}":str(area_rtw),"{{RMS_NOTE}}":rms_note,"{{RTW_NOTE}}":rtw_note,
      "{{AREA_RATING}}":str(area_rating),"{{AREA_REVIEWS}}":f"{area_reviews:,}","{{CUST_ROWS}}":cust_rows,"{{CUST_NOTE}}":cust_note,"{{CUST_VOICE}}":cust_voice,"{{CUST_QLABEL}}":cust_qlabel,

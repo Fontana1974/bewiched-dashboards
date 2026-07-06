@@ -746,7 +746,10 @@ def f1_ops_html():
                     + cards + finish_block + race_block + quali_block + focus + '</div>')
     qtd_group = ('<div class="ps-basis" data-basis="qtd" style="display:none">'
                  + champ_block + race_qtd_block + quali_qtd_block + '</div>')
-    return (intro + hint + weekly_group + qtd_group)
+    _f1st = F1D.get("_stale") or {}
+    _badge = ('<div class="md-note" style="background:var(--redbg);border:1px solid #eccfca;color:#8c2f22;font-weight:800;margin-bottom:12px">&#9888; %s &mdash; the F1 figures below are the last completed audit, not this week\'s.</div>'
+              % esc(_f1st.get("badge", "F1 awaiting this week's audit"))) if _f1st.get("stale") else ""
+    return (_badge + intro + hint + weekly_group + qtd_group)
 
 
 # ============ Bench detail (mirrors the Company Dashboard 'Bench' tab) ============
