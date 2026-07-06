@@ -2219,7 +2219,8 @@ def _run_smt_diary():
 
 def main():
     print("[run] Bewiched weekly — mode=%s cur_end=%s" % (MODE, CUR_END))
-    _run_smt_diary()
+    # _run_smt_diary()  # TEMPORARILY DISABLED — SMT diary sheet is more complex than expected
+    #                     (61 tabs, two naming schemes, differing structures); reworking smt_diary.py
     pulls()
     build()
     freshness_gate()
