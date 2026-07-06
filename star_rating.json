@@ -121,7 +121,7 @@
    "_f1_pos": 8
   },
   "Leamington Parade": {
-   "composite": 3.8,
+   "composite": 4.0,
    "target": 4.6,
    "on_target": false,
    "pillars": [
@@ -193,14 +193,14 @@
     },
     {
      "name": "People & Customer",
-     "star": 3.6,
+     "star": 4.2,
      "target": 4.6,
      "on_target": false,
      "metrics": [
       {
        "label": "RMS health /5",
-       "value": "5.0",
-       "star": 5.0,
+       "value": "4.78",
+       "star": 4.9,
        "on_target": true
       },
       {
@@ -211,9 +211,9 @@
       },
       {
        "label": "Google health",
-       "value": "2.67 (QTD)",
-       "star": 2.8,
-       "on_target": false
+       "value": "3.33 (QTD)",
+       "star": 4.6,
+       "on_target": true
       },
       {
        "label": "Lateness (shown, not scored)",

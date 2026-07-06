@@ -121,7 +121,7 @@
     "avg": 5.0
    },
    "qtd": {
-    "n": 2,
+    "n": 3,
     "avg": 5.0
    }
   },
@@ -151,8 +151,8 @@
     "avg": 5.0
    },
    "qtd": {
-    "n": 7,
-    "avg": 5.0
+    "n": 9,
+    "avg": 4.78
    }
   },
   "Lower Heathcote": {
@@ -171,8 +171,8 @@
     "avg": 5.0
    },
    "qtd": {
-    "n": 2,
-    "avg": 5.0
+    "n": 3,
+    "avg": 4.33
    }
   },
   "Northampton": {
@@ -260,12 +260,44 @@
    "sentiment": "Positive"
   },
   {
+   "store": "Billing Drive Thru",
+   "date": "2026-07-06",
+   "rating": 5.0,
+   "text": "Three words? Impossible",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
    "store": "Rugby",
    "date": "2026-07-06",
    "rating": 4.0,
    "text": "Can we get some sort of funnel for putting marshmallows in the domed lids please?",
    "smt": null,
    "sentiment": "Positive"
+  },
+  {
+   "store": "Leamington Parade",
+   "date": "2026-07-06",
+   "rating": 4.0,
+   "text": "Productive",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Leamington Parade",
+   "date": "2026-07-06",
+   "rating": 4.0,
+   "text": "Chill, good vibes",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Market Harborough",
+   "date": "2026-07-06",
+   "rating": 3.0,
+   "text": "Good shift",
+   "smt": null,
+   "sentiment": "Mixed"
   },
   {
    "store": "Rugby",
@@ -386,38 +418,6 @@
    "text": "Need further rotas",
    "smt": "KF - Apologised and asked respondents to reach out and talk feelings through.",
    "sentiment": "Negative"
-  },
-  {
-   "store": "Corby",
-   "date": "2026-07-04",
-   "rating": 1.0,
-   "text": "Need Larger StoreRoom",
-   "smt": "KF - Apologised and asked respondents to reach out and talk feelings through.",
-   "sentiment": "Negative"
-  },
-  {
-   "store": "Northampton",
-   "date": "2026-07-03",
-   "rating": 5.0,
-   "text": "A really enjoyable shift",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Market Harborough",
-   "date": "2026-07-03",
-   "rating": 5.0,
-   "text": "Great shift, amazing team",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Burton Latimer",
-   "date": "2026-07-03",
-   "rating": 5.0,
-   "text": "The support from Jon no matter what is happening at the store is just amazing . Thank you Jon for always having our back and never letting us struggle. In the most difficult moments you are always there for us . Thank you",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
   }
  ]
 }

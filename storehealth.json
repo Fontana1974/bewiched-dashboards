@@ -44,7 +44,7 @@
    "g_health": 2.81,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 2,
+   "r_n": 3,
    "r_avg": 5.0,
    "r_rag": "green"
   },
@@ -107,14 +107,14 @@
    "r_rag": "na"
   },
   "Leamington Parade": {
-   "g_n": 1,
+   "g_n": 5,
    "g_avg": 5.0,
    "g_target": 15,
-   "g_health": 2.67,
-   "g_rag": "red",
+   "g_health": 3.33,
+   "g_rag": "green",
    "g_stale": false,
-   "r_n": 7,
-   "r_avg": 5.0,
+   "r_n": 9,
+   "r_avg": 4.78,
    "r_rag": "green"
   },
   "Lower Heathcote": {
@@ -135,9 +135,9 @@
    "g_health": 3.23,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 2,
-   "r_avg": 5.0,
-   "r_rag": "green"
+   "r_n": 3,
+   "r_avg": 4.33,
+   "r_rag": "amber"
   },
   "Northampton": {
    "g_n": null,
