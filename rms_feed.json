@@ -201,8 +201,8 @@
     "avg": 5.0
    },
    "qtd": {
-    "n": 5,
-    "avg": 4.8
+    "n": 7,
+    "avg": 4.86
    }
   },
   "Wellingborough": {
@@ -240,6 +240,22 @@
    "date": "2026-07-06",
    "rating": 5.0,
    "text": "Great shift. Hi Claire.",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Rugby",
+   "date": "2026-07-06",
+   "rating": 5.0,
+   "text": "Great energy today! Great teamwork and smiles :)",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Rugby",
+   "date": "2026-07-06",
+   "rating": 5.0,
+   "text": "Great vibes today, Positive and productive from everyone! Great to see our feedback about the cream being resolved, lovely to know our feedback is appreciated!",
    "smt": null,
    "sentiment": "Positive"
   },
@@ -402,22 +418,6 @@
    "text": "The support from Jon no matter what is happening at the store is just amazing . Thank you Jon for always having our back and never letting us struggle. In the most difficult moments you are always there for us . Thank you",
    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
    "sentiment": "Positive"
-  },
-  {
-   "store": "Attleborough",
-   "date": "2026-07-03",
-   "rating": 5.0,
-   "text": "Nice customers, chill",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Corby",
-   "date": "2026-07-03",
-   "rating": 1.0,
-   "text": "Temp manager never here.",
-   "smt": "KF - Apologised and asked respondent to reach out an dtalk issue through with assurance of help/support.",
-   "sentiment": "Negative"
   }
  ]
 }
