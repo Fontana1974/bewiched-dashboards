@@ -410,8 +410,16 @@ def pull_f1():
     f1_detail.json + rec.f1 + champ. Also writes the_race.csv for build_queue_benchmark.
     VALIDATED via Zapier 29 Jun: newest Race serial 46201 == 2026-06-28 == cur_end;
     cols Date0 Store1 Queue4 Hello5 Goodbye6 HowAreYou7 WTQ8 Total18 Coach28 ChampPts29 Finish30."""
-    race = sheet(SID["f1"], "'The Race'!A1:AE3000")
+    race = sheet(SID["f1"], "'The Race'!A1:AG3000")   # AG captures col AF "Average Person Queue Time" (idx 31)
     quali = sheet(SID["f1"], "'Qualifying'!A1:R2000")
+    # F1 QUEUE-METRIC CUTOVER (confirmed with Matt; mirrors the Total Score formula's
+    # date-conditional): dates  < 29 Jun 2026 -> OLD "Queue average" (col E, idx 4);
+    # dates >= 29 Jun 2026 -> NEW "Average Person Queue Time" (col AF, idx 31). Applied
+    # to race_arr / race_qtd.queue_s / race_qtd.queue and the_race.csv (queue-vs-comp trend).
+    Q_CUTOVER = datetime.date(2026, 6, 29)
+    def f1_queue(dt, row):
+        idx = 31 if dt >= Q_CUTOVER else 4
+        return fnum(row[idx]) if len(row) > idx else None
     racer, csv_rows = {}, []          # racer[store] -> list of (date, row)
     comp_rows = []
     for r in race[1:]:
@@ -419,7 +427,7 @@ def pull_f1():
         dt = parse_any_date(r[0])
         if not dt: continue
         coach = (str(r[28]).strip() if len(r) > 28 else "")
-        csv_rows.append([dt.isoformat(), str(r[1]).strip(), fnum(r[4]), coach])
+        csv_rows.append([dt.isoformat(), str(r[1]).strip(), f1_queue(dt, r), coach])
         st = normalize(r[1])
         if coach == "Check Name" or st is None:
             comp_rows.append((dt, r)); continue
@@ -437,7 +445,7 @@ def pull_f1():
         rows.sort(key=lambda x: x[0])
         dt, r = rows[-1]
         newest = max(newest, dt) if newest else dt
-        race_arr = [fnum(r[4]), fnum(r[5]), fnum(r[6]), fnum(r[7]), fnum(r[8]),
+        race_arr = [f1_queue(dt, r), fnum(r[5]), fnum(r[6]), fnum(r[7]), fnum(r[8]),
                     fnum(r[18]), fnum(r[29]), fnum(r[30]), dt.isoformat()]
         qrows = sorted(qualir.get(st, []), key=lambda x: x[0])
         quali_arr = None
@@ -455,13 +463,17 @@ def pull_f1():
         def avg(idx, src=qtd):
             xs = [fnum(x[1][idx]) for x in src]
             return round(sum(xs) / len(xs), 2) if xs else None
+        def avgq(src=qtd):   # queue avg with per-row E/AF cutover
+            xs = [f1_queue(x[0], x[1]) for x in src]
+            xs = [v for v in xs if v is not None]
+            return round(sum(xs) / len(xs), 2) if xs else None
         def pct(v): return None if v is None else round(v * 100, 1)
         # RACE QTD table reads queue_s / qcall (=Working The Queue %) / hello|goodbye|howareyou.
         # The sheet holds greetings as 0-1 fractions, so store them as PERCENTAGES (were rendering ~1%).
         race_qtd = {"n": len(qtd), "score": avg(18),
-                    "queue_s": avg(4), "qcall": pct(avg(8)),
+                    "queue_s": avgq(), "qcall": pct(avg(8)),
                     "hello": pct(avg(5)), "goodbye": pct(avg(6)), "howareyou": pct(avg(7)),
-                    "queue": avg(4), "wtq": avg(8)}
+                    "queue": avgq(), "wtq": avg(8)}
         qqtd = [x for x in qrows if x[0] >= QSTART]
         def qavg(idx):   # average over Qualifying rows, skipping blank cells (penalty rows leave greetings/queue empty)
             xs = [fnum(x[1][idx]) for x in qqtd if len(x[1]) > idx and x[1][idx] not in (None, "")]
