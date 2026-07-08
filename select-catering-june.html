@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bewiched · Select Catering · June 2026 · Full Analysis</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;700&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#1a1a1a;--paper:#f5f3ee;--panel:#fff;--rule:#e0ddd6;
+  --bew:#185FA5;--bl:#e6f1fb;--green:#3B6D11;--gl:#eaf3de;
+  --amber:#854F0B;--al:#faeeda;--red:#A32D2D;--rl:#fcebeb;
+  --mono:'DM Mono',monospace;--sans:'DM Sans',sans-serif;
+}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);font-size:13px;line-height:1.5}
+
+.hdr{background:var(--bew);color:#fff;padding:20px 28px 16px;display:flex;justify-content:space-between;align-items:flex-end}
+.hdr h1{font-size:18px;font-weight:700;letter-spacing:-.3px}
+.hdr p{font-size:11px;opacity:.75;margin-top:2px;font-family:var(--mono)}
+.hdr-r{text-align:right;font-family:var(--mono);font-size:11px;opacity:.8}
+.hdr-r strong{display:block;font-size:20px;font-weight:500;opacity:1}
+
+.ribbon{background:#0e4880;padding:8px 28px;display:flex;gap:24px;flex-wrap:wrap}
+.rib-stat{font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.7)}
+.rib-stat strong{color:#fff;font-size:15px;display:block}
+
+.notice{background:var(--amber-light,#faeeda);border-bottom:2px solid var(--amber);padding:8px 28px;font-size:11.5px;color:var(--amber);display:flex;gap:10px;align-items:center}
+
+.tabs{display:flex;gap:2px;background:var(--ink);padding:0 28px}
+.tab{padding:9px 16px;font-size:11.5px;font-weight:500;letter-spacing:.4px;background:transparent;border:none;color:rgba(255,255,255,.45);cursor:pointer;text-transform:uppercase;border-bottom:2px solid transparent;font-family:var(--sans);transition:.15s}
+.tab.on{color:#fff;border-bottom-color:var(--bl)}
+.tab:hover{color:#fff}
+
+.main{padding:20px 28px}
+.pane{display:none}.pane.on{display:block}
+
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:20px}
+.kpi{background:var(--panel);border:1px solid var(--rule);border-radius:5px;padding:12px 14px}
+.kpi .lbl{font-size:10px;text-transform:uppercase;letter-spacing:.6px;color:#777;font-family:var(--mono)}
+.kpi .val{font-size:19px;font-weight:700;margin-top:3px;color:var(--bew);font-family:var(--mono)}
+.kpi .sub{font-size:10px;color:#999;margin-top:2px}
+.kpi.amb .val{color:var(--amber)}.kpi.red .val{color:var(--red)}.kpi.grn .val{color:var(--green)}
+
+.sec{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:#555;border-bottom:1px solid var(--rule);padding-bottom:7px;margin-bottom:12px;display:flex;justify-content:space-between}
+.sec span{font-weight:400;color:#aaa;letter-spacing:0;text-transform:none}
+
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px}
+.card{background:var(--panel);border:1px solid var(--rule);border-radius:5px;padding:14px}
+
+/* stacked chart */
+.leg{display:flex;gap:12px;margin-bottom:10px;flex-wrap:wrap}
+.leg-i{display:flex;align-items:center;gap:4px;font-size:11px}
+.leg-d{width:9px;height:9px;border-radius:2px}
+.sr{display:flex;align-items:center;gap:5px;margin-bottom:3px}
+.sl{width:145px;font-size:11px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:default}
+.st{flex:1;display:flex;height:13px;border-radius:2px;overflow:hidden;gap:1px}
+.ss{height:100%}
+.sv{width:62px;text-align:right;font-family:var(--mono);font-size:10px;flex-shrink:0}
+
+/* cat legend */
+.catl{list-style:none;margin-top:8px}
+.catl li{display:flex;align-items:center;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--rule);font-size:12px}
+.catl li:last-child{border-bottom:none}
+.cd{width:7px;height:7px;border-radius:2px;flex-shrink:0;margin-right:7px}
+.cn{flex:1}.cv{font-family:var(--mono);font-size:11px;color:#555}
+.cp{font-family:var(--mono);font-size:11px;color:#bbb;margin-left:6px}
+
+/* week bars */
+.wbs{display:flex;gap:5px;align-items:flex-end;height:90px;margin-top:6px}
+.wc{display:flex;flex-direction:column;align-items:center;flex:1;gap:3px}
+.wb{width:100%;border-radius:3px 3px 0 0;background:var(--bew);min-height:3px}
+.wl{font-family:var(--mono);font-size:9px;color:#888}
+.wv{font-family:var(--mono);font-size:8.5px;color:var(--bew)}
+
+/* tables */
+table{width:100%;border-collapse:collapse;font-size:11.5px}
+thead th{text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#777;padding:5px 7px;border-bottom:2px solid var(--rule);position:sticky;top:0;background:var(--panel);white-space:nowrap}
+th.r{text-align:right}
+tbody tr{border-bottom:1px solid var(--rule)}
+tbody tr:last-child{border-bottom:none}
+tbody td{padding:5px 7px;vertical-align:middle}
+td.r{text-align:right;font-family:var(--mono)}
+tbody tr:hover{background:var(--paper)}
+.ts{max-height:500px;overflow-y:auto;border:1px solid var(--rule);border-radius:5px}
+
+/* pills */
+.pill{display:inline-block;font-family:var(--mono);font-size:9.5px;font-weight:700;padding:1px 6px;border-radius:9px;white-space:nowrap}
+.p-red{background:var(--rl);color:var(--red)}
+.p-grn{background:var(--gl);color:var(--green)}
+.p-amb{background:var(--al);color:var(--amber)}
+.p-blue{background:var(--bl);color:var(--bew)}
+.p-grey{background:#f0eee9;color:#888}
+
+/* outlier cards */
+.og{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.oc{background:var(--panel);border:1px solid var(--rule);border-radius:5px;padding:11px;border-left:3px solid var(--red)}
+.os{font-weight:700;font-size:11.5px;color:var(--red)}
+.ok{font-size:11px;margin:3px 0;line-height:1.4;color:#333}
+.od{font-family:var(--mono);font-size:10px;color:#777;display:flex;gap:7px;flex-wrap:wrap;margin-top:3px}
+
+/* filter bar */
+.fb{display:flex;gap:7px;margin-bottom:12px;align-items:center;flex-wrap:wrap}
+.fb input,.fb select{border:1px solid var(--rule);border-radius:4px;padding:5px 9px;font-size:12px;font-family:var(--sans);background:var(--panel);color:var(--ink)}
+.fb input{flex:1;min-width:180px}
+.fl{font-size:11px;color:#777;white-space:nowrap}
+
+/* data quality note */
+.dq{background:#f8f4ed;border:1px solid #d4c9b0;border-radius:5px;padding:10px 12px;font-size:11px;color:#6b5a3a;margin-bottom:14px;line-height:1.6}
+
+footer{padding:12px 28px;font-size:10px;color:#aaa;border-top:1px solid var(--rule);margin-top:8px}
+
+.probes{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:720px){.probes{grid-template-columns:1fr}}
+.pc{border:1px solid #e8e8e8;border-left:3px solid #185FA5;border-radius:8px;padding:10px 12px;background:#fff}
+.pc.hy{border-left-color:#854F0B}
+.pct{font-weight:700;font-size:13px;margin-bottom:3px;color:#1a1a1a}
+.pca{font-size:12px;color:#333;margin-bottom:5px}
+.pce{font-size:11px;color:#666;line-height:1.45}
+</style>
+</head>
+<body>
+<div class="hdr">
+  <div>
+    <h1>Bewiched Coffee · Select Catering June 2026</h1>
+    <p>Xero ACCPAY · 170 invoices · 18 sites · 124 SKUs · 1–30 Jun 2026 · Bewiched Limited</p>
+  </div>
+  <div class="hdr-r"><strong>£63,200</strong>Itemised spend</div>
+</div>
+
+<div class="ribbon">
+  <div class="rib-stat"><span>June total</span><strong>£63,200</strong></div>
+  <div class="rib-stat"><span>May ×4 (normalised)</span><strong>£63,952</strong></div>
+  <div class="rib-stat"><span>MoM Δ weekly avg</span><strong style="color:#6fcf97">−1.2%</strong></div>
+  <div class="rib-stat"><span>SKUs</span><strong>124</strong></div>
+  <div class="rib-stat"><span>Outliers ≥2.5×</span><strong style="color:#eb5757">30</strong></div>
+  <div class="rib-stat"><span>Busiest site</span><strong>Moulton Park DT</strong></div>
+</div>
+
+<div class="notice">Itemised Select Catering spend from Xero, 1–30 Jun 2026. Hub consolidated bill (£0, DRAFT) excluded.</div>
+
+<div class="tabs">
+  <button class="tab on" onclick="showTab('ov',this)">Overview</button>
+  <button class="tab" onclick="showTab('sites',this)">By Site</button>
+  <button class="tab" onclick="showTab('skus',this)">All 124 SKUs</button>
+  <button class="tab" onclick="showTab('out',this)">Outliers</button>
+  <button class="tab" onclick="showTab('probe',this)">Probe · Drive Margin</button>
+</div>
+
+<div class="main">
+
+<!-- OVERVIEW -->
+<div id="pane-ov" class="pane on">
+  <div class="kpis">
+    <div class="kpi"><div class="lbl">Itemised Spend</div><div class="val">£63,200</div><div class="sub">170 invoices · 18 sites</div></div>
+    <div class="kpi grn"><div class="lbl">MoM Weekly Avg</div><div class="val">−1.2%</div><div class="sub">vs May one-week baseline</div></div>
+    <div class="kpi"><div class="lbl">Unique SKUs</div><div class="val">124</div><div class="sub">↑52 new vs May's 72</div></div>
+    <div class="kpi amb"><div class="lbl">Busiest Buyer</div><div class="val">Moulton Pk</div><div class="sub">£10,163 · 16.1% of total</div></div>
+    <div class="kpi"><div class="lbl">Top Category</div><div class="val">Beverage</div><div class="sub">£44,575 · 70% of spend</div></div>
+    <div class="kpi red"><div class="lbl">Outliers ≥2.5×</div><div class="val">30</div><div class="sub">Moulton Park dominates</div></div>
+  </div>
+  <div class="g2">
+    <div class="card">
+      <div class="sec">Weekly Spend Pattern</div>
+      <div class="wbs" id="wbs"></div>
+      <div style="margin-top:8px;font-size:11px;color:#888">W5 = 30 Jun only. W4 (23–29 Jun) peaked at £15,295 — possible period-end ordering.</div>
+    </div>
+    <div class="card">
+      <div class="sec">Spend by Category</div>
+      <ul class="catl" id="catl"></ul>
+    </div>
+  </div>
+  <div class="card">
+    <div class="sec">Site Spend — Stacked by Category <span>sorted by total</span></div>
+    <div class="leg">
+      <div class="leg-i"><div class="leg-d" style="background:#185FA5"></div>Beverage</div>
+      <div class="leg-i"><div class="leg-d" style="background:#3B6D11"></div>Disposables</div>
+      <div class="leg-i"><div class="leg-d" style="background:#854F0B"></div>Staff</div>
+      <div class="leg-i"><div class="leg-d" style="background:#A32D2D"></div>Chemicals</div>
+      <div class="leg-i"><div class="leg-d" style="background:#aaa"></div>Other</div>
+    </div>
+    <div id="stacked"></div>
+  </div>
+</div>
+
+<!-- SITES -->
+<div id="pane-sites" class="pane">
+  <div class="ts">
+    <table>
+      <thead><tr>
+        <th>Site</th>
+        <th class="r">June Total</th>
+        <th class="r">vs Avg</th>
+        <th class="r">Inv</th>
+        <th class="r">Beverage</th>
+        <th class="r">Disposables</th>
+        <th class="r">Staff</th>
+        <th class="r">Chemicals</th>
+      </tr></thead>
+      <tbody id="sites-tbody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- SKUs -->
+<div id="pane-skus" class="pane">
+  <div class="dq">124 unique SKUs across 170 invoices. Note some duplicate descriptions exist (e.g. "Simply Sicilian Lemon Syrup" appears with *, ** prefixes on some invoices — flagged below). These may represent manual line item entries by Select Catering rather than system-generated SKU codes.</div>
+  <div class="fb">
+    <span class="fl">Filter:</span>
+    <input type="text" id="sku-q" placeholder="Search SKU name…" oninput="fSkus()">
+    <select id="sku-cat" onchange="fSkus()">
+      <option value="">All categories</option>
+      <option>Beverage &amp; Syrups</option>
+      <option>Disposables &amp; Cups</option>
+      <option>Staff Costs</option>
+      <option>Chemicals &amp; Hygiene</option>
+      <option>Other</option>
+    </select>
+    <span class="fl" id="sku-count"></span>
+  </div>
+  <div class="ts">
+    <table>
+      <thead><tr>
+        <th>#</th><th>SKU Description</th><th>Category</th>
+        <th class="r">Qty</th><th class="r">Unit £</th><th class="r">Total £</th><th class="r">Sites</th><th>Note</th>
+      </tr></thead>
+      <tbody id="sku-tbody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- OUTLIERS -->
+<div id="pane-out" class="pane">
+  <div class="dq">30 instances where a site ordered ≥2.5× the network average quantity for a given SKU. <strong>Moulton Park Drive Thru appears in 23 of 30.</strong> Given it's the busiest site by order volume this is partly expected — but the breadth across syrups, cups, lids AND coffee beans simultaneously warrants a par level review. Rushden Lakes appears in 7 instances, mostly cold drink syrups and straws, consistent with its strong cold drinks/smoothie sales mix.</div>
+  <div class="og" id="og"></div>
+</div>
+
+<!-- PROBE -->
+<div id="pane-probe" class="pane">
+  <div class="dq"><strong>Supplier probes to drive our margin.</strong> Every point below is aimed at improving Bewiched GP — pushing Select Catering's cost down, closing price gaps, renegotiating or removing expensive lines, and tightening ordering to cut waste. Biggest-spend lines carry the biggest £ impact from any cost move. All figures are our itemised spend, not sell price.</div>
+  <div class="sec" style="margin:16px 0 8px">Cost-down & price gaps — direct GP levers</div>
+  <div class="probes">
+    <div class="pc"><div class="pct">Benchmark the espresso blend</div><div class="pca">Biggest £ lever: at 38% of spend, a 5% cost-down here is worth ~£1,200/month to GP. Benchmark against market and push the unit price down.</div><div class="pce"><span class="pill p-red">38% of spend · biggest lever</span> Bewiched Espresso Blend 8×1kg — £23,952 · qty 233 · £102.80/case (≈£12.85/kg).</div></div>
+    <div class="pc"><div class="pct">Challenge SHOTT vs Simply syrup pricing</div><div class="pca">Close the gap: switch to Simply where flavour allows, or force SHOTT down to match — 25–30% off the syrup range drops straight to GP.</div><div class="pce"><span class="pill p-amb">~25–30% gap</span> SHOTT 1L syrups £7.59/L vs Simply 1L £5.18–5.70/L.</div></div>
+    <div class="pc"><div class="pct">Verify the RPET tumbler price inversion</div><div class="pca">Recover overpayment: confirm case pack quantities and claw back the mispricing — smaller cup shouldn't cost more.</div><div class="pce"><span class="pill p-amb">inversion</span> 12oz RPET £65.03/case sits <em>above</em> 16oz £50.26 and 20oz £41.75.</div></div>
+    <div class="pc"><div class="pct">Review the paper cup range</div><div class="pca">Volume leverage: high-usage disposables — demand a price review or volume rebate to lower unit cost.</div><div class="pce">16oz Double Wall £65.85/case · 12oz £66.81/case.</div></div>
+    <div class="pc"><div class="pct">Spot-check Matcha & Hot Chocolate</div><div class="pca">Test the premium: market-check both; if cheaper equivalents exist, switch or renegotiate to lift GP.</div><div class="pce">Matcha Barista £23.50/200g (≈£117/kg) · Hot Chocolate Cadbury 2kg £17.14.</div></div>
+  </div>
+  <div class="sec" style="margin:20px 0 8px">Range & ordering discipline — protect margin, cut waste</div>
+  <div class="probes">
+    <div class="pc hy"><div class="pct">Consolidate duplicate SKU codes</div><div class="pca">Clean spend visibility so cost-downs are measurable and no line hides an inflated price.</div><div class="pce">'Simply Sicilian Lemon Syrup 1ltr' appears 4× (*, **, *** prefixes); 'Matcha Barista' 3×; plus '16oz RPET Tumblers', 'No.5 Kraft Boxes', '10×10 Kraft Bag'.</div></div>
+    <div class="pc hy"><div class="pct">Recode tumblers booked under Staff Costs</div><div class="pca">Correct the coding so true category costs (and margin) are visible for negotiation.</div><div class="pce">16/20/12oz RPET Clear Tumblers are currently coded to Staff Costs (acct 7750) — they're disposables.</div></div>
+    <div class="pc hy"><div class="pct">Clarify uncoded catch-all lines</div><div class="pca">Kill or code the mystery lines — untracked spend can't be margin-managed.</div><div class="pce">'Select Catering Purchases' (#1/#2) · 'Food etc' £102.80 · 'Shipping' £37.75 · 'Adjustment Line'.</div></div>
+    <div class="pc hy"><div class="pct">Agree par levels at the heavy sites</div><div class="pca">Cut waste = protect GP: agree par levels so over-ordering stops inflating cost of sales.</div><div class="pce">Moulton Park is in 23 of 30 over-ordering outliers (syrups, cups, lids AND beans); Rushden Lakes 7 (cold-drink syrups/straws).</div></div>
+  </div>
+</div>
+
+</div><!-- /main -->
+<footer>Bewiched Limited · Select Catering invoices · Xero API · Pulled 8 Jul 2026 · 170 ACCPAY bills 1–30 Jun 2026 · 21 site contacts · Correct site names applied: Xero "Drive Thru BCS3063" = Moulton Park Drive Thru · "Billing Aquadrome BEW023" = Billing Drive Thru</footer>
+
+<script>
+const D={sites:[{"site":"Moulton Park Drive Thru","total":10162.76,"invoices":13,"vs_avg_pct":189.4,"may_sc_4wk":10758.52,"mom_pct":-5.5,"cats":{"Disposables & Cups":2042.68,"Chemicals & Hygiene":252.43,"Staff Costs":1072.43,"Beverage & Syrups":6911.9},"weeks":{"W1":2027.65,"W2":2361.32,"W3":2362.27,"W4":2138.75,"W5":1389.42}},{"site":"Rushden Lakes","total":6504.95,"invoices":10,"vs_avg_pct":85.3,"may_sc_4wk":7699.6,"mom_pct":-15.5,"cats":{"Staff Costs":810.12,"Disposables & Cups":798.47,"Beverage & Syrups":4760.53,"Chemicals & Hygiene":139.73},"weeks":{"W1":1692.13,"W2":1302.33,"W3":1099.79,"W4":1958.14,"W5":456.46}},{"site":"Billing Drive Thru","total":4684.05,"invoices":12,"vs_avg_pct":33.4,"may_sc_4wk":5324.16,"mom_pct":-12.0,"cats":{"Beverage & Syrups":3076.31,"Chemicals & Hygiene":137.53,"Disposables & Cups":1003.35,"Staff Costs":543.48,"Other Costs":23.94},"weeks":{"W1":902.04,"W2":969.15,"W3":921.1,"W4":1447.48,"W5":544.82}},{"site":"Kettering","total":3733.02,"invoices":5,"vs_avg_pct":6.3,"may_sc_4wk":2375.52,"mom_pct":57.1,"cats":{"Disposables & Cups":629.65,"Staff Costs":341.06,"Beverage & Syrups":2670.6,"Chemicals & Hygiene":91.73},"weeks":{"W1":766.27,"W2":639.63,"W3":925.02,"W4":644.31,"W5":757.79}},{"site":"Market Harborough","total":3500.17,"invoices":20,"vs_avg_pct":-0.3,"may_sc_4wk":5657.24,"mom_pct":-38.1,"cats":{"Disposables & Cups":734.51,"Chemicals & Hygiene":113.9,"Beverage & Syrups":2455.45,"Staff Costs":262.46},"weeks":{"W1":427.17,"W2":657.67,"W3":804.0,"W4":1314.9,"W5":362.53}},{"site":"Corby","total":3402.46,"invoices":5,"vs_avg_pct":-3.1,"may_sc_4wk":3067.88,"mom_pct":10.9,"cats":{"Disposables & Cups":364.7,"Staff Costs":414.6,"Beverage & Syrups":2469.38,"Chemicals & Hygiene":153.78},"weeks":{"W1":933.44,"W2":550.37,"W3":803.97,"W4":747.9,"W5":366.78}},{"site":"Northampton Grosvenor","total":3390.6,"invoices":9,"vs_avg_pct":-3.4,"may_sc_4wk":3072.04,"mom_pct":10.4,"cats":{"Chemicals & Hygiene":188.78,"Beverage & Syrups":2416.9,"Disposables & Cups":441.25,"Staff Costs":397.98},"weeks":{"W1":900.82,"W2":592.17,"W3":835.8,"W4":515.21,"W5":600.86}},{"site":"Peterborough Fletton Quays","total":3382.99,"invoices":6,"vs_avg_pct":-3.6,"may_sc_4wk":2526.24,"mom_pct":33.9,"cats":{"Disposables & Cups":744.65,"Beverage & Syrups":2285.07,"Chemicals & Hygiene":62.83,"Staff Costs":366.12},"weeks":{"W1":537.98,"W2":713.03,"W3":616.74,"W4":773.93,"W5":816.95}},{"site":"Leamington Parade","total":3177.55,"invoices":11,"vs_avg_pct":-9.5,"may_sc_4wk":2672.52,"mom_pct":18.9,"cats":{"Staff Costs":133.76,"Disposables & Cups":519.16,"Beverage & Syrups":2318.39,"Chemicals & Hygiene":208.78},"weeks":{"W1":428.26,"W2":926.26,"W3":605.34,"W4":835.68,"W5":384.51}},{"site":"Rugby","total":3035.39,"invoices":10,"vs_avg_pct":-13.5,"may_sc_4wk":3233.88,"mom_pct":-6.1,"cats":{"Disposables & Cups":275.4,"Beverage & Syrups":2373.86,"Chemicals & Hygiene":89.51,"Staff Costs":299.31},"weeks":{"W1":538.86,"W2":732.58,"W3":547.61,"W4":869.07,"W5":349.86}},{"site":"Wellingborough Market Street","total":3005.28,"invoices":9,"vs_avg_pct":-14.4,"may_sc_4wk":3276.32,"mom_pct":-8.3,"cats":{"Chemicals & Hygiene":142.53,"Beverage & Syrups":2179.02,"Disposables & Cups":469.2,"Staff Costs":231.67},"weeks":{"W1":694.1,"W2":584.72,"W3":838.0,"W4":644.58,"W5":260.97}},{"site":"Olney","total":2912.91,"invoices":6,"vs_avg_pct":-17.0,"may_sc_4wk":2510.24,"mom_pct":16.0,"cats":{"Beverage & Syrups":2154.19,"Chemicals & Hygiene":110.76,"Staff Costs":198.79,"Disposables & Cups":449.21},"weeks":{"W1":377.81,"W2":448.45,"W3":762.03,"W4":828.61,"W5":496.01}},{"site":"Rothwell","total":2686.84,"invoices":5,"vs_avg_pct":-23.5,"may_sc_4wk":1955.08,"mom_pct":37.4,"cats":{"Staff Costs":207.3,"Disposables & Cups":530.59,"Chemicals & Hygiene":140.51,"Beverage & Syrups":1808.47},"weeks":{"W1":552.25,"W2":474.15,"W3":513.12,"W4":704.46,"W5":442.86}},{"site":"Burton Latimer","total":2138.68,"invoices":5,"vs_avg_pct":-39.1,"may_sc_4wk":1582.52,"mom_pct":35.1,"cats":{"Disposables & Cups":308.63,"Beverage & Syrups":1621.76,"Chemicals & Hygiene":42.78,"Staff Costs":165.55},"weeks":{"W1":444.9,"W2":419.77,"W3":307.35,"W4":500.11,"W5":466.55}},{"site":"Higham Ferrers","total":2009.24,"invoices":21,"vs_avg_pct":-42.8,"may_sc_4wk":2797.04,"mom_pct":-28.2,"cats":{"Staff Costs":207.3,"Chemicals & Hygiene":92.33,"Beverage & Syrups":1420.96,"Disposables & Cups":288.88,"Other Costs":7.9},"weeks":{"W1":699.69,"W2":300.26,"W3":371.86,"W4":461.7,"W5":183.81}},{"site":"Lower Heathcote","total":1912.52,"invoices":10,"vs_avg_pct":-45.5,"may_sc_4wk":1588.48,"mom_pct":20.4,"cats":{"Disposables & Cups":370.25,"Beverage & Syrups":1315.65,"Chemicals & Hygiene":91.59,"Staff Costs":142.27},"weeks":{"W1":517.26,"W2":403.27,"W3":333.48,"W4":461.88,"W5":203.86}},{"site":"Wellingborough Train Station","total":1845.85,"invoices":7,"vs_avg_pct":-47.4,"may_sc_4wk":1978.96,"mom_pct":-6.7,"cats":{"Beverage & Syrups":1084.07,"Disposables & Cups":702.27,"Chemicals & Hygiene":59.52},"weeks":{"W1":527.4,"W2":555.13,"W3":579.52,"W5":183.8}},{"site":"Peterborough Bridge Street","total":1714.93,"invoices":5,"vs_avg_pct":-51.2,"may_sc_4wk":1875.64,"mom_pct":-8.6,"cats":{"Disposables & Cups":161.9,"Beverage & Syrups":1252.46,"Chemicals & Hygiene":101.81,"Staff Costs":198.79},"weeks":{"W1":206.31,"W2":405.83,"W3":355.93,"W4":448.53,"W5":298.33}}],skus:[{"desc":"Bewiched Coffee Espresso Blend 8x1kg","qty":233,"spend":23952.4,"unit":102.8,"sites_n":18,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"16oz RPET Clear Tumblers Bewiched -","qty":51,"spend":2583.36,"unit":50.26,"sites_n":17,"cat":"Staff Costs","acct":"7750"},{"desc":"16oz Cup Paper Double Wall Diamond","qty":30,"spend":2015.01,"unit":65.85,"sites_n":16,"cat":"Disposables & Cups","acct":"5005"},{"desc":"Shott Cold Pulp Syrup Strawberry Qty1ltr","qty":179,"spend":1761.0,"unit":9.74,"sites_n":18,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"Hot Chocolate Cadbury 2kg","qty":100,"spend":1714.0,"unit":17.14,"sites_n":18,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"12oz Cup Paper Double Wall Diamond","qty":25,"spend":1710.33,"unit":66.81,"sites_n":14,"cat":"Disposables & Cups","acct":"5005"},{"desc":"SHOTT Syrup Vanilla Qty1Ltr","qty":224,"spend":1700.16,"unit":7.59,"sites_n":18,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"20oz RPET Clear Tumblers Bewiched -","qty":40,"spend":1695.05,"unit":41.75,"sites_n":16,"cat":"Staff Costs","acct":"7750"},{"desc":"12oz RPET Clear Tumblers Bewiched -","qty":21,"spend":1391.65,"unit":65.03,"sites_n":15,"cat":"Staff Costs","acct":"7750"},{"desc":"Matcha Barista Grade 1x200g","qty":56,"spend":1316.0,"unit":23.5,"sites_n":18,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"SHOTT Syrup Salted Caramel Qty1Ltr","qty":162,"spend":1229.58,"unit":7.59,"sites_n":18,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"Bewiched Decaff Esp Grind 500g","qty":145,"spend":1112.15,"unit":7.67,"sites_n":14,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"SHOTT Syrup Caramel Qty 1Ltr","qty":145,"spend":1100.55,"unit":7.59,"sites_n":18,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"12-20oz Clear Sip Lid 98mm RPET Qty","qty":28,"spend":1026.16,"unit":42.76,"sites_n":16,"cat":"Disposables & Cups","acct":"5005"},{"desc":"12-20oz Domed Lid with Hole 98mm Qty1000","qty":30,"spend":986.4,"unit":31.82,"sites_n":17,"cat":"Disposables & Cups","acct":"5005"},{"desc":"Lid PS Sip White 12-20oz 90mm Qty1000","qty":30,"spend":960.02,"unit":31.17,"sites_n":15,"cat":"Disposables & Cups","acct":"5005"},{"desc":"Bewiched Decaff Espresso Beans 8x1kg","qty":8,"spend":941.44,"unit":117.68,"sites_n":5,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"Shott Cold Light Syrup Passionfruit Qty1ltr","qty":94,"spend":929.2,"unit":9.74,"sites_n":18,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"Mallows White Mini 1Kg","qty":105,"spend":897.2,"unit":8.48,"sites_n":18,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"Shott Cold Light Syrup Lemon 1ltr","qty":89,"spend":888.31,"unit":9.74,"sites_n":17,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"Shott Dark Chocolate Syrup 1litre","qty":90,"spend":876.6,"unit":9.74,"sites_n":18,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"No.5 Kraft Leak Proof Boxes Qty150","qty":31,"spend":796.9,"unit":25.06,"sites_n":13,"cat":"Disposables & Cups","acct":"5005"},{"desc":"Shott Cold Pulp Syrup Mango Qty1ltr","qty":79,"spend":773.36,"unit":9.74,"sites_n":17,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"Shott Cold Pulp Syrup Banana Qty1ltr","qty":77,"spend":759.73,"unit":9.74,"sites_n":18,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"8oz Cup Paper Single Wall 80mm Bewiched","qty":13,"spend":710.84,"unit":54.68,"sites_n":12,"cat":"Disposables & Cups","acct":"5005"},{"desc":"SHOTT Spiced Biscuit (Speculoos) 1ltr","qty":59,"spend":704.46,"unit":11.94,"sites_n":15,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"Straws Paper 200x8mm Smoothie Red","qty":235,"spend":596.53,"unit":2.2,"sites_n":18,"cat":"Disposables & Cups","acct":"5005"},{"desc":"Napkin 1ply 32x30cm White for Dispenser","qty":21,"spend":578.34,"unit":27.28,"sites_n":12,"cat":"Disposables & Cups","acct":"5005"},{"desc":"Roll Toilet Tork T6 Advanced Mid-size","qty":10,"spend":492.0,"unit":49.2,"sites_n":8,"cat":"Chemicals & Hygiene","acct":"5007"},{"desc":"SHOTT Syrup Hazelnut Qty1Ltr","qty":62,"spend":470.58,"unit":7.59,"sites_n":18,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"4oz Cup Paper Single Wall White Qty1000","qty":17,"spend":402.7,"unit":22.88,"sites_n":14,"cat":"Disposables & Cups","acct":"5005"},{"desc":"Shott Syrup Honeycombe Qty1ltr","qty":44,"spend":333.96,"unit":7.59,"sites_n":17,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"Tork T9 SmartOne Mini 2ply Refill 12 x","qty":7,"spend":323.4,"unit":46.2,"sites_n":4,"cat":"Disposables & Cups","acct":"5005"},{"desc":"SHOTT Toffee Syrup 1L","qty":42,"spend":318.78,"unit":7.59,"sites_n":17,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"SHOTT Syrup Chai Vanilla Notes Qty1Ltr","qty":41,"spend":311.19,"unit":7.59,"sites_n":18,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"Shott Elderflower Syrup 1ltr","qty":31,"spend":301.94,"unit":9.74,"sites_n":16,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"Simply Syrup Speculoos 1L","qty":49,"spend":278.26,"unit":5.7,"sites_n":15,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"Evans Dishwash Multi 2x5L","qty":23,"spend":277.24,"unit":11.95,"sites_n":15,"cat":"Chemicals & Hygiene","acct":"5007"},{"desc":"Soap Liquid Hand Washing Mild Tork S1","qty":6,"spend":245.7,"unit":40.95,"sites_n":6,"cat":"Chemicals & Hygiene","acct":"5007"},{"desc":"SHOTT Salted Pistachio Syrup 1L","qty":30,"spend":227.7,"unit":7.59,"sites_n":15,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"Lid PS Sip White 8-9oz 80mm Qty1000","qty":7,"spend":206.99,"unit":29.57,"sites_n":7,"cat":"Disposables & Cups","acct":"5005"},{"desc":"Lago Poker Vaniglia Vanilla Creme 45gx80","qty":5,"spend":200.55,"unit":40.11,"sites_n":5,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"Lago Poker Cacao Cocoa Creme 45g x","qty":5,"spend":200.55,"unit":40.11,"sites_n":5,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"Bag Carrier Kraft 125x90x245mm 60gsm","qty":11,"spend":193.49,"unit":17.59,"sites_n":7,"cat":"Disposables & Cups","acct":"5005"},{"desc":"Select Catering Purchases #1","qty":9,"spend":161.03,"unit":117.07,"sites_n":2,"cat":"Staff Costs","acct":"7750"},{"desc":"Bag Carrier Kraft 250x140x400mm Bewiched","qty":5,"spend":149.75,"unit":29.95,"sites_n":5,"cat":"Disposables & Cups","acct":"5005"},{"desc":"Cleaner Powder Espresso Cafiza 2 Granular","qty":19,"spend":115.39,"unit":6.01,"sites_n":14,"cat":"Chemicals & Hygiene","acct":"5007"},{"desc":"Select Catering Purchases #2","qty":7,"spend":107.7,"unit":4.12,"sites_n":1,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"Food etc","qty":1,"spend":102.8,"unit":102.8,"sites_n":1,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"Salt of the Earth Granual 25kg","qty":6,"spend":97.32,"unit":16.22,"sites_n":6,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"Large Vinyl P/F Blue Gloves Qty100","qty":33,"spend":93.28,"unit":2.76,"sites_n":11,"cat":"Chemicals & Hygiene","acct":"5007"},{"desc":"12-20oz Flat Straw Slot Lid 98mm Brim","qty":2,"spend":91.68,"unit":45.84,"sites_n":2,"cat":"Disposables & Cups","acct":"5005"},{"desc":"2 Cup Carrier Moulded Pulp 2 Qty360 (GO)","qty":5,"spend":88.35,"unit":16.99,"sites_n":5,"cat":"Disposables & Cups","acct":"5005"},{"desc":"Sanitiser and milk stone remover Qty1","qty":29,"spend":84.36,"unit":2.85,"sites_n":7,"cat":"Chemicals & Hygiene","acct":"5007"},{"desc":"Simply Syrup Sugar Free Caramel 1L","qty":16,"spend":82.88,"unit":5.18,"sites_n":11,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"Sleeve Cup 12-16oz Qty1000","qty":3,"spend":81.9,"unit":27.3,"sites_n":3,"cat":"Disposables & Cups","acct":"5005"},{"desc":"Lago Poker Nocciola Hazelnut Creme 45gx80","qty":2,"spend":80.22,"unit":40.11,"sites_n":2,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"Clear Cleaner Window, Glass & S/Steel","qty":7,"spend":80.14,"unit":11.13,"sites_n":7,"cat":"Chemicals & Hygiene","acct":"5007"},{"desc":"Simply Sicilian Lemon Syrup 1ltr","qty":14,"spend":79.8,"unit":5.7,"sites_n":8,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"Simply Syrup Sugar Free Vanilla 1L","qty":15,"spend":77.7,"unit":5.18,"sites_n":10,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"Cleaner Toilet E-Phos Thickened Qty6x1L","qty":7,"spend":76.68,"unit":10.65,"sites_n":7,"cat":"Chemicals & Hygiene","acct":"5007"},{"desc":"4 Cup Carrier Moulded Pulp Qty180 (GO)","qty":4,"spend":71.36,"unit":16.99,"sites_n":3,"cat":"Disposables & Cups","acct":"5005"},{"desc":"SHOTT Syrup Gingerbread Qty1Ltr","qty":9,"spend":68.31,"unit":7.59,"sites_n":6,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"Yellow J-Cloth 50x36cm Qty50","qty":27,"spend":67.62,"unit":2.45,"sites_n":12,"cat":"Chemicals & Hygiene","acct":"5007"},{"desc":"16oz RPET Clear Tumblers Bewiched - Qty #1","qty":1,"spend":60.31,"unit":60.31,"sites_n":1,"cat":"Staff Costs","acct":"7750"},{"desc":"Simply Topping Sauce Speculoos 1kg","qty":6,"spend":58.02,"unit":9.67,"sites_n":3,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"Blue J-Cloth 50x36cm Qty50","qty":23,"spend":57.82,"unit":2.45,"sites_n":11,"cat":"Chemicals & Hygiene","acct":"5007"},{"desc":"Simply Syrup Sugar Free Hazelnut 1L","qty":11,"spend":56.98,"unit":5.18,"sites_n":9,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"Refuse Sack Green Compostable 70ltr","qty":11,"spend":54.89,"unit":4.99,"sites_n":1,"cat":"Chemicals & Hygiene","acct":"5007"},{"desc":"Refuse Sack Black Compactor H/D 20x34x46\"","qty":2,"spend":48.26,"unit":24.13,"sites_n":2,"cat":"Chemicals & Hygiene","acct":"5007"},{"desc":"No.5 Kraft Leak Proof Boxes Qty150 #1","qty":1,"spend":45.61,"unit":45.61,"sites_n":1,"cat":"Disposables & Cups","acct":"5005"},{"desc":"Green J-Cloth 50x36cm Qty50","qty":17,"spend":43.12,"unit":2.45,"sites_n":11,"cat":"Chemicals & Hygiene","acct":"5007"},{"desc":"Bewiched Espresso Retail Beans 1 Kg","qty":3,"spend":42.36,"unit":14.12,"sites_n":1,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"Lid PET Sip Clear 90mm Qty1000","qty":1,"spend":42.11,"unit":42.11,"sites_n":1,"cat":"Disposables & Cups","acct":"5005"},{"desc":"Shipping","qty":5,"spend":37.75,"unit":12.95,"sites_n":3,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"Bewiched Espresso Beans - White Pouch","qty":1,"spend":35.76,"unit":35.76,"sites_n":1,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"10x10\" Bag Paper Fruit Strung Kraft 250x250mm","qty":3,"spend":34.94,"unit":10.92,"sites_n":3,"cat":"Disposables & Cups","acct":"5005"},{"desc":"EC4 Sanitiser 4x1L","qty":1,"spend":33.26,"unit":33.26,"sites_n":1,"cat":"Chemicals & Hygiene","acct":"5007"},{"desc":"***Simply Sicilian Lemon Syrup 1ltr","qty":5,"spend":30.78,"unit":5.7,"sites_n":3,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"Shott 4 Bottle Perspex Counter Stand Qty1","qty":1,"spend":30.49,"unit":30.49,"sites_n":1,"cat":"Staff Costs","acct":"7750"},{"desc":"Chlorine Tablets Qty300 Tabs","qty":2,"spend":29.8,"unit":14.9,"sites_n":1,"cat":"Chemicals & Hygiene","acct":"5007"},{"desc":"Evans Lemon Floor Gel 2x5L","qty":2,"spend":27.88,"unit":13.94,"sites_n":2,"cat":"Chemicals & Hygiene","acct":"5007"},{"desc":"Cleaner Washroom Clean Fast RTU 6x750ml","qty":2,"spend":25.5,"unit":12.75,"sites_n":2,"cat":"Chemicals & Hygiene","acct":"5007"},{"desc":"Final Touch RTU Washroom Sanitiser","qty":2,"spend":25.5,"unit":12.75,"sites_n":2,"cat":"Chemicals & Hygiene","acct":"5007"},{"desc":"Red J-Cloth 50x36cm Qty50","qty":10,"spend":24.99,"unit":2.94,"sites_n":8,"cat":"Chemicals & Hygiene","acct":"5007"},{"desc":"Wooden Broom FSC Platform Stiff 24\" &","qty":1,"spend":23.94,"unit":23.94,"sites_n":1,"cat":"Other Costs","acct":"7801"},{"desc":"Evans Rinse Aid 2x5L","qty":2,"spend":23.62,"unit":11.81,"sites_n":2,"cat":"Chemicals & Hygiene","acct":"5007"},{"desc":"Matcha Barista Grade 1x200g #2","qty":1,"spend":23.5,"unit":23.5,"sites_n":1,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"Shott Cold Light Syrup Lemon 1ltr #1","qty":1,"spend":23.38,"unit":23.38,"sites_n":1,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"Bag Snappy Non Perforated 200x250 Qty2000","qty":1,"spend":21.94,"unit":21.94,"sites_n":1,"cat":"Disposables & Cups","acct":"5005"},{"desc":"7.5 Stirrers Wooden 180mm FSC 100%","qty":8,"spend":20.92,"unit":2.99,"sites_n":6,"cat":"Disposables & Cups","acct":"5005"},{"desc":"8.5x8.5\" Bag Paper Pinned Strung Kraft","qty":1,"spend":19.84,"unit":19.84,"sites_n":1,"cat":"Disposables & Cups","acct":"5005"},{"desc":"Simply Syrup Pump for 1L (Black)","qty":7,"spend":19.46,"unit":2.78,"sites_n":7,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"Simply Topping Sauce Caramel 1kg","qty":2,"spend":19.34,"unit":9.67,"sites_n":2,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"Centrefeed Dispenser White Halo with Ruby","qty":1,"spend":18.98,"unit":18.98,"sites_n":1,"cat":"Staff Costs","acct":"7750"},{"desc":"Cutlery Economy Table Knife S/S Qty12","qty":4,"spend":16.6,"unit":4.15,"sites_n":2,"cat":"Staff Costs","acct":"7750"},{"desc":"10x10\" Bag Paper Pinned Strung Kraft","qty":1,"spend":16.43,"unit":16.43,"sites_n":1,"cat":"Disposables & Cups","acct":"5005"},{"desc":"\"\"\" 10x10\" Bag Paper Pinned Strung Kraft","qty":1,"spend":16.43,"unit":16.43,"sites_n":1,"cat":"Disposables & Cups","acct":"5005"},{"desc":"Matcha Barista Grade 1x200g #1","qty":1,"spend":15.54,"unit":15.54,"sites_n":1,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"Taylor Regular Lube (Blue) Qty1","qty":1,"spend":15.34,"unit":15.34,"sites_n":1,"cat":"Chemicals & Hygiene","acct":"5007"},{"desc":"Select Catering Purchases","qty":1,"spend":15.3,"unit":15.3,"sites_n":1,"cat":"Chemicals & Hygiene","acct":"5007"},{"desc":"Cutlery Economy Teaspoon S/S Qty12","qty":9,"spend":13.16,"unit":1.4,"sites_n":5,"cat":"Disposables & Cups","acct":"5005"},{"desc":"**Simply Sicilian Lemon Syrup 1ltr","qty":2,"spend":11.4,"unit":5.7,"sites_n":1,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"*Simply Sicilian Lemon Syrup 1ltr","qty":2,"spend":11.4,"unit":5.7,"sites_n":1,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"Thick Bleach 2x5L","qty":1,"spend":10.95,"unit":10.95,"sites_n":1,"cat":"Chemicals & Hygiene","acct":"5007"},{"desc":"Shott Elderflower Syrup1ltr","qty":1,"spend":9.74,"unit":9.74,"sites_n":1,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"Shott Cold Light Syrup Watermelon Qty1ltr","qty":1,"spend":9.74,"unit":9.74,"sites_n":1,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"SHOTT Cold Light Syrup Triple Peach 1ltr","qty":1,"spend":9.74,"unit":9.74,"sites_n":1,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"SHOTT Syrup Wild Peppermint Qty1Ltr","qty":1,"spend":7.59,"unit":7.59,"sites_n":1,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"Shott Syrup Spiced Pumpkin, Qty 1Ltr","qty":1,"spend":7.59,"unit":7.59,"sites_n":1,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"SHOTT Flamed Orange Syrup 1L","qty":1,"spend":7.59,"unit":7.59,"sites_n":1,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"Caterwrap Clingfilm Cutter Box 45cmx300m","qty":1,"spend":6.15,"unit":6.15,"sites_n":1,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"Gloves Nitrile P/F Blue Bodyguards Lrg","qty":2,"spend":5.98,"unit":2.99,"sites_n":1,"cat":"Chemicals & Hygiene","acct":"5007"},{"desc":"EC4 E-Dose Sanitize 750ml Trigger Spray","qty":2,"spend":5.78,"unit":2.89,"sites_n":2,"cat":"Chemicals & Hygiene","acct":"5007"},{"desc":"Med Vinyl P/F Blue Gloves Qty100","qty":2,"spend":5.52,"unit":2.76,"sites_n":1,"cat":"Chemicals & Hygiene","acct":"5007"},{"desc":"Simply Syrup English Toffee 1L","qty":1,"spend":5.18,"unit":5.18,"sites_n":1,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"Simply Syrup Vanilla 1L","qty":1,"spend":5.18,"unit":5.18,"sites_n":1,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"Dispenser Pelican 30ml for 5L","qty":1,"spend":3.91,"unit":3.91,"sites_n":1,"cat":"Chemicals & Hygiene","acct":"5007"},{"desc":"5.5 Stirrers Wooden 140mm FSC 100%","qty":2,"spend":3.68,"unit":1.84,"sites_n":1,"cat":"Disposables & Cups","acct":"5005"},{"desc":"Cutlery Economy Table Fork S/S Qty12","qty":1,"spend":2.58,"unit":2.58,"sites_n":1,"cat":"Staff Costs","acct":"7750"},{"desc":"Shott Pump 10ml (for 1ltr bottle) Qty1","qty":1,"spend":2,"unit":2,"sites_n":1,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"2oz Glass Shot Lined to 1oz","qty":1,"spend":1.96,"unit":1.96,"sites_n":1,"cat":"Beverage & Syrups","acct":"5000S"},{"desc":"**5.5 Stirrers Wooden 140mm FSC 100%","qty":1,"spend":1.84,"unit":1.84,"sites_n":1,"cat":"Disposables & Cups","acct":"5005"},{"desc":"Adjustment Line","qty":75,"spend":-0.61,"unit":-0.01,"sites_n":18,"cat":"Adjustment","acct":"860"}],outliers:[{"sku":"SHOTT Spiced Biscuit (Speculoos) 1ltr","site":"Moulton Park Drive Thru","qty":21.0,"avg":3.9,"ratio":5.3,"spend":250.74},{"sku":"Mallows White Mini 1Kg","site":"Rushden Lakes","qty":27.0,"avg":5.8,"ratio":4.6,"spend":228.96},{"sku":"No.5 Kraft Leak Proof Boxes Qty150","site":"Moulton Park Drive Thru","qty":9.0,"avg":2.4,"ratio":3.8,"spend":225.54},{"sku":"16oz Cup Paper Double Wall Diamond","site":"Moulton Park Drive Thru","qty":7.0,"avg":1.9,"ratio":3.7,"spend":460.95},{"sku":"Shott Dark Chocolate Syrup 1litre","site":"Moulton Park Drive Thru","qty":18.0,"avg":5.0,"ratio":3.6,"spend":175.32},{"sku":"SHOTT Syrup Salted Caramel Qty1Ltr","site":"Moulton Park Drive Thru","qty":32.0,"avg":9.0,"ratio":3.6,"spend":242.88},{"sku":"Shott Cold Light Syrup Passionfruit Qty1ltr","site":"Rushden Lakes","qty":19.0,"avg":5.2,"ratio":3.6,"spend":185.06},{"sku":"SHOTT Syrup Caramel Qty 1Ltr","site":"Moulton Park Drive Thru","qty":28.0,"avg":8.1,"ratio":3.5,"spend":212.52},{"sku":"Lid PS Sip White 12-20oz 90mm Qty1000","site":"Moulton Park Drive Thru","qty":7.0,"avg":2.0,"ratio":3.5,"spend":218.19},{"sku":"12-20oz Clear Sip Lid 98mm RPET Qty","site":"Moulton Park Drive Thru","qty":6.0,"avg":1.8,"ratio":3.4,"spend":256.56},{"sku":"Shott Cold Light Syrup Lemon 1ltr","site":"Rushden Lakes","qty":18.0,"avg":5.2,"ratio":3.4,"spend":175.32},{"sku":"12-20oz Domed Lid with Hole 98mm Qty1000","site":"Moulton Park Drive Thru","qty":6.0,"avg":1.8,"ratio":3.4,"spend":190.92},{"sku":"SHOTT Syrup Vanilla Qty1Ltr","site":"Moulton Park Drive Thru","qty":40.0,"avg":12.4,"ratio":3.2,"spend":303.6},{"sku":"Shott Cold Pulp Syrup Strawberry Qty1ltr","site":"Moulton Park Drive Thru","qty":32.0,"avg":9.9,"ratio":3.2,"spend":311.68},{"sku":"SHOTT Syrup Hazelnut Qty1Ltr","site":"Moulton Park Drive Thru","qty":11.0,"avg":3.4,"ratio":3.2,"spend":83.49},{"sku":"Straws Paper 200x8mm Smoothie Red","site":"Rushden Lakes","qty":40.0,"avg":13.1,"ratio":3.1,"spend":88.0},{"sku":"Hot Chocolate Cadbury 2kg","site":"Moulton Park Drive Thru","qty":17.0,"avg":5.6,"ratio":3.1,"spend":291.38},{"sku":"16oz RPET Clear Tumblers Bewiched -","site":"Moulton Park Drive Thru","qty":9.0,"avg":3.0,"ratio":3.0,"spend":452.34},{"sku":"Matcha Barista Grade 1x200g","site":"Moulton Park Drive Thru","qty":9.0,"avg":3.1,"ratio":2.9,"spend":211.5},{"sku":"Shott Cold Pulp Syrup Banana Qty1ltr","site":"Moulton Park Drive Thru","qty":12.0,"avg":4.3,"ratio":2.8,"spend":116.88},{"sku":"Straws Paper 200x8mm Smoothie Red","site":"Moulton Park Drive Thru","qty":37.0,"avg":13.1,"ratio":2.8,"spend":81.4},{"sku":"20oz RPET Clear Tumblers Bewiched -","site":"Moulton Park Drive Thru","qty":7.0,"avg":2.5,"ratio":2.8,"spend":292.25},{"sku":"12-20oz Domed Lid with Hole 98mm Qty1000","site":"Rushden Lakes","qty":5.0,"avg":1.8,"ratio":2.8,"spend":159.1},{"sku":"Simply Syrup Speculoos 1L","site":"Rushden Lakes","qty":9.0,"avg":3.3,"ratio":2.8,"spend":51.3},{"sku":"Shott Cold Pulp Syrup Strawberry Qty1ltr","site":"Rushden Lakes","qty":27.0,"avg":9.9,"ratio":2.7,"spend":262.98},{"sku":"Sanitiser and milk stone remover Qty1","site":"Billing Drive Thru","qty":11.0,"avg":4.1,"ratio":2.7,"spend":31.35},{"sku":"Bewiched Coffee Espresso Blend 8x1kg","site":"Moulton Park Drive Thru","qty":35.0,"avg":12.9,"ratio":2.7,"spend":3598.0},{"sku":"Shott Syrup Honeycombe Qty1ltr","site":"Moulton Park Drive Thru","qty":7.0,"avg":2.6,"ratio":2.7,"spend":53.13},{"sku":"16oz RPET Clear Tumblers Bewiched -","site":"Rushden Lakes","qty":8.0,"avg":3.0,"ratio":2.7,"spend":402.08},{"sku":"Shott Cold Light Syrup Passionfruit Qty1ltr","site":"Moulton Park Drive Thru","qty":14.0,"avg":5.2,"ratio":2.7,"spend":136.36}],cats:{"Beverage & Syrups":44574.97,"Disposables & Cups":10834.75,"Staff Costs":5992.99,"Chemicals & Hygiene":2220.83,"Other Costs":31.84,"Adjustment":-0.61},weekly:{"W2":13036.09,"W1":13174.34,"W3":13582.93,"W4":15295.24,"W5":8566.17},total:63200.19};
+const CC={'Beverage & Syrups':'#185FA5','Disposables & Cups':'#3B6D11','Staff Costs':'#854F0B','Chemicals & Hygiene':'#A32D2D','Other Costs':'#9b6ba0','Other':'#9b6ba0','Adjustment':'#ccc'};
+const f=n=>'£'+n.toLocaleString('en-GB',{minimumFractionDigits:2,maximumFractionDigits:2});
+const fk=n=>'£'+Math.round(n).toLocaleString('en-GB');
+
+// Duplicate description detection
+const dupDescs=new Set();
+const descCounts={};
+D.skus.forEach(s=>{const base=s.desc.replace(/^[*]+/,'').replace(/#\d+$/,'').trim();descCounts[base]=(descCounts[base]||0)+1;});
+D.skus.forEach(s=>{const base=s.desc.replace(/^[*]+/,'').replace(/#\d+$/,'').trim();if(descCounts[base]>1||s.desc!==base)dupDescs.add(s.desc);});
+
+function showTab(id,btn){
+  document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
+  document.getElementById('pane-'+id).classList.add('on');
+  btn.classList.add('on');
+}
+
+function buildWeeks(){
+  const wks=['W1','W2','W3','W4','W5'];
+  const vals=wks.map(w=>D.weekly[w]||0);
+  const mx=Math.max(...vals);
+  document.getElementById('wbs').innerHTML=wks.map((w,i)=>{
+    const h=Math.round(vals[i]/mx*84);
+    return `<div class="wc"><div class="wv">${fk(vals[i])}</div><div class="wb" style="height:${h}px"></div><div class="wl">${w}</div></div>`;
+  }).join('');
+}
+
+function buildCats(){
+  const order=['Beverage & Syrups','Disposables & Cups','Staff Costs','Chemicals & Hygiene','Other Costs','Other'];
+  const total=Object.values(D.cats).reduce((a,b)=>a+(b>0?b:0),0);
+  document.getElementById('catl').innerHTML=order.filter(c=>D.cats[c]>0).map(c=>{
+    const v=D.cats[c]||0;
+    return `<li><span class="cd" style="background:${CC[c]||'#999'}"></span><span class="cn">${c}</span><span class="cv">${f(v)}</span><span class="cp">${(v/total*100).toFixed(1)}%</span></li>`;
+  }).join('');
+}
+
+function buildStacked(){
+  const mx=D.sites[0].total;
+  document.getElementById('stacked').innerHTML=D.sites.map(s=>{
+    const segs=Object.entries(s.cats).filter(([,v])=>v>0).map(([cat,v])=>
+      `<div class="ss" style="width:${v/mx*100}%;background:${CC[cat]||'#ddd'}" title="${cat}: ${f(v)}"></div>`
+    ).join('');
+    const pct=s.vs_avg_pct;
+    const badge=pct>50?`<span class="pill p-red">+${pct}%</span>`:pct<-40?`<span class="pill p-grn">${pct}%</span>`:`<span class="pill p-grey">${pct>0?'+':''}${pct}%</span>`;
+    return `<div class="sr"><div class="sl" title="${s.site}">${s.site}</div><div class="st">${segs}</div><div class="sv">${f(s.total)} ${badge}</div></div>`;
+  }).join('');
+}
+
+function buildSites(){
+  document.getElementById('sites-tbody').innerHTML=D.sites.map(s=>{
+    const vsCls=s.vs_avg_pct>50?'color:var(--red);font-weight:700':s.vs_avg_pct<-40?'color:var(--green)':'';
+    return `<tr>
+      <td><strong>${s.site}</strong></td>
+      <td class="r"><strong>${f(s.total)}</strong></td>
+      <td class="r" style="${vsCls}">${s.vs_avg_pct>0?'+':''}${s.vs_avg_pct}%</td>
+      <td class="r">${s.invoices}</td>
+      <td class="r">${f(s.cats['Beverage & Syrups']||0)}</td>
+      <td class="r">${f(s.cats['Disposables & Cups']||0)}</td>
+      <td class="r">${f(s.cats['Staff Costs']||0)}</td>
+      <td class="r">${f(s.cats['Chemicals & Hygiene']||0)}</td>
+    </tr>`;
+  }).join('');
+}
+
+let allSkus=[...D.skus];
+function fSkus(){
+  const q=document.getElementById('sku-q').value.toLowerCase();
+  const cat=document.getElementById('sku-cat').value;
+  const list=allSkus.filter(s=>(!q||s.desc.toLowerCase().includes(q))&&(!cat||s.cat===cat));
+  document.getElementById('sku-count').textContent=`${list.length} of ${allSkus.length} SKUs`;
+  document.getElementById('sku-tbody').innerHTML=list.map((s,i)=>{
+    const isDup=dupDescs.has(s.desc);
+    const note=isDup?`<span class="pill p-amb">⚠ Dup desc</span>`:'';
+    return `<tr${isDup?' style="background:#fffbf5"':''}>
+      <td style="color:#bbb;font-family:var(--mono)">${i+1}</td>
+      <td><strong>${s.desc}</strong></td>
+      <td><span style="font-size:10px;padding:2px 5px;border-radius:8px;background:${CC[s.cat]||'#ddd'}22;color:${CC[s.cat]||'#666'};font-weight:600">${s.cat}</span></td>
+      <td class="r">${s.qty}</td>
+      <td class="r">${f(s.unit)}</td>
+      <td class="r"><strong>${f(s.spend)}</strong></td>
+      <td class="r">${s.sites_n}/18</td>
+      <td>${note}</td>
+    </tr>`;
+  }).join('');
+}
+
+function buildOutliers(){
+  document.getElementById('og').innerHTML=D.outliers.map(o=>
+    `<div class="oc">
+      <div class="os">⬆ ${o.site}</div>
+      <div class="ok">${o.sku}</div>
+      <div class="od"><span class="pill p-red">${o.ratio}× avg</span><span>qty: <strong>${o.qty}</strong> vs avg ${o.avg}</span><span style="color:#555">${f(o.spend)}</span></div>
+    </div>`
+  ).join('');
+}
+
+buildWeeks();buildCats();buildStacked();buildSites();fSkus();buildOutliers();
+document.getElementById('sku-count').textContent=`${allSkus.length} of ${allSkus.length} SKUs`;
+</script>
+</body>
+</html>
