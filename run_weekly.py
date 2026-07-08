@@ -2118,6 +2118,9 @@ def build():
     # B9 store sales + E patcher (LAST)
     _run("build_newsite_sales.py")
     _run("patch_newsite.py")
+    # F — client-side password gate: stamp every served dashboard with its own
+    #     hash LAST, so it survives the rebuild and covers all regenerated pages.
+    _run("apply_gate.py")
     print("[build] full chain complete")
 
 

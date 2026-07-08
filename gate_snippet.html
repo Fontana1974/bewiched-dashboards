@@ -1,0 +1,29 @@
+<style>
+#bwgate{position:fixed;inset:0;z-index:2147483647;background:#0f1b2d;display:flex;align-items:center;justify-content:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+#bwgate_box{background:#fff;border-radius:14px;padding:30px 28px;width:300px;box-shadow:0 20px 60px rgba(0,0,0,.45);text-align:center}
+#bwgate_box h2{margin:0 0 4px;font-size:17px;color:#0f1b2d}
+#bwgate_box p{margin:0 0 16px;font-size:12px;color:#8a94a3}
+#bwgate_in{width:100%;box-sizing:border-box;padding:10px 12px;font-size:14px;border:1px solid #cfd6e0;border-radius:8px;margin-bottom:10px}
+#bwgate_go{width:100%;padding:10px;font-size:14px;font-weight:700;color:#fff;background:#185FA5;border:0;border-radius:8px;cursor:pointer}
+#bwgate_err{display:none;color:#c0392b;font-size:12px;margin-top:10px}
+@keyframes bwshake{10%,90%{transform:translateX(-2px)}20%,80%{transform:translateX(4px)}30%,50%,70%{transform:translateX(-8px)}40%,60%{transform:translateX(8px)}}
+</style>
+<div id="bwgate"><div id="bwgate_box">
+  <h2>Bewiched Dashboards</h2>
+  <p>Enter the password for this page</p>
+  <input id="bwgate_in" type="password" autocomplete="off" placeholder="Password">
+  <button id="bwgate_go">Unlock</button>
+  <div id="bwgate_err">Incorrect password</div>
+</div></div>
+<script>
+(function(){var H="__GATE_HASH__",K="bwgate:"+location.pathname,g=document.getElementById("bwgate");
+if(sessionStorage.getItem(K)==="1"){g.parentNode.removeChild(g);return;}
+var el=document.documentElement;el.style.overflow="hidden";
+async function sha(s){var b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));return Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,"0")}).join("");}
+async function go(){try{var h=await sha(document.getElementById("bwgate_in").value);}catch(e){alert("This gate needs to be opened over https.");return;}
+if(h===H){sessionStorage.setItem(K,"1");el.style.overflow="";g.parentNode.removeChild(g);}else{document.getElementById("bwgate_err").style.display="block";var b=document.getElementById("bwgate_box");b.style.animation="none";void b.offsetWidth;b.style.animation="bwshake .4s";}}
+document.getElementById("bwgate_go").onclick=go;
+document.getElementById("bwgate_in").addEventListener("keydown",function(e){if(e.key==="Enter")go();});
+document.getElementById("bwgate_in").focus();
+})();
+</script>

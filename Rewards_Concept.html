@@ -83,7 +83,36 @@
   @media(max-width:560px){.kpis,.mechs{grid-template-columns:1fr}.hero h1{font-size:46px}}
 </style>
 </head>
-<body>
+<body><!--BWGATE--><style>
+#bwgate{position:fixed;inset:0;z-index:2147483647;background:#0f1b2d;display:flex;align-items:center;justify-content:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+#bwgate_box{background:#fff;border-radius:14px;padding:30px 28px;width:300px;box-shadow:0 20px 60px rgba(0,0,0,.45);text-align:center}
+#bwgate_box h2{margin:0 0 4px;font-size:17px;color:#0f1b2d}
+#bwgate_box p{margin:0 0 16px;font-size:12px;color:#8a94a3}
+#bwgate_in{width:100%;box-sizing:border-box;padding:10px 12px;font-size:14px;border:1px solid #cfd6e0;border-radius:8px;margin-bottom:10px}
+#bwgate_go{width:100%;padding:10px;font-size:14px;font-weight:700;color:#fff;background:#185FA5;border:0;border-radius:8px;cursor:pointer}
+#bwgate_err{display:none;color:#c0392b;font-size:12px;margin-top:10px}
+@keyframes bwshake{10%,90%{transform:translateX(-2px)}20%,80%{transform:translateX(4px)}30%,50%,70%{transform:translateX(-8px)}40%,60%{transform:translateX(8px)}}
+</style>
+<div id="bwgate"><div id="bwgate_box">
+  <h2>Bewiched Dashboards</h2>
+  <p>Enter the password for this page</p>
+  <input id="bwgate_in" type="password" autocomplete="off" placeholder="Password">
+  <button id="bwgate_go">Unlock</button>
+  <div id="bwgate_err">Incorrect password</div>
+</div></div>
+<script>
+(function(){var H="5a11cf64c70b54ea5ba00b75eb79e9f3cbc7d08962efa966172e5eb69e59678e",K="bwgate:"+location.pathname,g=document.getElementById("bwgate");
+if(sessionStorage.getItem(K)==="1"){g.parentNode.removeChild(g);return;}
+var el=document.documentElement;el.style.overflow="hidden";
+async function sha(s){var b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));return Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,"0")}).join("");}
+async function go(){try{var h=await sha(document.getElementById("bwgate_in").value);}catch(e){alert("This gate needs to be opened over https.");return;}
+if(h===H){sessionStorage.setItem(K,"1");el.style.overflow="";g.parentNode.removeChild(g);}else{document.getElementById("bwgate_err").style.display="block";var b=document.getElementById("bwgate_box");b.style.animation="none";void b.offsetWidth;b.style.animation="bwshake .4s";}}
+document.getElementById("bwgate_go").onclick=go;
+document.getElementById("bwgate_in").addEventListener("keydown",function(e){if(e.key==="Enter")go();});
+document.getElementById("bwgate_in").focus();
+})();
+</script>
+
 <div class="brandbar"><div class="inner"><img class="logo" alt="Bewiched" src="https://raw.githubusercontent.com/Fontana1974/bewiched-dashboards/main/bewiched-logo.png" onerror="this.style.display='none';document.getElementById('wm').style.display='block';"><div id="wm" style="display:none;font-size:20px;font-weight:800;color:#fff">Bewiched</div><div class="eyebrow" style="margin-left:2px">Rewards Strategy</div><div class="spacer"></div><div class="ctx">Concept proposal · Draft<br>Not yet live · for board reaction</div></div></div>
 <div class="hero"><div class="stars-bg" id="starsBg"></div><div class="starwrap"><div class="glow"></div><svg width="148" height="148" viewBox="0 0 100 100" style="position:relative;display:block" aria-label="Bewiched star"><defs><linearGradient id="goldgrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6d68a"/><stop offset="0.5" stop-color="#e7b35a"/><stop offset="1" stop-color="#cf982f"/></linearGradient></defs><circle cx="50" cy="50" r="48" fill="#5C8EC7" opacity="0.18"/><circle cx="50" cy="50" r="39" fill="#16243F" stroke="#5C8EC7" stroke-width="1.4"/><path fill="url(#goldgrad)" stroke="#cf982f" stroke-width="0.5" transform="translate(50 49.5) scale(0.62) translate(-50 -50)" d="M50 10L59.4 37.1L88 37.6L65.2 54.9L73.5 82.4L50 66L26.5 82.4L34.8 54.9L12 37.6L40.6 37.1Z"/></svg></div><h1>STAR</h1><div class="tag">Bewiched Rewards</div><p class="pitch">A tiered rewards programme built to protect Bewiched's margin while making customers feel <b>more</b> rewarded, not less. Earn <b>Stars</b>, climb the metal tiers, and unlock rewards that cost us pennies but feel like pounds — instead of cash-off, which is the single most expensive thing we can give away.</p><span class="draftflag">★ Draft concept — for reaction, not sign-off</span></div>
 <div class="wrap">
