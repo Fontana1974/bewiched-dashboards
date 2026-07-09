@@ -33,6 +33,7 @@ GATE = {
     "Olney_Forecast.html": "73cf6ce5e618f175805a41e3f2151275fbcb696883da58e91d34eeb726756cb9",
     "index.html": "574fb459b05c8e53a242035f9c2cc6d057b05352cfe1bff5e43d86d6332ae7b6",
     "select-catering-june.html": "37ef84c9f609b9181e49579bbb3ae6a450b628c84cc839926e01c6af373a42e2",
+    "fresh-ideas-june.html":       "50ede448ac6d66a23669a4e5c735da2ddddca7b53a222f049f3d7025435e5c09",
     "simply-lunch.html":           "5a18ad835c7f678caf69dcd3185df200ac0e73acd651ec6c58c7bc47d891e4a0",
 }
 # Fallback for any served page not explicitly listed (e.g. a brand-new NSO forecast),

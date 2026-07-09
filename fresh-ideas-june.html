@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bewiched · Fresh Ideas — June 2026</title>
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;700&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#1a1a1a;--paper:#f5f3ee;--panel:#fff;--rule:#e0ddd6;--mono:'DM Mono',monospace;--sans:'DM Sans',sans-serif;}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);font-size:13px;line-height:1.5}
+.hdr{color:#fff;padding:20px 28px 16px;display:flex;justify-content:space-between;align-items:flex-end}
+.hdr h1{font-size:18px;font-weight:700}.hdr p{font-size:11px;opacity:.75;margin-top:2px;font-family:var(--mono)}
+.hdr-r{text-align:right;font-family:var(--mono);font-size:11px;opacity:.8}
+.hdr-r strong{display:block;font-size:20px;font-weight:500;opacity:1}
+.ribbon{padding:8px 28px;display:flex;gap:20px;flex-wrap:wrap}
+.rs{font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.7)}.rs strong{color:#fff;font-size:14px;display:block}
+.tabs{display:flex;background:#1a1a1a;padding:0 28px}
+.tab{padding:9px 16px;font-size:11.5px;font-weight:500;letter-spacing:.4px;background:transparent;border:none;color:rgba(255,255,255,.45);cursor:pointer;text-transform:uppercase;border-bottom:2px solid transparent;font-family:var(--sans);transition:.15s}
+.tab.on{color:#fff}.tab:hover{color:#fff}
+.main{padding:20px 28px}.pane{display:none}.pane.on{display:block}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:20px}
+.kpi{background:var(--panel);border:1px solid var(--rule);border-radius:5px;padding:12px 14px}
+.kpi .lbl{font-size:10px;text-transform:uppercase;letter-spacing:.6px;color:#777;font-family:var(--mono)}
+.kpi .val{font-size:18px;font-weight:700;margin-top:3px;font-family:var(--mono)}
+.kpi .sub{font-size:10px;color:#999;margin-top:2px}
+.sec{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:#555;border-bottom:1px solid var(--rule);padding-bottom:7px;margin-bottom:12px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px}
+.card{background:var(--panel);border:1px solid var(--rule);border-radius:5px;padding:14px}
+.wbs{display:flex;gap:5px;align-items:flex-end;height:80px;margin-top:6px}
+.wc{display:flex;flex-direction:column;align-items:center;flex:1;gap:3px}
+.wb{width:100%;border-radius:3px 3px 0 0;min-height:3px}
+.wl{font-family:var(--mono);font-size:9px;color:#888}.wv{font-family:var(--mono);font-size:8.5px}
+.br{display:flex;align-items:center;gap:7px;margin-bottom:4px}
+.bl{width:160px;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex-shrink:0}
+.bt{flex:1;background:#f0eee9;border-radius:2px;height:13px}.bf{height:100%;border-radius:2px}
+.bv{width:62px;font-family:var(--mono);font-size:10px;text-align:right;flex-shrink:0}
+.bpct{width:40px;font-family:var(--mono);font-size:10px;color:#aaa;text-align:right;flex-shrink:0}
+table{width:100%;border-collapse:collapse;font-size:11.5px}
+thead th{text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#777;padding:5px 7px;border-bottom:2px solid var(--rule);position:sticky;top:0;background:var(--panel)}
+th.r{text-align:right}tbody tr{border-bottom:1px solid var(--rule)}
+tbody td{padding:5px 7px;vertical-align:middle}td.r{text-align:right;font-family:var(--mono)}
+tbody tr:hover{background:var(--paper)}.ts{max-height:480px;overflow-y:auto;border:1px solid var(--rule);border-radius:5px}
+.pill{display:inline-block;font-family:var(--mono);font-size:9.5px;font-weight:700;padding:1px 6px;border-radius:9px}
+.p-hi{background:#fcebeb;color:#A32D2D}.p-ok{background:#eaf3de;color:#3B6D11}.p-mid{background:#faeeda;color:#854F0B}.p-blue{background:#e6f1fb;color:#185FA5}
+.notice{border-radius:5px;padding:10px 12px;font-size:11.5px;margin-bottom:14px;line-height:1.6}
+footer{padding:12px 28px;font-size:10px;color:#aaa;border-top:1px solid var(--rule);margin-top:8px}
+
+.hdr{background:#854F0B}
+.ribbon{background:#854F0Bcc}
+.tab.on{border-bottom-color:#fff9}
+</style></head><body><!--BWGATE--><style>
+#bwgate{position:fixed;inset:0;z-index:2147483647;background:#0f1b2d;display:flex;align-items:center;justify-content:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+#bwgate_box{background:#fff;border-radius:14px;padding:30px 28px;width:300px;box-shadow:0 20px 60px rgba(0,0,0,.45);text-align:center}
+#bwgate_box h2{margin:0 0 4px;font-size:17px;color:#0f1b2d}
+#bwgate_box p{margin:0 0 16px;font-size:12px;color:#8a94a3}
+#bwgate_in{width:100%;box-sizing:border-box;padding:10px 12px;font-size:14px;border:1px solid #cfd6e0;border-radius:8px;margin-bottom:10px}
+#bwgate_go{width:100%;padding:10px;font-size:14px;font-weight:700;color:#fff;background:#185FA5;border:0;border-radius:8px;cursor:pointer}
+#bwgate_err{display:none;color:#c0392b;font-size:12px;margin-top:10px}
+@keyframes bwshake{10%,90%{transform:translateX(-2px)}20%,80%{transform:translateX(4px)}30%,50%,70%{transform:translateX(-8px)}40%,60%{transform:translateX(8px)}}
+</style>
+<div id="bwgate"><div id="bwgate_box">
+  <h2>Bewiched Dashboards</h2>
+  <p>Enter the password for this page</p>
+  <input id="bwgate_in" type="password" autocomplete="off" placeholder="Password">
+  <button id="bwgate_go">Unlock</button>
+  <div id="bwgate_err">Incorrect password</div>
+</div></div>
+<script>
+(function(){var H="50ede448ac6d66a23669a4e5c735da2ddddca7b53a222f049f3d7025435e5c09",M="9412e51e5b03acf45e75361ad01c1e09e7ff8f5f6e8faec6f8c7b132de0518b8",K="bwgate:"+location.pathname,g=document.getElementById("bwgate");
+if(localStorage.getItem(K)==="1"){g.parentNode.removeChild(g);return;}
+var el=document.documentElement;el.style.overflow="hidden";
+async function sha(s){var b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));return Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,"0")}).join("");}
+async function go(){try{var h=await sha(document.getElementById("bwgate_in").value);}catch(e){alert("This gate needs to be opened over https.");return;}
+if(h===H||h===M){localStorage.setItem(K,"1");el.style.overflow="";g.parentNode.removeChild(g);}else{document.getElementById("bwgate_err").style.display="block";var b=document.getElementById("bwgate_box");b.style.animation="none";void b.offsetWidth;b.style.animation="bwshake .4s";}}
+document.getElementById("bwgate_go").onclick=go;
+document.getElementById("bwgate_in").addEventListener("keydown",function(e){if(e.key==="Enter")go();});
+document.getElementById("bwgate_in").focus();
+})();
+</script>
+
+<div class="hdr">
+  <div><h1>Bewiched Coffee · Fresh Ideas — June 2026</h1><p>Xero ACCPAY · 200 invoices · 18 sites · 172 SKUs · Bakery/Food/Sundries · 1–30 Jun 2026</p></div>
+  <div class="hdr-r"><strong>£54,883</strong>June total</div>
+</div>
+<div class="ribbon">
+  <div class="rs"><span>Invoices</span><strong>200</strong></div><div class="rs"><span>Sites</span><strong>18</strong></div><div class="rs"><span>SKUs</span><strong>172</strong></div><div class="rs"><span>Nature</span><strong>Bakery · food · ice cream · sundries</strong></div>
+</div>
+<div class="tabs">
+  <button class="tab on" onclick="showTab('ov',this)">Overview</button><button class="tab" onclick="showTab('rev',this)">Revenue Cross-Ref</button><button class="tab" onclick="showTab('skus',this)">All 172 SKUs</button><button class="tab" onclick="showTab('sales',this)">🥐 Bakery Sales</button>
+</div>
+<div class="main">
+
+<div id="pane-ov" class="pane on">
+  <div class="g2">
+    <div class="card"><div class="sec">Weekly Spend</div><div class="wbs" id="fi-weeks"></div></div>
+    <div class="card"><div class="sec">Top 10 SKUs by Spend</div><div id="fi-top10" style="margin-top:4px"></div></div>
+  </div>
+  <div class="card" style="margin-bottom:20px">
+    <div class="sec">Spend by Site</div><div id="fi-bars"></div>
+  </div>
+</div>
+<div id="pane-rev" class="pane">
+  <div class="notice" style="background:#fef3e2;border:1px solid #854F0B;color:#5a3200">
+    Fresh Ideas is a bakery, food sundries and ice cream supplier. Invoices vary in frequency per site (Corby has significantly more than others). Sites coding &gt;6% of revenue against Fresh Ideas are likely either selling high volumes of food-to-go, stocking ice cream for the summer, or have ordering that needs review. Note "Fresh Ideas Purchases #1/#2/#3" are bulk-coded lines — not individual SKUs — and account for £20k of the £55k total.
+  </div>
+  <div class="ts"><table>
+    <thead><tr><th>Site</th><th class="r">May Revenue</th><th class="r">June FI Spend</th><th class="r">FI% Rev</th><th class="r">vs Avg</th></tr></thead>
+    <tbody id="fi-rev"></tbody>
+  </table></div>
+</div>
+<div id="pane-skus" class="pane">
+  <div class="notice" style="background:#f0f4ff;border:1px solid #185FA5;color:#0e3570">
+    172 unique SKUs. Items marked ⚠ have duplicate or bulk-coded descriptions ("Purchases #1", "#2" etc.) — these are lump-sum invoice lines rather than itemised SKUs, and together represent ~£25k (45%) of total Fresh Ideas spend. This limits SKU-level analysis and is worth raising with Fresh Ideas to request line-item invoicing.
+  </div>
+  <div style="margin-bottom:10px"><input type="text" id="fi-q" placeholder="Search SKU…" oninput="fSku()" style="width:280px;border:1px solid var(--rule);border-radius:4px;padding:5px 9px;font-size:12px;font-family:var(--sans)">
+  <span id="fi-count" style="font-size:11px;color:#aaa;margin-left:10px"></span></div>
+  <div class="ts"><table>
+    <thead><tr><th>#</th><th>SKU</th><th class="r">Total</th><th class="r">Qty</th><th class="r">Unit £</th><th class="r">Sites</th></tr></thead>
+    <tbody id="fi-sku-tbl"></tbody>
+  </table></div>
+</div>
+
+<div id="pane-sales" class="pane">
+  <div class="notice" style="background:#eef7ee;border:1px solid #3B6D11;color:#274d0b">
+    <strong>Bakery EPOS sales</strong> for the traybake, cake &amp; pastry range — the sell side against the Fresh Ideas bakery spend on the other tabs. Network-wide, trailing 4 weeks (BigQuery <code>v_sales_details_flat</code>, Bakery category). Per-site bakery-product sales isn&rsquo;t in this feed, so figures are estate totals.
+  </div>
+  <div class="g2" style="margin-bottom:16px">
+    <div class="kpi"><div class="lbl">Bakery sales (4 wks)</div><div class="val">£69,514</div><div class="sub">22,541 units · 27 products</div></div>
+    <div class="kpi"><div class="lbl">Top 3 traybakes</div><div class="val">£24,589</div><div class="sub">Teacake + Millionaire + Cherry Bakewell · 35% of bakery</div></div>
+  </div>
+  <div class="card" style="margin-bottom:16px">
+    <div class="sec">Bakery Sales by Product — trailing 4 weeks (network)</div>
+    <div class="ts"><table>
+      <thead><tr><th>Product</th><th class="r">Units</th><th class="r">Sales £</th><th class="r">Avg £</th><th>Peak daypart</th></tr></thead>
+      <tbody>
+<tr><td><strong>Teacake Traybake</strong></td><td class="r">3,127</td><td class="r">£8,744</td><td class="r">£2.80</td><td><span class="pill p-hi">Lunch</span> <span style="color:#999;font-size:10px">53% · 11:00</span></td></tr>
+<tr><td><strong>Luxury Millionaires Triangle Traybake</strong></td><td class="r">2,850</td><td class="r">£8,513</td><td class="r">£2.99</td><td><span class="pill p-hi">Lunch</span> <span style="color:#999;font-size:10px">40% · 11:00</span></td></tr>
+<tr><td><strong>Cherry Bakewell Slice Traybake</strong></td><td class="r">2,274</td><td class="r">£7,332</td><td class="r">£3.22</td><td><span class="pill p-hi">Lunch</span> <span style="color:#999;font-size:10px">43% · 12:00</span></td></tr>
+<tr><td><strong>Large Breakfast Pastry Meal Deal</strong></td><td class="r">696</td><td class="r">£4,378</td><td class="r">£6.29</td><td><span class="pill p-mid">Morning</span> <span style="color:#999;font-size:10px">99% · 9:00</span></td></tr>
+<tr><td><strong>Ham & Mozzarella Croissant</strong></td><td class="r">933</td><td class="r">£4,179</td><td class="r">£4.48</td><td><span class="pill p-hi">Lunch</span> <span style="color:#999;font-size:10px">43% · 12:00</span></td></tr>
+<tr><td><strong>Fudge Topped Brownie</strong></td><td class="r">1,397</td><td class="r">£3,919</td><td class="r">£2.81</td><td><span class="pill p-hi">Lunch</span> <span style="color:#999;font-size:10px">39% · 12:00</span></td></tr>
+<tr><td><strong>Chocolate Twist Traybake</strong></td><td class="r">1,205</td><td class="r">£3,044</td><td class="r">£2.53</td><td><span class="pill p-mid">Morning</span> <span style="color:#999;font-size:10px">49% · 9:00</span></td></tr>
+<tr><td><strong>Lemon Muffin</strong></td><td class="r">1,009</td><td class="r">£2,911</td><td class="r">£2.89</td><td><span class="pill p-hi">Lunch</span> <span style="color:#999;font-size:10px">41% · 12:00</span></td></tr>
+<tr><td><strong>Yoghurt & Cranberry Slice Traybake</strong></td><td class="r">957</td><td class="r">£2,892</td><td class="r">£3.02</td><td><span class="pill p-hi">Lunch</span> <span style="color:#999;font-size:10px">40% · 10:00</span></td></tr>
+<tr><td><strong>Rocky Road Traybake</strong></td><td class="r">1,054</td><td class="r">£2,826</td><td class="r">£2.68</td><td><span class="pill p-hi">Lunch</span> <span style="color:#999;font-size:10px">41% · 13:00</span></td></tr>
+<tr><td><strong>All Butter Flapjack</strong></td><td class="r">998</td><td class="r">£2,803</td><td class="r">£2.81</td><td><span class="pill p-hi">Lunch</span> <span style="color:#999;font-size:10px">37% · 10:00</span></td></tr>
+<tr><td><strong>Blueberry Muffin</strong></td><td class="r">930</td><td class="r">£2,697</td><td class="r">£2.90</td><td><span class="pill p-hi">Lunch</span> <span style="color:#999;font-size:10px">42% · 11:00</span></td></tr>
+<tr><td><strong>Vegan Raspberry Croissant Pastry</strong></td><td class="r">1,004</td><td class="r">£2,517</td><td class="r">£2.51</td><td><span class="pill p-mid">Morning</span> <span style="color:#999;font-size:10px">55% · 10:00</span></td></tr>
+<tr><td><strong>Marbled Crunch Slice</strong></td><td class="r">834</td><td class="r">£2,502</td><td class="r">£3.00</td><td><span class="pill p-hi">Lunch</span> <span style="color:#999;font-size:10px">42% · 12:00</span></td></tr>
+<tr><td><strong>Chocolate Muffin</strong></td><td class="r">729</td><td class="r">£2,115</td><td class="r">£2.90</td><td><span class="pill p-hi">Lunch</span> <span style="color:#999;font-size:10px">39% · 12:00</span></td></tr>
+<tr><td><strong>Croissant Pastry</strong></td><td class="r">644</td><td class="r">£1,342</td><td class="r">£2.08</td><td><span class="pill p-mid">Morning</span> <span style="color:#999;font-size:10px">57% · 9:00</span></td></tr>
+<tr><td><strong>Gluten Free Carrot Cake</strong></td><td class="r">301</td><td class="r">£1,052</td><td class="r">£3.50</td><td><span class="pill p-hi">Lunch</span> <span style="color:#999;font-size:10px">39% · 13:00</span></td></tr>
+<tr><td><strong>Sausage Roll Meal Deal</strong></td><td class="r">175</td><td class="r">£1,048</td><td class="r">£5.99</td><td><span class="pill p-mid">Morning</span> <span style="color:#999;font-size:10px">98% · 10:00</span></td></tr>
+<tr><td><strong>Victoria Sponge Cake</strong></td><td class="r">229</td><td class="r">£788</td><td class="r">£3.44</td><td><span class="pill p-blue">Afternoon</span> <span style="color:#999;font-size:10px">41% · 15:00</span></td></tr>
+<tr><td><strong>Sausage Roll Meal Deal Large</strong></td><td class="r">116</td><td class="r">£730</td><td class="r">£6.29</td><td><span class="pill p-mid">Morning</span> <span style="color:#999;font-size:10px">96% · 10:00</span></td></tr>
+<tr><td><strong>GF Vegan Bakewell</strong></td><td class="r">260</td><td class="r">£684</td><td class="r">£2.63</td><td><span class="pill p-hi">Lunch</span> <span style="color:#999;font-size:10px">41% · 10:00</span></td></tr>
+<tr><td><strong>Toffee Millionaires Cake</strong></td><td class="r">176</td><td class="r">£616</td><td class="r">£3.50</td><td><span class="pill p-hi">Lunch</span> <span style="color:#999;font-size:10px">40% · 12:00</span></td></tr>
+<tr><td><strong>Granola Traybake</strong></td><td class="r">174</td><td class="r">£519</td><td class="r">£2.98</td><td><span class="pill p-hi">Lunch</span> <span style="color:#999;font-size:10px">44% · 11:00</span></td></tr>
+<tr><td><strong>GF Double Brownie</strong></td><td class="r">164</td><td class="r">£427</td><td class="r">£2.60</td><td><span class="pill p-hi">Lunch</span> <span style="color:#999;font-size:10px">40% · 10:00</span></td></tr>
+<tr><td><strong>Almond Croissant</strong></td><td class="r">166</td><td class="r">£417</td><td class="r">£2.51</td><td><span class="pill p-mid">Morning</span> <span style="color:#999;font-size:10px">43% · 11:00</span></td></tr>
+<tr><td><strong>Tea Time Coffee Cake</strong></td><td class="r">90</td><td class="r">£322</td><td class="r">£3.58</td><td><span class="pill p-blue">Afternoon</span> <span style="color:#999;font-size:10px">38% · 15:00</span></td></tr>
+<tr><td><strong>Sausage and Egg Muffin</strong></td><td class="r">49</td><td class="r">£197</td><td class="r">£4.02</td><td><span class="pill p-mid">Morning</span> <span style="color:#999;font-size:10px">55% · 8:00</span></td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="card">
+    <div class="sec">Buy vs Sell — Fresh Ideas bakery spend vs EPOS sales</div>
+    <div class="notice" style="background:#fef3e2;border:1px solid #854F0B;color:#5a3200;margin-bottom:10px">
+      What we <strong>buy</strong> from Fresh Ideas (June spend £) against what those lines <strong>sell</strong> (EPOS sales £, 4 wks). The multiple is sell ÷ buy — indicative only: spend is supplier £ (some cased/bulk-coded) and the two windows differ slightly, so treat as directional margin signal, not exact GP.
+    </div>
+    <div class="ts"><table>
+      <thead><tr><th>Bakery line</th><th class="r">Fresh Ideas spend</th><th class="r">EPOS sales</th><th class="r">Units sold</th><th class="r">Sell ÷ Buy</th></tr></thead>
+      <tbody>
+<tr><td><strong>Teacake Traybake</strong></td><td class="r">£2,875</td><td class="r">£8,744</td><td class="r">3,127</td><td class="r">3.0×</td></tr>
+<tr><td><strong>Luxury Millionaires Triangle Traybake</strong></td><td class="r">£1,752</td><td class="r">£8,513</td><td class="r">2,850</td><td class="r">4.9×</td></tr>
+<tr><td><strong>Cherry Bakewell Slice Traybake</strong></td><td class="r">£1,056</td><td class="r">£7,332</td><td class="r">2,274</td><td class="r">6.9×</td></tr>
+<tr><td><strong>Fudge Topped Brownie</strong></td><td class="r">£629</td><td class="r">£3,919</td><td class="r">1,397</td><td class="r">6.2×</td></tr>
+<tr><td><strong>Chocolate Twist Traybake</strong></td><td class="r">£1,077</td><td class="r">£3,044</td><td class="r">1,205</td><td class="r">2.8×</td></tr>
+<tr><td><strong>Lemon Muffin</strong></td><td class="r">£367</td><td class="r">£2,911</td><td class="r">1,009</td><td class="r">7.9×</td></tr>
+<tr><td><strong>Yoghurt & Cranberry Slice Traybake</strong></td><td class="r">£408</td><td class="r">£2,892</td><td class="r">957</td><td class="r">7.1×</td></tr>
+<tr><td><strong>Rocky Road Traybake</strong></td><td class="r">£534</td><td class="r">£2,826</td><td class="r">1,054</td><td class="r">5.3×</td></tr>
+<tr><td><strong>All Butter Flapjack</strong></td><td class="r">£254</td><td class="r">£2,803</td><td class="r">998</td><td class="r">11.0×</td></tr>
+<tr><td><strong>Blueberry Muffin</strong></td><td class="r">£353</td><td class="r">£2,697</td><td class="r">930</td><td class="r">7.6×</td></tr>
+<tr><td><strong>Vegan Raspberry Croissant Pastry</strong></td><td class="r">£381</td><td class="r">£2,517</td><td class="r">1,004</td><td class="r">6.6×</td></tr>
+<tr><td><strong>Marbled Crunch Slice</strong></td><td class="r">£302</td><td class="r">£2,502</td><td class="r">834</td><td class="r">8.3×</td></tr>
+<tr><td><strong>Chocolate Muffin</strong></td><td class="r">£225</td><td class="r">£2,115</td><td class="r">729</td><td class="r">9.4×</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</div>
+
+</div>
+<footer>Bewiched Limited · Fresh Ideas · Xero API · Pulled 8 Jul 2026 · 5000F account · 19 site contacts · Revenue = May 2026 P&L actuals</footer>
+<script>
+const D={"sites":[{"site":"Moulton Park Drive Thru","total":9135.75,"dels":25,"weeks":{"W1":1991.75,"W2":1966.31,"W3":2081.78,"W4":2167.17,"W5":928.74},"may_rev":100634.74,"pct_rev":9.1},{"site":"Rushden Lakes","total":7879.29,"dels":26,"weeks":{"W1":2089.83,"W2":1548.34,"W3":1400.4,"W4":2369.77,"W5":470.95},"may_rev":86551.63,"pct_rev":9.1},{"site":"Billing Drive Thru","total":4715.28,"dels":14,"weeks":{"W1":973.46,"W2":836.04,"W3":924.01,"W4":1593.86,"W5":387.91},"may_rev":23469.21,"pct_rev":20.1},{"site":"Market Harborough","total":3883.59,"dels":18,"weeks":{"W1":625.9,"W2":913.91,"W3":812.17,"W4":1155.59,"W5":376.02},"may_rev":40865.17,"pct_rev":9.5},{"site":"Peterborough Fletton Quays","total":3030.86,"dels":6,"weeks":{"W1":762.57,"W2":462.58,"W3":667,"W4":540.5,"W5":598.21},"may_rev":30455.91,"pct_rev":10.0},{"site":"Northampton Grosvenor","total":2888.91,"dels":8,"weeks":{"W1":1525.81,"W2":667.31,"W3":695.79},"may_rev":38629.22,"pct_rev":7.5},{"site":"Corby","total":2860.03,"dels":10,"weeks":{"W1":718.38,"W2":410.96,"W3":839.07,"W4":747.63,"W5":143.99},"may_rev":30229.66,"pct_rev":9.5},{"site":"Kettering","total":2635.79,"dels":6,"weeks":{"W1":879.72,"W2":808.82,"W3":947.25},"may_rev":37320.37,"pct_rev":7.1},{"site":"Higham Ferrers","total":2102.75,"dels":10,"weeks":{"W1":557.6,"W2":281.57,"W3":332.95,"W4":545.33,"W5":385.3},"may_rev":18799.16,"pct_rev":11.2},{"site":"Leamington Parade","total":2053.63,"dels":7,"weeks":{"W1":170.39,"W2":760.17,"W3":754.23,"W4":368.84},"may_rev":35982.05,"pct_rev":5.7},{"site":"Wellingborough Market Street","total":1941.09,"dels":10,"weeks":{"W1":373.62,"W2":451.24,"W3":348.65,"W4":632.98,"W5":134.6},"may_rev":28281.12,"pct_rev":6.9},{"site":"Rugby","total":1885.66,"dels":6,"weeks":{"W1":606.05,"W2":685.74,"W3":593.87},"may_rev":31973.0,"pct_rev":5.9},{"site":"Olney","total":1846.76,"dels":4,"weeks":{"W1":475.51,"W2":500.22,"W3":468.99,"W4":402.04},"may_rev":21348.38,"pct_rev":8.7},{"site":"Burton Latimer","total":1779.37,"dels":12,"weeks":{"W1":330.42,"W2":373.93,"W3":459.33,"W4":463.93,"W5":151.76},"may_rev":21509.19,"pct_rev":8.3},{"site":"Rothwell","total":1694.56,"dels":10,"weeks":{"W1":488.54,"W2":413.88,"W3":569.38,"W4":222.76},"may_rev":24422.55,"pct_rev":6.9},{"site":"Peterborough Bridge Street","total":1680.53,"dels":4,"weeks":{"W1":524.81,"W2":436.57,"W3":449.96,"W4":269.19},"may_rev":19222.51,"pct_rev":8.7},{"site":"Wellingborough Train Station","total":1460.5,"dels":16,"weeks":{"W1":410.18,"W2":436.58,"W3":524.67,"W5":89.07},"may_rev":25622.11,"pct_rev":5.7},{"site":"Lower Heathcote","total":1408.39,"dels":8,"weeks":{"W1":367.32,"W2":204.43,"W3":400.05,"W4":436.59},"may_rev":17748.55,"pct_rev":7.9}],"skus":[{"desc":"Fresh Ideas Purchases #1","total":12238.28,"qty":80,"unit":80.78,"sites_n":7},{"desc":"Fresh Ideas Purchases #2","total":5745.87,"qty":57,"unit":25.43,"sites_n":4},{"desc":"Kerrymaid Angelito Ice Cream Mix 10 Litre","total":5640.76,"qty":246,"unit":23.87,"sites_n":7},{"desc":"Fresh Ideas Purchases #3","total":2527.28,"qty":14,"unit":18.35,"sites_n":4},{"desc":"Vanilla Ice Cream 4Ltr","total":2004.63,"qty":522,"unit":4.49,"sites_n":4},{"desc":"Squirty Cream 1 x 500gm","total":1633.89,"qty":509,"unit":3.21,"sites_n":13},{"desc":"CAKE* Luxury Millionaire Triangle P/C 12","total":1530.36,"qty":109,"unit":14.04,"sites_n":13},{"desc":"U/C 8\" Sausage Rolls x 48 #2","total":1277.98,"qty":5,"unit":243.19,"sites_n":2},{"desc":"5\" Tea Cakes 6 x 8 (V) #1","total":1266.54,"qty":5,"unit":336.24,"sites_n":2},{"desc":"CAKE* Cherry Bakewell P/C 12","total":1055.7,"qty":85,"unit":12.42,"sites_n":13},{"desc":"1 LITRE x 12 Kerrymaid Angelito Ice Cream Mix","total":943.16,"qty":34,"unit":24.69,"sites_n":2},{"desc":"Oreo Crumb 400g","total":745.43,"qty":161,"unit":4.63,"sites_n":13},{"desc":"U/C 8\" Sausage Rolls x 48 #1","total":739.66,"qty":5,"unit":175.93,"sites_n":2},{"desc":"Blue Paper Rolls X 6 (400 sheets per roll)","total":676.16,"qty":55,"unit":13.13,"sites_n":13},{"desc":"LHC* Fudge Topped Brownie P/C 12","total":629.12,"qty":64,"unit":9.83,"sites_n":12},{"desc":"Kerrymaid Angelito Ice Cream Mix 10 Litre #1","total":600.65,"qty":3,"unit":143.21,"sites_n":2},{"desc":"Coca Cola 24 x 330ml","total":593.64,"qty":40,"unit":15.62,"sites_n":13},{"desc":"Ice 6 x 2 kg #1","total":588.41,"qty":1,"unit":588.41,"sites_n":1},{"desc":"5\" Tea Cakes 6 x 8 (V) #2","total":566.28,"qty":5,"unit":469.49,"sites_n":2},{"desc":"5\" Tea Cakes 6 x 8 (V)","total":550.46,"qty":34,"unit":16.19,"sites_n":13},{"desc":"LHC* Rocky Road P/C 12","total":534.24,"qty":48,"unit":11.13,"sites_n":10},{"desc":"Hygiemix 300g Mop Head (YELLOW)","total":494.03,"qty":181,"unit":2.98,"sites_n":13},{"desc":"Delifrance Chocolate Twist 100g x 60","total":478.83,"qty":11,"unit":43.53,"sites_n":11},{"desc":"U/C 8\" Sausage Rolls x 48","total":476.32,"qty":16,"unit":29.77,"sites_n":8},{"desc":"DIET Coke 24 x 330ml","total":419.4,"qty":35,"unit":12.71,"sites_n":13},{"desc":"LHC* Yoghurt & Cranberry Tiffin P/C 12","total":407.74,"qty":37,"unit":11.02,"sites_n":12},{"desc":"Purchases (Tax Exempt)","total":385.14,"qty":2,"unit":117.74,"sites_n":2},{"desc":"Vegan Raspberry Croissant 90g x 44","total":381.45,"qty":15,"unit":25.43,"sites_n":9},{"desc":"Hubdoc - 239824678 (Tax Exempt)","total":374.47,"qty":1,"unit":374.47,"sites_n":1},{"desc":"Lemon & W/Chocolate Tulip Muffins x 24","total":367.0,"qty":20,"unit":18.35,"sites_n":10},{"desc":"Purchases","total":358.38,"qty":2,"unit":63.18,"sites_n":2},{"desc":"Blueberry Tulip Muffins x 24","total":352.8,"qty":20,"unit":17.64,"sites_n":11},{"desc":"Delifrance Chocolate Twist 100g x 60 #2","total":351.16,"qty":1,"unit":351.16,"sites_n":1},{"desc":"Blue Clothes Unavailable please reorder #1","total":321.18,"qty":1,"unit":321.18,"sites_n":1},{"desc":"Ice 6 x 2 kg #2","total":309.97,"qty":1,"unit":309.97,"sites_n":1},{"desc":"LHC* Marbled Crunch Slice P/C 12","total":302.26,"qty":34,"unit":8.89,"sites_n":12},{"desc":"Delifrance S/B Croissant 60g x 100 #1","total":295.43,"qty":1,"unit":295.43,"sites_n":1},{"desc":"Hubdoc - 239824678","total":289.74,"qty":1,"unit":289.74,"sites_n":1},{"desc":"Lotus Biscoff Crumb 750g","total":273.28,"qty":56,"unit":4.88,"sites_n":12},{"desc":"5\" Tea Cakes 6 x 8 (V) #3","total":270.77,"qty":3,"unit":1.96,"sites_n":2},{"desc":"SORRY ICE N/A - AVAILABLE AGAIN FOR WEDNE #1","total":266,"qty":1,"unit":266,"sites_n":1},{"desc":"Butter Portions x 100 (V) (size 7)","total":261.74,"qty":46,"unit":5.69,"sites_n":13},{"desc":"LHC* All Butter Flapjack P/C 12","total":254.1,"qty":33,"unit":7.7,"sites_n":10},{"desc":"Hubdoc - 282032746","total":251.94,"qty":1,"unit":251.94,"sites_n":1},{"desc":"Delifrance Chocolate Twist 100g x 60 #1","total":247.41,"qty":1,"unit":247.41,"sites_n":1},{"desc":"SORRY ICE N/A - AVAILABLE AGAIN FOR THUR #1","total":244.34,"qty":1,"unit":244.34,"sites_n":1},{"desc":"Triple Chocolate Tulip Muffin x 24","total":225.16,"qty":13,"unit":17.32,"sites_n":9},{"desc":"CAKE* Luxury Millionaire Triangle P/C 12 #1","total":221.83,"qty":2,"unit":36.88,"sites_n":2},{"desc":"5\" Tea Cakes 6 x 8 (V) #4","total":221.21,"qty":1,"unit":221.21,"sites_n":1},{"desc":"Suso Sparkling Forest Fruit 250ml x 24","total":221.04,"qty":12,"unit":19.22,"sites_n":10},{"desc":"Blue Clothes Unavailable please reorder #2","total":219.48,"qty":1,"unit":219.48,"sites_n":1},{"desc":"Radnor Still Water 24 x 500ml (pet)","total":213.61,"qty":38,"unit":5.99,"sites_n":13},{"desc":"Orange Fruit Shoot 275ml x 12","total":196.69,"qty":22,"unit":9.44,"sites_n":11},{"desc":"Hubdoc - 239824798 (Tax Exempt)","total":192.23,"qty":1,"unit":192.23,"sites_n":1},{"desc":"Delifrance S/B Croissant 60g x 100 #2","total":188.23,"qty":1,"unit":188.23,"sites_n":1},{"desc":"Hubdoc - 239824798","total":181.2,"qty":1,"unit":181.2,"sites_n":1},{"desc":"Orange Juice 27 x 200ml","total":179.4,"qty":11,"unit":17.94,"sites_n":8},{"desc":"TO FOLLOW TUES: Salted Caramel Topping #1","total":169.86,"qty":1,"unit":169.86,"sites_n":1},{"desc":"SORRY ICE N/A - AVAILABLE AGAIN FOR WEDNE #2","total":160.36,"qty":1,"unit":160.36,"sites_n":1},{"desc":"Hubdoc - 282032746 (Tax Exempt)","total":156.37,"qty":1,"unit":156.37,"sites_n":1}],"weekly":{"W1":13871.86,"W2":12158.6,"W3":13269.55,"W4":11916.18,"W5":3666.55},"total":54882.74};
+
+const f=n=>'£'+n.toLocaleString('en-GB',{minimumFractionDigits:2,maximumFractionDigits:2});
+const fk=n=>'£'+Math.round(n).toLocaleString('en-GB');
+function showTab(id,btn){
+  document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
+  document.getElementById('pane-'+id).classList.add('on');btn.classList.add('on');
+}
+function buildWeeks(el,weekly,col){
+  const wks=Object.keys(weekly).sort();const vals=wks.map(w=>weekly[w]);const mx=Math.max(...vals);
+  el.innerHTML=wks.map((w,i)=>`<div class="wc"><div class="wv" style="color:${col}">${fk(vals[i])}</div><div class="wb" style="height:${Math.round(vals[i]/mx*74)}px;background:${col}"></div><div class="wl">${w}</div></div>`).join('');
+}
+function buildBars(el,items,col){
+  const mx=Math.max(...items.map(i=>i.v));
+  el.innerHTML=items.map(i=>`<div class="br"><div class="bl" title="${i.l}">${i.l}</div><div class="bt"><div class="bf" style="width:${i.v/mx*100}%;background:${col}"></div></div><div class="bv">${f(i.v)}</div><div class="bpct">${i.p||''}</div></div>`).join('');
+}
+function buildRevTable(tbodyId,sites,col){
+  const avg=sites.reduce((s,x)=>s+x.pct_rev,0)/sites.length;
+  document.getElementById(tbodyId).innerHTML=sites.map(s=>{
+    const p=s.pct_rev,pill=p>5?`<span class="pill p-hi">${p}%</span>`:p<2?`<span class="pill p-blue">${p}%</span>`:p>3.5?`<span class="pill p-mid">${p}%</span>`:`<span class="pill p-ok">${p}%</span>`;
+    return `<tr><td><strong>${s.site}</strong></td><td class="r">${fk(s.may_rev)}</td><td class="r">${f(s.total)}</td><td class="r">${pill}</td><td class="r" style="color:#aaa">${(s.pct_rev-avg>0?'+':'')+((s.pct_rev-avg).toFixed(1))}pp</td></tr>`;
+  }).join('');
+}
+
+
+buildWeeks(document.getElementById('fi-weeks'),D.weekly,'#854F0B');
+buildBars(document.getElementById('fi-top10'),D.skus.slice(0,10).map(s=>({l:s.desc,v:s.total})),'#854F0B');
+buildBars(document.getElementById('fi-bars'),D.sites.map(s=>({l:s.site,v:s.total,p:s.pct_rev+'% rev'})),'#854F0B');
+buildRevTable('fi-rev',D.sites,'#854F0B');
+let allSkus=[...D.skus];
+function fSku(){
+  const q=document.getElementById('fi-q').value.toLowerCase();
+  const list=allSkus.filter(s=>s.desc.toLowerCase().includes(q));
+  document.getElementById('fi-count').textContent=list.length+' of '+allSkus.length+' SKUs';
+  document.getElementById('fi-sku-tbl').innerHTML=list.map((s,i)=>{
+    const isDup=s.desc.includes('#')||s.desc.includes('Purchases');
+    return `<tr${isDup?' style="background:#fffbf5"':''}><td style="color:#ccc;font-family:var(--mono)">${i+1}</td><td>${isDup?'⚠ ':''}<strong>${s.desc}</strong></td><td class="r">${f(s.total)}</td><td class="r">${s.qty}</td><td class="r">${f(s.unit)}</td><td class="r">${s.sites_n}</td></tr>`;
+  }).join('');
+}
+fSku();document.getElementById('fi-count').textContent=allSkus.length+' of '+allSkus.length+' SKUs';
+
+</script>
+</body></html>
