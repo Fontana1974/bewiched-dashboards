@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simply Lunch · June 2026 · Bewiched Performance Intelligence</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js"></script>
+<style>
+:root {
+  --bg: #0f1117;
+  --bg-card: #1a1d2e;
+  --bg-card2: #151821;
+  --border: #2a2d3e;
+  --text: #e8eaf0;
+  --text-sub: #c8cadf;
+  --text-muted: #7a7f9a;
+  --purple: #6c63ff;
+  --purple-light: #a99aff;
+  --green: #7affb8;
+  --amber: #ffc97a;
+  --red: #ff7a7a;
+  --radius: 10px;
+  --gap: 18px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; font-size: 14px; }
+
+.header { background: linear-gradient(135deg, #1a1d2e 0%, #12151f 100%); border-bottom: 1px solid var(--border); padding: 18px 28px; display: flex; justify-content: space-between; align-items: center; }
+.header h1 { font-size: 1.15rem; font-weight: 700; color: #fff; }
+.header .sub { font-size: 0.72rem; color: var(--text-muted); margin-top: 3px; }
+.badge { background: rgba(108,99,255,0.15); border: 1px solid rgba(108,99,255,0.4); color: var(--purple-light); font-size: 0.7rem; padding: 4px 12px; border-radius: 20px; font-weight: 600; }
+
+.tabs { display: flex; background: #151821; border-bottom: 1px solid var(--border); padding: 0 28px; overflow-x: auto; }
+.tab { padding: 13px 18px; font-size: 0.78rem; font-weight: 600; color: var(--text-muted); cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; transition: color 0.2s; }
+.tab.active { color: var(--purple-light); border-bottom-color: var(--purple); }
+.tab:hover:not(.active) { color: var(--text-sub); }
+
+.panel { display: none; padding: 22px 28px; }
+.panel.active { display: block; }
+
+.kpi-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--gap); margin-bottom: var(--gap); }
+.kpi-grid-4 { grid-template-columns: repeat(4, 1fr); }
+.kpi { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; }
+.kpi .label { font-size: 0.67rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 6px; }
+.kpi .val { font-size: 1.45rem; font-weight: 700; color: #fff; line-height: 1.1; }
+.kpi .sub { font-size: 0.7rem; color: var(--text-muted); margin-top: 4px; }
+.kpi .flag { font-size: 0.7rem; font-weight: 600; margin-top: 5px; }
+.flag-red { color: var(--red); }
+.flag-green { color: var(--green); }
+.flag-amber { color: var(--amber); }
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); }
+.three-col { display: grid; grid-template-columns: 1.3fr 1fr; gap: var(--gap); }
+.card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; }
+.section-title { font-size: 0.7rem; font-weight: 700; color: var(--purple-light); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+.section-title::before { content: ''; display: block; width: 3px; height: 13px; background: var(--purple); border-radius: 2px; flex-shrink: 0; }
+
+table { width: 100%; border-collapse: collapse; font-size: 0.77rem; }
+th { text-align: left; padding: 7px 10px; color: var(--text-muted); font-size: 0.67rem; text-transform: uppercase; letter-spacing: 0.06em; border-bottom: 1px solid var(--border); font-weight: 600; }
+td { padding: 8px 10px; border-bottom: 1px solid #1e2130; color: var(--text-sub); }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: rgba(255,255,255,0.02); }
+.tr { text-align: right; }
+.bold { font-weight: 700; color: var(--text); }
+
+.scroll { max-height: 400px; overflow-y: auto; }
+.scroll::-webkit-scrollbar { width: 4px; }
+.scroll::-webkit-scrollbar-track { background: var(--bg-card); }
+.scroll::-webkit-scrollbar-thumb { background: #3a3d50; border-radius: 2px; }
+
+.pct-high { color: var(--red); font-weight: 700; }
+.pct-med { color: var(--amber); font-weight: 700; }
+.pct-low { color: var(--green); font-weight: 700; }
+
+.badge-warn { background: rgba(255,71,87,0.12); border: 1px solid rgba(255,71,87,0.3); color: var(--red); font-size: 0.64rem; padding: 1px 6px; border-radius: 4px; white-space: nowrap; }
+.badge-ok   { background: rgba(122,255,184,0.1); border: 1px solid rgba(122,255,184,0.25); color: var(--green); font-size: 0.64rem; padding: 1px 6px; border-radius: 4px; white-space: nowrap; }
+.badge-amber { background: rgba(255,201,122,0.1); border: 1px solid rgba(255,201,122,0.25); color: var(--amber); font-size: 0.64rem; padding: 1px 6px; border-radius: 4px; white-space: nowrap; }
+
+.insight { background: #12151f; border: 1px solid var(--border); border-left: 3px solid var(--purple); border-radius: 6px; padding: 12px 14px; margin-top: 14px; font-size: 0.76rem; color: var(--text-sub); line-height: 1.6; }
+.insight strong { color: var(--purple-light); display: block; margin-bottom: 4px; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; }
+
+.action-item { padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.77rem; color: var(--text-sub); line-height: 1.55; }
+.action-item:last-child { border-bottom: none; }
+.action-label { font-weight: 700; display: block; margin-bottom: 2px; }
+
+chart-wrap { display: block; position: relative; }
+
+@media (max-width: 900px) {
+  .kpi-grid { grid-template-columns: repeat(2,1fr); }
+  .two-col, .three-col { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body><!--BWGATE--><style>
+#bwgate{position:fixed;inset:0;z-index:2147483647;background:#0f1b2d;display:flex;align-items:center;justify-content:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+#bwgate_box{background:#fff;border-radius:14px;padding:30px 28px;width:300px;box-shadow:0 20px 60px rgba(0,0,0,.45);text-align:center}
+#bwgate_box h2{margin:0 0 4px;font-size:17px;color:#0f1b2d}
+#bwgate_box p{margin:0 0 16px;font-size:12px;color:#8a94a3}
+#bwgate_in{width:100%;box-sizing:border-box;padding:10px 12px;font-size:14px;border:1px solid #cfd6e0;border-radius:8px;margin-bottom:10px}
+#bwgate_go{width:100%;padding:10px;font-size:14px;font-weight:700;color:#fff;background:#185FA5;border:0;border-radius:8px;cursor:pointer}
+#bwgate_err{display:none;color:#c0392b;font-size:12px;margin-top:10px}
+@keyframes bwshake{10%,90%{transform:translateX(-2px)}20%,80%{transform:translateX(4px)}30%,50%,70%{transform:translateX(-8px)}40%,60%{transform:translateX(8px)}}
+</style>
+<div id="bwgate"><div id="bwgate_box">
+  <h2>Bewiched Dashboards</h2>
+  <p>Enter the password for this page</p>
+  <input id="bwgate_in" type="password" autocomplete="off" placeholder="Password">
+  <button id="bwgate_go">Unlock</button>
+  <div id="bwgate_err">Incorrect password</div>
+</div></div>
+<script>
+(function(){var H="5a18ad835c7f678caf69dcd3185df200ac0e73acd651ec6c58c7bc47d891e4a0",M="9412e51e5b03acf45e75361ad01c1e09e7ff8f5f6e8faec6f8c7b132de0518b8",K="bwgate:"+location.pathname,g=document.getElementById("bwgate");
+if(localStorage.getItem(K)==="1"){g.parentNode.removeChild(g);return;}
+var el=document.documentElement;el.style.overflow="hidden";
+async function sha(s){var b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));return Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,"0")}).join("");}
+async function go(){try{var h=await sha(document.getElementById("bwgate_in").value);}catch(e){alert("This gate needs to be opened over https.");return;}
+if(h===H||h===M){localStorage.setItem(K,"1");el.style.overflow="";g.parentNode.removeChild(g);}else{document.getElementById("bwgate_err").style.display="block";var b=document.getElementById("bwgate_box");b.style.animation="none";void b.offsetWidth;b.style.animation="bwshake .4s";}}
+document.getElementById("bwgate_go").onclick=go;
+document.getElementById("bwgate_in").addEventListener("keydown",function(e){if(e.key==="Enter")go();});
+document.getElementById("bwgate_in").focus();
+})();
+</script>
+
+
+<div class="header">
+  <div>
+    <h1>Simply Lunch · June 2026 Performance Intelligence</h1>
+    <div class="sub">Supplier spend (May P&L) × EPOS product sales × Wastage · All 21 sites · Source: Xero / BigQuery live pull</div>
+  </div>
+  <span class="badge">June 2026</span>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="showTab('overview',this)">📊 Spend Overview</div>
+  <div class="tab" onclick="showTab('epos',this)">🥙 EPOS Sales</div>
+  <div class="tab" onclick="showTab('wastage',this)">🗑️ Wastage</div>
+  <div class="tab" onclick="showTab('outliers',this)">⚡ Outliers & Actions</div>
+</div>
+
+<!-- ===== TAB 1: OVERVIEW ===== -->
+<div class="panel active" id="tab-overview">
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="label">Total SL Spend (May)</div>
+      <div class="val">£33,707</div>
+      <div class="sub">All sites · P&L May '26</div>
+      <div class="flag flag-amber">~9% avg of sales</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Fresh Ideas Spend (May)</div>
+      <div class="val">£56,894</div>
+      <div class="sub">Largest food supplier</div>
+      <div class="flag flag-amber">SL = 59% of FI</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Select Catering (May)</div>
+      <div class="val">£43,457</div>
+      <div class="sub">Non-food + disposables</div>
+      <div class="flag flag-amber">SL = 78% of Select</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Kirby &amp; West (May)</div>
+      <div class="val">£21,067</div>
+      <div class="sub">Dairy / milk</div>
+      <div class="flag flag-green">Stable 4% of sales</div>
+    </div>
+    <div class="kpi">
+      <div class="label">SL % of Total Turnover</div>
+      <div class="val">5.3%</div>
+      <div class="sub">£33,707 / £633k (May)</div>
+      <div class="flag flag-amber">Jun '25 was 6.2%</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <div class="section-title">Simply Lunch Spend by Site — May 2026 (P&L)</div>
+      <div class="scroll">
+        <table>
+          <thead><tr>
+            <th>Site</th>
+            <th class="tr">SL £</th>
+            <th class="tr">Sales £</th>
+            <th class="tr">SL %</th>
+            <th>Flag</th>
+          </tr></thead>
+          <tbody id="spend-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <div class="section-title">Supplier Mix — May 2026 (£ by Site)</div>
+      <canvas id="supplier-chart" style="max-height:360px"></canvas>
+      <div class="insight">
+        <strong>📊 Context</strong>
+        Drive-thru sites dominate SL spend: Northampton DT (£5k), Rushden Lakes (£4.3k) and Fletton Quays (£2.6k) account for 35% of all SL purchasing. Billing at 8.9% SL/sales and Higham Ferrers at 6.1% are the outliers worth investigating alongside June EPOS data.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TAB 2: EPOS ===== -->
+<div class="panel" id="tab-epos">
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="label">Top Product (Volume)</div>
+      <div class="val" style="font-size:1rem">Ham &amp; Cheese Croque</div>
+      <div class="sub">2,688 units · June '26</div>
+      <div class="flag flag-green">#1 seller all sites</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Total SL Units Sold</div>
+      <div class="val">17,400+</div>
+      <div class="sub">June '26 · all identified SKUs</div>
+      <div class="flag flag-green">Strong volume</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Biggest Site (Volume)</div>
+      <div class="val" style="font-size:1rem">Northampton DT</div>
+      <div class="sub">3,090 SL units · June</div>
+      <div class="flag flag-green">£13,423 SL revenue</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Lowest Volume Site</div>
+      <div class="val" style="font-size:1rem">Wellingborough</div>
+      <div class="sub">289 units · June</div>
+      <div class="flag flag-red">Under-ranging?</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Blended Avg Unit Price</div>
+      <div class="val">£4.58</div>
+      <div class="sub">June '26 · EPOS net</div>
+      <div class="flag flag-amber">Target ≥£4.80</div>
+    </div>
+  </div>
+
+  <div class="two-col" style="margin-bottom:var(--gap)">
+    <div class="card">
+      <div class="section-title">Product Sales Ranking — June 2026 (All Sites)</div>
+      <canvas id="product-chart" style="max-height:400px"></canvas>
+    </div>
+    <div class="card">
+      <div class="section-title">Site SL Revenue Ranking — June 2026</div>
+      <canvas id="site-epos-chart" style="max-height:400px"></canvas>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="section-title">Simply Lunch EPOS Detail by Site — June 2026</div>
+    <div class="scroll">
+      <table>
+        <thead><tr>
+          <th>Site</th>
+          <th class="tr">H&amp;C Croque</th>
+          <th class="tr">Tuna Ciab</th>
+          <th class="tr">Sausage Bap</th>
+          <th class="tr">C&amp;O Croque</th>
+          <th class="tr">Bacon Bap</th>
+          <th class="tr">Sausage Roll</th>
+          <th class="tr">All SL Units</th>
+          <th class="tr">SL Revenue</th>
+        </tr></thead>
+        <tbody id="epos-detail-tbody"></tbody>
+      </table>
+    </div>
+    <div class="insight">
+      <strong>🔍 Product Mix Note</strong>
+      The Sausage Roll figures here combine the "Sausage Roll Pastry" SKU (from the pastry/bakery category, 1,420 units) with the SL-branded Sausage Roll. At Drive-Thru sites the pastry SKU dominates. The Ham &amp; Cheese Croque is categorically dominant across both High St and Drive-Thru formats. Caesar Wrap at £3.99 is the weakest-margin wrap in the range — 859 units sold but at a lower price point than Falafel Wrap.
+    </div>
+  </div>
+</div>
+
+<!-- ===== TAB 3: WASTAGE ===== -->
+<div class="panel" id="tab-wastage">
+  <div class="kpi-grid kpi-grid-4">
+    <div class="kpi">
+      <div class="label">Highest Absolute Waste</div>
+      <div class="val" style="font-size:1rem">Rushden Lakes</div>
+      <div class="sub">£691 cost · 431 units wasted</div>
+      <div class="flag flag-red">0.86% of site sales</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Highest Waste % of Sales</div>
+      <div class="val" style="font-size:1rem">Higham Ferrers</div>
+      <div class="sub">£272 on £19,616 sales</div>
+      <div class="flag flag-red">1.39% — worst in estate</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Best Waste Control</div>
+      <div class="val" style="font-size:1rem">Rothwell</div>
+      <div class="sub">£126 cost · 76 units</div>
+      <div class="flag flag-green">0.50% of sales</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Est. Total Wastage Cost</div>
+      <div class="val">£4,597</div>
+      <div class="sub">June '26 · SL products only</div>
+      <div class="flag flag-red">~5.8% of SL EPOS rev</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <div class="section-title">Wastage Cost (£) — June 2026</div>
+      <canvas id="wastage-abs-chart" style="max-height:420px"></canvas>
+    </div>
+    <div class="card">
+      <div class="section-title">Wastage as % of Total Site Sales</div>
+      <canvas id="wastage-pct-chart" style="max-height:420px"></canvas>
+      <div class="insight">
+        <strong>⚠️ Wastage Pattern</strong>
+        High volume ≠ high % — Northampton DT wastes £328 but only 0.29% of its £114k sales. The problem sites are <b>Higham Ferrers</b> (small store, big waste %), <b>Billing DT</b> (£545 waste on £53k sales = 1.01%), and the two largest DTs by absolute £. Review par levels and delivery frequency at all sites above 0.8%.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TAB 4: OUTLIERS ===== -->
+<div class="panel" id="tab-outliers">
+  <div class="section-title">Blended Outlier Analysis — Spend × EPOS × Wastage</div>
+  <div class="card" style="margin-bottom:var(--gap)">
+    <div class="scroll">
+      <table>
+        <thead><tr>
+          <th>Site</th>
+          <th class="tr">SL Spend May</th>
+          <th class="tr">Sales May</th>
+          <th class="tr">SL %</th>
+          <th class="tr">SL EPOS £ Jun</th>
+          <th class="tr">Wastage £ Jun</th>
+          <th class="tr">Waste % Sales</th>
+          <th>Flags</th>
+        </tr></thead>
+        <tbody id="outlier-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <div class="section-title">Product Outliers — Volume &amp; Range Anomalies</div>
+      <table>
+        <thead><tr><th>Product</th><th>Finding</th><th>Detail</th></tr></thead>
+        <tbody>
+          <tr><td class="bold">Ham &amp; Cheese Croque</td><td><span class="badge-ok">Star ⭐</span></td><td style="font-size:0.72rem">2,688 units · #1 every site · strong margin at £4.99 sp / £1.62 cost</td></tr>
+          <tr><td class="bold">Sausage Roll (pastry)</td><td><span class="badge-ok">DT star ⭐</span></td><td style="font-size:0.72rem">Northampton DT: 386 units — 3× next DT. Cross-pollinate Billing &amp; Glenvale</td></tr>
+          <tr><td class="bold">Yoghurt Granola Pot</td><td><span class="badge-amber">Ranging gap</span></td><td style="font-size:0.72rem">465 units at sites that range it. Absent from Burton Latimer, Higham, Rothwell etc</td></tr>
+          <tr><td class="bold">Tuna Crunch Sandwich</td><td><span class="badge-warn">Remove / fix</span></td><td style="font-size:0.72rem">Only Northampton DT (55u) + Kettering (1u). Delist or range properly</td></tr>
+          <tr><td class="bold">Greek Chicken Salad</td><td><span class="badge-warn">Low velocity</span></td><td style="font-size:0.72rem">121 units total across all sites. High waste risk, low revenue contribution</td></tr>
+          <tr><td class="bold">Green &amp; Grain Salad</td><td><span class="badge-warn">Low velocity</span></td><td style="font-size:0.72rem">133 units. Better than Greek Chicken but still weak. Commit to display or delist</td></tr>
+          <tr><td class="bold">Caesar Wrap</td><td><span class="badge-amber">Price concern</span></td><td style="font-size:0.72rem">859 units but at £3.99 sp / £1.73 cost = 43% GM — lowest of the wraps</td></tr>
+          <tr><td class="bold">Breakfast Bagel</td><td><span class="badge-amber">DT skew</span></td><td style="font-size:0.72rem">Strong at DT but weak penetration at High St. Cross-site opportunity</td></tr>
+          <tr><td class="bold">Falafel Wrap</td><td><span class="badge-amber">Niche</span></td><td style="font-size:0.72rem">314 units — vegan option doing moderate work. Better at Fletton Quays (55u)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="section-title">Priority Action Plan</div>
+      <div class="action-item">
+        <span class="action-label flag-red">🔴 URGENT · Higham Ferrers</span>
+        SL wastage at 1.39% of sales — highest rate in the estate. Site is wasting £272/month on a £19.6k turnover. Review delivery par levels; consider moving from 3× to 2× weekly delivery with smaller drops. Target: bring under 0.7%.
+      </div>
+      <div class="action-item">
+        <span class="action-label flag-red">🔴 URGENT · Billing Drive-Thru</span>
+        1.01% wastage on £53k sales = £545 lost. Absolute waste similar to DT peers but % is worst among DTs. SL spend at 8.9% of sales (May) — check if over-ordering vs Northampton DT at 5.0%.
+      </div>
+      <div class="action-item">
+        <span class="action-label flag-red">🔴 URGENT · Rushden Lakes</span>
+        Highest absolute waste at £691 (431 units). 0.86% of sales. Given the high volume, investigate daily sell-through data — are there specific days/SKUs driving this?
+      </div>
+      <div class="action-item">
+        <span class="action-label flag-amber">🟡 REVIEW · Fletton Quays</span>
+        SL spend was 16% of sales in June 2025 — a major outlier vs 9% network average. June 2026 spend data needed (P&L not available yet) but watch this closely. Site has strong salad and wrap sales which are higher-cost SKUs.
+      </div>
+      <div class="action-item">
+        <span class="action-label flag-amber">🟡 REVIEW · Tuna Crunch &amp; Salad Range</span>
+        Tuna Crunch Sandwich should be either properly ranged across all sites or removed. Greek Chicken and Green &amp; Grain Salads are low-velocity items at risk of contributing to wastage — review JJ Latimer data on spoilage by SKU.
+      </div>
+      <div class="action-item">
+        <span class="action-label flag-green">🟢 OPPORTUNITY · Yoghurt Granola Pot</span>
+        Selling well where ranged (465 units, ~£1,500 revenue). Missing from at least 6 sites. Ranging consistently across estate could add ~£8-10k annual revenue at strong margin (cost £1.45 → retail £3.30).
+      </div>
+      <div class="action-item">
+        <span class="action-label flag-green">🟢 OPPORTUNITY · Sausage Roll Format (DT)</span>
+        Northampton DT selling 386 units of sausage roll vs Billing at 158. Is this a display / positioning issue at Billing and Glenvale? Replicate the Northampton DT merchandising approach.
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============ DATA ============
+
+const spendData = [
+  { site: 'Northampton DT',    sl: 4999, sales: 100635, fresh: 8565, select: 6466, kw: 3009 },
+  { site: 'Rushden Lakes',     sl: 4302, sales: 86552,  fresh: 9580, select: 5570, kw: 2021 },
+  { site: 'Northampton',       sl: 2373, sales: 38629,  fresh: 3428, select: 2122, kw: 1220 },
+  { site: 'Fletton Quays',     sl: 2555, sales: 30456,  fresh: 2472, select: 1994, kw: 1731 },
+  { site: 'Billing DT',        sl: 2085, sales: 23469,  fresh: 4030, select: 2809, kw: 825  },
+  { site: 'Market Harborough', sl: 2127, sales: 40865,  fresh: 3103, select: 2959, kw: 1179 },
+  { site: 'Leamington Parade', sl: 1895, sales: 35982,  fresh: 2973, select: 2207, kw: 1101 },
+  { site: 'Train Station',     sl: 1783, sales: 25622,  fresh: 2160, select: 1361, kw: 955  },
+  { site: 'Kettering',         sl: 1607, sales: 37320,  fresh: 2994, select: 2316, kw: 1100 },
+  { site: 'Corby',             sl: 1627, sales: 30230,  fresh: 3341, select: 1763, kw: 888  },
+  { site: 'Rugby',             sl: 1424, sales: 31973,  fresh: 2411, select: 2931, kw: 1143 },
+  { site: 'Higham Ferrers',    sl: 1144, sales: 18799,  fresh: 2128, select: 1584, kw: 720  },
+  { site: 'Peterborough',      sl: 1115, sales: 19223,  fresh: 1317, select: 1287, kw: 700  },
+  { site: 'Rothwell',          sl: 1202, sales: 24423,  fresh: 1763, select: 1607, kw: 850  },
+  { site: 'Olney',             sl: 1032, sales: 21348,  fresh: 1340, select: 1483, kw: 971  },
+  { site: 'Lower Heathcote',   sl: 772,  sales: 17749,  fresh: 1486, select: 1200, kw: 743  },
+  { site: 'Burton Latimer',    sl: 976,  sales: 21509,  fresh: 1725, select: 1477, kw: 887  },
+  { site: 'Wboro Market St',   sl: 688,  sales: 28281,  fresh: 2078, select: 2320, kw: 1024 },
+];
+
+const eposProducts = [
+  { product: 'Ham & Cheese Croque',      units: 2688, rev: 13820 },
+  { product: 'Tuna Ciabatta',            units: 1308, rev: 6420  },
+  { product: 'Sausage Bap',             units: 1571, rev: 8350  },
+  { product: 'Sausage Roll (incl DT)',   units: 2200, rev: 7080  },
+  { product: 'Cheese & Onion Croque',   units: 1684, rev: 8540  },
+  { product: 'Bacon Bap',               units: 1272, rev: 6780  },
+  { product: 'Chicken & Chorizo Ciab',  units: 1138, rev: 5700  },
+  { product: 'Mozzarella & Tom Ciab',   units: 1119, rev: 5580  },
+  { product: 'Caesar Wrap',             units: 1019, rev: 4040  },
+  { product: 'Ham & Mozz Croissant',    units: 1139, rev: 5040  },
+  { product: 'Egg & Spinach Sandwich',  units: 972,  rev: 3870  },
+  { product: 'Breakfast Bagel',         units: 981,  rev: 4390  },
+  { product: 'Yoghurt Granola Pot',     units: 654,  rev: 2040  },
+  { product: 'Chicken Caprese Sandwich',units: 552,  rev: 2480  },
+  { product: 'Falafel Wrap',            units: 359,  rev: 1490  },
+  { product: 'Green & Grain Salad',     units: 168,  rev: 700   },
+  { product: 'Greek Chicken Salad',     units: 134,  rev: 620   },
+];
+
+const siteEposData = [
+  { site: 'Northampton DT',     units: 3090, rev: 13423 },
+  { site: 'Glenvale DT',        units: 1704, rev: 7867  },
+  { site: 'Billing DT',         units: 1313, rev: 5805  },
+  { site: 'Rushden Lakes',      units: 1677, rev: 7799  },
+  { site: 'Peterborough FQ',    units: 1479, rev: 7281  },
+  { site: 'Northampton',        units: 1238, rev: 6043  },
+  { site: 'Market Harborough',  units: 1067, rev: 5059  },
+  { site: 'Leamington Parade',  units: 864,  rev: 3905  },
+  { site: 'HOE Balsall Common', units: 696,  rev: 2987  },
+  { site: 'Kettering',          units: 703,  rev: 3311  },
+  { site: 'Rugby',              units: 692,  rev: 3184  },
+  { site: 'Attleborough',       units: 612,  rev: 2712  },
+  { site: 'Corby',              units: 575,  rev: 2555  },
+  { site: 'Wboro Train Stn',    units: 575,  rev: 2882  },
+  { site: 'Burton Latimer',     units: 421,  rev: 1801  },
+  { site: 'Rothwell',           units: 433,  rev: 1879  },
+  { site: 'Olney',              units: 357,  rev: 1516  },
+  { site: 'Peterborough Bridge',units: 450,  rev: 1956  },
+  { site: 'Lower Heathcote',    units: 321,  rev: 1326  },
+  { site: 'Higham Ferrers',     units: 304,  rev: 1297  },
+  { site: 'Wellingborough',     units: 289,  rev: 1225  },
+];
+
+const eposDetail = [
+  { site: 'Northampton DT',    hc:327, tuna:133, sbap:357, co:163, bbap:294, sroll:386, total:3090, rev:13423 },
+  { site: 'Glenvale DT',       hc:229, tuna:90,  sbap:219, co:139, bbap:153, sroll:247, total:1704, rev:7867  },
+  { site: 'Rushden Lakes',     hc:326, tuna:153, sbap:129, co:168, bbap:109, sroll:113, total:1677, rev:7799  },
+  { site: 'Peterborough FQ',   hc:148, tuna:101, sbap:81,  co:127, bbap:59,  sroll:128, total:1479, rev:7281  },
+  { site: 'Northampton',       hc:184, tuna:87,  sbap:85,  co:114, bbap:91,  sroll:146, total:1238, rev:6043  },
+  { site: 'Billing DT',        hc:173, tuna:71,  sbap:154, co:92,  bbap:162, sroll:158, total:1313, rev:5805  },
+  { site: 'Market Harborough', hc:122, tuna:70,  sbap:79,  co:91,  bbap:80,  sroll:111, total:1067, rev:5059  },
+  { site: 'Leamington Parade', hc:86,  tuna:56,  sbap:72,  co:82,  bbap:66,  sroll:60,  total:864,  rev:3905  },
+  { site: 'Kettering',         hc:119, tuna:46,  sbap:57,  co:64,  bbap:46,  sroll:100, total:703,  rev:3311  },
+  { site: 'Rugby',             hc:96,  tuna:51,  sbap:62,  co:79,  bbap:39,  sroll:131, total:692,  rev:3184  },
+  { site: 'HOE Balsall Common',hc:98,  tuna:39,  sbap:93,  co:79,  bbap:80,  sroll:98,  total:696,  rev:2987  },
+  { site: 'Attleborough',      hc:112, tuna:56,  sbap:81,  co:81,  bbap:65,  sroll:95,  total:612,  rev:2712  },
+  { site: 'Corby',             hc:138, tuna:45,  sbap:54,  co:87,  bbap:34,  sroll:6,   total:575,  rev:2555  },
+  { site: 'Wboro Train Stn',   hc:81,  tuna:36,  sbap:80,  co:38,  bbap:74,  sroll:61,  total:575,  rev:2882  },
+  { site: 'Rothwell',          hc:123, tuna:48,  sbap:39,  co:53,  bbap:37,  sroll:6,   total:433,  rev:1879  },
+  { site: 'Burton Latimer',    hc:88,  tuna:47,  sbap:43,  co:40,  bbap:39,  sroll:80,  total:421,  rev:1801  },
+  { site: 'Peterborough Bridge',hc:115,tuna:56,  sbap:32,  co:64,  bbap:31,  sroll:0,   total:450,  rev:1956  },
+  { site: 'Olney',             hc:67,  tuna:44,  sbap:33,  co:32,  bbap:26,  sroll:49,  total:357,  rev:1516  },
+  { site: 'Lower Heathcote',   hc:53,  tuna:23,  sbap:44,  co:35,  bbap:33,  sroll:15,  total:321,  rev:1326  },
+  { site: 'Higham Ferrers',    hc:44,  tuna:41,  sbap:47,  co:36,  bbap:40,  sroll:0,   total:304,  rev:1297  },
+  { site: 'Wellingborough',    hc:36,  tuna:15,  sbap:11,  co:53,  bbap:15,  sroll:37,  total:289,  rev:1225  },
+];
+
+const wastageData = [
+  { site: 'Rushden Lakes',     cost: 691, sales: 80262, units: 431 },
+  { site: 'Glenvale DT',       cost: 594, sales: 77434, units: 344 },
+  { site: 'Billing DT',        cost: 545, sales: 53793, units: 307 },
+  { site: 'Northampton DT',    cost: 328, sales: 113975,units: 184 },
+  { site: 'Market Harborough', cost: 326, sales: 45785, units: 194 },
+  { site: 'Higham Ferrers',    cost: 272, sales: 19616, units: 159 },
+  { site: 'Northampton',       cost: 271, sales: 43603, units: 161 },
+  { site: 'Peterborough FQ',   cost: 254, sales: 36185, units: 154 },
+  { site: 'Attleborough',      cost: 252, sales: 27254, units: 155 },
+  { site: 'Kettering',         cost: 239, sales: 41257, units: 138 },
+  { site: 'Rugby',             cost: 225, sales: 36174, units: 142 },
+  { site: 'Wellingborough',    cost: 220, sales: 29691, units: 140 },
+  { site: 'Leamington Parade', cost: 218, sales: 37908, units: 127 },
+  { site: 'HOE Balsall Common',cost: 212, sales: 26428, units: 127 },
+  { site: 'Wboro Train Stn',   cost: 204, sales: 22154, units: 113 },
+  { site: 'Olney',             cost: 201, sales: 23435, units: 128 },
+  { site: 'Corby',             cost: 191, sales: 30902, units: 109 },
+  { site: 'Burton Latimer',    cost: 173, sales: 22745, units: 114 },
+  { site: 'Peterborough Bridge',cost:147, sales: 21194, units: 85  },
+  { site: 'Lower Heathcote',   cost: 128, sales: 19797, units: 87  },
+  { site: 'Rothwell',          cost: 126, sales: 25166, units: 76  },
+];
+
+// ============ BUILD SPEND TABLE ============
+const spendTbody = document.getElementById('spend-tbody');
+[...spendData].sort((a,b) => b.sl - a.sl).forEach(d => {
+  const pct = (d.sl / d.sales * 100);
+  const cls = pct > 10 ? 'pct-high' : pct > 7.5 ? 'pct-med' : 'pct-low';
+  const flag = pct > 10 ? '<span class="badge-warn">High</span>' : pct < 5.5 ? '<span class="badge-ok">Low</span>' : '<span class="badge-amber">In range</span>';
+  spendTbody.innerHTML += `<tr>
+    <td class="bold">${d.site}</td>
+    <td class="tr bold">£${d.sl.toLocaleString()}</td>
+    <td class="tr" style="color:var(--text-muted)">£${d.sales.toLocaleString()}</td>
+    <td class="tr <${cls}""><span class="${cls}">${pct.toFixed(1)}%</span></td>
+    <td>${flag}</td>
+  </tr>`;
+});
+
+// ============ EPOS DETAIL TABLE ============
+const eposDetailTbody = document.getElementById('epos-detail-tbody');
+eposDetail.forEach(d => {
+  eposDetailTbody.innerHTML += `<tr>
+    <td class="bold">${d.site}</td>
+    <td class="tr">${d.hc}</td>
+    <td class="tr">${d.tuna}</td>
+    <td class="tr">${d.sbap}</td>
+    <td class="tr">${d.co}</td>
+    <td class="tr">${d.bbap}</td>
+    <td class="tr">${d.sroll}</td>
+    <td class="tr bold">${d.total.toLocaleString()}</td>
+    <td class="tr" style="color:var(--green)">£${d.rev.toLocaleString()}</td>
+  </tr>`;
+});
+
+// ============ OUTLIER TABLE ============
+const outlierTbody = document.getElementById('outlier-tbody');
+const outlierRows = [
+  { site: 'Billing DT',        sl: 2085, sales: 23469, slEpos: 5805,  waste: 545, flags: ['High SL%','High waste%'] },
+  { site: 'Higham Ferrers',    sl: 1144, sales: 18799, slEpos: 1297,  waste: 272, flags: ['Highest waste%'] },
+  { site: 'Rushden Lakes',     sl: 4302, sales: 86552, slEpos: 7799,  waste: 691, flags: ['Highest abs waste'] },
+  { site: 'Glenvale DT',       sl: null, sales: null,  slEpos: 7867,  waste: 594, flags: ['New site—monitor'] },
+  { site: 'Fletton Quays',     sl: 2555, sales: 30456, slEpos: 7281,  waste: 254, flags: ['High SL% (Jun25)'] },
+  { site: 'Wellingborough',    sl: 688,  sales: 28281, slEpos: 1225,  waste: 220, flags: ['Under-indexed SL'] },
+  { site: 'Northampton DT',   sl: 4999, sales: 100635,slEpos: 13423, waste: 328, flags: ['On target'] },
+  { site: 'Corby',            sl: 1627, sales: 30230, slEpos: 2555,  waste: 191, flags: ['Watch Sausage Roll'] },
+  { site: 'Rothwell',         sl: 1202, sales: 24423, slEpos: 1879,  waste: 126, flags: ['Best waste ✓'] },
+  { site: 'Lower Heathcote',  sl: 772,  sales: 17749, slEpos: 1326,  waste: 128, flags: ['Best waste ✓'] },
+];
+outlierRows.forEach(d => {
+  const pct = d.sl && d.sales ? (d.sl / d.sales * 100).toFixed(1) + '%' : '—';
+  const wpct = '—'; // we have sales but no SL-specific spend for June
+  const badgeHtml = d.flags.map(f => {
+    const isWarn = f.includes('High') || f.includes('Highest') || f.includes('Under');
+    const isOk = f.includes('target') || f.includes('Best') || f.includes('✓');
+    const cls = isOk ? 'badge-ok' : isWarn ? 'badge-warn' : 'badge-amber';
+    return `<span class="${cls}">${f}</span>`;
+  }).join(' ');
+  const wasteCls = d.waste > 400 ? 'pct-high' : d.waste > 250 ? 'pct-med' : 'pct-low';
+  const wpctVal = d.sales ? (d.waste / d.sales * 100).toFixed(2) + '%' : '—';
+  const wpctCls = parseFloat(wpctVal) > 0.9 ? 'pct-high' : parseFloat(wpctVal) > 0.65 ? 'pct-med' : 'pct-low';
+  outlierTbody.innerHTML += `<tr>
+    <td class="bold">${d.site}</td>
+    <td class="tr">${d.sl ? '£' + d.sl.toLocaleString() : '—'}</td>
+    <td class="tr" style="color:var(--text-muted)">${d.sales ? '£' + d.sales.toLocaleString() : '—'}</td>
+    <td class="tr">${d.sl && d.sales ? `<span class="${parseFloat(pct)>10?'pct-high':parseFloat(pct)<6?'pct-low':'pct-med'}">${pct}</span>` : '—'}</td>
+    <td class="tr bold">£${d.slEpos.toLocaleString()}</td>
+    <td class="tr"><span class="${wasteCls}">£${d.waste}</span></td>
+    <td class="tr">${d.sales ? `<span class="${wpctCls}">${wpctVal}</span>` : '—'}</td>
+    <td>${badgeHtml}</td>
+  </tr>`;
+});
+
+// ============ CHARTS ============
+const COLORS = {
+  purple: '#6c63ff', purpleLight: 'rgba(108,99,255,0.7)',
+  green: '#7affb8', greenLight: 'rgba(122,255,184,0.7)',
+  amber: '#ffc97a', amberLight: 'rgba(255,201,122,0.7)',
+  red: '#ff7a7a', redLight: 'rgba(255,122,122,0.7)',
+  blue: '#7ab8ff', blueLight: 'rgba(122,184,255,0.7)',
+  grid: 'rgba(42,45,62,0.8)',
+  text: '#7a7f9a'
+};
+
+const defaultOpts = {
+  responsive: true,
+  maintainAspectRatio: true,
+  plugins: { legend: { display: false }, tooltip: { backgroundColor: '#1a1d2e', borderColor: '#2a2d3e', borderWidth: 1, titleColor: '#e8eaf0', bodyColor: '#c8cadf', padding: 10 } },
+  scales: {
+    x: { ticks: { color: COLORS.text, font: { size: 10 } }, grid: { color: COLORS.grid } },
+    y: { ticks: { color: COLORS.text, font: { size: 10 }, callback: v => '£' + v.toLocaleString() }, grid: { color: COLORS.grid } }
+  }
+};
+
+// Supplier stacked bar
+const topSites = spendData.slice(0, 10);
+new Chart(document.getElementById('supplier-chart'), {
+  type: 'bar',
+  data: {
+    labels: topSites.map(d => d.site),
+    datasets: [
+      { label: 'Simply Lunch', data: topSites.map(d => d.sl), backgroundColor: COLORS.purpleLight, stack: 's' },
+      { label: 'Fresh Ideas',  data: topSites.map(d => d.fresh), backgroundColor: COLORS.greenLight, stack: 's' },
+      { label: 'Select Catering', data: topSites.map(d => d.select), backgroundColor: COLORS.blueLight, stack: 's' },
+      { label: 'Kirby & West',  data: topSites.map(d => d.kw), backgroundColor: COLORS.amberLight, stack: 's' },
+    ]
+  },
+  options: { ...defaultOpts, plugins: { ...defaultOpts.plugins, legend: { display: true, labels: { color: '#c8cadf', font: { size: 11 }, boxWidth: 12 } } }, scales: { ...defaultOpts.scales, x: { ...defaultOpts.scales.x, stacked: true }, y: { ...defaultOpts.scales.y, stacked: true } } }
+});
+
+// Product units chart
+const sortedProds = [...eposProducts].sort((a,b) => b.units - a.units);
+const prodColors = sortedProds.map((_, i) => i < 3 ? COLORS.purple : i < 8 ? COLORS.green : '#3a3d55');
+new Chart(document.getElementById('product-chart'), {
+  type: 'bar',
+  data: { labels: sortedProds.map(d => d.product), datasets: [{ data: sortedProds.map(d => d.units), backgroundColor: prodColors, borderRadius: 3 }] },
+  options: { ...defaultOpts, indexAxis: 'y', scales: { x: { ticks: { color: COLORS.text, font: {size:10} }, grid: { color: COLORS.grid } }, y: { ticks: { color: COLORS.text, font: {size:10} }, grid: { color: COLORS.grid } } }, plugins: { ...defaultOpts.plugins, tooltip: { ...defaultOpts.plugins.tooltip, callbacks: { label: ctx => ` ${ctx.raw.toLocaleString()} units` } } } }
+});
+
+// Site EPOS chart
+const sortedSiteEpos = [...siteEposData].sort((a,b) => b.rev - a.rev);
+new Chart(document.getElementById('site-epos-chart'), {
+  type: 'bar',
+  data: { labels: sortedSiteEpos.map(d => d.site), datasets: [{ label: 'SL Revenue', data: sortedSiteEpos.map(d => d.rev), backgroundColor: COLORS.purpleLight, borderRadius: 3 }] },
+  options: { ...defaultOpts, indexAxis: 'y', plugins: { ...defaultOpts.plugins, tooltip: { ...defaultOpts.plugins.tooltip, callbacks: { label: ctx => ` £${ctx.raw.toLocaleString()}` } } }, scales: { x: { ticks: { color: COLORS.text, font:{size:10}, callback: v => '£'+v.toLocaleString() }, grid: { color: COLORS.grid } }, y: { ticks: { color: COLORS.text, font:{size:9} }, grid: { color: COLORS.grid } } } }
+});
+
+// Wastage absolute
+const wasteSorted = [...wastageData].sort((a,b) => b.cost - a.cost);
+const wasteColors = wasteSorted.map(d => d.cost > 400 ? COLORS.red : d.cost > 250 ? COLORS.amber : COLORS.green);
+new Chart(document.getElementById('wastage-abs-chart'), {
+  type: 'bar',
+  data: { labels: wasteSorted.map(d => d.site), datasets: [{ data: wasteSorted.map(d => d.cost), backgroundColor: wasteColors, borderRadius: 3 }] },
+  options: { ...defaultOpts, indexAxis: 'y', scales: { x: { ticks: { color: COLORS.text, font:{size:10}, callback: v => '£'+v }, grid: { color: COLORS.grid } }, y: { ticks: { color: COLORS.text, font:{size:9} }, grid: { color: COLORS.grid } } }, plugins: { ...defaultOpts.plugins, tooltip: { ...defaultOpts.plugins.tooltip, callbacks: { label: ctx => ` £${ctx.raw} wastage cost` } } } }
+});
+
+// Wastage % of sales
+const wastePctData = [...wastageData].map(d => ({ site: d.site, pct: parseFloat((d.cost / d.sales * 100).toFixed(2)), cost: d.cost })).sort((a,b) => b.pct - a.pct);
+const wastePctColors = wastePctData.map(d => d.pct > 1.0 ? COLORS.red : d.pct > 0.65 ? COLORS.amber : COLORS.green);
+new Chart(document.getElementById('wastage-pct-chart'), {
+  type: 'bar',
+  data: { labels: wastePctData.map(d => d.site), datasets: [{ data: wastePctData.map(d => d.pct), backgroundColor: wastePctColors, borderRadius: 3 }] },
+  options: { indexAxis: 'y', responsive: true, maintainAspectRatio: true, scales: { x: { ticks: { color: COLORS.text, font:{size:10}, callback: v => v+'%' }, grid: { color: COLORS.grid } }, y: { ticks: { color: COLORS.text, font:{size:9} }, grid: { color: COLORS.grid } } }, plugins: { legend: { display: false }, tooltip: { backgroundColor: '#1a1d2e', borderColor: '#2a2d3e', borderWidth: 1, titleColor: '#e8eaf0', bodyColor: '#c8cadf', callbacks: { label: ctx => ` ${ctx.raw}% of site sales` } } } }
+});
+
+// ============ TAB SWITCHING ============
+function showTab(id, el) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  el.classList.add('active');
+}
+</script>
+</body>
+</html>
