@@ -117,19 +117,17 @@
   <div id="bwgate_err">Incorrect password</div>
 </div></div>
 <script>
-(function(){var H="73cf6ce5e618f175805a41e3f2151275fbcb696883da58e91d34eeb726756cb9",K="bwgate:"+location.pathname,g=document.getElementById("bwgate");
-if(sessionStorage.getItem(K)==="1"){g.parentNode.removeChild(g);return;}
+(function(){var H="73cf6ce5e618f175805a41e3f2151275fbcb696883da58e91d34eeb726756cb9",M="9412e51e5b03acf45e75361ad01c1e09e7ff8f5f6e8faec6f8c7b132de0518b8",K="bwgate:"+location.pathname,g=document.getElementById("bwgate");
+if(localStorage.getItem(K)==="1"){g.parentNode.removeChild(g);return;}
 var el=document.documentElement;el.style.overflow="hidden";
 async function sha(s){var b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));return Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,"0")}).join("");}
 async function go(){try{var h=await sha(document.getElementById("bwgate_in").value);}catch(e){alert("This gate needs to be opened over https.");return;}
-if(h===H){sessionStorage.setItem(K,"1");el.style.overflow="";g.parentNode.removeChild(g);}else{document.getElementById("bwgate_err").style.display="block";var b=document.getElementById("bwgate_box");b.style.animation="none";void b.offsetWidth;b.style.animation="bwshake .4s";}}
+if(h===H||h===M){localStorage.setItem(K,"1");el.style.overflow="";g.parentNode.removeChild(g);}else{document.getElementById("bwgate_err").style.display="block";var b=document.getElementById("bwgate_box");b.style.animation="none";void b.offsetWidth;b.style.animation="bwshake .4s";}}
 document.getElementById("bwgate_go").onclick=go;
 document.getElementById("bwgate_in").addEventListener("keydown",function(e){if(e.key==="Enter")go();});
 document.getElementById("bwgate_in").focus();
 })();
 </script>
-
-
 <!-- ===== Brand header ===== -->
 <div class="brandbar">
   <div class="inner">

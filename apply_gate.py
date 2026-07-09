@@ -38,6 +38,10 @@ GATE = {
 # so a new dashboard is never accidentally published ungated.
 DEFAULT_HASH = "bd71fba3ed5bdcc067903cb7a53c2d8522653d150e2e10de7b1c5370d5dac578"
 
+# Master password (SHA-256 only). Unlocks ANY gated page IN ADDITION to that page's
+# own password. Internal/Matt use only — do NOT share with suppliers.
+MASTER_HASH = "9412e51e5b03acf45e75361ad01c1e09e7ff8f5f6e8faec6f8c7b132de0518b8"
+
 def is_served(fn):
     if not fn.endswith(".html"): return False
     if fn.startswith("TEMPLATE_"): return False
@@ -47,10 +51,12 @@ def is_served(fn):
 def inject(fn):
     path = os.path.join(HERE, fn)
     s = open(path, encoding="utf-8").read()
-    if MARK in s: return "skip(already gated)"
     if not re.search(r"<body[^>]*>", s, re.I): return "skip(no body)"
+    # Strip any previously-injected gate (marker -> end of the gate's own <script>) so the
+    # CURRENT snippet + hashes are always re-stamped. Makes gate changes propagate on rebuild.
+    s = re.sub(r"<!--BWGATE-->.*?</script>\s*", "", s, flags=re.I | re.S)
     h = GATE.get(fn, DEFAULT_HASH)
-    snip = MARK + SNIPPET.replace("__GATE_HASH__", h)
+    snip = MARK + SNIPPET.replace("__GATE_HASH__", h).replace("__MASTER_HASH__", MASTER_HASH)
     s = re.sub(r"(<body[^>]*>)", lambda m: m.group(1) + snip, s, count=1, flags=re.I)
     open(path, "w", encoding="utf-8").write(s)
     return "gated(%s)" % ("map" if fn in GATE else "DEFAULT")
