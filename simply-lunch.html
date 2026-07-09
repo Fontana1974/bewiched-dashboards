@@ -120,12 +120,10 @@ document.getElementById("bwgate_in").addEventListener("keydown",function(e){if(e
 document.getElementById("bwgate_in").focus();
 })();
 </script>
-
-
 <div class="header">
   <div>
     <h1>Simply Lunch · June 2026 Performance Intelligence</h1>
-    <div class="sub">Supplier spend (May P&L) × EPOS product sales × Wastage · All 21 sites · Source: Xero / BigQuery live pull</div>
+    <div class="sub">Simply Lunch spend (May P&L) × EPOS product sales × Wastage · All 21 sites · Source: Xero / BigQuery live pull</div>
   </div>
   <span class="badge">June 2026</span>
 </div>
@@ -135,6 +133,7 @@ document.getElementById("bwgate_in").focus();
   <div class="tab" onclick="showTab('epos',this)">🥙 EPOS Sales</div>
   <div class="tab" onclick="showTab('wastage',this)">🗑️ Wastage</div>
   <div class="tab" onclick="showTab('outliers',this)">⚡ Outliers & Actions</div>
+  <div class="tab" onclick="showTab('refresh',this)">🔄 August Refresh</div>
 </div>
 
 <!-- ===== TAB 1: OVERVIEW ===== -->
@@ -147,22 +146,22 @@ document.getElementById("bwgate_in").focus();
       <div class="flag flag-amber">~9% avg of sales</div>
     </div>
     <div class="kpi">
-      <div class="label">Fresh Ideas Spend (May)</div>
-      <div class="val">£56,894</div>
-      <div class="sub">Largest food supplier</div>
-      <div class="flag flag-amber">SL = 59% of FI</div>
+      <div class="label">Top SL Site (Spend)</div>
+      <div class="val" style="font-size:1rem">Northampton DT</div>
+      <div class="sub">£4,999 · May P&L</div>
+      <div class="flag flag-green">Largest SL site</div>
     </div>
     <div class="kpi">
-      <div class="label">Select Catering (May)</div>
-      <div class="val">£43,457</div>
-      <div class="sub">Non-food + disposables</div>
-      <div class="flag flag-amber">SL = 78% of Select</div>
+      <div class="label">Drive-thru SL Share</div>
+      <div class="val">35%</div>
+      <div class="sub">NDT + Rushden + Fletton</div>
+      <div class="flag flag-amber">of all SL spend</div>
     </div>
     <div class="kpi">
-      <div class="label">Kirby &amp; West (May)</div>
-      <div class="val">£21,067</div>
-      <div class="sub">Dairy / milk</div>
-      <div class="flag flag-green">Stable 4% of sales</div>
+      <div class="label">Highest SL / Sales</div>
+      <div class="val">8.9%</div>
+      <div class="sub">Billing DT · £2,085 / £23.5k</div>
+      <div class="flag flag-amber">outlier vs sales</div>
     </div>
     <div class="kpi">
       <div class="label">SL % of Total Turnover</div>
@@ -189,7 +188,7 @@ document.getElementById("bwgate_in").focus();
       </div>
     </div>
     <div class="card">
-      <div class="section-title">Supplier Mix — May 2026 (£ by Site)</div>
+      <div class="section-title">Simply Lunch Spend — May 2026 (£ by Site, top 10)</div>
       <canvas id="supplier-chart" style="max-height:360px"></canvas>
       <div class="insight">
         <strong>📊 Context</strong>
@@ -389,28 +388,165 @@ document.getElementById("bwgate_in").focus();
   </div>
 </div>
 
+<!-- ===== TAB 5: AUGUST REFRESH ===== -->
+<div class="panel" id="tab-refresh">
+
+  <div class="card" style="margin-bottom:var(--gap)">
+    <div class="section-title">August Range Refresh — Cannibalisation &amp; Range Calls</div>
+    <div class="insight" style="margin-top:0">
+      <strong>🔄 The change</strong>
+      Six lines withdrawn and replaced, plus three new additions. Cost is from the August pricing file; it holds <em>no sell price</em>, so GM% is estimated from June EPOS retail (revenue ÷ units) by category and is directional. Context: salads are only <strong>1.6% of tracked lunch units</strong> (302u, the two weakest lines), while toasties are the engine — Ham &amp; Cheese Croque 2,688u (#1) and Cheese &amp; Onion Croque 1,684u (#4).
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:var(--gap)">
+    <div class="section-title">Delist → Replacement · Cannibalisation Assessment</div>
+    <div class="scroll">
+      <table>
+        <thead><tr>
+          <th>Withdraw</th><th>Replacement</th><th class="tr">Cost</th><th class="tr">~GM</th>
+          <th>Overlaps existing seller</th><th>Risk</th><th>Verdict</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td>BM14311 BBQ Pork Ciabatta<br><span style="color:var(--text-muted)">low volume</span></td>
+            <td>BM14312 Ham &amp; Cheese Ciabatta <span class="flag flag-green">NEW</span></td>
+            <td class="tr">£1.85</td><td class="tr">~63%</td>
+            <td>Ham &amp; Cheese Croque · 2,688u (hot vs cold — partial)</td>
+            <td><span class="flag flag-amber">Low–Mod</span></td>
+            <td>Incremental winner — proven flavour, top margin. Monitor croque units.</td>
+          </tr>
+          <tr>
+            <td>BM20003 Veggie New Yorker<br><span style="color:var(--text-muted)">low volume</span></td>
+            <td>BM09092 Cheddar &amp; Caramelised Onion <span class="flag flag-amber">EXISTING</span></td>
+            <td class="tr">existing</td><td class="tr">n/a</td>
+            <td>Cheese &amp; Onion Croque · 1,684u (#4)</td>
+            <td><span class="flag flag-amber">Moderate</span></td>
+            <td>OK swap out of a weak veggie line; watch the #4 croque.</td>
+          </tr>
+          <tr>
+            <td>BM10995 GF Chicken Caesar Roll<br><span style="color:var(--text-muted)">GF niche</span></td>
+            <td>BM07007 GF Chicken Caesar <span class="flag flag-green">NEW</span></td>
+            <td class="tr">£2.45</td><td class="tr">~48%</td>
+            <td>None (GF dietary)</td>
+            <td><span class="flag flag-green">Neutral</span></td>
+            <td>Like-for-like GF provision. Keep for compliance; don't over-stock.</td>
+          </tr>
+          <tr>
+            <td>BM10996 GF Egg &amp; Cress Roll<br><span style="color:var(--text-muted)">GF niche</span></td>
+            <td>BM07006 GF Egg &amp; Cress <span class="flag flag-green">NEW</span></td>
+            <td class="tr">£2.41</td><td class="tr">~49%</td>
+            <td>None (GF dietary)</td>
+            <td><span class="flag flag-green">Neutral</span></td>
+            <td>Like-for-like GF provision. Keep for compliance; don't over-stock.</td>
+          </tr>
+          <tr>
+            <td>BM05008 Greek Chicken Salad<br><span style="color:var(--text-muted)">134u · #17 weakest</span></td>
+            <td>BM05016 Chipotle Chicken &amp; Sweet Potato Salad <span class="flag flag-green">NEW</span></td>
+            <td class="tr">£2.48</td><td class="tr">~44%</td>
+            <td>Salad category · 302u total (1.6%)</td>
+            <td><span class="flag flag-green">Low</span></td>
+            <td>Upgrade the weakest line; protein-led. Carry as THE salad at high-volume sites.</td>
+          </tr>
+          <tr>
+            <td>BM05013 Green &amp; Grain Salad<br><span style="color:var(--text-muted)">168u · #16</span></td>
+            <td>BM05017 Mediterranean Beetroot &amp; Feta Salad <span class="flag flag-green">NEW</span></td>
+            <td class="tr">£2.38</td><td class="tr">~46%</td>
+            <td>Salad category · 302u total (1.6%)</td>
+            <td><span class="flag flag-green">Low</span></td>
+            <td>Niche / veggie — unlikely to outsell. Café/destination only; drop at drive-thrus.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:var(--gap)">
+    <div class="section-title">New Additions (no delist paired)</div>
+    <div class="scroll">
+      <table>
+        <thead><tr>
+          <th>New line</th><th>Type</th><th class="tr">Cost</th><th class="tr">~GM</th>
+          <th>Overlaps existing seller</th><th>Risk</th><th>Verdict</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td>BM13001 BBQ Chicken &amp; Cheese Toastie<br><span style="color:var(--text-muted)">new addition</span></td>
+            <td>extends toastie category <span class="flag flag-green">NEW</span></td>
+            <td class="tr">£1.65</td><td class="tr">~68%</td>
+            <td>Croques (#1 &amp; #4) — flavour variety</td>
+            <td><span class="flag flag-amber">Low–Mod</span></td>
+            <td>Carry across high-volume sites — cheapest cost, top margin, winning category.</td>
+          </tr>
+          <tr>
+            <td>BM07005 Double Egg Mayonnaise<br><span style="color:var(--text-muted)">new addition</span></td>
+            <td>classic sandwich <span class="flag flag-green">NEW</span></td>
+            <td class="tr">£1.63</td><td class="tr">~59%</td>
+            <td>Egg &amp; Spinach Sandwich · 972u</td>
+            <td><span class="flag flag-green">Low</span></td>
+            <td>Carry — distinct classic, cheapest cost, strong margin.</td>
+          </tr>
+          <tr>
+            <td>BM21007 Chicken &amp; Pesto Baguette<br><span style="color:var(--text-muted)">new addition</span></td>
+            <td>new format <span class="flag flag-green">NEW</span></td>
+            <td class="tr">£2.39</td><td class="tr">~48%</td>
+            <td>None (no existing baguette)</td>
+            <td><span class="flag flag-amber">Unproven</span></td>
+            <td>Pilot at Rushden Lakes &amp; Peterborough FQ only — new format, higher cost.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:var(--gap)">
+    <div class="section-title">High-Volume Store Range — from August</div>
+    <div class="insight" style="margin-top:0">
+      <strong>Top-volume sites</strong> Northampton DT (3,090u) · Glenvale DT (1,704) · Rushden Lakes (1,677) · Peterborough FQ (1,479) · Billing DT (1,313) · Northampton (1,238) · Market Harborough (1,067). Drive-thrus (NDT, Glenvale, Billing) skew hot / grab-and-go — and are the top waste sites (Rushden £691, Glenvale £594, Billing £545).
+    </div>
+    <div class="action-item">
+      <span class="action-label flag-green">🟢 CARRY across high-volume sites</span>
+      The three new winners — <strong>Ham &amp; Cheese Ciabatta</strong> (£1.85 / ~63%), <strong>BBQ Chicken &amp; Cheese Toastie</strong> (£1.65 / ~68%) and <strong>Double Egg Mayonnaise</strong> (£1.63 / ~59%) — plus protect the heroes: both croques, the three ciabattas (Tuna, Chicken &amp; Chorizo, Mozzarella &amp; Tomato), Sausage Bap &amp; Roll, Bacon Bap, Caesar Wrap, Ham &amp; Mozz Croissant, Breakfast Bagel, Egg &amp; Spinach.
+    </div>
+    <div class="action-item">
+      <span class="action-label flag-amber">🟠 RATIONALISE</span>
+      One salad only at high-volume sites — <strong>Chipotle Chicken &amp; Sweet Potato</strong>. <strong>Mediterranean Beetroot &amp; Feta</strong> = café/destination only; drop the 2nd salad at the drive-thrus (hot-food skew + waste). Keep 1–2 <strong>GF</strong> lines for dietary compliance with minimal facings, not pushed at high-waste DT sites. <strong>Chicken &amp; Pesto Baguette</strong> = pilot at Rushden Lakes &amp; Peterborough FQ only.
+    </div>
+    <div class="action-item">
+      <span class="action-label flag-red">🔴 WITHDRAW estate-wide</span>
+      BBQ Pork Ciabatta · Veggie New Yorker · GF Chicken Caesar Roll · GF Egg &amp; Cress Roll · Greek Chicken Salad · Green &amp; Grain Salad.
+    </div>
+  </div>
+
+  <div class="insight">
+    <strong>⚠️ Margin caveat</strong>
+    Figures are directional. The August pricing file supplies supplier <em>cost only</em> — no sell price or GM. GM% is estimated from June EPOS retail (revenue ÷ units) by category and will move with eat-in (20% VAT) vs takeaway (0%). Delisted-item costs weren't provided, so swap margin-deltas are indicative. These are default range calls — adjust specific lines as needed.
+  </div>
+
+</div>
+
 <script>
 // ============ DATA ============
 
 const spendData = [
-  { site: 'Northampton DT',    sl: 4999, sales: 100635, fresh: 8565, select: 6466, kw: 3009 },
-  { site: 'Rushden Lakes',     sl: 4302, sales: 86552,  fresh: 9580, select: 5570, kw: 2021 },
-  { site: 'Northampton',       sl: 2373, sales: 38629,  fresh: 3428, select: 2122, kw: 1220 },
-  { site: 'Fletton Quays',     sl: 2555, sales: 30456,  fresh: 2472, select: 1994, kw: 1731 },
-  { site: 'Billing DT',        sl: 2085, sales: 23469,  fresh: 4030, select: 2809, kw: 825  },
-  { site: 'Market Harborough', sl: 2127, sales: 40865,  fresh: 3103, select: 2959, kw: 1179 },
-  { site: 'Leamington Parade', sl: 1895, sales: 35982,  fresh: 2973, select: 2207, kw: 1101 },
-  { site: 'Train Station',     sl: 1783, sales: 25622,  fresh: 2160, select: 1361, kw: 955  },
-  { site: 'Kettering',         sl: 1607, sales: 37320,  fresh: 2994, select: 2316, kw: 1100 },
-  { site: 'Corby',             sl: 1627, sales: 30230,  fresh: 3341, select: 1763, kw: 888  },
-  { site: 'Rugby',             sl: 1424, sales: 31973,  fresh: 2411, select: 2931, kw: 1143 },
-  { site: 'Higham Ferrers',    sl: 1144, sales: 18799,  fresh: 2128, select: 1584, kw: 720  },
-  { site: 'Peterborough',      sl: 1115, sales: 19223,  fresh: 1317, select: 1287, kw: 700  },
-  { site: 'Rothwell',          sl: 1202, sales: 24423,  fresh: 1763, select: 1607, kw: 850  },
-  { site: 'Olney',             sl: 1032, sales: 21348,  fresh: 1340, select: 1483, kw: 971  },
-  { site: 'Lower Heathcote',   sl: 772,  sales: 17749,  fresh: 1486, select: 1200, kw: 743  },
-  { site: 'Burton Latimer',    sl: 976,  sales: 21509,  fresh: 1725, select: 1477, kw: 887  },
-  { site: 'Wboro Market St',   sl: 688,  sales: 28281,  fresh: 2078, select: 2320, kw: 1024 },
+  { site: 'Northampton DT',    sl: 4999, sales: 100635 },
+  { site: 'Rushden Lakes',     sl: 4302, sales: 86552 },
+  { site: 'Northampton',       sl: 2373, sales: 38629 },
+  { site: 'Fletton Quays',     sl: 2555, sales: 30456 },
+  { site: 'Billing DT',        sl: 2085, sales: 23469  },
+  { site: 'Market Harborough', sl: 2127, sales: 40865 },
+  { site: 'Leamington Parade', sl: 1895, sales: 35982 },
+  { site: 'Train Station',     sl: 1783, sales: 25622  },
+  { site: 'Kettering',         sl: 1607, sales: 37320 },
+  { site: 'Corby',             sl: 1627, sales: 30230  },
+  { site: 'Rugby',             sl: 1424, sales: 31973 },
+  { site: 'Higham Ferrers',    sl: 1144, sales: 18799  },
+  { site: 'Peterborough',      sl: 1115, sales: 19223  },
+  { site: 'Rothwell',          sl: 1202, sales: 24423  },
+  { site: 'Olney',             sl: 1032, sales: 21348  },
+  { site: 'Lower Heathcote',   sl: 772,  sales: 17749  },
+  { site: 'Burton Latimer',    sl: 976,  sales: 21509  },
+  { site: 'Wboro Market St',   sl: 688,  sales: 28281 },
 ];
 
 const eposProducts = [
@@ -602,13 +738,10 @@ new Chart(document.getElementById('supplier-chart'), {
   data: {
     labels: topSites.map(d => d.site),
     datasets: [
-      { label: 'Simply Lunch', data: topSites.map(d => d.sl), backgroundColor: COLORS.purpleLight, stack: 's' },
-      { label: 'Fresh Ideas',  data: topSites.map(d => d.fresh), backgroundColor: COLORS.greenLight, stack: 's' },
-      { label: 'Select Catering', data: topSites.map(d => d.select), backgroundColor: COLORS.blueLight, stack: 's' },
-      { label: 'Kirby & West',  data: topSites.map(d => d.kw), backgroundColor: COLORS.amberLight, stack: 's' },
+      { label: 'Simply Lunch', data: topSites.map(d => d.sl), backgroundColor: COLORS.purple, borderRadius: 3 },
     ]
   },
-  options: { ...defaultOpts, plugins: { ...defaultOpts.plugins, legend: { display: true, labels: { color: '#c8cadf', font: { size: 11 }, boxWidth: 12 } } }, scales: { ...defaultOpts.scales, x: { ...defaultOpts.scales.x, stacked: true }, y: { ...defaultOpts.scales.y, stacked: true } } }
+  options: { ...defaultOpts, plugins: { ...defaultOpts.plugins, legend: { display: false } } }
 });
 
 // Product units chart
