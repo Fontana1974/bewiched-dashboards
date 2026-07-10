@@ -544,27 +544,44 @@ def yoy_bystore_html(title):
 
 
 def weekend_bystore_html(kind):
-    """Per-store weekend cut: each store's Fri / Sat / Sun this year vs the equivalent day last year
-    (YoY%, traffic-lit), mirroring the company dashboard's by-store day-of-week growth grid."""
+    """Per-store weekend cut: each store's ACTUAL Fri / Sat / Sun figure (sales £ or guest checks)
+    for the previous completed weekend, each with its YoY vs the equivalent day last year, plus a
+    weekend total. Data (this-year actuals + last-year) already pulled into weekend_by_store."""
     wbs = YOY.get("weekend_by_store") or {}
     if not wbs:
         return ""
     SH = lambda x: F1_SHORT.get(x, x)
+    is_sales = (kind == "sales")
+    def fmtv(v):
+        return ("£" + format(int(round(v)), ",")) if is_sales else format(int(round(v)), ",")
     def _yoy(t, l):
         return None if not l else 100 * (t / l - 1)
+    def cell(t, l):
+        y = _yoy(t, l)
+        tag = ('<span class="tag t-na">n/a</span>' if y is None
+               else '<span class="tag %s">%s%s%%</span>' % (("t-ok" if y >= 0 else "t-red"),
+                                                            ("+" if y >= 0 else ""), round(y, 1)))
+        return '<td class="v"><div>%s</div>%s</td>' % (fmtv(t), tag)
     items = []
     for st, v in wbs.items():
         d = v.get(kind) or {}
         tv = d.get("this") or [0, 0, 0]; lv = d.get("last") or [0, 0, 0]
         items.append((st, tv, lv, sum(tv)))
     items.sort(key=lambda x: -x[3])
-    body = "".join('<tr><td>%s</td>%s</tr>' % (esc(SH(st)), "".join(_yoycell(_yoy(tv[i], lv[i])) for i in range(3)))
-                   for (st, tv, lv, _tot) in items)
-    unit = "sales" if kind == "sales" else "guest checks"
-    return ('<div class="md-section-h">Weekend by store &mdash; Fri / Sat / Sun %s YoY</div>'
-            '<div class="md-ps-basis">Each store&rsquo;s previous weekend vs the equivalent day of last year&rsquo;s weekend (%s), best first.</div>'
-            '<table class="md-ps" style="max-width:480px"><thead><tr><th>Store</th><th>Fri</th><th>Sat</th><th>Sun</th></tr></thead><tbody>%s</tbody></table>'
-            % (unit, unit, body))
+    body = "".join(
+        '<tr><td class="s">%s</td>%s%s</tr>' % (
+            esc(SH(st)),
+            "".join(cell(tv[i], lv[i]) for i in range(3)),
+            cell(sum(tv), sum(lv)))
+        for (st, tv, lv, _tot) in items)
+    unit = "sales" if is_sales else "guest checks"
+    return ('<div class="md-section-h">Weekend by store &mdash; Fri / Sat / Sun %s (actual &amp; YoY)</div>'
+            '<div class="md-ps-basis">Each store&rsquo;s <b>actual</b> %s for Friday, Saturday and Sunday of the previous weekend, '
+            'each with the year-on-year change vs the equivalent day last year (%s). Weekend total on the right; best weekend first.</div>'
+            '<table class="md-ps" style="max-width:640px"><thead><tr><th>Store</th>'
+            '<th class="v">Fri</th><th class="v">Sat</th><th class="v">Sun</th><th class="v">Weekend</th></tr></thead>'
+            '<tbody>%s</tbody></table>'
+            % (unit, unit, unit, body))
 
 # ============ F1 Op's Excellence detail (mirrors the Company Dashboard 'Op's Excellence' tab) ============
 # Reuses the SAME source files the company dashboard renders from — f1_detail.json (race / qualifying /
