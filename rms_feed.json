@@ -131,8 +131,8 @@
     "avg": 3.38
    },
    "qtd": {
-    "n": 7,
-    "avg": 3.43
+    "n": 9,
+    "avg": 3.44
    }
   },
   "HOE Balsall Common": {
@@ -227,6 +227,22 @@
   }
  },
  "comments": [
+  {
+   "store": "Glenvale Drive Thru",
+   "date": "2026-07-10",
+   "rating": 4.0,
+   "text": "Customers would like an answer about loyalty app working again",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Glenvale Drive Thru",
+   "date": "2026-07-10",
+   "rating": 3.0,
+   "text": "Customers keep asking for bigger iced matchas 🍵",
+   "smt": null,
+   "sentiment": "Mixed"
+  },
   {
    "store": "Billing Drive Thru",
    "date": "2026-07-09",
@@ -402,22 +418,6 @@
    "text": "Always love working with Venus",
    "smt": "CL - Thanked for contributions via store slack channel.",
    "sentiment": "Mixed"
-  },
-  {
-   "store": "HOE Balsall Common",
-   "date": "2026-07-06",
-   "rating": 5.0,
-   "text": "Slay",
-   "smt": "CL - Thanked for contributions via store slack channel.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Rugby",
-   "date": "2026-07-06",
-   "rating": 5.0,
-   "text": "Great shift. Hi Claire.",
-   "smt": "CL - Thanked for contributions via store slack channel.",
-   "sentiment": "Positive"
   }
  ]
 }
