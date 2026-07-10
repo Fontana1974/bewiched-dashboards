@@ -767,6 +767,39 @@ def pull_audit():
     print("[pull] audit: %d stores qtd, %d raw stores, %d audits last week" % (len(qtd), len(raw_rows), len(lastwk)))
 
 
+def pull_remote():
+    """STEP 2j+ — Remote Assessment (same Richard Wagg sheet as the brand audit; tab
+    'Remote Assessment Data': Store col B, Date col D, Score col E out of 100). Per-store QTD mean
+    of valid scores (Score>0), normalised to /5 (divide by 20). Sets rec.remote_qtd (/5),
+    rec.remote_qtd100, rec.remote_n; writes remote_raw.json with the last-completed-week estate avg."""
+    rows = sheet(SID["audit"], "'Remote Assessment Data'!A1:F4000")
+    a = load_all(); rec = a["rec"]
+    qtd = {}; lastwk = []
+    for r in rows[1:]:
+        if len(r) < 5 or not r[1]: continue
+        st = normalize(r[1])
+        if st is None: continue
+        dt = parse_any_date(r[3])
+        if not dt: continue
+        sc = fnum(r[4])
+        if sc is None or sc <= 0: continue           # negative / blank = not completed -> skip
+        if dt >= QSTART: qtd.setdefault(st, []).append(sc)
+        if LASTWK_MON <= dt <= CUR_END: lastwk.append(sc)
+    for st, xs in qtd.items():
+        if st in rec:
+            avg100 = sum(xs) / len(xs)
+            rec[st]["remote_qtd100"] = round(avg100, 1)
+            rec[st]["remote_qtd"] = round(avg100 / 20, 3)
+            rec[st]["remote_n"] = len(xs)
+    save_all(a)
+    W("remote_raw.json", {"_pulled": CUR_END.isoformat(),
+        "_sheet": "%s / Remote Assessment Data" % SID["audit"],
+        "_scale": "Score out of 100, normalised to /5 (divide by 20)",
+        "_lastwk_avg100": round(sum(lastwk) / len(lastwk), 1) if lastwk else None,
+        "_lastwk_n": len(lastwk)}, indent=1)
+    print("[pull] remote: %d stores qtd, %d assessments last week" % (len(qtd), len(lastwk)))
+
+
 def pull_availability():
     """STEP 2m — Availability 'Polling' (chunked) -> rec.avail (latest COMPLETE week avg col J)."""
     a = load_all(); rec = a["rec"]
@@ -1428,6 +1461,28 @@ def pull_eos_scorecard():
     # ---- Brand Audit, last completed week (audits are periodic; awaiting if none logged that week) ----
     audit_lastwk = jload("audit_raw.json").get("_lastwk_avg")
     audit_lastwk_n = jload("audit_raw.json").get("_lastwk_n", 0)
+    # ---- Brand & Remote Assessment blend (50/50; fallback: if one side missing, use the other) ----
+    _rem_wk100 = jload("remote_raw.json").get("_lastwk_avg100")
+    def _blend(b, r5):
+        if b is not None and r5 is not None: return round((b + r5) / 2, 2)
+        if r5 is not None: return round(r5, 2)
+        if b is not None: return round(b, 2)
+        return None
+    brand_remote_rows = []
+    for st, r in rec.items():
+        b = r.get("audit_qtd"); r100 = r.get("remote_qtd100")
+        r5 = (r100 / 20) if r100 is not None else None
+        bl = _blend(b, r5)
+        if bl is None: continue
+        r["blend_qtd"] = bl
+        brand_remote_rows.append({"store": st, "brand": b, "remote100": r100,
+            "remote5": round(r5, 2) if r5 is not None else None, "blend": bl,
+            "src": "both" if (b is not None and r5 is not None) else ("remote" if r5 is not None else "brand")})
+    brand_remote_rows.sort(key=lambda x: -x["blend"])
+    ba_blend = round(sum(x["blend"] for x in brand_remote_rows) / len(brand_remote_rows), 2) if brand_remote_rows else None
+    audit_blend_wk = _blend(audit_lastwk, (_rem_wk100 / 20) if _rem_wk100 is not None else None)
+    _rem_vals = [r.get("remote_qtd100") for r in rec.values() if r.get("remote_qtd100") is not None]
+    _estate_remote100 = round(sum(_rem_vals) / len(_rem_vals), 1) if _rem_vals else None
     # ---- Food GP% — Cost-of-Sales sheet is weekly; cos estate avg already = latest CoS week ----
     cos_week = jload("cos_metrics.json").get("_week", "")
     # ---- Brew Crew Kudos Participation: distinct employees who gave kudos, DATE-WINDOWED / total employees ----
@@ -1658,9 +1713,9 @@ def pull_eos_scorecard():
         metric("f1_score_wk", "F1 Score", F1_PLAN, f1_wk, "", "num1", "sheet",
                ("Last week's race result, estate avg (%d stores) — lower is better" % len(f1_wk_xs)) if f1_wk_xs else "No race scores logged last week",
                f1_note, dirn="low"),
-        metric("brand_audit_wk", "Brand Audit Score", 4.6, audit_lastwk, "", "score2", "derived",
-               ("Audits logged last week, estate avg (%d audits)" % audit_lastwk_n) if audit_lastwk_n else "No brand audits logged last week",
-               "Last completed week's audits. Brand audits are periodic — tile stays awaiting in weeks with none; the QTD tile is the reliable one."),
+        metric("brand_audit_wk", "Brand & Remote Assessment", 4.6, audit_blend_wk, "", "score2", "derived",
+               "Blended brand audit + remote assessment, last completed week (estate)" if audit_blend_wk is not None else "No brand audit or remote assessment logged last week",
+               "Last completed week's 50/50 blend of brand audit and remote assessment (whichever is present that week). Both are periodic — the QTD tile is the reliable one."),
         metric("food_gp_wk", "Food GP%", 71, fg_wk, "%", "pct1", "derived",
                ("Cost-of-Sales estate Gross Profit%% (col Q), latest week ending %s" % cos_week) if cos_week else "Estate Gross Profit% (col Q) from Cost of Sales",
                "Estate Gross Profit% from the Cost-of-Sales sheet (col Q, sales-weighted across stores)."),
@@ -1697,9 +1752,9 @@ def pull_eos_scorecard():
         metric("f1_score", "F1 Score", F1_PLAN, f1_qtd, "", "num1", "sheet",
                ("QTD race 'Total Score', estate avg (%d stores) — lower is better" % len(f1_qtd_xs)) if f1_qtd_xs else "Awaiting F1 race data",
                f1_note, dirn="low"),
-        metric("brand_audit", "Brand Audit Score", 4.6, ba, "", "score2", "derived",
-               "Estate average brand audit (QTD), out of 5",
-               "Auto-derived from the Brand Audit sheet (quarter-to-date); override in the inputs sheet if needed."),
+        metric("brand_audit", "Brand & Remote Assessment", 4.6, ba_blend, "", "score2", "derived",
+               "Estate 50/50 blend of brand audit + remote assessment (QTD), out of 5",
+               "Each store blends its QTD brand audit (/5) and remote assessment (out of 100, divided by 20) 50/50; a store with only one uses that one. Estate = average of per-store blends. Sources: Brand Audit sheet + 'Remote Assessment Data' tab (Richard Wagg)."),
         metric("food_gp", "Food GP%", 71, fg_qtd, "%", "pct1", "derived",
                "Estate Gross Profit% (col Q) from Cost of Sales, quarter-to-date (sales-weighted)",
                "Estate Gross Profit% from the Cost-of-Sales sheet (col Q, sales-weighted), quarter-to-date."),
@@ -1837,9 +1892,9 @@ def pull_eos_scorecard():
          qtd=[{"store": st, "value": round((min(nv[0] / (70 * weeks_q), 1) + min(nv[1] / 4.6, 1)) / 2 * 100, 1)}
               for st, nv in sh.get("rms", {}).items() if nv and nv[0]],
          qbasis="QTD blend: submission volume (÷%d) & score (÷4.6), per store" % (70 * weeks_q))
-    _ps2("Brand Audit Score", plan=4.6,
-         qtd=[{"store": st, "value": round(r["audit_qtd"], 2)} for st, r in rec.items() if r.get("audit_qtd")],
-         qbasis="QTD brand audit score out of 5 (per store)")
+    _ps2("Brand & Remote Assessment", plan=4.6,
+         qtd=[{"store": x["store"], "value": x["blend"]} for x in brand_remote_rows],
+         qbasis="QTD 50/50 blend of brand audit + remote assessment, out of 5 (per store)")
     _ps2("Brew Crew Kudos Participation", plan=50,
          weekly=kudos_ps_weekly,
          wbasis="Distinct employees at the store who gave kudos last week ÷ store headcount (per store, vs 50% plan)",
@@ -1924,6 +1979,8 @@ def pull_eos_scorecard():
                                 "rows": [{"store": st, "value": v} for st, v in food_qtd_ps.items() if v is not None]}},
     }
 
+    brand_remote_detail = {"estate_blend": ba_blend, "estate_brand": ba, "estate_remote100": _estate_remote100,
+                           "target": 4.6, "rows": brand_remote_rows}
     out = {
         "_about": "Bewiched EOS Scorecard data. Written by run_weekly.py pull_eos_scorecard(); "
                   "rendered by gen_eos_scorecard.py. Live = BigQuery; derived = other feeds; manual = inputs sheet.",
@@ -1937,6 +1994,7 @@ def pull_eos_scorecard():
         "weekly": weekly,
         "quarterly": quarterly,
         "per_store": per_store,
+        "brand_remote": brand_remote_detail,
         "yoy_detail": yoy_detail,
         "flags": flags,
     }
@@ -2058,7 +2116,7 @@ def pull_eos_scorecard():
                "estate_gp_pct": _hc(gp_wk_live), "estate_cph": _hc(cph_estate), "sph": _hc(sph),
                "npat_proj_pct": _hc(npat_wk), "yoy_sales_pct": _hc(yoy_sales_wk), "yoy_tx_pct": _hc(yoy_tx_wk),
                "f1_avg": _hc(f1_wk), "rms_pct": _hc(rh), "kudos_pct": _hc(kudos_wk_pct),
-               "brand_audit": _hc(audit_lastwk), "google_health_pct": _hc(gh), "estate_atv": _hc(atv_wk)}
+               "brand_audit": _hc(audit_blend_wk), "google_health_pct": _hc(gh), "estate_atv": _hc(atv_wk)}
     by_wk = {r.get("week_ending"): r for r in hist_rows}
     by_wk[new_row["week_ending"]] = new_row
     ordered = sorted(by_wk.values(), key=lambda r: r.get("week_ending", ""))
@@ -2198,6 +2256,7 @@ def pulls():
     pull_takeaway()           # rec.takeaway
     pull_sickness()           # rec.sent
     pull_audit()              # audit_raw.json + rec.audit_qtd
+    pull_remote()             # remote_raw.json + rec.remote_qtd (Remote Assessment Data tab)
     pull_mix()                # rec.mix/mix_prev/mix_lw
     pull_peak()               # peak_cat_raw.json + peak_bakery_raw.json
     pull_availability()       # rec.avail

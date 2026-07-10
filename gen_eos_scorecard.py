@@ -22,7 +22,7 @@ OWNERS = {
     "SPH Labour (incl holiday pay)": "Jon",
     "Bench": "Kel",
     "F1 Score": "Claire",
-    "Brand Audit Score": "Claire",
+    "Brand & Remote Assessment": "Claire",
     "Food GP%": "Rich",
     "New Starter Health": "Kel",
     "Net Profit After Tax (projected)": "",   # unassigned — Matt to confirm (likely Matt/MD)
@@ -145,7 +145,7 @@ GRID = [
     ("SPH Labour (incl holiday pay)", "sph", 55, "gbp1"),
     ("Bench", None, 3, "num_signed"),
     ("F1 Score", "f1_avg", 220, "num1"),
-    ("Brand Audit Score", "brand_audit", 4.6, "score2"),
+    ("Brand & Remote Assessment", "brand_audit", 4.6, "score2"),
     ("Food GP%", "estate_gp_pct", 71, "pct1"),
     ("Net Profit After Tax (projected)", "npat_proj_pct", 18, "pct1"),
     ("New Starter Health", None, None, "pct0"),
@@ -234,7 +234,7 @@ DEFINITIONS = {
     "SPH Labour (incl holiday pay)": "Sales generated per labour hour, including holiday pay.",
     "Bench": "Net Store Managers on the bench — the surplus (or shortfall) of ready SM cover. Target is a +3 surplus; the actual goes negative while SM vacancies exist (each open Store Manager = -1).",
     "F1 Score": "Average F1 'race' total score across the estate — operational excellence. Lower is better (target ≤220).",
-    "Brand Audit Score": "Average brand-audit score out of 5.",
+    "Brand & Remote Assessment": "50/50 blend of brand audit + remote assessment, out of 5.",
     "Food GP%": "Estate gross-profit margin from the Cost-of-Sales sheet (authoritative Gross Profit%, col Q).",
     "Net Profit After Tax (projected)": "Projected net-profit margin after tax, flexed off the latest P&L.",
     "New Starter Health": "Onboarding and retention health of new starters (metric still to be defined).",
@@ -249,7 +249,7 @@ CALCS = {
     "SPH Labour (incl holiday pay)": "Estate sales ÷ labour hours used (from the area planners, Section A), hours-weighted. QTD is hours-weighted across the quarter's weeks in weekly_history.csv.",
     "Bench": "MAIN KPI = net SM on the bench. Actual = -(number of Store Manager vacancies) from the HRP 'HRP & Bench' roster (the red 'Gap / no SM' stores); target = +3; miss = target - actual (e.g. -3 vs +3 = 6 off, red). The star map, management-team table and Bench-ready / Thin / Capability-gap cards below are unchanged and byte-identical to the Company Dashboard bench tab (hierarchy-gap rule).",
     "F1 Score": "Average of each store's race Total Score. Weekly = last completed week's race; QTD = quarter-to-date average. LOWER IS BETTER on this scale — green at or below the target of ≤220, red above.",
-    "Brand Audit Score": "Estate average of store brand-audit scores logged in the period, out of 5.",
+    "Brand & Remote Assessment": "Each store blends its brand audit (out of 5) 50/50 with its remote assessment (out of 100, normalised to /5). If only one is logged in the period, that one is used. Estate = average of per-store blends. Target 4.6.",
     "Food GP%": "The Cost-of-Sales sheet's own Gross Profit% (col Q), which nets off all cost-of-sales — sales-weighted across stores for the estate figure. Posts roughly one week in arrears.",
     "Net Profit After Tax (projected)": "Baseline 7.9% (May P&L) + GP flex (estate GP% − baseline) − labour flex (labour% − baseline, via live CPH). A projection, not a booked figure.",
     "New Starter Health": "Not yet defined — awaiting the metric definition and target.",
@@ -542,6 +542,39 @@ def yoy_bystore_html(title):
             '<th>Av spend</th><th>YoY</th><th>Guest counts</th><th>YoY</th></tr></thead><tbody>%s%s</tbody></table>'
             % (esc(title), body, total))
 
+
+def blend_detail_html():
+    """Per-store Brand & Remote Assessment: brand audit (/5), remote assessment (/100), and the
+    50/50 blended score (/5), from D['brand_remote']. Estate footer row. Best blended first."""
+    br = D.get("brand_remote") or {}
+    rows = br.get("rows") or []
+    if not rows:
+        return ""
+    SH = lambda x: F1_SHORT.get(x, x)
+    tgt = br.get("target", 4.6)
+    def cell5(v):
+        if v is None:
+            return '<td class="v"><span class="tag t-na">n/a</span></td>'
+        k = "t-ok" if v >= tgt else ("t-amber" if v >= tgt - 0.3 else "t-red")
+        return '<td class="v"><span class="tag %s">%.2f</span></td>' % (k, v)
+    body = ""
+    for r in rows:
+        b = r.get("brand"); r100 = r.get("remote100"); src = r.get("src")
+        srctag = "" if src == "both" else ' <span class="tag t-na">%s only</span>' % src
+        body += ('<tr><td class="s">%s%s</td><td class="v">%s</td><td class="v">%s</td>%s</tr>'
+                 % (esc(SH(r.get("store", ""))), srctag,
+                    ("%.2f" % b) if b is not None else "&mdash;",
+                    ("%d" % round(r100)) if r100 is not None else "&mdash;",
+                    cell5(r.get("blend"))))
+    foot = ('<tr style="border-top:2px solid var(--line)"><td class="s" style="font-weight:800">ESTATE</td>'
+            '<td class="v">%s</td><td class="v">%s</td>%s</tr>'
+            % (("%.2f" % br["estate_brand"]) if br.get("estate_brand") is not None else "&mdash;",
+               ("%d" % round(br["estate_remote100"])) if br.get("estate_remote100") is not None else "&mdash;",
+               cell5(br.get("estate_blend"))))
+    return ('<div class="md-ps-basis">Each store&rsquo;s QTD <b>brand audit</b> (/5) and <b>remote assessment</b> (/100), and the <b>50/50 blended</b> score (/5, target %.1f). A store with only one assessment this period uses that one (flagged). Best blended first.</div>'
+            '<table class="md-ps" style="max-width:560px"><thead><tr><th>Store</th>'
+            '<th class="v">Brand /5</th><th class="v">Remote /100</th><th class="v">Blended /5</th></tr></thead>'
+            '<tbody>%s%s</tbody></table>' % (tgt, body, foot))
 
 def weekend_bystore_html(kind):
     """Per-store weekend cut: each store's ACTUAL Fri / Sat / Sun figure (sales £ or guest checks)
@@ -883,6 +916,12 @@ for i, (wm, qm) in enumerate(zip(weekly, quarterly)):
                   + trend_svg(name, plan, dirn)
                   + yoy_bystore_html("Guest checks last week (%s) — by store, this year vs last year" % D.get("week_label", ""))
                   + weekend_html("tx") + weekend_bystore_html("tx"))
+    elif name == "Brand & Remote Assessment":
+        _br = blend_detail_html()
+        detail = ('<div class="md-section-h">This quarter, week by week</div>'
+                  + trend_svg(name, plan, dirn)
+                  + '<div class="md-section-h">Per-store breakdown &mdash; brand audit / remote / blended</div>'
+                  + (_br if _br else '<div class="md-note">Brand &amp; remote breakdown unavailable this run.</div>'))
     else:
         ps_block = ps_section(name, plan, dirn, fm, qm)   # weekly + QTD sub-tables (period selector)
         detail = ('<div class="md-section-h">This quarter, week by week</div>'
