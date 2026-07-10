@@ -75,6 +75,45 @@ def new_starter_detail_html(D):
             '</tr>' % (_esc(lab), barw, col, val, meta, chip))
     P.append('</table>')
 
+    # ---- employee journey matrix (starters x steps, colour-coded) ----
+    if starters:
+        labels = [s.get("label", "") for s in steps]
+        ABBR = {"Right to Work": "RtW", "Contract signed": "Con", "Induction": "Ind",
+                "Orientation": "Ori", "H&S Quiz": "H&S", "Allergens": "Alg",
+                "Day 1 check-in": "D1", "Day 7 check-in": "D7", "Day 30 check-in": "D30",
+                "Day 60 check-in": "D60", "Day 90 check-in": "D90"}
+        COL = {"done": ("var(--green)", "#fff", "&#10003;"),
+               "overdue": ("var(--red)", "#fff", "&#10007;"),
+               "due": ("#d99a2b", "#fff", "&middot;"),
+               "na": ("#eee6da", "#c9bcab", "")}
+        P.append('<h4 style="margin:20px 0 4px;font-size:15px">Employee journey matrix</h4>')
+        P.append('<p style="margin:0 0 8px;color:#8a7a6d;font-size:13px">Every first-90-day starter '
+                 '(row) against each onboarding step (column). '
+                 '<span style="color:var(--green);font-weight:700">&#10003; complete</span> &middot; '
+                 '<span style="color:var(--red);font-weight:700">&#10007; overdue</span> &middot; '
+                 '<span style="color:#d99a2b;font-weight:700">&middot; due</span> &middot; '
+                 '<span style="color:#b0a08d;font-weight:700">grey = not yet due</span>.</p>')
+        P.append('<div style="overflow-x:auto"><table style="border-collapse:separate;border-spacing:2px;font-size:12px">')
+        head = ('<tr><th style="text-align:left;padding:4px 8px;color:#8a7a6d;font-size:11px">Starter</th>'
+                + "".join('<th title="%s" style="padding:4px 3px;color:#8a7a6d;font-size:10px;font-weight:700;'
+                          'text-align:center;min-width:30px">%s</th>' % (_esc(l), _esc(ABBR.get(l, l))) for l in labels)
+                + '</tr>')
+        P.append(head)
+        for r in sorted(starters, key=lambda x: -(x.get("tenure") or 0)):
+            sm = r.get("steps") or {}
+            cells = ""
+            for l in labels:
+                bg, fg, sym = COL.get(sm.get(l, "na"), COL["na"])
+                cells += ('<td title="%s: %s" style="width:28px;height:22px;text-align:center;'
+                          'border-radius:4px;background:%s;color:%s;font-weight:700">%s</td>'
+                          % (_esc(ABBR.get(l, l)), _esc(sm.get(l, "na")), bg, fg, sym))
+            P.append('<tr><td style="padding:3px 8px;white-space:nowrap;font-size:12px">%s '
+                     '<span style="color:#a99;font-size:10px">%s</span></td>%s</tr>'
+                     % (_esc(r.get("name", "")), _esc(r.get("site", "")), cells))
+        P.append('</table></div>')
+        P.append('<p style="margin:6px 0 0;color:#a99;font-size:11px">Columns: '
+                 + " &middot; ".join("%s = %s" % (_esc(ABBR.get(l, l)), _esc(l)) for l in labels) + '</p>')
+
     # ---- by site ----
     if sites:
         P.append('<h4 style="margin:20px 0 4px;font-size:15px">By site</h4>')
