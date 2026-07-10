@@ -33,7 +33,7 @@
    "g_health": null,
    "g_rag": "na",
    "g_stale": true,
-   "r_n": 3,
+   "r_n": 4,
    "r_avg": 4.0,
    "r_rag": "amber"
   },
@@ -75,8 +75,8 @@
    "g_health": 2.86,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 9,
-   "r_avg": 3.44,
+   "r_n": 10,
+   "r_avg": 3.2,
    "r_rag": "red"
   },
   "HOE Balsall Common": {
@@ -86,7 +86,7 @@
    "g_health": 0.67,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 4,
+   "r_n": 5,
    "r_avg": 4.0,
    "r_rag": "amber"
   },
@@ -115,8 +115,8 @@
    "g_health": 3.83,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 16,
-   "r_avg": 4.81,
+   "r_n": 17,
+   "r_avg": 4.71,
    "r_rag": "green"
   },
   "Lower Heathcote": {
@@ -137,7 +137,7 @@
    "g_health": 3.23,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 5,
+   "r_n": 6,
    "r_avg": 4.0,
    "r_rag": "amber"
   },
@@ -146,8 +146,8 @@
    "g_health": null,
    "g_rag": "na",
    "g_stale": true,
-   "r_n": 5,
-   "r_avg": 4.6,
+   "r_n": 6,
+   "r_avg": 4.5,
    "r_rag": "green"
   },
   "Northampton Drive-Thru": {
@@ -190,9 +190,9 @@
    "g_health": 3.42,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": null,
-   "r_avg": null,
-   "r_rag": "na"
+   "r_n": 1,
+   "r_avg": 2.0,
+   "r_rag": "red"
   },
   "Rothwell": {
    "g_n": 1,

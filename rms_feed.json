@@ -81,8 +81,8 @@
     "avg": null
    },
    "qtd": {
-    "n": 0,
-    "avg": null
+    "n": 1,
+    "avg": 2.0
    }
   },
   "Rothwell": {
@@ -111,7 +111,7 @@
     "avg": 4.0
    },
    "qtd": {
-    "n": 3,
+    "n": 4,
     "avg": 4.0
    }
   },
@@ -131,8 +131,8 @@
     "avg": 3.38
    },
    "qtd": {
-    "n": 9,
-    "avg": 3.44
+    "n": 10,
+    "avg": 3.2
    }
   },
   "HOE Balsall Common": {
@@ -141,7 +141,7 @@
     "avg": 3.67
    },
    "qtd": {
-    "n": 4,
+    "n": 5,
     "avg": 4.0
    }
   },
@@ -151,8 +151,8 @@
     "avg": 5.0
    },
    "qtd": {
-    "n": 16,
-    "avg": 4.81
+    "n": 17,
+    "avg": 4.71
    }
   },
   "Lower Heathcote": {
@@ -171,7 +171,7 @@
     "avg": 5.0
    },
    "qtd": {
-    "n": 5,
+    "n": 6,
     "avg": 4.0
    }
   },
@@ -181,8 +181,8 @@
     "avg": 4.33
    },
    "qtd": {
-    "n": 5,
-    "avg": 4.6
+    "n": 6,
+    "avg": 4.5
    }
   },
   "Northampton Drive-Thru": {
@@ -236,12 +236,68 @@
    "sentiment": "Positive"
   },
   {
+   "store": "Attleborough",
+   "date": "2026-07-10",
+   "rating": 4.0,
+   "text": "Busy cream warm",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "HOE Balsall Common",
+   "date": "2026-07-10",
+   "rating": 4.0,
+   "text": "Lots of training",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Market Harborough",
+   "date": "2026-07-10",
+   "rating": 4.0,
+   "text": "Busy, stinky, teamwork",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Northampton",
+   "date": "2026-07-10",
+   "rating": 4.0,
+   "text": "Great shift although struggling with the heat especially behind back bar",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
    "store": "Glenvale Drive Thru",
    "date": "2026-07-10",
    "rating": 3.0,
    "text": "Customers keep asking for bigger iced matchas 🍵",
    "smt": null,
    "sentiment": "Mixed"
+  },
+  {
+   "store": "Leamington Parade",
+   "date": "2026-07-10",
+   "rating": 3.0,
+   "text": "Good",
+   "smt": null,
+   "sentiment": "Mixed"
+  },
+  {
+   "store": "Peterborough Fletton Quays",
+   "date": "2026-07-10",
+   "rating": 2.0,
+   "text": "Un heard, de motivated! Non positive",
+   "smt": null,
+   "sentiment": "Negative"
+  },
+  {
+   "store": "Glenvale Drive Thru",
+   "date": "2026-07-10",
+   "rating": 1.0,
+   "text": "Boiling hot",
+   "smt": null,
+   "sentiment": "Negative"
   },
   {
    "store": "Billing Drive Thru",
@@ -362,62 +418,6 @@
    "text": "Really productive and positive day!! Everyone was so eager to crack on with things",
    "smt": "CL - Thanked for contributions via store slack channel.",
    "sentiment": "Positive"
-  },
-  {
-   "store": "Leamington Parade",
-   "date": "2026-07-07",
-   "rating": 5.0,
-   "text": "Amazing",
-   "smt": "CL - Thanked for contributions via store slack channel.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Leamington Parade",
-   "date": "2026-07-07",
-   "rating": 5.0,
-   "text": "Great teamwork as usual, dream team",
-   "smt": "CL - Thanked for contributions via store slack channel.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Billing Drive Thru",
-   "date": "2026-07-07",
-   "rating": 5.0,
-   "text": "Clean/training/busy",
-   "smt": "CL - Thanked for contributions via store slack channel.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Billing Drive Thru",
-   "date": "2026-07-07",
-   "rating": 4.0,
-   "text": "Squirty cream fiasco",
-   "smt": "CL - Thanked for contributions via store slack channel.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Market Harborough",
-   "date": "2026-07-07",
-   "rating": 4.0,
-   "text": "cleaning, busy, reset",
-   "smt": "CL - Thanked for contributions via store slack channel.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Billing Drive Thru",
-   "date": "2026-07-07",
-   "rating": 4.0,
-   "text": "Doing all the tills and stuff are scary but did it!!!",
-   "smt": "CL - Thanked for contributions via store slack channel.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Lower Heathcote",
-   "date": "2026-07-07",
-   "rating": 3.0,
-   "text": "Always love working with Venus",
-   "smt": "CL - Thanked for contributions via store slack channel.",
-   "sentiment": "Mixed"
   }
  ]
 }
