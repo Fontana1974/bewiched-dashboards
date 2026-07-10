@@ -5,6 +5,10 @@
 # STRICTLY BINARY status: GREEN actual>=plan | RED below. No near-target band.
 # Greyed tiles: TBC (not yet defined) and AWAITING DATA (defined but no actual yet) — never red.
 import json, datetime as dt, os, html
+try:
+    import ns_detail
+except Exception:
+    ns_detail = None
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 D = json.load(open(os.path.join(HERE, "eos_scorecard.json")))
@@ -148,7 +152,7 @@ GRID = [
     ("Brand & Remote Assessment", "brand_audit", 4.6, "score2"),
     ("Food GP%", "estate_gp_pct", 71, "pct1"),
     ("Net Profit After Tax (projected)", "npat_proj_pct", 18, "pct1"),
-    ("New Starter Health", None, None, "pct0"),
+    ("New Starter Health", None, 90, "pct0"),
 ]
 # Metrics where a LOWER value is better (green when actual <= plan). All others are higher-is-better.
 LOWER_BETTER = {"F1 Score"}
@@ -237,7 +241,7 @@ DEFINITIONS = {
     "Brand & Remote Assessment": "50/50 blend of brand audit + remote assessment, out of 5.",
     "Food GP%": "Estate gross-profit margin from the Cost-of-Sales sheet (authoritative Gross Profit%, col Q).",
     "Net Profit After Tax (projected)": "Projected net-profit margin after tax, flexed off the latest P&L.",
-    "New Starter Health": "Onboarding and retention health of new starters (metric still to be defined).",
+    "New Starter Health": "Share of first-90-day new starters compliant on every due onboarding step (Youda). Target 90%.",
 }
 CALCS = {
     "YoY Sales Growth": "Σ this-period sales ÷ Σ same-period-last-year sales − 1, across stores trading in BOTH periods (like-for-like). New and closed sites are excluded.",
@@ -252,7 +256,7 @@ CALCS = {
     "Brand & Remote Assessment": "Each store blends its brand audit (out of 5) 50/50 with its remote assessment (out of 100, normalised to /5). If only one is logged in the period, that one is used. Estate = average of per-store blends. Target 4.6.",
     "Food GP%": "The Cost-of-Sales sheet's own Gross Profit% (col Q), which nets off all cost-of-sales — sales-weighted across stores for the estate figure. Posts roughly one week in arrears.",
     "Net Profit After Tax (projected)": "Baseline 7.9% (May P&L) + GP flex (estate GP% − baseline) − labour flex (labour% − baseline, via live CPH). A projection, not a booked figure.",
-    "New Starter Health": "Not yet defined — awaiting the metric definition and target.",
+    "New Starter Health": "Youda onboarding compliance across the first 90 days: a starter is compliant when every step due on their checklist is done. Estate headline = share of the cohort fully compliant. Target 90%. Detail breaks it down by step, site and starter.",
 }
 # metric name -> (history column, fmt) for the 13-week trend, reusing the GRID mapping
 HIST_COL = {name: (col, fm) for name, col, _pl, fm in GRID}
@@ -922,6 +926,10 @@ for i, (wm, qm) in enumerate(zip(weekly, quarterly)):
                   + trend_svg(name, plan, dirn)
                   + '<div class="md-section-h">Per-store breakdown &mdash; brand audit / remote / blended</div>'
                   + (_br if _br else '<div class="md-note">Brand &amp; remote breakdown unavailable this run.</div>'))
+    elif name == "New Starter Health":
+        _ns = ns_detail.new_starter_detail_html(D) if ns_detail else ""
+        detail = ('<div class="md-section-h">New Starter Health &mdash; onboarding compliance (first 90 days)</div>'
+                  + (_ns if _ns else '<div class="md-note">New Starter Health detail unavailable this run (new_starter.json / ns_detail missing).</div>'))
     else:
         ps_block = ps_section(name, plan, dirn, fm, qm)   # weekly + QTD sub-tables (period selector)
         detail = ('<div class="md-section-h">This quarter, week by week</div>'

@@ -1483,6 +1483,12 @@ def pull_eos_scorecard():
     audit_blend_wk = _blend(audit_lastwk, (_rem_wk100 / 20) if _rem_wk100 is not None else None)
     _rem_vals = [r.get("remote_qtd100") for r in rec.values() if r.get("remote_qtd100") is not None]
     _estate_remote100 = round(sum(_rem_vals) / len(_rem_vals), 1) if _rem_vals else None
+    # ---- New Starter Health (Youda onboarding). Committed source new_starter.json (the Actions runner
+    #      can't reach Youda; it is refreshed separately). Persist it into the scorecard each run so a
+    #      regeneration never wipes it, and derive the two tiles from its headline. ----
+    new_starter = jload("new_starter.json") or {}
+    ns_headline = new_starter.get("headline")
+    ns_comp = new_starter.get("compliant", 0); ns_n = new_starter.get("cohort_n", 0)
     # ---- Food GP% — Cost-of-Sales sheet is weekly; cos estate avg already = latest CoS week ----
     cos_week = jload("cos_metrics.json").get("_week", "")
     # ---- Brew Crew Kudos Participation: distinct employees who gave kudos, DATE-WINDOWED / total employees ----
@@ -1722,8 +1728,9 @@ def pull_eos_scorecard():
         metric("npat_wk", "Net Profit After Tax (projected)", 18, npat_wk, "%", "pct1", npat_src,
                _npat_detail("Weekly flex", npat_wk_gp, npat_wk_lab),
                npat_note),
-        metric("new_starter_health_wk", "New Starter Health", None, None, "%", "pct0", "tbc", "",
-               "Metric and target not yet defined.", tbc=True),
+        metric("new_starter_health_wk", "New Starter Health", 90, ns_headline, "%", "pct0", "derived",
+               ("Onboarding compliance — %s of %s new starters clear of every due step (first 90 days)" % (ns_comp, ns_n)) if new_starter else "New Starter Health source (new_starter.json) unavailable",
+               "Youda onboarding: share of first-90-day starters compliant on every due step. From new_starter.json (committed; refreshed from Youda on its own schedule). Target 90%."),
     ]
     quarterly = [
         metric("yoy_sales", "YoY Sales Growth", 12, yoy_sales, "%", "pct_signed", "live",
@@ -1761,8 +1768,9 @@ def pull_eos_scorecard():
         metric("npat", "Net Profit After Tax (projected)", 18, npat_qtd, "%", "pct1", npat_src,
                _npat_detail("QTD flex", npat_qtd_gp, npat_qtd_lab),
                npat_note),
-        metric("new_starter_health", "New Starter Health", None, None, "%", "pct0", "tbc", "",
-               "Metric and target not yet defined.", tbc=True),
+        metric("new_starter_health", "New Starter Health", 90, ns_headline, "%", "pct0", "derived",
+               ("Onboarding compliance — %s of %s new starters clear of every due step (first 90 days)" % (ns_comp, ns_n)) if new_starter else "New Starter Health source (new_starter.json) unavailable",
+               "Youda onboarding: share of first-90-day starters compliant on every due step. From new_starter.json (committed; refreshed from Youda on its own schedule). Target 90%."),
     ]
     flags = [
         "Status is strictly binary: GREEN when actual ≥ plan, RED when below — no near-target band. Bench is green when ≥ 3.",
@@ -1995,6 +2003,7 @@ def pull_eos_scorecard():
         "quarterly": quarterly,
         "per_store": per_store,
         "brand_remote": brand_remote_detail,
+        "new_starter": new_starter,
         "yoy_detail": yoy_detail,
         "flags": flags,
     }

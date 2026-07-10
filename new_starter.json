@@ -1,0 +1,270 @@
+{
+ "generated": "10 Jul 2026",
+ "window": 90,
+ "cohort_n": 13,
+ "compliant": 0,
+ "headline": 0,
+ "per_step": [
+  {
+   "label": "Right to Work",
+   "pct": 100,
+   "done": 13,
+   "present": 13,
+   "overdue": 0,
+   "target": 100
+  },
+  {
+   "label": "Contract signed",
+   "pct": null,
+   "done": 0,
+   "present": 0,
+   "overdue": 0,
+   "target": 90
+  },
+  {
+   "label": "Induction",
+   "pct": 40,
+   "done": 2,
+   "present": 5,
+   "overdue": 3,
+   "target": 90
+  },
+  {
+   "label": "Orientation",
+   "pct": 0,
+   "done": 0,
+   "present": 3,
+   "overdue": 1,
+   "target": 90
+  },
+  {
+   "label": "H&S Quiz",
+   "pct": 0,
+   "done": 0,
+   "present": 3,
+   "overdue": 1,
+   "target": 90
+  },
+  {
+   "label": "Allergens",
+   "pct": 33,
+   "done": 1,
+   "present": 3,
+   "overdue": 1,
+   "target": 90
+  },
+  {
+   "label": "Day 1 check-in",
+   "pct": 0,
+   "done": 0,
+   "present": 3,
+   "overdue": 3,
+   "target": 90
+  },
+  {
+   "label": "Day 7 check-in",
+   "pct": 0,
+   "done": 0,
+   "present": 2,
+   "overdue": 2,
+   "target": 90
+  },
+  {
+   "label": "Day 30 check-in",
+   "pct": 0,
+   "done": 0,
+   "present": 9,
+   "overdue": 9,
+   "target": 90
+  },
+  {
+   "label": "Day 60 check-in",
+   "pct": 0,
+   "done": 0,
+   "present": 9,
+   "overdue": 9,
+   "target": 90
+  },
+  {
+   "label": "Day 90 check-in",
+   "pct": null,
+   "done": 0,
+   "present": 0,
+   "overdue": 0,
+   "target": 90
+  }
+ ],
+ "per_site": [
+  {
+   "site": "Billing",
+   "compliant": 0,
+   "total": 6,
+   "pct": 0
+  },
+  {
+   "site": "15 Fletton Quays",
+   "compliant": 0,
+   "total": 3,
+   "pct": 0
+  },
+  {
+   "site": "22 Leamington Parade",
+   "compliant": 0,
+   "total": 1,
+   "pct": 0
+  },
+  {
+   "site": "19 Balsall Common",
+   "compliant": 0,
+   "total": 1,
+   "pct": 0
+  },
+  {
+   "site": "21 Market Harborough",
+   "compliant": 0,
+   "total": 1,
+   "pct": 0
+  },
+  {
+   "site": "16 Rugby",
+   "compliant": 0,
+   "total": 1,
+   "pct": 0
+  }
+ ],
+ "per_starter": [
+  {
+   "name": "Amber Cronshaw",
+   "site": "22 Leamington Parade",
+   "tenure": 4,
+   "ok": false,
+   "outstanding": [
+    "Day 1 check-in"
+   ]
+  },
+  {
+   "name": "Becky Tye",
+   "site": "Billing",
+   "tenure": 67,
+   "ok": false,
+   "outstanding": [
+    "Induction",
+    "Day 30 check-in",
+    "Day 60 check-in"
+   ]
+  },
+  {
+   "name": "Belle Swales",
+   "site": "Billing",
+   "tenure": 61,
+   "ok": false,
+   "outstanding": [
+    "Day 60 check-in"
+   ]
+  },
+  {
+   "name": "Breannah Eliza",
+   "site": "15 Fletton Quays",
+   "tenure": 2,
+   "ok": false,
+   "outstanding": [
+    "Day 1 check-in"
+   ]
+  },
+  {
+   "name": "Chloe Stewart",
+   "site": "Billing",
+   "tenure": 67,
+   "ok": false,
+   "outstanding": [
+    "Induction",
+    "Day 30 check-in",
+    "Day 60 check-in"
+   ]
+  },
+  {
+   "name": "Isobel Woolley",
+   "site": "Billing",
+   "tenure": 67,
+   "ok": false,
+   "outstanding": [
+    "Induction",
+    "Day 30 check-in",
+    "Day 60 check-in"
+   ]
+  },
+  {
+   "name": "James Ross",
+   "site": "Billing",
+   "tenure": 67,
+   "ok": false,
+   "outstanding": [
+    "Day 30 check-in",
+    "Day 60 check-in"
+   ]
+  },
+  {
+   "name": "Keisha Denham",
+   "site": "15 Fletton Quays",
+   "tenure": 65,
+   "ok": false,
+   "outstanding": [
+    "Day 30 check-in",
+    "Day 60 check-in"
+   ]
+  },
+  {
+   "name": "Kyla Watson",
+   "site": "Billing",
+   "tenure": 61,
+   "ok": false,
+   "outstanding": [
+    "Day 30 check-in",
+    "Day 60 check-in"
+   ]
+  },
+  {
+   "name": "Kyrah Mcfarlane",
+   "site": "15 Fletton Quays",
+   "tenure": 62,
+   "ok": false,
+   "outstanding": [
+    "Day 30 check-in",
+    "Day 60 check-in"
+   ]
+  },
+  {
+   "name": "Millie Harrodine",
+   "site": "19 Balsall Common",
+   "tenure": 61,
+   "ok": false,
+   "outstanding": [
+    "Day 30 check-in",
+    "Day 60 check-in"
+   ]
+  },
+  {
+   "name": "Patrick Lynch",
+   "site": "21 Market Harborough",
+   "tenure": 36,
+   "ok": false,
+   "outstanding": [
+    "Day 7 check-in",
+    "Day 30 check-in"
+   ]
+  },
+  {
+   "name": "Vlada Haidarzhy",
+   "site": "16 Rugby",
+   "tenure": 28,
+   "ok": false,
+   "outstanding": [
+    "Orientation",
+    "H&S Quiz",
+    "Allergens",
+    "Day 1 check-in",
+    "Day 7 check-in"
+   ]
+  }
+ ]
+}
