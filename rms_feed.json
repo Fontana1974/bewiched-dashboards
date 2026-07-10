@@ -9,10 +9,10 @@
   "2026-07-01",
   "2026-07-05"
  ],
- "_comments_label": "recent shift voice — last 2 weeks to 6 Jul 2026",
+ "_comments_label": "recent shift voice — last 2 weeks to 10 Jul 2026",
  "_comments_window": [
-  "2026-06-23",
-  "2026-07-06"
+  "2026-06-27",
+  "2026-07-10"
  ],
  "per_store": {
   "Burton Latimer": {
@@ -31,8 +31,8 @@
     "avg": 1.71
    },
    "qtd": {
-    "n": 6,
-    "avg": 1.33
+    "n": 7,
+    "avg": 1.29
    }
   },
   "Higham Ferrers": {
@@ -121,8 +121,8 @@
     "avg": 5.0
    },
    "qtd": {
-    "n": 3,
-    "avg": 5.0
+    "n": 11,
+    "avg": 4.64
    }
   },
   "Glenvale Drive Thru": {
@@ -151,8 +151,8 @@
     "avg": 5.0
    },
    "qtd": {
-    "n": 9,
-    "avg": 4.78
+    "n": 16,
+    "avg": 4.81
    }
   },
   "Lower Heathcote": {
@@ -161,8 +161,8 @@
     "avg": 3.0
    },
    "qtd": {
-    "n": 1,
-    "avg": 3.0
+    "n": 3,
+    "avg": 2.67
    }
   },
   "Market Harborough": {
@@ -171,8 +171,8 @@
     "avg": 5.0
    },
    "qtd": {
-    "n": 3,
-    "avg": 4.33
+    "n": 5,
+    "avg": 4.0
    }
   },
   "Northampton": {
@@ -181,8 +181,8 @@
     "avg": 4.33
    },
    "qtd": {
-    "n": 3,
-    "avg": 4.33
+    "n": 5,
+    "avg": 4.6
    }
   },
   "Northampton Drive-Thru": {
@@ -191,8 +191,8 @@
     "avg": null
    },
    "qtd": {
-    "n": 0,
-    "avg": null
+    "n": 3,
+    "avg": 1.33
    }
   },
   "Rugby": {
@@ -201,8 +201,8 @@
     "avg": 5.0
    },
    "qtd": {
-    "n": 7,
-    "avg": 4.86
+    "n": 8,
+    "avg": 4.88
    }
   },
   "Wellingborough": {
@@ -221,18 +221,194 @@
     "avg": null
    },
    "qtd": {
-    "n": 0,
-    "avg": null
+    "n": 2,
+    "avg": 2.0
    }
   }
  },
  "comments": [
   {
+   "store": "Billing Drive Thru",
+   "date": "2026-07-09",
+   "rating": 5.0,
+   "text": "super busy but great teamwork",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Billing Drive Thru",
+   "date": "2026-07-09",
+   "rating": 4.0,
+   "text": "Early, busy, teamwork",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Lower Heathcote",
+   "date": "2026-07-09",
+   "rating": 2.0,
+   "text": "Stress, chaos, to much pressure",
+   "smt": null,
+   "sentiment": "Negative"
+  },
+  {
+   "store": "Northampton Drive-Thru",
+   "date": "2026-07-09",
+   "rating": 2.0,
+   "text": "Frustrating, felt understaffed",
+   "smt": null,
+   "sentiment": "Negative"
+  },
+  {
+   "store": "Northampton Drive-Thru",
+   "date": "2026-07-09",
+   "rating": 1.0,
+   "text": "Stressful/lack of team work/support",
+   "smt": null,
+   "sentiment": "Negative"
+  },
+  {
+   "store": "Northampton Drive-Thru",
+   "date": "2026-07-09",
+   "rating": 1.0,
+   "text": "Non stop difficulty",
+   "smt": null,
+   "sentiment": "Negative"
+  },
+  {
+   "store": "Rugby",
+   "date": "2026-07-08",
+   "rating": 5.0,
+   "text": "Smashed the cleaning list",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Leamington Parade",
+   "date": "2026-07-08",
+   "rating": 5.0,
+   "text": "Soooo funny",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Northampton",
+   "date": "2026-07-08",
+   "rating": 5.0,
+   "text": "Fantastic shift",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Leamington Parade",
+   "date": "2026-07-08",
+   "rating": 5.0,
+   "text": "Great shift, busy but great teamwork",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Market Harborough",
+   "date": "2026-07-08",
+   "rating": 3.0,
+   "text": "slow, hot, lethargic",
+   "smt": null,
+   "sentiment": "Mixed"
+  },
+  {
+   "store": "Wellingborough Train Station",
+   "date": "2026-07-08",
+   "rating": 2.0,
+   "text": "Windowfilm man never came back",
+   "smt": null,
+   "sentiment": "Negative"
+  },
+  {
+   "store": "Wellingborough Train Station",
+   "date": "2026-07-08",
+   "rating": 2.0,
+   "text": "No slack ipad",
+   "smt": null,
+   "sentiment": "Negative"
+  },
+  {
+   "store": "Leamington Parade",
+   "date": "2026-07-07",
+   "rating": 5.0,
+   "text": "All good",
+   "smt": "CL - Thanked for contributions via store slack channel.",
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Billing Drive Thru",
+   "date": "2026-07-07",
+   "rating": 5.0,
+   "text": "Really productive and positive day!! Everyone was so eager to crack on with things",
+   "smt": "CL - Thanked for contributions via store slack channel.",
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Leamington Parade",
+   "date": "2026-07-07",
+   "rating": 5.0,
+   "text": "Amazing",
+   "smt": "CL - Thanked for contributions via store slack channel.",
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Leamington Parade",
+   "date": "2026-07-07",
+   "rating": 5.0,
+   "text": "Great teamwork as usual, dream team",
+   "smt": "CL - Thanked for contributions via store slack channel.",
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Billing Drive Thru",
+   "date": "2026-07-07",
+   "rating": 5.0,
+   "text": "Clean/training/busy",
+   "smt": "CL - Thanked for contributions via store slack channel.",
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Billing Drive Thru",
+   "date": "2026-07-07",
+   "rating": 4.0,
+   "text": "Squirty cream fiasco",
+   "smt": "CL - Thanked for contributions via store slack channel.",
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Market Harborough",
+   "date": "2026-07-07",
+   "rating": 4.0,
+   "text": "cleaning, busy, reset",
+   "smt": "CL - Thanked for contributions via store slack channel.",
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Billing Drive Thru",
+   "date": "2026-07-07",
+   "rating": 4.0,
+   "text": "Doing all the tills and stuff are scary but did it!!!",
+   "smt": "CL - Thanked for contributions via store slack channel.",
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Lower Heathcote",
+   "date": "2026-07-07",
+   "rating": 3.0,
+   "text": "Always love working with Venus",
+   "smt": "CL - Thanked for contributions via store slack channel.",
+   "sentiment": "Mixed"
+  },
+  {
    "store": "HOE Balsall Common",
    "date": "2026-07-06",
    "rating": 5.0,
    "text": "Slay",
-   "smt": null,
+   "smt": "CL - Thanked for contributions via store slack channel.",
    "sentiment": "Positive"
   },
   {
@@ -240,184 +416,8 @@
    "date": "2026-07-06",
    "rating": 5.0,
    "text": "Great shift. Hi Claire.",
-   "smt": null,
+   "smt": "CL - Thanked for contributions via store slack channel.",
    "sentiment": "Positive"
-  },
-  {
-   "store": "Rugby",
-   "date": "2026-07-06",
-   "rating": 5.0,
-   "text": "Great energy today! Great teamwork and smiles :)",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Rugby",
-   "date": "2026-07-06",
-   "rating": 5.0,
-   "text": "Great vibes today, Positive and productive from everyone! Great to see our feedback about the cream being resolved, lovely to know our feedback is appreciated!",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Billing Drive Thru",
-   "date": "2026-07-06",
-   "rating": 5.0,
-   "text": "Three words? Impossible",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Rugby",
-   "date": "2026-07-06",
-   "rating": 4.0,
-   "text": "Can we get some sort of funnel for putting marshmallows in the domed lids please?",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Leamington Parade",
-   "date": "2026-07-06",
-   "rating": 4.0,
-   "text": "Productive",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Leamington Parade",
-   "date": "2026-07-06",
-   "rating": 4.0,
-   "text": "Chill, good vibes",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Market Harborough",
-   "date": "2026-07-06",
-   "rating": 3.0,
-   "text": "Good shift",
-   "smt": null,
-   "sentiment": "Mixed"
-  },
-  {
-   "store": "Rugby",
-   "date": "2026-07-05",
-   "rating": 5.0,
-   "text": "Lovely shift today. Quiet though. Lots of cleaning done",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Burton Latimer",
-   "date": "2026-07-05",
-   "rating": 5.0,
-   "text": "Over 1k made by only 2 people in 6hours ! Bloody great achievement and teamwork",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Leamington Parade",
-   "date": "2026-07-05",
-   "rating": 5.0,
-   "text": "Amazing shift teamwork",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Leamington Parade",
-   "date": "2026-07-05",
-   "rating": 5.0,
-   "text": "Lovely shift Sylwia Melika Rui",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Glenvale Drive Thru",
-   "date": "2026-07-05",
-   "rating": 4.0,
-   "text": "Customers asking for lunch time meal deal and kids meal deal",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Glenvale Drive Thru",
-   "date": "2026-07-05",
-   "rating": 4.0,
-   "text": "We need kids smoothie cartons! Not many options for kids drinks",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Attleborough",
-   "date": "2026-07-05",
-   "rating": 4.0,
-   "text": "Good proactive team",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Lower Heathcote",
-   "date": "2026-07-05",
-   "rating": 3.0,
-   "text": "Music, is, demotivating",
-   "smt": null,
-   "sentiment": "Mixed"
-  },
-  {
-   "store": "Corby",
-   "date": "2026-07-05",
-   "rating": 1.0,
-   "text": "rota not out",
-   "smt": null,
-   "sentiment": "Negative"
-  },
-  {
-   "store": "Market Harborough",
-   "date": "2026-07-04",
-   "rating": 5.0,
-   "text": "Fun fun fun",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "HOE Balsall Common",
-   "date": "2026-07-04",
-   "rating": 5.0,
-   "text": "slay",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Leamington Parade",
-   "date": "2026-07-04",
-   "rating": 5.0,
-   "text": "Good good good",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Leamington Parade",
-   "date": "2026-07-04",
-   "rating": 5.0,
-   "text": "Nice shift, good teamwork",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Corby",
-   "date": "2026-07-04",
-   "rating": 2.0,
-   "text": "No manager No refit",
-   "smt": "KF - Apologised and asked respondents to reach out and talk feelings through.",
-   "sentiment": "Negative"
-  },
-  {
-   "store": "Corby",
-   "date": "2026-07-04",
-   "rating": 1.0,
-   "text": "Need further rotas",
-   "smt": "KF - Apologised and asked respondents to reach out and talk feelings through.",
-   "sentiment": "Negative"
   }
  ]
 }

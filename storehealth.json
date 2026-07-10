@@ -38,21 +38,21 @@
    "r_rag": "amber"
   },
   "Billing Drive Thru": {
-   "g_n": 6,
+   "g_n": 9,
    "g_avg": 5.0,
    "g_target": 49,
-   "g_health": 2.81,
+   "g_health": 2.96,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 3,
-   "r_avg": 5.0,
+   "r_n": 11,
+   "r_avg": 4.64,
    "r_rag": "green"
   },
   "Burton Latimer": {
-   "g_n": 1,
+   "g_n": 2,
    "g_avg": 5.0,
    "g_target": 10,
-   "g_health": 2.75,
+   "g_health": 3.0,
    "g_rag": "red",
    "g_stale": false,
    "r_n": 2,
@@ -64,15 +64,15 @@
    "g_health": null,
    "g_rag": "na",
    "g_stale": true,
-   "r_n": 6,
-   "r_avg": 1.33,
+   "r_n": 7,
+   "r_avg": 1.29,
    "r_rag": "red"
   },
   "Glenvale Drive Thru": {
-   "g_n": 4,
+   "g_n": 7,
    "g_avg": 5.0,
    "g_target": 49,
-   "g_health": 2.7,
+   "g_health": 2.86,
    "g_rag": "red",
    "g_stale": false,
    "r_n": 7,
@@ -80,10 +80,12 @@
    "r_rag": "red"
   },
   "HOE Balsall Common": {
-   "g_n": null,
-   "g_health": null,
-   "g_rag": "na",
-   "g_stale": true,
+   "g_n": 1,
+   "g_avg": 1.0,
+   "g_target": 15,
+   "g_health": 0.67,
+   "g_rag": "red",
+   "g_stale": false,
    "r_n": 4,
    "r_avg": 4.0,
    "r_rag": "amber"
@@ -107,14 +109,14 @@
    "r_rag": "na"
   },
   "Leamington Parade": {
-   "g_n": 5,
+   "g_n": 8,
    "g_avg": 5.0,
    "g_target": 15,
-   "g_health": 3.33,
+   "g_health": 3.83,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 9,
-   "r_avg": 4.78,
+   "r_n": 16,
+   "r_avg": 4.81,
    "r_rag": "green"
   },
   "Lower Heathcote": {
@@ -124,8 +126,8 @@
    "g_health": 3.75,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 1,
-   "r_avg": 3.0,
+   "r_n": 3,
+   "r_avg": 2.67,
    "r_rag": "red"
   },
   "Market Harborough": {
@@ -135,8 +137,8 @@
    "g_health": 3.23,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 3,
-   "r_avg": 4.33,
+   "r_n": 5,
+   "r_avg": 4.0,
    "r_rag": "amber"
   },
   "Northampton": {
@@ -144,26 +146,26 @@
    "g_health": null,
    "g_rag": "na",
    "g_stale": true,
-   "r_n": 3,
-   "r_avg": 4.33,
-   "r_rag": "amber"
+   "r_n": 5,
+   "r_avg": 4.6,
+   "r_rag": "green"
   },
   "Northampton Drive-Thru": {
-   "g_n": 1,
-   "g_avg": 5.0,
+   "g_n": 3,
+   "g_avg": 4.667,
    "g_target": 49,
-   "g_health": 2.55,
+   "g_health": 2.49,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": null,
-   "r_avg": null,
-   "r_rag": "na"
+   "r_n": 3,
+   "r_avg": 1.33,
+   "r_rag": "red"
   },
   "Olney": {
-   "g_n": 1,
+   "g_n": 2,
    "g_avg": 5.0,
    "g_target": 10,
-   "g_health": 2.75,
+   "g_health": 3.0,
    "g_rag": "red",
    "g_stale": false,
    "r_n": 1,
@@ -182,11 +184,11 @@
    "r_rag": "na"
   },
   "Peterborough Fletton Quays": {
-   "g_n": 4,
-   "g_avg": 4.75,
+   "g_n": 6,
+   "g_avg": 4.833,
    "g_target": 15,
-   "g_health": 3.04,
-   "g_rag": "red",
+   "g_health": 3.42,
+   "g_rag": "green",
    "g_stale": false,
    "r_n": null,
    "r_avg": null,
@@ -208,15 +210,15 @@
    "g_health": null,
    "g_rag": "na",
    "g_stale": true,
-   "r_n": 7,
-   "r_avg": 4.86,
+   "r_n": 8,
+   "r_avg": 4.88,
    "r_rag": "green"
   },
   "Rushden Lakes": {
-   "g_n": 2,
-   "g_avg": 3.0,
+   "g_n": 3,
+   "g_avg": 3.667,
    "g_target": 49,
-   "g_health": 1.6,
+   "g_health": 1.99,
    "g_rag": "red",
    "g_stale": false,
    "r_n": null,
@@ -239,9 +241,9 @@
    "g_health": 2.75,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": null,
-   "r_avg": null,
-   "r_rag": "na"
+   "r_n": 2,
+   "r_avg": 2.0,
+   "r_rag": "red"
   }
  }
 }

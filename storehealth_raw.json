@@ -3,8 +3,8 @@
  "_basis": "Quarter-to-date (from 2026-07-01). NOT last week.",
  "rms": {
   "Corby": [
-   6,
-   1.333
+   7,
+   1.286
   ],
   "Olney": [
    1,
@@ -19,36 +19,44 @@
    4.0
   ],
   "Northampton": [
-   3,
-   4.333
+   5,
+   4.6
   ],
   "Rugby": [
-   7,
-   4.857
+   8,
+   4.875
   ],
   "Billing Drive Thru": [
-   3,
-   5.0
+   11,
+   4.636
   ],
   "Glenvale Drive Thru": [
    7,
    3.429
   ],
   "Leamington Parade": [
-   9,
-   4.778
+   16,
+   4.812
   ],
   "Market Harborough": [
-   3,
-   4.333
+   5,
+   4.0
   ],
   "Burton Latimer": [
    2,
    5.0
   ],
   "Lower Heathcote": [
-   1,
-   3.0
+   3,
+   2.667
+  ],
+  "Wellingborough Train Station": [
+   2,
+   2.0
+  ],
+  "Northampton Drive-Thru": [
+   3,
+   1.333
   ]
  },
  "google": {
@@ -65,19 +73,19 @@
    5.0
   ],
   "Glenvale Drive Thru": [
-   4,
+   7,
    5.0
   ],
   "Billing Drive Thru": [
-   6,
+   9,
    5.0
   ],
   "Rushden Lakes": [
-   2,
-   3.0
+   3,
+   3.667
   ],
   "Olney": [
-   1,
+   2,
    5.0
   ],
   "Market Harborough": [
@@ -85,11 +93,11 @@
    5.0
   ],
   "Peterborough Fletton Quays": [
-   4,
-   4.75
+   6,
+   4.833
   ],
   "Burton Latimer": [
-   1,
+   2,
    5.0
   ],
   "Wellingborough Train Station": [
@@ -97,12 +105,16 @@
    5.0
   ],
   "Northampton Drive-Thru": [
-   1,
-   5.0
+   3,
+   4.667
   ],
   "Leamington Parade": [
-   5,
+   8,
    5.0
+  ],
+  "HOE Balsall Common": [
+   1,
+   1.0
   ]
  }
 }

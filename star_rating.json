@@ -86,14 +86,14 @@
       },
       {
        "label": "RTW completion",
-       "value": "67%",
-       "star": 3.9,
+       "value": "62%",
+       "star": 3.6,
        "on_target": false
       },
       {
        "label": "Google health",
-       "value": "2.7 (QTD)",
-       "star": 2.9,
+       "value": "2.86 (QTD)",
+       "star": 3.3,
        "on_target": false
       },
       {
@@ -114,7 +114,7 @@
     "coaching_barista_pct": 80.6,
     "openclose_pct": 100,
     "openclose_detail": "57 open & 56 close vs 56 trading days (20 Apr–14 Jun), Process Street feed",
-    "rtw_pct": 67.0,
+    "rtw_pct": 62.0,
     "rtw_detail": "RTW% from HRP sickness/RTW (Glenvale, QTD)"
    },
    "_cph_target": 63,
@@ -199,8 +199,8 @@
      "metrics": [
       {
        "label": "RMS health /5",
-       "value": "4.78",
-       "star": 4.9,
+       "value": "4.81",
+       "star": 5.0,
        "on_target": true
       },
       {
@@ -211,8 +211,8 @@
       },
       {
        "label": "Google health",
-       "value": "3.33 (QTD)",
-       "star": 4.6,
+       "value": "3.83 (QTD)",
+       "star": 4.7,
        "on_target": true
       },
       {

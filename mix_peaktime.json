@@ -212,7 +212,7 @@
    "name": "Victoria Sponge Cake",
    "peak": "Afternoon",
    "share": 41,
-   "hour": "3pm",
+   "hour": "2pm",
    "units": 229,
    "sales": 788,
    "sparse": false
@@ -257,7 +257,7 @@
    "name": "GF Double Brownie",
    "peak": "Lunch",
    "share": 40,
-   "hour": "10am",
+   "hour": "12pm",
    "units": 164,
    "sales": 427,
    "sparse": false
@@ -273,7 +273,7 @@
   },
   {
    "name": "Tea Time Coffee Cake",
-   "peak": "Afternoon",
+   "peak": "Lunch",
    "share": 38,
    "hour": "3pm",
    "units": 90,
