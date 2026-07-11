@@ -44,8 +44,8 @@
    "g_health": 2.96,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 11,
-   "r_avg": 4.64,
+   "r_n": 12,
+   "r_avg": 4.5,
    "r_rag": "green"
   },
   "Burton Latimer": {
@@ -64,8 +64,8 @@
    "g_health": null,
    "g_rag": "na",
    "g_stale": true,
-   "r_n": 7,
-   "r_avg": 1.29,
+   "r_n": 8,
+   "r_avg": 1.62,
    "r_rag": "red"
   },
   "Glenvale Drive Thru": {
@@ -109,21 +109,21 @@
    "r_rag": "na"
   },
   "Leamington Parade": {
-   "g_n": 8,
+   "g_n": 9,
    "g_avg": 5.0,
    "g_target": 15,
-   "g_health": 3.83,
+   "g_health": 4.0,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 17,
-   "r_avg": 4.71,
+   "r_n": 20,
+   "r_avg": 4.75,
    "r_rag": "green"
   },
   "Lower Heathcote": {
-   "g_n": 4,
+   "g_n": 5,
    "g_avg": 5.0,
    "g_target": 8,
-   "g_health": 3.75,
+   "g_health": 4.06,
    "g_rag": "green",
    "g_stale": false,
    "r_n": 3,
@@ -210,8 +210,8 @@
    "g_health": null,
    "g_rag": "na",
    "g_stale": true,
-   "r_n": 8,
-   "r_avg": 4.88,
+   "r_n": 9,
+   "r_avg": 4.89,
    "r_rag": "green"
   },
   "Rushden Lakes": {

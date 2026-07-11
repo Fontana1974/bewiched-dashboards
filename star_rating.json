@@ -199,7 +199,7 @@
      "metrics": [
       {
        "label": "RMS health /5",
-       "value": "4.71",
+       "value": "4.75",
        "star": 4.9,
        "on_target": true
       },
@@ -211,8 +211,8 @@
       },
       {
        "label": "Google health",
-       "value": "3.83 (QTD)",
-       "star": 4.7,
+       "value": "4.0 (QTD)",
+       "star": 4.8,
        "on_target": true
       },
       {

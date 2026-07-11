@@ -14,6 +14,143 @@
   "2026-06-28",
   "2026-07-11"
  ],
+ "_lastweek_count": 44,
+ "worst": [
+  {
+   "store": "HOE Balsall Common",
+   "date": "2026-07-01",
+   "dow": "Wed 1 Jul",
+   "rating": 1.0,
+   "text": "The new Youda update doesn't fix the fact that its objectively rubbish, especially compared to slack",
+   "smt": "KF - Apologised and reiterated that the Youda has been dropped. Asked respondent to reach out with any other issues that are behind the low score.",
+   "sentiment": "Negative",
+   "action": "Follow up with HOE Balsall Common's manager to investigate this shift and address the comment."
+  },
+  {
+   "store": "Corby",
+   "date": "2026-07-03",
+   "dow": "Fri 3 Jul",
+   "rating": 1.0,
+   "text": "Temp manager never here.",
+   "smt": "KF - Apologised and asked respondent to reach out an dtalk issue through with assurance of help/support.",
+   "sentiment": "Negative",
+   "action": "Follow up with Corby's manager on team support and conduct on this shift."
+  },
+  {
+   "store": "Corby",
+   "date": "2026-07-04",
+   "dow": "Sat 4 Jul",
+   "rating": 1.0,
+   "text": "Need further rotas",
+   "smt": "KF - Apologised and asked respondents to reach out and talk feelings through.",
+   "sentiment": "Negative",
+   "action": "Review staffing / rota cover for Corby — the low score points to being under-supported on shift."
+  },
+  {
+   "store": "Corby",
+   "date": "2026-07-04",
+   "dow": "Sat 4 Jul",
+   "rating": 1.0,
+   "text": "Need Larger StoreRoom",
+   "smt": "KF - Apologised and asked respondents to reach out and talk feelings through.",
+   "sentiment": "Negative",
+   "action": "Follow up with Corby's manager to investigate this shift and address the comment."
+  },
+  {
+   "store": "Corby",
+   "date": "2026-07-05",
+   "dow": "Sun 5 Jul",
+   "rating": 1.0,
+   "text": "rota not out",
+   "smt": "CL - Thanked for contributions via store slack channel.",
+   "sentiment": "Negative",
+   "action": "Review staffing / rota cover for Corby — the low score points to being under-supported on shift."
+  },
+  {
+   "store": "Corby",
+   "date": "2026-07-01",
+   "dow": "Wed 1 Jul",
+   "rating": 2.0,
+   "text": "New manager stability",
+   "smt": "KF - Apologised and asked respondent to reach out via a DM or call to talk through issue.",
+   "sentiment": "Negative",
+   "action": "Follow up with Corby's manager on team support and conduct on this shift."
+  },
+  {
+   "store": "Olney",
+   "date": "2026-07-01",
+   "dow": "Wed 1 Jul",
+   "rating": 2.0,
+   "text": "Please don’t get rid of Slack.",
+   "smt": "KF - Apologised and reiterated that the Youda has been dropped. Asked respondent to reach out with any other issues that are behind the low score.",
+   "sentiment": "Negative",
+   "action": "Follow up with Olney's manager to investigate this shift and address the comment."
+  },
+  {
+   "store": "Corby",
+   "date": "2026-07-04",
+   "dow": "Sat 4 Jul",
+   "rating": 2.0,
+   "text": "No manager No refit",
+   "smt": "KF - Apologised and asked respondents to reach out and talk feelings through.",
+   "sentiment": "Negative",
+   "action": "Follow up with Corby's manager on team support and conduct on this shift."
+  },
+  {
+   "store": "Glenvale Drive Thru",
+   "date": "2026-06-29",
+   "dow": "Mon 29 Jun",
+   "rating": 3.0,
+   "text": "Don’t like Youda",
+   "smt": "KF - Thanked via store Slack channel and encouraged further contributions. Asked respondent for specific comments to be sent regarding Youda via a DM or call.",
+   "sentiment": "Mixed",
+   "action": null
+  },
+  {
+   "store": "Attleborough",
+   "date": "2026-07-01",
+   "dow": "Wed 1 Jul",
+   "rating": 3.0,
+   "text": "Still waiting for remote feedback from the weekend when I have already requested it, how can I inform team of where to improve when I’m not told what was marked down",
+   "smt": "KF - Apologised and re-sent email as this was sent to store. Asked respondent to reach out directly when these frustrations occur in future to enable a speedier resolution.",
+   "sentiment": "Mixed",
+   "action": null
+  },
+  {
+   "store": "Northampton",
+   "date": "2026-07-01",
+   "dow": "Wed 1 Jul",
+   "rating": 3.0,
+   "text": "No youda, I beg",
+   "smt": "KF - Apologised and re-sent email as this was sent to store. Asked respondent to reach out directly when these frustrations occur in future to enable a speedier resolution.",
+   "sentiment": "Mixed",
+   "action": null
+  },
+  {
+   "store": "Glenvale Drive Thru",
+   "date": "2026-07-01",
+   "dow": "Wed 1 Jul",
+   "rating": 3.0,
+   "text": "Dislike Youda- loads of notifications and can’t select the type of notifications. The concept of it being AI- bad reputation and not good for the environment (environmental science undergrad student). App feels clustered and Slack is so much more organised and easier to post on.",
+   "smt": "KF - Apologised and reiterated that the Youda has been dropped.",
+   "sentiment": "Mixed",
+   "action": null
+  }
+ ],
+ "outlier_stores": [
+  {
+   "store": "Corby",
+   "avg": 1.71,
+   "n": 7,
+   "action": "Corby averaged 1.71★ from 7 shifts last week (lowest in the estate) — check in with the manager on what's driving it."
+  },
+  {
+   "store": "Glenvale Drive Thru",
+   "avg": 3.38,
+   "n": 8,
+   "action": "Glenvale Drive Thru averaged 3.38★ from 8 shifts last week (lowest in the estate) — check in with the manager on what's driving it."
+  }
+ ],
  "per_store": {
   "Burton Latimer": {
    "weekly": {
@@ -31,8 +168,8 @@
     "avg": 1.71
    },
    "qtd": {
-    "n": 7,
-    "avg": 1.29
+    "n": 8,
+    "avg": 1.62
    }
   },
   "Higham Ferrers": {
@@ -121,8 +258,8 @@
     "avg": 5.0
    },
    "qtd": {
-    "n": 11,
-    "avg": 4.64
+    "n": 12,
+    "avg": 4.5
    }
   },
   "Glenvale Drive Thru": {
@@ -151,8 +288,8 @@
     "avg": 5.0
    },
    "qtd": {
-    "n": 17,
-    "avg": 4.71
+    "n": 20,
+    "avg": 4.75
    }
   },
   "Lower Heathcote": {
@@ -201,8 +338,8 @@
     "avg": 5.0
    },
    "qtd": {
-    "n": 8,
-    "avg": 4.88
+    "n": 9,
+    "avg": 4.89
    }
   },
   "Wellingborough": {
@@ -227,6 +364,54 @@
   }
  },
  "comments": [
+  {
+   "store": "Rugby",
+   "date": "2026-07-11",
+   "rating": 5.0,
+   "text": "Busy. Need a hoover 4 mat",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Leamington Parade",
+   "date": "2026-07-11",
+   "rating": 5.0,
+   "text": "Amazing",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Leamington Parade",
+   "date": "2026-07-11",
+   "rating": 5.0,
+   "text": "Perfect",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Leamington Parade",
+   "date": "2026-07-11",
+   "rating": 5.0,
+   "text": "Great busy morning menage by Sylwia and Melika",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Corby",
+   "date": "2026-07-11",
+   "rating": 4.0,
+   "text": "Lovely shift",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Billing Drive Thru",
+   "date": "2026-07-11",
+   "rating": 3.0,
+   "text": "CREAM/sticky/flies",
+   "smt": null,
+   "sentiment": "Mixed"
+  },
   {
    "store": "Glenvale Drive Thru",
    "date": "2026-07-10",
@@ -369,54 +554,6 @@
    "rating": 5.0,
    "text": "Fantastic shift",
    "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Leamington Parade",
-   "date": "2026-07-08",
-   "rating": 5.0,
-   "text": "Great shift, busy but great teamwork",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Market Harborough",
-   "date": "2026-07-08",
-   "rating": 3.0,
-   "text": "slow, hot, lethargic",
-   "smt": null,
-   "sentiment": "Mixed"
-  },
-  {
-   "store": "Wellingborough Train Station",
-   "date": "2026-07-08",
-   "rating": 2.0,
-   "text": "Windowfilm man never came back",
-   "smt": null,
-   "sentiment": "Negative"
-  },
-  {
-   "store": "Wellingborough Train Station",
-   "date": "2026-07-08",
-   "rating": 2.0,
-   "text": "No slack ipad",
-   "smt": null,
-   "sentiment": "Negative"
-  },
-  {
-   "store": "Leamington Parade",
-   "date": "2026-07-07",
-   "rating": 5.0,
-   "text": "All good",
-   "smt": "CL - Thanked for contributions via store slack channel.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Billing Drive Thru",
-   "date": "2026-07-07",
-   "rating": 5.0,
-   "text": "Really productive and positive day!! Everyone was so eager to crack on with things",
-   "smt": "CL - Thanked for contributions via store slack channel.",
    "sentiment": "Positive"
   }
  ]
