@@ -142,17 +142,17 @@ import csv as _csv
 GRID = [
     ("YoY Sales Growth", "yoy_sales_pct", 12, "pct_signed"),
     ("YoY Transactional Growth", "yoy_tx_pct", 5, "pct_signed"),
-    ("Google Health", "google_health_pct", 100, "pct0"),
+    ("Google Health", "google_health_pct", 80, "pct0"),
     ("Rate My Shift Health", "rms_pct", 100, "pct0"),
     ("Brew Crew Kudos Participation", "kudos_pct", 50, "pct0"),
     ("Social Media Engagement", None, None, "pct0"),
     ("SPH Labour (incl holiday pay)", "sph", 55, "gbp1"),
-    ("Bench", None, 3, "num_signed"),
+    ("Bench", "bench", 3, "num_signed"),
     ("F1 Score", "f1_avg", 220, "num1"),
     ("Brand & Remote Assessment", "brand_audit", 4.6, "score2"),
     ("Food GP%", "estate_gp_pct", 71, "pct1"),
     ("Net Profit After Tax (projected)", "npat_proj_pct", 18, "pct1"),
-    ("New Starter Health", None, 90, "pct0"),
+    ("New Starter Health", "new_starter_health", 90, "pct0"),
 ]
 # Metrics where a LOWER value is better (green when actual <= plan). All others are higher-is-better.
 LOWER_BETTER = {"F1 Score"}
@@ -196,6 +196,32 @@ def _cell_fmt(val, fm):
     if val in (None, ""): return ""
     try: return fmt_val(float(val), fm)
     except Exception: return esc(val)
+def _sparkline(col, plan, dirn):
+    """Mini SVG trend of a metric across the quarter weeks (from weekly_history). Single week -> a dot;
+    coloured by the latest value vs plan (green on/above plan, red below; reversed for lower-is-better)."""
+    if not col: return ""
+    vals = []
+    for r in _hist:
+        v = r.get(col)
+        try: vals.append(float(v))
+        except Exception: vals.append(None)
+    pts = [(i, v) for i, v in enumerate(vals) if v is not None]
+    if not pts: return ""
+    ys = [v for _, v in pts]; lo, hi = min(ys), max(ys)
+    W, H, pad = 66, 18, 3; n = max(1, len(vals) - 1)
+    X = lambda i: pad + (i / n) * (W - 2 * pad)
+    Y = lambda v: pad + (1 - ((v - lo) / (hi - lo) if hi > lo else 0.5)) * (H - 2 * pad)
+    last = ys[-1]
+    ok = True if plan is None else ((last <= float(plan)) if dirn == "low" else (last >= float(plan)))
+    c = "var(--green)" if ok else "var(--red)"
+    if len(pts) == 1:
+        return ('<svg width="%d" height="%d" style="vertical-align:middle"><circle cx="%.1f" cy="%.1f" r="2.6" fill="%s"/></svg>'
+                % (W, H, X(pts[0][0]), Y(pts[0][1]), c))
+    poly = " ".join("%.1f,%.1f" % (X(i), Y(v)) for i, v in pts)
+    return ('<svg width="%d" height="%d" style="vertical-align:middle">'
+            '<polyline points="%s" fill="none" stroke="%s" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>'
+            '<circle cx="%.1f" cy="%.1f" r="2" fill="%s"/></svg>'
+            % (W, H, poly, c, X(pts[-1][0]), Y(pts[-1][1]), c))
 _weeks = [r.get("week_ending", "") for r in _hist]
 # x-axis / grid columns are numbered by their position in the quarter: Week 1 … Week N.
 _ghead = "".join(f'<th title="{esc(w)}">Week {i + 1}</th>' for i, w in enumerate(_weeks))
@@ -213,11 +239,12 @@ for name, col, plan, fm in GRID:
         elif st == "red": _gr += 1
         txt = _cell_fmt(val, fm) if st != "tbc" else ""
         cells += f'<td class="c-{st}">{txt}</td>'
+    spark = _sparkline(col, plan, dirn)
     _gbody += (f'<tr><td class="gm"><span class="gmn">{esc(name)}</span>'
-               f'<span class="gmo">Owner: <b>{esc(owner)}</b></span></td>'
-               f'<td class="gp">{plan_txt}</td>{cells}</tr>')
+               f'<span class="gmo">{esc(owner)}</span></td>'
+               f'<td class="gp">{plan_txt}</td><td class="gt">{spark}</td>{cells}</tr>')
 grid_html = (f'<table class="scgrid"><thead><tr><th class="gm">Measurable</th>'
-             f'<th class="gp">Plan</th>{_ghead}</tr></thead><tbody>{_gbody}</tbody></table>')
+             f'<th class="gp">Plan</th><th class="gt">Trend</th>{_ghead}</tr></thead><tbody>{_gbody}</tbody></table>')
 n_grid_weeks = len(_weeks)
 flags = D.get("flags", [])
 flags_html = "".join("<li>%s</li>" % esc(f) for f in flags)
@@ -231,7 +258,7 @@ YOY = D.get("yoy_detail", {})   # extra ATV + food-attach detail, YoY Sales Grow
 DEFINITIONS = {
     "YoY Sales Growth": "Like-for-like sales growth versus the same period last year.",
     "YoY Transactional Growth": "Like-for-like transaction (order count) growth versus last year.",
-    "Google Health": "Volume and quality of Google reviews, blended into a 0–100 health score.",
+    "Google Health": "Coverage x volume x rating: how many of 21 stores got a review, total reviews vs a weekly target, and average rating. No-review stores pull it down. Target 80.",
     "Rate My Shift Health": "Volume and score of Rate-My-Shift submissions, blended into a 0–100 health score.",
     "Brew Crew Kudos Participation": "Share of employees who gave peer kudos in the period.",
     "Social Media Engagement": "Engagement across Bewiched social channels (metric still to be defined).",
@@ -246,7 +273,7 @@ DEFINITIONS = {
 CALCS = {
     "YoY Sales Growth": "Σ this-period sales ÷ Σ same-period-last-year sales − 1, across stores trading in BOTH periods (like-for-like). New and closed sites are excluded.",
     "YoY Transactional Growth": "Same like-for-like basis as sales, but using distinct order counts instead of value.",
-    "Google Health": "Average of (reviews ÷ 40) and (rating ÷ 4.6), each capped at 100%, ×100. The QTD volume divisor scales by the number of weeks in the quarter.",
+    "Google Health": "100 × Coverage × [0.5 × min(total reviews ÷ 50, 1) + 0.5 × min(avg rating ÷ 4.6, 1)], where Coverage = stores with ≥1 review ÷ 21. QTD scales the 50 target by weeks in the quarter. Green ≥ 80.",
     "Rate My Shift Health": "Average of (submissions ÷ 70) and (average score ÷ 4.6), each capped at 100%, ×100. The QTD volume divisor scales by weeks in the quarter.",
     "Brew Crew Kudos Participation": "Distinct employees who gave kudos (BCKH tab, matched by email to the Employee List) ÷ total employee headcount.",
     "Social Media Engagement": "Not yet defined — awaiting the metric definition and target.",
@@ -1066,11 +1093,12 @@ HTML = f"""<!DOCTYPE html>
   .iss-own{{margin-left:auto;font-size:11.5px;font-weight:700;color:var(--brown);background:var(--cream);border:1px solid var(--line);border-radius:999px;padding:2px 10px;white-space:nowrap}}
   .gridwrap{{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--card);padding:6px;box-shadow:0 1px 2px rgba(80,50,30,.04)}}
   table.scgrid{{border-collapse:collapse;font-size:12px;width:100%;min-width:820px}}
-  table.scgrid th,table.scgrid td{{padding:6px 8px;text-align:center;border-bottom:1px solid var(--line);white-space:nowrap}}
+  table.scgrid th,table.scgrid td{{padding:3px 6px;text-align:center;border-bottom:1px solid var(--line);white-space:nowrap}}
+  .gt,table.scgrid td.gt{{min-width:74px;border-right:1px solid var(--line);padding:2px 6px}}
   table.scgrid thead th{{font-size:10.5px;text-transform:uppercase;color:var(--muted);font-weight:700;position:sticky;top:0;background:#fff;z-index:1}}
-  th.gm,td.gm{{text-align:left;position:sticky;left:0;background:#fff;min-width:220px;border-right:1px solid var(--line);z-index:2}}
+  th.gm,td.gm{{text-align:left;position:sticky;left:0;background:#fff;min-width:132px;max-width:150px;border-right:1px solid var(--line);z-index:2}}
   table.scgrid thead th.gm{{z-index:3}}
-  td.gm .gmn{{font-weight:800;display:block;line-height:1.2}} td.gm .gmo{{font-size:10.5px;color:var(--muted)}} td.gm .gmo b{{color:var(--brown)}}
+  td.gm .gmn{{font-weight:600;font-size:11px;display:block;line-height:1.15;white-space:normal}} td.gm .gmo{{font-size:9px;color:var(--muted)}} td.gm .gmo b{{color:var(--brown)}}
   th.gp,td.gp{{font-weight:800;color:var(--brown);border-right:1px solid var(--line);min-width:52px}}
   td.c-green{{background:var(--greenbg);color:var(--green);font-weight:700}}
   td.c-red{{background:var(--redbg);color:var(--red);font-weight:700}}

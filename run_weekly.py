@@ -1377,9 +1377,12 @@ def pull_eos_scorecard():
     bench_net = (-sm_vacancies) if sm_vacancies is not None else None
 
     # ---- derived weekly ----
-    rev = cust.get("reviews"); rat = cust.get("avg_rating_last_week")
-    gh = round((min(rev / 40, 1) + min(rat / 4.6, 1)) / 2 * 100, 1) if rev is not None and rat else None
-    gh_detail = ("%s reviews (÷40) · %s★ rating (÷4.6) last week" % (rev, rat)) if rat else "No reviews logged last week"
+    GREV_TARGET = 50   # weekly total-reviews target. Google Health = coverage x (volume/quality blend),
+    #                   so stores with NO review deplete the score (coverage = stores with >=1 review / 21).
+    rev = cust.get("reviews"); rat = cust.get("avg_rating_last_week"); gcov_n = cust.get("stores_with_reviews")
+    gcov = (gcov_n / 21) if gcov_n is not None else None
+    gh = round(100 * gcov * (0.5 * min(rev / GREV_TARGET, 1) + 0.5 * min(rat / 4.6, 1)), 1) if (gcov is not None and rev is not None and rat) else None
+    gh_detail = ("Coverage %d%% (%d/21) · %s reviews vs target %d · %s★ avg — last week" % (round(gcov * 100), gcov_n, rev, GREV_TARGET, rat)) if (gcov is not None and rat) else "No reviews logged last week"
     subs = rms.get("submissions") or 0; ravg = rms.get("avg_rating")
     rh = round((min(subs / 70, 1) + min(ravg / 4.6, 1)) / 2 * 100, 1) if ravg and subs else None
     rh_detail = ("%d submissions (÷70) · %s★ (÷4.6) last week" % (subs, ravg)) if ravg else "No Rate My Shift submissions logged last week"
@@ -1402,7 +1405,7 @@ def pull_eos_scorecard():
     HIST = os.path.join(HERE, "weekly_history.csv")
     HCOLS = ["week_ending", "estate_sales", "estate_gp_pct", "estate_cph", "sph", "npat_proj_pct",
              "yoy_sales_pct", "yoy_tx_pct", "f1_avg", "rms_pct", "kudos_pct", "brand_audit", "google_health_pct",
-             "estate_atv"]
+             "estate_atv", "bench", "new_starter_health"]
     hist_rows = []
     if os.path.exists(HIST):
         try:
@@ -1650,7 +1653,11 @@ def pull_eos_scorecard():
         avg = sum(v[0] * v[1] for v in dd.values()) / n
         pct = round((min(n / (vol_per_week * weeks_q), 1) + min(avg / 4.6, 1)) / 2 * 100, 1)
         return (pct, n, round(avg, 2))
-    gh_qtd, gh_qtd_n, gh_qtd_avg = _qtd_blend(sh.get("google", {}), 40)
+    _gq = sh.get("google", {})
+    gh_qtd_n = sum((v[0] or 0) for v in _gq.values())
+    _gcovq = sum(1 for v in _gq.values() if (v[0] or 0) > 0)
+    gh_qtd_avg = round(sum((v[1] or 0) * (v[0] or 0) for v in _gq.values()) / gh_qtd_n, 2) if gh_qtd_n else None
+    gh_qtd = round(100 * (_gcovq / 21) * (0.5 * min(gh_qtd_n / (GREV_TARGET * weeks_q), 1) + 0.5 * min(gh_qtd_avg / 4.6, 1)), 1) if (gh_qtd_n and gh_qtd_avg) else None
     rh_qtd, rh_qtd_n, rh_qtd_avg = _qtd_blend(sh.get("rms", {}), 70)
 
     # ---- live quarterly: YoY sales / tx (QTD LFL) ----
@@ -1700,7 +1707,7 @@ def pull_eos_scorecard():
         metric("yoy_tx_wk", "YoY Transactional Growth", 5, yoy_tx_wk, "%", "pct_signed", "derived",
                "%s (%d like-for-like stores)" % (wk_ref, len(lflx)),
                "Last completed week transactions vs same week last year (LFL); reuses tx26/tx25."),
-        metric("google_health", "Google Health", 100, gh, "%", "pct0", "derived", gh_detail,
+        metric("google_health", "Google Health", 80, gh, "%", "pct0", "derived", gh_detail,
                "Blend: avg of reviews÷40 and rating÷4.6, each capped 100%. Last completed week."),
         metric("rms_health", "Rate My Shift Health", 100, rh, "%", "pct0", "derived", rh_detail,
                "Blend: avg of submissions÷70 and avgScore÷4.6, each capped 100%. Last completed week."),
@@ -1739,7 +1746,7 @@ def pull_eos_scorecard():
         metric("yoy_tx", "YoY Transactional Growth", 5, yoy_tx, "%", "pct_signed", "live",
                ("LFL QTD transactions vs last year (%s like-for-like stores)" % lfl_n) if lfl_n else "LFL QTD transactions vs same period last year",
                "Auto from BigQuery v_sales_details_flat (quarter-to-date)."),
-        metric("google_health_qtd", "Google Health", 100, gh_qtd, "%", "pct0", "derived",
+        metric("google_health_qtd", "Google Health", 80, gh_qtd, "%", "pct0", "derived",
                ("%d reviews (÷%d) · %s★ (÷4.6) QTD" % (gh_qtd_n, 40 * weeks_q, gh_qtd_avg)) if gh_qtd is not None else "No QTD reviews",
                "Blend: avg of QTD reviews÷(40×%d wks) and avg rating÷4.6, each capped 100%%." % weeks_q),
         metric("rms_health_qtd", "Rate My Shift Health", 100, rh_qtd, "%", "pct0", "derived",
@@ -2090,11 +2097,16 @@ def pull_eos_scorecard():
             dt = parse_any_date(r[3]) if len(r) > 3 else None
             if star is None or not dt: continue
             w = _wend(dt).isoformat()
-            if w in bf: gw.setdefault(w, []).append(star)
-        for w, xs in gw.items():
+            if w in bf:
+                _g = gw.setdefault(w, {"stars": [], "stores": set()})
+                _g["stars"].append(star)
+                _gs = normalize(r[0])
+                if _gs: _g["stores"].add(_gs)
+        for w, _g in gw.items():
+            xs = _g["stars"]
             if xs:
-                avg = sum(xs) / len(xs)
-                bf[w]["google_health_pct"] = round((min(len(xs) / 40, 1) + min(avg / 4.6, 1)) / 2 * 100, 1)
+                avg = sum(xs) / len(xs); _cov = len(_g["stores"]) / 21
+                bf[w]["google_health_pct"] = round(100 * _cov * (0.5 * min(len(xs) / GREV_TARGET, 1) + 0.5 * min(avg / 4.6, 1)), 1)
     except Exception as e:
         flags.append("Grid back-fill: Google per-week failed (%s)." % str(e)[:70])
     # (f) Kudos per week: distinct employee-contributors that week / total employees (reuse bckh_rows + emp_emails)
@@ -2125,7 +2137,8 @@ def pull_eos_scorecard():
                "estate_gp_pct": _hc(gp_wk_live), "estate_cph": _hc(cph_estate), "sph": _hc(sph),
                "npat_proj_pct": _hc(npat_wk), "yoy_sales_pct": _hc(yoy_sales_wk), "yoy_tx_pct": _hc(yoy_tx_wk),
                "f1_avg": _hc(f1_wk), "rms_pct": _hc(rh), "kudos_pct": _hc(kudos_wk_pct),
-               "brand_audit": _hc(audit_blend_wk), "google_health_pct": _hc(gh), "estate_atv": _hc(atv_wk)}
+               "brand_audit": _hc(audit_blend_wk), "google_health_pct": _hc(gh), "estate_atv": _hc(atv_wk),
+               "bench": _hc(bench_net), "new_starter_health": _hc(ns_headline)}
     by_wk = {r.get("week_ending"): r for r in hist_rows}
     by_wk[new_row["week_ending"]] = new_row
     ordered = sorted(by_wk.values(), key=lambda r: r.get("week_ending", ""))
