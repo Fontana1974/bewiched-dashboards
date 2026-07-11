@@ -142,8 +142,8 @@ import csv as _csv
 GRID = [
     ("YoY Sales Growth", "yoy_sales_pct", 12, "pct_signed"),
     ("YoY Transactional Growth", "yoy_tx_pct", 5, "pct_signed"),
-    ("Google Health", "google_health_pct", 80, "pct0"),
-    ("Rate My Shift Health", "rms_pct", 100, "pct0"),
+    ("Google Health", "google_health_pct", 70, "pct0"),
+    ("Rate My Shift Health", "rms_pct", 70, "pct0"),
     ("Brew Crew Kudos Participation", "kudos_pct", 50, "pct0"),
     ("Social Media Engagement", None, None, "pct0"),
     ("SPH Labour (incl holiday pay)", "sph", 55, "gbp1"),
@@ -257,7 +257,7 @@ YOY = D.get("yoy_detail", {})   # extra ATV + food-attach detail, YoY Sales Grow
 DEFINITIONS = {
     "YoY Sales Growth": "Like-for-like sales growth versus the same period last year.",
     "YoY Transactional Growth": "Like-for-like transaction (order count) growth versus last year.",
-    "Google Health": "Coverage x volume x rating: how many of 21 stores got a review, total reviews vs a weekly target, and average rating. No-review stores pull it down. Target 80.",
+    "Google Health": "Coverage x volume x rating: how many of 21 stores got a review, total reviews vs a weekly target, and average rating. No-review stores pull it down. Target 70.",
     "Rate My Shift Health": "Volume and score of Rate-My-Shift submissions, blended into a 0–100 health score.",
     "Brew Crew Kudos Participation": "Share of employees who gave peer kudos in the period.",
     "Social Media Engagement": "Engagement across Bewiched social channels (metric still to be defined).",
@@ -272,8 +272,8 @@ DEFINITIONS = {
 CALCS = {
     "YoY Sales Growth": "Σ this-period sales ÷ Σ same-period-last-year sales − 1, across stores trading in BOTH periods (like-for-like). New and closed sites are excluded.",
     "YoY Transactional Growth": "Same like-for-like basis as sales, but using distinct order counts instead of value.",
-    "Google Health": "100 × Coverage × [0.5 × min(total reviews ÷ 50, 1) + 0.5 × min(avg rating ÷ 4.6, 1)], where Coverage = stores with ≥1 review ÷ 21. QTD scales the 50 target by weeks in the quarter. Green ≥ 80.",
-    "Rate My Shift Health": "Average of (submissions ÷ 70) and (average score ÷ 4.6), each capped at 100%, ×100. The QTD volume divisor scales by weeks in the quarter.",
+    "Google Health": "100 × Coverage × [0.5 × min(total reviews ÷ 50, 1) + 0.5 × min(avg rating ÷ 4.6, 1)], where Coverage = stores with ≥1 review ÷ 21. QTD scales the 50 target by weeks in the quarter. Green ≥ 70.",
+    "Rate My Shift Health": "Average of (submissions ÷ 70) and (average score ÷ 4.6), each capped at 100%, ×100. The QTD volume divisor scales by weeks in the quarter. Green ≥ 70.",
     "Brew Crew Kudos Participation": "Distinct employees who gave kudos (BCKH tab, matched by email to the Employee List) ÷ total employee headcount.",
     "Social Media Engagement": "Not yet defined — awaiting the metric definition and target.",
     "SPH Labour (incl holiday pay)": "Estate sales ÷ labour hours used (from the area planners, Section A), hours-weighted. QTD is hours-weighted across the quarter's weeks in weekly_history.csv.",
@@ -942,7 +942,35 @@ def rms_detail_html():
         voice = '<div class="md-section-h">%s</div>%s' % (esc(F.get("_comments_label", "Recent shift voice")), cards)
     else:
         voice = '<div class="md-note">No recent shift-rating comments in the last two weeks.</div>'
-    return '<div class="md-section-h">Store-by-store &mdash; who is posting</div>' + table + voice
+    # ---- LEAD: last week's WORST-rated shifts (lowest first) with date + day-of-week + suggested action on outliers ----
+    worst = F.get("worst") or []
+    outliers = F.get("outlier_stores") or []
+    lw_label = esc(F.get("_weekly_label", "")); lw_count = F.get("_lastweek_count")
+    worst_html = ""
+    if worst:
+        wcards = ""
+        for w in worst:
+            try: rt = ("%g" % float(w.get("rating")))
+            except Exception: rt = esc(str(w.get("rating", "")))
+            tagk = {"Positive": "t-ok", "Negative": "t-red", "Mixed": "t-amber"}.get(w.get("sentiment"), "t-na")
+            chip = '<span class="tag %s">%s%s</span>' % (tagk, rt, STAR)
+            txt = ('<div style="font-size:12px;color:#5b4a37;margin:3px 0 0;line-height:1.45">&ldquo;%s&rdquo;</div>' % esc(w["text"])) if w.get("text") else '<div style="font-size:11.5px;color:#a99;margin:3px 0 0">(no comment left)</div>'
+            smt = ('<div style="font-size:11.5px;color:#8a7a6d;margin-top:4px">&#8627; Manager: %s</div>' % esc(w["smt"])) if w.get("smt") else ""
+            action = ('<div style="font-size:11.5px;color:#8a3b2b;background:#fbeee9;border-radius:7px;padding:5px 8px;margin-top:6px"><b>Action:</b> %s</div>' % esc(w["action"])) if w.get("action") else ""
+            wcards += ('<div style="border:1px solid #f0ddd5;border-left:3px solid var(--red);border-radius:10px;padding:8px 11px;margin-bottom:8px">'
+                       '<div style="font-size:12.5px"><b>%s</b> %s <span class="mini">%s</span></div>%s%s%s</div>'
+                       % (esc(SH(w.get("store", ""))), chip, esc(w.get("dow", "")), txt, smt, action))
+        cnt = (" &middot; <b>%d</b> submissions logged last week" % lw_count) if lw_count is not None else ""
+        worst_html = ('<div class="md-section-h">Last week&rsquo;s lowest-rated shifts &mdash; worst first (%s%s)</div>%s'
+                      % (lw_label, cnt, wcards))
+    if outliers:
+        orows = ""
+        for o in outliers:
+            orows += ('<div style="font-size:12px;color:#5b4a37;margin-bottom:6px;padding:5px 10px;border-left:3px solid var(--red);background:#fbf4f1;border-radius:6px">'
+                      '<b>%s</b> &mdash; %.2f%s avg (%d shifts). %s</div>'
+                      % (esc(SH(o.get("store", ""))), o.get("avg", 0), STAR, o.get("n", 0), esc(o.get("action", ""))))
+        worst_html += '<div class="md-section-h">Suggested actions &mdash; store outliers</div>' + orows
+    return worst_html + '<div class="md-section-h">Store-by-store &mdash; who is posting</div>' + table + voice
 
 
 md_options = ""

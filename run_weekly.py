@@ -880,6 +880,7 @@ def pull_rms_storehealth():
     wk_store = {}                      # store -> [ratings] (last completed week, per store)
     COMMENT_LO = TODAY - datetime.timedelta(days=13)   # 'recent shift voice' = last ~2 weeks to the run date
     comment_rows = []                  # (date, store_disp, rating, description, smt_reply)
+    lastwk_rows = []                   # FULL previous-week detail rows (date, store, rating, desc, smt) for the worst-first list
     for r in rows[1:]:
         if not r or len(r) < 3 or not r[1]: continue
         dt = parse_any_date(r[0]); st = normalize(r[1])
@@ -889,6 +890,9 @@ def pull_rms_storehealth():
         if LASTWK_MON <= dt <= CUR_END:
             lastwk.append(rating)
             if st: wk_store.setdefault(st, []).append(rating)
+            _lwd = re.sub(r"\s+", " ", str(r[3])).strip() if len(r) > 3 and r[3] not in (None, "") else ""
+            _lws = re.sub(r"\s+", " ", str(r[4])).strip() if len(r) > 4 and r[4] not in (None, "") else ""
+            lastwk_rows.append((dt, st or str(r[1]).strip(), rating, _lwd, _lws))
         if st and dt >= QSTART: qtd.setdefault(st, []).append(rating)
         # recent free-text comments (col D), with the manager's reply (col E) when present
         if COMMENT_LO <= dt <= TODAY:
@@ -932,6 +936,33 @@ def pull_rms_storehealth():
         comments.append({"store": st_disp, "date": dt.isoformat(), "rating": rt,
                          "text": desc[:300], "smt": (smt[:300] or None), "sentiment": _rsent(rt)})
     comments.sort(key=lambda c: (c["date"], c["rating"]), reverse=True)
+    # ---- worst-rated shifts of the PREVIOUS COMPLETED WEEK, lowest score first, with a suggested action on outliers ----
+    def _rms_action(store, rating, text):
+        t = (text or "").lower()
+        if any(k in t for k in ("short", "understaff", "no cover", "no support", "on my own", "single", "slammed", "rushed", "rota", "not enough", "busy")):
+            return "Review staffing / rota cover for %s — the low score points to being under-supported on shift." % store
+        if any(k in t for k in ("manager", "rude", "shout", "unfair", "ignored", "listened", "disrespect", "attitude", "management")):
+            return "Follow up with %s's manager on team support and conduct on this shift." % store
+        if any(k in t for k in ("broken", "machine", "equipment", "fault", "fridge", "grinder", "boiler", "clean")):
+            return "Check equipment / raise maintenance at %s — kit issues flagged on this shift." % store
+        if any(k in t for k in ("train", "new starter", "didn't know", "induction", "no idea", "unclear", "confus")):
+            return "Reinforce training / onboarding at %s." % store
+        if text:
+            return "Follow up with %s's manager to investigate this shift and address the comment." % store
+        return "Low rating with no comment — ask %s's manager to check in with the team member." % store
+    worst = []
+    for (dt, st_disp, rt, desc, smt) in sorted(lastwk_rows, key=lambda x: (x[2], x[0])):
+        worst.append({"store": st_disp, "date": dt.isoformat(), "dow": dt.strftime("%a %-d %b"),
+                      "rating": rt, "text": desc[:300], "smt": (smt[:300] or None),
+                      "sentiment": _rsent(rt),
+                      "action": (_rms_action(st_disp, rt, desc) if rt <= 2 else None)})
+    worst = worst[:12]
+    # store-level outliers: lowest weekly average (>=2 shifts), genuinely low only
+    _savg = sorted(((st, round(sum(v) / len(v), 2), len(v)) for st, v in wk_store.items() if len(v) >= 2),
+                   key=lambda x: x[1])
+    outlier_stores = [{"store": st, "avg": av, "n": n,
+                       "action": "%s averaged %.2f★ from %d shifts last week (lowest in the estate) — check in with the manager on what's driving it." % (st, av, n)}
+                      for st, av, n in _savg[:3] if av < 3.5]
     _qn = (CUR_END.month - 1) // 3 + 1
     W("rms_feed.json", {
         "_weekly_label": wlabel(LASTWK_MON),
@@ -940,6 +971,9 @@ def pull_rms_storehealth():
         "_qtd_window": [QSTART.isoformat(), CUR_END.isoformat()],
         "_comments_label": "recent shift voice — last 2 weeks to %s" % TODAY.strftime("%-d %b %Y"),
         "_comments_window": [COMMENT_LO.isoformat(), TODAY.isoformat()],
+        "_lastweek_count": subs,
+        "worst": worst,
+        "outlier_stores": outlier_stores,
         "per_store": per_store,
         "comments": comments[:24]}, indent=1)
     print("[pull] rms/storehealth: company subs %d avg %s; %d rms stores qtd; %d recent comments" % (subs, avg, len(qtd), len(comments)))
@@ -1707,9 +1741,9 @@ def pull_eos_scorecard():
         metric("yoy_tx_wk", "YoY Transactional Growth", 5, yoy_tx_wk, "%", "pct_signed", "derived",
                "%s (%d like-for-like stores)" % (wk_ref, len(lflx)),
                "Last completed week transactions vs same week last year (LFL); reuses tx26/tx25."),
-        metric("google_health", "Google Health", 80, gh, "%", "pct0", "derived", gh_detail,
-               "Blend: avg of reviews÷40 and rating÷4.6, each capped 100%. Last completed week."),
-        metric("rms_health", "Rate My Shift Health", 100, rh, "%", "pct0", "derived", rh_detail,
+        metric("google_health", "Google Health", 70, gh, "%", "pct0", "derived", gh_detail,
+               "Coverage × volume × rating: (stores with ≥1 review ÷ 21) × [0.5·min(reviews÷50,1) + 0.5·min(rating÷4.6,1)] × 100. No-review stores pull it down. Last completed week. Green ≥ 70."),
+        metric("rms_health", "Rate My Shift Health", 70, rh, "%", "pct0", "derived", rh_detail,
                "Blend: avg of submissions÷70 and avgScore÷4.6, each capped 100%. Last completed week."),
         metric("brew_crew_kudos", "Brew Crew Kudos Participation", 50, kudos_wk_pct, "%", "pct0", "derived",
                ("%d of %d employees gave kudos last week (BCKH)" % (kudos_wk_n, kudos_total)) if kudos_wk_pct is not None
@@ -1746,10 +1780,10 @@ def pull_eos_scorecard():
         metric("yoy_tx", "YoY Transactional Growth", 5, yoy_tx, "%", "pct_signed", "live",
                ("LFL QTD transactions vs last year (%s like-for-like stores)" % lfl_n) if lfl_n else "LFL QTD transactions vs same period last year",
                "Auto from BigQuery v_sales_details_flat (quarter-to-date)."),
-        metric("google_health_qtd", "Google Health", 80, gh_qtd, "%", "pct0", "derived",
-               ("%d reviews (÷%d) · %s★ (÷4.6) QTD" % (gh_qtd_n, 40 * weeks_q, gh_qtd_avg)) if gh_qtd is not None else "No QTD reviews",
-               "Blend: avg of QTD reviews÷(40×%d wks) and avg rating÷4.6, each capped 100%%." % weeks_q),
-        metric("rms_health_qtd", "Rate My Shift Health", 100, rh_qtd, "%", "pct0", "derived",
+        metric("google_health_qtd", "Google Health", 70, gh_qtd, "%", "pct0", "derived",
+               ("%d reviews (vs %d target) · %s★ QTD" % (gh_qtd_n, GREV_TARGET * weeks_q, gh_qtd_avg)) if gh_qtd is not None else "No QTD reviews",
+               "Coverage × volume × rating: (QTD stores with a review ÷ 21) × [0.5·min(reviews÷(50×%d wks),1) + 0.5·min(rating÷4.6,1)] × 100. Green ≥ 70." % weeks_q),
+        metric("rms_health_qtd", "Rate My Shift Health", 70, rh_qtd, "%", "pct0", "derived",
                ("%d submissions (÷%d) · %s★ (÷4.6) QTD" % (rh_qtd_n, 70 * weeks_q, rh_qtd_avg)) if rh_qtd is not None else "No QTD submissions",
                "Blend: avg of QTD submissions÷(70×%d wks) and avg score÷4.6, each capped 100%%." % weeks_q),
         metric("brew_crew_kudos_qtd", "Brew Crew Kudos Participation", 50, kudos_qtd_pct, "%", "pct0", "derived",
