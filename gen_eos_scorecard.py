@@ -239,12 +239,11 @@ for name, col, plan, fm in GRID:
         elif st == "red": _gr += 1
         txt = _cell_fmt(val, fm) if st != "tbc" else ""
         cells += f'<td class="c-{st}">{txt}</td>'
-    spark = _sparkline(col, plan, dirn)
     _gbody += (f'<tr><td class="gm"><span class="gmn">{esc(name)}</span>'
                f'<span class="gmo">{esc(owner)}</span></td>'
-               f'<td class="gp">{plan_txt}</td><td class="gt">{spark}</td>{cells}</tr>')
+               f'<td class="gp">{plan_txt}</td>{cells}</tr>')
 grid_html = (f'<table class="scgrid"><thead><tr><th class="gm">Measurable</th>'
-             f'<th class="gp">Plan</th><th class="gt">Trend</th>{_ghead}</tr></thead><tbody>{_gbody}</tbody></table>')
+             f'<th class="gp">Plan</th>{_ghead}</tr></thead><tbody>{_gbody}</tbody></table>')
 n_grid_weeks = len(_weeks)
 flags = D.get("flags", [])
 flags_html = "".join("<li>%s</li>" % esc(f) for f in flags)
@@ -1092,13 +1091,13 @@ HTML = f"""<!DOCTYPE html>
   .iss-vs{{color:#8a3b30;font-variant-numeric:tabular-nums}} .iss-vs b{{color:var(--red)}}
   .iss-own{{margin-left:auto;font-size:11.5px;font-weight:700;color:var(--brown);background:var(--cream);border:1px solid var(--line);border-radius:999px;padding:2px 10px;white-space:nowrap}}
   .gridwrap{{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--card);padding:6px;box-shadow:0 1px 2px rgba(80,50,30,.04)}}
-  table.scgrid{{border-collapse:collapse;font-size:12px;width:100%;min-width:820px}}
-  table.scgrid th,table.scgrid td{{padding:3px 6px;text-align:center;border-bottom:1px solid var(--line);white-space:nowrap}}
-  .gt,table.scgrid td.gt{{min-width:74px;border-right:1px solid var(--line);padding:2px 6px}}
+  table.scgrid{{border-collapse:collapse;font-size:12px;width:auto;table-layout:auto}}
+  table.scgrid th,table.scgrid td{{padding:3px 7px;text-align:center;border-bottom:1px solid var(--line);white-space:nowrap}}
   table.scgrid thead th{{font-size:10.5px;text-transform:uppercase;color:var(--muted);font-weight:700;position:sticky;top:0;background:#fff;z-index:1}}
-  th.gm,td.gm{{text-align:left;position:sticky;left:0;background:#fff;min-width:132px;max-width:150px;border-right:1px solid var(--line);z-index:2}}
+  th.gm,td.gm{{text-align:left;position:sticky;left:0;background:#fff;min-width:96px;max-width:118px;border-right:1px solid var(--line);z-index:2}}
   table.scgrid thead th.gm{{z-index:3}}
-  td.gm .gmn{{font-weight:600;font-size:11px;display:block;line-height:1.15;white-space:normal}} td.gm .gmo{{font-size:9px;color:var(--muted)}} td.gm .gmo b{{color:var(--brown)}}
+  .scgrid td:not(.gm):not(.gp),.scgrid th:not(.gm):not(.gp){{min-width:62px}}
+  td.gm .gmn{{font-weight:600;font-size:10.5px;display:block;line-height:1.12;white-space:normal}} td.gm .gmo{{font-size:9px;color:var(--muted)}} td.gm .gmo b{{color:var(--brown)}}
   th.gp,td.gp{{font-weight:800;color:var(--brown);border-right:1px solid var(--line);min-width:52px}}
   td.c-green{{background:var(--greenbg);color:var(--green);font-weight:700}}
   td.c-red{{background:var(--redbg);color:var(--red);font-weight:700}}
