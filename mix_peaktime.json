@@ -7,42 +7,42 @@
    "share": 46,
    "gap": 10,
    "soft": false,
-   "total": 257043
+   "total": 257688
   },
   "Cold drinks": {
    "peak": "Lunch",
    "share": 38,
-   "gap": 10,
+   "gap": 9,
    "soft": false,
-   "total": 241499
+   "total": 242975
   },
   "Milkshakes": {
    "peak": "Afternoon",
-   "share": 38,
-   "gap": 3,
-   "soft": true,
-   "total": 113357
+   "share": 39,
+   "gap": 4,
+   "soft": false,
+   "total": 114465
   },
   "Food": {
    "peak": "Lunch",
    "share": 48,
    "gap": 13,
    "soft": false,
-   "total": 80508
+   "total": 80681
   },
   "Bakery": {
    "peak": "Lunch",
    "share": 38,
    "gap": 3,
    "soft": true,
-   "total": 65803
+   "total": 66079
   },
   "Other & retail": {
    "peak": "Lunch",
    "share": 37,
-   "gap": 10,
+   "gap": 9,
    "soft": false,
-   "total": 45385
+   "total": 45650
   }
  },
  "bakery": [
@@ -51,8 +51,8 @@
    "peak": "Lunch",
    "share": 52,
    "hour": "11am",
-   "units": 2954,
-   "sales": 8264,
+   "units": 2963,
+   "sales": 8290,
    "sparse": false
   },
   {
@@ -60,8 +60,8 @@
    "peak": "Lunch",
    "share": 42,
    "hour": "11am",
-   "units": 2695,
-   "sales": 8051,
+   "units": 2708,
+   "sales": 8090,
    "sparse": false
   },
   {
@@ -69,8 +69,8 @@
    "peak": "Lunch",
    "share": 42,
    "hour": "12pm",
-   "units": 2146,
-   "sales": 6925,
+   "units": 2157,
+   "sales": 6961,
    "sparse": false
   },
   {
@@ -78,8 +78,8 @@
    "peak": "Lunch",
    "share": 40,
    "hour": "12pm",
-   "units": 1297,
-   "sales": 3636,
+   "units": 1301,
+   "sales": 3648,
    "sparse": false
   },
   {
@@ -87,8 +87,8 @@
    "peak": "Morning",
    "share": 53,
    "hour": "9am",
-   "units": 1206,
-   "sales": 3063,
+   "units": 1207,
+   "sales": 3064,
    "sparse": false
   },
   {
@@ -96,8 +96,8 @@
    "peak": "Lunch",
    "share": 41,
    "hour": "12pm",
-   "units": 977,
-   "sales": 2822,
+   "units": 983,
+   "sales": 2840,
    "sparse": false
   },
   {
@@ -105,8 +105,8 @@
    "peak": "Lunch",
    "share": 43,
    "hour": "12pm",
-   "units": 942,
-   "sales": 4257,
+   "units": 943,
+   "sales": 4262,
    "sparse": false
   },
   {
@@ -114,17 +114,17 @@
    "peak": "Lunch",
    "share": 40,
    "hour": "12pm",
-   "units": 938,
-   "sales": 2829,
+   "units": 941,
+   "sales": 2839,
    "sparse": false
   },
   {
    "name": "All Butter Flapjack",
    "peak": "Lunch",
    "share": 38,
-   "hour": "11am",
-   "units": 932,
-   "sales": 2615,
+   "hour": "10am",
+   "units": 937,
+   "sales": 2629,
    "sparse": false
   },
   {
@@ -132,8 +132,8 @@
    "peak": "Lunch",
    "share": 43,
    "hour": "11am",
-   "units": 928,
-   "sales": 2686,
+   "units": 934,
+   "sales": 2703,
    "sparse": false
   },
   {
@@ -141,8 +141,8 @@
    "peak": "Lunch",
    "share": 40,
    "hour": "3pm",
-   "units": 901,
-   "sales": 2390,
+   "units": 906,
+   "sales": 2404,
    "sparse": false
   },
   {
@@ -150,8 +150,8 @@
    "peak": "Morning",
    "share": 57,
    "hour": "9am",
-   "units": 877,
-   "sales": 2205,
+   "units": 878,
+   "sales": 2207,
    "sparse": false
   },
   {
@@ -159,8 +159,8 @@
    "peak": "Lunch",
    "share": 42,
    "hour": "12pm",
-   "units": 796,
-   "sales": 2389,
+   "units": 803,
+   "sales": 2410,
    "sparse": false
   },
   {
@@ -168,8 +168,8 @@
    "peak": "Morning",
    "share": 59,
    "hour": "9am",
-   "units": 706,
-   "sales": 1476,
+   "units": 708,
+   "sales": 1480,
    "sparse": false
   },
   {
@@ -177,8 +177,8 @@
    "peak": "Lunch",
    "share": 39,
    "hour": "12pm",
-   "units": 654,
-   "sales": 1900,
+   "units": 660,
+   "sales": 1917,
    "sparse": false
   },
   {
@@ -195,26 +195,26 @@
    "peak": "Lunch",
    "share": 37,
    "hour": "1pm",
-   "units": 276,
-   "sales": 964,
+   "units": 278,
+   "sales": 971,
    "sparse": false
   },
   {
    "name": "GF Vegan Bakewell",
    "peak": "Lunch",
-   "share": 39,
+   "share": 38,
    "hour": "10am",
-   "units": 253,
-   "sales": 665,
+   "units": 255,
+   "sales": 670,
    "sparse": false
   },
   {
    "name": "Victoria Sponge Cake",
    "peak": "Afternoon",
-   "share": 40,
+   "share": 41,
    "hour": "2pm",
-   "units": 209,
-   "sales": 715,
+   "units": 212,
+   "sales": 726,
    "sparse": false
   },
   {
@@ -231,8 +231,17 @@
    "peak": "Morning",
    "share": 49,
    "hour": "11am",
-   "units": 172,
+   "units": 173,
    "sales": 435,
+   "sparse": false
+  },
+  {
+   "name": "Toffee Millionaires Cake",
+   "peak": "Afternoon",
+   "share": 39,
+   "hour": "1pm",
+   "units": 163,
+   "sales": 570,
    "sparse": false
   },
   {
@@ -242,15 +251,6 @@
    "hour": "10am",
    "units": 162,
    "sales": 970,
-   "sparse": false
-  },
-  {
-   "name": "Toffee Millionaires Cake",
-   "peak": "Lunch",
-   "share": 40,
-   "hour": "1pm",
-   "units": 159,
-   "sales": 556,
    "sparse": false
   },
   {
@@ -266,7 +266,7 @@
    "name": "Sausage Roll Meal Deal Large",
    "peak": "Morning",
    "share": 97,
-   "hour": "9am",
+   "hour": "10am",
    "units": 91,
    "sales": 572,
    "sparse": false
@@ -274,10 +274,10 @@
   {
    "name": "Tea Time Coffee Cake",
    "peak": "Afternoon",
-   "share": 43,
+   "share": 44,
    "hour": "3pm",
-   "units": 77,
-   "sales": 275,
+   "units": 78,
+   "sales": 279,
    "sparse": false
   },
   {

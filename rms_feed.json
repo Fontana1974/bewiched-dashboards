@@ -14,7 +14,7 @@
   "2026-06-29",
   "2026-07-12"
  ],
- "_lastweek_count": 55,
+ "_lastweek_count": 56,
  "worst": [
   {
    "store": "Corby",
@@ -300,12 +300,12 @@
   },
   "Lower Heathcote": {
    "weekly": {
-    "n": 2,
-    "avg": 2.5
-   },
-   "qtd": {
     "n": 3,
     "avg": 2.67
+   },
+   "qtd": {
+    "n": 4,
+    "avg": 2.75
    }
   },
   "Market Harborough": {
@@ -385,6 +385,14 @@
    "text": "Yes",
    "smt": null,
    "sentiment": "Positive"
+  },
+  {
+   "store": "Lower Heathcote",
+   "date": "2026-07-12",
+   "rating": 3.0,
+   "text": "Intense difficult conversations",
+   "smt": null,
+   "sentiment": "Mixed"
   },
   {
    "store": "Corby",
@@ -551,14 +559,6 @@
    "date": "2026-07-09",
    "rating": 1.0,
    "text": "Stressful/lack of team work/support",
-   "smt": "CL - Thanked for contributions via store slack channel. Have requested that the team reach out to myself or Rich so that we can support further.",
-   "sentiment": "Negative"
-  },
-  {
-   "store": "Northampton Drive-Thru",
-   "date": "2026-07-09",
-   "rating": 1.0,
-   "text": "Non stop difficulty",
    "smt": "CL - Thanked for contributions via store slack channel. Have requested that the team reach out to myself or Rich so that we can support further.",
    "sentiment": "Negative"
   }
