@@ -356,6 +356,36 @@ def pull_sales():
                 "date": dd.isoformat() if dd else str(_rh[0]["dd"]), "hour": hr,
                 "dow_label": dd.strftime("%a %-d %b %Y") if dd else "",
                 "hour_label": "%02d:00\u2013%02d:00" % (hr, (hr + 1) % 24)}
+        # ---- average gross weekly sales PER STORE vs same week last year (fair: each year ÷ its own
+        #      actual trading-store count, since the estate was smaller last year). Also a flat ÷21 variant.
+        _av = bq(f"""
+          SELECT
+            ROUND(SUM(IF(dd BETWEEN {d(6)} AND {CE}, v, 0))) ty_total,
+            COUNT(DISTINCT IF(dd BETWEEN {d(6)} AND {CE} AND v>0, s, NULL)) ty_stores,
+            ROUND(SUM(IF(dd BETWEEN {d(370)} AND {d(364)}, v, 0))) ly_total,
+            COUNT(DISTINCT IF(dd BETWEEN {d(370)} AND {d(364)} AND v>0, s, NULL)) ly_stores
+          FROM (SELECT item_outlet_name s, DATE(sales_date) dd,
+                       SAFE_CAST(item_line_total_after_discount AS FLOAT64) v
+                FROM {FLAT}
+                WHERE item_outlet_name IN {ALL_IN} AND DATE(sales_date) BETWEEN {d(370)} AND {CE})""")
+        if _av:
+            a0 = _av[0]
+            tyt = a0.get("ty_total") or 0; tys = a0.get("ty_stores") or 0
+            lyt = a0.get("ly_total") or 0; lys = a0.get("ly_stores") or 0
+            ty_avg = round(tyt / tys) if tys else None
+            ly_avg = round(lyt / lys) if lys else None
+            yoy = round(100 * (ty_avg / ly_avg - 1), 1) if (ty_avg and ly_avg) else None
+            NST = len(CANON)
+            ty21 = round(tyt / NST) if NST else None
+            ly21 = round(lyt / NST) if NST else None
+            yoy21 = round(100 * (ty21 / ly21 - 1), 1) if (ty21 and ly21) else None
+            recout["avg_per_store"] = {
+                "ty_total": int(tyt), "ly_total": int(lyt), "ty_stores": int(tys), "ly_stores": int(lys),
+                "ty_avg": ty_avg, "ly_avg": ly_avg, "yoy_pct": yoy,
+                "ty_avg_fixed": ty21, "ly_avg_fixed": ly21, "yoy_fixed_pct": yoy21, "fixed_n": NST,
+                "week_label": wlabel(LASTWK_MON)}
+            print("[pull] avg/store vs LY: TY £%s (÷%d) vs LY £%s (÷%d) -> %s%% | flat ÷%d: £%s vs £%s -> %s%%" % (
+                ty_avg, tys, ly_avg, lys, yoy, NST, ty21, ly21, yoy21))
         W("sales_records.json", recout, indent=1)
         print("[pull] sales records: record week £%s %s | record hour £%s %s %s" % (
             recout.get("record_week", {}).get("rev"), recout.get("record_week", {}).get("label"),

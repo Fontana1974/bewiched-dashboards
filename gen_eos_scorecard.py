@@ -1006,6 +1006,41 @@ def sales_records_html():
             '<div style="display:flex;gap:12px;flex-wrap:wrap;margin:2px 0 12px">%s</div>' % cards)
 
 
+def avg_per_store_html():
+    """Sales-view widget: average gross weekly sales PER STORE last week vs the same week last year,
+    each year divided by ITS OWN actual trading-store count (fair YoY, since the estate grew), with a
+    flat \u00f7N variant noted. Reads sales_records.json['avg_per_store']. Fault-tolerant."""
+    try:
+        R = json.load(open(os.path.join(HERE, "sales_records.json")))
+    except Exception:
+        return ""
+    a = R.get("avg_per_store") or {}
+    if not a.get("ty_avg") or not a.get("ly_avg"):
+        return ""
+    def gbp0(v):
+        try: return "\u00a3%s" % format(int(round(float(v))), ",")
+        except Exception: return "&mdash;"
+    def pct(v):
+        if v is None: return "&mdash;"
+        return ("+%.1f%%" % v) if v >= 0 else ("%.1f%%" % v)
+    yoy = a.get("yoy_pct"); yc = "var(--green)" if (yoy is not None and yoy >= 0) else "var(--red)"
+    card = ('<div style="flex:1 1 150px;min-width:140px;border:1px solid var(--line);border-radius:12px;padding:11px 13px;background:#fff">'
+            '<div style="font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:700">%s</div>'
+            '<div style="font-size:23px;font-weight:800;color:%s;margin:4px 0 1px">%s</div>'
+            '<div style="font-size:11.5px;color:var(--muted)">%s</div></div>')
+    cards = card % ("This year / store", "var(--brown)", gbp0(a["ty_avg"]), "last wk &middot; &#247; %d stores" % a.get("ty_stores", 0))
+    cards += card % ("Last year / store", "var(--brown)", gbp0(a["ly_avg"]), "same wk LY &middot; &#247; %d stores" % a.get("ly_stores", 0))
+    cards += card % ("YoY per store", yc, pct(yoy), "each yr &#247; its own store count")
+    note = ('Each year&rsquo;s total company sales &#247; that year&rsquo;s actual trading-store count '
+            '(this year <b>%d</b>, last year <b>%d</b>) &mdash; a fair per-store average both years. '
+            'On a flat &#247;%d both years it is %s vs %s (<b>%s</b>).'
+            % (a.get("ty_stores", 0), a.get("ly_stores", 0), a.get("fixed_n", 21),
+               gbp0(a.get("ty_avg_fixed")), gbp0(a.get("ly_avg_fixed")), pct(a.get("yoy_fixed_pct"))))
+    return ('<div class="md-section-h">Average gross weekly sales per store &mdash; vs last year</div>'
+            '<div style="display:flex;gap:12px;flex-wrap:wrap;margin:2px 0 6px">%s</div>'
+            '<div class="md-note">%s</div>' % (cards, note))
+
+
 md_options = ""
 md_details = ""
 for i, (wm, qm) in enumerate(zip(weekly, quarterly)):
@@ -1039,6 +1074,7 @@ for i, (wm, qm) in enumerate(zip(weekly, quarterly)):
                   + (_rms if _rms else '<div class="md-note">Rate My Shift detail unavailable this run (rms_feed.json missing).</div>'))
     elif name == "YoY Sales Growth":
         detail = (sales_records_html()
+                  + avg_per_store_html()
                   + '<div class="md-section-h">This quarter, week by week</div>'
                   + trend_svg(name, plan, dirn)
                   + yoy_bystore_html("Sales last week (%s) — by store, this year vs last year" % D.get("week_label", ""))
