@@ -44,8 +44,8 @@
    "g_health": 2.96,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 12,
-   "r_avg": 4.5,
+   "r_n": 13,
+   "r_avg": 4.54,
    "r_rag": "green"
   },
   "Burton Latimer": {
@@ -86,8 +86,8 @@
    "g_health": 1.83,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 5,
-   "r_avg": 4.0,
+   "r_n": 6,
+   "r_avg": 4.17,
    "r_rag": "amber"
   },
   "Higham Ferrers": {
@@ -109,10 +109,10 @@
    "r_rag": "na"
   },
   "Leamington Parade": {
-   "g_n": 11,
+   "g_n": 14,
    "g_avg": 5.0,
    "g_target": 15,
-   "g_health": 4.33,
+   "g_health": 4.83,
    "g_rag": "green",
    "g_stale": false,
    "r_n": 20,
@@ -120,10 +120,10 @@
    "r_rag": "green"
   },
   "Lower Heathcote": {
-   "g_n": 5,
+   "g_n": 6,
    "g_avg": 5.0,
    "g_target": 8,
-   "g_health": 4.06,
+   "g_health": 4.38,
    "g_rag": "green",
    "g_stale": false,
    "r_n": 3,
@@ -131,11 +131,11 @@
    "r_rag": "red"
   },
   "Market Harborough": {
-   "g_n": 7,
+   "g_n": 9,
    "g_avg": 5.0,
    "g_target": 24,
-   "g_health": 3.23,
-   "g_rag": "red",
+   "g_health": 3.44,
+   "g_rag": "green",
    "g_stale": false,
    "r_n": 6,
    "r_avg": 4.0,

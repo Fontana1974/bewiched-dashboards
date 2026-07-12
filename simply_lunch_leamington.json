@@ -21,7 +21,7 @@
    "item": "Sausage Bap",
    "category": "Breakfast baps & bagel",
    "daily": {
-    "1": 2.0,
+    "1": 2.12,
     "2": 2.25,
     "3": 2.62,
     "4": 1.88,
@@ -29,7 +29,7 @@
     "6": 1.25,
     "7": 4.5
    },
-   "weekly_mean": 15.9,
+   "weekly_mean": 16.0,
    "tue": 6,
    "thu": 4,
    "sat": 11,
@@ -78,7 +78,7 @@
    "item": "Egg & Spinach Sandwich",
    "category": "Sandwiches",
    "daily": {
-    "1": 1.38,
+    "1": 1.5,
     "2": 1.75,
     "3": 1.12,
     "4": 0.5,
@@ -86,7 +86,7 @@
     "6": 1.25,
     "7": 2.25
    },
-   "weekly_mean": 9.4,
+   "weekly_mean": 9.5,
    "tue": 2,
    "thu": 3,
    "sat": 7,
@@ -97,7 +97,7 @@
    "item": "Chicken Caprese Sandwich",
    "category": "Sandwiches",
    "daily": {
-    "1": 1.38,
+    "1": 1.5,
     "2": 1.38,
     "3": 1.0,
     "4": 0.62,
@@ -105,18 +105,18 @@
     "6": 0.75,
     "7": 2.38
    },
-   "weekly_mean": 8.9,
+   "weekly_mean": 9.0,
    "tue": 2,
    "thu": 3,
-   "sat": 6,
-   "weekly_order": 11,
+   "sat": 7,
+   "weekly_order": 12,
    "sparse": true
   },
   {
    "item": "Tuna Ciabatta",
    "category": "Ciabattas",
    "daily": {
-    "1": 1.38,
+    "1": 1.62,
     "2": 1.75,
     "3": 2.12,
     "4": 2.75,
@@ -124,7 +124,7 @@
     "6": 1.0,
     "7": 2.62
    },
-   "weekly_mean": 13.0,
+   "weekly_mean": 13.2,
    "tue": 6,
    "thu": 3,
    "sat": 7,
@@ -132,29 +132,10 @@
    "sparse": false
   },
   {
-   "item": "Chicken & Chorizo Ciabatta",
-   "category": "Ciabattas",
-   "daily": {
-    "1": 1.25,
-    "2": 1.38,
-    "3": 1.25,
-    "4": 1.12,
-    "5": 1.12,
-    "6": 1.62,
-    "7": 2.38
-   },
-   "weekly_mean": 10.1,
-   "tue": 3,
-   "thu": 4,
-   "sat": 6,
-   "weekly_order": 13,
-   "sparse": false
-  },
-  {
    "item": "Mozzarella & Tomato Ciabatta",
    "category": "Ciabattas",
    "daily": {
-    "1": 1.38,
+    "1": 1.75,
     "2": 1.12,
     "3": 1.62,
     "4": 0.88,
@@ -162,18 +143,37 @@
     "6": 1.38,
     "7": 2.62
    },
-   "weekly_mean": 10.0,
+   "weekly_mean": 10.4,
    "tue": 3,
    "thu": 3,
+   "sat": 7,
+   "weekly_order": 13,
+   "sparse": false
+  },
+  {
+   "item": "Chicken & Chorizo Ciabatta",
+   "category": "Ciabattas",
+   "daily": {
+    "1": 1.38,
+    "2": 1.38,
+    "3": 1.25,
+    "4": 1.12,
+    "5": 1.12,
+    "6": 1.62,
+    "7": 2.38
+   },
+   "weekly_mean": 10.2,
+   "tue": 3,
+   "thu": 4,
    "sat": 6,
-   "weekly_order": 12,
+   "weekly_order": 13,
    "sparse": false
   },
   {
    "item": "Caesar Wrap",
    "category": "Wraps",
    "daily": {
-    "1": 1.5,
+    "1": 1.62,
     "2": 0.88,
     "3": 0.5,
     "4": 1.12,
@@ -181,7 +181,7 @@
     "6": 1.25,
     "7": 3.0
    },
-   "weekly_mean": 9.5,
+   "weekly_mean": 9.6,
    "tue": 2,
    "thu": 3,
    "sat": 7,

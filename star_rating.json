@@ -14,13 +14,13 @@
      "metrics": [
       {
        "label": "Sales YoY (4-wk)",
-       "value": "+36.9%",
+       "value": "+39.3%",
        "star": 5.0,
        "on_target": true
       },
       {
        "label": "ATV vs £6.80",
-       "value": "£7.87",
+       "value": "£7.97",
        "star": 5.0,
        "on_target": true
       }
@@ -127,20 +127,20 @@
    "pillars": [
     {
      "name": "Sales",
-     "star": 4.8,
+     "star": 4.9,
      "target": 4.6,
      "on_target": true,
      "metrics": [
       {
        "label": "Sales YoY (4-wk)",
-       "value": "+18.4%",
-       "star": 4.9,
+       "value": "+21.6%",
+       "star": 5.0,
        "on_target": true
       },
       {
        "label": "ATV vs £6.80",
-       "value": "£7.14",
-       "star": 4.7,
+       "value": "£7.29",
+       "star": 4.8,
        "on_target": true
       }
      ]
@@ -211,8 +211,8 @@
       },
       {
        "label": "Google health",
-       "value": "4.33 (QTD)",
-       "star": 4.8,
+       "value": "4.83 (QTD)",
+       "star": 5.0,
        "on_target": true
       },
       {

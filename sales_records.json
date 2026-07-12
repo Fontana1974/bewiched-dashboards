@@ -14,5 +14,19 @@
   "hour": 10,
   "dow_label": "Sat 13 Jun 2026",
   "hour_label": "10:00–11:00"
+ },
+ "avg_per_store": {
+  "ty_total": 202629,
+  "ly_total": 156491,
+  "ty_stores": 21,
+  "ly_stores": 18,
+  "ty_avg": 9649,
+  "ly_avg": 8694,
+  "yoy_pct": 11.0,
+  "ty_avg_fixed": 9649,
+  "ly_avg_fixed": 7452,
+  "yoy_fixed_pct": 29.5,
+  "fixed_n": 21,
+  "week_label": "w/c 6 Jul 2026"
  }
 }

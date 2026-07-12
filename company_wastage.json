@@ -3,20 +3,20 @@
  "rows": [
   [
    "3 Cheese & Onion Croque",
-   344.0,
-   1888.56,
+   347.0,
+   1905.03,
    0
   ],
   [
    "3 Ham & Cheese Croque",
-   286.0,
-   1570.14,
+   292.0,
+   1603.08,
    0
   ],
   [
    "3 Mozzarella & Tomato Ciabatta",
-   204.0,
-   1119.96,
+   213.0,
+   1169.37,
    0
   ],
   [
@@ -26,15 +26,21 @@
    0
   ],
   [
-   "3 Sausage Bap",
-   202.0,
-   858.5,
+   "Sausage Roll Pastry",
+   263.0,
+   867.9,
    0
   ],
   [
-   "Sausage Roll Pastry",
-   248.0,
-   818.4,
+   "3 Sausage Bap",
+   204.0,
+   867.0,
+   0
+  ],
+  [
+   "3 Tuna Ciabatta",
+   148.0,
+   812.52,
    0
   ],
   [
@@ -44,81 +50,81 @@
    0
   ],
   [
-   "3 Tuna Ciabatta",
-   145.0,
-   796.05,
-   0
-  ],
-  [
    "Chocolate Twist Traybake",
-   234.0,
-   620.1,
-   0
-  ],
-  [
-   "3 Egg & Spinach Sandwich",
-   126.0,
-   556.74,
+   241.0,
+   638.65,
    0
   ],
   [
    "3 Caesar Wrap",
-   126.0,
-   555.74,
+   141.0,
+   620.59,
+   0
+  ],
+  [
+   "3 Egg & Spinach Sandwich",
+   134.0,
+   592.16,
    0
   ],
   [
    "Croissant Pastry",
-   249.0,
-   535.35,
+   259.0,
+   556.85,
    0
   ],
   [
    "3 Chicken Caprese Sandwich",
-   100.0,
-   490.67,
-   0
-  ],
-  [
-   "Rocky Road Traybake",
-   157.0,
-   447.45,
-   0
-  ],
-  [
-   "3 Falafel Wrap",
-   95.0,
-   419.55,
+   107.0,
+   525.6,
    0
   ],
   [
    "3 Breakfast Bagel",
-   74.0,
-   403.3,
+   89.0,
+   485.05,
+   0
+  ],
+  [
+   "Rocky Road Traybake",
+   160.0,
+   456.0,
+   0
+  ],
+  [
+   "3 Falafel Wrap",
+   100.0,
+   441.0,
    0
   ],
   [
    "3 Ham & Mozzarella Croissant",
-   76.0,
-   373.36,
+   79.0,
+   388.33,
    0
   ],
   [
    "Vegan Raspberry Croissant Pastry",
-   140.0,
-   371.0,
+   141.0,
+   373.65,
    0
   ],
   [
    "3 Green & Grain Salad",
-   59.0,
-   315.65,
+   60.0,
+   321.0,
    0
   ],
   [
    "Yoghurt & Cranberry Slice Traybake",
    93.0,
    283.65,
+   0
+  ],
+  [
+   "Teacake Traybake",
+   81.0,
+   230.85,
    0
   ],
   [
@@ -134,15 +140,9 @@
    0
   ],
   [
-   "Teacake Traybake",
-   73.0,
-   208.05,
-   0
-  ],
-  [
    "Luxury Millionaires Triangle Traybake",
-   64.0,
-   195.2,
+   67.0,
+   204.35,
    0
   ],
   [
@@ -153,8 +153,8 @@
   ],
   [
    "Cherry Bakewell Slice Traybake",
-   54.0,
-   175.5,
+   57.0,
+   185.25,
    0
   ],
   [
@@ -165,20 +165,20 @@
   ],
   [
    "Chocolate Muffin",
-   52.0,
-   153.4,
+   58.0,
+   171.1,
    0
   ],
   [
    "Blueberry Muffin",
-   49.0,
-   144.55,
+   51.0,
+   150.45,
    0
   ],
   [
    "Marbled Crunch Slice",
-   45.0,
-   137.25,
+   48.0,
+   146.4,
    0
   ],
   [
@@ -218,6 +218,12 @@
    0
   ],
   [
+   "Almond Croissant",
+   34.0,
+   90.1,
+   0
+  ],
+  [
    "Victoria Sponge Cake",
    25.0,
    90.0,
@@ -233,12 +239,6 @@
    "Regular Flat White",
    22.0,
    86.9,
-   0
-  ],
-  [
-   "Almond Croissant",
-   31.0,
-   82.15,
    0
   ]
  ]

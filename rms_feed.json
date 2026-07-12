@@ -14,7 +14,7 @@
   "2026-06-29",
   "2026-07-12"
  ],
- "_lastweek_count": 53,
+ "_lastweek_count": 55,
  "worst": [
   {
    "store": "Corby",
@@ -260,12 +260,12 @@
   },
   "Billing Drive Thru": {
    "weekly": {
-    "n": 10,
-    "avg": 4.4
+    "n": 11,
+    "avg": 4.45
    },
    "qtd": {
-    "n": 12,
-    "avg": 4.5
+    "n": 13,
+    "avg": 4.54
    }
   },
   "Glenvale Drive Thru": {
@@ -280,12 +280,12 @@
   },
   "HOE Balsall Common": {
    "weekly": {
-    "n": 2,
-    "avg": 4.5
+    "n": 3,
+    "avg": 4.67
    },
    "qtd": {
-    "n": 5,
-    "avg": 4.0
+    "n": 6,
+    "avg": 4.17
    }
   },
   "Leamington Parade": {
@@ -370,6 +370,22 @@
   }
  },
  "comments": [
+  {
+   "store": "HOE Balsall Common",
+   "date": "2026-07-12",
+   "rating": 5.0,
+   "text": "YAY SO FUN",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Billing Drive Thru",
+   "date": "2026-07-12",
+   "rating": 5.0,
+   "text": "Yes",
+   "smt": null,
+   "sentiment": "Positive"
+  },
   {
    "store": "Corby",
    "date": "2026-07-12",
@@ -545,22 +561,6 @@
    "text": "Non stop difficulty",
    "smt": "CL - Thanked for contributions via store slack channel. Have requested that the team reach out to myself or Rich so that we can support further.",
    "sentiment": "Negative"
-  },
-  {
-   "store": "Rugby",
-   "date": "2026-07-08",
-   "rating": 5.0,
-   "text": "Smashed the cleaning list",
-   "smt": "CL - Thanked for contributions via store slack channel.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Leamington Parade",
-   "date": "2026-07-08",
-   "rating": 5.0,
-   "text": "Soooo funny",
-   "smt": "CL - Thanked for contributions via store slack channel.",
-   "sentiment": "Positive"
   }
  ]
 }

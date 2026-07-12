@@ -21,7 +21,7 @@
    "item": "Sausage Bap",
    "category": "Breakfast baps & bagel",
    "daily": {
-    "1": 8.12,
+    "1": 8.75,
     "2": 5.88,
     "3": 9.12,
     "4": 5.88,
@@ -29,18 +29,18 @@
     "6": 7.75,
     "7": 11.12
    },
-   "weekly_mean": 54.0,
+   "weekly_mean": 54.6,
    "tue": 18,
    "thu": 16,
-   "sat": 29,
-   "weekly_order": 63,
+   "sat": 30,
+   "weekly_order": 64,
    "sparse": false
   },
   {
    "item": "Breakfast Bagel",
    "category": "Breakfast baps & bagel",
    "daily": {
-    "1": 6.12,
+    "1": 6.25,
     "2": 4.62,
     "3": 3.5,
     "4": 6.75,
@@ -48,7 +48,7 @@
     "6": 5.0,
     "7": 8.75
    },
-   "weekly_mean": 42.1,
+   "weekly_mean": 42.2,
    "tue": 12,
    "thu": 15,
    "sat": 23,
@@ -59,7 +59,7 @@
    "item": "Bacon Bap",
    "category": "Breakfast baps & bagel",
    "daily": {
-    "1": 6.25,
+    "1": 6.62,
     "2": 3.5,
     "3": 3.12,
     "4": 4.0,
@@ -67,18 +67,18 @@
     "6": 4.5,
     "7": 7.5
    },
-   "weekly_mean": 33.8,
+   "weekly_mean": 34.1,
    "tue": 9,
    "thu": 11,
-   "sat": 20,
-   "weekly_order": 40,
+   "sat": 21,
+   "weekly_order": 41,
    "sparse": false
   },
   {
    "item": "Chicken Caprese Sandwich",
    "category": "Sandwiches",
    "daily": {
-    "1": 0.38,
+    "1": 0.62,
     "2": 2.38,
     "3": 1.75,
     "4": 2.38,
@@ -86,11 +86,11 @@
     "6": 1.88,
     "7": 1.5
    },
-   "weekly_mean": 12.7,
+   "weekly_mean": 12.9,
    "tue": 5,
    "thu": 5,
-   "sat": 5,
-   "weekly_order": 15,
+   "sat": 6,
+   "weekly_order": 16,
    "sparse": false
   },
   {
@@ -116,7 +116,7 @@
    "item": "Kids Ham Sandwich",
    "category": "Sandwiches",
    "daily": {
-    "1": 0.88,
+    "1": 1.0,
     "2": 0.38,
     "3": 0.0,
     "4": 0.0,
@@ -124,7 +124,7 @@
     "6": 0.0,
     "7": 0.75
    },
-   "weekly_mean": 2.1,
+   "weekly_mean": 2.2,
    "tue": 0,
    "thu": 1,
    "sat": 3,
@@ -135,7 +135,7 @@
    "item": "Kids Cheese Sandwich",
    "category": "Sandwiches",
    "daily": {
-    "1": 0.62,
+    "1": 0.88,
     "2": 0.38,
     "3": 0.0,
     "4": 0.12,
@@ -143,18 +143,18 @@
     "6": 0.0,
     "7": 0.5
    },
-   "weekly_mean": 1.6,
+   "weekly_mean": 1.9,
    "tue": 1,
    "thu": 0,
-   "sat": 2,
-   "weekly_order": 3,
+   "sat": 3,
+   "weekly_order": 4,
    "sparse": true
   },
   {
    "item": "Tuna Ciabatta",
    "category": "Ciabattas",
    "daily": {
-    "1": 4.12,
+    "1": 4.5,
     "2": 3.62,
     "3": 2.12,
     "4": 5.25,
@@ -162,18 +162,18 @@
     "6": 3.0,
     "7": 4.25
    },
-   "weekly_mean": 24.2,
+   "weekly_mean": 24.6,
    "tue": 9,
    "thu": 6,
-   "sat": 14,
-   "weekly_order": 29,
+   "sat": 15,
+   "weekly_order": 30,
    "sparse": false
   },
   {
    "item": "Chicken & Chorizo Ciabatta",
    "category": "Ciabattas",
    "daily": {
-    "1": 3.12,
+    "1": 3.62,
     "2": 2.75,
     "3": 2.0,
     "4": 4.0,
@@ -181,7 +181,7 @@
     "6": 4.0,
     "7": 3.0
    },
-   "weekly_mean": 23.2,
+   "weekly_mean": 23.8,
    "tue": 7,
    "thu": 10,
    "sat": 11,
@@ -230,7 +230,7 @@
    "item": "Falafel Wrap",
    "category": "Wraps",
    "daily": {
-    "1": 0.25,
+    "1": 0.5,
     "2": 0.62,
     "3": 1.38,
     "4": 0.88,
@@ -238,7 +238,7 @@
     "6": 0.88,
     "7": 1.0
    },
-   "weekly_mean": 6.3,
+   "weekly_mean": 6.5,
    "tue": 3,
    "thu": 3,
    "sat": 3,
