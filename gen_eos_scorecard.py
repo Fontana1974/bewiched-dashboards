@@ -973,6 +973,39 @@ def rms_detail_html():
     return worst_html + '<div class="md-section-h">Store-by-store &mdash; who is posting</div>' + table + voice
 
 
+def sales_records_html():
+    """Two all-time company record widgets for the top of the Sales (YoY Sales Growth) view:
+    record weekly sales + record busiest single trading hour. Reads sales_records.json
+    (written by run_weekly.pull_sales from full BigQuery history). Fault-tolerant."""
+    try:
+        R = json.load(open(os.path.join(HERE, "sales_records.json")))
+    except Exception:
+        return ""
+    rw = R.get("record_week") or {}; rh = R.get("record_hour") or {}
+    if not rw and not rh:
+        return ""
+    def gbp0(v):
+        try: return "\u00a3%s" % format(int(round(float(v))), ",")
+        except Exception: return "&mdash;"
+    cards = ""
+    if rw:
+        cards += ('<div style="flex:1 1 230px;min-width:215px;border:1px solid var(--line);border-top:3px solid var(--green);'
+                  'border-radius:12px;padding:12px 14px;background:#fff">'
+                  '<div style="font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:700">&#127942; Record weekly sales</div>'
+                  '<div style="font-size:26px;font-weight:800;color:var(--brown);line-height:1.1;margin:5px 0 2px">%s</div>'
+                  '<div style="font-size:12px;color:var(--muted)">all-time company best &middot; <b>%s</b></div></div>'
+                  % (gbp0(rw.get("rev")), esc(rw.get("label", ""))))
+    if rh:
+        cards += ('<div style="flex:1 1 230px;min-width:215px;border:1px solid var(--line);border-top:3px solid var(--gold);'
+                  'border-radius:12px;padding:12px 14px;background:#fff">'
+                  '<div style="font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:700">&#127942; Record sales hour</div>'
+                  '<div style="font-size:26px;font-weight:800;color:var(--brown);line-height:1.1;margin:5px 0 2px">%s</div>'
+                  '<div style="font-size:12px;color:var(--muted)">all-time busiest trading hour &middot; <b>%s</b> &middot; %s</div></div>'
+                  % (gbp0(rh.get("rev")), esc(rh.get("hour_label", "")), esc(rh.get("dow_label", ""))))
+    return ('<div class="md-section-h">Company records</div>'
+            '<div style="display:flex;gap:12px;flex-wrap:wrap;margin:2px 0 12px">%s</div>' % cards)
+
+
 md_options = ""
 md_details = ""
 for i, (wm, qm) in enumerate(zip(weekly, quarterly)):
@@ -1005,10 +1038,11 @@ for i, (wm, qm) in enumerate(zip(weekly, quarterly)):
                   + trend_svg(name, plan, dirn)
                   + (_rms if _rms else '<div class="md-note">Rate My Shift detail unavailable this run (rms_feed.json missing).</div>'))
     elif name == "YoY Sales Growth":
-        detail = ('<div class="md-section-h">This quarter, week by week</div>'
+        detail = (sales_records_html()
+                  + '<div class="md-section-h">This quarter, week by week</div>'
                   + trend_svg(name, plan, dirn)
                   + yoy_bystore_html("Sales last week (%s) — by store, this year vs last year" % D.get("week_label", ""))
-                  + weekend_html("sales") + weekend_bystore_html("sales")
+                  + weekend_bystore_html("sales")
                   + yoy_extras_html())
     elif name == "YoY Transactional Growth":
         detail = ('<div class="md-section-h">This quarter, week by week</div>'

@@ -317,6 +317,52 @@ def pull_sales():
                                     for dp in ("Morning", "Lunch", "Afternoon", "Evening")}
     a["cats"] = CATS
     save_all(a)
+    # ---- ALL-TIME COMPANY RECORDS (auto-rolls: recomputed from the full BigQuery history each run,
+    #      so a new record set this week is picked up automatically). Non-fatal: degrades the widget only.
+    ALL_IN = "(" + ",".join("'%s'" % st.replace("'", "\\'") for st in CANON) + ")"
+    try:
+        _rw = bq(f"""
+          SELECT wc, rev FROM (
+            SELECT DATE_TRUNC(DATE(sales_date),WEEK(MONDAY)) wc,
+                   ROUND(SUM(SAFE_CAST(item_line_total_after_discount AS FLOAT64))) rev
+            FROM {FLAT}
+            WHERE item_outlet_name IN {ALL_IN} AND DATE(sales_date) <= {CE}
+            GROUP BY wc
+            QUALIFY ROW_NUMBER() OVER (ORDER BY rev DESC)=1)""")
+        _rh = bq(f"""
+          SELECT dd, hr, rev, orders FROM (
+            SELECT DATE(sales_date) dd, {HOUR} hr,
+                   ROUND(SUM(SAFE_CAST(item_line_total_after_discount AS FLOAT64))) rev,
+                   COUNT(DISTINCT id) orders
+            FROM {FLAT}
+            WHERE item_outlet_name IN {ALL_IN} AND DATE(sales_date) <= {CE}
+            GROUP BY dd, hr
+            HAVING orders >= 30 AND SAFE_DIVIDE(rev, orders) <= 30
+            QUALIFY ROW_NUMBER() OVER (ORDER BY rev DESC)=1)""")
+        recout = {"_updated": CUR_END.isoformat(), "_basis": "All-time, company estate (%d stores), from BigQuery full history to %s." % (len(CANON), CUR_END.isoformat())}
+        if _rw:
+            wc = _rw[0]["wc"]
+            if not isinstance(wc, datetime.date): wc = parse_any_date(str(wc))
+            we = (wc + datetime.timedelta(days=6)) if wc else None
+            recout["record_week"] = {"rev": int(_rw[0]["rev"]),
+                "week_start": wc.isoformat() if wc else None,
+                "week_ending": we.isoformat() if we else None,
+                "label": ("w/e %s" % we.strftime("%-d %b %Y")) if we else str(_rw[0]["wc"])}
+        if _rh:
+            dd = _rh[0]["dd"]
+            if not isinstance(dd, datetime.date): dd = parse_any_date(str(dd))
+            hr = int(_rh[0]["hr"])
+            recout["record_hour"] = {"rev": int(_rh[0]["rev"]), "orders": int(_rh[0]["orders"]),
+                "date": dd.isoformat() if dd else str(_rh[0]["dd"]), "hour": hr,
+                "dow_label": dd.strftime("%a %-d %b %Y") if dd else "",
+                "hour_label": "%02d:00\u2013%02d:00" % (hr, (hr + 1) % 24)}
+        W("sales_records.json", recout, indent=1)
+        print("[pull] sales records: record week £%s %s | record hour £%s %s %s" % (
+            recout.get("record_week", {}).get("rev"), recout.get("record_week", {}).get("label"),
+            recout.get("record_hour", {}).get("rev"), recout.get("record_hour", {}).get("hour_label"),
+            recout.get("record_hour", {}).get("dow_label")))
+    except Exception as e:
+        print("[pull] sales records FAILED (non-fatal, widget degrades): %s" % str(e)[:150])
     print("[pull] sales: %d stores" % len(win))
 
 
