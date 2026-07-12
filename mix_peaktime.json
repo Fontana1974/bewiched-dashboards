@@ -7,42 +7,42 @@
    "share": 46,
    "gap": 10,
    "soft": false,
-   "total": 257688
+   "total": 257753
   },
   "Cold drinks": {
    "peak": "Lunch",
    "share": 38,
    "gap": 9,
    "soft": false,
-   "total": 242975
+   "total": 243251
   },
   "Milkshakes": {
    "peak": "Afternoon",
    "share": 39,
    "gap": 4,
    "soft": false,
-   "total": 114465
+   "total": 114631
   },
   "Food": {
    "peak": "Lunch",
    "share": 48,
    "gap": 13,
    "soft": false,
-   "total": 80681
+   "total": 80696
   },
   "Bakery": {
    "peak": "Lunch",
    "share": 38,
    "gap": 3,
    "soft": true,
-   "total": 66079
+   "total": 66110
   },
   "Other & retail": {
    "peak": "Lunch",
    "share": 37,
    "gap": 9,
    "soft": false,
-   "total": 45650
+   "total": 45670
   }
  },
  "bakery": [
@@ -60,8 +60,8 @@
    "peak": "Lunch",
    "share": 42,
    "hour": "11am",
-   "units": 2708,
-   "sales": 8090,
+   "units": 2710,
+   "sales": 8096,
    "sparse": false
   },
   {
@@ -69,8 +69,8 @@
    "peak": "Lunch",
    "share": 42,
    "hour": "12pm",
-   "units": 2157,
-   "sales": 6961,
+   "units": 2158,
+   "sales": 6964,
    "sparse": false
   },
   {
@@ -78,8 +78,8 @@
    "peak": "Lunch",
    "share": 40,
    "hour": "12pm",
-   "units": 1301,
-   "sales": 3648,
+   "units": 1302,
+   "sales": 3650,
    "sparse": false
   },
   {
@@ -87,8 +87,8 @@
    "peak": "Morning",
    "share": 53,
    "hour": "9am",
-   "units": 1207,
-   "sales": 3064,
+   "units": 1209,
+   "sales": 3069,
    "sparse": false
   },
   {
@@ -96,8 +96,8 @@
    "peak": "Lunch",
    "share": 41,
    "hour": "12pm",
-   "units": 983,
-   "sales": 2840,
+   "units": 984,
+   "sales": 2843,
    "sparse": false
   },
   {
@@ -149,7 +149,7 @@
    "name": "Vegan Raspberry Croissant Pastry",
    "peak": "Morning",
    "share": 57,
-   "hour": "9am",
+   "hour": "10am",
    "units": 878,
    "sales": 2207,
    "sparse": false
@@ -168,17 +168,17 @@
    "peak": "Morning",
    "share": 59,
    "hour": "9am",
-   "units": 708,
-   "sales": 1480,
+   "units": 709,
+   "sales": 1482,
    "sparse": false
   },
   {
    "name": "Chocolate Muffin",
    "peak": "Lunch",
-   "share": 39,
+   "share": 38,
    "hour": "12pm",
-   "units": 660,
-   "sales": 1917,
+   "units": 663,
+   "sales": 1926,
    "sparse": false
   },
   {
@@ -237,7 +237,7 @@
   },
   {
    "name": "Toffee Millionaires Cake",
-   "peak": "Afternoon",
+   "peak": "Lunch",
    "share": 39,
    "hour": "1pm",
    "units": 163,
@@ -266,7 +266,7 @@
    "name": "Sausage Roll Meal Deal Large",
    "peak": "Morning",
    "share": 97,
-   "hour": "10am",
+   "hour": "9am",
    "units": 91,
    "sales": 572,
    "sparse": false

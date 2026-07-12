@@ -14,7 +14,7 @@
   "2026-06-29",
   "2026-07-12"
  ],
- "_lastweek_count": 56,
+ "_lastweek_count": 59,
  "worst": [
   {
    "store": "Corby",
@@ -160,12 +160,12 @@
  "per_store": {
   "Burton Latimer": {
    "weekly": {
-    "n": 0,
-    "avg": null
+    "n": 1,
+    "avg": 4.0
    },
    "qtd": {
-    "n": 2,
-    "avg": 5.0
+    "n": 3,
+    "avg": 4.67
    }
   },
   "Corby": {
@@ -260,12 +260,12 @@
   },
   "Billing Drive Thru": {
    "weekly": {
-    "n": 11,
-    "avg": 4.45
-   },
-   "qtd": {
     "n": 13,
     "avg": 4.54
+   },
+   "qtd": {
+    "n": 15,
+    "avg": 4.6
    }
   },
   "Glenvale Drive Thru": {
@@ -383,6 +383,30 @@
    "date": "2026-07-12",
    "rating": 5.0,
    "text": "Yes",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Billing Drive Thru",
+   "date": "2026-07-12",
+   "rating": 5.0,
+   "text": "Record sales week",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Billing Drive Thru",
+   "date": "2026-07-12",
+   "rating": 5.0,
+   "text": "Amazing!!",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Burton Latimer",
+   "date": "2026-07-12",
+   "rating": 4.0,
+   "text": "Fun to meet some new people and work in a new store and use the coffee machines",
    "smt": null,
    "sentiment": "Positive"
   },
@@ -537,30 +561,6 @@
    "text": "Early, busy, teamwork",
    "smt": "CL - Thanked for contributions via store slack channel.",
    "sentiment": "Positive"
-  },
-  {
-   "store": "Lower Heathcote",
-   "date": "2026-07-09",
-   "rating": 2.0,
-   "text": "Stress, chaos, to much pressure",
-   "smt": "CL - Thanked for contributions via store slack channel. Have requested that the team reach out to myself or Rich so that we can support further.",
-   "sentiment": "Negative"
-  },
-  {
-   "store": "Northampton Drive-Thru",
-   "date": "2026-07-09",
-   "rating": 2.0,
-   "text": "Frustrating, felt understaffed",
-   "smt": "CL - Thanked for contributions via store slack channel. Have requested that the team reach out to myself or Rich so that we can support further.",
-   "sentiment": "Negative"
-  },
-  {
-   "store": "Northampton Drive-Thru",
-   "date": "2026-07-09",
-   "rating": 1.0,
-   "text": "Stressful/lack of team work/support",
-   "smt": "CL - Thanked for contributions via store slack channel. Have requested that the team reach out to myself or Rich so that we can support further.",
-   "sentiment": "Negative"
   }
  ]
 }
