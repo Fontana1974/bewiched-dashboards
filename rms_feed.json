@@ -1,161 +1,167 @@
 {
- "_weekly_label": "w/c 29 Jun 2026",
+ "_weekly_label": "w/c 6 Jul 2026",
  "_weekly_window": [
-  "2026-06-29",
-  "2026-07-05"
+  "2026-07-06",
+  "2026-07-12"
  ],
  "_qtd_label": "Q3 2026",
  "_qtd_window": [
   "2026-07-01",
-  "2026-07-05"
+  "2026-07-12"
  ],
- "_comments_label": "recent shift voice — last 2 weeks to 11 Jul 2026",
+ "_comments_label": "recent shift voice — last 2 weeks to 12 Jul 2026",
  "_comments_window": [
-  "2026-06-28",
-  "2026-07-11"
+  "2026-06-29",
+  "2026-07-12"
  ],
- "_lastweek_count": 44,
+ "_lastweek_count": 53,
  "worst": [
   {
-   "store": "HOE Balsall Common",
-   "date": "2026-07-01",
-   "dow": "Wed 1 Jul",
-   "rating": 1.0,
-   "text": "The new Youda update doesn't fix the fact that its objectively rubbish, especially compared to slack",
-   "smt": "KF - Apologised and reiterated that the Youda has been dropped. Asked respondent to reach out with any other issues that are behind the low score.",
-   "sentiment": "Negative",
-   "action": "Follow up with HOE Balsall Common's manager to investigate this shift and address the comment."
-  },
-  {
    "store": "Corby",
-   "date": "2026-07-03",
-   "dow": "Fri 3 Jul",
+   "date": "2026-07-06",
+   "dow": "Mon 6 Jul",
    "rating": 1.0,
-   "text": "Temp manager never here.",
-   "smt": "KF - Apologised and asked respondent to reach out an dtalk issue through with assurance of help/support.",
-   "sentiment": "Negative",
-   "action": "Follow up with Corby's manager on team support and conduct on this shift."
-  },
-  {
-   "store": "Corby",
-   "date": "2026-07-04",
-   "dow": "Sat 4 Jul",
-   "rating": 1.0,
-   "text": "Need further rotas",
-   "smt": "KF - Apologised and asked respondents to reach out and talk feelings through.",
-   "sentiment": "Negative",
-   "action": "Review staffing / rota cover for Corby — the low score points to being under-supported on shift."
-  },
-  {
-   "store": "Corby",
-   "date": "2026-07-04",
-   "dow": "Sat 4 Jul",
-   "rating": 1.0,
-   "text": "Need Larger StoreRoom",
-   "smt": "KF - Apologised and asked respondents to reach out and talk feelings through.",
+   "text": "Worried about hours",
+   "smt": "CL - Thanked for contributions via store slack channel.",
    "sentiment": "Negative",
    "action": "Follow up with Corby's manager to investigate this shift and address the comment."
   },
   {
-   "store": "Corby",
-   "date": "2026-07-05",
-   "dow": "Sun 5 Jul",
+   "store": "Northampton Drive-Thru",
+   "date": "2026-07-09",
+   "dow": "Thu 9 Jul",
    "rating": 1.0,
-   "text": "rota not out",
-   "smt": "CL - Thanked for contributions via store slack channel.",
+   "text": "Stressful/lack of team work/support",
+   "smt": "CL - Thanked for contributions via store slack channel. Have requested that the team reach out to myself or Rich so that we can support further.",
+   "sentiment": "Negative",
+   "action": "Follow up with Northampton Drive-Thru's manager to investigate this shift and address the comment."
+  },
+  {
+   "store": "Northampton Drive-Thru",
+   "date": "2026-07-09",
+   "dow": "Thu 9 Jul",
+   "rating": 1.0,
+   "text": "Non stop difficulty",
+   "smt": "CL - Thanked for contributions via store slack channel. Have requested that the team reach out to myself or Rich so that we can support further.",
+   "sentiment": "Negative",
+   "action": "Follow up with Northampton Drive-Thru's manager to investigate this shift and address the comment."
+  },
+  {
+   "store": "Glenvale Drive Thru",
+   "date": "2026-07-10",
+   "dow": "Fri 10 Jul",
+   "rating": 1.0,
+   "text": "Boiling hot",
+   "smt": "CL - Thanked for contributions via store slack channel. Have explained that we are currently in the process of trying to get the air con fixed.",
+   "sentiment": "Negative",
+   "action": "Follow up with Glenvale Drive Thru's manager to investigate this shift and address the comment."
+  },
+  {
+   "store": "Corby",
+   "date": "2026-07-12",
+   "dow": "Sun 12 Jul",
+   "rating": 1.0,
+   "text": "Fed up with lack of rota",
+   "smt": "CL - Thanked for contributions via store slack channel. Have explained that rotas are released weekly and that they are currently up to date. Next rota will be released tomorrow.",
    "sentiment": "Negative",
    "action": "Review staffing / rota cover for Corby — the low score points to being under-supported on shift."
   },
   {
-   "store": "Corby",
-   "date": "2026-07-01",
-   "dow": "Wed 1 Jul",
+   "store": "Wellingborough Train Station",
+   "date": "2026-07-08",
+   "dow": "Wed 8 Jul",
    "rating": 2.0,
-   "text": "New manager stability",
-   "smt": "KF - Apologised and asked respondent to reach out via a DM or call to talk through issue.",
+   "text": "Windowfilm man never came back",
+   "smt": "CL - Thanked for contributions via store slack channel.",
    "sentiment": "Negative",
-   "action": "Follow up with Corby's manager on team support and conduct on this shift."
+   "action": "Follow up with Wellingborough Train Station's manager to investigate this shift and address the comment."
   },
   {
-   "store": "Olney",
-   "date": "2026-07-01",
-   "dow": "Wed 1 Jul",
+   "store": "Wellingborough Train Station",
+   "date": "2026-07-08",
+   "dow": "Wed 8 Jul",
    "rating": 2.0,
-   "text": "Please don’t get rid of Slack.",
-   "smt": "KF - Apologised and reiterated that the Youda has been dropped. Asked respondent to reach out with any other issues that are behind the low score.",
+   "text": "No slack ipad",
+   "smt": "CL - Thanked for contributions via store slack channel.",
    "sentiment": "Negative",
-   "action": "Follow up with Olney's manager to investigate this shift and address the comment."
+   "action": "Follow up with Wellingborough Train Station's manager to investigate this shift and address the comment."
   },
   {
-   "store": "Corby",
-   "date": "2026-07-04",
-   "dow": "Sat 4 Jul",
+   "store": "Lower Heathcote",
+   "date": "2026-07-09",
+   "dow": "Thu 9 Jul",
    "rating": 2.0,
-   "text": "No manager No refit",
-   "smt": "KF - Apologised and asked respondents to reach out and talk feelings through.",
+   "text": "Stress, chaos, to much pressure",
+   "smt": "CL - Thanked for contributions via store slack channel. Have requested that the team reach out to myself or Rich so that we can support further.",
    "sentiment": "Negative",
-   "action": "Follow up with Corby's manager on team support and conduct on this shift."
+   "action": "Follow up with Lower Heathcote's manager to investigate this shift and address the comment."
   },
   {
-   "store": "Glenvale Drive Thru",
-   "date": "2026-06-29",
-   "dow": "Mon 29 Jun",
+   "store": "Northampton Drive-Thru",
+   "date": "2026-07-09",
+   "dow": "Thu 9 Jul",
+   "rating": 2.0,
+   "text": "Frustrating, felt understaffed",
+   "smt": "CL - Thanked for contributions via store slack channel. Have requested that the team reach out to myself or Rich so that we can support further.",
+   "sentiment": "Negative",
+   "action": "Review staffing / rota cover for Northampton Drive-Thru — the low score points to being under-supported on shift."
+  },
+  {
+   "store": "Peterborough Fletton Quays",
+   "date": "2026-07-10",
+   "dow": "Fri 10 Jul",
+   "rating": 2.0,
+   "text": "Un heard, de motivated! Non positive",
+   "smt": "CL - Thanked for contributions via store slack channel. Have requested that the team reach out to myself or Jon so that we can support further.",
+   "sentiment": "Negative",
+   "action": "Follow up with Peterborough Fletton Quays's manager to investigate this shift and address the comment."
+  },
+  {
+   "store": "Market Harborough",
+   "date": "2026-07-06",
+   "dow": "Mon 6 Jul",
    "rating": 3.0,
-   "text": "Don’t like Youda",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions. Asked respondent for specific comments to be sent regarding Youda via a DM or call.",
+   "text": "Good shift",
+   "smt": "CL - Thanked for contributions via store slack channel.",
    "sentiment": "Mixed",
    "action": null
   },
   {
-   "store": "Attleborough",
-   "date": "2026-07-01",
-   "dow": "Wed 1 Jul",
+   "store": "Lower Heathcote",
+   "date": "2026-07-07",
+   "dow": "Tue 7 Jul",
    "rating": 3.0,
-   "text": "Still waiting for remote feedback from the weekend when I have already requested it, how can I inform team of where to improve when I’m not told what was marked down",
-   "smt": "KF - Apologised and re-sent email as this was sent to store. Asked respondent to reach out directly when these frustrations occur in future to enable a speedier resolution.",
-   "sentiment": "Mixed",
-   "action": null
-  },
-  {
-   "store": "Northampton",
-   "date": "2026-07-01",
-   "dow": "Wed 1 Jul",
-   "rating": 3.0,
-   "text": "No youda, I beg",
-   "smt": "KF - Apologised and re-sent email as this was sent to store. Asked respondent to reach out directly when these frustrations occur in future to enable a speedier resolution.",
-   "sentiment": "Mixed",
-   "action": null
-  },
-  {
-   "store": "Glenvale Drive Thru",
-   "date": "2026-07-01",
-   "dow": "Wed 1 Jul",
-   "rating": 3.0,
-   "text": "Dislike Youda- loads of notifications and can’t select the type of notifications. The concept of it being AI- bad reputation and not good for the environment (environmental science undergrad student). App feels clustered and Slack is so much more organised and easier to post on.",
-   "smt": "KF - Apologised and reiterated that the Youda has been dropped.",
+   "text": "Always love working with Venus",
+   "smt": "CL - Thanked for contributions via store slack channel.",
    "sentiment": "Mixed",
    "action": null
   }
  ],
  "outlier_stores": [
   {
-   "store": "Corby",
-   "avg": 1.71,
-   "n": 7,
-   "action": "Corby averaged 1.71★ from 7 shifts last week (lowest in the estate) — check in with the manager on what's driving it."
+   "store": "Northampton Drive-Thru",
+   "avg": 1.33,
+   "n": 3,
+   "action": "Northampton Drive-Thru averaged 1.33★ from 3 shifts last week (lowest in the estate) — check in with the manager on what's driving it."
   },
   {
-   "store": "Glenvale Drive Thru",
-   "avg": 3.38,
-   "n": 8,
-   "action": "Glenvale Drive Thru averaged 3.38★ from 8 shifts last week (lowest in the estate) — check in with the manager on what's driving it."
+   "store": "Corby",
+   "avg": 2.0,
+   "n": 3,
+   "action": "Corby averaged 2.00★ from 3 shifts last week (lowest in the estate) — check in with the manager on what's driving it."
+  },
+  {
+   "store": "Wellingborough Train Station",
+   "avg": 2.0,
+   "n": 2,
+   "action": "Wellingborough Train Station averaged 2.00★ from 2 shifts last week (lowest in the estate) — check in with the manager on what's driving it."
   }
  ],
  "per_store": {
   "Burton Latimer": {
    "weekly": {
-    "n": 2,
-    "avg": 5.0
+    "n": 0,
+    "avg": null
    },
    "qtd": {
     "n": 2,
@@ -164,18 +170,18 @@
   },
   "Corby": {
    "weekly": {
-    "n": 7,
-    "avg": 1.71
+    "n": 3,
+    "avg": 2.0
    },
    "qtd": {
-    "n": 8,
-    "avg": 1.62
+    "n": 9,
+    "avg": 1.56
    }
   },
   "Higham Ferrers": {
    "weekly": {
-    "n": 1,
-    "avg": 5.0
+    "n": 0,
+    "avg": null
    },
    "qtd": {
     "n": 0,
@@ -194,8 +200,8 @@
   },
   "Olney": {
    "weekly": {
-    "n": 1,
-    "avg": 2.0
+    "n": 0,
+    "avg": null
    },
    "qtd": {
     "n": 1,
@@ -214,8 +220,8 @@
   },
   "Peterborough Fletton Quays": {
    "weekly": {
-    "n": 0,
-    "avg": null
+    "n": 1,
+    "avg": 2.0
    },
    "qtd": {
     "n": 1,
@@ -244,7 +250,7 @@
   },
   "Attleborough": {
    "weekly": {
-    "n": 3,
+    "n": 1,
     "avg": 4.0
    },
    "qtd": {
@@ -254,8 +260,8 @@
   },
   "Billing Drive Thru": {
    "weekly": {
-    "n": 2,
-    "avg": 5.0
+    "n": 10,
+    "avg": 4.4
    },
    "qtd": {
     "n": 12,
@@ -264,8 +270,8 @@
   },
   "Glenvale Drive Thru": {
    "weekly": {
-    "n": 8,
-    "avg": 3.38
+    "n": 3,
+    "avg": 2.67
    },
    "qtd": {
     "n": 10,
@@ -274,8 +280,8 @@
   },
   "HOE Balsall Common": {
    "weekly": {
-    "n": 3,
-    "avg": 3.67
+    "n": 2,
+    "avg": 4.5
    },
    "qtd": {
     "n": 5,
@@ -284,8 +290,8 @@
   },
   "Leamington Parade": {
    "weekly": {
-    "n": 8,
-    "avg": 5.0
+    "n": 13,
+    "avg": 4.62
    },
    "qtd": {
     "n": 20,
@@ -294,8 +300,8 @@
   },
   "Lower Heathcote": {
    "weekly": {
-    "n": 1,
-    "avg": 3.0
+    "n": 2,
+    "avg": 2.5
    },
    "qtd": {
     "n": 3,
@@ -304,8 +310,8 @@
   },
   "Market Harborough": {
    "weekly": {
-    "n": 2,
-    "avg": 5.0
+    "n": 4,
+    "avg": 3.5
    },
    "qtd": {
     "n": 6,
@@ -315,7 +321,7 @@
   "Northampton": {
    "weekly": {
     "n": 3,
-    "avg": 4.33
+    "avg": 4.67
    },
    "qtd": {
     "n": 6,
@@ -324,8 +330,8 @@
   },
   "Northampton Drive-Thru": {
    "weekly": {
-    "n": 0,
-    "avg": null
+    "n": 3,
+    "avg": 1.33
    },
    "qtd": {
     "n": 3,
@@ -334,8 +340,8 @@
   },
   "Rugby": {
    "weekly": {
-    "n": 3,
-    "avg": 5.0
+    "n": 6,
+    "avg": 4.83
    },
    "qtd": {
     "n": 9,
@@ -354,8 +360,8 @@
   },
   "Wellingborough Train Station": {
    "weekly": {
-    "n": 0,
-    "avg": null
+    "n": 2,
+    "avg": 2.0
    },
    "qtd": {
     "n": 2,
@@ -365,11 +371,19 @@
  },
  "comments": [
   {
+   "store": "Corby",
+   "date": "2026-07-12",
+   "rating": 1.0,
+   "text": "Fed up with lack of rota",
+   "smt": "CL - Thanked for contributions via store slack channel. Have explained that rotas are released weekly and that they are currently up to date. Next rota will be released tomorrow.",
+   "sentiment": "Negative"
+  },
+  {
    "store": "Rugby",
    "date": "2026-07-11",
    "rating": 5.0,
    "text": "Busy. Need a hoover 4 mat",
-   "smt": null,
+   "smt": "CL - Thanked for contributions via store slack channel.",
    "sentiment": "Positive"
   },
   {
@@ -377,7 +391,7 @@
    "date": "2026-07-11",
    "rating": 5.0,
    "text": "Amazing",
-   "smt": null,
+   "smt": "CL - Thanked for contributions via store slack channel.",
    "sentiment": "Positive"
   },
   {
@@ -385,7 +399,7 @@
    "date": "2026-07-11",
    "rating": 5.0,
    "text": "Perfect",
-   "smt": null,
+   "smt": "CL - Thanked for contributions via store slack channel.",
    "sentiment": "Positive"
   },
   {
@@ -393,7 +407,7 @@
    "date": "2026-07-11",
    "rating": 5.0,
    "text": "Great busy morning menage by Sylwia and Melika",
-   "smt": null,
+   "smt": "CL - Thanked for contributions via store slack channel.",
    "sentiment": "Positive"
   },
   {
@@ -401,7 +415,7 @@
    "date": "2026-07-11",
    "rating": 4.0,
    "text": "Lovely shift",
-   "smt": null,
+   "smt": "CL - Thanked for contributions via store slack channel.",
    "sentiment": "Positive"
   },
   {
@@ -409,7 +423,7 @@
    "date": "2026-07-11",
    "rating": 3.0,
    "text": "CREAM/sticky/flies",
-   "smt": null,
+   "smt": "CL - Thanked for contributions via store slack channel.",
    "sentiment": "Mixed"
   },
   {
@@ -417,7 +431,7 @@
    "date": "2026-07-10",
    "rating": 4.0,
    "text": "Customers would like an answer about loyalty app working again",
-   "smt": null,
+   "smt": "CL - Thanked for contributions via store slack channel. Have explained that we are currently in the process of trying to get the air con fixed.",
    "sentiment": "Positive"
   },
   {
@@ -425,7 +439,7 @@
    "date": "2026-07-10",
    "rating": 4.0,
    "text": "Busy cream warm",
-   "smt": null,
+   "smt": "CL - Thanked for contributions via store slack channel.",
    "sentiment": "Positive"
   },
   {
@@ -433,7 +447,7 @@
    "date": "2026-07-10",
    "rating": 4.0,
    "text": "Lots of training",
-   "smt": null,
+   "smt": "CL - Thanked for contributions via store slack channel.",
    "sentiment": "Positive"
   },
   {
@@ -441,7 +455,7 @@
    "date": "2026-07-10",
    "rating": 4.0,
    "text": "Busy, stinky, teamwork",
-   "smt": null,
+   "smt": "CL - Thanked for contributions via store slack channel.",
    "sentiment": "Positive"
   },
   {
@@ -449,7 +463,7 @@
    "date": "2026-07-10",
    "rating": 4.0,
    "text": "Great shift although struggling with the heat especially behind back bar",
-   "smt": null,
+   "smt": "CL - Thanked for contributions via store slack channel.",
    "sentiment": "Positive"
   },
   {
@@ -457,7 +471,7 @@
    "date": "2026-07-10",
    "rating": 3.0,
    "text": "Customers keep asking for bigger iced matchas 🍵",
-   "smt": null,
+   "smt": "CL - Thanked for contributions via store slack channel. Have explained that we are currently in the process of trying to get the air con fixed.",
    "sentiment": "Mixed"
   },
   {
@@ -465,7 +479,7 @@
    "date": "2026-07-10",
    "rating": 3.0,
    "text": "Good",
-   "smt": null,
+   "smt": "CL - Thanked for contributions via store slack channel.",
    "sentiment": "Mixed"
   },
   {
@@ -473,7 +487,7 @@
    "date": "2026-07-10",
    "rating": 2.0,
    "text": "Un heard, de motivated! Non positive",
-   "smt": null,
+   "smt": "CL - Thanked for contributions via store slack channel. Have requested that the team reach out to myself or Jon so that we can support further.",
    "sentiment": "Negative"
   },
   {
@@ -481,7 +495,7 @@
    "date": "2026-07-10",
    "rating": 1.0,
    "text": "Boiling hot",
-   "smt": null,
+   "smt": "CL - Thanked for contributions via store slack channel. Have explained that we are currently in the process of trying to get the air con fixed.",
    "sentiment": "Negative"
   },
   {
@@ -489,7 +503,7 @@
    "date": "2026-07-09",
    "rating": 5.0,
    "text": "super busy but great teamwork",
-   "smt": null,
+   "smt": "CL - Thanked for contributions via store slack channel.",
    "sentiment": "Positive"
   },
   {
@@ -497,7 +511,7 @@
    "date": "2026-07-09",
    "rating": 4.0,
    "text": "Early, busy, teamwork",
-   "smt": null,
+   "smt": "CL - Thanked for contributions via store slack channel.",
    "sentiment": "Positive"
   },
   {
@@ -505,7 +519,7 @@
    "date": "2026-07-09",
    "rating": 2.0,
    "text": "Stress, chaos, to much pressure",
-   "smt": null,
+   "smt": "CL - Thanked for contributions via store slack channel. Have requested that the team reach out to myself or Rich so that we can support further.",
    "sentiment": "Negative"
   },
   {
@@ -513,7 +527,7 @@
    "date": "2026-07-09",
    "rating": 2.0,
    "text": "Frustrating, felt understaffed",
-   "smt": null,
+   "smt": "CL - Thanked for contributions via store slack channel. Have requested that the team reach out to myself or Rich so that we can support further.",
    "sentiment": "Negative"
   },
   {
@@ -521,7 +535,7 @@
    "date": "2026-07-09",
    "rating": 1.0,
    "text": "Stressful/lack of team work/support",
-   "smt": null,
+   "smt": "CL - Thanked for contributions via store slack channel. Have requested that the team reach out to myself or Rich so that we can support further.",
    "sentiment": "Negative"
   },
   {
@@ -529,7 +543,7 @@
    "date": "2026-07-09",
    "rating": 1.0,
    "text": "Non stop difficulty",
-   "smt": null,
+   "smt": "CL - Thanked for contributions via store slack channel. Have requested that the team reach out to myself or Rich so that we can support further.",
    "sentiment": "Negative"
   },
   {
@@ -537,7 +551,7 @@
    "date": "2026-07-08",
    "rating": 5.0,
    "text": "Smashed the cleaning list",
-   "smt": null,
+   "smt": "CL - Thanked for contributions via store slack channel.",
    "sentiment": "Positive"
   },
   {
@@ -545,15 +559,7 @@
    "date": "2026-07-08",
    "rating": 5.0,
    "text": "Soooo funny",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Northampton",
-   "date": "2026-07-08",
-   "rating": 5.0,
-   "text": "Fantastic shift",
-   "smt": null,
+   "smt": "CL - Thanked for contributions via store slack channel.",
    "sentiment": "Positive"
   }
  ]

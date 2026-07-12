@@ -1,5 +1,5 @@
 {
- "_window": "4 weeks to 5 Jul 2026 vs the same 4 weeks in 2025",
+ "_window": "4 weeks to 12 Jul 2026 vs the same 4 weeks in 2025",
  "hours": {
   "Morning": "5am–11am",
   "Lunch": "11am–2pm",
@@ -12,59 +12,59 @@
    "dow": [
     [
      "Mon",
-     578,
+     576,
      0
     ],
     [
      "Tue",
-     664,
+     630,
      0
     ],
     [
      "Wed",
-     709,
+     713,
      0
     ],
     [
      "Thu",
-     710,
+     739,
      0
     ],
     [
      "Fri",
-     801,
+     794,
      0
     ],
     [
      "Sat",
-     979,
+     977,
      0
     ],
     [
      "Sun",
-     1110,
+     818,
      0
     ]
    ],
    "daypart": [
     [
      "Morning",
-     279,
+     272,
      0
     ],
     [
      "Lunch",
-     307,
+     286,
      0
     ],
     [
      "Afternoon",
-     186,
+     174,
      0
     ],
     [
      "Evening",
-     22,
+     18,
      0
     ]
    ],
@@ -75,15 +75,15 @@
      "sell": [
       [
        "Sausage Bap",
-       102
+       104
       ],
       [
        "Bacon Bap",
-       87
+       97
       ],
       [
        "Breakfast Meal Deal",
-       84
+       78
       ]
      ]
     },
@@ -93,15 +93,15 @@
      "sell": [
       [
        "Ham & Cheese Croque",
-       186
+       175
       ],
       [
        "Chicken & Chorizo Ciabatta",
-       141
+       119
       ],
       [
-       "Cherry Bakewell Slice Traybake",
-       130
+       "Cheese & Onion Croque",
+       110
       ]
      ]
     },
@@ -111,15 +111,15 @@
      "sell": [
       [
        "Luxury Millionaires Triangle Traybake",
-       94
+       67
       ],
       [
-       "Ham & Cheese Croque",
-       66
+       "Tuna Ciabatta",
+       49
       ],
       [
-       "Mozzarella & Tomato Ciabatta",
-       59
+       "Yoghurt & Cranberry Slice Traybake",
+       49
       ]
      ]
     },
@@ -144,59 +144,59 @@
    "dow": [
     [
      "Mon",
-     789,
+     755,
      0
     ],
     [
      "Tue",
-     848,
+     866,
      0
     ],
     [
      "Wed",
-     992,
+     1067,
      0
     ],
     [
      "Thu",
-     936,
+     1036,
      0
     ],
     [
      "Fri",
-     1105,
+     1141,
      0
     ],
     [
      "Sat",
-     924,
+     934,
      0
     ],
     [
      "Sun",
-     833,
+     666,
      0
     ]
    ],
    "daypart": [
     [
      "Morning",
-     302,
+     301,
      0
     ],
     [
      "Lunch",
-     379,
+     372,
      0
     ],
     [
      "Afternoon",
-     196,
+     206,
      0
     ],
     [
      "Evening",
-     41,
+     44,
      0
     ]
    ],
@@ -207,15 +207,15 @@
      "sell": [
       [
        "Sausage Bap",
-       216
+       220
       ],
       [
        "Bacon Bap",
-       198
+       182
       ],
       [
        "Teacake Traybake",
-       191
+       180
       ]
      ]
     },
@@ -225,15 +225,15 @@
      "sell": [
       [
        "Cheese & Onion Croque",
-       254
+       279
+      ],
+      [
+       "Teacake Traybake",
+       239
       ],
       [
        "Breakfast Bagel",
-       232
-      ],
-      [
-       "Ham & Cheese Croque",
-       219
+       225
       ]
      ]
     },
@@ -243,15 +243,15 @@
      "sell": [
       [
        "Luxury Millionaires Triangle Traybake",
-       146
+       136
       ],
       [
-       "Rocky Road Traybake",
+       "Ham & Cheese Croque",
+       92
+      ],
+      [
+       "Fudge Topped Brownie",
        80
-      ],
-      [
-       "Cherry Bakewell Slice Traybake",
-       77
       ]
      ]
     },
@@ -276,59 +276,59 @@
    "dow": [
     [
      "Mon",
-     1378,
+     1499,
      0
     ],
     [
      "Tue",
-     1732,
+     1765,
      0
     ],
     [
      "Wed",
-     1692,
+     1857,
      0
     ],
     [
      "Thu",
-     1843,
+     2080,
      0
     ],
     [
      "Fri",
-     2290,
+     2521,
      0
     ],
     [
      "Sat",
-     2134,
+     2205,
      0
     ],
     [
      "Sun",
-     1988,
+     1676,
      0
     ]
    ],
    "daypart": [
     [
      "Morning",
-     622,
+     663,
      0
     ],
     [
      "Lunch",
-     625,
+     636,
      0
     ],
     [
      "Afternoon",
-     399,
+     409,
      0
     ],
     [
      "Evening",
-     219,
+     235,
      0
     ]
    ],
@@ -338,16 +338,16 @@
      "new": [],
      "sell": [
       [
-       "Bacon Bap",
-       591
-      ],
-      [
        "Sausage Bap",
-       515
+       544
       ],
       [
        "Breakfast Meal Deal",
-       509
+       521
+      ],
+      [
+       "Bacon Bap",
+       510
       ]
      ]
     },
@@ -357,15 +357,15 @@
      "sell": [
       [
        "Ham & Cheese Croque",
-       365
-      ],
-      [
-       "Breakfast Bagel",
-       262
+       409
       ],
       [
        "Tuna Ciabatta",
-       251
+       257
+      ],
+      [
+       "Breakfast Bagel",
+       256
       ]
      ]
     },
@@ -375,15 +375,15 @@
      "sell": [
       [
        "Luxury Millionaires Triangle Traybake",
-       146
-      ],
-      [
-       "Ham & Cheese Croque",
        143
       ],
       [
        "Cherry Bakewell Slice Traybake",
-       117
+       126
+      ],
+      [
+       "Ham & Cheese Croque",
+       105
       ]
      ]
     },
@@ -393,15 +393,15 @@
      "sell": [
       [
        "Luxury Millionaires Triangle Traybake",
-       85
-      ],
-      [
-       "Ham & Cheese Croque",
-       68
+       82
       ],
       [
        "Cheese & Onion Croque",
        64
+      ],
+      [
+       "Ham & Cheese Croque",
+       54
       ]
      ]
     }
@@ -415,8 +415,8 @@
     "label": "Sat 20 Jun 2026, 11am–12pm"
    },
    "drivethru": {
-    "cars": 703,
-    "mix": 44.9,
+    "cars": 792,
+    "mix": 47.3,
     "rec_cars": 831,
     "rec_label": "22 Jun 2026"
    }
@@ -426,60 +426,60 @@
    "dow": [
     [
      "Mon",
-     2238,
-     1662
+     2333,
+     1752
     ],
     [
      "Tue",
-     2350,
-     1868
+     2377,
+     1808
     ],
     [
      "Wed",
-     2567,
-     1830
+     2646,
+     1754
     ],
     [
      "Thu",
-     2609,
-     1992
+     2740,
+     2047
     ],
     [
      "Fri",
-     3024,
-     2001
+     3034,
+     2048
     ],
     [
      "Sat",
-     3087,
-     2435
+     3163,
+     2284
     ],
     [
      "Sun",
-     2606,
-     1829
+     2202,
+     1818
     ]
    ],
    "daypart": [
     [
      "Morning",
-     925,
-     599
+     932,
+     597
     ],
     [
      "Lunch",
-     814,
-     629
+     805,
+     632
     ],
     [
      "Afternoon",
-     584,
-     444
+     585,
+     424
     ],
     [
      "Evening",
-     317,
-     273
+     320,
+     278
     ]
    ],
    "food": {
@@ -487,31 +487,31 @@
      "gain": [
       [
        "Sausage Bap",
-       842,
-       47,
-       269
+       875,
+       52,
+       299
       ],
       [
        "Large Breakfast Pastry Meal Deal",
-       547,
-       53,
-       189
+       509,
+       57,
+       184
       ],
       [
        "Breakfast Meal Deal",
-       557,
-       48,
-       180
+       485,
+       39,
+       135
       ]
      ],
      "new": [
       [
        "Breakfast Bagel",
-       438
+       436
       ],
       [
-       "Sausage Roll Meal Deal Large",
-       145
+       "Sausage Roll Meal Deal",
+       108
       ]
      ],
      "sell": []
@@ -519,32 +519,32 @@
     "Lunch": {
      "gain": [
       [
-       "Ham & Cheese Croque",
-       518,
-       48,
-       167
+       "Cheese & Onion Croque",
+       376,
+       100,
+       188
       ],
       [
-       "Cheese & Onion Croque",
-       369,
-       51,
-       125
+       "Ham & Cheese Croque",
+       543,
+       46,
+       172
       ],
       [
        "Sausage Roll Pastry",
-       289,
-       71,
-       120
+       253,
+       63,
+       98
       ]
      ],
      "new": [
       [
        "Breakfast Bagel",
-       279
+       247
       ],
       [
        "Cherry Bakewell Slice Traybake",
-       154
+       136
       ]
      ],
      "sell": []
@@ -552,28 +552,28 @@
     "Afternoon": {
      "gain": [
       [
-       "Luxury Millionaires Triangle Traybake",
-       206,
-       45,
-       64
-      ],
-      [
        "Ham & Cheese Croque",
-       141,
-       78,
-       62
+       160,
+       86,
+       74
       ],
       [
        "Bacon Bap",
-       79,
-       163,
-       49
+       83,
+       361,
+       65
+      ],
+      [
+       "Luxury Millionaires Triangle Traybake",
+       194,
+       41,
+       56
       ]
      ],
      "new": [
       [
        "Cherry Bakewell Slice Traybake",
-       136
+       107
       ]
      ],
      "sell": []
@@ -582,15 +582,9 @@
      "gain": [
       [
        "Ham & Cheese Croque",
-       71,
-       61,
-       27
-      ],
-      [
-       "Chicken & Chorizo Ciabatta",
-       46,
-       21,
-       8
+       65,
+       55,
+       23
       ]
      ],
      "new": [],
@@ -606,8 +600,8 @@
     "label": "Sat 4 Jul 2026, 10am–11am"
    },
    "drivethru": {
-    "cars": 931,
-    "mix": 39.7,
+    "cars": 899,
+    "mix": 40.9,
     "rec_cars": 1060,
     "rec_label": "22 Jun 2026"
    }
@@ -617,60 +611,60 @@
    "dow": [
     [
      "Mon",
-     3193,
-     2911
+     3352,
+     3002
     ],
     [
      "Tue",
-     3505,
-     3117
+     3572,
+     3101
     ],
     [
      "Wed",
-     3755,
-     3560
+     3751,
+     3443
     ],
     [
      "Thu",
-     4198,
-     3365
+     4466,
+     3514
     ],
     [
      "Fri",
-     4316,
-     3882
+     4486,
+     3958
     ],
     [
      "Sat",
-     4032,
-     3497
+     3966,
+     3421
     ],
     [
      "Sun",
-     3674,
-     3041
+     2973,
+     3051
     ]
    ],
    "daypart": [
     [
      "Morning",
-     1307,
-     1135
+     1328,
+     1133
     ],
     [
      "Lunch",
-     1193,
-     1068
+     1167,
+     1059
     ],
     [
      "Afternoon",
-     894,
-     749
+     869,
+     770
     ],
     [
      "Evening",
-     417,
-     387
+     430,
+     394
     ]
    ],
    "food": {
@@ -678,31 +672,31 @@
      "gain": [
       [
        "Breakfast Meal Deal",
-       1360,
-       50,
-       455
+       1252,
+       38,
+       347
       ],
       [
        "Ham & Mozzarella Croissant",
-       224,
-       115,
-       120
+       264,
+       134,
+       151
       ],
       [
        "Ham & Cheese Croque",
-       425,
-       14,
-       51
+       446,
+       28,
+       98
       ]
      ],
      "new": [
       [
        "Breakfast Bagel",
-       355
+       367
       ],
       [
        "Sausage Roll Meal Deal",
-       264
+       216
       ]
      ],
      "sell": []
@@ -710,32 +704,32 @@
     "Lunch": {
      "gain": [
       [
-       "Ham & Cheese Croque",
-       855,
-       28,
-       189
-      ],
-      [
        "Sausage Roll Pastry",
-       490,
-       60,
-       184
+       434,
+       50,
+       144
       ],
       [
-       "Cheese & Onion Croque",
-       478,
-       40,
-       136
+       "Ham & Cheese Croque",
+       810,
+       20,
+       135
+      ],
+      [
+       "Caesar Wrap",
+       256,
+       28,
+       56
       ]
      ],
      "new": [
       [
-       "Breakfast Bagel",
-       212
+       "Cherry Bakewell Slice Traybake",
+       213
       ],
       [
-       "Cherry Bakewell Slice Traybake",
-       208
+       "Breakfast Bagel",
+       187
       ]
      ],
      "sell": []
@@ -743,32 +737,28 @@
     "Afternoon": {
      "gain": [
       [
-       "Mozzarella & Tomato Ciabatta",
-       120,
-       145,
-       71
-      ],
-      [
        "Cheese & Onion Croque",
-       148,
-       49,
-       49
+       181,
+       46,
+       57
       ],
       [
-       "Vegan Raspberry Croissant Pastry",
+       "Mozzarella & Tomato Ciabatta",
+       71,
        45,
-       350,
-       35
+       22
+      ],
+      [
+       "Caesar Wrap",
+       60,
+       50,
+       20
       ]
      ],
      "new": [
       [
        "Cherry Bakewell Slice Traybake",
-       165
-      ],
-      [
-       "Fudge Topped Brownie",
-       85
+       182
       ]
      ],
      "sell": []
@@ -776,28 +766,28 @@
     "Evening": {
      "gain": [
       [
-       "Chocolate Muffin",
-       50,
-       61,
-       19
-      ],
-      [
        "Chicken & Chorizo Ciabatta",
-       46,
-       70,
-       19
+       52,
+       93,
+       25
       ],
       [
-       "Yoghurt & Cranberry Slice Traybake",
-       52,
-       44,
-       16
+       "Chocolate Muffin",
+       47,
+       81,
+       21
+      ],
+      [
+       "Tuna Ciabatta",
+       70,
+       19,
+       11
       ]
      ],
      "new": [
       [
        "Cherry Bakewell Slice Traybake",
-       126
+       113
       ]
      ],
      "sell": []
@@ -812,8 +802,8 @@
     "label": "Thu 25 Jun 2026, 1pm–2pm"
    },
    "drivethru": {
-    "cars": 1757,
-    "mix": 53.1,
+    "cars": 1642,
+    "mix": 50.9,
     "rec_cars": 1804,
     "rec_label": "22 Jun 2026"
    }
@@ -823,59 +813,59 @@
    "dow": [
     [
      "Mon",
-     1058,
-     888
+     1040,
+     890
     ],
     [
      "Tue",
-     949,
-     878
+     1014,
+     887
     ],
     [
      "Wed",
-     1023,
-     822
+     1020,
+     846
     ],
     [
      "Thu",
-     1010,
-     918
+     1054,
+     840
     ],
     [
      "Fri",
-     1364,
-     1069
+     1263,
+     1064
     ],
     [
      "Sat",
-     2108,
-     1579
+     2059,
+     1594
     ],
     [
      "Sun",
-     1286,
-     1018
+     1045,
+     1054
     ]
    ],
    "daypart": [
     [
      "Morning",
-     322,
-     260
+     328,
+     265
     ],
     [
      "Lunch",
-     542,
-     479
+     518,
+     467
     ],
     [
      "Afternoon",
-     360,
-     262
+     333,
+     270
     ],
     [
      "Evening",
-     33,
+     34,
      23
     ]
    ],
@@ -884,27 +874,27 @@
      "gain": [
       [
        "Breakfast Meal Deal",
-       204,
-       240,
-       144
+       222,
+       236,
+       156
       ],
       [
        "Large Breakfast Pastry Meal Deal",
-       126,
-       174,
-       80
+       107,
+       70,
+       44
       ],
       [
        "Luxury Millionaires Triangle Traybake",
-       61,
-       79,
-       27
+       40,
+       29,
+       9
       ]
      ],
      "new": [
       [
        "Cherry Bakewell Slice Traybake",
-       94
+       98
       ]
      ],
      "sell": []
@@ -912,32 +902,32 @@
     "Lunch": {
      "gain": [
       [
-       "Cheese & Onion Croque",
-       233,
+       "Toffee Millionaires Cake",
        40,
-       67
+       900,
+       36
       ],
       [
-       "Chicken & Chorizo Ciabatta",
-       155,
-       27,
-       33
+       "Tea Time Coffee Cake",
+       50,
+       257,
+       36
       ],
       [
        "Ham & Mozzarella Croissant",
-       85,
-       55,
-       30
+       100,
+       54,
+       35
       ]
      ],
      "new": [
       [
        "Cherry Bakewell Slice Traybake",
-       160
+       158
       ],
       [
        "Chicken Caprese Sandwich",
-       97
+       92
       ]
      ],
      "sell": []
@@ -945,28 +935,28 @@
     "Afternoon": {
      "gain": [
       [
-       "Mozzarella & Tomato Ciabatta",
-       71,
-       145,
-       42
-      ],
-      [
-       "Chocolate Muffin",
-       74,
-       131,
-       42
-      ],
-      [
        "Cheese & Onion Croque",
-       88,
-       87,
-       41
+       82,
+       82,
+       37
+      ],
+      [
+       "Ham & Mozzarella Croissant",
+       62,
+       130,
+       35
+      ],
+      [
+       "Chicken & Chorizo Ciabatta",
+       60,
+       107,
+       31
       ]
      ],
      "new": [
       [
        "Cherry Bakewell Slice Traybake",
-       130
+       104
       ]
      ],
      "sell": []

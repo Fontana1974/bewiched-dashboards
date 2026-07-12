@@ -1,6 +1,6 @@
 {
  "_basis": "Quarter-to-date. NOT last week.",
- "_updated": "2026-07-05",
+ "_updated": "2026-07-12",
  "_google_formula": "google_health = avg_star*0.5 + min(reviews/quarterly_target,1)*2.5 ; green>=3.32",
  "_rms_formula": "rms_avg = quarterly mean shift rating (1-5); green>=4.5 amber>=4.0 red<4.0",
  "_google_feed_note": "Reviews scraper only live for 7 stores; 14 stale since ~Jul 2025 -> google_health null (shown as no-feed).",
@@ -64,8 +64,8 @@
    "g_health": null,
    "g_rag": "na",
    "g_stale": true,
-   "r_n": 8,
-   "r_avg": 1.62,
+   "r_n": 9,
+   "r_avg": 1.56,
    "r_rag": "red"
   },
   "Glenvale Drive Thru": {
@@ -80,10 +80,10 @@
    "r_rag": "red"
   },
   "HOE Balsall Common": {
-   "g_n": 1,
-   "g_avg": 1.0,
+   "g_n": 2,
+   "g_avg": 3.0,
    "g_target": 15,
-   "g_health": 0.67,
+   "g_health": 1.83,
    "g_rag": "red",
    "g_stale": false,
    "r_n": 5,
@@ -109,10 +109,10 @@
    "r_rag": "na"
   },
   "Leamington Parade": {
-   "g_n": 9,
+   "g_n": 11,
    "g_avg": 5.0,
    "g_target": 15,
-   "g_health": 4.0,
+   "g_health": 4.33,
    "g_rag": "green",
    "g_stale": false,
    "r_n": 20,
