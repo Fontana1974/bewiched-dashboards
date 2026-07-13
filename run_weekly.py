@@ -1096,6 +1096,12 @@ def pull_rms_storehealth():
     outlier_stores = [{"store": st, "avg": av, "n": n,
                        "action": "%s averaged %.2f★ from %d shifts last week (lowest in the estate) — check in with the manager on what's driving it." % (st, av, n)}
                       for st, av, n in _savg[:3] if av < 3.5]
+    _psd = {}
+    for (dt, st_disp, rt, desc, smt) in lastwk_rows:
+        _psd.setdefault(st_disp, []).append({"date": dt.isoformat(), "dow": dt.strftime("%a %-d %b"),
+            "rating": rt, "text": desc[:300], "smt": (smt[:300] or None), "sentiment": _rsent(rt),
+            "action": (_rms_action(st_disp, rt, desc) if rt <= 2 else None)})
+    for _k in _psd: _psd[_k].sort(key=lambda x: (x["rating"], x["date"]))
     _qn = (CUR_END.month - 1) // 3 + 1
     W("rms_feed.json", {
         "_weekly_label": wlabel(LASTWK_MON),
@@ -1108,6 +1114,7 @@ def pull_rms_storehealth():
         "worst": worst,
         "outlier_stores": outlier_stores,
         "per_store": per_store,
+        "per_store_detail": _psd,
         "comments": comments[:24]}, indent=1)
     print("[pull] rms/storehealth: company subs %d avg %s; %d rms stores qtd; %d recent comments" % (subs, avg, len(qtd), len(comments)))
 

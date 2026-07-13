@@ -977,7 +977,41 @@ def rms_detail_html():
                       '<b>%s</b> &mdash; %.2f%s avg (%d shifts). %s</div>'
                       % (esc(SH(o.get("store", ""))), o.get("avg", 0), STAR, o.get("n", 0), esc(o.get("action", ""))))
         worst_html += '<div class="md-section-h">Suggested actions &mdash; store outliers</div>' + orows
-    return worst_html + '<div class="md-section-h">Store-by-store &mdash; who is posting</div>' + table + voice
+    # ---- store dropdown: All (company view) + per-store filtered detail ----
+    psd = F.get("per_store_detail") or {}
+    all_view = (worst_html + '<div class="md-section-h">Store-by-store &mdash; who is posting</div>' + table + voice)
+    outmap = {o.get("store"): o for o in (F.get("outlier_stores") or [])}
+    opts = ['<option value="__all__">All stores</option>']
+    variants = ['<div data-store="__all__">%s</div>' % all_view]
+    for st in sorted(ps.keys(), key=lambda x: SH(x)):
+        v = ps[st]; wn = v["weekly"]["n"] or 0; wa = v["weekly"]["avg"]; qn = v["qtd"]["n"] or 0; qa = v["qtd"]["avg"]
+        opts.append('<option value="%s">%s</option>' % (esc(st), esc(SH(st))))
+        head = ('<div class="md-section-h">%s &mdash; Rate My Shift</div>'
+                '<div class="md-ps-basis">Last week: <b>%d</b> submission%s%s &middot; QTD: <b>%d</b>%s</div>'
+                % (esc(SH(st)), wn, "" if wn == 1 else "s", (" &middot; avg %s" % _avg(wa)) if wa is not None else "",
+                   qn, (" &middot; avg %s" % _avg(qa)) if qa is not None else ""))
+        o = outmap.get(st)
+        act = ('<div style="font-size:12px;color:#8a3b2b;background:#fbeee9;border-radius:7px;padding:6px 9px;margin:6px 0 8px"><b>Outlier:</b> %s</div>' % esc(o["action"])) if o else ""
+        rows_s = psd.get(st) or []
+        if rows_s:
+            cards = ""
+            for w in rows_s:
+                try: rt = ("%g" % float(w.get("rating")))
+                except Exception: rt = esc(str(w.get("rating", "")))
+                tagk = {"Positive": "t-ok", "Negative": "t-red", "Mixed": "t-amber"}.get(w.get("sentiment"), "t-na")
+                chip = '<span class="tag %s">%s%s</span>' % (tagk, rt, STAR)
+                txt = ('<div style="font-size:12px;color:#5b4a37;margin:3px 0 0;line-height:1.45">&ldquo;%s&rdquo;</div>' % esc(w["text"])) if w.get("text") else '<div style="font-size:11.5px;color:#a99;margin:3px 0 0">(no comment left)</div>'
+                smt = ('<div style="font-size:11.5px;color:#8a7a6d;margin-top:4px">&#8627; Manager: %s</div>' % esc(w["smt"])) if w.get("smt") else ""
+                action = ('<div style="font-size:11.5px;color:#8a3b2b;background:#fbeee9;border-radius:7px;padding:5px 8px;margin-top:6px"><b>Action:</b> %s</div>' % esc(w["action"])) if w.get("action") else ""
+                cards += ('<div style="border:1px solid #f0ddd5;border-left:3px solid var(--red);border-radius:10px;padding:8px 11px;margin-bottom:8px">'
+                          '<div style="font-size:12.5px"><b>%s</b> %s <span class="mini">%s</span></div>%s%s%s</div>'
+                          % (esc(SH(st)), chip, esc(w.get("dow", "")), txt, smt, action))
+            body = '<div class="md-section-h">Last week&rsquo;s shifts &mdash; worst first</div>' + cards
+        else:
+            body = '<div class="md-note">No Rate My Shift submissions logged last week for this store.</div>'
+        variants.append('<div data-store="%s" style="display:none">%s%s%s</div>' % (esc(st), head, act, body))
+    bar = ('<div class="md-storebar"><span class="lbl">Store:</span> <select class="stsel mdsel">%s</select></div>' % "".join(opts))
+    return '<div class="st-scope">%s%s</div>' % (bar, "".join(variants))
 
 
 def sales_records_html():
@@ -1284,6 +1318,8 @@ HTML = f"""<!DOCTYPE html>
   .md-calc{{font-size:12.5px;color:#5b4a3d;line-height:1.55;background:#fbf7f1;border:1px solid var(--line);border-radius:10px;padding:11px 13px}}
   .md-svg{{width:100%;max-width:680px;height:auto;display:block}}
   .md-ps-basis{{font-size:11.5px;color:var(--muted);margin-bottom:8px}} .md-ps-basis b{{color:var(--brown)}}
+  .md-storebar{{display:flex;align-items:center;gap:8px;margin:2px 0 12px}} .md-storebar .lbl{{font-size:12.5px;color:var(--muted);font-weight:600}}
+  .md-storebar .stsel{{font-size:13px;padding:6px 10px}}
   table.md-ps{{width:100%;max-width:680px;border-collapse:collapse;font-size:12px}}
   table.md-ps th,table.md-ps td{{padding:5px 8px;border-bottom:1px solid var(--line);text-align:left}}
   table.md-ps th{{font-size:10px;text-transform:uppercase;color:var(--muted);font-weight:700}}
@@ -1443,6 +1479,18 @@ HTML = f"""<!DOCTYPE html>
     }}
     pd.addEventListener('change', function(){{ period(pd.value); }});
     period(pd.value);
+  }})();
+  (function(){{
+    document.querySelectorAll('.stsel').forEach(function(sel){{
+      var scope = sel.closest('.st-scope') || document;
+      function show(v){{
+        scope.querySelectorAll('[data-store]').forEach(function(d){{
+          d.style.display = (d.getAttribute('data-store') === v) ? 'block' : 'none';
+        }});
+      }}
+      sel.addEventListener('change', function(){{ show(sel.value); }});
+      show(sel.value);
+    }});
   }})();
 </script>
 </body>
