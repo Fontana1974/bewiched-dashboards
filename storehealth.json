@@ -33,9 +33,9 @@
    "g_health": null,
    "g_rag": "na",
    "g_stale": true,
-   "r_n": 4,
-   "r_avg": 4.0,
-   "r_rag": "amber"
+   "r_n": 5,
+   "r_avg": 3.8,
+   "r_rag": "red"
   },
   "Billing Drive Thru": {
    "g_n": 9,
@@ -75,8 +75,8 @@
    "g_health": 2.86,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 10,
-   "r_avg": 3.2,
+   "r_n": 12,
+   "r_avg": 3.42,
    "r_rag": "red"
   },
   "HOE Balsall Common": {
@@ -109,10 +109,10 @@
    "r_rag": "na"
   },
   "Leamington Parade": {
-   "g_n": 14,
+   "g_n": 15,
    "g_avg": 5.0,
    "g_target": 15,
-   "g_health": 4.83,
+   "g_health": 5.0,
    "g_rag": "green",
    "g_stale": false,
    "r_n": 20,
@@ -173,10 +173,10 @@
    "r_rag": "red"
   },
   "Peterborough Bridge Street": {
-   "g_n": 2,
+   "g_n": 3,
    "g_avg": 5.0,
    "g_target": 18,
-   "g_health": 2.78,
+   "g_health": 2.92,
    "g_rag": "red",
    "g_stale": false,
    "r_n": null,
@@ -184,10 +184,10 @@
    "r_rag": "na"
   },
   "Peterborough Fletton Quays": {
-   "g_n": 6,
-   "g_avg": 4.833,
+   "g_n": 7,
+   "g_avg": 4.857,
    "g_target": 15,
-   "g_health": 3.42,
+   "g_health": 3.6,
    "g_rag": "green",
    "g_stale": false,
    "r_n": 1,

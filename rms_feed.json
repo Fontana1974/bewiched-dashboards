@@ -9,12 +9,12 @@
   "2026-07-01",
   "2026-07-12"
  ],
- "_comments_label": "recent shift voice — last 2 weeks to 12 Jul 2026",
+ "_comments_label": "recent shift voice — last 2 weeks to 13 Jul 2026",
  "_comments_window": [
-  "2026-06-29",
-  "2026-07-12"
+  "2026-06-30",
+  "2026-07-13"
  ],
- "_lastweek_count": 59,
+ "_lastweek_count": 60,
  "worst": [
   {
    "store": "Corby",
@@ -250,12 +250,12 @@
   },
   "Attleborough": {
    "weekly": {
-    "n": 1,
-    "avg": 4.0
+    "n": 2,
+    "avg": 3.5
    },
    "qtd": {
-    "n": 4,
-    "avg": 4.0
+    "n": 5,
+    "avg": 3.8
    }
   },
   "Billing Drive Thru": {
@@ -274,8 +274,8 @@
     "avg": 2.67
    },
    "qtd": {
-    "n": 10,
-    "avg": 3.2
+    "n": 12,
+    "avg": 3.42
    }
   },
   "HOE Balsall Common": {
@@ -371,6 +371,22 @@
  },
  "comments": [
   {
+   "store": "Glenvale Drive Thru",
+   "date": "2026-07-13",
+   "rating": 5.0,
+   "text": "Customers keep asking for cookies and cinnamon buns",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Glenvale Drive Thru",
+   "date": "2026-07-13",
+   "rating": 4.0,
+   "text": "Need seasonal cakes",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
    "store": "HOE Balsall Common",
    "date": "2026-07-12",
    "rating": 5.0,
@@ -415,6 +431,14 @@
    "date": "2026-07-12",
    "rating": 3.0,
    "text": "Intense difficult conversations",
+   "smt": null,
+   "sentiment": "Mixed"
+  },
+  {
+   "store": "Attleborough",
+   "date": "2026-07-12",
+   "rating": 3.0,
+   "text": "Not a fan F1",
    "smt": null,
    "sentiment": "Mixed"
   },
@@ -537,30 +561,6 @@
    "text": "Un heard, de motivated! Non positive",
    "smt": "CL - Thanked for contributions via store slack channel. Have requested that the team reach out to myself or Jon so that we can support further.",
    "sentiment": "Negative"
-  },
-  {
-   "store": "Glenvale Drive Thru",
-   "date": "2026-07-10",
-   "rating": 1.0,
-   "text": "Boiling hot",
-   "smt": "CL - Thanked for contributions via store slack channel. Have explained that we are currently in the process of trying to get the air con fixed.",
-   "sentiment": "Negative"
-  },
-  {
-   "store": "Billing Drive Thru",
-   "date": "2026-07-09",
-   "rating": 5.0,
-   "text": "super busy but great teamwork",
-   "smt": "CL - Thanked for contributions via store slack channel.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Billing Drive Thru",
-   "date": "2026-07-09",
-   "rating": 4.0,
-   "text": "Early, busy, teamwork",
-   "smt": "CL - Thanked for contributions via store slack channel.",
-   "sentiment": "Positive"
   }
  ]
 }
