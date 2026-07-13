@@ -81,7 +81,7 @@
 <div class="brandbar"><div class="inner">
   <div class="logo"><div><div class="word">Be<span>wiched</span></div><div class="eyebrow">Company Performance</div></div></div>
   <div class="spacer"></div>
-  <div class="ctx">Whole company · <b>{{NSTORES}} stores</b><br>4-week window: <b>11 May → 7 Jun 2026</b> · YoY vs 2025<br><span style="color:#e7b35a;font-weight:700">🔄 Refreshed {{GEN_STAMP}} · auto Mon 9am</span></div>
+  <div class="ctx">Whole company · <b>{{NSTORES}} stores</b><br>4-week window: <b>{{WINDOW4_LABEL}}</b> · YoY vs 2025<br><span style="color:#e7b35a;font-weight:700">🔄 Refreshed {{GEN_STAMP}} · auto Mon 9am</span></div>
 </div></div>
 <div class="wrap">
   <header class="page">
@@ -216,7 +216,7 @@
   <!-- WASTAGE & YIELD -->
   <section class="tab-panel" id="tab-waste">
     {{WX_FOOD}}
-    <div class="section-title">Wastage — last week vs 4-week run rate</div>
+    <div class="section-title">Wastage — last week (<span style="font-weight:400;color:#9a8a7c;font-size:12px">{{WASTE_LW_LABEL}}</span>) vs 4-week run rate (<span style="font-weight:400;color:#9a8a7c;font-size:12px">{{WASTE_4WK_LABEL}}</span>)</div>
     <div class="cards" style="margin-bottom:4px">
       <div class="card"><div class="lbl">Wastage %</div>
         <div style="display:flex;gap:20px;align-items:flex-end;margin:3px 0 4px">
@@ -232,7 +232,7 @@
         <div class="meta">over-production cost &middot; the per-product tables below cover the last 4 weeks</div></div>
     </div>
     <div class="note blue"><b>Yield = Availability % − Waste-rate %</b>, target <b>90%</b>. Pick a store: &nbsp;<select id="storeSel"></select> <span id="pollNote" class="mini"></span></div>
-    <div class="section-title">Company wastage — Food &amp; Bakery, last 4 weeks</div>
+    <div class="section-title">Company wastage — Food &amp; Bakery, last 4 weeks (<span style="font-weight:400;color:#9a8a7c;font-size:12px">{{WASTE_4WK_LABEL}}</span>)</div>
     <div class="grid2 even">
       <div class="panel">
         <div style="font-size:13px;font-weight:700;color:#b8860b;margin-bottom:8px">🥪 Food</div>
@@ -290,12 +290,12 @@
   <section class="tab-panel" id="tab-f1">
     {{F1_STALE_BADGE}}
     <div class="cards" style="grid-template-columns:repeat(3,1fr)">
-      <div class="card"><div class="lbl">Constructor — avg race finish</div><div class="val">P{{AVG_FIN2}}</div><div class="meta">across 9 stores · latest race</div></div>
-      <div class="card"><div class="lbl">Avg championship points</div><div class="val">{{F1_CHAMP_AVG}}</div><div class="meta">latest race · higher = better</div></div>
+      <div class="card"><div class="lbl">Avg Queue Worked</div><div class="val">{{QW_Q3}}%</div><div class="meta">{{QLBL_Q3}} · vs {{QW_Q2}}% {{QLBL_Q2}} {{QW_ARROW}}</div></div>
+      <div class="card"><div class="lbl">Avg Greet / Goodbye</div><div class="val">{{GG_Q3}}%</div><div class="meta">{{QLBL_Q3}} · vs {{GG_Q2}}% {{QLBL_Q2}} {{GG_ARROW}}</div></div>
       <div class="card"><div class="lbl">Top of the grid</div><div class="val" style="color:var(--green)">{{F1_TOP}}</div><div class="meta">{{F1_TOP_META}}</div></div>
     </div>
     <div class="note green" style="margin-top:16px"><b>How F1 works.</b> Stores are audited unannounced weekly. Each Area Coach is a <b>constructor</b>; their stores are the drivers (Jon, Ian &amp; Rich across {{NSTORES}} stores). Field of ~25 includes competitor benchmark audits.</div>
-    <div class="section-title">🏆 Constructors’ Championship — <span style="font-weight:400;color:#9a8a7c;font-size:12px">avg points/store · since 25 Apr</span></div>
+    <div class="section-title">🏆 Constructors’ Championship — <span style="font-weight:400;color:#9a8a7c;font-size:12px">avg points/store · this quarter</span></div>
     <div class="grid2">
       <div class="panel">
         <div style="font-size:13px;font-weight:700;color:#5b3a29;margin-bottom:10px">Constructors’ standings <span class="mini">· area coaches by avg pts/store</span></div>

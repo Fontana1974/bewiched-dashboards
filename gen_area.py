@@ -461,6 +461,16 @@ def build(coach):
     }
     html=open('TEMPLATE_AREA.html').read()
     for k,v in repl.items(): html=html.replace(k,v)
+    _qoq = (champ.get("f1_qoq_coach", {}).get(coach)) or {}
+    _ql = champ.get("f1_qoq_labels", {}) or {}
+    def _qpc(v): return "\u2014" if v is None else ("%g" % v)
+    def _qar(a, b): return "" if (a is None or b is None) else ("\u25b2" if a > b else ("\u25bc" if a < b else "\u25ac"))
+    for _k, _v in {"{{QW_Q3}}": _qpc(_qoq.get("qw_q3")), "{{QW_Q2}}": _qpc(_qoq.get("qw_q2")),
+                   "{{GG_Q3}}": _qpc(_qoq.get("gg_q3")), "{{GG_Q2}}": _qpc(_qoq.get("gg_q2")),
+                   "{{QLBL_Q3}}": _ql.get("q3", "Q3"), "{{QLBL_Q2}}": _ql.get("q2", "Q2"),
+                   "{{QW_ARROW}}": _qar(_qoq.get("qw_q3"), _qoq.get("qw_q2")),
+                   "{{GG_ARROW}}": _qar(_qoq.get("gg_q3"), _qoq.get("gg_q2"))}.items():
+        html = html.replace(_k, _v)
     return html
 
 import re,os

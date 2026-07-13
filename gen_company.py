@@ -39,7 +39,8 @@ def wx_nudge(locs,recent):
 def wx_recent(amix):
     return {"cold":amix['Cold drinks']['mix'],"hot":amix['Hot drinks']['mix'],"milk":amix['Milkshakes']['mix'],"coldfood":25.9,"temp":19.7}
 SMT=json.load(open('smt_visits.json'))
-WASTE=json.load(open('company_wastage.json'))['rows']
+_CWJ=json.load(open('company_wastage.json')); WASTE=_CWJ['rows']
+WASTE_4WK_LABEL=_CWJ.get('_window4_label',''); WASTE_LW_LABEL=_CWJ.get('_window_lw_label','')
 F1D=json.load(open('f1_detail.json'))
 try: STH=json.load(open('storehealth.json'))['stores']
 except Exception: STH={}
@@ -340,12 +341,17 @@ def build():
     for name,w,ret,sold in WASTE:
         nm=_norm(name); cat=_cat(nm)
         if cat=='Other': continue
-        a=wagg.setdefault(nm,{'w':0.0,'ret':0.0,'sold':0.0,'cat':cat}); a['w']+=w; a['ret']+=ret; a['sold']+=sold
+        a=wagg.setdefault(nm,{'w':0.0,'ret':0.0,'sold':0.0,'known':False,'cat':cat}); a['w']+=w; a['ret']+=ret
+        if sold is not None: a['sold']+=sold; a['known']=True
     def _wrow(items):
         r=""
         for nm,a in items:
-            wr=round(100*a['w']/(a['w']+a['sold']),1) if (a['w']+a['sold'])>0 else 0
-            r+=f'<tr><td>{nm}</td><td>{int(a["w"])}</td><td>{int(a["sold"]):,}</td><td>{tag(str(wr)+"%",cls(wr,4,8,rev=True))}</td><td style="font-weight:600">£{a["ret"]:.0f}</td></tr>'
+            if a['known'] and (a['w']+a['sold'])>0:
+                wr=round(100*a['w']/(a['w']+a['sold']),1)
+                soldc=f'{int(a["sold"]):,}'; wrc=tag(str(wr)+"%",cls(wr,4,8,rev=True))
+            else:
+                soldc='<span class="mini" style="color:#9a8a7c">no EPOS match</span>'; wrc=tag("n/a","t-na")
+            r+=f'<tr><td>{nm}</td><td>{int(a["w"])}</td><td>{soldc}</td><td>{wrc}</td><td style="font-weight:600">£{a["ret"]:.0f}</td></tr>'
         return r
     food=sorted([(n,a) for n,a in wagg.items() if a['cat']=='Food'],key=lambda x:-x[1]['ret'])[:15]
     bak=sorted([(n,a) for n,a in wagg.items() if a['cat']=='Bakery'],key=lambda x:-x[1]['ret'])[:15]
@@ -436,7 +442,7 @@ def build():
      "{{PLANNER_LINKS}}":('<a class="plannerbtn" href="https://docs.google.com/spreadsheets/d/1PSjBGiR40171h769esQCtn3ldcpCB5XJyfqRTo7Yccs/edit" target="_blank" rel="noopener">📋 Jon&#39;s Planner ↗</a>'
        '<a class="plannerbtn" href="https://docs.google.com/spreadsheets/d/1_qdK6fzqPg1NcA2KKMy2TnaZ8nQJtVE-fglz2On3oBw/edit" target="_blank" rel="noopener">📋 Ian&#39;s Planner ↗</a>'
        '<a class="plannerbtn" href="https://docs.google.com/spreadsheets/d/11XuXn9zQr-JB4x2fQ0ORV96Sf-U7xWPQPvg2YlCl_dQ/edit" target="_blank" rel="noopener">📋 Rich&#39;s Planner ↗</a>'),
-     "{{FOOD_WASTE_ROWS}}":food_rows,"{{BAKERY_WASTE_ROWS}}":bak_rows,"{{FOOD_WASTE_NOTE}}":food_note,"{{BAKERY_WASTE_NOTE}}":bak_note,
+     "{{FOOD_WASTE_ROWS}}":food_rows,"{{BAKERY_WASTE_ROWS}}":bak_rows,"{{WASTE_4WK_LABEL}}":WASTE_4WK_LABEL,"{{WASTE_LW_LABEL}}":WASTE_LW_LABEL,"{{WINDOW4_LABEL}}":WASTE_4WK_LABEL,"{{FOOD_WASTE_NOTE}}":food_note,"{{BAKERY_WASTE_NOTE}}":bak_note,
      "{{QUALI_DETAIL_ROWS}}":quali_rows,"{{RACE_DETAIL_ROWS}}":race_rows,"{{QUALI_QTD_ROWS}}":quali_qtd_rows,"{{RACE_QTD_ROWS}}":race_qtd_rows,
      "{{NSTORES}}":str(len(stores)),"{{PILL}}":"All areas · Jon · Ian · Rich · "+str(len(stores))+" stores",
      "{{FOCUS_LI}}":focus_li,"{{KPW_SALES_K}}":kpw_sales_k,"{{KPW_SALES_V}}":kpw_sales_v,"{{KPW_OPS_K}}":kpw_ops_k,"{{KPW_OPS_V}}":kpw_ops_v,"{{KPW_CUST_K}}":kpw_cust_k,"{{KPW_CUST_V}}":kpw_cust_v,"{{KPW_PEOPLE_K}}":kpw_people_k,"{{KPW_PEOPLE_V}}":kpw_people_v,"{{RMS_SUBS}}":(str(_rs) if _rs is not None else "n/a"),"{{CUST_N}}":(str(_crev) if _crev else "live"),"{{OVROWS}}":ov,"{{AREA_LAST}}":GBP(area_last),"{{AREA_YOY_LW}}":pctxt(ylw),"{{LWCHIP}}":"up" if ylw>=0 else "dn",
@@ -458,6 +464,16 @@ def build():
     }
     html=open('TEMPLATE_COMPANY.html').read()
     for k,v in repl.items(): html=html.replace(k,v)
+    _qoq = (champ.get("f1_qoq", {})) or {}
+    _ql = champ.get("f1_qoq_labels", {}) or {}
+    def _qpc(v): return "\u2014" if v is None else ("%g" % v)
+    def _qar(a, b): return "" if (a is None or b is None) else ("\u25b2" if a > b else ("\u25bc" if a < b else "\u25ac"))
+    for _k, _v in {"{{QW_Q3}}": _qpc(_qoq.get("qw_q3")), "{{QW_Q2}}": _qpc(_qoq.get("qw_q2")),
+                   "{{GG_Q3}}": _qpc(_qoq.get("gg_q3")), "{{GG_Q2}}": _qpc(_qoq.get("gg_q2")),
+                   "{{QLBL_Q3}}": _ql.get("q3", "Q3"), "{{QLBL_Q2}}": _ql.get("q2", "Q2"),
+                   "{{QW_ARROW}}": _qar(_qoq.get("qw_q3"), _qoq.get("qw_q2")),
+                   "{{GG_ARROW}}": _qar(_qoq.get("gg_q3"), _qoq.get("gg_q2"))}.items():
+        html = html.replace(_k, _v)
     return html
 
 h=build()

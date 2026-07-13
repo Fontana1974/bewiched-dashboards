@@ -223,12 +223,12 @@
   <!-- F1 -->
   <section class="tab-panel" id="tab-f1">
     <div class="cards" style="grid-template-columns:repeat(3,1fr)">
-      <div class="card"><div class="lbl">Constructor — avg race finish</div><div class="val">P{{AVG_FIN2}}</div><div class="meta">across 21 stores · latest race</div></div>
-      <div class="card"><div class="lbl">Avg championship points</div><div class="val">{{F1_CHAMP_AVG}}</div><div class="meta">latest race · higher = better</div></div>
+      <div class="card"><div class="lbl">Avg Queue Worked</div><div class="val">{{QW_Q3}}%</div><div class="meta">{{QLBL_Q3}} · vs {{QW_Q2}}% {{QLBL_Q2}} {{QW_ARROW}}</div></div>
+      <div class="card"><div class="lbl">Avg Greet / Goodbye</div><div class="val">{{GG_Q3}}%</div><div class="meta">{{QLBL_Q3}} · vs {{GG_Q2}}% {{QLBL_Q2}} {{GG_ARROW}}</div></div>
       <div class="card"><div class="lbl">Top of the grid</div><div class="val" style="color:var(--green)">{{F1_TOP}}</div><div class="meta">{{F1_TOP_META}}</div></div>
     </div>
     <div class="note green" style="margin-top:16px"><b>How F1 works.</b> Stores are audited unannounced weekly. <b>Qualifying (Mon–Thu)</b> sets the grid on queue speed + hospitality; <b>The Race (Fri–Sun)</b> is the full audit and banks championship points by finishing position. Each Area Coach is a <b>constructor</b>; their stores are the drivers (Jon, Ian &amp; Rich across {{NSTORES}} stores). Field of ~25 includes competitor benchmark audits (Costa, Nero, Starbucks, Coffee#1).</div>
-    <div class="section-title">🏆 Constructors’ Championship — <span style="font-weight:400;color:#9a8a7c;font-size:12px">avg points/store · since 25 Apr</span></div>
+    <div class="section-title">🏆 Constructors’ Championship — <span style="font-weight:400;color:#9a8a7c;font-size:12px">avg points/store · this quarter</span></div>
     <div class="grid2">
       <div class="panel">
         <div style="font-size:13px;font-weight:700;color:#5b3a29;margin-bottom:10px">Constructors’ standings <span class="mini">· area coaches by avg pts/store</span></div>

@@ -446,13 +446,34 @@ def pull_wastage():
     WQ = "SAFE_CAST(WastageQuantity AS FLOAT64)"
     RV = "SAFE_CAST(RetailValue AS FLOAT64)"
     SQ = "SAFE_CAST(SalesQuantity AS FLOAT64)"
+    # SOLD FIX: v_sales_vs_wastage.SalesQuantity reads 0 for every line, so join wastage -> EPOS actuals
+    # (SUM(item_quantity) from v_sales_details_flat) on a NORMALISED product name (strip leading digits/
+    # asterisks, ' TA', ' (Copy)') over the SAME 28-day window. Unmatched lines -> sold=None ('no EPOS match').
+    def _cw(col):
+        return ("TRIM(REGEXP_REPLACE(REGEXP_REPLACE(REGEXP_REPLACE(LOWER(%s),"
+                r" r'^[0-9*]+ *',''), r' ta$',''), r' \(copy\)',''))") % col
     comp = bq(f"""
-      SELECT product_name nm, ROUND(SUM({WQ})) wq, ROUND(SUM({RV}),2) wr, ROUND(SUM({SQ})) sq
-      FROM {WASTE}
-      WHERE date BETWEEN {d(27)} AND {CE} AND {WQ}>0
-      GROUP BY nm ORDER BY wr DESC LIMIT 40""")
+      WITH sold AS (
+        SELECT {_cw('item_product_name')} p, SUM(SAFE_CAST(item_quantity AS FLOAT64)) units
+        FROM {FLAT} WHERE DATE(sales_date) BETWEEN {d(27)} AND {CE} GROUP BY p),
+      waste AS (
+        SELECT {_cw('product_name')} p, ANY_VALUE(product_name) nm,
+               ROUND(SUM({WQ})) wq, ROUND(SUM({RV}),2) wr
+        FROM {WASTE} WHERE date BETWEEN {d(27)} AND {CE} AND {WQ}>0
+        GROUP BY p)
+      SELECT w.nm, w.wq, w.wr, s.units sold
+      FROM waste w LEFT JOIN sold s ON w.p = s.p
+      ORDER BY w.wr DESC LIMIT 40""")
+    _w4 = CUR_END - datetime.timedelta(days=27)
+    def _dl(d1, d2):
+        f1 = d1.strftime("%-d %b" + ("" if d1.year == d2.year else " %Y")); return "%s \u2013 %s" % (f1, d2.strftime("%-d %b %Y"))
+    _nomatch = sum(1 for r in comp if r["sold"] is None)
     W("company_wastage.json", {"_window": "last 28 days",
-        "rows": [[r["nm"], r["wq"] or 0, r["wr"] or 0, r["sq"] or 0] for r in comp]}, indent=1)
+        "_window4": [_w4.isoformat(), CUR_END.isoformat()], "_window4_label": _dl(_w4, CUR_END),
+        "_window_lw": [LASTWK_MON.isoformat(), CUR_END.isoformat()], "_window_lw_label": _dl(LASTWK_MON, CUR_END),
+        "rows": [[r["nm"], r["wq"] or 0, r["wr"] or 0,
+                  (int(r["sold"]) if r["sold"] is not None else None)] for r in comp]}, indent=1)
+    print("[pull] wastage sold-join: %d products, %d with no EPOS match" % (len(comp), _nomatch))
     store = bq(f"""
       SELECT outlet s,
         ROUND(SUM(IF(date BETWEEN {d(27)} AND {CE} AND {WQ}>0,{RV},0))) wr,
@@ -578,7 +599,7 @@ def pull_f1():
     drivers = []
     cons = {}
     cons_n = {}
-    CHAMP_FROM = datetime.date(2026, 4, 25)
+    CHAMP_FROM = QSTART   # RESET each quarter: drivers + constructors count THIS quarter only (was fixed 25 Apr)
     for st, rows in racer.items():
         pts = sum(fnum(r[29]) for dt, r in rows if dt >= CHAMP_FROM)
         coach = COACH.get(st, "")
@@ -595,7 +616,43 @@ def pull_f1():
     cons_rows = [[c, tot, cons_n[c], round(tot / cons_n[c], 1) if cons_n[c] else 0]
                  for c, tot in cons.items()]
     cons_rows.sort(key=lambda x: -x[3])
-    a["champ"] = {"drivers": drivers, "cons": cons_rows}
+    # ---- Q(this) vs Q(prev) QoQ: "Working the Queue" score (col I / idx 8) + Greet/Goodbye (Hello idx5 +
+    #      Goodbye idx6). These are SCORED criteria, unaffected by the 29-Jun queue-TIMING cutover, so the
+    #      quarter-over-quarter comparison is straight like-for-like. Company rollup + per-coach rollups.
+    _pqm = QSTART.month - 3; _pqy = QSTART.year
+    if _pqm <= 0: _pqm += 12; _pqy -= 1
+    PQSTART = datetime.date(_pqy, _pqm, 1)
+    def _blank(): return {"q3": {"qw": [0.0, 0], "gg": [0.0, 0]}, "q2": {"qw": [0.0, 0], "gg": [0.0, 0]}}
+    comp_acc = _blank(); coach_acc = {}
+    for st, rows in racer.items():
+        ca = coach_acc.setdefault(COACH.get(st, ""), _blank())
+        for dt, r in rows:
+            if fnum(r[18]) <= 0: continue          # real audited race rows only
+            if dt >= QSTART: k = "q3"
+            elif PQSTART <= dt < QSTART: k = "q2"
+            else: continue
+            if len(r) > 8 and r[8] not in (None, ""):
+                v = fnum(r[8])
+                for acc in (comp_acc, ca): acc[k]["qw"][0] += v; acc[k]["qw"][1] += 1
+            h = fnum(r[5]) if len(r) > 5 and r[5] not in (None, "") else None
+            g = fnum(r[6]) if len(r) > 6 and r[6] not in (None, "") else None
+            if h is not None and g is not None:
+                gg = (h + g) / 2
+                for acc in (comp_acc, ca): acc[k]["gg"][0] += gg; acc[k]["gg"][1] += 1
+    def _qoq_out(acc):
+        def pc(k, m):
+            tot, n = acc[k][m]
+            return round(100 * tot / n, 1) if n else None
+        return {"qw_q3": pc("q3", "qw"), "qw_q2": pc("q2", "qw"),
+                "gg_q3": pc("q3", "gg"), "gg_q2": pc("q2", "gg"),
+                "n_q3": acc["q3"]["qw"][1], "n_q2": acc["q2"]["qw"][1]}
+    qn3 = (QSTART.month - 1) // 3 + 1; qn2 = (PQSTART.month - 1) // 3 + 1
+    a["champ"] = {"drivers": drivers, "cons": cons_rows,
+        "f1_qoq": _qoq_out(comp_acc),
+        "f1_qoq_coach": {c: _qoq_out(ac) for c, ac in coach_acc.items()},
+        "f1_qoq_labels": {"q3": "Q%d" % qn3, "q2": "Q%d" % qn2,
+            "q3_range": [QSTART.isoformat(), CUR_END.isoformat()],
+            "q2_range": [PQSTART.isoformat(), (QSTART - datetime.timedelta(days=1)).isoformat()]}}
     save_all(a)
     with open(os.path.join(HERE, "the_race.csv"), "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f); w.writerow(["Date", "Store Name", "Queue average", "Area Coach"])

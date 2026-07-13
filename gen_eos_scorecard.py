@@ -756,11 +756,18 @@ def f1_ops_html():
     f1_top = "%s P%s" % (SH(bestf[0]), int(fin(bestf[0])))
     f1_top_meta = ("%s P%s next" % (SH(bestf[1]), int(fin(bestf[1])))) if len(bestf) > 1 else ""
 
+    _qoq = champ.get("f1_qoq", {}) or {}
+    _ql = champ.get("f1_qoq_labels", {}) or {}
+    def _qpc(v): return "&mdash;" if v is None else ("%g%%" % v)
+    def _qar(a, b): return "" if (a is None or b is None) else (" &#9650;" if a > b else (" &#9660;" if a < b else " &#9644;"))
+    ql3 = esc(_ql.get("q3", "Q3")); ql2 = esc(_ql.get("q2", "Q2"))
     cards = ('<div class="f1cards">'
-             '<div class="f1card"><div class="lbl">Constructor &mdash; avg race finish</div><div class="val">P%s</div><div class="meta">across %d stores &middot; latest race</div></div>'
-             '<div class="f1card"><div class="lbl">Avg championship points</div><div class="val">%s</div><div class="meta">latest race &middot; higher = better</div></div>'
+             '<div class="f1card"><div class="lbl">Avg Queue Worked</div><div class="val">%s</div><div class="meta">%s &middot; vs %s %s%s</div></div>'
+             '<div class="f1card"><div class="lbl">Avg Greet / Goodbye</div><div class="val">%s</div><div class="meta">%s &middot; vs %s %s%s</div></div>'
              '<div class="f1card"><div class="lbl">Top of the grid</div><div class="val" style="color:var(--green)">%s</div><div class="meta">%s</div></div>'
-             '</div>' % (avg_fin, len(stores), champ_avg, f1_top, f1_top_meta))
+             '</div>' % (_qpc(_qoq.get("qw_q3")), ql3, _qpc(_qoq.get("qw_q2")), ql2, _qar(_qoq.get("qw_q3"), _qoq.get("qw_q2")),
+                         _qpc(_qoq.get("gg_q3")), ql3, _qpc(_qoq.get("gg_q2")), ql2, _qar(_qoq.get("gg_q3"), _qoq.get("gg_q2")),
+                         f1_top, f1_top_meta))
     intro = ('<div class="f1note"><b>How F1 works.</b> Stores are audited unannounced weekly. Each Area '
              'Coach is a <b>constructor</b>; their stores are the drivers (Jon, Ian &amp; Rich across %d stores). '
              'Field of ~25 includes competitor benchmark audits.</div>' % len(stores))
@@ -786,7 +793,7 @@ def f1_ops_html():
         stn, cc, pts = row[0], row[1], row[2]
         drv_rows += ('<tr><td>%d</td><td class="l">%s</td><td>%s</td><td style="font-weight:700">%s</td></tr>'
                      % (i + 1, stn, tag(cc, COACHCHIP.get(cc, "t-na")), pts))
-    champ_block = ('<div class="f1sub">&#127942; Constructors&rsquo; Championship <span class="mini">&middot; avg points/store &middot; since 25 Apr</span></div>'
+    champ_block = ('<div class="f1sub">&#127942; Constructors&rsquo; Championship <span class="mini">&middot; avg points/store &middot; this quarter</span></div>'
                    '<div class="f1grid2">'
                    '<div class="f1panel"><div class="f1ph">Constructors&rsquo; standings <span class="mini">&middot; area coaches by avg pts/store</span></div>%s<div class="mini" style="margin-top:9px">%s</div></div>'
                    '<div class="f1panel"><div class="f1ph">Drivers&rsquo; leaderboard <span class="mini">&middot; all stores by total pts</span></div>'
@@ -1041,6 +1048,54 @@ def avg_per_store_html():
             '<div class="md-note">%s</div>' % (cards, note))
 
 
+def wastage_gp_html():
+    """EOS Food GP% detail: mirror of the Company 'Wastage & Yield' Food/Bakery tables, with REAL sold
+    units (EPOS-matched) and explicit coverage dates. Reads company_wastage.json. Fault-tolerant."""
+    import re as _re
+    try:
+        Wj = json.load(open(os.path.join(HERE, "company_wastage.json")))
+    except Exception:
+        return ""
+    rows = Wj.get("rows") or []
+    if not rows:
+        return ""
+    lw = esc(Wj.get("_window_lw_label", "")); w4 = esc(Wj.get("_window4_label", ""))
+    FOOD = _re.compile(r'croque|ciabatta|bap|wrap|sandwich|bagel|salad|tuna|panini|toastie|soup|breakfast|meal deal|chorizo|mozzarella|ham|cheese', _re.I)
+    BAK = _re.compile(r'traybake|brownie|slice|croissant|pastry|muffin|cookie|cake|bakewell|millionaire|teacake|scone|flapjack|twist|doughnut|cinnamon|sausage roll', _re.I)
+    def _norm(n): return _re.sub(r'^[0-9*]+ *', '', str(n)).strip()
+    def _cat(n):
+        if BAK.search(n) and ('pastry' in n.lower() or 'sausage roll' in n.lower()) and FOOD.search(n): return 'Food'
+        if FOOD.search(n): return 'Food'
+        if BAK.search(n): return 'Bakery'
+        return 'Other'
+    def _rcls(wr): return "t-na" if wr is None else ("t-ok" if wr <= 4 else ("t-amber" if wr <= 8 else "t-red"))
+    agg = {}
+    for nm_raw, w, ret, sold in rows:
+        nm = _norm(nm_raw); cat = _cat(nm)
+        if cat == 'Other': continue
+        a = agg.setdefault(nm, {'w': 0.0, 'ret': 0.0, 'sold': 0.0, 'known': False, 'cat': cat})
+        a['w'] += w or 0; a['ret'] += ret or 0
+        if sold is not None: a['sold'] += sold; a['known'] = True
+    def _tbl(cat):
+        items = sorted([(n, a) for n, a in agg.items() if a['cat'] == cat], key=lambda x: -x[1]['ret'])[:15]
+        if not items: return '<div class="md-note">No %s wastage lines this window.</div>' % cat.lower()
+        body = ""
+        for n, a in items:
+            if a['known'] and (a['w'] + a['sold']) > 0:
+                wr = round(100 * a['w'] / (a['w'] + a['sold']), 1)
+                soldc = "{:,}".format(int(a['sold'])); wrc = '<span class="tag %s">%s%%</span>' % (_rcls(wr), wr)
+            else:
+                soldc = '<span class="mini" style="color:#9a8a7c">no EPOS match</span>'; wrc = '<span class="tag t-na">n/a</span>'
+            body += '<tr><td class="l">%s</td><td>%d</td><td>%s</td><td>%s</td><td>&pound;%.0f</td></tr>' % (esc(n), int(a['w']), soldc, wrc, a['ret'])
+        return ('<table class="f1t"><thead><tr><th class="l">Product</th><th>Wasted</th><th>Sold</th>'
+                '<th>Waste rate</th><th>Retail lost</th></tr></thead><tbody>%s</tbody></table>' % body)
+    return ('<div class="md-section-h">Wastage &amp; yield &mdash; Food &amp; Bakery</div>'
+            '<div class="md-ps-basis">Waste rate = wasted &divide; (wasted + sold). Sold = actual EPOS units matched to each wasted line over the same window; unmatched lines show &ldquo;no EPOS match&rdquo;. '
+            '<b>Coverage:</b> last week %s &middot; 4-week trend %s.</div>'
+            '<div class="f1sub">Food</div>%s<div class="f1sub" style="margin-top:12px">Bakery</div>%s'
+            % (lw, w4, _tbl('Food'), _tbl('Bakery')))
+
+
 md_options = ""
 md_details = ""
 for i, (wm, qm) in enumerate(zip(weekly, quarterly)):
@@ -1101,6 +1156,13 @@ for i, (wm, qm) in enumerate(zip(weekly, quarterly)):
                   + trend_svg(name, plan, dirn)
                   + google_reviews_bystore_html()
                   + '<div class="md-section-h">Per-store breakdown &mdash; Google health score</div>'
+                  + ps_block)
+    elif name == "Food GP%":
+        ps_block = ps_section(name, plan, dirn, fm, qm)
+        detail = ('<div class="md-section-h">This quarter, week by week</div>'
+                  + trend_svg(name, plan, dirn)
+                  + wastage_gp_html()
+                  + '<div class="md-section-h">Per-store breakdown &mdash; Gross Profit %</div>'
                   + ps_block)
     else:
         ps_block = ps_section(name, plan, dirn, fm, qm)   # weekly + QTD sub-tables (period selector)
