@@ -104,7 +104,7 @@
    "name": "Ham & Mozzarella Croissant",
    "peak": "Lunch",
    "share": 43,
-   "hour": "12pm",
+   "hour": "10am",
    "units": 943,
    "sales": 4262,
    "sparse": false
@@ -149,7 +149,7 @@
    "name": "Vegan Raspberry Croissant Pastry",
    "peak": "Morning",
    "share": 57,
-   "hour": "10am",
+   "hour": "9am",
    "units": 878,
    "sales": 2207,
    "sparse": false
@@ -237,7 +237,7 @@
   },
   {
    "name": "Toffee Millionaires Cake",
-   "peak": "Lunch",
+   "peak": "Afternoon",
    "share": 39,
    "hour": "1pm",
    "units": 163,

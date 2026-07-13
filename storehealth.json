@@ -184,10 +184,10 @@
    "r_rag": "na"
   },
   "Peterborough Fletton Quays": {
-   "g_n": 7,
-   "g_avg": 4.857,
+   "g_n": 8,
+   "g_avg": 4.875,
    "g_target": 15,
-   "g_health": 3.6,
+   "g_health": 3.77,
    "g_rag": "green",
    "g_stale": false,
    "r_n": 1,
@@ -195,11 +195,11 @@
    "r_rag": "red"
   },
   "Rothwell": {
-   "g_n": 3,
+   "g_n": 4,
    "g_avg": 5.0,
    "g_target": 12,
-   "g_health": 3.12,
-   "g_rag": "red",
+   "g_health": 3.33,
+   "g_rag": "green",
    "g_stale": false,
    "r_n": null,
    "r_avg": null,

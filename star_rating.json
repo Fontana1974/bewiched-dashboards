@@ -66,7 +66,7 @@
       },
       {
        "label": "Wastage %",
-       "value": "1.8%",
+       "value": "1.9%",
        "star": 4.8,
        "on_target": true
       }
@@ -121,7 +121,7 @@
    "_f1_pos": 6
   },
   "Leamington Parade": {
-   "composite": 4.0,
+   "composite": 3.9,
    "target": 4.6,
    "on_target": false,
    "pillars": [
@@ -167,9 +167,9 @@
     },
     {
      "name": "Operations",
-     "star": 4.6,
+     "star": 4.5,
      "target": 4.6,
-     "on_target": true,
+     "on_target": false,
      "metrics": [
       {
        "label": "F1 drivers' championship",
@@ -185,7 +185,7 @@
       },
       {
        "label": "Wastage %",
-       "value": "2.1%",
+       "value": "2.2%",
        "star": 4.8,
        "on_target": true
       }
