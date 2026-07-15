@@ -9,7 +9,7 @@ on:
   schedule:
     - cron: '0 20 * * 0'      # Sun 21:00 UK (BST) — full
     - cron: '30 8 * * 1'      # Mon 09:30 UK (BST) — hours
-      - cron: '15 10 * * 1' # Mon 11:15 UK (BST) — stock refresh
+    - cron: '15 10 * * 1' # Mon 11:15 UK (BST) — stock refresh
 permissions:
   contents: write
 concurrency: { group: weekly-refresh, cancel-in-progress: false }
