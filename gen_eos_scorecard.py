@@ -1131,9 +1131,9 @@ def wastage_gp_html():
 
 
 def cos_extra_html():
-    """EOS Food GP detail: stock-holding % vs the data-derived band, delivery cost % vs the 23% target
-    (+ company £ opportunity), and per-supplier delivery breakdown by store + company. Reads
-    cos_metrics.json (from the COS sheet). Fault-tolerant."""
+    """EOS Food GP detail: ONE consolidated per-store table — stock holding % (traffic-lit vs the
+    data-derived band), delivery cost % (vs 23% target), and the per-supplier £ split alongside — with
+    a company total row and the delivery £ opportunity. Reads cos_metrics.json. Fault-tolerant."""
     try:
         C = json.load(open(os.path.join(HERE, "cos_metrics.json")))
     except Exception:
@@ -1142,49 +1142,45 @@ def cos_extra_html():
     if not stores:
         return ""
     def gbp(x):
-        try: return "&pound;%s" % format(int(round(float(x))), ",")
+        try: return "&pound;" + format(int(round(float(x))), ",")
         except Exception: return "&mdash;"
-    P = []
     band = C.get("holding_band"); basis = C.get("holding_band_basis", "")
+    lo, hi = (band if band else (None, None))
+    dt = C.get("delivery_target", 23.0); med = C.get("holding_median")
+    cp = C.get("delivery_company_pct"); cq = C.get("delivery_company_qtd"); opp = C.get("delivery_opportunity_gbp")
+    SUP = [("Select Catering", "Select"), ("Fresh Ideas", "Fresh"), ("Johal", "Johal"), ("Tiffin", "Tiffin")]
+    def stock_cell(h):
+        if h is None: return '<span class="tag t-na">&mdash;</span>'
+        if band and h > hi: return f'<span class="tag t-red">{h:g}% over</span>'
+        if band and h < lo: return f'<span class="tag t-amber">{h:g}% under</span>'
+        return f'<span class="tag t-ok">{h:g}%</span>'
+    def deliv_cell(d):
+        if d is None: return '<span class="tag t-na">&mdash;</span>'
+        return f'<span class="tag {"t-ok" if d <= dt else "t-red"}">{d:g}%</span>'
+    P = ['<div class="md-section-h">GP cost drivers &mdash; stock, delivery &amp; suppliers by store</div>']
+    leg = ""
     if band:
-        lo, hi = band
-        P.append('<div class="md-section-h">Stock holding &mdash; % of sales, per store</div>')
-        P.append(f'<div class="md-ps-basis">Healthy band <b>{lo:g}%&ndash;{hi:g}%</b> ({esc(basis)}). Above the band = carrying too much stock (cash tied up); below = potentially too lean.</div>')
-        rows = ""
-        for st, v in sorted(stores.items(), key=lambda kv: -(kv[1].get("holding_pct") or 0)):
-            h = v.get("holding_pct")
-            if h is None: continue
-            tg = '<span class="tag t-red">over</span>' if h > hi else ('<span class="tag t-amber">under</span>' if h < lo else '<span class="tag t-ok">ok</span>')
-            rows += f'<tr><td class="l">{esc(st)}</td><td>{h:g}%</td><td>{tg}</td></tr>'
-        P.append(f'<table class="f1t"><thead><tr><th class="l">Store</th><th>Stock holding %</th><th>vs band</th></tr></thead><tbody>{rows}</tbody></table>')
-    cp = C.get("delivery_company_pct"); cq = C.get("delivery_company_qtd"); opp = C.get("delivery_opportunity_gbp"); dt = C.get("delivery_target", 23.0)
-    P.append('<div class="md-section-h">Delivery cost &mdash; % of sales vs 23% target</div>')
+        leg += f'Stock holding traffic-lit vs the healthy band <b>{lo:g}%&ndash;{hi:g}%</b> ({esc(basis)}): green in-band, red over (too much stock), amber under (too lean). '
+    leg += f'Delivery cost vs the <b>{dt:g}%</b> target (green &le; {dt:g}%, red above). Supplier columns = &pound; delivered that week (<b>Select</b> = Select Catering, <b>Fresh</b> = Fresh Ideas, Johal, Tiffin).'
     if cp is not None:
         tail = (f'&rarr; target {dt:g}% &rarr; <b>{gbp(opp)}/yr</b> opportunity' if (opp and opp > 0) else f'&mdash; already at/below the {dt:g}% target')
-        P.append(f'<div class="md-ps-basis">Company delivery cost <b>{cp:g}%</b> (QTD {cq:g}%) {tail}. Every 1pp reduction &asymp; &pound;31k/yr.</div>')
-    rows = ""
+        leg += f' Company delivery cost <b>{cp:g}%</b> (QTD {cq:g}%) {tail}; every 1pp &asymp; &pound;31k/yr.'
+    P.append(f'<div class="md-ps-basis">{leg}</div>')
+    body = ""; sup_tot = {full: 0 for full, _ in SUP}
     for st, v in sorted(stores.items(), key=lambda kv: -(kv[1].get("delivery_pct") or 0)):
-        d = v.get("delivery_pct")
-        if d is None: continue
-        dq = v.get("delivery_pct_qtd")
-        tg = f'<span class="tag {"t-ok" if d <= dt else "t-red"}">{d:g}%</span>'
-        rows += f'<tr><td class="l">{esc(st)}</td><td>{tg}</td><td>{(str(dq)+"%") if dq is not None else "&mdash;"}</td></tr>'
-    P.append(f'<table class="f1t"><thead><tr><th class="l">Store</th><th>Delivery % (latest wk)</th><th>QTD %</th></tr></thead><tbody>{rows}</tbody></table>')
-    SUP = ["Select Catering", "Fresh Ideas", "Johal", "Tiffin"]
-    P.append('<div class="md-section-h">Delivery by supplier &mdash; &pound; per store (latest COS week)</div>')
-    rows = ""; tot = {k: 0 for k in SUP}
-    for st, v in sorted(stores.items(), key=lambda kv: -sum((kv[1].get("suppliers") or {}).get(k) or 0 for k in SUP)):
-        sup = v.get("suppliers") or {}
-        vals = [sup.get(k) for k in SUP]
-        if not any(vals): continue
-        for k in SUP: tot[k] += (sup.get(k) or 0)
-        cells = "".join((f'<td>{gbp(x)}</td>' if x is not None else '<td>&mdash;</td>') for x in vals)
-        rows += f'<tr><td class="l">{esc(st)}</td>{cells}<td style="font-weight:700">{gbp(sum(x or 0 for x in vals))}</td></tr>'
-    trow = "".join(f'<td>{gbp(tot[k])}</td>' for k in SUP)
-    rows += f'<tr style="font-weight:700;border-top:2px solid var(--line)"><td class="l">COMPANY</td>{trow}<td>{gbp(sum(tot.values()))}</td></tr>'
-    P.append(f'<table class="f1t"><thead><tr><th class="l">Store</th><th>Select</th><th>Fresh Ideas</th><th>Johal</th><th>Tiffin</th><th>Total</th></tr></thead><tbody>{rows}</tbody></table>')
+        h = v.get("holding_pct"); d = v.get("delivery_pct"); sup = v.get("suppliers") or {}
+        cells = ""
+        for full, _ in SUP:
+            x = sup.get(full); sup_tot[full] += (x or 0)
+            cells += f'<td>{gbp(x) if x is not None else "&mdash;"}</td>'
+        body += f'<tr><td class="l">{esc(st)}</td><td>{stock_cell(h)}</td><td>{deliv_cell(d)}</td>{cells}</tr>'
+    medc = f'<span class="mini" style="color:#8a7a6d">med {med:g}%</span>' if med is not None else "&mdash;"
+    compd = deliv_cell(cp) if cp is not None else '<span class="tag t-na">&mdash;</span>'
+    totc = "".join(f'<td>{gbp(sup_tot[full])}</td>' for full, _ in SUP)
+    body += f'<tr style="font-weight:700;border-top:2px solid var(--line)"><td class="l">COMPANY</td><td>{medc}</td><td>{compd}</td>{totc}</tr>'
+    heads = "".join(f'<th>{ab} &pound;</th>' for _, ab in SUP)
+    P.append(f'<table class="f1t"><thead><tr><th class="l">Store</th><th>Stock hold %</th><th>Delivery %</th>{heads}</tr></thead><tbody>{body}</tbody></table>')
     return "".join(P)
-
 
 md_options = ""
 md_details = ""
