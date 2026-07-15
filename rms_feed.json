@@ -294,8 +294,8 @@
     "avg": 4.62
    },
    "qtd": {
-    "n": 25,
-    "avg": 4.8
+    "n": 26,
+    "avg": 4.81
    }
   },
   "Lower Heathcote": {
@@ -965,6 +965,14 @@
    "sentiment": "Positive"
   },
   {
+   "store": "Leamington Parade",
+   "date": "2026-07-15",
+   "rating": 5.0,
+   "text": "Perfect shift",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
    "store": "Glenvale Drive Thru",
    "date": "2026-07-15",
    "rating": 4.0,
@@ -1121,14 +1129,6 @@
    "date": "2026-07-12",
    "rating": 5.0,
    "text": "Yes",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Billing Drive Thru",
-   "date": "2026-07-12",
-   "rating": 5.0,
-   "text": "Record sales week",
    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
    "sentiment": "Positive"
   }
