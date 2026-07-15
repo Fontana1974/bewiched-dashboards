@@ -1165,22 +1165,38 @@ def cos_extra_html():
         k = "t-red" if d > ref * 1.05 else "t-ok"
         return f'<span class="tag {k}">{d:g}%</span>' + sub(f"tgt {ref:g}%")
     P = ['<div class="md-section-h">GP cost drivers &mdash; stock, delivery &amp; suppliers by store</div>']
+    SUP = [("Select Catering", "Select"), ("Fresh Ideas", "Fresh"), ("K&W", "K&amp;W"), ("Simply", "Simply")]
+    _stot = {full: 0.0 for full, _ in SUP}; _grand = 0.0
+    for _v in stores.values():
+        _sp = _v.get("suppliers") or {}; _ss = sum((_sp.get(full) or 0) for full, _ in SUP)
+        if _ss > 0:
+            for full, _ in SUP: _stot[full] += (_sp.get(full) or 0)
+            _grand += _ss
+    norm = {full: (100 * _stot[full] / _grand) if _grand else None for full, _ in SUP}
+    def sup_cell(x, full, tsum):
+        if x is None: return "<td>&mdash;</td>"
+        nm = norm.get(full)
+        if not (nm and tsum): return f"<td>{gbp(x)}</td>"
+        ratio = (100 * x / tsum) / nm
+        kk = "t-red" if ratio > 1.25 else ("t-amber" if ratio < 0.75 else "t-ok")
+        return f'<td><span class="tag {kk}">{gbp(x)}</span></td>'
     leg = ""
     if smod: leg += f'Stock holding traffic-lit vs each store&rsquo;s <b>volume-based target</b> ({esc(smod.get("_basis",""))}): green within &plusmn;15%, red over (too much stock), amber under (too lean). '
     if dmod: leg += f'Delivery cost (ordering) vs each store&rsquo;s <b>volume-based target</b> ({esc(dmod.get("_basis",""))}). '
-    leg += f'GP% vs the <b>{GP_TGT:g}%</b> Food GP target. Supplier columns = &pound; delivered that week (<b>Select</b> = Select Catering, <b>Fresh</b> = Fresh Ideas, <b>K&amp;W</b> = Kirby &amp; West, <b>Simply</b> = Simply Lunch).'
+    _normstr = ", ".join(f"{ab} {norm[full]:.0f}%" for full, ab in SUP if norm.get(full) is not None)
+    leg += f'GP% vs the <b>{GP_TGT:g}%</b> Food GP target. Supplier columns = &pound; delivered that week (<b>Select</b> = Select Catering, <b>Fresh</b> = Fresh Ideas, <b>K&amp;W</b> = Kirby &amp; West, <b>Simply</b> = Simply Lunch), each traffic-lit by the store&rsquo;s SHARE of its supplier mix vs the estate norm ({_normstr}): red = over-indexed (&gt;1.25&times;), amber = notably low, green = in line.'
     if cp is not None:
         tail = (f'&rarr; company target {dt:g}% &rarr; <b>{gbp(opp)}/yr</b> opportunity' if (opp and opp > 0) else f'&mdash; company already at/below the {dt:g}% reference')
         leg += f' Company delivery cost <b>{cp:g}%</b> (QTD {cq:g}%) {tail}; every 1pp &asymp; &pound;31k/yr.'
     P.append(f'<div class="md-ps-basis">{leg}</div>')
-    SUP = [("Select Catering", "Select"), ("Fresh Ideas", "Fresh"), ("K&W", "K&amp;W"), ("Simply", "Simply")]
     body = ""; sup_tot = {full: 0 for full, _ in SUP}
     for st, v in sorted(stores.items(), key=lambda kv: -(kv[1].get("delivery_pct") or 0)):
         h = v.get("holding_pct"); d = v.get("delivery_pct")
         cells = ""
+        _sp = v.get("suppliers") or {}; _ts = sum((_sp.get(full) or 0) for full, _ in SUP)
         for full, _ in SUP:
-            x = (v.get("suppliers") or {}).get(full); sup_tot[full] += (x or 0)
-            cells += f'<td>{gbp(x) if x is not None else "&mdash;"}</td>'
+            x = _sp.get(full); sup_tot[full] += (x or 0)
+            cells += sup_cell(x, full, _ts)
         body += (f'<tr><td class="l">{esc(st)}</td><td>{gp_cell(v.get("gp_pct"))}</td>'
                  f'<td>{stock_cell(h, v.get("stock_target_pct"))}</td>'
                  f'<td>{deliv_cell(d, v.get("deliv_target_pct"))}</td>{cells}</tr>')
@@ -1255,13 +1271,12 @@ for i, (wm, qm) in enumerate(zip(weekly, quarterly)):
                   + '<div class="md-section-h">Per-store breakdown &mdash; Google health score</div>'
                   + ps_block)
     elif name == "Food GP%":
-        ps_block = ps_section(name, plan, dirn, fm, qm)
+        # Combined GP table (cos_extra_html) now carries GP% per store, so the old standalone
+        # per-store GP breakdown below it is removed as redundant.
         detail = ('<div class="md-section-h">This quarter, week by week</div>'
                   + trend_svg(name, plan, dirn)
                   + wastage_gp_html()
-                  + cos_extra_html()
-                  + '<div class="md-section-h">Per-store breakdown &mdash; Gross Profit %</div>'
-                  + ps_block)
+                  + cos_extra_html())
     else:
         ps_block = ps_section(name, plan, dirn, fm, qm)   # weekly + QTD sub-tables (period selector)
         detail = ('<div class="md-section-h">This quarter, week by week</div>'
