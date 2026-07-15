@@ -9,10 +9,10 @@
   "2026-07-01",
   "2026-07-12"
  ],
- "_comments_label": "recent shift voice — last 2 weeks to 13 Jul 2026",
+ "_comments_label": "recent shift voice — last 2 weeks to 15 Jul 2026",
  "_comments_window": [
-  "2026-06-30",
-  "2026-07-13"
+  "2026-07-02",
+  "2026-07-15"
  ],
  "_lastweek_count": 60,
  "worst": [
@@ -264,8 +264,8 @@
     "avg": 4.54
    },
    "qtd": {
-    "n": 15,
-    "avg": 4.6
+    "n": 18,
+    "avg": 4.67
    }
   },
   "Glenvale Drive Thru": {
@@ -274,8 +274,8 @@
     "avg": 2.67
    },
    "qtd": {
-    "n": 12,
-    "avg": 3.42
+    "n": 15,
+    "avg": 3.47
    }
   },
   "HOE Balsall Common": {
@@ -294,8 +294,8 @@
     "avg": 4.62
    },
    "qtd": {
-    "n": 20,
-    "avg": 4.75
+    "n": 25,
+    "avg": 4.8
    }
   },
   "Lower Heathcote": {
@@ -324,7 +324,7 @@
     "avg": 4.67
    },
    "qtd": {
-    "n": 6,
+    "n": 8,
     "avg": 4.5
    }
   },
@@ -354,8 +354,8 @@
     "avg": null
    },
    "qtd": {
-    "n": 0,
-    "avg": null
+    "n": 1,
+    "avg": 5.0
    }
   },
   "Wellingborough Train Station": {
@@ -394,7 +394,7 @@
     "dow": "Sun 12 Jul",
     "rating": 5.0,
     "text": "YAY SO FUN",
-    "smt": null,
+    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
     "sentiment": "Positive",
     "action": null
    }
@@ -551,7 +551,7 @@
     "dow": "Sun 12 Jul",
     "rating": 5.0,
     "text": "Yes",
-    "smt": null,
+    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
     "sentiment": "Positive",
     "action": null
    },
@@ -560,7 +560,7 @@
     "dow": "Sun 12 Jul",
     "rating": 5.0,
     "text": "Record sales week",
-    "smt": null,
+    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
     "sentiment": "Positive",
     "action": null
    },
@@ -569,7 +569,7 @@
     "dow": "Sun 12 Jul",
     "rating": 5.0,
     "text": "Amazing!!",
-    "smt": null,
+    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
     "sentiment": "Positive",
     "action": null
    }
@@ -813,7 +813,7 @@
     "dow": "Sun 12 Jul",
     "rating": 3.0,
     "text": "Intense difficult conversations",
-    "smt": null,
+    "smt": "KF - Thanked and asked respondent to reach out via a DM or call to discuss why the shift felt this way. Encouraged further contributions.",
     "sentiment": "Mixed",
     "action": null
    }
@@ -902,7 +902,7 @@
     "dow": "Sun 12 Jul",
     "rating": 3.0,
     "text": "Not a fan F1",
-    "smt": null,
+    "smt": "KF - Thanked and asked respondent to to reach out via a DM or call to discuss their feelings about F!. Encouraged further contributions.",
     "sentiment": "Mixed",
     "action": null
    },
@@ -933,7 +933,7 @@
     "dow": "Sun 12 Jul",
     "rating": 4.0,
     "text": "Fun to meet some new people and work in a new store and use the coffee machines",
-    "smt": null,
+    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
     "sentiment": "Positive",
     "action": null
    }
@@ -942,10 +942,106 @@
  "comments": [
   {
    "store": "Glenvale Drive Thru",
+   "date": "2026-07-15",
+   "rating": 4.0,
+   "text": "Need large cups and espresso cups",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Billing Drive Thru",
+   "date": "2026-07-14",
+   "rating": 5.0,
+   "text": "Can’t complain innit",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Leamington Parade",
+   "date": "2026-07-14",
+   "rating": 5.0,
+   "text": "Dream team Yupik Sylwia Melika",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Wellingborough",
+   "date": "2026-07-14",
+   "rating": 5.0,
+   "text": "Lovely busy morning",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Leamington Parade",
+   "date": "2026-07-14",
+   "rating": 5.0,
+   "text": "I am always happy 😊",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Northampton",
+   "date": "2026-07-14",
+   "rating": 5.0,
+   "text": "Good vibes all around even though we basically had nothing, friendly customers and great conversations made all around",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Billing Drive Thru",
+   "date": "2026-07-14",
+   "rating": 5.0,
+   "text": "Amazing",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Billing Drive Thru",
+   "date": "2026-07-14",
+   "rating": 5.0,
+   "text": "Productive, happy, organised",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Glenvale Drive Thru",
+   "date": "2026-07-14",
+   "rating": 4.0,
+   "text": "Customers keep asking for large iced matchas can we do bigger iced matchas",
+   "smt": "KF - Thanked and assured respondent we will take menu suggestiuons on board as part of NPD process. Encouraged further contributions.",
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Glenvale Drive Thru",
    "date": "2026-07-13",
    "rating": 5.0,
    "text": "Customers keep asking for cookies and cinnamon buns",
-   "smt": null,
+   "smt": "KF - Thanked and assured respondent we will take menu suggestiuons on board as part of NPD process. Encouraged further contributions.",
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Leamington Parade",
+   "date": "2026-07-13",
+   "rating": 5.0,
+   "text": "Amazing",
+   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Leamington Parade",
+   "date": "2026-07-13",
+   "rating": 5.0,
+   "text": "Great teamwork. Everyone help each other, amazing shift with Melika Sylwia Rui",
+   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Leamington Parade",
+   "date": "2026-07-13",
+   "rating": 5.0,
+   "text": "good",
+   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
    "sentiment": "Positive"
   },
   {
@@ -953,7 +1049,7 @@
    "date": "2026-07-13",
    "rating": 4.0,
    "text": "Need seasonal cakes",
-   "smt": null,
+   "smt": "KF - Thanked and assured respondent we will take menu suggestiuons on board as part of NPD process. Encouraged further contributions.",
    "sentiment": "Positive"
   },
   {
@@ -961,15 +1057,31 @@
    "date": "2026-07-13",
    "rating": 4.0,
    "text": "Went fast",
-   "smt": null,
+   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
    "sentiment": "Positive"
+  },
+  {
+   "store": "Northampton",
+   "date": "2026-07-13",
+   "rating": 4.0,
+   "text": "Hectic shift but ok. A few missing stock items",
+   "smt": "KF - Thanked via store Slack channel and encouraged further contributions. Asked respondent to reach out regarding stock issues.",
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Glenvale Drive Thru",
+   "date": "2026-07-13",
+   "rating": 3.0,
+   "text": "Chocolate syrup is too thick!! You can’t pump it out",
+   "smt": "KF - Thanked and assured respondent we will take up quality issue with Shott direct and look to resolve.",
+   "sentiment": "Mixed"
   },
   {
    "store": "HOE Balsall Common",
    "date": "2026-07-12",
    "rating": 5.0,
    "text": "YAY SO FUN",
-   "smt": null,
+   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
    "sentiment": "Positive"
   },
   {
@@ -977,7 +1089,7 @@
    "date": "2026-07-12",
    "rating": 5.0,
    "text": "Yes",
-   "smt": null,
+   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
    "sentiment": "Positive"
   },
   {
@@ -985,7 +1097,7 @@
    "date": "2026-07-12",
    "rating": 5.0,
    "text": "Record sales week",
-   "smt": null,
+   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
    "sentiment": "Positive"
   },
   {
@@ -993,7 +1105,7 @@
    "date": "2026-07-12",
    "rating": 5.0,
    "text": "Amazing!!",
-   "smt": null,
+   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
    "sentiment": "Positive"
   },
   {
@@ -1001,7 +1113,7 @@
    "date": "2026-07-12",
    "rating": 4.0,
    "text": "Fun to meet some new people and work in a new store and use the coffee machines",
-   "smt": null,
+   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
    "sentiment": "Positive"
   },
   {
@@ -1009,7 +1121,7 @@
    "date": "2026-07-12",
    "rating": 3.0,
    "text": "Intense difficult conversations",
-   "smt": null,
+   "smt": "KF - Thanked and asked respondent to reach out via a DM or call to discuss why the shift felt this way. Encouraged further contributions.",
    "sentiment": "Mixed"
   },
   {
@@ -1017,119 +1129,7 @@
    "date": "2026-07-12",
    "rating": 3.0,
    "text": "Not a fan F1",
-   "smt": null,
-   "sentiment": "Mixed"
-  },
-  {
-   "store": "Corby",
-   "date": "2026-07-12",
-   "rating": 1.0,
-   "text": "Fed up with lack of rota",
-   "smt": "CL - Thanked for contributions via store slack channel. Have explained that rotas are released weekly and that they are currently up to date. Next rota will be released tomorrow.",
-   "sentiment": "Negative"
-  },
-  {
-   "store": "Rugby",
-   "date": "2026-07-11",
-   "rating": 5.0,
-   "text": "Busy. Need a hoover 4 mat",
-   "smt": "CL - Thanked for contributions via store slack channel.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Leamington Parade",
-   "date": "2026-07-11",
-   "rating": 5.0,
-   "text": "Amazing",
-   "smt": "CL - Thanked for contributions via store slack channel.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Leamington Parade",
-   "date": "2026-07-11",
-   "rating": 5.0,
-   "text": "Perfect",
-   "smt": "CL - Thanked for contributions via store slack channel.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Leamington Parade",
-   "date": "2026-07-11",
-   "rating": 5.0,
-   "text": "Great busy morning menage by Sylwia and Melika",
-   "smt": "CL - Thanked for contributions via store slack channel.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Corby",
-   "date": "2026-07-11",
-   "rating": 4.0,
-   "text": "Lovely shift",
-   "smt": "CL - Thanked for contributions via store slack channel.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Billing Drive Thru",
-   "date": "2026-07-11",
-   "rating": 3.0,
-   "text": "CREAM/sticky/flies",
-   "smt": "CL - Thanked for contributions via store slack channel.",
-   "sentiment": "Mixed"
-  },
-  {
-   "store": "Glenvale Drive Thru",
-   "date": "2026-07-10",
-   "rating": 4.0,
-   "text": "Customers would like an answer about loyalty app working again",
-   "smt": "CL - Thanked for contributions via store slack channel. Have explained that we are currently in the process of trying to get the air con fixed.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Attleborough",
-   "date": "2026-07-10",
-   "rating": 4.0,
-   "text": "Busy cream warm",
-   "smt": "CL - Thanked for contributions via store slack channel.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "HOE Balsall Common",
-   "date": "2026-07-10",
-   "rating": 4.0,
-   "text": "Lots of training",
-   "smt": "CL - Thanked for contributions via store slack channel.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Market Harborough",
-   "date": "2026-07-10",
-   "rating": 4.0,
-   "text": "Busy, stinky, teamwork",
-   "smt": "CL - Thanked for contributions via store slack channel.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Northampton",
-   "date": "2026-07-10",
-   "rating": 4.0,
-   "text": "Great shift although struggling with the heat especially behind back bar",
-   "smt": "CL - Thanked for contributions via store slack channel.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Glenvale Drive Thru",
-   "date": "2026-07-10",
-   "rating": 3.0,
-   "text": "Customers keep asking for bigger iced matchas 🍵",
-   "smt": "CL - Thanked for contributions via store slack channel. Have explained that we are currently in the process of trying to get the air con fixed.",
-   "sentiment": "Mixed"
-  },
-  {
-   "store": "Leamington Parade",
-   "date": "2026-07-10",
-   "rating": 3.0,
-   "text": "Good",
-   "smt": "CL - Thanked for contributions via store slack channel.",
+   "smt": "KF - Thanked and asked respondent to to reach out via a DM or call to discuss their feelings about F!. Encouraged further contributions.",
    "sentiment": "Mixed"
   }
  ]

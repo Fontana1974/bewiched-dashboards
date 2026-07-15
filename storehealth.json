@@ -29,23 +29,25 @@
  },
  "stores": {
   "Attleborough": {
-   "g_n": null,
-   "g_health": null,
-   "g_rag": "na",
-   "g_stale": true,
+   "g_n": 1,
+   "g_avg": 4.0,
+   "g_target": 15,
+   "g_health": 2.17,
+   "g_rag": "red",
+   "g_stale": false,
    "r_n": 5,
    "r_avg": 3.8,
    "r_rag": "red"
   },
   "Billing Drive Thru": {
-   "g_n": 9,
+   "g_n": 10,
    "g_avg": 5.0,
    "g_target": 49,
-   "g_health": 2.96,
+   "g_health": 3.01,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 15,
-   "r_avg": 4.6,
+   "r_n": 18,
+   "r_avg": 4.67,
    "r_rag": "green"
   },
   "Burton Latimer": {
@@ -75,8 +77,8 @@
    "g_health": 2.86,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 12,
-   "r_avg": 3.42,
+   "r_n": 15,
+   "r_avg": 3.47,
    "r_rag": "red"
   },
   "HOE Balsall Common": {
@@ -109,14 +111,14 @@
    "r_rag": "na"
   },
   "Leamington Parade": {
-   "g_n": 15,
+   "g_n": 17,
    "g_avg": 5.0,
    "g_target": 15,
    "g_health": 5.0,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 20,
-   "r_avg": 4.75,
+   "r_n": 25,
+   "r_avg": 4.8,
    "r_rag": "green"
   },
   "Lower Heathcote": {
@@ -146,7 +148,7 @@
    "g_health": null,
    "g_rag": "na",
    "g_stale": true,
-   "r_n": 6,
+   "r_n": 8,
    "r_avg": 4.5,
    "r_rag": "green"
   },
@@ -184,10 +186,10 @@
    "r_rag": "na"
   },
   "Peterborough Fletton Quays": {
-   "g_n": 8,
-   "g_avg": 4.875,
+   "g_n": 9,
+   "g_avg": 4.889,
    "g_target": 15,
-   "g_health": 3.77,
+   "g_health": 3.94,
    "g_rag": "green",
    "g_stale": false,
    "r_n": 1,
@@ -206,19 +208,21 @@
    "r_rag": "na"
   },
   "Rugby": {
-   "g_n": null,
-   "g_health": null,
-   "g_rag": "na",
-   "g_stale": true,
+   "g_n": 1,
+   "g_avg": 5.0,
+   "g_target": 25,
+   "g_health": 2.6,
+   "g_rag": "red",
+   "g_stale": false,
    "r_n": 9,
    "r_avg": 4.89,
    "r_rag": "green"
   },
   "Rushden Lakes": {
-   "g_n": 3,
-   "g_avg": 3.667,
+   "g_n": 4,
+   "g_avg": 4.0,
    "g_target": 49,
-   "g_health": 1.99,
+   "g_health": 2.2,
    "g_rag": "red",
    "g_stale": false,
    "r_n": null,
@@ -230,9 +234,9 @@
    "g_health": null,
    "g_rag": "na",
    "g_stale": true,
-   "r_n": null,
-   "r_avg": null,
-   "r_rag": "na"
+   "r_n": 1,
+   "r_avg": 5.0,
+   "r_rag": "green"
   },
   "Wellingborough Train Station": {
    "g_n": 1,
