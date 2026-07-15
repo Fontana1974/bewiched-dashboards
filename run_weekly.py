@@ -825,13 +825,13 @@ def pull_cos():
             # delivery % (col P/idx15), total deliveries £ (col O/idx14), suppliers K-N (idx10-13)
             def _n(i): return fnum(r[i]) if len(r) > i and r[i] not in (None, "") else None
             _dp = _n(15); dpc = (round(_dp * 100, 1) if (_dp is not None and _dp < 2) else (round(_dp, 1) if _dp is not None else None))
-            tdv = _n(14); sel = _n(10); fre = _n(11); joh = _n(12); tif = _n(13)
+            tdv = _n(14); sel = _n(10); fre = _n(11); kw = _n(12); sim = _n(13)   # col M=K&W, N=Simply (header N still reads "Tiffin")
             if st not in latest_x or ds >= latest_x[st][0]:
-                latest_x[st] = (ds, dpc, tdv, sales, {"Select Catering": sel, "Fresh Ideas": fre, "Johal": joh, "Tiffin": tif})
+                latest_x[st] = (ds, dpc, tdv, sales, {"Select Catering": sel, "Fresh Ideas": fre, "K&W": kw, "Simply": sim})
             if ds >= QSTART_S:
-                qx = qtd_x.setdefault(st, {"sales": 0.0, "deliv": 0.0, "sel": 0.0, "fresh": 0.0, "johal": 0.0, "tiffin": 0.0})
+                qx = qtd_x.setdefault(st, {"sales": 0.0, "deliv": 0.0, "sel": 0.0, "fresh": 0.0, "kw": 0.0, "sim": 0.0})
                 qx["sales"] += sales; qx["deliv"] += (tdv or 0)
-                qx["sel"] += (sel or 0); qx["fresh"] += (fre or 0); qx["johal"] += (joh or 0); qx["tiffin"] += (tif or 0)
+                qx["sel"] += (sel or 0); qx["fresh"] += (fre or 0); qx["kw"] += (kw or 0); qx["sim"] += (sim or 0)
     def _egp(filt):
         ts = tw = 0.0
         for ds, (sa, gw) in agg.items():
@@ -870,7 +870,7 @@ def pull_cos():
         sx = out["stores"].setdefault(st, {})
         if qx["sales"]: sx["delivery_pct_qtd"] = round(100 * qx["deliv"] / qx["sales"], 1)
         sx["suppliers_qtd"] = {"Select Catering": round(qx["sel"]), "Fresh Ideas": round(qx["fresh"]),
-                               "Johal": round(qx["johal"]), "Tiffin": round(qx["tiffin"])}
+                               "K&W": round(qx["kw"]), "Simply": round(qx["sim"])}
     # ---- stock-holding TARGET BAND, derived from the current estate spread (median +/- 10pp of sales) ----
     import statistics as _stats
     hvals = sorted(v["holding_pct"] for v in out["stores"].values() if v.get("holding_pct") is not None)

@@ -1148,7 +1148,7 @@ def cos_extra_html():
     lo, hi = (band if band else (None, None))
     dt = C.get("delivery_target", 23.0); med = C.get("holding_median")
     cp = C.get("delivery_company_pct"); cq = C.get("delivery_company_qtd"); opp = C.get("delivery_opportunity_gbp")
-    SUP = [("Select Catering", "Select"), ("Fresh Ideas", "Fresh"), ("Johal", "Johal"), ("Tiffin", "Tiffin")]
+    SUP = [("Select Catering", "Select"), ("Fresh Ideas", "Fresh"), ("K&W", "K&amp;W"), ("Simply", "Simply")]
     def stock_cell(h):
         if h is None: return '<span class="tag t-na">&mdash;</span>'
         if band and h > hi: return f'<span class="tag t-red">{h:g}% over</span>'
@@ -1161,7 +1161,7 @@ def cos_extra_html():
     leg = ""
     if band:
         leg += f'Stock holding traffic-lit vs the healthy band <b>{lo:g}%&ndash;{hi:g}%</b> ({esc(basis)}): green in-band, red over (too much stock), amber under (too lean). '
-    leg += f'Delivery cost vs the <b>{dt:g}%</b> target (green &le; {dt:g}%, red above). Supplier columns = &pound; delivered that week (<b>Select</b> = Select Catering, <b>Fresh</b> = Fresh Ideas, Johal, Tiffin).'
+    leg += f'Delivery cost vs the <b>{dt:g}%</b> target (green &le; {dt:g}%, red above). Supplier columns = &pound; delivered that week (<b>Select</b> = Select Catering, <b>Fresh</b> = Fresh Ideas, <b>K&amp;W</b> = Kirby &amp; West, <b>Simply</b> = Simply Lunch).'
     if cp is not None:
         tail = (f'&rarr; target {dt:g}% &rarr; <b>{gbp(opp)}/yr</b> opportunity' if (opp and opp > 0) else f'&mdash; already at/below the {dt:g}% target')
         leg += f' Company delivery cost <b>{cp:g}%</b> (QTD {cq:g}%) {tail}; every 1pp &asymp; &pound;31k/yr.'
