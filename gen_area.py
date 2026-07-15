@@ -436,8 +436,49 @@ def build(coach):
         kpw_people_k='grey'; kpw_people_v="n/a"; kpw_people_n="0 ratings"
 
     _BN,_BP=build_bench(REC,SHORT,stores)
-    repl={
-     "{{BENCH_NAV}}":_BN,"{{BENCH_PANEL}}":_BP,
+    # ---- Scope A: this-quarter / last-quarter panels (Sales / Wastage / Mix) ----
+    QM=A.get("area_qmeta",{}); _qcl=QM.get("cur_label","This quarter"); _qpl=QM.get("prev_label","Last quarter")
+    def _qdl(rg):
+        try:
+            import datetime as _dt; a1=_dt.date.fromisoformat(rg[0]); b1=_dt.date.fromisoformat(rg[1])
+            return "%s \u2013 %s"%(a1.strftime("%-d %b"), b1.strftime("%-d %b %Y"))
+        except Exception: return ""
+    def _qsales(qk):
+        body=""; ts=tt=0.0
+        for s in sorted(stores,key=lambda x:-(R[x].get(qk,{}).get("sales") or 0)):
+            q=R[s].get(qk) or {}; sv=q.get("sales") or 0; tv=q.get("tx") or 0; ts+=sv; tt+=tv
+            body+=f'<tr><td>{s}</td><td style="font-weight:700">{GBP(sv)}</td>{yoycell(q.get("yoy_sales"))}<td>{tv:,}</td>{yoycell(q.get("yoy_tx"))}<td>£{(q.get("atv") or 0):.2f}</td></tr>'
+        body+=f'<tr style="font-weight:700;border-top:2px solid var(--line)"><td>AREA ({len(stores)})</td><td>{GBP(ts)}</td><td></td><td>{int(tt):,}</td><td></td><td>£{(ts/tt if tt else 0):.2f}</td></tr>'
+        return f'<table><thead><tr><th>Store</th><th>Sales</th><th>Sales YoY</th><th>Transactions</th><th>Tx YoY</th><th>ATV</th></tr></thead><tbody>{body}</tbody></table>'
+    def _qwaste(qk):
+        body=""; tw=tsl=0.0
+        for s in sorted(stores,key=lambda x:-(R[x].get(qk,{}).get("waste") or 0)):
+            q=R[s].get(qk) or {}; wv=q.get("waste") or 0; wp=q.get("waste_pct"); tw+=wv; tsl+=(q.get("sales") or 0)
+            wpc=(f'<span class="tag {"t-ok" if wp<=3 else ("t-amber" if wp<=5 else "t-red")}">{wp}%</span>') if wp is not None else '<span class="tag t-na">n/a</span>'
+            body+=f'<tr><td>{s}</td><td>{GBP(wv)}</td><td>{wpc}</td></tr>'
+        apct=round(100*tw/tsl,1) if tsl else 0
+        body+=f'<tr style="font-weight:700;border-top:2px solid var(--line)"><td>AREA ({len(stores)})</td><td>{GBP(tw)}</td><td>{apct}%</td></tr>'
+        return f'<table><thead><tr><th>Store</th><th>Waste £ (retail)</th><th>Waste % of sales</th></tr></thead><tbody>{body}</tbody></table>'
+    def _qmix(qk):
+        tot={c:0.0 for c in CATS}; alls=0.0
+        for s in stores:
+            q=R[s].get(qk) or {}; sv=q.get("sales") or 0; mix=q.get("mix") or {}
+            for c in CATS: tot[c]+=(mix.get(c,0)/100.0)*sv
+            alls+=sv
+        body="".join(f'<tr><td>{c}</td><td style="font-weight:700">{round(100*tot[c]/alls,1) if alls else 0}%</td></tr>' for c in CATS)
+        return f'<table><thead><tr><th>Category</th><th>Area mix %</th></tr></thead><tbody>{body}</tbody></table>'
+    def _qwrap(cur,prev,title):
+        return (f'<div class="section-title">{title} <span style="font-weight:400;color:#9a8a7c;font-size:12px">· period set by the selector above</span></div>'
+                f'<div data-qperiod="cur">{cur}</div><div data-qperiod="prev" style="display:none">{prev}</div>')
+    q_sales_block=_qwrap(_qsales("q_cur"),_qsales("q_prev"),"Quarter sales by store — this vs last quarter")
+    q_waste_block=_qwrap(_qwaste("q_cur"),_qwaste("q_prev"),"Quarter wastage by store")
+    q_mix_block=_qwrap(_qmix("q_cur"),_qmix("q_prev"),"Quarter sales mix — area")
+    qperiod_bar=(f'<div class="qbar"><span class="qlbl">Period</span> <select id="qsel" class="qsel">'
+                 f'<option value="cur">{_qcl} — QTD ({_qdl(QM.get("cur_range",["",""]))})</option>'
+                 f'<option value="prev">{_qpl} ({_qdl(QM.get("prev_range",["",""]))})</option></select> '
+                 f'<span class="mini" style="color:#9a8a7c">— applies to Sales, Wastage &amp; Mix</span></div>')
+    qnote='<div class="note" style="margin:0 0 10px;font-size:12px;color:#9a8a7c">This tab shows its own live / rolling window and does <b>not</b> change with the quarter selector.</div>'
+    repl={     "{{BENCH_NAV}}":_BN,"{{BENCH_PANEL}}":_BP,
      "{{KPW_SALES_K}}":kpw_sales_k,"{{KPW_SALES_V}}":kpw_sales_v,"{{KPW_OPS_K}}":kpw_ops_k,"{{KPW_OPS_V}}":kpw_ops_v,
      "{{KPW_CUST_K}}":kpw_cust_k,"{{KPW_CUST_V}}":kpw_cust_v,"{{KPW_CUST_N}}":kpw_cust_n,
      "{{KPW_PEOPLE_K}}":kpw_people_k,"{{KPW_PEOPLE_V}}":kpw_people_v,"{{KPW_PEOPLE_N}}":kpw_people_n,
@@ -455,7 +496,7 @@ def build(coach):
      "{{YJS}}":json.dumps(yjs),"{{OUTJS}}":json.dumps(outjs),
      "{{MIX_AREA_ROWS}}":mar,"{{CAPHDR}}":caphdr,"{{CAPMAT}}":capmat,"{{MIX_DS}}":mix_ds,"{{MIX_LBLS}}":mix_lbls,"{{MIX_NOTE}}":mix_note,"{{MIX_FOCUS}}":mix_focus,
      "{{F1TBL}}":f1tbl,"{{F1_FIN_DS}}":f1_fin_ds,"{{F1_FIN_LBLS}}":f1_fin_lbls,"{{F1_CHAMP_AVG}}":str(f1_champ_avg),"{{AVG_FIN2}}":str(avg_fin),
-     "{{F1_TOP}}":f1_top,"{{F1_TOP_META}}":f1_top_meta,"{{CON_HTML}}":con_html,"{{CON_NOTE}}":con_note,"{{DRV_ROWS}}":drv_rows,"{{F1_NOTE}}":f1_note,"{{F1_FOCUS}}":f1_focus,"{{QUALI_DETAIL_ROWS}}":quali_rows,"{{RACE_DETAIL_ROWS}}":race_rows,
+     "{{F1_TOP}}":f1_top,"{{F1_TOP_META}}":f1_top_meta,"{{CON_HTML}}":con_html,"{{CON_NOTE}}":con_note,"{{DRV_ROWS}}":drv_rows,"{{F1_NOTE}}":f1_note,"{{F1_FOCUS}}":f1_focus,"{{QUALI_DETAIL_ROWS}}":quali_rows,"{{RACE_DETAIL_ROWS}}":race_rows,"{{QPERIOD_BAR}}":qperiod_bar,"{{Q_SALES_BLOCK}}":q_sales_block,"{{Q_WASTE_BLOCK}}":q_waste_block,"{{Q_MIX_BLOCK}}":q_mix_block,"{{QNOTE}}":qnote,
      "{{RMS_ROWS}}":rms_rows,"{{HR_ROWS}}":hr_rows,"{{AREA_RMS}}":str(area_rms),"{{AREA_SICK}}":str(area_sick),"{{AREA_SICKFS}}":str(area_sickfs),"{{AREA_LATE}}":str(area_late),
      "{{RTW_COMP}}":str(rtw_comp),"{{RTW_COMP_K}}":rtw_k,"{{AREA_REP}}":str(area_rep),"{{AREA_RTW}}":str(area_rtw),"{{RMS_NOTE}}":rms_note,"{{RTW_NOTE}}":rtw_note,"{{AREA_RATING}}":str(area_rating),"{{AREA_REVIEWS}}":f"{area_reviews:,}","{{CUST_ROWS}}":cust_rows,"{{CUST_NOTE}}":cust_note,"{{CUST_VOICE}}":cust_voice,"{{CUST_QLABEL}}":cust_qlabel,"{{WK_THIS}}":wk_this,"{{WK_N1}}":wk_n1,"{{WK_N2}}":wk_n2,"{{FCST_ROWS}}":fcst_rows,"{{FCST_AREA_THIS}}":GBP(sumf[0]),"{{FCST_HRS_THIS}}":str(sumh[0]),"{{FCST_BLENDED}}":str(fcst_blended),"{{TARGETS_LINK}}":TARGETS,
     }

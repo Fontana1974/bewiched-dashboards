@@ -502,6 +502,77 @@ def pull_wastage():
     print("[pull] wastage: company rows %d, stores %d" % (len(comp), len(wm)))
 
 
+def pull_area_quarters():
+    """Scope-A area date filter: per-store CURRENT-quarter (QTD) and immediately-PREVIOUS-quarter
+    aggregates (sales / tx / YoY / ATV + wastage £&% + category mix) for the area-dashboard
+    this-quarter / last-quarter selector. Previous quarter auto-rolls each quarter boundary."""
+    a = load_all(); rec = a["rec"]
+    _pqm = QSTART.month - 3; _pqy = QSTART.year
+    if _pqm <= 0: _pqm += 12; _pqy -= 1
+    PQSTART = datetime.date(_pqy, _pqm, 1); PQEND = QSTART - datetime.timedelta(days=1)
+    def _ly(dd):
+        try: return dd.replace(year=dd.year - 1)
+        except ValueError: return dd.replace(year=dd.year - 1, day=28)
+    D = lambda x: "DATE('%s')" % x.isoformat()
+    qcs, qce = D(QSTART), D(CUR_END); qcsly, qcely = D(_ly(QSTART)), D(_ly(CUR_END))
+    qps, qpe = D(PQSTART), D(PQEND); qpsly, qpely = D(_ly(PQSTART)), D(_ly(PQEND))
+    sx = bq(f"""
+      SELECT item_outlet_name s,
+        ROUND(SUM(IF(dd BETWEEN {qcs} AND {qce}, v, 0))) qc_s,
+        COUNT(DISTINCT IF(dd BETWEEN {qcs} AND {qce}, id, NULL)) qc_t,
+        ROUND(SUM(IF(dd BETWEEN {qcsly} AND {qcely}, v, 0))) qc_sly,
+        COUNT(DISTINCT IF(dd BETWEEN {qcsly} AND {qcely}, id, NULL)) qc_tly,
+        ROUND(SUM(IF(dd BETWEEN {qps} AND {qpe}, v, 0))) qp_s,
+        COUNT(DISTINCT IF(dd BETWEEN {qps} AND {qpe}, id, NULL)) qp_t,
+        ROUND(SUM(IF(dd BETWEEN {qpsly} AND {qpely}, v, 0))) qp_sly,
+        COUNT(DISTINCT IF(dd BETWEEN {qpsly} AND {qpely}, id, NULL)) qp_tly
+      FROM (SELECT item_outlet_name, DATE(sales_date) dd, id,
+                   SAFE_CAST(item_line_total_after_discount AS FLOAT64) v
+            FROM {FLAT} WHERE DATE(sales_date) BETWEEN {qpsly} AND {qce})
+      GROUP BY s""")
+    wx = bq(f"""
+      SELECT outlet s,
+        ROUND(SUM(IF(date BETWEEN {qcs} AND {qce} AND SAFE_CAST(WastageQuantity AS FLOAT64)>0, SAFE_CAST(RetailValue AS FLOAT64), 0))) qc_w,
+        ROUND(SUM(IF(date BETWEEN {qps} AND {qpe} AND SAFE_CAST(WastageQuantity AS FLOAT64)>0, SAFE_CAST(RetailValue AS FLOAT64), 0))) qp_w
+      FROM {WASTE} WHERE date BETWEEN {qps} AND {qce} GROUP BY s""")
+    wm = {r["s"]: r for r in wx}
+    mx = bq(f"""
+      SELECT s, cat,
+        ROUND(SUM(IF(dd BETWEEN {qcs} AND {qce}, v, 0))) qc,
+        ROUND(SUM(IF(dd BETWEEN {qps} AND {qpe}, v, 0))) qp
+      FROM (SELECT item_outlet_name s, DATE(sales_date) dd, {cat_case('item_product_name')} cat,
+                   SAFE_CAST(item_line_total_after_discount AS FLOAT64) v
+            FROM {FLAT} WHERE DATE(sales_date) BETWEEN {qps} AND {qce})
+      GROUP BY s, cat""")
+    mixmap = {}
+    for r in mx:
+        d = mixmap.setdefault(r["s"], {"qc": {}, "qp": {}})
+        d["qc"][CATLABEL[r["cat"]]] = r["qc"] or 0
+        d["qp"][CATLABEL[r["cat"]]] = r["qp"] or 0
+    def _q(sv, tv, slv, tlv, wv):
+        sv = sv or 0; tv = tv or 0
+        return {"sales": round(sv), "tx": int(tv), "atv": round(sv / tv, 2) if tv else None,
+                "yoy_sales": round(100 * (sv / slv - 1), 1) if slv else None,
+                "yoy_tx": round(100 * (tv / tlv - 1), 1) if tlv else None,
+                "waste": round(wv or 0), "waste_pct": round(100 * (wv or 0) / sv, 1) if sv else None}
+    for r in sx:
+        st = r["s"]
+        if st not in rec: continue
+        w = wm.get(st, {})
+        rec[st]["q_cur"] = _q(r["qc_s"], r["qc_t"], r["qc_sly"], r["qc_tly"], w.get("qc_w"))
+        rec[st]["q_prev"] = _q(r["qp_s"], r["qp_t"], r["qp_sly"], r["qp_tly"], w.get("qp_w"))
+        mm = mixmap.get(st, {"qc": {}, "qp": {}})
+        for key, qk in (("q_cur", "qc"), ("q_prev", "qp")):
+            cats = mm[qk]; tot = sum(cats.values()) or 1
+            rec[st][key]["mix"] = {c: round(100 * cats.get(c, 0) / tot, 1) for c in CATS}
+    def _ql(dd): return "Q%d %d" % ((dd.month - 1) // 3 + 1, dd.year)
+    a["area_qmeta"] = {"cur_label": _ql(QSTART), "prev_label": _ql(PQSTART),
+        "cur_range": [QSTART.isoformat(), CUR_END.isoformat()],
+        "prev_range": [PQSTART.isoformat(), PQEND.isoformat()]}
+    save_all(a)
+    print("[pull] area quarters: %d stores (cur %s / prev %s)" % (len(sx), _ql(QSTART), _ql(PQSTART)))
+
+
 def pull_f1():
     """STEP 2e — RAW 'The Race' + 'Qualifying' tabs (UNFORMATTED, full span). Writes
     f1_detail.json + rec.f1 + champ. Also writes the_race.csv for build_queue_benchmark.
@@ -2454,6 +2525,7 @@ def pulls():
     pull_audit()              # audit_raw.json + rec.audit_qtd
     pull_remote()             # remote_raw.json + rec.remote_qtd (Remote Assessment Data tab)
     pull_mix()                # rec.mix/mix_prev/mix_lw
+    pull_area_quarters()      # rec[s].q_cur / q_prev (area this-Q/last-Q filter)
     pull_peak()               # peak_cat_raw.json + peak_bakery_raw.json
     pull_availability()       # rec.avail
     pull_daypart_food()       # daypart_food.json + daypart_food_area.json
