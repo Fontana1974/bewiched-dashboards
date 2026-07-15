@@ -3,6 +3,20 @@
  "grid": [
   {
    "ch": "EI",
+   "dp": "Afternoon",
+   "txns": 1163,
+   "sales": 8258.0,
+   "foodtxns": 321
+  },
+  {
+   "ch": "TA",
+   "dp": "Evening",
+   "txns": 39,
+   "sales": 229.0,
+   "foodtxns": 7
+  },
+  {
+   "ch": "EI",
    "dp": "Morning",
    "txns": 1146,
    "sales": 8235.0,
@@ -19,7 +33,7 @@
    "ch": "EI",
    "dp": "Lunch",
    "txns": 1762,
-   "sales": 13818.0,
+   "sales": 13820.0,
    "foodtxns": 644
   },
   {
@@ -31,31 +45,17 @@
   },
   {
    "ch": "TA",
-   "dp": "Lunch",
-   "txns": 226,
-   "sales": 1431.0,
-   "foodtxns": 25
-  },
-  {
-   "ch": "TA",
    "dp": "Afternoon",
    "txns": 229,
    "sales": 1508.0,
    "foodtxns": 27
   },
   {
-   "ch": "EI",
-   "dp": "Afternoon",
-   "txns": 1163,
-   "sales": 8258.0,
-   "foodtxns": 321
-  },
-  {
    "ch": "TA",
-   "dp": "Evening",
-   "txns": 39,
-   "sales": 229.0,
-   "foodtxns": 7
+   "dp": "Lunch",
+   "txns": 226,
+   "sales": 1431.0,
+   "foodtxns": 25
   }
  ]
 }

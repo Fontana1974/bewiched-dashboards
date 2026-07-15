@@ -20,7 +20,9 @@
     "Fresh Ideas": 4507,
     "K&W": 1291,
     "Simply": 2020
-   }
+   },
+   "stock_target_pct": 13.7,
+   "deliv_target_pct": 21.2
   },
   "Rushden Lakes": {
    "holding_pct": 14.8,
@@ -40,7 +42,9 @@
     "Fresh Ideas": 3688,
     "K&W": 866,
     "Simply": 1659
-   }
+   },
+   "stock_target_pct": 15.3,
+   "deliv_target_pct": 21.3
   },
   "Kettering": {
    "holding_pct": 24.1,
@@ -60,7 +64,9 @@
     "Fresh Ideas": 1839,
     "K&W": 401,
     "Simply": 610
-   }
+   },
+   "stock_target_pct": 23.7,
+   "deliv_target_pct": 21.7
   },
   "Corby": {
    "holding_pct": 51.4,
@@ -80,7 +86,9 @@
     "Fresh Ideas": 875,
     "K&W": 333,
     "Simply": 627
-   }
+   },
+   "stock_target_pct": 33.7,
+   "deliv_target_pct": 22.1
   },
   "Peterborough Bridge Street": {
    "holding_pct": 22.2,
@@ -100,7 +108,9 @@
     "Fresh Ideas": 860,
     "K&W": 316,
     "Simply": 414
-   }
+   },
+   "stock_target_pct": 36.1,
+   "deliv_target_pct": 22.2
   },
   "Rugby": {
    "holding_pct": 25.0,
@@ -120,7 +130,9 @@
     "Fresh Ideas": 1438,
     "K&W": 462,
     "Simply": 630
-   }
+   },
+   "stock_target_pct": 27.0,
+   "deliv_target_pct": 21.8
   },
   "Wellingborough": {
    "holding_pct": 27.3,
@@ -140,7 +152,9 @@
     "Fresh Ideas": 823,
     "K&W": 434,
     "Simply": 312
-   }
+   },
+   "stock_target_pct": 31.2,
+   "deliv_target_pct": 22.0
   },
   "Rothwell": {
    "holding_pct": 37.0,
@@ -160,7 +174,9 @@
     "Fresh Ideas": 1144,
     "K&W": 335,
     "Simply": 433
-   }
+   },
+   "stock_target_pct": 31.7,
+   "deliv_target_pct": 22.0
   },
   "Northampton": {
    "holding_pct": 17.7,
@@ -180,7 +196,9 @@
     "Fresh Ideas": 1709,
     "K&W": 406,
     "Simply": 930
-   }
+   },
+   "stock_target_pct": 21.7,
+   "deliv_target_pct": 21.6
   },
   "Wellingborough Train Station": {
    "holding_pct": 31.6,
@@ -200,7 +218,9 @@
     "Fresh Ideas": 959,
     "K&W": 432,
     "Simply": 700
-   }
+   },
+   "stock_target_pct": 35.2,
+   "deliv_target_pct": 22.2
   },
   "Higham Ferrers": {
    "holding_pct": 40.2,
@@ -220,7 +240,9 @@
     "Fresh Ideas": 1065,
     "K&W": 309,
     "Simply": 409
-   }
+   },
+   "stock_target_pct": 38.7,
+   "deliv_target_pct": 22.3
   },
   "HOE Balsall Common": {
    "holding_pct": 35.8,
@@ -240,7 +262,9 @@
     "Fresh Ideas": 1099,
     "K&W": 366,
     "Simply": 599
-   }
+   },
+   "stock_target_pct": 30.9,
+   "deliv_target_pct": 22.0
   },
   "Burton Latimer": {
    "holding_pct": 21.5,
@@ -260,7 +284,9 @@
     "Fresh Ideas": 833,
     "K&W": 293,
     "Simply": 385
-   }
+   },
+   "stock_target_pct": 37.9,
+   "deliv_target_pct": 22.3
   },
   "Peterborough Fletton Quays": {
    "holding_pct": 25.7,
@@ -280,7 +306,9 @@
     "Fresh Ideas": 1264,
     "K&W": 373,
     "Simply": 1295
-   }
+   },
+   "stock_target_pct": 26.6,
+   "deliv_target_pct": 21.8
   },
   "Lower Heathcote": {
    "holding_pct": null,
@@ -292,7 +320,9 @@
     "Fresh Ideas": null,
     "K&W": null,
     "Simply": null
-   }
+   },
+   "stock_target_pct": 40.1,
+   "deliv_target_pct": 22.4
   },
   "Market Harborough": {
    "holding_pct": 22.3,
@@ -312,7 +342,9 @@
     "Fresh Ideas": 1862,
     "K&W": 696,
     "Simply": 1010
-   }
+   },
+   "stock_target_pct": 22.8,
+   "deliv_target_pct": 21.6
   },
   "Leamington Parade": {
    "holding_pct": 26.5,
@@ -332,7 +364,9 @@
     "Fresh Ideas": 1324,
     "K&W": 474,
     "Simply": 1107
-   }
+   },
+   "stock_target_pct": 25.3,
+   "deliv_target_pct": 21.7
   },
   "Glenvale Drive Thru": {
    "holding_pct": 21.3,
@@ -352,7 +386,9 @@
     "Fresh Ideas": 2909,
     "K&W": 907,
     "Simply": 1726
-   }
+   },
+   "stock_target_pct": 16.4,
+   "deliv_target_pct": 21.3
   },
   "Olney": {
    "holding_pct": 36.4,
@@ -372,7 +408,9 @@
     "Fresh Ideas": 0,
     "K&W": 0,
     "Simply": 0
-   }
+   },
+   "stock_target_pct": 36.9,
+   "deliv_target_pct": 22.3
   },
   "Attleborough": {
    "holding_pct": 35.1,
@@ -392,7 +430,9 @@
     "Fresh Ideas": 1015,
     "K&W": 300,
     "Simply": 376
-   }
+   },
+   "stock_target_pct": 29.7,
+   "deliv_target_pct": 21.9
   },
   "Billing Drive Thru": {
    "holding_pct": 19.5,
@@ -412,7 +452,9 @@
     "Fresh Ideas": 2865,
     "K&W": 574,
     "Simply": 1282
-   }
+   },
+   "stock_target_pct": 18.4,
+   "deliv_target_pct": 21.4
   }
  },
  "_estate_gp_basis": "Master COS Input col Q Gross Profit%, sales-weighted: Σ(Sales×GP)/ΣSales",
@@ -598,5 +640,15 @@
  "delivery_saving_per_pct": 31000,
  "delivery_company_pct": 21.2,
  "delivery_company_qtd": 22.5,
- "delivery_opportunity_gbp": 0
+ "delivery_opportunity_gbp": 0,
+ "stock_model": {
+  "base_gbp": 1562,
+  "rate_pct": 8.1,
+  "_basis": "planned stock £ = 1562 + 8.1% of weekly sales (fit across 20 stores)"
+ },
+ "deliv_model": {
+  "base_gbp": 70,
+  "rate_pct": 21.0,
+  "_basis": "planned delivery £ = 70 + 21.0% of weekly sales (fit across 20 stores); company ref 23%"
+ }
 }
