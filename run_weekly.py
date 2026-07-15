@@ -805,6 +805,8 @@ def pull_cos():
     agg = {}            # date-serial -> [Σsales, Σ(sales*gp)]  (sales-weighted col Q)
     latest = {}         # store -> (holding%, gp%, date-serial)
     qtd_ps = {}         # store -> [Σsales, Σ(sales*gp)] over the quarter (per-store QTD GP)
+    latest_x = {}       # store -> (date-serial, delivery%, total_deliv£, sales, {supplier £})
+    qtd_x = {}          # store -> {sales, deliv, sel, fresh, johal, tiffin} summed over the quarter
     for r in rows:
         if len(r) < 17 or not isinstance(r[1], (int, float)): continue
         sales = r[7] if isinstance(r[7], (int, float)) else None
@@ -820,6 +822,16 @@ def pull_cos():
                 latest[st] = (hold, round(gp * 100, 2), ds)
             if ds >= QSTART_S:
                 qa = qtd_ps.setdefault(st, [0.0, 0.0]); qa[0] += sales; qa[1] += sales * gp
+            # delivery % (col P/idx15), total deliveries £ (col O/idx14), suppliers K-N (idx10-13)
+            def _n(i): return fnum(r[i]) if len(r) > i and r[i] not in (None, "") else None
+            _dp = _n(15); dpc = (round(_dp * 100, 1) if (_dp is not None and _dp < 2) else (round(_dp, 1) if _dp is not None else None))
+            tdv = _n(14); sel = _n(10); fre = _n(11); joh = _n(12); tif = _n(13)
+            if st not in latest_x or ds >= latest_x[st][0]:
+                latest_x[st] = (ds, dpc, tdv, sales, {"Select Catering": sel, "Fresh Ideas": fre, "Johal": joh, "Tiffin": tif})
+            if ds >= QSTART_S:
+                qx = qtd_x.setdefault(st, {"sales": 0.0, "deliv": 0.0, "sel": 0.0, "fresh": 0.0, "johal": 0.0, "tiffin": 0.0})
+                qx["sales"] += sales; qx["deliv"] += (tdv or 0)
+                qx["sel"] += (sel or 0); qx["fresh"] += (fre or 0); qx["johal"] += (joh or 0); qx["tiffin"] += (tif or 0)
     def _egp(filt):
         ts = tw = 0.0
         for ds, (sa, gw) in agg.items():
@@ -849,7 +861,35 @@ def pull_cos():
     for st, (sa, gw) in qtd_ps.items():                       # per-store QTD GP (sales-weighted col Q)
         if sa:
             out["stores"].setdefault(st, {})["gp_qtd"] = round(gw / sa * 100, 2)
+    # ---- delivery % + supplier breakdown (latest COS week + QTD) per store ----
+    for st, (ds, dpc, tdv, _sa, sup) in latest_x.items():
+        sx = out["stores"].setdefault(st, {})
+        sx["delivery_pct"] = dpc; sx["deliv_gbp"] = round(tdv) if tdv is not None else None
+        sx["suppliers"] = {k: (round(v) if v is not None else None) for k, v in sup.items()}
+    for st, qx in qtd_x.items():
+        sx = out["stores"].setdefault(st, {})
+        if qx["sales"]: sx["delivery_pct_qtd"] = round(100 * qx["deliv"] / qx["sales"], 1)
+        sx["suppliers_qtd"] = {"Select Catering": round(qx["sel"]), "Fresh Ideas": round(qx["fresh"]),
+                               "Johal": round(qx["johal"]), "Tiffin": round(qx["tiffin"])}
+    # ---- stock-holding TARGET BAND, derived from the current estate spread (median +/- 10pp of sales) ----
+    import statistics as _stats
+    hvals = sorted(v["holding_pct"] for v in out["stores"].values() if v.get("holding_pct") is not None)
+    if hvals:
+        _med = _stats.median(hvals); _TOL = 10.0
+        out["holding_median"] = round(_med, 1)
+        out["holding_band"] = [round(max(0, _med - _TOL), 1), round(_med + _TOL, 1)]
+        out["holding_band_basis"] = "estate median %.1f%% of sales +/- %g pp (n=%d stores)" % (_med, _TOL, len(hvals))
+    # ---- delivery target + company delivery % (latest week, store-summed) + QTD + £ opportunity ----
+    out["delivery_target"] = 23.0; out["delivery_saving_per_pct"] = 31000
+    _td = sum(x[2] or 0 for x in latest_x.values()); _ts = sum(x[3] or 0 for x in latest_x.values())
+    out["delivery_company_pct"] = round(100 * _td / _ts, 1) if _ts else None
+    _tdq = sum(qx["deliv"] for qx in qtd_x.values()); _tsq = sum(qx["sales"] for qx in qtd_x.values())
+    out["delivery_company_qtd"] = round(100 * _tdq / _tsq, 1) if _tsq else None
+    _cp = out["delivery_company_pct"]
+    out["delivery_opportunity_gbp"] = round(max(0.0, (_cp - 23.0)) * 31000) if _cp is not None else None
     W("cos_metrics.json", out, indent=1)
+    print("[pull] cos delivery+stock: company deliv %s%% (qtd %s%%) target 23%% | stock band %s | %d stores" % (
+        out.get("delivery_company_pct"), out.get("delivery_company_qtd"), out.get("holding_band"), len(latest_x)))
     print("[pull] cos: %d stores; estate GP wk %s / qtd %s / may %s (authoritative col Q, sales-weighted)"
           % (len(latest), out.get("estate_gp_wk"), out.get("estate_gp_qtd"), out.get("estate_gp_may")))
 
