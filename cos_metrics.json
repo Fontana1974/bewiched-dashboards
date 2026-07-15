@@ -5,106 +5,414 @@
   "Northampton Drive-Thru": {
    "holding_pct": 11.9,
    "gp_pct": 70.39,
-   "gp_qtd": 70.7
+   "gp_qtd": 70.7,
+   "delivery_pct": 22.5,
+   "deliv_gbp": 6366,
+   "suppliers": {
+    "Select Catering": 2195,
+    "Fresh Ideas": 2507,
+    "Johal": 631,
+    "Tiffin": 1033
+   },
+   "delivery_pct_qtd": 23.6,
+   "suppliers_qtd": {
+    "Select Catering": 4914,
+    "Fresh Ideas": 4507,
+    "Johal": 1291,
+    "Tiffin": 2020
+   }
   },
   "Rushden Lakes": {
    "holding_pct": 14.8,
    "gp_pct": 69.18,
-   "gp_qtd": 68.86
+   "gp_qtd": 68.86,
+   "delivery_pct": 19.0,
+   "deliv_gbp": 4158,
+   "suppliers": {
+    "Select Catering": 1382,
+    "Fresh Ideas": 1568,
+    "Johal": 425,
+    "Tiffin": 783
+   },
+   "delivery_pct_qtd": 23.4,
+   "suppliers_qtd": {
+    "Select Catering": 3952,
+    "Fresh Ideas": 3688,
+    "Johal": 866,
+    "Tiffin": 1659
+   }
   },
   "Kettering": {
    "holding_pct": 24.1,
    "gp_pct": 71.52,
-   "gp_qtd": 72.12
+   "gp_qtd": 72.12,
+   "delivery_pct": 21.5,
+   "deliv_gbp": 2162,
+   "suppliers": {
+    "Select Catering": 660,
+    "Fresh Ideas": 992,
+    "Johal": 214,
+    "Tiffin": 296
+   },
+   "delivery_pct_qtd": 22.9,
+   "suppliers_qtd": {
+    "Select Catering": 1674,
+    "Fresh Ideas": 1839,
+    "Johal": 401,
+    "Tiffin": 610
+   }
   },
   "Corby": {
    "holding_pct": 51.4,
    "gp_pct": 72.4,
-   "gp_qtd": 72.66
+   "gp_qtd": 72.66,
+   "delivery_pct": 27.8,
+   "deliv_gbp": 1700,
+   "suppliers": {
+    "Select Catering": 732,
+    "Fresh Ideas": 500,
+    "Johal": 180,
+    "Tiffin": 288
+   },
+   "delivery_pct_qtd": 23.1,
+   "suppliers_qtd": {
+    "Select Catering": 1205,
+    "Fresh Ideas": 875,
+    "Johal": 333,
+    "Tiffin": 627
+   }
   },
   "Peterborough Bridge Street": {
    "holding_pct": 22.2,
    "gp_pct": 71.01,
-   "gp_qtd": 70.99
+   "gp_qtd": 70.99,
+   "delivery_pct": 22.0,
+   "deliv_gbp": 1227,
+   "suppliers": {
+    "Select Catering": 434,
+    "Fresh Ideas": 413,
+    "Johal": 175,
+    "Tiffin": 205
+   },
+   "delivery_pct_qtd": 21.6,
+   "suppliers_qtd": {
+    "Select Catering": 819,
+    "Fresh Ideas": 860,
+    "Johal": 316,
+    "Tiffin": 414
+   }
   },
   "Rugby": {
    "holding_pct": 25.0,
    "gp_pct": 70.38,
-   "gp_qtd": 70.89
+   "gp_qtd": 70.89,
+   "delivery_pct": 23.2,
+   "deliv_gbp": 1922,
+   "suppliers": {
+    "Select Catering": 657,
+    "Fresh Ideas": 701,
+    "Johal": 244,
+    "Tiffin": 320
+   },
+   "delivery_pct_qtd": 21.8,
+   "suppliers_qtd": {
+    "Select Catering": 997,
+    "Fresh Ideas": 1438,
+    "Johal": 462,
+    "Tiffin": 630
+   }
   },
   "Wellingborough": {
    "holding_pct": 27.3,
    "gp_pct": 71.98,
-   "gp_qtd": 72.12
+   "gp_qtd": 72.12,
+   "delivery_pct": 23.7,
+   "deliv_gbp": 1606,
+   "suppliers": {
+    "Select Catering": 710,
+    "Fresh Ideas": 513,
+    "Johal": 228,
+    "Tiffin": 155
+   },
+   "delivery_pct_qtd": 20.0,
+   "suppliers_qtd": {
+    "Select Catering": 1323,
+    "Fresh Ideas": 823,
+    "Johal": 434,
+    "Tiffin": 312
+   }
   },
   "Rothwell": {
    "holding_pct": 37.0,
    "gp_pct": 68.96,
-   "gp_qtd": 70.03
+   "gp_qtd": 70.03,
+   "delivery_pct": 27.0,
+   "deliv_gbp": 1787,
+   "suppliers": {
+    "Select Catering": 761,
+    "Fresh Ideas": 643,
+    "Johal": 170,
+    "Tiffin": 213
+   },
+   "delivery_pct_qtd": 23.6,
+   "suppliers_qtd": {
+    "Select Catering": 1292,
+    "Fresh Ideas": 1144,
+    "Johal": 335,
+    "Tiffin": 433
+   }
   },
   "Northampton": {
    "holding_pct": 17.7,
    "gp_pct": 70.25,
-   "gp_qtd": 70.19
+   "gp_qtd": 70.19,
+   "delivery_pct": 15.5,
+   "deliv_gbp": 1781,
+   "suppliers": {
+    "Select Catering": 380,
+    "Fresh Ideas": 814,
+    "Johal": 122,
+    "Tiffin": 465
+   },
+   "delivery_pct_qtd": 20.4,
+   "suppliers_qtd": {
+    "Select Catering": 1321,
+    "Fresh Ideas": 1709,
+    "Johal": 406,
+    "Tiffin": 930
+   }
   },
   "Wellingborough Train Station": {
    "holding_pct": 31.6,
    "gp_pct": 70.48,
-   "gp_qtd": 70.39
+   "gp_qtd": 70.39,
+   "delivery_pct": 31.2,
+   "deliv_gbp": 1805,
+   "suppliers": {
+    "Select Catering": 614,
+    "Fresh Ideas": 620,
+    "Johal": 200,
+    "Tiffin": 371
+   },
+   "delivery_pct_qtd": 24.5,
+   "suppliers_qtd": {
+    "Select Catering": 941,
+    "Fresh Ideas": 959,
+    "Johal": 432,
+    "Tiffin": 700
+   }
   },
   "Higham Ferrers": {
    "holding_pct": 40.2,
    "gp_pct": 69.29,
-   "gp_qtd": 68.94
+   "gp_qtd": 68.94,
+   "delivery_pct": 23.6,
+   "deliv_gbp": 1204,
+   "suppliers": {
+    "Select Catering": 412,
+    "Fresh Ideas": 411,
+    "Johal": 177,
+    "Tiffin": 204
+   },
+   "delivery_pct_qtd": 26.0,
+   "suppliers_qtd": {
+    "Select Catering": 845,
+    "Fresh Ideas": 1065,
+    "Johal": 309,
+    "Tiffin": 409
+   }
   },
   "HOE Balsall Common": {
    "holding_pct": 35.8,
    "gp_pct": 69.49,
-   "gp_qtd": 70.03
+   "gp_qtd": 70.03,
+   "delivery_pct": 25.0,
+   "deliv_gbp": 1715,
+   "suppliers": {
+    "Select Catering": 621,
+    "Fresh Ideas": 590,
+    "Johal": 206,
+    "Tiffin": 298
+   },
+   "delivery_pct_qtd": 23.9,
+   "suppliers_qtd": {
+    "Select Catering": 1098,
+    "Fresh Ideas": 1099,
+    "Johal": 366,
+    "Tiffin": 599
+   }
   },
   "Burton Latimer": {
    "holding_pct": 21.5,
    "gp_pct": 69.18,
-   "gp_qtd": 70.03
+   "gp_qtd": 70.03,
+   "delivery_pct": 22.6,
+   "deliv_gbp": 1189,
+   "suppliers": {
+    "Select Catering": 380,
+    "Fresh Ideas": 497,
+    "Johal": 122,
+    "Tiffin": 190
+   },
+   "delivery_pct_qtd": 22.6,
+   "suppliers_qtd": {
+    "Select Catering": 951,
+    "Fresh Ideas": 833,
+    "Johal": 293,
+    "Tiffin": 385
+   }
   },
   "Peterborough Fletton Quays": {
    "holding_pct": 25.7,
    "gp_pct": 69.33,
-   "gp_qtd": 69.03
+   "gp_qtd": 69.03,
+   "delivery_pct": 25.8,
+   "deliv_gbp": 2183,
+   "suppliers": {
+    "Select Catering": 688,
+    "Fresh Ideas": 691,
+    "Johal": 187,
+    "Tiffin": 617
+   },
+   "delivery_pct_qtd": 25.6,
+   "suppliers_qtd": {
+    "Select Catering": 1519,
+    "Fresh Ideas": 1264,
+    "Johal": 373,
+    "Tiffin": 1295
+   }
   },
   "Lower Heathcote": {
    "holding_pct": null,
-   "gp_pct": 72.49
+   "gp_pct": 72.49,
+   "delivery_pct": null,
+   "deliv_gbp": null,
+   "suppliers": {
+    "Select Catering": 0,
+    "Fresh Ideas": null,
+    "Johal": null,
+    "Tiffin": null
+   }
   },
   "Market Harborough": {
    "holding_pct": 22.3,
    "gp_pct": 71.87,
-   "gp_qtd": 72.25
+   "gp_qtd": 72.25,
+   "delivery_pct": 16.5,
+   "deliv_gbp": 1764,
+   "suppliers": {
+    "Select Catering": 405,
+    "Fresh Ideas": 570,
+    "Johal": 319,
+    "Tiffin": 470
+   },
+   "delivery_pct_qtd": 22.8,
+   "suppliers_qtd": {
+    "Select Catering": 1770,
+    "Fresh Ideas": 1862,
+    "Johal": 696,
+    "Tiffin": 1010
+   }
   },
   "Leamington Parade": {
    "holding_pct": 26.5,
    "gp_pct": 72.46,
-   "gp_qtd": 73.32
+   "gp_qtd": 73.32,
+   "delivery_pct": 20.9,
+   "deliv_gbp": 1899,
+   "suppliers": {
+    "Select Catering": 651,
+    "Fresh Ideas": 621,
+    "Johal": 281,
+    "Tiffin": 346
+   },
+   "delivery_pct_qtd": 24.1,
+   "suppliers_qtd": {
+    "Select Catering": 1255,
+    "Fresh Ideas": 1324,
+    "Johal": 474,
+    "Tiffin": 1107
+   }
   },
   "Glenvale Drive Thru": {
    "holding_pct": 21.3,
    "gp_pct": 69.36,
-   "gp_qtd": 69.55
+   "gp_qtd": 69.55,
+   "delivery_pct": 22.5,
+   "deliv_gbp": 4270,
+   "suppliers": {
+    "Select Catering": 1543,
+    "Fresh Ideas": 1444,
+    "Johal": 463,
+    "Tiffin": 820
+   },
+   "delivery_pct_qtd": 23.1,
+   "suppliers_qtd": {
+    "Select Catering": 3118,
+    "Fresh Ideas": 2909,
+    "Johal": 907,
+    "Tiffin": 1726
+   }
   },
   "Olney": {
    "holding_pct": 36.4,
    "gp_pct": 71.3,
-   "gp_qtd": 70.91
+   "gp_qtd": 70.91,
+   "delivery_pct": 0.0,
+   "deliv_gbp": 0,
+   "suppliers": {
+    "Select Catering": null,
+    "Fresh Ideas": null,
+    "Johal": null,
+    "Tiffin": null
+   },
+   "delivery_pct_qtd": 0.0,
+   "suppliers_qtd": {
+    "Select Catering": 0,
+    "Fresh Ideas": 0,
+    "Johal": 0,
+    "Tiffin": 0
+   }
   },
   "Attleborough": {
    "holding_pct": 35.1,
    "gp_pct": 68.68,
-   "gp_qtd": 68.31
+   "gp_qtd": 68.31,
+   "delivery_pct": 25.7,
+   "deliv_gbp": 1860,
+   "suppliers": {
+    "Select Catering": 722,
+    "Fresh Ideas": 582,
+    "Johal": 180,
+    "Tiffin": 376
+   },
+   "delivery_pct_qtd": 21.3,
+   "suppliers_qtd": {
+    "Select Catering": 1195,
+    "Fresh Ideas": 1015,
+    "Johal": 300,
+    "Tiffin": 376
+   }
   },
   "Billing Drive Thru": {
    "holding_pct": 19.5,
    "gp_pct": 68.99,
-   "gp_qtd": 68.89
+   "gp_qtd": 68.89,
+   "delivery_pct": 22.8,
+   "deliv_gbp": 3465,
+   "suppliers": {
+    "Select Catering": 917,
+    "Fresh Ideas": 1551,
+    "Johal": 344,
+    "Tiffin": 653
+   },
+   "delivery_pct_qtd": 24.4,
+   "suppliers_qtd": {
+    "Select Catering": 2206,
+    "Fresh Ideas": 2865,
+    "Johal": 574,
+    "Tiffin": 1282
+   }
   }
  },
  "_estate_gp_basis": "Master COS Input col Q Gross Profit%, sales-weighted: Σ(Sales×GP)/ΣSales",
@@ -279,5 +587,16 @@
   "2026-06-28": 69.4,
   "2026-07-05": 70.57,
   "2026-07-12": 70.19
- }
+ },
+ "holding_median": 25.4,
+ "holding_band": [
+  15.4,
+  35.4
+ ],
+ "holding_band_basis": "estate median 25.4% of sales +/- 10 pp (n=20 stores)",
+ "delivery_target": 23.0,
+ "delivery_saving_per_pct": 31000,
+ "delivery_company_pct": 21.2,
+ "delivery_company_qtd": 22.5,
+ "delivery_opportunity_gbp": 0
 }

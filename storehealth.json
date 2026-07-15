@@ -46,8 +46,8 @@
    "g_health": 3.01,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 18,
-   "r_avg": 4.67,
+   "r_n": 19,
+   "r_avg": 4.68,
    "r_rag": "green"
   },
   "Burton Latimer": {
@@ -111,7 +111,7 @@
    "r_rag": "na"
   },
   "Leamington Parade": {
-   "g_n": 17,
+   "g_n": 18,
    "g_avg": 5.0,
    "g_target": 15,
    "g_health": 5.0,
@@ -128,8 +128,8 @@
    "g_health": 4.38,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 4,
-   "r_avg": 2.75,
+   "r_n": 5,
+   "r_avg": 3.2,
    "r_rag": "red"
   },
   "Market Harborough": {
@@ -181,9 +181,9 @@
    "g_health": 2.92,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": null,
-   "r_avg": null,
-   "r_rag": "na"
+   "r_n": 1,
+   "r_avg": 4.0,
+   "r_rag": "amber"
   },
   "Peterborough Fletton Quays": {
    "g_n": 9,
@@ -214,8 +214,8 @@
    "g_health": 2.6,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 9,
-   "r_avg": 4.89,
+   "r_n": 10,
+   "r_avg": 4.9,
    "r_rag": "green"
   },
   "Rushden Lakes": {

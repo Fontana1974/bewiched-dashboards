@@ -214,8 +214,8 @@
     "avg": null
    },
    "qtd": {
-    "n": 0,
-    "avg": null
+    "n": 1,
+    "avg": 4.0
    }
   },
   "Peterborough Fletton Quays": {
@@ -264,8 +264,8 @@
     "avg": 4.54
    },
    "qtd": {
-    "n": 18,
-    "avg": 4.67
+    "n": 19,
+    "avg": 4.68
    }
   },
   "Glenvale Drive Thru": {
@@ -304,8 +304,8 @@
     "avg": 2.67
    },
    "qtd": {
-    "n": 4,
-    "avg": 2.75
+    "n": 5,
+    "avg": 3.2
    }
   },
   "Market Harborough": {
@@ -344,8 +344,8 @@
     "avg": 4.83
    },
    "qtd": {
-    "n": 9,
-    "avg": 4.89
+    "n": 10,
+    "avg": 4.9
    }
   },
   "Wellingborough": {
@@ -941,10 +941,42 @@
  },
  "comments": [
   {
+   "store": "Lower Heathcote",
+   "date": "2026-07-15",
+   "rating": 5.0,
+   "text": "Great team work",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Billing Drive Thru",
+   "date": "2026-07-15",
+   "rating": 5.0,
+   "text": "Days drag when it’s quieter 😔😔",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Rugby",
+   "date": "2026-07-15",
+   "rating": 5.0,
+   "text": "Working with Vlada is a breath of fresh air, amazing.",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
    "store": "Glenvale Drive Thru",
    "date": "2026-07-15",
    "rating": 4.0,
    "text": "Need large cups and espresso cups",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Peterborough Bridge Street",
+   "date": "2026-07-15",
+   "rating": 4.0,
+   "text": "Steady, teamwork,",
    "smt": null,
    "sentiment": "Positive"
   },
@@ -1099,38 +1131,6 @@
    "text": "Record sales week",
    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
    "sentiment": "Positive"
-  },
-  {
-   "store": "Billing Drive Thru",
-   "date": "2026-07-12",
-   "rating": 5.0,
-   "text": "Amazing!!",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Burton Latimer",
-   "date": "2026-07-12",
-   "rating": 4.0,
-   "text": "Fun to meet some new people and work in a new store and use the coffee machines",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Lower Heathcote",
-   "date": "2026-07-12",
-   "rating": 3.0,
-   "text": "Intense difficult conversations",
-   "smt": "KF - Thanked and asked respondent to reach out via a DM or call to discuss why the shift felt this way. Encouraged further contributions.",
-   "sentiment": "Mixed"
-  },
-  {
-   "store": "Attleborough",
-   "date": "2026-07-12",
-   "rating": 3.0,
-   "text": "Not a fan F1",
-   "smt": "KF - Thanked and asked respondent to to reach out via a DM or call to discuss their feelings about F!. Encouraged further contributions.",
-   "sentiment": "Mixed"
   }
  ]
 }
