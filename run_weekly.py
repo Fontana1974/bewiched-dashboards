@@ -887,6 +887,35 @@ def pull_cos():
     out["delivery_company_qtd"] = round(100 * _tdq / _tsq, 1) if _tsq else None
     _cp = out["delivery_company_pct"]
     out["delivery_opportunity_gbp"] = round(max(0.0, (_cp - 23.0)) * 31000) if _cp is not None else None
+    # ---- PER-STORE VOLUME-BASED planned targets (fit £target = base + rate*weekly_sales across the
+    #      estate; gives each store a target scaled to its own sales volume). Stock: base = minimum
+    #      stock any store needs; rate = cover as % of sales. Ordering = delivery cost £. Re-fit each run.
+    pts = []   # (sales, stock£, deliv£) per store, latest COS week
+    for st, (ds, dpc, tdv, sa, sup) in latest_x.items():
+        h = latest.get(st, (None,))[0]
+        if sa and sa > 0 and h is not None and tdv is not None:
+            pts.append((sa, h * sa / 100.0, tdv))
+    def _ols(xs, ys):
+        n = len(xs)
+        if n < 4: return None
+        mx = sum(xs) / n; my = sum(ys) / n
+        den = sum((x - mx) ** 2 for x in xs)
+        if den <= 0: return None
+        b = sum((x - mx) * (y - my) for x, y in zip(xs, ys)) / den
+        return (my - b * mx, b)
+    _sx = [p[0] for p in pts]
+    smod = _ols(_sx, [p[1] for p in pts]); dmod = _ols(_sx, [p[2] for p in pts])
+    if smod:
+        out["stock_model"] = {"base_gbp": round(smod[0]), "rate_pct": round(smod[1] * 100, 1),
+            "_basis": "planned stock £ = %d + %.1f%% of weekly sales (fit across %d stores)" % (round(smod[0]), smod[1] * 100, len(pts))}
+    if dmod:
+        out["deliv_model"] = {"base_gbp": round(dmod[0]), "rate_pct": round(dmod[1] * 100, 1),
+            "_basis": "planned delivery £ = %d + %.1f%% of weekly sales (fit across %d stores); company ref 23%%" % (round(dmod[0]), dmod[1] * 100, len(pts))}
+    for st, (ds, dpc, tdv, sa, sup) in latest_x.items():
+        if not (sa and sa > 0): continue
+        sx = out["stores"].setdefault(st, {})
+        if smod: sx["stock_target_pct"] = round(100 * (smod[0] + smod[1] * sa) / sa, 1)
+        if dmod: sx["deliv_target_pct"] = round(100 * (dmod[0] + dmod[1] * sa) / sa, 1)
     W("cos_metrics.json", out, indent=1)
     print("[pull] cos delivery+stock: company deliv %s%% (qtd %s%%) target 23%% | stock band %s | %d stores" % (
         out.get("delivery_company_pct"), out.get("delivery_company_qtd"), out.get("holding_band"), len(latest_x)))

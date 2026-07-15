@@ -1131,9 +1131,11 @@ def wastage_gp_html():
 
 
 def cos_extra_html():
-    """EOS Food GP detail: ONE consolidated per-store table — stock holding % (traffic-lit vs the
-    data-derived band), delivery cost % (vs 23% target), and the per-supplier £ split alongside — with
-    a company total row and the delivery £ opportunity. Reads cos_metrics.json. Fault-tolerant."""
+    """EOS Food GP detail: ONE consolidated per-store table — GP% (vs 71% target), stock holding % and
+    delivery cost % each traffic-lit vs that store's OWN volume-based planned target (target shown
+    alongside actual), plus the per-supplier delivery split (Select / Fresh / K&W / Simply) and a
+    company total row. Targets are fitted per run (base + % of the store's weekly sales). Reads
+    cos_metrics.json. Fault-tolerant."""
     try:
         C = json.load(open(os.path.join(HERE, "cos_metrics.json")))
     except Exception:
@@ -1144,46 +1146,51 @@ def cos_extra_html():
     def gbp(x):
         try: return "&pound;" + format(int(round(float(x))), ",")
         except Exception: return "&mdash;"
-    band = C.get("holding_band"); basis = C.get("holding_band_basis", "")
-    lo, hi = (band if band else (None, None))
+    def sub(txt): return f' <span class="mini" style="color:#8a7a6d">{txt}</span>'
     dt = C.get("delivery_target", 23.0); med = C.get("holding_median")
     cp = C.get("delivery_company_pct"); cq = C.get("delivery_company_qtd"); opp = C.get("delivery_opportunity_gbp")
-    SUP = [("Select Catering", "Select"), ("Fresh Ideas", "Fresh"), ("K&W", "K&amp;W"), ("Simply", "Simply")]
-    def stock_cell(h):
-        if h is None: return '<span class="tag t-na">&mdash;</span>'
-        if band and h > hi: return f'<span class="tag t-red">{h:g}% over</span>'
-        if band and h < lo: return f'<span class="tag t-amber">{h:g}% under</span>'
-        return f'<span class="tag t-ok">{h:g}%</span>'
-    def deliv_cell(d):
-        if d is None: return '<span class="tag t-na">&mdash;</span>'
-        return f'<span class="tag {"t-ok" if d <= dt else "t-red"}">{d:g}%</span>'
+    smod = C.get("stock_model") or {}; dmod = C.get("deliv_model") or {}
     GP_TGT = 71.0; egp = C.get("estate_gp_wk")
     def gp_cell(x):
         if x is None: return '<span class="tag t-na">&mdash;</span>'
         return f'<span class="tag {"t-ok" if x >= GP_TGT else "t-red"}">{x:g}%</span>'
+    def stock_cell(h, tgt):
+        if h is None: return '<span class="tag t-na">&mdash;</span>'
+        if tgt is None: return f'<span class="tag t-na">{h:g}%</span>'
+        k = "t-red" if h > tgt * 1.15 else ("t-amber" if h < tgt * 0.85 else "t-ok")
+        return f'<span class="tag {k}">{h:g}%</span>' + sub(f"tgt {tgt:g}%")
+    def deliv_cell(d, tgt):
+        if d is None: return '<span class="tag t-na">&mdash;</span>'
+        ref = tgt if tgt is not None else dt
+        k = "t-red" if d > ref * 1.05 else "t-ok"
+        return f'<span class="tag {k}">{d:g}%</span>' + sub(f"tgt {ref:g}%")
     P = ['<div class="md-section-h">GP cost drivers &mdash; stock, delivery &amp; suppliers by store</div>']
     leg = ""
-    if band:
-        leg += f'Stock holding traffic-lit vs the healthy band <b>{lo:g}%&ndash;{hi:g}%</b> ({esc(basis)}): green in-band, red over (too much stock), amber under (too lean). '
-    leg += f'GP% vs the <b>{GP_TGT:g}%</b> Food GP target (green &ge; {GP_TGT:g}%, red below). Delivery cost vs the <b>{dt:g}%</b> target (green &le; {dt:g}%, red above). Supplier columns = &pound; delivered that week (<b>Select</b> = Select Catering, <b>Fresh</b> = Fresh Ideas, <b>K&amp;W</b> = Kirby &amp; West, <b>Simply</b> = Simply Lunch).'
+    if smod: leg += f'Stock holding traffic-lit vs each store&rsquo;s <b>volume-based target</b> ({esc(smod.get("_basis",""))}): green within &plusmn;15%, red over (too much stock), amber under (too lean). '
+    if dmod: leg += f'Delivery cost (ordering) vs each store&rsquo;s <b>volume-based target</b> ({esc(dmod.get("_basis",""))}). '
+    leg += f'GP% vs the <b>{GP_TGT:g}%</b> Food GP target. Supplier columns = &pound; delivered that week (<b>Select</b> = Select Catering, <b>Fresh</b> = Fresh Ideas, <b>K&amp;W</b> = Kirby &amp; West, <b>Simply</b> = Simply Lunch).'
     if cp is not None:
-        tail = (f'&rarr; target {dt:g}% &rarr; <b>{gbp(opp)}/yr</b> opportunity' if (opp and opp > 0) else f'&mdash; already at/below the {dt:g}% target')
+        tail = (f'&rarr; company target {dt:g}% &rarr; <b>{gbp(opp)}/yr</b> opportunity' if (opp and opp > 0) else f'&mdash; company already at/below the {dt:g}% reference')
         leg += f' Company delivery cost <b>{cp:g}%</b> (QTD {cq:g}%) {tail}; every 1pp &asymp; &pound;31k/yr.'
     P.append(f'<div class="md-ps-basis">{leg}</div>')
+    SUP = [("Select Catering", "Select"), ("Fresh Ideas", "Fresh"), ("K&W", "K&amp;W"), ("Simply", "Simply")]
     body = ""; sup_tot = {full: 0 for full, _ in SUP}
     for st, v in sorted(stores.items(), key=lambda kv: -(kv[1].get("delivery_pct") or 0)):
-        h = v.get("holding_pct"); d = v.get("delivery_pct"); sup = v.get("suppliers") or {}
+        h = v.get("holding_pct"); d = v.get("delivery_pct")
         cells = ""
         for full, _ in SUP:
-            x = sup.get(full); sup_tot[full] += (x or 0)
+            x = (v.get("suppliers") or {}).get(full); sup_tot[full] += (x or 0)
             cells += f'<td>{gbp(x) if x is not None else "&mdash;"}</td>'
-        body += f'<tr><td class="l">{esc(st)}</td><td>{gp_cell(v.get("gp_pct"))}</td><td>{stock_cell(h)}</td><td>{deliv_cell(d)}</td>{cells}</tr>'
-    medc = f'<span class="mini" style="color:#8a7a6d">med {med:g}%</span>' if med is not None else "&mdash;"
-    compd = deliv_cell(cp) if cp is not None else '<span class="tag t-na">&mdash;</span>'
+        body += (f'<tr><td class="l">{esc(st)}</td><td>{gp_cell(v.get("gp_pct"))}</td>'
+                 f'<td>{stock_cell(h, v.get("stock_target_pct"))}</td>'
+                 f'<td>{deliv_cell(d, v.get("deliv_target_pct"))}</td>{cells}</tr>')
+    medc = f'<span class="mini" style="color:#8a7a6d">est. med {med:g}%</span>' if med is not None else "&mdash;"
+    compd = deliv_cell(cp, None) if cp is not None else '<span class="tag t-na">&mdash;</span>'
     totc = "".join(f'<td>{gbp(sup_tot[full])}</td>' for full, _ in SUP)
-    body += f'<tr style="font-weight:700;border-top:2px solid var(--line)"><td class="l">COMPANY</td><td>{gp_cell(egp)}</td><td>{medc}</td><td>{compd}</td>{totc}</tr>'
+    body += (f'<tr style="font-weight:700;border-top:2px solid var(--line)"><td class="l">COMPANY</td>'
+             f'<td>{gp_cell(egp)}</td><td>{medc}</td><td>{compd}</td>{totc}</tr>')
     heads = "".join(f'<th>{ab} &pound;</th>' for _, ab in SUP)
-    P.append(f'<table class="f1t"><thead><tr><th class="l">Store</th><th>GP %</th><th>Stock hold %</th><th>Delivery %</th>{heads}</tr></thead><tbody>{body}</tbody></table>')
+    P.append(f'<table class="f1t"><thead><tr><th class="l">Store</th><th>GP %</th><th>Stock hold % (vs tgt)</th><th>Delivery % (vs tgt)</th>{heads}</tr></thead><tbody>{body}</tbody></table>')
     return "".join(P)
 
 md_options = ""
