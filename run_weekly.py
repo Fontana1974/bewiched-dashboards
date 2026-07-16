@@ -806,6 +806,7 @@ def pull_cos():
     latest = {}         # store -> (holding%, gp%, date-serial)
     qtd_ps = {}         # store -> [Σsales, Σ(sales*gp)] over the quarter (per-store QTD GP)
     latest_x = {}       # store -> (date-serial, delivery%, total_deliv£, sales, {supplier £})
+    week_hist = {}      # week-iso -> {store -> {stock, deliv, gp}} for per-store trend sparklines (backfilled from the sheet)
     qtd_x = {}          # store -> {sales, deliv, sel, fresh, johal, tiffin} summed over the quarter
     for r in rows:
         if len(r) < 17 or not isinstance(r[1], (int, float)): continue
@@ -828,6 +829,9 @@ def pull_cos():
             tdv = _n(14); sel = _n(10); fre = _n(11); kw = _n(12); sim = _n(13)   # col M=K&W, N=Simply (header N still reads "Tiffin")
             if st not in latest_x or ds >= latest_x[st][0]:
                 latest_x[st] = (ds, dpc, tdv, sales, {"Select Catering": sel, "Fresh Ideas": fre, "K&W": kw, "Simply": sim})
+            _wk = serial_to_iso(ds)
+            if _wk:
+                week_hist.setdefault(_wk, {})[st] = {"stock": hold, "deliv": dpc, "gp": round(gp * 100, 2)}
             if ds >= QSTART_S:
                 qx = qtd_x.setdefault(st, {"sales": 0.0, "deliv": 0.0, "sel": 0.0, "fresh": 0.0, "kw": 0.0, "sim": 0.0})
                 qx["sales"] += sales; qx["deliv"] += (tdv or 0)
@@ -916,7 +920,10 @@ def pull_cos():
         sx = out["stores"].setdefault(st, {})
         if smod: sx["stock_target_pct"] = round(100 * (smod[0] + smod[1] * sa) / sa, 1)
         if dmod: sx["deliv_target_pct"] = round(100 * (dmod[0] + dmod[1] * sa) / sa, 1)
+    _wks = dict(sorted(week_hist.items())[-13:])
+    W("cos_history.json", {"weeks": _wks}, indent=1)
     W("cos_metrics.json", out, indent=1)
+    print("[pull] cos history: %d weeks banked (per-store stock/deliv/gp)" % len(_wks))
     print("[pull] cos delivery+stock: company deliv %s%% (qtd %s%%) target 23%% | stock band %s | %d stores" % (
         out.get("delivery_company_pct"), out.get("delivery_company_qtd"), out.get("holding_band"), len(latest_x)))
     print("[pull] cos: %d stores; estate GP wk %s / qtd %s / may %s (authoritative col Q, sales-weighted)"

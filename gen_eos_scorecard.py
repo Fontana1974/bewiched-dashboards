@@ -1147,23 +1147,38 @@ def cos_extra_html():
         try: return "&pound;" + format(int(round(float(x))), ",")
         except Exception: return "&mdash;"
     def sub(txt): return f' <span class="mini" style="color:#8a7a6d">{txt}</span>'
+    try: _HW = json.load(open(os.path.join(HERE, "cos_history.json"))).get("weeks", {})
+    except Exception: _HW = {}
+    _wk4 = sorted(_HW.keys())[-4:]
+    def series(store, key): return [(_HW[w].get(store) or {}).get(key) for w in _wk4]
+    def spark(vals):
+        vals = [v for v in vals if v is not None]
+        if not vals: return ""
+        WV, HV, pd = 44, 13, 2
+        if len(vals) == 1:
+            return ' <svg width="%d" height="%d" style="vertical-align:middle"><circle cx="%d" cy="%d" r="2" fill="var(--muted)"/></svg>' % (WV, HV, WV // 2, HV // 2)
+        lo, hi = min(vals), max(vals); n = len(vals) - 1
+        xf = lambda i: pd + (i / n) * (WV - 2 * pd)
+        yf = lambda v: pd + (1 - ((v - lo) / (hi - lo) if hi > lo else 0.5)) * (HV - 2 * pd)
+        poly = " ".join("%.1f,%.1f" % (xf(i), yf(v)) for i, v in enumerate(vals))
+        return (' <svg width="%d" height="%d" style="vertical-align:middle"><polyline points="%s" fill="none" stroke="var(--brown)" stroke-width="1.3" stroke-linejoin="round" stroke-linecap="round"/><circle cx="%.1f" cy="%.1f" r="1.6" fill="var(--brown)"/></svg>' % (WV, HV, poly, xf(n), yf(vals[-1])))
     dt = C.get("delivery_target", 23.0); med = C.get("holding_median")
     cp = C.get("delivery_company_pct"); cq = C.get("delivery_company_qtd"); opp = C.get("delivery_opportunity_gbp")
     smod = C.get("stock_model") or {}; dmod = C.get("deliv_model") or {}
     GP_TGT = 71.0; egp = C.get("estate_gp_wk")
-    def gp_cell(x):
+    def gp_cell(x, sp=""):
         if x is None: return '<span class="tag t-na">&mdash;</span>'
-        return f'<span class="tag {"t-ok" if x >= GP_TGT else "t-red"}">{x:g}%</span>'
-    def stock_cell(h, tgt):
+        return f'<span class="tag {"t-ok" if x >= GP_TGT else "t-red"}">{x:g}%</span>' + sp
+    def stock_cell(h, tgt, sp=""):
         if h is None: return '<span class="tag t-na">&mdash;</span>'
-        if tgt is None: return f'<span class="tag t-na">{h:g}%</span>'
+        if tgt is None: return f'<span class="tag t-na">{h:g}%</span>' + sp
         k = "t-red" if h > tgt * 1.15 else ("t-amber" if h < tgt * 0.85 else "t-ok")
-        return f'<span class="tag {k}">{h:g}%</span>' + sub(f"tgt {tgt:g}%")
-    def deliv_cell(d, tgt):
+        return f'<span class="tag {k}">{h:g}%</span>' + sub(f"tgt {tgt:g}%") + sp
+    def deliv_cell(d, tgt, sp=""):
         if d is None: return '<span class="tag t-na">&mdash;</span>'
         ref = tgt if tgt is not None else dt
         k = "t-red" if d > ref * 1.05 else "t-ok"
-        return f'<span class="tag {k}">{d:g}%</span>' + sub(f"tgt {ref:g}%")
+        return f'<span class="tag {k}">{d:g}%</span>' + sub(f"tgt {ref:g}%") + sp
     P = ['<div class="md-section-h">GP cost drivers &mdash; stock, delivery &amp; suppliers by store</div>']
     SUP = [("Select Catering", "Select"), ("Fresh Ideas", "Fresh"), ("K&W", "K&amp;W"), ("Simply", "Simply")]
     _stot = {full: 0.0 for full, _ in SUP}; _grand = 0.0
@@ -1184,7 +1199,7 @@ def cos_extra_html():
     if smod: leg += f'Stock holding traffic-lit vs each store&rsquo;s <b>volume-based target</b> ({esc(smod.get("_basis",""))}): green within &plusmn;15%, red over (too much stock), amber under (too lean). '
     if dmod: leg += f'Delivery cost (ordering) vs each store&rsquo;s <b>volume-based target</b> ({esc(dmod.get("_basis",""))}). '
     _normstr = ", ".join(f"{ab} {norm[full]:.0f}%" for full, ab in SUP if norm.get(full) is not None)
-    leg += f'GP% vs the <b>{GP_TGT:g}%</b> Food GP target. Supplier columns = &pound; delivered that week (<b>Select</b> = Select Catering, <b>Fresh</b> = Fresh Ideas, <b>K&amp;W</b> = Kirby &amp; West, <b>Simply</b> = Simply Lunch), each traffic-lit by the store&rsquo;s SHARE of its supplier mix vs the estate norm ({_normstr}): red = over-indexed (&gt;1.25&times;), amber = notably low, green = in line.'
+    leg += f'GP% vs the <b>{GP_TGT:g}%</b> Food GP target. Supplier columns = &pound; delivered that week (<b>Select</b> = Select Catering, <b>Fresh</b> = Fresh Ideas, <b>K&amp;W</b> = Kirby &amp; West, <b>Simply</b> = Simply Lunch), each traffic-lit by the store&rsquo;s SHARE of its supplier mix vs the estate norm ({_normstr}): red = over-indexed (&gt;1.25&times;), amber = notably low, green = in line. GP%, stock and delivery cells carry a 4-week trend sparkline (short until history builds).'
     if cp is not None:
         tail = (f'&rarr; company target {dt:g}% &rarr; <b>{gbp(opp)}/yr</b> opportunity' if (opp and opp > 0) else f'&mdash; company already at/below the {dt:g}% reference')
         leg += f' Company delivery cost <b>{cp:g}%</b> (QTD {cq:g}%) {tail}; every 1pp &asymp; &pound;31k/yr.'
@@ -1197,9 +1212,9 @@ def cos_extra_html():
         for full, _ in SUP:
             x = _sp.get(full); sup_tot[full] += (x or 0)
             cells += sup_cell(x, full, _ts)
-        body += (f'<tr><td class="l">{esc(st)}</td><td>{gp_cell(v.get("gp_pct"))}</td>'
-                 f'<td>{stock_cell(h, v.get("stock_target_pct"))}</td>'
-                 f'<td>{deliv_cell(d, v.get("deliv_target_pct"))}</td>{cells}</tr>')
+        body += (f'<tr><td class="l">{esc(st)}</td><td>{gp_cell(v.get("gp_pct"), spark(series(st, "gp")))}</td>'
+                 f'<td>{stock_cell(h, v.get("stock_target_pct"), spark(series(st, "stock")))}</td>'
+                 f'<td>{deliv_cell(d, v.get("deliv_target_pct"), spark(series(st, "deliv")))}</td>{cells}</tr>')
     medc = f'<span class="mini" style="color:#8a7a6d">est. med {med:g}%</span>' if med is not None else "&mdash;"
     compd = deliv_cell(cp, None) if cp is not None else '<span class="tag t-na">&mdash;</span>'
     totc = "".join(f'<td>{gbp(sup_tot[full])}</td>' for full, _ in SUP)
