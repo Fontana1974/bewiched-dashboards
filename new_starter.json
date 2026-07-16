@@ -1,9 +1,9 @@
 {
- "generated": "10 Jul 2026",
+ "generated": "16 Jul 2026",
  "window": 90,
  "cohort_n": 28,
- "compliant": 1,
- "headline": 4,
+ "compliant": 2,
+ "headline": 7,
  "per_step": [
   {
    "label": "Right to Work",
@@ -34,7 +34,7 @@
    "pct": 33,
    "done": 2,
    "present": 6,
-   "overdue": 2,
+   "overdue": 4,
    "target": 90
   },
   {
@@ -63,26 +63,26 @@
   },
   {
    "label": "Day 7 check-in",
-   "pct": 11,
+   "pct": 9,
    "done": 1,
-   "present": 9,
-   "overdue": 8,
+   "present": 11,
+   "overdue": 10,
    "target": 90
   },
   {
    "label": "Day 30 check-in",
-   "pct": 5,
-   "done": 1,
-   "present": 21,
-   "overdue": 20,
+   "pct": 9,
+   "done": 2,
+   "present": 23,
+   "overdue": 21,
    "target": 90
   },
   {
    "label": "Day 60 check-in",
-   "pct": 0,
-   "done": 0,
+   "pct": 6,
+   "done": 1,
    "present": 16,
-   "overdue": 16,
+   "overdue": 15,
    "target": 90
   },
   {
@@ -133,9 +133,9 @@
   },
   {
    "site": "12 Higham Ferrers + Higham Food Hub",
-   "compliant": 0,
+   "compliant": 1,
    "total": 1,
-   "pct": 0
+   "pct": 100
   },
   {
    "site": "Glenvale Wboro DT",
@@ -178,7 +178,7 @@
   {
    "name": "Josh Fox",
    "site": "6 Peterborough",
-   "tenure": 74,
+   "tenure": 80,
    "ok": false,
    "outstanding": [
     "Day 30 check-in",
@@ -201,7 +201,7 @@
   {
    "name": "Oviya Sathiyamoorthy",
    "site": "Billing",
-   "tenure": 74,
+   "tenure": 80,
    "ok": false,
    "outstanding": [
     "Day 30 check-in",
@@ -224,7 +224,7 @@
   {
    "name": "Michelle Phylactou",
    "site": "Billing",
-   "tenure": 74,
+   "tenure": 80,
    "ok": false,
    "outstanding": [
     "Day 30 check-in",
@@ -247,7 +247,7 @@
   {
    "name": "Danny Darien",
    "site": "Billing",
-   "tenure": 74,
+   "tenure": 80,
    "ok": false,
    "outstanding": [
     "Day 30 check-in",
@@ -270,7 +270,7 @@
   {
    "name": "Dawn Mullane",
    "site": "Billing",
-   "tenure": 74,
+   "tenure": 80,
    "ok": false,
    "outstanding": [
     "Day 30 check-in",
@@ -293,7 +293,7 @@
   {
    "name": "Kyrah Mcfarlane",
    "site": "15 Fletton Quays",
-   "tenure": 62,
+   "tenure": 68,
    "ok": false,
    "outstanding": [
     "Day 30 check-in",
@@ -316,7 +316,7 @@
   {
    "name": "Keisha Denham",
    "site": "15 Fletton Quays",
-   "tenure": 65,
+   "tenure": 71,
    "ok": false,
    "outstanding": [
     "Day 30 check-in",
@@ -339,7 +339,7 @@
   {
    "name": "James Ross",
    "site": "Billing",
-   "tenure": 67,
+   "tenure": 73,
    "ok": false,
    "outstanding": [
     "Day 30 check-in",
@@ -362,7 +362,7 @@
   {
    "name": "Becky Tye",
    "site": "Billing",
-   "tenure": 67,
+   "tenure": 73,
    "ok": false,
    "outstanding": [
     "Induction",
@@ -386,7 +386,7 @@
   {
    "name": "Isobel Woolley",
    "site": "Billing",
-   "tenure": 67,
+   "tenure": 73,
    "ok": false,
    "outstanding": [
     "Induction",
@@ -410,7 +410,7 @@
   {
    "name": "Chloe Stewart",
    "site": "Billing",
-   "tenure": 67,
+   "tenure": 73,
    "ok": false,
    "outstanding": [
     "Induction",
@@ -434,12 +434,9 @@
   {
    "name": "Jessica Hardie",
    "site": "12 Higham Ferrers + Higham Food Hub",
-   "tenure": 74,
-   "ok": false,
-   "outstanding": [
-    "Day 30 check-in",
-    "Day 60 check-in"
-   ],
+   "tenure": 80,
+   "ok": true,
+   "outstanding": [],
    "steps": {
     "Right to Work": "done",
     "Contract signed": "na",
@@ -449,15 +446,15 @@
     "Allergens": "na",
     "Day 1 check-in": "na",
     "Day 7 check-in": "na",
-    "Day 30 check-in": "overdue",
-    "Day 60 check-in": "overdue",
+    "Day 30 check-in": "done",
+    "Day 60 check-in": "done",
     "Day 90 check-in": "na"
    }
   },
   {
    "name": "Lewis Plant",
    "site": "Glenvale Wboro DT",
-   "tenure": 74,
+   "tenure": 80,
    "ok": false,
    "outstanding": [
     "Day 30 check-in",
@@ -480,7 +477,7 @@
   {
    "name": "Kyla Watson",
    "site": "Billing",
-   "tenure": 61,
+   "tenure": 67,
    "ok": false,
    "outstanding": [
     "Day 30 check-in",
@@ -503,7 +500,7 @@
   {
    "name": "Belle Swales",
    "site": "Billing",
-   "tenure": 61,
+   "tenure": 67,
    "ok": false,
    "outstanding": [
     "Day 60 check-in"
@@ -525,7 +522,7 @@
   {
    "name": "Bethany McCabe",
    "site": "5 Northampton",
-   "tenure": 44,
+   "tenure": 50,
    "ok": false,
    "outstanding": [
     "H&S Quiz",
@@ -551,7 +548,7 @@
   {
    "name": "Anne McMahon",
    "site": "8 Rushden Lakes",
-   "tenure": 53,
+   "tenure": 59,
    "ok": false,
    "outstanding": [
     "H&S Quiz",
@@ -577,7 +574,7 @@
   {
    "name": "Lauren Barnsby",
    "site": "8 Rushden Lakes",
-   "tenure": 52,
+   "tenure": 58,
    "ok": true,
    "outstanding": [],
    "steps": {
@@ -597,7 +594,7 @@
   {
    "name": "Millie Harrodine",
    "site": "19 Balsall Common",
-   "tenure": 61,
+   "tenure": 67,
    "ok": false,
    "outstanding": [
     "Day 30 check-in",
@@ -620,7 +617,7 @@
   {
    "name": "Megan Cable",
    "site": "11 Train Station",
-   "tenure": 51,
+   "tenure": 57,
    "ok": false,
    "outstanding": [
     "Day 30 check-in"
@@ -642,7 +639,7 @@
   {
    "name": "Anna Johnson",
    "site": "8 Rushden Lakes",
-   "tenure": 39,
+   "tenure": 45,
    "ok": false,
    "outstanding": [
     "H&S Quiz",
@@ -668,14 +665,15 @@
   {
    "name": "Amelia Woodforth",
    "site": "22 Leamington Parade",
-   "tenure": 25,
+   "tenure": 31,
    "ok": false,
    "outstanding": [
     "Orientation",
     "H&S Quiz",
     "Allergens",
     "Day 1 check-in",
-    "Day 7 check-in"
+    "Day 7 check-in",
+    "Day 30 check-in"
    ],
    "steps": {
     "Right to Work": "done",
@@ -686,7 +684,7 @@
     "Allergens": "overdue",
     "Day 1 check-in": "overdue",
     "Day 7 check-in": "overdue",
-    "Day 30 check-in": "na",
+    "Day 30 check-in": "overdue",
     "Day 60 check-in": "na",
     "Day 90 check-in": "na"
    }
@@ -694,7 +692,7 @@
   {
    "name": "Patrick Lynch",
    "site": "21 Market Harborough",
-   "tenure": 36,
+   "tenure": 42,
    "ok": false,
    "outstanding": [
     "Day 7 check-in",
@@ -717,14 +715,15 @@
   {
    "name": "Vlada Haidarzhy",
    "site": "16 Rugby",
-   "tenure": 28,
+   "tenure": 34,
    "ok": false,
    "outstanding": [
     "Orientation",
     "H&S Quiz",
     "Allergens",
     "Day 1 check-in",
-    "Day 7 check-in"
+    "Day 7 check-in",
+    "Day 30 check-in"
    ],
    "steps": {
     "Right to Work": "done",
@@ -735,7 +734,7 @@
     "Allergens": "overdue",
     "Day 1 check-in": "overdue",
     "Day 7 check-in": "overdue",
-    "Day 30 check-in": "na",
+    "Day 30 check-in": "overdue",
     "Day 60 check-in": "na",
     "Day 90 check-in": "na"
    }
@@ -743,7 +742,7 @@
   {
    "name": "Prisha Patel",
    "site": "5 Northampton",
-   "tenure": 21,
+   "tenure": 27,
    "ok": false,
    "outstanding": [
     "Day 7 check-in"
@@ -765,7 +764,7 @@
   {
    "name": "Jamie Robertson",
    "site": "10 Market Street",
-   "tenure": 18,
+   "tenure": 24,
    "ok": false,
    "outstanding": [
     "Day 1 check-in",
@@ -788,23 +787,24 @@
   {
    "name": "Breannah Eliza",
    "site": "15 Fletton Quays",
-   "tenure": 2,
+   "tenure": 8,
    "ok": false,
    "outstanding": [
     "Orientation",
     "H&S Quiz",
     "Allergens",
-    "Day 1 check-in"
+    "Day 1 check-in",
+    "Day 7 check-in"
    ],
    "steps": {
     "Right to Work": "done",
     "Contract signed": "na",
     "Induction": "na",
-    "Orientation": "due",
+    "Orientation": "overdue",
     "H&S Quiz": "due",
     "Allergens": "due",
     "Day 1 check-in": "overdue",
-    "Day 7 check-in": "na",
+    "Day 7 check-in": "overdue",
     "Day 30 check-in": "na",
     "Day 60 check-in": "na",
     "Day 90 check-in": "na"
@@ -813,22 +813,23 @@
   {
    "name": "Amber Cronshaw",
    "site": "22 Leamington Parade",
-   "tenure": 4,
+   "tenure": 10,
    "ok": false,
    "outstanding": [
     "Orientation",
     "H&S Quiz",
-    "Day 1 check-in"
+    "Day 1 check-in",
+    "Day 7 check-in"
    ],
    "steps": {
     "Right to Work": "done",
     "Contract signed": "na",
     "Induction": "done",
-    "Orientation": "due",
+    "Orientation": "overdue",
     "H&S Quiz": "due",
     "Allergens": "done",
     "Day 1 check-in": "overdue",
-    "Day 7 check-in": "na",
+    "Day 7 check-in": "overdue",
     "Day 30 check-in": "na",
     "Day 60 check-in": "na",
     "Day 90 check-in": "na"
