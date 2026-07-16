@@ -46,8 +46,8 @@
    "g_health": 3.01,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 19,
-   "r_avg": 4.68,
+   "r_n": 21,
+   "r_avg": 4.67,
    "r_rag": "green"
   },
   "Burton Latimer": {
@@ -111,7 +111,7 @@
    "r_rag": "na"
   },
   "Leamington Parade": {
-   "g_n": 18,
+   "g_n": 19,
    "g_avg": 5.0,
    "g_target": 15,
    "g_health": 5.0,
@@ -239,10 +239,10 @@
    "r_rag": "green"
   },
   "Wellingborough Train Station": {
-   "g_n": 1,
+   "g_n": 3,
    "g_avg": 5.0,
    "g_target": 10,
-   "g_health": 2.75,
+   "g_health": 3.25,
    "g_rag": "red",
    "g_stale": false,
    "r_n": 2,

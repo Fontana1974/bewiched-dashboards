@@ -9,10 +9,10 @@
   "2026-07-01",
   "2026-07-12"
  ],
- "_comments_label": "recent shift voice — last 2 weeks to 15 Jul 2026",
+ "_comments_label": "recent shift voice — last 2 weeks to 16 Jul 2026",
  "_comments_window": [
-  "2026-07-02",
-  "2026-07-15"
+  "2026-07-03",
+  "2026-07-16"
  ],
  "_lastweek_count": 60,
  "worst": [
@@ -264,8 +264,8 @@
     "avg": 4.54
    },
    "qtd": {
-    "n": 19,
-    "avg": 4.68
+    "n": 21,
+    "avg": 4.67
    }
   },
   "Glenvale Drive Thru": {
@@ -941,6 +941,22 @@
  },
  "comments": [
   {
+   "store": "Billing Drive Thru",
+   "date": "2026-07-16",
+   "rating": 5.0,
+   "text": "Being at work has distracted me from the awful loss suffered by the national team last night 💔💔 why did we take off all of our attackers 😞😞",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Billing Drive Thru",
+   "date": "2026-07-16",
+   "rating": 4.0,
+   "text": "We need to be added to the maintenance form please",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
    "store": "Lower Heathcote",
    "date": "2026-07-15",
    "rating": 5.0,
@@ -1115,22 +1131,6 @@
    "text": "Chocolate syrup is too thick!! You can’t pump it out",
    "smt": "KF - Thanked and assured respondent we will take up quality issue with Shott direct and look to resolve.",
    "sentiment": "Mixed"
-  },
-  {
-   "store": "HOE Balsall Common",
-   "date": "2026-07-12",
-   "rating": 5.0,
-   "text": "YAY SO FUN",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Billing Drive Thru",
-   "date": "2026-07-12",
-   "rating": 5.0,
-   "text": "Yes",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
   }
  ]
 }
