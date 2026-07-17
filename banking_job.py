@@ -67,8 +67,13 @@ def read_responses():
 
 def compile_week(rows, today=None):
     today = today or dt.date.today()
-    wk_mon = monday_of(today); wk_sun = wk_mon + dt.timedelta(days=6)
-    wk_fri = wk_mon + dt.timedelta(days=4)
+    # Report the most recently COMPLETED banking week: the last Friday that has passed
+    # (today included if today IS a Friday), plus that same week's Monday. When this runs
+    # on a Tuesday, that resolves to the PREVIOUS week's Mon+Fri — the finished pair the
+    # bookkeeper needs (this week's Friday hasn't happened yet).
+    wk_fri = today - dt.timedelta(days=(today.weekday() - 4) % 7)
+    wk_mon = wk_fri - dt.timedelta(days=4)
+    wk_sun = wk_mon + dt.timedelta(days=6)
     data = {s: {"mon": None, "fri": None, "_t": {"mon": None, "fri": None}} for s in EQUITY}
     for ts, store, day, amt in rows:
         store = str(store).strip()
