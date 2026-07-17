@@ -1,0 +1,23 @@
+name: Weekly Banking Email
+on:
+  workflow_dispatch:
+    inputs:
+      to:
+        description: "Recipient (matt@ for a test; Joanne once approved)"
+        required: false
+        default: "matt@bewiched.co.uk"
+  schedule:
+    - cron: '0 14 * * 5'
+jobs:
+  send-banking:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: pip install -r requirements.txt
+      - run: python banking_job.py --send
+        env:
+          GCP_SA_JSON: '${{ secrets.GCP_SA_JSON }}'
+          GMAIL_APP_PASSWORD: '${{ secrets.GMAIL_APP_PASSWORD }}'
+          BANKING_TO: "${{ github.event.inputs.to || 'matt@bewiched.co.uk' }}"
