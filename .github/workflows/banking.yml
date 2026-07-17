@@ -5,9 +5,9 @@ on:
       to:
         description: "Recipient (matt@ for a test; Joanne once approved)"
         required: false
-        default: "matt@bewiched.co.uk"
+        default: "Joanne@thebookkeepingdepartment.co.uk, claire@bewiched.co.uk"
   schedule:
-    - cron: '0 14 * * 5'
+    - cron: '0 14 * * 2'
 jobs:
   send-banking:
     runs-on: ubuntu-latest
@@ -20,4 +20,4 @@ jobs:
         env:
           GCP_SA_JSON: '${{ secrets.GCP_SA_JSON }}'
           GMAIL_APP_PASSWORD: '${{ secrets.GMAIL_APP_PASSWORD }}'
-          BANKING_TO: "${{ github.event.inputs.to || 'matt@bewiched.co.uk' }}"
+          BANKING_TO: "${{ github.event.inputs.to || 'Joanne@thebookkeepingdepartment.co.uk, claire@bewiched.co.uk' }}"
