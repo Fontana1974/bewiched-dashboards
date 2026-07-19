@@ -14,13 +14,13 @@
      "metrics": [
       {
        "label": "Sales YoY (4-wk)",
-       "value": "+40.1%",
+       "value": "+40.9%",
        "star": 5.0,
        "on_target": true
       },
       {
        "label": "ATV vs £6.80",
-       "value": "£7.96",
+       "value": "£7.94",
        "star": 5.0,
        "on_target": true
       }
@@ -48,14 +48,14 @@
     },
     {
      "name": "Operations",
-     "star": 4.4,
+     "star": 4.2,
      "target": 4.6,
      "on_target": false,
      "metrics": [
       {
        "label": "F1 drivers' championship",
-       "value": "P6 of 21",
-       "star": 3.5,
+       "value": "P9 of 21",
+       "star": 2.8,
        "on_target": false
       },
       {
@@ -66,8 +66,8 @@
       },
       {
        "label": "Wastage %",
-       "value": "1.9%",
-       "star": 4.8,
+       "value": "1.5%",
+       "star": 4.9,
        "on_target": true
       }
      ]
@@ -80,7 +80,7 @@
      "metrics": [
       {
        "label": "RMS health /5",
-       "value": "3.47",
+       "value": "3.44",
        "star": 4.6,
        "on_target": true
       },
@@ -118,10 +118,10 @@
     "rtw_detail": "RTW% from HRP sickness/RTW (Glenvale, QTD)"
    },
    "_cph_target": 63,
-   "_f1_pos": 6
+   "_f1_pos": 9
   },
   "Leamington Parade": {
-   "composite": 3.9,
+   "composite": 4.0,
    "target": 4.6,
    "on_target": false,
    "pillars": [
@@ -133,7 +133,7 @@
      "metrics": [
       {
        "label": "Sales YoY (4-wk)",
-       "value": "+22.3%",
+       "value": "+24.3%",
        "star": 5.0,
        "on_target": true
       },
@@ -167,15 +167,15 @@
     },
     {
      "name": "Operations",
-     "star": 4.5,
+     "star": 4.8,
      "target": 4.6,
-     "on_target": false,
+     "on_target": true,
      "metrics": [
       {
        "label": "F1 drivers' championship",
-       "value": "P3 of 21",
-       "star": 4.1,
-       "on_target": false
+       "value": "P1 of 21 · #1 = at target",
+       "star": 4.6,
+       "on_target": true
       },
       {
        "label": "Brand audit /5",
@@ -185,8 +185,8 @@
       },
       {
        "label": "Wastage %",
-       "value": "2.2%",
-       "star": 4.8,
+       "value": "1.6%",
+       "star": 4.9,
        "on_target": true
       }
      ]
@@ -199,7 +199,7 @@
      "metrics": [
       {
        "label": "RMS health /5",
-       "value": "4.81",
+       "value": "4.85",
        "star": 5.0,
        "on_target": true
       },
@@ -226,7 +226,7 @@
    ],
    "ops": null,
    "_cph_target": 58,
-   "_f1_pos": 3
+   "_f1_pos": 1
   }
  },
  "_method": "Grow composite, pillars aligned to the four tabs (Sales · Commercial · Operations · People & Customer). Each metric scored 0-5 between floor=0 / target=4.6 / stretch=5 (clamped). TARGET maps to 4.6★ (the headline line) so meeting a metric's target reads ON the 4.6 line; a #1 drivers'-championship position = AT TARGET on F1. Pillar = mean of scored metrics; composite = mean of four pillars. Sales = Sales YoY(-8/8/20) + ATV vs £6.80(5.5/6.8/8.0). Commercial = Profit-after-tax %(0/18/24) + CPH vs the store's own target from the Store-Targets sheet(target*0.85/target/target*1.08). Operations = F1 drivers' championship position (P1=at target, linear to 0 at last) + brand audit /5(4.0/4.5/5.0) + wastage %(5/3/1, lower better). People & Customer = RMS health(1.66/3.32/5.0) + RTW%(0/80/100) + Google health. GROW TARGET = 4.6★ (below = OFF TARGET).",

@@ -1,48 +1,48 @@
 {
- "_window": "last 4 weeks (15 Jun – 12 Jul 2026)",
+ "_window": "last 4 weeks (22 Jun – 19 Jul 2026)",
  "_dayparts": "Morning 5–11am · Lunch 11am–2pm · Afternoon 2–5pm · Evening 5pm+",
  "categories": {
   "Hot drinks": {
    "peak": "Morning",
    "share": 46,
-   "gap": 10,
+   "gap": 11,
    "soft": false,
-   "total": 257753
+   "total": 259017
   },
   "Cold drinks": {
    "peak": "Lunch",
    "share": 38,
    "gap": 9,
    "soft": false,
-   "total": 243251
+   "total": 246843
   },
   "Milkshakes": {
    "peak": "Afternoon",
    "share": 39,
    "gap": 4,
    "soft": false,
-   "total": 114631
+   "total": 113330
   },
   "Food": {
    "peak": "Lunch",
    "share": 48,
    "gap": 13,
    "soft": false,
-   "total": 80696
+   "total": 82393
   },
   "Bakery": {
    "peak": "Lunch",
    "share": 38,
-   "gap": 3,
-   "soft": true,
-   "total": 66110
+   "gap": 4,
+   "soft": false,
+   "total": 66573
   },
   "Other & retail": {
    "peak": "Lunch",
-   "share": 37,
-   "gap": 9,
+   "share": 36,
+   "gap": 7,
    "soft": false,
-   "total": 45670
+   "total": 46900
   }
  },
  "bakery": [
@@ -51,35 +51,26 @@
    "peak": "Lunch",
    "share": 52,
    "hour": "11am",
-   "units": 2963,
-   "sales": 8290,
+   "units": 3081,
+   "sales": 8627,
    "sparse": false
   },
   {
    "name": "Luxury Millionaires Triangle Traybake",
    "peak": "Lunch",
-   "share": 42,
-   "hour": "11am",
+   "share": 43,
+   "hour": "12pm",
    "units": 2710,
-   "sales": 8096,
+   "sales": 8097,
    "sparse": false
   },
   {
    "name": "Cherry Bakewell Slice Traybake",
    "peak": "Lunch",
-   "share": 42,
-   "hour": "12pm",
-   "units": 2158,
-   "sales": 6964,
-   "sparse": false
-  },
-  {
-   "name": "Fudge Topped Brownie",
-   "peak": "Lunch",
    "share": 40,
    "hour": "12pm",
-   "units": 1302,
-   "sales": 3650,
+   "units": 2215,
+   "sales": 7138,
    "sparse": false
   },
   {
@@ -87,17 +78,35 @@
    "peak": "Morning",
    "share": 53,
    "hour": "9am",
-   "units": 1209,
-   "sales": 3069,
+   "units": 1300,
+   "sales": 3324,
+   "sparse": false
+  },
+  {
+   "name": "Fudge Topped Brownie",
+   "peak": "Lunch",
+   "share": 40,
+   "hour": "12pm",
+   "units": 1274,
+   "sales": 3583,
    "sparse": false
   },
   {
    "name": "Lemon Muffin",
    "peak": "Lunch",
-   "share": 41,
+   "share": 42,
    "hour": "12pm",
-   "units": 984,
-   "sales": 2843,
+   "units": 1037,
+   "sales": 3007,
+   "sparse": false
+  },
+  {
+   "name": "Blueberry Muffin",
+   "peak": "Lunch",
+   "share": 41,
+   "hour": "11am",
+   "units": 974,
+   "sales": 2832,
    "sparse": false
   },
   {
@@ -105,8 +114,17 @@
    "peak": "Lunch",
    "share": 43,
    "hour": "12pm",
-   "units": 943,
-   "sales": 4262,
+   "units": 959,
+   "sales": 4378,
+   "sparse": false
+  },
+  {
+   "name": "All Butter Flapjack",
+   "peak": "Lunch",
+   "share": 37,
+   "hour": "10am",
+   "units": 934,
+   "sales": 2628,
    "sparse": false
   },
   {
@@ -114,71 +132,53 @@
    "peak": "Lunch",
    "share": 40,
    "hour": "12pm",
-   "units": 941,
-   "sales": 2839,
-   "sparse": false
-  },
-  {
-   "name": "All Butter Flapjack",
-   "peak": "Lunch",
-   "share": 38,
-   "hour": "10am",
-   "units": 937,
-   "sales": 2629,
-   "sparse": false
-  },
-  {
-   "name": "Blueberry Muffin",
-   "peak": "Lunch",
-   "share": 43,
-   "hour": "11am",
-   "units": 934,
-   "sales": 2703,
+   "units": 931,
+   "sales": 2806,
    "sparse": false
   },
   {
    "name": "Rocky Road Traybake",
    "peak": "Lunch",
-   "share": 40,
-   "hour": "3pm",
-   "units": 906,
-   "sales": 2404,
-   "sparse": false
-  },
-  {
-   "name": "Vegan Raspberry Croissant Pastry",
-   "peak": "Morning",
-   "share": 57,
-   "hour": "10am",
-   "units": 878,
-   "sales": 2207,
+   "share": 44,
+   "hour": "12pm",
+   "units": 819,
+   "sales": 2177,
    "sparse": false
   },
   {
    "name": "Marbled Crunch Slice",
    "peak": "Lunch",
-   "share": 42,
+   "share": 41,
    "hour": "12pm",
-   "units": 803,
-   "sales": 2410,
+   "units": 805,
+   "sales": 2423,
    "sparse": false
   },
   {
    "name": "Croissant Pastry",
    "peak": "Morning",
-   "share": 59,
+   "share": 62,
    "hour": "9am",
-   "units": 709,
-   "sales": 1482,
+   "units": 790,
+   "sales": 1653,
    "sparse": false
   },
   {
    "name": "Chocolate Muffin",
    "peak": "Lunch",
-   "share": 38,
+   "share": 41,
    "hour": "12pm",
-   "units": 663,
-   "sales": 1926,
+   "units": 689,
+   "sales": 2003,
+   "sparse": false
+  },
+  {
+   "name": "Vegan Raspberry Croissant Pastry",
+   "peak": "Morning",
+   "share": 60,
+   "hour": "9am",
+   "units": 674,
+   "sales": 1704,
    "sparse": false
   },
   {
@@ -186,107 +186,107 @@
    "peak": "Morning",
    "share": 99,
    "hour": "8am",
-   "units": 616,
-   "sales": 3875,
+   "units": 596,
+   "sales": 3749,
    "sparse": false
   },
   {
    "name": "Gluten Free Carrot Cake",
    "peak": "Lunch",
-   "share": 37,
-   "hour": "1pm",
-   "units": 278,
-   "sales": 971,
+   "share": 38,
+   "hour": "10am",
+   "units": 276,
+   "sales": 947,
    "sparse": false
   },
   {
    "name": "GF Vegan Bakewell",
    "peak": "Lunch",
-   "share": 38,
+   "share": 41,
    "hour": "10am",
-   "units": 255,
-   "sales": 670,
+   "units": 270,
+   "sales": 713,
    "sparse": false
   },
   {
    "name": "Victoria Sponge Cake",
    "peak": "Afternoon",
-   "share": 41,
-   "hour": "2pm",
-   "units": 212,
-   "sales": 726,
+   "share": 40,
+   "hour": "3pm",
+   "units": 194,
+   "sales": 673,
    "sparse": false
   },
   {
    "name": "Granola Traybake",
    "peak": "Morning",
-   "share": 43,
+   "share": 42,
    "hour": "11am",
-   "units": 183,
-   "sales": 546,
+   "units": 179,
+   "sales": 535,
+   "sparse": false
+  },
+  {
+   "name": "GF Double Brownie",
+   "peak": "Lunch",
+   "share": 43,
+   "hour": "12pm",
+   "units": 177,
+   "sales": 464,
+   "sparse": false
+  },
+  {
+   "name": "Toffee Millionaires Cake",
+   "peak": "Afternoon",
+   "share": 41,
+   "hour": "1pm",
+   "units": 172,
+   "sales": 602,
    "sparse": false
   },
   {
    "name": "Almond Croissant",
    "peak": "Morning",
    "share": 49,
-   "hour": "11am",
-   "units": 173,
-   "sales": 435,
-   "sparse": false
-  },
-  {
-   "name": "Toffee Millionaires Cake",
-   "peak": "Lunch",
-   "share": 39,
-   "hour": "1pm",
-   "units": 163,
-   "sales": 570,
+   "hour": "10am",
+   "units": 172,
+   "sales": 425,
    "sparse": false
   },
   {
    "name": "Sausage Roll Meal Deal",
    "peak": "Morning",
-   "share": 97,
+   "share": 98,
    "hour": "10am",
-   "units": 162,
-   "sales": 970,
-   "sparse": false
-  },
-  {
-   "name": "GF Double Brownie",
-   "peak": "Lunch",
-   "share": 40,
-   "hour": "10am",
-   "units": 159,
-   "sales": 413,
+   "units": 160,
+   "sales": 958,
    "sparse": false
   },
   {
    "name": "Sausage Roll Meal Deal Large",
    "peak": "Morning",
-   "share": 97,
-   "hour": "10am",
-   "units": 91,
-   "sales": 572,
+   "share": 98,
+   "hour": "9am",
+   "units": 86,
+   "sales": 541,
    "sparse": false
   },
   {
    "name": "Tea Time Coffee Cake",
-   "peak": "Afternoon",
-   "share": 44,
+   "peak": "Lunch",
+   "share": 45,
    "hour": "3pm",
-   "units": 78,
-   "sales": 279,
+   "units": 82,
+   "sales": 293,
    "sparse": false
   },
   {
    "name": "Sausage and Egg Muffin",
    "peak": "Morning",
-   "share": 64,
+   "share": 61,
    "hour": "8am",
-   "units": 59,
-   "sales": 230,
+   "units": 62,
+   "sales": 249,
    "sparse": false
   }
  ]
