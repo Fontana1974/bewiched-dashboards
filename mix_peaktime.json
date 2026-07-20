@@ -104,7 +104,7 @@
    "name": "Blueberry Muffin",
    "peak": "Lunch",
    "share": 41,
-   "hour": "11am",
+   "hour": "12pm",
    "units": 974,
    "sales": 2832,
    "sparse": false
@@ -236,21 +236,21 @@
    "sparse": false
   },
   {
-   "name": "Toffee Millionaires Cake",
-   "peak": "Afternoon",
-   "share": 41,
-   "hour": "1pm",
-   "units": 172,
-   "sales": 602,
-   "sparse": false
-  },
-  {
    "name": "Almond Croissant",
    "peak": "Morning",
    "share": 49,
    "hour": "10am",
    "units": 172,
    "sales": 425,
+   "sparse": false
+  },
+  {
+   "name": "Toffee Millionaires Cake",
+   "peak": "Afternoon",
+   "share": 41,
+   "hour": "1pm",
+   "units": 172,
+   "sales": 602,
    "sparse": false
   },
   {
