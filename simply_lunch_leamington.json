@@ -75,25 +75,6 @@
    "sparse": true
   },
   {
-   "item": "Chicken Caprese Sandwich",
-   "category": "Sandwiches",
-   "daily": {
-    "1": 1.38,
-    "2": 1.75,
-    "3": 1.12,
-    "4": 0.5,
-    "5": 1.5,
-    "6": 0.88,
-    "7": 2.25
-   },
-   "weekly_mean": 9.4,
-   "tue": 2,
-   "thu": 3,
-   "sat": 7,
-   "weekly_order": 12,
-   "sparse": true
-  },
-  {
    "item": "Egg & Spinach Sandwich",
    "category": "Sandwiches",
    "daily": {
@@ -109,6 +90,25 @@
    "tue": 3,
    "thu": 3,
    "sat": 6,
+   "weekly_order": 12,
+   "sparse": true
+  },
+  {
+   "item": "Chicken Caprese Sandwich",
+   "category": "Sandwiches",
+   "daily": {
+    "1": 1.38,
+    "2": 1.75,
+    "3": 1.12,
+    "4": 0.5,
+    "5": 1.5,
+    "6": 0.88,
+    "7": 2.25
+   },
+   "weekly_mean": 9.4,
+   "tue": 2,
+   "thu": 3,
+   "sat": 7,
    "weekly_order": 12,
    "sparse": true
   },

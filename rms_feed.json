@@ -222,7 +222,7 @@
     "avg": 3.0
    },
    "qtd": {
-    "n": 2,
+    "n": 3,
     "avg": 3.0
    }
   },
@@ -292,8 +292,8 @@
     "avg": 5.0
    },
    "qtd": {
-    "n": 6,
-    "avg": 3.5
+    "n": 7,
+    "avg": 3.57
    }
   },
   "Market Harborough": {
@@ -861,6 +861,22 @@
  },
  "comments": [
   {
+   "store": "Lower Heathcote",
+   "date": "2026-07-20",
+   "rating": 4.0,
+   "text": "Wish it was busier, but was lovely to work with Gracie as always!",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Rothwell",
+   "date": "2026-07-20",
+   "rating": 3.0,
+   "text": "Great team work as always",
+   "smt": null,
+   "sentiment": "Mixed"
+  },
+  {
    "store": "HOE Balsall Common",
    "date": "2026-07-19",
    "rating": 5.0,
@@ -1035,22 +1051,6 @@
    "text": "Busy understaffed teamwork",
    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
    "sentiment": "Mixed"
-  },
-  {
-   "store": "Billing Drive Thru",
-   "date": "2026-07-16",
-   "rating": 5.0,
-   "text": "Being at work has distracted me from the awful loss suffered by the national team last night 💔💔 why did we take off all of our attackers 😞😞",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Rugby",
-   "date": "2026-07-16",
-   "rating": 5.0,
-   "text": "We’re very low on teaspoons, are we able to get some more please thank you!",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions. Assured store we will take teaspoons in asap.",
-   "sentiment": "Positive"
   }
  ]
 }

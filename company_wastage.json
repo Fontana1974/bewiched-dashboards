@@ -13,51 +13,57 @@
  "rows": [
   [
    "3 Cheese & Onion Croque",
-   374.0,
-   2053.26,
+   393.0,
+   2157.57,
    1563
   ],
   [
    "3 Ham & Cheese Croque",
-   272.0,
-   1493.28,
+   282.0,
+   1548.18,
    2635
   ],
   [
    "3 Mozzarella & Tomato Ciabatta",
-   224.0,
-   1229.76,
+   237.0,
+   1301.13,
    890
   ],
   [
    "3 Bacon Bap",
-   242.0,
-   1028.5,
+   250.0,
+   1062.5,
    977
   ],
   [
    "3 Chicken & Chorizo Ciabatta",
-   164.0,
-   900.36,
+   177.0,
+   971.73,
    1073
   ],
   [
    "Sausage Roll Pastry",
-   273.0,
-   898.2,
+   289.0,
+   951.0,
    1596
   ],
   [
    "3 Tuna Ciabatta",
-   149.0,
-   818.01,
+   160.0,
+   878.4,
    1280
   ],
   [
    "3 Sausage Bap",
-   188.0,
-   799.0,
+   202.0,
+   858.5,
    1172
+  ],
+  [
+   "Chocolate Twist Traybake",
+   253.0,
+   670.45,
+   1300
   ],
   [
    "3 Caesar Wrap",
@@ -66,10 +72,16 @@
    1025
   ],
   [
-   "Chocolate Twist Traybake",
-   243.0,
-   643.95,
-   1300
+   "Croissant Pastry",
+   273.0,
+   586.95,
+   790
+  ],
+  [
+   "3 Egg & Spinach Sandwich",
+   132.0,
+   578.68,
+   908
   ],
   [
    "3 Chicken Caprese Sandwich",
@@ -78,34 +90,22 @@
    534
   ],
   [
-   "Croissant Pastry",
-   263.0,
-   565.45,
-   790
-  ],
-  [
-   "3 Egg & Spinach Sandwich",
-   128.0,
-   560.72,
-   908
-  ],
-  [
    "Rocky Road Traybake",
-   177.0,
-   504.45,
+   188.0,
+   535.8,
    819
   ],
   [
-   "3 Breakfast Bagel",
+   "3 Ham & Mozzarella Croissant",
+   101.0,
+   494.68,
+   959
+  ],
+  [
+   "3* Breakfast Bagel",
    89.0,
    485.05,
    907
-  ],
-  [
-   "3 Ham & Mozzarella Croissant",
-   88.0,
-   430.79,
-   959
   ],
   [
    "3 Falafel Wrap",
@@ -115,8 +115,8 @@
   ],
   [
    "Luxury Millionaires Triangle Traybake",
-   107.0,
-   326.35,
+   108.0,
+   329.4,
    2710
   ],
   [
@@ -133,14 +133,14 @@
   ],
   [
    "Vegan Raspberry Croissant Pastry",
-   96.0,
-   254.4,
+   98.0,
+   259.7,
    674
   ],
   [
    "3 Extra Shot",
-   261.0,
-   247.95,
+   265.0,
+   251.75,
    1211
   ],
   [
@@ -169,14 +169,14 @@
   ],
   [
    "Marbled Crunch Slice",
-   58.0,
-   176.9,
+   59.0,
+   179.95,
    805
   ],
   [
    "Chocolate Muffin",
-   57.0,
-   168.15,
+   58.0,
+   171.1,
    689
   ],
   [
@@ -199,8 +199,8 @@
   ],
   [
    "Lemon Muffin",
-   41.0,
-   120.95,
+   42.0,
+   123.9,
    1037
   ],
   [
@@ -210,21 +210,21 @@
    276
   ],
   [
+   "Double Espresso",
+   36.0,
+   113.4,
+   794
+  ],
+  [
    "Regular Latte",
    27.0,
    110.7,
    8241
   ],
   [
-   "Double Espresso",
-   34.0,
-   107.1,
-   794
-  ],
-  [
    "Almond Croissant",
-   39.0,
-   103.35,
+   40.0,
+   106.0,
    172
   ],
   [

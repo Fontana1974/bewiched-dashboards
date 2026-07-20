@@ -11,7 +11,7 @@
   "DI"
  ],
  "split": "Drive Thru vs Dine In",
- "store_daily_sales": 2729,
+ "store_daily_sales": 2730,
  "channels": {
   "DT": {
    "label": "Drive Thru",
@@ -87,9 +87,9 @@
    "chlabel": "Drive Thru",
    "chcol": "#457b9d",
    "txns_day": 34.6,
-   "atv": 8.23,
+   "atv": 8.24,
    "atv_col": "#1c6b3d",
-   "vs_target": 1.43,
+   "vs_target": 1.44,
    "vs_col": "#1c6b3d",
    "daily_sales": 285,
    "food_attach": 21.4,
@@ -106,9 +106,9 @@
    "chlabel": "Dine In",
    "chcol": "#2a9d8f",
    "txns_day": 63.6,
-   "atv": 8.76,
+   "atv": 8.77,
    "atv_col": "#1c6b3d",
-   "vs_target": 1.96,
+   "vs_target": 1.97,
    "vs_col": "#1c6b3d",
    "daily_sales": 558,
    "food_attach": 38.0,
