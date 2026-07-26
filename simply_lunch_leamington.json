@@ -1,6 +1,6 @@
 {
  "store": "Leamington Parade",
- "cur_end": "2026-07-19",
+ "cur_end": "2026-07-26",
  "window_weeks": 8,
  "buffer_pct": 15,
  "sparse_threshold_weekly": 10,
@@ -18,56 +18,56 @@
  "shelf_life_days": 3,
  "items": [
   {
-   "item": "Sausage Bap",
-   "category": "Breakfast baps & bagel",
-   "daily": {
-    "1": 2.38,
-    "2": 2.25,
-    "3": 2.5,
-    "4": 1.5,
-    "5": 1.88,
-    "6": 1.5,
-    "7": 4.5
-   },
-   "weekly_mean": 16.5,
-   "tue": 5,
-   "thu": 4,
-   "sat": 11,
-   "weekly_order": 20,
-   "sparse": false
-  },
-  {
    "item": "Bacon Bap",
    "category": "Breakfast baps & bagel",
    "daily": {
-    "1": 2.62,
-    "2": 2.0,
-    "3": 1.62,
-    "4": 1.62,
-    "5": 2.38,
-    "6": 1.75,
-    "7": 4.12
+    "1": 2.12,
+    "2": 2.25,
+    "3": 2.25,
+    "4": 1.5,
+    "5": 2.25,
+    "6": 1.88,
+    "7": 4.75
    },
-   "weekly_mean": 16.1,
-   "tue": 4,
+   "weekly_mean": 17.0,
+   "tue": 5,
    "thu": 5,
    "sat": 11,
-   "weekly_order": 20,
+   "weekly_order": 21,
+   "sparse": false
+  },
+  {
+   "item": "Sausage Bap",
+   "category": "Breakfast baps & bagel",
+   "daily": {
+    "1": 2.75,
+    "2": 2.12,
+    "3": 2.25,
+    "4": 1.38,
+    "5": 2.0,
+    "6": 1.75,
+    "7": 4.5
+   },
+   "weekly_mean": 16.8,
+   "tue": 5,
+   "thu": 5,
+   "sat": 11,
+   "weekly_order": 21,
    "sparse": false
   },
   {
    "item": "Breakfast Bagel",
    "category": "Breakfast baps & bagel",
    "daily": {
-    "1": 0.75,
-    "2": 1.88,
-    "3": 0.5,
+    "1": 0.62,
+    "2": 1.62,
+    "3": 0.38,
     "4": 1.0,
     "5": 0.62,
     "6": 1.0,
-    "7": 1.38
+    "7": 1.25
    },
-   "weekly_mean": 7.1,
+   "weekly_mean": 6.5,
    "tue": 2,
    "thu": 2,
    "sat": 5,
@@ -75,94 +75,94 @@
    "sparse": true
   },
   {
+   "item": "Egg & Spinach Sandwich",
+   "category": "Sandwiches",
+   "daily": {
+    "1": 1.62,
+    "2": 2.12,
+    "3": 1.12,
+    "4": 0.88,
+    "5": 1.5,
+    "6": 0.75,
+    "7": 1.88
+   },
+   "weekly_mean": 9.9,
+   "tue": 3,
+   "thu": 3,
+   "sat": 7,
+   "weekly_order": 13,
+   "sparse": true
+  },
+  {
    "item": "Chicken Caprese Sandwich",
    "category": "Sandwiches",
    "daily": {
     "1": 1.38,
-    "2": 1.75,
+    "2": 2.12,
     "3": 1.12,
-    "4": 0.5,
-    "5": 1.5,
+    "4": 0.62,
+    "5": 1.38,
     "6": 0.88,
     "7": 2.25
    },
-   "weekly_mean": 9.4,
-   "tue": 2,
-   "thu": 3,
-   "sat": 7,
-   "weekly_order": 12,
-   "sparse": true
-  },
-  {
-   "item": "Egg & Spinach Sandwich",
-   "category": "Sandwiches",
-   "daily": {
-    "1": 1.5,
-    "2": 1.75,
-    "3": 1.12,
-    "4": 0.62,
-    "5": 1.5,
-    "6": 1.0,
-    "7": 1.88
-   },
-   "weekly_mean": 9.4,
+   "weekly_mean": 9.8,
    "tue": 3,
    "thu": 3,
-   "sat": 6,
-   "weekly_order": 12,
+   "sat": 7,
+   "weekly_order": 13,
    "sparse": true
   },
   {
    "item": "Tuna Ciabatta",
    "category": "Ciabattas",
    "daily": {
-    "1": 1.88,
-    "2": 2.0,
-    "3": 2.25,
-    "4": 3.0,
-    "5": 1.38,
-    "6": 1.25,
-    "7": 2.75
+    "1": 2.0,
+    "2": 1.88,
+    "3": 1.62,
+    "4": 2.75,
+    "5": 1.75,
+    "6": 1.38,
+    "7": 2.38
    },
-   "weekly_mean": 14.5,
-   "tue": 7,
+   "weekly_mean": 13.8,
+   "tue": 6,
    "thu": 4,
    "sat": 8,
-   "weekly_order": 19,
+   "weekly_order": 18,
    "sparse": false
   },
   {
    "item": "Mozzarella & Tomato Ciabatta",
    "category": "Ciabattas",
    "daily": {
-    "1": 1.5,
-    "2": 1.38,
-    "3": 2.0,
-    "4": 0.88,
-    "5": 1.0,
-    "6": 1.5,
-    "7": 2.62
+    "1": 1.62,
+    "2": 1.0,
+    "3": 2.25,
+    "4": 1.0,
+    "5": 1.25,
+    "6": 1.62,
+    "7": 2.75
    },
-   "weekly_mean": 10.9,
+   "weekly_mean": 11.5,
    "tue": 4,
-   "thu": 3,
+   "thu": 4,
    "sat": 7,
-   "weekly_order": 14,
+   "weekly_order": 15,
    "sparse": false
   },
   {
    "item": "Chicken & Chorizo Ciabatta",
    "category": "Ciabattas",
    "daily": {
-    "1": 1.62,
+    "1": 1.38,
     "2": 1.38,
-    "3": 1.38,
+    "3": 1.12,
     "4": 1.12,
-    "5": 1.38,
+    "5": 2.0,
     "6": 1.38,
-    "7": 2.5
+    "7": 2.62
    },
-   "weekly_mean": 10.8,
+   "weekly_mean": 11.0,
    "tue": 3,
    "thu": 4,
    "sat": 7,
@@ -174,17 +174,17 @@
    "category": "Wraps",
    "daily": {
     "1": 1.38,
-    "2": 0.88,
-    "3": 0.5,
-    "4": 1.25,
-    "5": 1.25,
+    "2": 1.12,
+    "3": 0.62,
+    "4": 1.12,
+    "5": 1.38,
     "6": 1.25,
-    "7": 3.0
+    "7": 2.38
    },
-   "weekly_mean": 9.5,
+   "weekly_mean": 9.2,
    "tue": 3,
-   "thu": 3,
-   "sat": 7,
+   "thu": 4,
+   "sat": 6,
    "weekly_order": 13,
    "sparse": true
   },
@@ -194,13 +194,13 @@
    "daily": {
     "1": 0.62,
     "2": 0.5,
-    "3": 0.62,
+    "3": 0.5,
     "4": 0.75,
-    "5": 0.62,
+    "5": 0.75,
     "6": 1.12,
-    "7": 1.25
+    "7": 1.12
    },
-   "weekly_mean": 5.5,
+   "weekly_mean": 5.4,
    "tue": 2,
    "thu": 3,
    "sat": 3,
@@ -211,18 +211,18 @@
    "item": "Greek Style Chicken Salad",
    "category": "Salads",
    "daily": {
-    "1": 0.25,
-    "2": 1.25,
+    "1": 0.38,
+    "2": 1.5,
     "3": 0.25,
-    "4": 0.62,
-    "5": 1.0,
+    "4": 0.5,
+    "5": 1.12,
     "6": 0.5,
-    "7": 1.75
+    "7": 1.62
    },
-   "weekly_mean": 5.6,
-   "tue": 2,
+   "weekly_mean": 5.9,
+   "tue": 1,
    "thu": 2,
-   "sat": 4,
+   "sat": 5,
    "weekly_order": 8,
    "sparse": true
   },
@@ -231,14 +231,14 @@
    "category": "Salads",
    "daily": {
     "1": 0.0,
-    "2": 0.25,
-    "3": 0.12,
+    "2": 0.12,
+    "3": 0.0,
     "4": 0.25,
     "5": 0.0,
     "6": 0.25,
     "7": 0.25
    },
-   "weekly_mean": 1.1,
+   "weekly_mean": 0.9,
    "tue": 1,
    "thu": 1,
    "sat": 1,
@@ -249,19 +249,38 @@
    "item": "GF Vegan Wrapped Caramel Shortbread",
    "category": "Other",
    "daily": {
-    "1": 0.5,
+    "1": 0.38,
     "2": 0.0,
-    "3": 0.5,
-    "4": 0.62,
-    "5": 0.38,
+    "3": 0.25,
+    "4": 0.75,
+    "5": 0.25,
     "6": 0.12,
     "7": 0.5
    },
-   "weekly_mean": 2.6,
+   "weekly_mean": 2.2,
    "tue": 2,
    "thu": 1,
    "sat": 2,
    "weekly_order": 5,
+   "sparse": true
+  },
+  {
+   "item": "Veggie New Yorker Bagel",
+   "category": "Other",
+   "daily": {
+    "1": 0.0,
+    "2": 0.0,
+    "3": 0.0,
+    "4": 0.0,
+    "5": 0.0,
+    "6": 0.12,
+    "7": 0.0
+   },
+   "weekly_mean": 0.1,
+   "tue": 0,
+   "thu": 1,
+   "sat": 0,
+   "weekly_order": 1,
    "sparse": true
   }
  ]

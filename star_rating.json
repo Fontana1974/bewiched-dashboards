@@ -14,13 +14,13 @@
      "metrics": [
       {
        "label": "Sales YoY (4-wk)",
-       "value": "+40.9%",
+       "value": "+32.9%",
        "star": 5.0,
        "on_target": true
       },
       {
        "label": "ATV vs £6.80",
-       "value": "£7.94",
+       "value": "£7.85",
        "star": 5.0,
        "on_target": true
       }
@@ -54,8 +54,8 @@
      "metrics": [
       {
        "label": "F1 drivers' championship",
-       "value": "P9 of 21",
-       "star": 2.8,
+       "value": "P8 of 21",
+       "star": 3.0,
        "on_target": false
       },
       {
@@ -66,7 +66,7 @@
       },
       {
        "label": "Wastage %",
-       "value": "1.5%",
+       "value": "1.4%",
        "star": 4.9,
        "on_target": true
       }
@@ -74,7 +74,7 @@
     },
     {
      "name": "People & Customer",
-     "star": 3.8,
+     "star": 3.9,
      "target": 4.6,
      "on_target": false,
      "metrics": [
@@ -86,19 +86,19 @@
       },
       {
        "label": "RTW completion",
-       "value": "62%",
-       "star": 3.6,
+       "value": "59%",
+       "star": 3.4,
        "on_target": false
       },
       {
        "label": "Google health",
-       "value": "2.86 (QTD)",
-       "star": 3.3,
+       "value": "2.96 (QTD)",
+       "star": 3.6,
        "on_target": false
       },
       {
        "label": "Lateness (shown, not scored)",
-       "value": "7 late",
+       "value": "9 late",
        "star": null,
        "on_target": false
       }
@@ -114,11 +114,11 @@
     "coaching_barista_pct": 80.6,
     "openclose_pct": 100,
     "openclose_detail": "57 open & 56 close vs 56 trading days (20 Apr–14 Jun), Process Street feed",
-    "rtw_pct": 62.0,
+    "rtw_pct": 59.0,
     "rtw_detail": "RTW% from HRP sickness/RTW (Glenvale, QTD)"
    },
    "_cph_target": 63,
-   "_f1_pos": 9
+   "_f1_pos": 8
   },
   "Leamington Parade": {
    "composite": 4.0,
@@ -133,13 +133,13 @@
      "metrics": [
       {
        "label": "Sales YoY (4-wk)",
-       "value": "+24.3%",
+       "value": "+22.4%",
        "star": 5.0,
        "on_target": true
       },
       {
        "label": "ATV vs £6.80",
-       "value": "£7.29",
+       "value": "£7.55",
        "star": 4.8,
        "on_target": true
       }
@@ -167,7 +167,7 @@
     },
     {
      "name": "Operations",
-     "star": 4.7,
+     "star": 4.8,
      "target": 4.6,
      "on_target": true,
      "metrics": [
@@ -179,13 +179,13 @@
       },
       {
        "label": "Brand audit /5",
-       "value": "4.73",
-       "star": 4.8,
+       "value": "4.92",
+       "star": 4.9,
        "on_target": true
       },
       {
        "label": "Wastage %",
-       "value": "1.7%",
+       "value": "1.6%",
        "star": 4.9,
        "on_target": true
       }
@@ -199,8 +199,8 @@
      "metrics": [
       {
        "label": "RMS health /5",
-       "value": "4.85",
-       "star": 5.0,
+       "value": "4.76",
+       "star": 4.9,
        "on_target": true
       },
       {

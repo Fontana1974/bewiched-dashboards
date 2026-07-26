@@ -1,3 +1,27 @@
 {
- "_pulled": "2026-07-19"
+ "Leamington Parade": {
+  "qtd": 4.92,
+  "n": 2,
+  "window": "Jul–Jul 2026 · 2 audits",
+  "pillars": {
+   "Store Culture": 5.0,
+   "Shift Management": 5.0,
+   "Cleanliness": 4.7,
+   "Product": 5.0,
+   "Maintenance": 5.0
+  },
+  "weakest": [
+   {
+    "name": "Cleanliness",
+    "avg": 4.7
+   },
+   {
+    "name": "Store Culture",
+    "avg": 5.0
+   }
+  ],
+  "themes": [],
+  "themes_status": "pending"
+ },
+ "_pulled": "2026-07-26"
 }

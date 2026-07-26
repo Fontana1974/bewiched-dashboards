@@ -1,8 +1,8 @@
 {
- "_pulled": "2026-07-19",
+ "_pulled": "2026-07-26",
  "_sheet": "10JL4idTOmcCXnDTLsqHJjrHFnTMiIf7HR5uzVPwrjbM / Brand Audit Date (NEW24/25)",
- "_lastwk_avg": 4.75,
- "_lastwk_n": 5,
+ "_lastwk_avg": 4.73,
+ "_lastwk_n": 7,
  "_cols": [
   "Store",
   "Date",
@@ -14,5 +14,32 @@
   "Total",
   "ActionPlan"
  ],
- "rows": {}
+ "rows": {
+  "Leamington Parade": [
+   {
+    "date": "7/22/2026",
+    "sub": [
+     5.0,
+     5.0,
+     4.55,
+     5.0,
+     5.0
+    ],
+    "total": 4.87,
+    "plan": "1 - Maintenance: \n\nNo new issues. The grinder has been temperamental but James has been and fixed today.\n\nLast planned maintenance visit: 22/07/2026\nMusic volume: appropriate \nTemperature: appropriate \n\n2 - Culture:\n100% = 5.0 \n\nOperational excellence achieved during peak remote view! \nFANTASTIC job!!!\n\n3 - Cleanliness:\n\n1. Unfortunately I identified a couple of tables with chewing gum underneath today. Please remember weekly checks and removal of this.\n\n2. Cake display - finger prints and smudges present, front and back. Can we wipe this down regularly please.\n\n4 - N/A\n"
+   },
+   {
+    "date": "7/22/2026",
+    "sub": [
+     5.0,
+     5.0,
+     4.85,
+     5.0,
+     5.0
+    ],
+    "total": 4.96,
+    "plan": "1 - Maintenance: \n\nNo new issues. The grinder has been temperamental but James has been and fixed today.\n\nLast planned maintenance visit: 22/07/2026\nMusic volume: appropriate \nTemperature: appropriate \n\n2 - Culture:\n100% = 5.0 \n\nOperational excellence achieved during peak remote view! \nFANTASTIC job!!!\n\n3 - Cleanliness:\n\n1. Unfortunately I identified a couple of tables with chewing gum underneath today. Please remember weekly checks and removal of this. - AMENDED\n\n2. Cake display - finger prints and smudges present, front and back. Can we wipe this down regularly please.\n\n4 - N/A\n"
+   }
+  ]
+ }
 }

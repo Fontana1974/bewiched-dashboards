@@ -1,148 +1,160 @@
 {
- "_weekly_label": "w/c 13 Jul 2026",
+ "_weekly_label": "w/c 20 Jul 2026",
  "_weekly_window": [
-  "2026-07-13",
-  "2026-07-19"
+  "2026-07-20",
+  "2026-07-26"
  ],
  "_qtd_label": "Q3 2026",
  "_qtd_window": [
   "2026-07-01",
-  "2026-07-19"
+  "2026-07-26"
  ],
- "_comments_label": "recent shift voice — last 2 weeks to 20 Jul 2026",
+ "_comments_label": "recent shift voice — last 2 weeks to 26 Jul 2026",
  "_comments_window": [
-  "2026-07-07",
-  "2026-07-20"
+  "2026-07-13",
+  "2026-07-26"
  ],
- "_lastweek_count": 52,
+ "_lastweek_count": 51,
  "worst": [
   {
-   "store": "Glenvale Drive Thru",
-   "date": "2026-07-13",
-   "dow": "Mon 13 Jul",
-   "rating": 3.0,
-   "text": "Chocolate syrup is too thick!! You can’t pump it out",
-   "smt": "KF - Thanked and assured respondent we will take up quality issue with Shott direct and look to resolve.",
-   "sentiment": "Mixed",
-   "action": null
+   "store": "Lower Heathcote",
+   "date": "2026-07-21",
+   "dow": "Tue 21 Jul",
+   "rating": 1.0,
+   "text": "The rota does not work with our peak periods. It is unfair for only one person to work in such a busy period.",
+   "smt": "KF - Apologised and asked respondent to reach out via a DM or call to talk through and encouraged additional contributions.",
+   "sentiment": "Negative",
+   "action": "Review staffing / rota cover for Lower Heathcote — the low score points to being under-supported on shift."
   },
   {
-   "store": "Rushden Lakes",
-   "date": "2026-07-17",
-   "dow": "Fri 17 Jul",
-   "rating": 3.0,
-   "text": "Busy understaffed teamwork",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Mixed",
-   "action": null
-  },
-  {
-   "store": "Glenvale Drive Thru",
-   "date": "2026-07-18",
-   "dow": "Sat 18 Jul",
-   "rating": 3.0,
-   "text": "LOADS OF FLIES AND WASPS INSTORE!!!!!!",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions. Asked respondent to reach out via a Dm or call to discuss and get a better understanding of pest issues.",
-   "sentiment": "Mixed",
-   "action": null
-  },
-  {
-   "store": "Rothwell",
-   "date": "2026-07-19",
-   "dow": "Sun 19 Jul",
-   "rating": 3.0,
-   "text": "Great team work as always, ice cream machine needs a service. It was the same time last year. It’s struggling to keep up. Slowing down our service times.",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions. Asked respondent to reach out via a DM or call for clarification. Scheduled a message for JP in order to chase/understand when maintenance forms were completed/work is scheduled or booked.",
-   "sentiment": "Mixed",
-   "action": null
-  },
-  {
-   "store": "Rothwell",
-   "date": "2026-07-19",
-   "dow": "Sun 19 Jul",
-   "rating": 3.0,
-   "text": "Panini fridge struggling",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions. Asked respondent to reach out via a DM or call for clarification. Scheduled a message for JP in order to chase/understand when maintenance forms were completed/work is scheduled or booked.",
-   "sentiment": "Mixed",
-   "action": null
-  },
-  {
-   "store": "Glenvale Drive Thru",
-   "date": "2026-07-13",
-   "dow": "Mon 13 Jul",
-   "rating": 4.0,
-   "text": "Need seasonal cakes",
-   "smt": "KF - Thanked and assured respondent we will take menu suggestiuons on board as part of NPD process. Encouraged further contributions.",
-   "sentiment": "Positive",
-   "action": null
-  },
-  {
-   "store": "Higham Ferrers",
-   "date": "2026-07-13",
-   "dow": "Mon 13 Jul",
-   "rating": 4.0,
-   "text": "Went fast",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive",
-   "action": null
+   "store": "Corby",
+   "date": "2026-07-24",
+   "dow": "Fri 24 Jul",
+   "rating": 1.0,
+   "text": "Too many notifications on supposed days off",
+   "smt": null,
+   "sentiment": "Negative",
+   "action": "Follow up with Corby's manager to investigate this shift and address the comment."
   },
   {
    "store": "Northampton",
-   "date": "2026-07-13",
-   "dow": "Mon 13 Jul",
-   "rating": 4.0,
-   "text": "Hectic shift but ok. A few missing stock items",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions. Asked respondent to reach out regarding stock issues.",
-   "sentiment": "Positive",
+   "date": "2026-07-20",
+   "dow": "Mon 20 Jul",
+   "rating": 2.0,
+   "text": "Good communication with team",
+   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
+   "sentiment": "Negative",
+   "action": "Follow up with Northampton's manager to investigate this shift and address the comment."
+  },
+  {
+   "store": "Leamington Parade",
+   "date": "2026-07-25",
+   "dow": "Sat 25 Jul",
+   "rating": 2.0,
+   "text": "Really slow wifi",
+   "smt": null,
+   "sentiment": "Negative",
+   "action": "Follow up with Leamington Parade's manager to investigate this shift and address the comment."
+  },
+  {
+   "store": "Rothwell",
+   "date": "2026-07-20",
+   "dow": "Mon 20 Jul",
+   "rating": 3.0,
+   "text": "Great team work as always",
+   "smt": "KF - Thanked via store Slack channel and encouraged further contributions. Asked respondent to reach out to discuss anything specific (that could be impacting score).",
+   "sentiment": "Mixed",
    "action": null
   },
   {
-   "store": "Glenvale Drive Thru",
-   "date": "2026-07-14",
-   "dow": "Tue 14 Jul",
-   "rating": 4.0,
-   "text": "Customers keep asking for large iced matchas can we do bigger iced matchas",
-   "smt": "KF - Thanked and assured respondent we will take menu suggestiuons on board as part of NPD process. Encouraged further contributions.",
-   "sentiment": "Positive",
+   "store": "Peterborough Fletton Quays",
+   "date": "2026-07-20",
+   "dow": "Mon 20 Jul",
+   "rating": 3.0,
+   "text": "It was an ok shift. I saw a customer I had a chat with two weeks ago abiut a certain film, he came in today and we carried the conversation on which was nice that we remembered each other",
+   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
+   "sentiment": "Mixed",
    "action": null
   },
   {
-   "store": "Glenvale Drive Thru",
-   "date": "2026-07-15",
-   "dow": "Wed 15 Jul",
-   "rating": 4.0,
-   "text": "Need large cups and espresso cups",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions. Assured that cups are on order and will be delivered asap.",
-   "sentiment": "Positive",
+   "store": "Rothwell",
+   "date": "2026-07-22",
+   "dow": "Wed 22 Jul",
+   "rating": 3.0,
+   "text": "Great day with the best team work.",
+   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
+   "sentiment": "Mixed",
    "action": null
   },
   {
    "store": "Peterborough Bridge Street",
-   "date": "2026-07-15",
-   "dow": "Wed 15 Jul",
-   "rating": 4.0,
-   "text": "Steady, teamwork,",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive",
+   "date": "2026-07-24",
+   "dow": "Fri 24 Jul",
+   "rating": 3.0,
+   "text": "Busy, hot, cleaning",
+   "smt": null,
+   "sentiment": "Mixed",
    "action": null
   },
   {
    "store": "Billing Drive Thru",
-   "date": "2026-07-16",
-   "dow": "Thu 16 Jul",
+   "date": "2026-07-24",
+   "dow": "Fri 24 Jul",
+   "rating": 3.0,
+   "text": "Teamwork hardwork streched",
+   "smt": null,
+   "sentiment": "Mixed",
+   "action": null
+  },
+  {
+   "store": "Rothwell",
+   "date": "2026-07-26",
+   "dow": "Sun 26 Jul",
+   "rating": 3.0,
+   "text": "Great shift great team work",
+   "smt": null,
+   "sentiment": "Mixed",
+   "action": null
+  },
+  {
+   "store": "Leamington Parade",
+   "date": "2026-07-26",
+   "dow": "Sun 26 Jul",
+   "rating": 3.0,
+   "text": "Good geamqork",
+   "smt": null,
+   "sentiment": "Mixed",
+   "action": null
+  },
+  {
+   "store": "Lower Heathcote",
+   "date": "2026-07-20",
+   "dow": "Mon 20 Jul",
    "rating": 4.0,
-   "text": "We need to be added to the maintenance form please",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions. Stated we will get maintenace form issue addressed asap.",
+   "text": "Wish it was busier, but was lovely to work with Gracie as always!",
+   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
    "sentiment": "Positive",
    "action": null
   }
  ],
  "outlier_stores": [
   {
+   "store": "Lower Heathcote",
+   "avg": 2.5,
+   "n": 2,
+   "action": "Lower Heathcote averaged 2.50★ from 2 shifts last week (lowest in the estate) — check in with the manager on what's driving it."
+  },
+  {
+   "store": "Corby",
+   "avg": 2.5,
+   "n": 2,
+   "action": "Corby averaged 2.50★ from 2 shifts last week (lowest in the estate) — check in with the manager on what's driving it."
+  },
+  {
    "store": "Rothwell",
    "avg": 3.0,
-   "n": 2,
-   "action": "Rothwell averaged 3.00★ from 2 shifts last week (lowest in the estate) — check in with the manager on what's driving it."
+   "n": 3,
+   "action": "Rothwell averaged 3.00★ from 3 shifts last week (lowest in the estate) — check in with the manager on what's driving it."
   }
  ],
  "per_store": {
@@ -152,24 +164,24 @@
     "avg": 5.0
    },
    "qtd": {
-    "n": 4,
-    "avg": 4.75
+    "n": 5,
+    "avg": 4.8
    }
   },
   "Corby": {
    "weekly": {
     "n": 2,
-    "avg": 4.0
+    "avg": 2.5
    },
    "qtd": {
-    "n": 11,
-    "avg": 2.0
+    "n": 13,
+    "avg": 2.08
    }
   },
   "Higham Ferrers": {
    "weekly": {
-    "n": 1,
-    "avg": 4.0
+    "n": 0,
+    "avg": null
    },
    "qtd": {
     "n": 1,
@@ -198,38 +210,38 @@
   },
   "Peterborough Bridge Street": {
    "weekly": {
-    "n": 1,
-    "avg": 4.0
+    "n": 4,
+    "avg": 4.25
    },
    "qtd": {
-    "n": 1,
-    "avg": 4.0
+    "n": 5,
+    "avg": 4.2
    }
   },
   "Peterborough Fletton Quays": {
    "weekly": {
-    "n": 0,
-    "avg": null
+    "n": 2,
+    "avg": 4.0
    },
    "qtd": {
-    "n": 1,
-    "avg": 2.0
+    "n": 3,
+    "avg": 3.33
    }
   },
   "Rothwell": {
    "weekly": {
-    "n": 2,
+    "n": 3,
     "avg": 3.0
    },
    "qtd": {
-    "n": 3,
+    "n": 5,
     "avg": 3.0
    }
   },
   "Rushden Lakes": {
    "weekly": {
-    "n": 1,
-    "avg": 3.0
+    "n": 0,
+    "avg": null
    },
    "qtd": {
     "n": 1,
@@ -238,28 +250,28 @@
   },
   "Attleborough": {
    "weekly": {
-    "n": 0,
-    "avg": null
+    "n": 2,
+    "avg": 4.0
    },
    "qtd": {
-    "n": 5,
-    "avg": 3.8
+    "n": 7,
+    "avg": 3.86
    }
   },
   "Billing Drive Thru": {
    "weekly": {
-    "n": 8,
-    "avg": 4.88
+    "n": 15,
+    "avg": 4.6
    },
    "qtd": {
-    "n": 23,
-    "avg": 4.7
+    "n": 38,
+    "avg": 4.66
    }
   },
   "Glenvale Drive Thru": {
    "weekly": {
-    "n": 6,
-    "avg": 3.83
+    "n": 0,
+    "avg": null
    },
    "qtd": {
     "n": 16,
@@ -268,38 +280,38 @@
   },
   "HOE Balsall Common": {
    "weekly": {
-    "n": 2,
+    "n": 3,
     "avg": 5.0
    },
    "qtd": {
-    "n": 8,
-    "avg": 4.38
+    "n": 11,
+    "avg": 4.55
    }
   },
   "Leamington Parade": {
    "weekly": {
-    "n": 13,
-    "avg": 5.0
+    "n": 12,
+    "avg": 4.5
    },
    "qtd": {
-    "n": 33,
-    "avg": 4.85
+    "n": 45,
+    "avg": 4.76
    }
   },
   "Lower Heathcote": {
    "weekly": {
     "n": 2,
-    "avg": 5.0
+    "avg": 2.5
    },
    "qtd": {
-    "n": 7,
-    "avg": 3.57
+    "n": 8,
+    "avg": 3.25
    }
   },
   "Market Harborough": {
    "weekly": {
-    "n": 2,
-    "avg": 5.0
+    "n": 0,
+    "avg": null
    },
    "qtd": {
     "n": 8,
@@ -309,11 +321,11 @@
   "Northampton": {
    "weekly": {
     "n": 3,
-    "avg": 4.67
+    "avg": 4.0
    },
    "qtd": {
-    "n": 9,
-    "avg": 4.56
+    "n": 12,
+    "avg": 4.42
    }
   },
   "Northampton Drive-Thru": {
@@ -322,14 +334,14 @@
     "avg": 5.0
    },
    "qtd": {
-    "n": 4,
-    "avg": 2.25
+    "n": 5,
+    "avg": 2.8
    }
   },
   "Rugby": {
    "weekly": {
-    "n": 4,
-    "avg": 5.0
+    "n": 0,
+    "avg": null
    },
    "qtd": {
     "n": 13,
@@ -338,11 +350,11 @@
   },
   "Wellingborough": {
    "weekly": {
-    "n": 3,
+    "n": 1,
     "avg": 5.0
    },
    "qtd": {
-    "n": 3,
+    "n": 4,
     "avg": 5.0
    }
   },
@@ -358,216 +370,50 @@
   }
  },
  "per_store_detail": {
-  "Glenvale Drive Thru": [
+  "Rothwell": [
    {
-    "date": "2026-07-13",
-    "dow": "Mon 13 Jul",
+    "date": "2026-07-20",
+    "dow": "Mon 20 Jul",
     "rating": 3.0,
-    "text": "Chocolate syrup is too thick!! You can’t pump it out",
-    "smt": "KF - Thanked and assured respondent we will take up quality issue with Shott direct and look to resolve.",
+    "text": "Great team work as always",
+    "smt": "KF - Thanked via store Slack channel and encouraged further contributions. Asked respondent to reach out to discuss anything specific (that could be impacting score).",
     "sentiment": "Mixed",
     "action": null
    },
    {
-    "date": "2026-07-18",
-    "dow": "Sat 18 Jul",
+    "date": "2026-07-22",
+    "dow": "Wed 22 Jul",
     "rating": 3.0,
-    "text": "LOADS OF FLIES AND WASPS INSTORE!!!!!!",
-    "smt": "KF - Thanked via store Slack channel and encouraged further contributions. Asked respondent to reach out via a Dm or call to discuss and get a better understanding of pest issues.",
+    "text": "Great day with the best team work.",
+    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
     "sentiment": "Mixed",
     "action": null
    },
    {
-    "date": "2026-07-13",
-    "dow": "Mon 13 Jul",
-    "rating": 4.0,
-    "text": "Need seasonal cakes",
-    "smt": "KF - Thanked and assured respondent we will take menu suggestiuons on board as part of NPD process. Encouraged further contributions.",
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-07-14",
-    "dow": "Tue 14 Jul",
-    "rating": 4.0,
-    "text": "Customers keep asking for large iced matchas can we do bigger iced matchas",
-    "smt": "KF - Thanked and assured respondent we will take menu suggestiuons on board as part of NPD process. Encouraged further contributions.",
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-07-15",
-    "dow": "Wed 15 Jul",
-    "rating": 4.0,
-    "text": "Need large cups and espresso cups",
-    "smt": "KF - Thanked via store Slack channel and encouraged further contributions. Assured that cups are on order and will be delivered asap.",
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-07-13",
-    "dow": "Mon 13 Jul",
-    "rating": 5.0,
-    "text": "Customers keep asking for cookies and cinnamon buns",
-    "smt": "KF - Thanked and assured respondent we will take menu suggestiuons on board as part of NPD process. Encouraged further contributions.",
-    "sentiment": "Positive",
-    "action": null
-   }
-  ],
-  "Higham Ferrers": [
-   {
-    "date": "2026-07-13",
-    "dow": "Mon 13 Jul",
-    "rating": 4.0,
-    "text": "Went fast",
-    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-    "sentiment": "Positive",
-    "action": null
-   }
-  ],
-  "Leamington Parade": [
-   {
-    "date": "2026-07-13",
-    "dow": "Mon 13 Jul",
-    "rating": 5.0,
-    "text": "Amazing",
-    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-07-13",
-    "dow": "Mon 13 Jul",
-    "rating": 5.0,
-    "text": "Great teamwork. Everyone help each other, amazing shift with Melika Sylwia Rui",
-    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-07-13",
-    "dow": "Mon 13 Jul",
-    "rating": 5.0,
-    "text": "good",
-    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-07-14",
-    "dow": "Tue 14 Jul",
-    "rating": 5.0,
-    "text": "Dream team Yupik Sylwia Melika",
-    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-07-14",
-    "dow": "Tue 14 Jul",
-    "rating": 5.0,
-    "text": "I am always happy 😊",
-    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-07-15",
-    "dow": "Wed 15 Jul",
-    "rating": 5.0,
-    "text": "Perfect shift",
-    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-07-16",
-    "dow": "Thu 16 Jul",
-    "rating": 5.0,
-    "text": "good except punched by a stranger😅",
-    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-07-16",
-    "dow": "Thu 16 Jul",
-    "rating": 5.0,
-    "text": "Busy but great teamwork 👏 👍 💜 yupii",
-    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-07-17",
-    "dow": "Fri 17 Jul",
-    "rating": 5.0,
-    "text": "Great team work",
-    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-07-18",
-    "dow": "Sat 18 Jul",
-    "rating": 5.0,
-    "text": "Lovely shift teaamwoorkkk😇",
-    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-07-18",
-    "dow": "Sat 18 Jul",
-    "rating": 5.0,
-    "text": "Great teamwork especially during busy morning",
-    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-07-19",
-    "dow": "Sun 19 Jul",
-    "rating": 5.0,
-    "text": "good",
+    "date": "2026-07-26",
+    "dow": "Sun 26 Jul",
+    "rating": 3.0,
+    "text": "Great shift great team work",
     "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-07-19",
-    "dow": "Sun 19 Jul",
-    "rating": 5.0,
-    "text": "Lovely shift with Amelia Sylwia and Rui",
-    "smt": null,
-    "sentiment": "Positive",
+    "sentiment": "Mixed",
     "action": null
    }
   ],
-  "Northampton": [
+  "Lower Heathcote": [
    {
-    "date": "2026-07-13",
-    "dow": "Mon 13 Jul",
+    "date": "2026-07-21",
+    "dow": "Tue 21 Jul",
+    "rating": 1.0,
+    "text": "The rota does not work with our peak periods. It is unfair for only one person to work in such a busy period.",
+    "smt": "KF - Apologised and asked respondent to reach out via a DM or call to talk through and encouraged additional contributions.",
+    "sentiment": "Negative",
+    "action": "Review staffing / rota cover for Lower Heathcote — the low score points to being under-supported on shift."
+   },
+   {
+    "date": "2026-07-20",
+    "dow": "Mon 20 Jul",
     "rating": 4.0,
-    "text": "Hectic shift but ok. A few missing stock items",
-    "smt": "KF - Thanked via store Slack channel and encouraged further contributions. Asked respondent to reach out regarding stock issues.",
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-07-14",
-    "dow": "Tue 14 Jul",
-    "rating": 5.0,
-    "text": "Good vibes all around even though we basically had nothing, friendly customers and great conversations made all around",
-    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-07-16",
-    "dow": "Thu 16 Jul",
-    "rating": 5.0,
-    "text": "Everyone worked together so well today",
+    "text": "Wish it was busier, but was lovely to work with Gracie as always!",
     "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
     "sentiment": "Positive",
     "action": null
@@ -575,233 +421,404 @@
   ],
   "Billing Drive Thru": [
    {
-    "date": "2026-07-16",
-    "dow": "Thu 16 Jul",
+    "date": "2026-07-24",
+    "dow": "Fri 24 Jul",
+    "rating": 3.0,
+    "text": "Teamwork hardwork streched",
+    "smt": null,
+    "sentiment": "Mixed",
+    "action": null
+   },
+   {
+    "date": "2026-07-21",
+    "dow": "Tue 21 Jul",
     "rating": 4.0,
-    "text": "We need to be added to the maintenance form please",
-    "smt": "KF - Thanked via store Slack channel and encouraged further contributions. Stated we will get maintenace form issue addressed asap.",
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-07-14",
-    "dow": "Tue 14 Jul",
-    "rating": 5.0,
-    "text": "Can’t complain innit",
+    "text": "Loooooong day",
     "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
     "sentiment": "Positive",
     "action": null
    },
    {
-    "date": "2026-07-14",
-    "dow": "Tue 14 Jul",
+    "date": "2026-07-21",
+    "dow": "Tue 21 Jul",
+    "rating": 4.0,
+    "text": "We are unable to download TGTG as App Store isn’t logged in",
+    "smt": "KF - Thanked via store Slack channel and encouraged further contributions. Asked respondent to reach out to a member of the SMT for log-in support regarding app store.",
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-07-26",
+    "dow": "Sun 26 Jul",
+    "rating": 4.0,
+    "text": "Can’t complain 😜 was okay",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-07-26",
+    "dow": "Sun 26 Jul",
+    "rating": 4.0,
+    "text": "Stressful, busy, exciting",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-07-20",
+    "dow": "Mon 20 Jul",
     "rating": 5.0,
-    "text": "Amazing",
+    "text": "If I could rate this shift a 7, I’d rate it a 6",
     "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
     "sentiment": "Positive",
     "action": null
    },
    {
-    "date": "2026-07-14",
-    "dow": "Tue 14 Jul",
+    "date": "2026-07-20",
+    "dow": "Mon 20 Jul",
     "rating": 5.0,
-    "text": "Productive, happy, organised",
+    "text": "great shift",
     "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
     "sentiment": "Positive",
     "action": null
    },
    {
-    "date": "2026-07-15",
-    "dow": "Wed 15 Jul",
+    "date": "2026-07-20",
+    "dow": "Mon 20 Jul",
     "rating": 5.0,
-    "text": "Days drag when it’s quieter 😔😔",
+    "text": "Enjoyable, productive, busy",
     "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
     "sentiment": "Positive",
     "action": null
    },
    {
-    "date": "2026-07-16",
-    "dow": "Thu 16 Jul",
+    "date": "2026-07-21",
+    "dow": "Tue 21 Jul",
     "rating": 5.0,
-    "text": "Being at work has distracted me from the awful loss suffered by the national team last night 💔💔 why did we take off all of our attackers 😞😞",
+    "text": "Great welcome back!! Fun and turns out having holiday somehow made my latte art better 🤷‍♀️😅😂",
     "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
     "sentiment": "Positive",
     "action": null
    },
    {
-    "date": "2026-07-18",
-    "dow": "Sat 18 Jul",
+    "date": "2026-07-21",
+    "dow": "Tue 21 Jul",
     "rating": 5.0,
-    "text": "Three words? impossible",
+    "text": "Productive/vibes/nice customers",
     "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
     "sentiment": "Positive",
     "action": null
    },
    {
-    "date": "2026-07-18",
-    "dow": "Sat 18 Jul",
+    "date": "2026-07-23",
+    "dow": "Thu 23 Jul",
     "rating": 5.0,
-    "text": "quiet but positive",
-    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-    "sentiment": "Positive",
-    "action": null
-   }
-  ],
-  "Wellingborough": [
-   {
-    "date": "2026-07-14",
-    "dow": "Tue 14 Jul",
-    "rating": 5.0,
-    "text": "Lovely busy morning",
-    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
+    "text": "So much fun! Awesome supportive team!",
+    "smt": null,
     "sentiment": "Positive",
     "action": null
    },
    {
-    "date": "2026-07-16",
-    "dow": "Thu 16 Jul",
+    "date": "2026-07-23",
+    "dow": "Thu 23 Jul",
     "rating": 5.0,
-    "text": "Lovely busy morning",
-    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
+    "text": "Teamwork comfortable proactive",
+    "smt": null,
     "sentiment": "Positive",
     "action": null
    },
    {
-    "date": "2026-07-17",
-    "dow": "Fri 17 Jul",
+    "date": "2026-07-23",
+    "dow": "Thu 23 Jul",
     "rating": 5.0,
-    "text": "Lovely busy Friday",
-    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-    "sentiment": "Positive",
-    "action": null
-   }
-  ],
-  "Lower Heathcote": [
-   {
-    "date": "2026-07-15",
-    "dow": "Wed 15 Jul",
-    "rating": 5.0,
-    "text": "Great team work",
-    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
+    "text": "positive shift",
+    "smt": null,
     "sentiment": "Positive",
     "action": null
    },
    {
-    "date": "2026-07-18",
-    "dow": "Sat 18 Jul",
+    "date": "2026-07-25",
+    "dow": "Sat 25 Jul",
     "rating": 5.0,
-    "text": "Amazing sales, great teamwork!",
-    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
+    "text": "Good staff/good customers/hellos&goodbyes",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-07-26",
+    "dow": "Sun 26 Jul",
+    "rating": 5.0,
+    "text": "busy, teamwork",
+    "smt": null,
     "sentiment": "Positive",
     "action": null
    }
   ],
   "Peterborough Bridge Street": [
    {
-    "date": "2026-07-15",
-    "dow": "Wed 15 Jul",
+    "date": "2026-07-24",
+    "dow": "Fri 24 Jul",
+    "rating": 3.0,
+    "text": "Busy, hot, cleaning",
+    "smt": null,
+    "sentiment": "Mixed",
+    "action": null
+   },
+   {
+    "date": "2026-07-23",
+    "dow": "Thu 23 Jul",
     "rating": 4.0,
-    "text": "Steady, teamwork,",
+    "text": "Unexpected but okay",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-07-20",
+    "dow": "Mon 20 Jul",
+    "rating": 5.0,
+    "text": "Lovely chat and training",
+    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-07-25",
+    "dow": "Sat 25 Jul",
+    "rating": 5.0,
+    "text": "Teamwork, speed, success",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   }
+  ],
+  "Northampton": [
+   {
+    "date": "2026-07-20",
+    "dow": "Mon 20 Jul",
+    "rating": 2.0,
+    "text": "Good communication with team",
+    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
+    "sentiment": "Negative",
+    "action": "Follow up with Northampton's manager to investigate this shift and address the comment."
+   },
+   {
+    "date": "2026-07-20",
+    "dow": "Mon 20 Jul",
+    "rating": 5.0,
+    "text": "Great shift and had a nice productive little meeting with my senior staff",
+    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-07-24",
+    "dow": "Fri 24 Jul",
+    "rating": 5.0,
+    "text": "Great and enjoyable shift",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   }
+  ],
+  "HOE Balsall Common": [
+   {
+    "date": "2026-07-20",
+    "dow": "Mon 20 Jul",
+    "rating": 5.0,
+    "text": "slay",
+    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-07-21",
+    "dow": "Tue 21 Jul",
+    "rating": 5.0,
+    "text": "slay",
+    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-07-26",
+    "dow": "Sun 26 Jul",
+    "rating": 5.0,
+    "text": "slay",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   }
+  ],
+  "Peterborough Fletton Quays": [
+   {
+    "date": "2026-07-20",
+    "dow": "Mon 20 Jul",
+    "rating": 3.0,
+    "text": "It was an ok shift. I saw a customer I had a chat with two weeks ago abiut a certain film, he came in today and we carried the conversation on which was nice that we remembered each other",
+    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
+    "sentiment": "Mixed",
+    "action": null
+   },
+   {
+    "date": "2026-07-24",
+    "dow": "Fri 24 Jul",
+    "rating": 5.0,
+    "text": "WEHAVEADISHWASHER!",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   }
+  ],
+  "Wellingborough": [
+   {
+    "date": "2026-07-20",
+    "dow": "Mon 20 Jul",
+    "rating": 5.0,
+    "text": "Lovely very busy day",
     "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
     "sentiment": "Positive",
     "action": null
    }
   ],
-  "Rugby": [
+  "Leamington Parade": [
    {
-    "date": "2026-07-15",
-    "dow": "Wed 15 Jul",
+    "date": "2026-07-25",
+    "dow": "Sat 25 Jul",
+    "rating": 2.0,
+    "text": "Really slow wifi",
+    "smt": null,
+    "sentiment": "Negative",
+    "action": "Follow up with Leamington Parade's manager to investigate this shift and address the comment."
+   },
+   {
+    "date": "2026-07-26",
+    "dow": "Sun 26 Jul",
+    "rating": 3.0,
+    "text": "Good geamqork",
+    "smt": null,
+    "sentiment": "Mixed",
+    "action": null
+   },
+   {
+    "date": "2026-07-26",
+    "dow": "Sun 26 Jul",
+    "rating": 4.0,
+    "text": "great teamwork",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-07-20",
+    "dow": "Mon 20 Jul",
     "rating": 5.0,
-    "text": "Working with Vlada is a breath of fresh air, amazing.",
+    "text": "busy but good",
     "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
     "sentiment": "Positive",
     "action": null
    },
    {
-    "date": "2026-07-16",
-    "dow": "Thu 16 Jul",
+    "date": "2026-07-20",
+    "dow": "Mon 20 Jul",
     "rating": 5.0,
-    "text": "We’re very low on teaspoons, are we able to get some more please thank you!",
-    "smt": "KF - Thanked via store Slack channel and encouraged further contributions. Assured store we will take teaspoons in asap.",
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-07-16",
-    "dow": "Thu 16 Jul",
-    "rating": 5.0,
-    "text": "Really good shift with rosie and amy!",
+    "text": "Really busy Monday but amazing teamwork 👏",
     "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
     "sentiment": "Positive",
     "action": null
    },
    {
-    "date": "2026-07-17",
-    "dow": "Fri 17 Jul",
+    "date": "2026-07-22",
+    "dow": "Wed 22 Jul",
     "rating": 5.0,
-    "text": "Can we do customer only toilets because the non customers",
-    "smt": "KF - Thanked via store Slack channel and encouraged further contributions. Asked respondednt to reach out directly with cotext regarding bathroom issue.",
+    "text": "Amazing teamwork, great energy 👏 🙌 👌 👍 💜 💪 👏 🙌",
+    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-07-22",
+    "dow": "Wed 22 Jul",
+    "rating": 5.0,
+    "text": "Perfect",
+    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-07-23",
+    "dow": "Thu 23 Jul",
+    "rating": 5.0,
+    "text": "Amazing",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-07-23",
+    "dow": "Thu 23 Jul",
+    "rating": 5.0,
+    "text": "Another lovely shift",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-07-25",
+    "dow": "Sat 25 Jul",
+    "rating": 5.0,
+    "text": "Amazing",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-07-25",
+    "dow": "Sat 25 Jul",
+    "rating": 5.0,
+    "text": "Was oki",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-07-26",
+    "dow": "Sun 26 Jul",
+    "rating": 5.0,
+    "text": "Good",
+    "smt": null,
     "sentiment": "Positive",
     "action": null
    }
   ],
   "Burton Latimer": [
    {
-    "date": "2026-07-17",
-    "dow": "Fri 17 Jul",
+    "date": "2026-07-22",
+    "dow": "Wed 22 Jul",
     "rating": 5.0,
-    "text": "Lovely team and nice community",
+    "text": "Really good long shift with Brandon. He fitted so nicely into our team. Dont want to jinx it but very happy about him . Makes it so easy when people want to learn and work :)",
     "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
     "sentiment": "Positive",
     "action": null
    }
   ],
-  "Market Harborough": [
+  "Attleborough": [
    {
-    "date": "2026-07-17",
-    "dow": "Fri 17 Jul",
-    "rating": 5.0,
-    "text": "Lovely day great audit",
-    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
+    "date": "2026-07-23",
+    "dow": "Thu 23 Jul",
+    "rating": 4.0,
+    "text": "Busy empty all",
+    "smt": null,
     "sentiment": "Positive",
     "action": null
    },
    {
-    "date": "2026-07-17",
-    "dow": "Fri 17 Jul",
-    "rating": 5.0,
-    "text": "Busy but fun",
-    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-    "sentiment": "Positive",
-    "action": null
-   }
-  ],
-  "Rushden Lakes": [
-   {
-    "date": "2026-07-17",
-    "dow": "Fri 17 Jul",
-    "rating": 3.0,
-    "text": "Busy understaffed teamwork",
-    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-    "sentiment": "Mixed",
-    "action": null
-   }
-  ],
-  "Corby": [
-   {
-    "date": "2026-07-17",
-    "dow": "Fri 17 Jul",
+    "date": "2026-07-24",
+    "dow": "Fri 24 Jul",
     "rating": 4.0,
-    "text": "Good shift",
-    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-07-19",
-    "dow": "Sun 19 Jul",
-    "rating": 4.0,
-    "text": "Quiet but good 😁",
+    "text": "Good shift partners",
     "smt": null,
     "sentiment": "Positive",
     "action": null
@@ -809,248 +826,228 @@
   ],
   "Northampton Drive-Thru": [
    {
-    "date": "2026-07-18",
-    "dow": "Sat 18 Jul",
+    "date": "2026-07-23",
+    "dow": "Thu 23 Jul",
     "rating": 5.0,
-    "text": "Smooth/clean/vibes",
-    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-    "sentiment": "Positive",
-    "action": null
-   }
-  ],
-  "HOE Balsall Common": [
-   {
-    "date": "2026-07-19",
-    "dow": "Sun 19 Jul",
-    "rating": 5.0,
-    "text": "TWO busy days! what a treat!",
-    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-07-19",
-    "dow": "Sun 19 Jul",
-    "rating": 5.0,
-    "text": "lovely day :)",
+    "text": "Good shift with Kyla",
     "smt": null,
     "sentiment": "Positive",
     "action": null
    }
   ],
-  "Rothwell": [
+  "Corby": [
    {
-    "date": "2026-07-19",
-    "dow": "Sun 19 Jul",
-    "rating": 3.0,
-    "text": "Great team work as always, ice cream machine needs a service. It was the same time last year. It’s struggling to keep up. Slowing down our service times.",
-    "smt": "KF - Thanked via store Slack channel and encouraged further contributions. Asked respondent to reach out via a DM or call for clarification. Scheduled a message for JP in order to chase/understand when maintenance forms were completed/work is scheduled or booked.",
-    "sentiment": "Mixed",
-    "action": null
+    "date": "2026-07-24",
+    "dow": "Fri 24 Jul",
+    "rating": 1.0,
+    "text": "Too many notifications on supposed days off",
+    "smt": null,
+    "sentiment": "Negative",
+    "action": "Follow up with Corby's manager to investigate this shift and address the comment."
    },
    {
-    "date": "2026-07-19",
-    "dow": "Sun 19 Jul",
-    "rating": 3.0,
-    "text": "Panini fridge struggling",
-    "smt": "KF - Thanked via store Slack channel and encouraged further contributions. Asked respondent to reach out via a DM or call for clarification. Scheduled a message for JP in order to chase/understand when maintenance forms were completed/work is scheduled or booked.",
-    "sentiment": "Mixed",
+    "date": "2026-07-26",
+    "dow": "Sun 26 Jul",
+    "rating": 4.0,
+    "text": "Nice shift",
+    "smt": null,
+    "sentiment": "Positive",
     "action": null
    }
   ]
  },
  "comments": [
   {
-   "store": "Lower Heathcote",
-   "date": "2026-07-20",
+   "store": "Leamington Parade",
+   "date": "2026-07-26",
+   "rating": 5.0,
+   "text": "Good",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Billing Drive Thru",
+   "date": "2026-07-26",
+   "rating": 5.0,
+   "text": "busy, teamwork",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "HOE Balsall Common",
+   "date": "2026-07-26",
+   "rating": 5.0,
+   "text": "slay",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Leamington Parade",
+   "date": "2026-07-26",
    "rating": 4.0,
-   "text": "Wish it was busier, but was lovely to work with Gracie as always!",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Rothwell",
-   "date": "2026-07-20",
-   "rating": 3.0,
-   "text": "Great team work as always",
-   "smt": null,
-   "sentiment": "Mixed"
-  },
-  {
-   "store": "HOE Balsall Common",
-   "date": "2026-07-19",
-   "rating": 5.0,
-   "text": "TWO busy days! what a treat!",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "HOE Balsall Common",
-   "date": "2026-07-19",
-   "rating": 5.0,
-   "text": "lovely day :)",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Leamington Parade",
-   "date": "2026-07-19",
-   "rating": 5.0,
-   "text": "good",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Leamington Parade",
-   "date": "2026-07-19",
-   "rating": 5.0,
-   "text": "Lovely shift with Amelia Sylwia and Rui",
+   "text": "great teamwork",
    "smt": null,
    "sentiment": "Positive"
   },
   {
    "store": "Corby",
-   "date": "2026-07-19",
+   "date": "2026-07-26",
    "rating": 4.0,
-   "text": "Quiet but good 😁",
+   "text": "Nice shift",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Billing Drive Thru",
+   "date": "2026-07-26",
+   "rating": 4.0,
+   "text": "Can’t complain 😜 was okay",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Billing Drive Thru",
+   "date": "2026-07-26",
+   "rating": 4.0,
+   "text": "Stressful, busy, exciting",
    "smt": null,
    "sentiment": "Positive"
   },
   {
    "store": "Rothwell",
-   "date": "2026-07-19",
+   "date": "2026-07-26",
    "rating": 3.0,
-   "text": "Great team work as always, ice cream machine needs a service. It was the same time last year. It’s struggling to keep up. Slowing down our service times.",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions. Asked respondent to reach out via a DM or call for clarification. Scheduled a message for JP in order to chase/understand when maintenance forms were completed/work is scheduled or booked.",
+   "text": "Great shift great team work",
+   "smt": null,
    "sentiment": "Mixed"
   },
   {
-   "store": "Rothwell",
-   "date": "2026-07-19",
+   "store": "Leamington Parade",
+   "date": "2026-07-26",
    "rating": 3.0,
-   "text": "Panini fridge struggling",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions. Asked respondent to reach out via a DM or call for clarification. Scheduled a message for JP in order to chase/understand when maintenance forms were completed/work is scheduled or booked.",
+   "text": "Good geamqork",
+   "smt": null,
    "sentiment": "Mixed"
   },
   {
-   "store": "Lower Heathcote",
-   "date": "2026-07-18",
+   "store": "Peterborough Bridge Street",
+   "date": "2026-07-25",
    "rating": 5.0,
-   "text": "Amazing sales, great teamwork!",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
+   "text": "Teamwork, speed, success",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Leamington Parade",
+   "date": "2026-07-25",
+   "rating": 5.0,
+   "text": "Amazing",
+   "smt": null,
    "sentiment": "Positive"
   },
   {
    "store": "Billing Drive Thru",
-   "date": "2026-07-18",
+   "date": "2026-07-25",
    "rating": 5.0,
-   "text": "Three words? impossible",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
+   "text": "Good staff/good customers/hellos&goodbyes",
+   "smt": null,
    "sentiment": "Positive"
   },
   {
    "store": "Leamington Parade",
-   "date": "2026-07-18",
+   "date": "2026-07-25",
    "rating": 5.0,
-   "text": "Lovely shift teaamwoorkkk😇",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Billing Drive Thru",
-   "date": "2026-07-18",
-   "rating": 5.0,
-   "text": "quiet but positive",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
+   "text": "Was oki",
+   "smt": null,
    "sentiment": "Positive"
   },
   {
    "store": "Leamington Parade",
-   "date": "2026-07-18",
+   "date": "2026-07-25",
+   "rating": 2.0,
+   "text": "Really slow wifi",
+   "smt": null,
+   "sentiment": "Negative"
+  },
+  {
+   "store": "Northampton",
+   "date": "2026-07-24",
    "rating": 5.0,
-   "text": "Great teamwork especially during busy morning",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
+   "text": "Great and enjoyable shift",
+   "smt": null,
    "sentiment": "Positive"
   },
   {
-   "store": "Northampton Drive-Thru",
-   "date": "2026-07-18",
+   "store": "Peterborough Fletton Quays",
+   "date": "2026-07-24",
    "rating": 5.0,
-   "text": "Smooth/clean/vibes",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
+   "text": "WEHAVEADISHWASHER!",
+   "smt": null,
    "sentiment": "Positive"
   },
   {
-   "store": "Glenvale Drive Thru",
-   "date": "2026-07-18",
+   "store": "Attleborough",
+   "date": "2026-07-24",
+   "rating": 4.0,
+   "text": "Good shift partners",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Peterborough Bridge Street",
+   "date": "2026-07-24",
    "rating": 3.0,
-   "text": "LOADS OF FLIES AND WASPS INSTORE!!!!!!",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions. Asked respondent to reach out via a Dm or call to discuss and get a better understanding of pest issues.",
+   "text": "Busy, hot, cleaning",
+   "smt": null,
    "sentiment": "Mixed"
   },
   {
-   "store": "Burton Latimer",
-   "date": "2026-07-17",
-   "rating": 5.0,
-   "text": "Lovely team and nice community",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Market Harborough",
-   "date": "2026-07-17",
-   "rating": 5.0,
-   "text": "Lovely day great audit",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Market Harborough",
-   "date": "2026-07-17",
-   "rating": 5.0,
-   "text": "Busy but fun",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Leamington Parade",
-   "date": "2026-07-17",
-   "rating": 5.0,
-   "text": "Great team work",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Rugby",
-   "date": "2026-07-17",
-   "rating": 5.0,
-   "text": "Can we do customer only toilets because the non customers",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions. Asked respondednt to reach out directly with cotext regarding bathroom issue.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Wellingborough",
-   "date": "2026-07-17",
-   "rating": 5.0,
-   "text": "Lovely busy Friday",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
+   "store": "Billing Drive Thru",
+   "date": "2026-07-24",
+   "rating": 3.0,
+   "text": "Teamwork hardwork streched",
+   "smt": null,
+   "sentiment": "Mixed"
   },
   {
    "store": "Corby",
-   "date": "2026-07-17",
-   "rating": 4.0,
-   "text": "Good shift",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
+   "date": "2026-07-24",
+   "rating": 1.0,
+   "text": "Too many notifications on supposed days off",
+   "smt": null,
+   "sentiment": "Negative"
+  },
+  {
+   "store": "Leamington Parade",
+   "date": "2026-07-23",
+   "rating": 5.0,
+   "text": "Amazing",
+   "smt": null,
    "sentiment": "Positive"
   },
   {
-   "store": "Rushden Lakes",
-   "date": "2026-07-17",
-   "rating": 3.0,
-   "text": "Busy understaffed teamwork",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Mixed"
+   "store": "Leamington Parade",
+   "date": "2026-07-23",
+   "rating": 5.0,
+   "text": "Another lovely shift",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Billing Drive Thru",
+   "date": "2026-07-23",
+   "rating": 5.0,
+   "text": "So much fun! Awesome supportive team!",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Billing Drive Thru",
+   "date": "2026-07-23",
+   "rating": 5.0,
+   "text": "Teamwork comfortable proactive",
+   "smt": null,
+   "sentiment": "Positive"
   }
  ]
 }
