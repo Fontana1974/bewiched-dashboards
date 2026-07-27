@@ -13,45 +13,57 @@
  "rows": [
   [
    "3 Cheese & Onion Croque",
-   272.0,
-   1493.28,
+   294.0,
+   1614.06,
    1615
   ],
   [
    "3 Mozzarella & Tomato Ciabatta",
-   177.0,
-   971.73,
+   198.0,
+   1087.02,
    921
   ],
   [
-   "3 Chicken & Chorizo Ciabatta",
-   163.0,
-   894.87,
-   1080
-  ],
-  [
    "3 Ham & Cheese Croque",
-   161.0,
-   883.89,
+   175.0,
+   960.75,
    2686
   ],
   [
+   "3 Chicken & Chorizo Ciabatta",
+   167.0,
+   916.83,
+   1080
+  ],
+  [
    "3 Bacon Bap",
-   201.0,
-   854.25,
+   209.0,
+   888.25,
    999
   ],
   [
    "Sausage Roll Pastry",
-   255.0,
-   839.25,
+   264.0,
+   868.95,
    1650
   ],
   [
    "3 Sausage Bap",
-   178.0,
-   756.5,
+   186.0,
+   790.5,
    1187
+  ],
+  [
+   "3 Tuna Ciabatta",
+   135.0,
+   741.15,
+   1288
+  ],
+  [
+   "3 Caesar Wrap",
+   149.0,
+   652.51,
+   1022
   ],
   [
    "3 Egg & Spinach Sandwich",
@@ -60,28 +72,22 @@
    915
   ],
   [
-   "3 Tuna Ciabatta",
-   117.0,
-   642.33,
-   1288
-  ],
-  [
    "Croissant Pastry",
-   287.0,
-   617.05,
+   298.0,
+   640.7,
    864
   ],
   [
-   "3 Caesar Wrap",
-   141.0,
-   616.59,
-   1022
+   "Chocolate Twist Traybake",
+   237.0,
+   628.05,
+   1356
   ],
   [
-   "Chocolate Twist Traybake",
-   227.0,
-   601.55,
-   1356
+   "3 Chicken Caprese Sandwich",
+   103.0,
+   497.31,
+   529
   ],
   [
    "Rocky Road Traybake",
@@ -90,21 +96,15 @@
    755
   ],
   [
-   "3 Chicken Caprese Sandwich",
-   97.0,
-   468.35,
-   529
-  ],
-  [
    "3 Breakfast Bagel",
-   80.0,
-   436.0,
+   81.0,
+   441.45,
    921
   ],
   [
    "3 Ham & Mozzarella Croissant",
-   79.0,
-   390.29,
+   88.0,
+   431.28,
    984
   ],
   [
@@ -127,57 +127,57 @@
   ],
   [
    "Fudge Topped Brownie",
-   90.0,
-   256.5,
+   92.0,
+   262.2,
    1367
   ],
   [
-   "3 Extra Shot",
-   267.0,
-   253.65,
-   1208
-  ],
-  [
    "Yoghurt & Cranberry Slice Traybake",
-   81.0,
-   247.05,
+   85.0,
+   259.25,
    954
   ],
   [
+   "3 Extra Shot",
+   271.0,
+   257.45,
+   1208
+  ],
+  [
    "All Butter Flapjack",
-   75.0,
-   213.75,
+   76.0,
+   216.6,
    938
   ],
   [
    "Teacake Traybake",
-   70.0,
-   199.5,
+   72.0,
+   205.2,
    3233
   ],
   [
    "Cherry Bakewell Slice Traybake",
-   59.0,
-   191.75,
+   61.0,
+   198.25,
    2340
   ],
   [
-   "3 Yoghurt Granola Pot",
-   50.0,
-   178.0,
-   493
-  ],
-  [
    "Marbled Crunch Slice",
-   57.0,
-   173.85,
+   60.0,
+   183.0,
    836
   ],
   [
    "Chocolate Muffin",
-   57.0,
-   168.15,
+   62.0,
+   182.9,
    708
+  ],
+  [
+   "3 Yoghurt Granola Pot",
+   51.0,
+   181.15,
+   493
   ],
   [
    "Vegan Raspberry Croissant Pastry",
@@ -186,10 +186,22 @@
    428
   ],
   [
-   "* Victoria Sponge Cake",
+   "Victoria Sponge Cake",
    37.0,
    133.2,
    199
+  ],
+  [
+   "Gluten Free Carrot Cake",
+   36.0,
+   129.6,
+   300
+  ],
+  [
+   "Blueberry Muffin",
+   42.0,
+   123.9,
+   1039
   ],
   [
    "3 Greek Style Chicken Salad",
@@ -198,16 +210,10 @@
    97
   ],
   [
-   "Gluten Free Carrot Cake",
-   34.0,
-   122.4,
-   300
-  ],
-  [
-   "Blueberry Muffin",
-   41.0,
-   120.95,
-   1039
+   "Regular Latte",
+   28.0,
+   114.8,
+   9062
   ],
   [
    "Almond Croissant",
@@ -222,16 +228,16 @@
    83
   ],
   [
-   "Regular Latte",
-   26.0,
-   106.6,
-   9062
+   "Toffee Millionaires Cake",
+   30.0,
+   108.0,
+   178
   ],
   [
-   "Toffee Millionaires Cake",
+   "3 Kids Ham Sandwich",
    29.0,
-   104.4,
-   178
+   101.21,
+   84
   ],
   [
    "Lemon Muffin",
@@ -240,16 +246,10 @@
    1081
   ],
   [
-   "3 Kids Ham Sandwich",
-   28.0,
-   97.72,
-   84
-  ],
-  [
-   "Double Espresso",
-   23.0,
-   72.45,
-   869
+   "Regular Flat White",
+   20.0,
+   79.0,
+   3648
   ]
  ]
 }
