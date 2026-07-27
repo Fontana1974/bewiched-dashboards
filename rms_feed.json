@@ -264,8 +264,8 @@
     "avg": 4.6
    },
    "qtd": {
-    "n": 38,
-    "avg": 4.66
+    "n": 41,
+    "avg": 4.63
    }
   },
   "Glenvale Drive Thru": {
@@ -344,8 +344,8 @@
     "avg": null
    },
    "qtd": {
-    "n": 13,
-    "avg": 4.92
+    "n": 14,
+    "avg": 4.93
    }
   },
   "Wellingborough": {
@@ -866,6 +866,38 @@
    "sentiment": "Positive"
   },
   {
+   "store": "Rugby",
+   "date": "2026-07-27",
+   "rating": 5.0,
+   "text": "great teamwork and communication! everyone on top form",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Billing Drive Thru",
+   "date": "2026-07-27",
+   "rating": 5.0,
+   "text": "teamwork",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Billing Drive Thru",
+   "date": "2026-07-27",
+   "rating": 5.0,
+   "text": "Busy but with lots of laughs",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Billing Drive Thru",
+   "date": "2026-07-27",
+   "rating": 3.0,
+   "text": "can we please look at glasses for cortados 😩 the looks we get sometimes 🥲",
+   "smt": null,
+   "sentiment": "Mixed"
+  },
+  {
    "store": "Leamington Parade",
    "date": "2026-07-26",
    "rating": 5.0,
@@ -1016,38 +1048,6 @@
    "text": "Teamwork hardwork streched",
    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
    "sentiment": "Mixed"
-  },
-  {
-   "store": "Corby",
-   "date": "2026-07-24",
-   "rating": 1.0,
-   "text": "Too many notifications on supposed days off",
-   "smt": "KF - Thanked via store SLack channel. Recommended turning off notivfications when on days off. Asked respondent to reach out via DM or call to discuss further if required.",
-   "sentiment": "Negative"
-  },
-  {
-   "store": "Leamington Parade",
-   "date": "2026-07-23",
-   "rating": 5.0,
-   "text": "Amazing",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Leamington Parade",
-   "date": "2026-07-23",
-   "rating": 5.0,
-   "text": "Another lovely shift",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Billing Drive Thru",
-   "date": "2026-07-23",
-   "rating": 5.0,
-   "text": "So much fun! Awesome supportive team!",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
   }
  ]
 }
