@@ -1714,14 +1714,14 @@ def pull_eos_scorecard():
     num = den = 0.0; nrep = 0
     for st, v in ovr.items():
         h = v.get("used_lastwk")
-        if h and rec.get(st, {}).get("lw26"):
+        if h and rec.get(st, {}).get("lw26") and COACH.get(st) != "Ian":   # company SPH = 18-equity basis (exclude Ian's franchise)
             num += rec[st]["lw26"]; den += h; nrep += 1
     sph = round(num / den, 1) if den else None
     # planner CPH (actual sales-per-labour-hour from the 3 area planners, Section A) — hours-weighted estate avg.
     cnum = cden = 0.0
     for st, v in ovr.items():
         c = v.get("actual_cph_lastwk"); h = v.get("used_lastwk")
-        if c and h: cnum += c * h; cden += h
+        if c and h and COACH.get(st) != "Ian": cnum += c * h; cden += h   # equity-basis (exclude franchise)
     cph_estate = round(cnum / cden, 1) if cden else sph        # fall back to BQ SPH if planners blank
     estate_sales_wk = sum(r.get("lw26", 0) or 0 for r in rec.values())
     estate_tx_wk = sum(r.get("tx26", 0) or 0 for r in rec.values())
@@ -2206,14 +2206,25 @@ def pull_eos_scorecard():
     # judged against ITS OWN target; the company headline SPH tile stays on the blanket 55. A store with
     # no target in the sheet falls back to 55 (target=None -> renderer flags it as a default).
     _sph_tgt = jload("cph_targets.json").get("targets", {})
+    _FRAN = {s for s, c in COACH.items() if c == "Ian"}     # Ian's franchise: Attleborough / Glenvale DT / HOE Balsall Common
     _sph_weekly = [{"store": st, "value": round(rec[st]["lw26"] / v["used_lastwk"], 1),
                     "target": _sph_tgt.get(st)}
-                   for st, v in ovr.items() if v.get("used_lastwk") and rec.get(st, {}).get("lw26")]
+                   for st, v in ovr.items()
+                   if v.get("used_lastwk") and rec.get(st, {}).get("lw26") and st not in _FRAN]
     _ps2("SPH Labour (incl holiday pay)", plan=55,
          weekly=_sph_weekly,
          wbasis="Last completed week sales ÷ planner hours used, vs each store's own £/hr target (Store-Targets sheet)",
          qtd=[dict(r) for r in _sph_weekly],
          qbasis="Per-store SPH vs each store's own target — QTD labour hours aren't separately sourced, so this mirrors the last completed week")   # company QTD tile stays on 55
+    # Franchise (Ian's) stores as DETAIL ONLY on the SPH per-store table — never in the company SPH
+    # headline/aggregate (that stays on the 18-equity basis). Ian's planner doesn't record Section-A
+    # hours used, so actual £/hr can't be computed -> value None (renders "—", awaiting hours); the
+    # store's £/hr target is still shown. Grouped + labelled as franchise by the renderer (frows).
+    _sph_fran = [{"store": st, "value": None, "target": _sph_tgt.get(st)} for st in sorted(_FRAN)]
+    _sph_e = per_store.get("SPH Labour (incl holiday pay)")
+    if _sph_e and _sph_fran:
+        for _k in ("weekly", "qtd"):
+            if _k in _sph_e: _sph_e[_k]["frows"] = _sph_fran
     _bench_rows = [{"store": row[0], "value": sum(1 for i in range(6, 10) if len(row) > i and str(row[i]).strip())}
                    for row in benchj.get("rows", []) if row and row[0]]
     _ps2("Bench", plan=1,

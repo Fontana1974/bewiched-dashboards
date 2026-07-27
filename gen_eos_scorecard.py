@@ -357,7 +357,7 @@ def ministat(m, lab):
             '<div class="md-stat-plan">plan %s</div><div class="md-stat-flag">%s</div></div>'
             % (css, lab, a, p, STATUS_LAB[st]))
 
-def ps_table(rows_in, basis, psplan, dirn, fmt, informational=False):
+def ps_table(rows_in, basis, psplan, dirn, fmt, informational=False, frows=None):
     """Render a per-store table (store · value · vs-plan chip · bar). Ranks best-to-worst:
     higher-is-better -> descending; lower-is-better -> ascending. informational=True => no
     green/red vs plan (neutral bars, 'info' chip) for measures without a formal target."""
@@ -402,10 +402,26 @@ def ps_table(rows_in, basis, psplan, dirn, fmt, informational=False):
     else:
         ref_txt = "informational" if (informational or psplan is None) else fmt_val(psplan, fmt)
     tgt_head = '<th class="tg">Target</th>' if per_tgt else ''
-    return ('<div class="md-ps-basis">%s · %s <b>%s</b> · %d stores</div>'
+    # Franchise (Ian) detail rows: grouped + labelled, EXCLUDED from the equity ranking/count/bar-scaling
+    # above; value awaiting where hours aren't recorded. Never part of the company aggregate.
+    fbody = ""
+    ncols = 4 + (1 if per_tgt else 0)
+    for r in (frows or []):
+        v = r.get("value")
+        vt = fmt_val(v, fmt) if v is not None else "—"
+        tcell = ('<td class="tg">%s</td>' % (fmt_val(r.get("target"), fmt) if r.get("target") is not None else "—")) if per_tgt else ""
+        fbody += ('<tr class="frow"><td class="s">%s</td><td class="v">%s</td>%s'
+                  '<td class="st"><span class="chip tbc">detail</span></td><td class="bar"><div class="md-bar"></div></td></tr>'
+                  % (esc(r.get("store", "—")), vt, tcell))
+    if fbody:
+        fbody = ('<tr class="frhead"><td colspan="%d" style="padding-top:10px;font-weight:600;color:#8a94a3">'
+                 'Franchise (Ian) — detail only · not in the company SPH figure · hours used not recorded in planner, so £/hr is awaiting</td></tr>'
+                 % ncols) + fbody
+    stores_note = "%d stores%s" % (len(rows), (" · +%d franchise (detail)" % len(frows)) if frows else "")
+    return ('<div class="md-ps-basis">%s · %s <b>%s</b> · %s</div>'
             '<table class="md-ps"><thead><tr><th>Store</th><th class="v">Value</th>%s<th class="st">%s</th>'
-            '<th class="bar"></th></tr></thead><tbody>%s</tbody></table>'
-            % (esc(basis), ref_lbl, ref_txt, len(rows), tgt_head, ("" if informational else "vs plan"), body))
+            '<th class="bar"></th></tr></thead><tbody>%s%s</tbody></table>'
+            % (esc(basis), ref_lbl, ref_txt, stores_note, tgt_head, ("" if informational else "vs plan"), body, fbody))
 
 def _ps_one(name, basis_key, plan, dirn, fmt):
     """One per-store table for the given basis ('weekly'|'qtd'), or None if absent."""
@@ -415,7 +431,7 @@ def _ps_one(name, basis_key, plan, dirn, fmt):
     if not b or not b.get("rows"): return None
     psplan = entry.get("plan")
     if psplan is None: psplan = plan
-    return ps_table(b["rows"], b.get("basis", ""), psplan, dirn, fmt)
+    return ps_table(b["rows"], b.get("basis", ""), psplan, dirn, fmt, frows=b.get("frows"))
 
 def ps_section(name, plan, dirn, fmt, qm):
     """Per-store breakdown with weekly + QTD sub-divs, switched by the period selector. Company-only
