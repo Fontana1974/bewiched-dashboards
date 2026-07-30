@@ -9,10 +9,10 @@
   "2026-07-01",
   "2026-07-26"
  ],
- "_comments_label": "recent shift voice — last 2 weeks to 27 Jul 2026",
+ "_comments_label": "recent shift voice — last 2 weeks to 30 Jul 2026",
  "_comments_window": [
-  "2026-07-14",
-  "2026-07-27"
+  "2026-07-17",
+  "2026-07-30"
  ],
  "_lastweek_count": 51,
  "worst": [
@@ -224,8 +224,8 @@
     "avg": 4.0
    },
    "qtd": {
-    "n": 3,
-    "avg": 3.33
+    "n": 4,
+    "avg": 3.25
    }
   },
   "Rothwell": {
@@ -234,7 +234,7 @@
     "avg": 3.0
    },
    "qtd": {
-    "n": 5,
+    "n": 6,
     "avg": 3.0
    }
   },
@@ -264,8 +264,8 @@
     "avg": 4.6
    },
    "qtd": {
-    "n": 41,
-    "avg": 4.63
+    "n": 47,
+    "avg": 4.64
    }
   },
   "Glenvale Drive Thru": {
@@ -274,8 +274,8 @@
     "avg": null
    },
    "qtd": {
-    "n": 16,
-    "avg": 3.44
+    "n": 17,
+    "avg": 3.47
    }
   },
   "HOE Balsall Common": {
@@ -294,8 +294,8 @@
     "avg": 4.5
    },
    "qtd": {
-    "n": 46,
-    "avg": 4.76
+    "n": 49,
+    "avg": 4.78
    }
   },
   "Lower Heathcote": {
@@ -334,8 +334,8 @@
     "avg": 5.0
    },
    "qtd": {
-    "n": 5,
-    "avg": 2.8
+    "n": 7,
+    "avg": 3.29
    }
   },
   "Rugby": {
@@ -344,8 +344,8 @@
     "avg": null
    },
    "qtd": {
-    "n": 14,
-    "avg": 4.93
+    "n": 17,
+    "avg": 4.94
    }
   },
   "Wellingborough": {
@@ -858,6 +858,118 @@
  },
  "comments": [
   {
+   "store": "Rugby",
+   "date": "2026-07-29",
+   "rating": 5.0,
+   "text": "Great shift, lots of cleaning",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Rugby",
+   "date": "2026-07-29",
+   "rating": 5.0,
+   "text": "Issue, if someone has already left a review they cannot do another",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Northampton Drive-Thru",
+   "date": "2026-07-29",
+   "rating": 4.0,
+   "text": "Kindness shared views",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Rothwell",
+   "date": "2026-07-29",
+   "rating": 3.0,
+   "text": "Great shift lovely team work",
+   "smt": null,
+   "sentiment": "Mixed"
+  },
+  {
+   "store": "Rugby",
+   "date": "2026-07-28",
+   "rating": 5.0,
+   "text": "Busy",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Leamington Parade",
+   "date": "2026-07-28",
+   "rating": 5.0,
+   "text": "Yasaaassh all good",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Leamington Parade",
+   "date": "2026-07-28",
+   "rating": 5.0,
+   "text": "good",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Northampton Drive-Thru",
+   "date": "2026-07-28",
+   "rating": 5.0,
+   "text": "Incredible, informative, supportive",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Billing Drive Thru",
+   "date": "2026-07-28",
+   "rating": 5.0,
+   "text": "Amazing shift ending with the amazing Oviya! (She paid me to write this) (no she didn’t)",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Billing Drive Thru",
+   "date": "2026-07-28",
+   "rating": 5.0,
+   "text": "Macie is so thoughtful - thank you for the treats 🫶",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Billing Drive Thru",
+   "date": "2026-07-28",
+   "rating": 5.0,
+   "text": "Amazing fun close with Alex",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Billing Drive Thru",
+   "date": "2026-07-28",
+   "rating": 4.0,
+   "text": "Steady, clean, teamwork",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Glenvale Drive Thru",
+   "date": "2026-07-28",
+   "rating": 4.0,
+   "text": "Customers ask for iced banana bread latte can this be added to the menu please",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Peterborough Fletton Quays",
+   "date": "2026-07-28",
+   "rating": 3.0,
+   "text": "Productive, a little stressful and",
+   "smt": null,
+   "sentiment": "Mixed"
+  },
+  {
    "store": "Leamington Parade",
    "date": "2026-07-27",
    "rating": 5.0,
@@ -890,6 +1002,30 @@
    "sentiment": "Positive"
   },
   {
+   "store": "Leamington Parade",
+   "date": "2026-07-27",
+   "rating": 5.0,
+   "text": "Better wifi today. Yupiiiii",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Billing Drive Thru",
+   "date": "2026-07-27",
+   "rating": 5.0,
+   "text": "Good close with Danny, feeling more confident on closes",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Billing Drive Thru",
+   "date": "2026-07-27",
+   "rating": 4.0,
+   "text": "Kind, calm, helpful",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
    "store": "Billing Drive Thru",
    "date": "2026-07-27",
    "rating": 3.0,
@@ -912,142 +1048,6 @@
    "text": "busy, teamwork",
    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
    "sentiment": "Positive"
-  },
-  {
-   "store": "HOE Balsall Common",
-   "date": "2026-07-26",
-   "rating": 5.0,
-   "text": "slay",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Leamington Parade",
-   "date": "2026-07-26",
-   "rating": 4.0,
-   "text": "great teamwork",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Corby",
-   "date": "2026-07-26",
-   "rating": 4.0,
-   "text": "Nice shift",
-   "smt": "KF - Thanked for contribution.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Billing Drive Thru",
-   "date": "2026-07-26",
-   "rating": 4.0,
-   "text": "Can’t complain 😜 was okay",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Billing Drive Thru",
-   "date": "2026-07-26",
-   "rating": 4.0,
-   "text": "Stressful, busy, exciting",
-   "smt": "KF - Asked respondent to reach out and discuss causes of stressful feelings. Encouraged further contributions.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Rothwell",
-   "date": "2026-07-26",
-   "rating": 3.0,
-   "text": "Great shift great team work",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions. Asked respondent to reach out via a DM or call if there is anything we can do to improve things - due to score.",
-   "sentiment": "Mixed"
-  },
-  {
-   "store": "Leamington Parade",
-   "date": "2026-07-26",
-   "rating": 3.0,
-   "text": "Good geamqork",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Mixed"
-  },
-  {
-   "store": "Peterborough Bridge Street",
-   "date": "2026-07-25",
-   "rating": 5.0,
-   "text": "Teamwork, speed, success",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Leamington Parade",
-   "date": "2026-07-25",
-   "rating": 5.0,
-   "text": "Amazing",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Billing Drive Thru",
-   "date": "2026-07-25",
-   "rating": 5.0,
-   "text": "Good staff/good customers/hellos&goodbyes",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Leamington Parade",
-   "date": "2026-07-25",
-   "rating": 5.0,
-   "text": "Was oki",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Leamington Parade",
-   "date": "2026-07-25",
-   "rating": 2.0,
-   "text": "Really slow wifi",
-   "smt": "KF - Apologised and thanked store for letting us know in order that we can look into this. Encouraged further contributions.",
-   "sentiment": "Negative"
-  },
-  {
-   "store": "Northampton",
-   "date": "2026-07-24",
-   "rating": 5.0,
-   "text": "Great and enjoyable shift",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Peterborough Fletton Quays",
-   "date": "2026-07-24",
-   "rating": 5.0,
-   "text": "WEHAVEADISHWASHER!",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Attleborough",
-   "date": "2026-07-24",
-   "rating": 4.0,
-   "text": "Good shift partners",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Peterborough Bridge Street",
-   "date": "2026-07-24",
-   "rating": 3.0,
-   "text": "Busy, hot, cleaning",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Mixed"
-  },
-  {
-   "store": "Billing Drive Thru",
-   "date": "2026-07-24",
-   "rating": 3.0,
-   "text": "Teamwork hardwork streched",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Mixed"
   }
  ]
 }

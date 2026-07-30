@@ -60,8 +60,8 @@
       },
       {
        "label": "Brand audit /5",
-       "value": "4.69",
-       "star": 4.8,
+       "value": "4.68",
+       "star": 4.7,
        "on_target": true
       },
       {
@@ -80,7 +80,7 @@
      "metrics": [
       {
        "label": "RMS health /5",
-       "value": "3.44",
+       "value": "3.47",
        "star": 4.6,
        "on_target": true
       },
@@ -92,13 +92,13 @@
       },
       {
        "label": "Google health",
-       "value": "2.96 (QTD)",
-       "star": 3.6,
+       "value": "3.03 (QTD)",
+       "star": 3.8,
        "on_target": false
       },
       {
        "label": "Lateness (shown, not scored)",
-       "value": "9 late",
+       "value": "10 late",
        "star": null,
        "on_target": false
       }
@@ -106,7 +106,7 @@
     }
    ],
    "ops": {
-    "brand_audit": 4.69,
+    "brand_audit": 4.68,
     "remote_audit": 89,
     "remote_n": 10,
     "compliance_pct": 90.3,
@@ -199,7 +199,7 @@
      "metrics": [
       {
        "label": "RMS health /5",
-       "value": "4.76",
+       "value": "4.78",
        "star": 4.9,
        "on_target": true
       },

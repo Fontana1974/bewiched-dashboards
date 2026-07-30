@@ -23,5 +23,29 @@
   "themes": [],
   "themes_status": "pending"
  },
+ "Glenvale Drive Thru": {
+  "qtd": 4.68,
+  "n": 1,
+  "window": "Jul–Jul 2026 · 1 audit",
+  "pillars": {
+   "Store Culture": 4.6,
+   "Shift Management": 4.6,
+   "Cleanliness": 4.45,
+   "Product": 5.0,
+   "Maintenance": 5.0
+  },
+  "weakest": [
+   {
+    "name": "Cleanliness",
+    "avg": 4.45
+   },
+   {
+    "name": "Store Culture",
+    "avg": 4.6
+   }
+  ],
+  "themes": [],
+  "themes_status": "pending"
+ },
  "_pulled": "2026-07-26"
 }
