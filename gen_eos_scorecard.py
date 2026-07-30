@@ -148,7 +148,7 @@ GRID = [
     ("Social Media Engagement", None, None, "pct0"),
     ("SPH Labour (incl holiday pay)", "sph", 55, "gbp1"),
     ("Bench", "bench", 3, "num_signed"),
-    ("F1 Score", "f1_avg", 220, "num1"),
+    ("F1 Score", "f1_avg", 175, "num1"),
     ("Brand & Remote Assessment", "brand_audit", 4.6, "score2"),
     ("Food GP%", "estate_gp_pct", 71, "pct1"),
     ("Net Profit After Tax (projected)", "npat_proj_pct", 18, "pct1"),
@@ -263,7 +263,7 @@ DEFINITIONS = {
     "Social Media Engagement": "Engagement across Bewiched social channels (metric still to be defined).",
     "SPH Labour (incl holiday pay)": "Sales generated per labour hour, including holiday pay.",
     "Bench": "Net Store Managers on the bench — the surplus (or shortfall) of ready SM cover. Target is a +3 surplus; the actual goes negative while SM vacancies exist (each open Store Manager = -1).",
-    "F1 Score": "Average F1 'race' total score across the estate — operational excellence. Lower is better (target ≤220).",
+    "F1 Score": "Average F1 'race' total score across the estate — operational excellence. Lower is better (target ≤175).",
     "Brand & Remote Assessment": "50/50 blend of brand audit + remote assessment, out of 5.",
     "Food GP%": "Estate gross-profit margin from the Cost-of-Sales sheet (authoritative Gross Profit%, col Q).",
     "Net Profit After Tax (projected)": "Projected net-profit margin after tax, flexed off the latest P&L.",
@@ -278,7 +278,7 @@ CALCS = {
     "Social Media Engagement": "Not yet defined — awaiting the metric definition and target.",
     "SPH Labour (incl holiday pay)": "Estate sales ÷ labour hours used (from the area planners, Section A), hours-weighted. QTD is hours-weighted across the quarter's weeks in weekly_history.csv.",
     "Bench": "MAIN KPI = net SM on the bench. Actual = -(number of Store Manager vacancies) from the HRP 'HRP & Bench' roster (the red 'Gap / no SM' stores); target = +3; miss = target - actual (e.g. -3 vs +3 = 6 off, red). The star map, management-team table and Bench-ready / Thin / Capability-gap cards below are unchanged and byte-identical to the Company Dashboard bench tab (hierarchy-gap rule).",
-    "F1 Score": "Average of each store's race Total Score. Weekly = last completed week's race; QTD = quarter-to-date average. LOWER IS BETTER on this scale — green at or below the target of ≤220, red above.",
+    "F1 Score": "Average of each store's race Total Score. Weekly = last completed week's race; QTD = quarter-to-date average. LOWER IS BETTER on this scale — green at or below the target of ≤175, red above.",
     "Brand & Remote Assessment": "Each store blends its brand audit (out of 5) 50/50 with its remote assessment (out of 100, normalised to /5). If only one is logged in the period, that one is used. Estate = average of per-store blends. Target 4.6.",
     "Food GP%": "The Cost-of-Sales sheet's own Gross Profit% (col Q), which nets off all cost-of-sales — sales-weighted across stores for the estate figure. Posts roughly one week in arrears.",
     "Net Profit After Tax (projected)": "Baseline 7.9% (May P&L) + GP flex (estate GP% − baseline) − labour flex (labour% − baseline, via live CPH). A projection, not a booked figure.",
@@ -1535,7 +1535,7 @@ HTML = f"""<!DOCTYPE html>
       <span class="lbl">Quarter: <b>{QL}</b> · {n_grid_weeks} week{'' if n_grid_weeks==1 else 's'} · one column per week (Week 1…{n_grid_weeks}, hover for the date) · each cell traffic-lit vs plan</span>
     </div>
     <div class="gridwrap">{grid_html}</div>
-    <div class="legend"><span><span class="sw" style="background:var(--greenbg);border:1px solid #cfe6d8"></span>on plan</span><span><span class="sw" style="background:var(--redbg);border:1px solid #eccfca"></span>off plan</span><span><span class="sw" style="background:var(--greybg);border:1px solid var(--line)"></span>no data</span><span>F1 is lower-is-better (green ≤ 220)</span></div>
+    <div class="legend"><span><span class="sw" style="background:var(--greenbg);border:1px solid #cfe6d8"></span>on plan</span><span><span class="sw" style="background:var(--redbg);border:1px solid #eccfca"></span>off plan</span><span><span class="sw" style="background:var(--greybg);border:1px solid var(--line)"></span>no data</span><span>F1 is lower-is-better (green ≤ 175)</span></div>
   </section>
 
   <section class="pane" id="pane-detail">

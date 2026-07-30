@@ -1782,7 +1782,7 @@ def pull_eos_scorecard():
         if r and r[8] and LASTWK_MON.isoformat() <= r[8] <= CUR_END.isoformat():
             f1_wk_xs.append(r[5])                       # race Total Score (col 18) for last week's race
     f1_wk = round(sum(f1_wk_xs) / len(f1_wk_xs), 1) if f1_wk_xs else None
-    F1_PLAN = 220   # LOWER IS BETTER on this race Total-Score scale — target ≤220 (estate ~282 now, so RED).
+    F1_PLAN = 175   # LOWER IS BETTER on this race Total-Score scale — target ≤175 (estate ~282 now, so RED).
     f1_note = ("Metric = AVERAGE RACE TOTAL SCORE, and LOWER IS BETTER on this scale. Target ≤%d — "
                "green when the average score is at or below %d, red when above. (Estate ~282 now, so RED.) "
                "The old '75' higher-is-better target is retired." % (F1_PLAN, F1_PLAN))
@@ -2108,7 +2108,7 @@ def pull_eos_scorecard():
         "Status is strictly binary: GREEN when actual ≥ plan, RED when below — no near-target band. Bench is green when ≥ 3.",
         "Google Health & Rate My Shift Health blend divisors (40 reviews / 4.6★ ; 70 submissions / 4.6★) are default assumptions — adjust if you prefer different volume targets.",
         "Plans (Matt's stated defaults): SPH Labour 55, Brew Crew Kudos 50%, Bench 3, NPAT 18%, Food GP% 71%. YoY Sales 12% / Transactions 5% on both tabs.",
-        "F1 Score = AVERAGE RACE TOTAL SCORE (Matt confirmed), live from the F1 sheet (ID %s) — weekly = last week's race, quarterly = QTD avg. LOWER IS BETTER on this scale: target ≤220, green at or below 220 and red above (estate ~282 now, so RED). The old '75' higher-is-better target is retired." % SID["f1"],
+        "F1 Score = AVERAGE RACE TOTAL SCORE (Matt confirmed), live from the F1 sheet (ID %s) — weekly = last week's race, quarterly = QTD avg. LOWER IS BETTER on this scale: target ≤175, green at or below 175 and red above (estate ~282 now, so RED). The old '75' higher-is-better target is retired." % SID["f1"],
         "SYMMETRIC: both tabs now carry the SAME 13 KPIs — Weekly measured on the last completed week, Quarterly the identical 13 measured QTD (since quarter start). Where a measure has no natural weekly/QTD split it shows the same figure on both tabs (see below).",
         "Same figure on both tabs (by nature): NPAT (latest-month P&L projection — no weekly actual), SPH Labour (a £/hr rate — QTD labour hours not separately sourced), Bench (point-in-time headcount), Food GP% (weekly CoS, a week in arrears). Brand Audit weekly shows 'awaiting' in weeks with no audits; the QTD tile is the reliable one.",
         "Still need definitions/sources: New Starter Health and Social Media Engagement are greyed TBC placeholders on BOTH tabs until Matt defines the metric + source. NPAT needs the P&L sheet shared with the service account to go beyond the May snapshot.",
