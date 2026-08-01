@@ -27,7 +27,7 @@ import os, sys, json, re, csv, subprocess, datetime, zoneinfo
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 # ---------- auth (lazy so the module imports without creds for structural checks) ----------
-SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly",
+SCOPES = ["https://www.googleapis.com/auth/spreadsheets",           # read + write (SPH history sheet)
           "https://www.googleapis.com/auth/bigquery"]
 PROJECT = "bewiched-coffee-368116"
 DATASET = "bewiched_coffee"
@@ -2244,6 +2244,34 @@ def pull_eos_scorecard():
     _sph_qweeks = len({r["week_ending"] for r in _sph_ord if r.get("week_ending", "") >= _QS})
     print("[pull] sph_history: upserted %s (%d store rows this wk, %d total) -- per-store QTD from %d week(s)"
           % (_cur_we, len(_sph_this), len(_sph_ord), _sph_qweeks))
+    # ---- mirror the full SPH history into Matt's live Google Sheet ("Bewiched SPH History",
+    # ---- owner matt@bewiched.co.uk; dashboards-bot SA has editor). Full-range rewrite = idempotent,
+    # ---- so weekly re-runs never duplicate; the sheet stays current exactly like sph_history.csv. ----
+    SPH_SHEET_ID = "1VpPT7irAcm8Wiq0gXmyF9P60YO2VAPPYx51J4S03R1g"
+    try:
+        from googleapiclient.discovery import build as _gbuild
+        _svc = _gbuild("sheets", "v4", credentials=_creds(), cache_discovery=False).spreadsheets()
+        _hdr = ["Week Ending", "Store", "Sales \u00a3", "Hours", "SPH \u00a3/hr"]
+        _vals = [_hdr] + [[str(r.get("week_ending", "")), str(r.get("store", "")),
+                           str(r.get("sales", "")), str(r.get("hours", "")), str(r.get("sph", ""))]
+                          for r in _sph_ord]
+        _svc.values().clear(spreadsheetId=SPH_SHEET_ID, range="Sheet1!A:E").execute()
+        _svc.values().update(spreadsheetId=SPH_SHEET_ID, range="Sheet1!A1",
+                             valueInputOption="USER_ENTERED", body={"values": _vals}).execute()
+        try:  # best-effort: bold + freeze the header row
+            _sid = _svc.get(spreadsheetId=SPH_SHEET_ID).execute()["sheets"][0]["properties"]["sheetId"]
+            _svc.batchUpdate(spreadsheetId=SPH_SHEET_ID, body={"requests": [
+                {"repeatCell": {"range": {"sheetId": _sid, "startRowIndex": 0, "endRowIndex": 1},
+                                "cell": {"userEnteredFormat": {"textFormat": {"bold": True}}},
+                                "fields": "userEnteredFormat.textFormat.bold"}},
+                {"updateSheetProperties": {"properties": {"sheetId": _sid,
+                                "gridProperties": {"frozenRowCount": 1}},
+                                "fields": "gridProperties.frozenRowCount"}}]}).execute()
+        except Exception as _fe:
+            print("[pull] sph sheet: header formatting skipped (%s)" % _fe)
+        print("[pull] sph sheet: wrote %d rows to Google Sheet %s" % (len(_vals) - 1, SPH_SHEET_ID))
+    except Exception as _se:
+        print("[pull] sph sheet: WRITE FAILED (%s)" % _se)
     _sph_weekly = [{"store": st, "value": round(rec[st]["lw26"] / v["used_lastwk"], 1),
                     "target": _sph_tgt.get(st)}
                    for st, v in ovr.items()
