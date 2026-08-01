@@ -126,14 +126,14 @@
    "r_rag": "green"
   },
   "Lower Heathcote": {
-   "g_n": 11,
+   "g_n": 12,
    "g_avg": 5.0,
    "g_target": 8,
    "g_health": 5.0,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 8,
-   "r_avg": 3.25,
+   "r_n": 9,
+   "r_avg": 3.44,
    "r_rag": "red"
   },
   "Market Harborough": {
@@ -181,10 +181,10 @@
    "r_rag": "red"
   },
   "Peterborough Bridge Street": {
-   "g_n": 8,
+   "g_n": 9,
    "g_avg": 5.0,
    "g_target": 18,
-   "g_health": 3.61,
+   "g_health": 3.75,
    "g_rag": "green",
    "g_stale": false,
    "r_n": 6,
@@ -209,8 +209,8 @@
    "g_health": 3.75,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 7,
-   "r_avg": 2.71,
+   "r_n": 8,
+   "r_avg": 2.88,
    "r_rag": "red"
   },
   "Rugby": {
@@ -251,8 +251,8 @@
    "g_health": 4.96,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 2,
-   "r_avg": 2.0,
+   "r_n": 4,
+   "r_avg": 3.0,
    "r_rag": "red"
   }
  }

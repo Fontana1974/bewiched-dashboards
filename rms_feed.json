@@ -234,8 +234,8 @@
     "avg": 3.0
    },
    "qtd": {
-    "n": 7,
-    "avg": 2.71
+    "n": 8,
+    "avg": 2.88
    }
   },
   "Rushden Lakes": {
@@ -304,8 +304,8 @@
     "avg": 2.5
    },
    "qtd": {
-    "n": 8,
-    "avg": 3.25
+    "n": 9,
+    "avg": 3.44
    }
   },
   "Market Harborough": {
@@ -364,8 +364,8 @@
     "avg": null
    },
    "qtd": {
-    "n": 2,
-    "avg": 2.0
+    "n": 4,
+    "avg": 3.0
    }
   }
  },
@@ -874,6 +874,38 @@
    "sentiment": "Positive"
   },
   {
+   "store": "Lower Heathcote",
+   "date": "2026-08-01",
+   "rating": 5.0,
+   "text": "Productive, friendly, and",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Wellingborough Train Station",
+   "date": "2026-08-01",
+   "rating": 5.0,
+   "text": "Fantastic flexible teamwork",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Rothwell",
+   "date": "2026-08-01",
+   "rating": 4.0,
+   "text": "chill shift with a good team",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Wellingborough Train Station",
+   "date": "2026-08-01",
+   "rating": 3.0,
+   "text": "Difficult train strikes",
+   "smt": null,
+   "sentiment": "Mixed"
+  },
+  {
    "store": "Corby",
    "date": "2026-08-01",
    "rating": 2.0,
@@ -1014,38 +1046,6 @@
    "date": "2026-07-30",
    "rating": 4.0,
    "text": "Customer requesting large matcha’s and white chocolate syrup",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Peterborough Bridge Street",
-   "date": "2026-07-30",
-   "rating": 4.0,
-   "text": "good but overwhelming",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions. Asked respondent to reach out if we can improve how shifts feel.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Billing Drive Thru",
-   "date": "2026-07-30",
-   "rating": 2.0,
-   "text": "Stressed and flustered",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Negative"
-  },
-  {
-   "store": "Rugby",
-   "date": "2026-07-29",
-   "rating": 5.0,
-   "text": "Great shift, lots of cleaning",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Rugby",
-   "date": "2026-07-29",
-   "rating": 5.0,
-   "text": "Issue, if someone has already left a review they cannot do another",
    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
    "sentiment": "Positive"
   }

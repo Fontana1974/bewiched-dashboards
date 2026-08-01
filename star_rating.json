@@ -2,7 +2,7 @@
  "target": 4.6,
  "stores": {
   "Glenvale Drive Thru": {
-   "composite": 4.3,
+   "composite": 4.2,
    "target": 4.6,
    "on_target": false,
    "pillars": [
@@ -48,14 +48,14 @@
     },
     {
      "name": "Operations",
-     "star": 3.9,
+     "star": 3.8,
      "target": 4.6,
      "on_target": false,
      "metrics": [
       {
        "label": "F1 drivers' championship",
-       "value": "P12 of 21",
-       "star": 2.1,
+       "value": "P13 of 21",
+       "star": 1.8,
        "on_target": false
       },
       {
@@ -118,7 +118,7 @@
     "rtw_detail": "RTW% from HRP sickness/RTW (Glenvale, QTD)"
    },
    "_cph_target": 63,
-   "_f1_pos": 12
+   "_f1_pos": 13
   },
   "Leamington Parade": {
    "composite": 4.0,
