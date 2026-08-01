@@ -29,10 +29,10 @@
  },
  "stores": {
   "Attleborough": {
-   "g_n": 1,
-   "g_avg": 4.0,
+   "g_n": 2,
+   "g_avg": 4.5,
    "g_target": 15,
-   "g_health": 2.17,
+   "g_health": 2.58,
    "g_rag": "red",
    "g_stale": false,
    "r_n": 7,
@@ -40,14 +40,14 @@
    "r_rag": "red"
   },
   "Billing Drive Thru": {
-   "g_n": 18,
-   "g_avg": 5.0,
+   "g_n": 23,
+   "g_avg": 4.957,
    "g_target": 49,
-   "g_health": 3.42,
+   "g_health": 3.65,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 47,
-   "r_avg": 4.64,
+   "r_n": 52,
+   "r_avg": 4.62,
    "r_rag": "green"
   },
   "Burton Latimer": {
@@ -62,12 +62,14 @@
    "r_rag": "green"
   },
   "Corby": {
-   "g_n": null,
-   "g_health": null,
-   "g_rag": "na",
-   "g_stale": true,
-   "r_n": 13,
-   "r_avg": 2.08,
+   "g_n": 2,
+   "g_avg": 5.0,
+   "g_target": 25,
+   "g_health": 2.7,
+   "g_rag": "red",
+   "g_stale": false,
+   "r_n": 16,
+   "r_avg": 2.19,
    "r_rag": "red"
   },
   "Glenvale Drive Thru": {
@@ -77,15 +79,15 @@
    "g_health": 3.03,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 17,
-   "r_avg": 3.47,
+   "r_n": 18,
+   "r_avg": 3.5,
    "r_rag": "red"
   },
   "HOE Balsall Common": {
-   "g_n": 3,
-   "g_avg": 3.667,
+   "g_n": 4,
+   "g_avg": 3.75,
    "g_target": 15,
-   "g_health": 2.33,
+   "g_health": 2.54,
    "g_rag": "red",
    "g_stale": false,
    "r_n": 11,
@@ -108,19 +110,19 @@
    "g_health": 2.1,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": null,
-   "r_avg": null,
-   "r_rag": "na"
+   "r_n": 1,
+   "r_avg": 5.0,
+   "r_rag": "green"
   },
   "Leamington Parade": {
-   "g_n": 29,
+   "g_n": 41,
    "g_avg": 5.0,
    "g_target": 15,
    "g_health": 5.0,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 49,
-   "r_avg": 4.78,
+   "r_n": 55,
+   "r_avg": 4.8,
    "r_rag": "green"
   },
   "Lower Heathcote": {
@@ -135,24 +137,26 @@
    "r_rag": "red"
   },
   "Market Harborough": {
-   "g_n": 12,
+   "g_n": 13,
    "g_avg": 5.0,
    "g_target": 24,
-   "g_health": 3.75,
+   "g_health": 3.85,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 8,
-   "r_avg": 4.25,
+   "r_n": 9,
+   "r_avg": 4.33,
    "r_rag": "amber"
   },
   "Northampton": {
-   "g_n": null,
-   "g_health": null,
-   "g_rag": "na",
-   "g_stale": true,
-   "r_n": 12,
-   "r_avg": 4.42,
-   "r_rag": "amber"
+   "g_n": 1,
+   "g_avg": 5.0,
+   "g_target": 15,
+   "g_health": 2.67,
+   "g_rag": "red",
+   "g_stale": false,
+   "r_n": 14,
+   "r_avg": 4.5,
+   "r_rag": "green"
   },
   "Northampton Drive-Thru": {
    "g_n": 4,
@@ -177,14 +181,14 @@
    "r_rag": "red"
   },
   "Peterborough Bridge Street": {
-   "g_n": 7,
+   "g_n": 8,
    "g_avg": 5.0,
    "g_target": 18,
-   "g_health": 3.47,
+   "g_health": 3.61,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 5,
-   "r_avg": 4.2,
+   "r_n": 6,
+   "r_avg": 4.17,
    "r_rag": "amber"
   },
   "Peterborough Fletton Quays": {
@@ -205,8 +209,8 @@
    "g_health": 3.75,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 6,
-   "r_avg": 3.0,
+   "r_n": 7,
+   "r_avg": 2.71,
    "r_rag": "red"
   },
   "Rugby": {
@@ -216,15 +220,15 @@
    "g_health": 2.9,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 17,
+   "r_n": 18,
    "r_avg": 4.94,
    "r_rag": "green"
   },
   "Rushden Lakes": {
-   "g_n": 7,
-   "g_avg": 4.429,
+   "g_n": 8,
+   "g_avg": 4.5,
    "g_target": 49,
-   "g_health": 2.57,
+   "g_health": 2.66,
    "g_rag": "red",
    "g_stale": false,
    "r_n": 1,

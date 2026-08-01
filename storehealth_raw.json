@@ -3,8 +3,8 @@
  "_basis": "Quarter-to-date (from 2026-07-01). NOT last week.",
  "rms": {
   "Corby": [
-   13,
-   2.077
+   16,
+   2.188
   ],
   "Olney": [
    1,
@@ -19,28 +19,28 @@
    3.857
   ],
   "Northampton": [
-   12,
-   4.417
+   14,
+   4.5
   ],
   "Rugby": [
-   17,
-   4.941
+   18,
+   4.944
   ],
   "Billing Drive Thru": [
-   47,
-   4.638
+   52,
+   4.615
   ],
   "Glenvale Drive Thru": [
-   17,
-   3.471
+   18,
+   3.5
   ],
   "Leamington Parade": [
-   49,
-   4.776
+   55,
+   4.8
   ],
   "Market Harborough": [
-   8,
-   4.25
+   9,
+   4.333
   ],
   "Burton Latimer": [
    5,
@@ -71,21 +71,25 @@
    5.0
   ],
   "Peterborough Bridge Street": [
-   5,
-   4.2
+   6,
+   4.167
   ],
   "Rushden Lakes": [
    1,
    3.0
   ],
   "Rothwell": [
-   6,
-   3.0
+   7,
+   2.714
+  ],
+  "Kettering": [
+   1,
+   5.0
   ]
  },
  "google": {
   "Peterborough Bridge Street": [
-   7,
+   8,
    5.0
   ],
   "Lower Heathcote": [
@@ -101,19 +105,19 @@
    4.833
   ],
   "Billing Drive Thru": [
-   18,
-   5.0
+   23,
+   4.957
   ],
   "Rushden Lakes": [
-   7,
-   4.429
+   8,
+   4.5
   ],
   "Olney": [
    5,
    5.0
   ],
   "Market Harborough": [
-   12,
+   13,
    5.0
   ],
   "Peterborough Fletton Quays": [
@@ -133,24 +137,32 @@
    4.75
   ],
   "Leamington Parade": [
-   29,
+   41,
    5.0
   ],
   "HOE Balsall Common": [
-   3,
-   3.667
+   4,
+   3.75
   ],
   "Rugby": [
    4,
    5.0
   ],
   "Attleborough": [
-   1,
-   4.0
+   2,
+   4.5
   ],
   "Kettering": [
    1,
    4.0
+  ],
+  "Corby": [
+   2,
+   5.0
+  ],
+  "Northampton": [
+   1,
+   5.0
   ]
  }
 }
