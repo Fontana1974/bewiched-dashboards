@@ -2207,6 +2207,43 @@ def pull_eos_scorecard():
     # no target in the sheet falls back to 55 (target=None -> renderer flags it as a default).
     _sph_tgt = jload("cph_targets.json").get("targets", {})
     _FRAN = {s for s, c in COACH.items() if c == "Ian"}     # Ian's franchise: Attleborough / Glenvale DT / HOE Balsall Common
+    # ---- committed PER-STORE SPH history (sph_history.csv): banks each week's per-store sales+hours so the
+    # ---- per-store SPH accumulates a real QTD (was mirroring the last week). Upserted by week_ending+store. ----
+    SPH_HIST = os.path.join(HERE, "sph_history.csv")
+    SPH_COLS = ["week_ending", "store", "sales", "hours", "sph"]
+    _sph_hist = []
+    if os.path.exists(SPH_HIST):
+        try:
+            with open(SPH_HIST, newline="") as _fh: _sph_hist = [r for r in csv.DictReader(_fh)]
+        except Exception:
+            _sph_hist = []
+    _cur_we = CUR_END.isoformat()
+    _sph_this = []
+    for st, v in ovr.items():
+        h = v.get("used_lastwk"); sa = (rec.get(st, {}) or {}).get("lw26")
+        if h and sa:
+            _sph_this.append({"week_ending": _cur_we, "store": st, "sales": round(sa), "hours": round(h, 1),
+                              "sph": round(sa / h, 1)})
+    _sph_merged = {(r.get("week_ending"), r.get("store")): r for r in _sph_hist}
+    for r in _sph_this: _sph_merged[(r["week_ending"], r["store"])] = r
+    _sph_ord = sorted(_sph_merged.values(), key=lambda r: (r.get("week_ending", ""), r.get("store", "")))
+    with open(SPH_HIST, "w", newline="") as _fh:
+        _w = csv.DictWriter(_fh, fieldnames=SPH_COLS); _w.writeheader()
+        for r in _sph_ord: _w.writerow({k: r.get(k, "") for k in SPH_COLS})
+    def _sf(x):
+        try: return float(x)
+        except Exception: return None
+    _QS = QSTART.isoformat()
+    _sph_agg = {}
+    for r in _sph_ord:
+        if r.get("week_ending", "") < _QS: continue
+        st = r.get("store"); sa = _sf(r.get("sales")); h = _sf(r.get("hours"))
+        if st and sa and h:
+            a = _sph_agg.setdefault(st, [0.0, 0.0]); a[0] += sa; a[1] += h
+    _sph_qtd_store = {st: round(sa / h, 1) for st, (sa, h) in _sph_agg.items() if h}
+    _sph_qweeks = len({r["week_ending"] for r in _sph_ord if r.get("week_ending", "") >= _QS})
+    print("[pull] sph_history: upserted %s (%d store rows this wk, %d total) -- per-store QTD from %d week(s)"
+          % (_cur_we, len(_sph_this), len(_sph_ord), _sph_qweeks))
     _sph_weekly = [{"store": st, "value": round(rec[st]["lw26"] / v["used_lastwk"], 1),
                     "target": _sph_tgt.get(st)}
                    for st, v in ovr.items()
@@ -2214,8 +2251,8 @@ def pull_eos_scorecard():
     _ps2("SPH Labour (incl holiday pay)", plan=55,
          weekly=_sph_weekly,
          wbasis="Last completed week sales ÷ planner hours used, vs each store's own £/hr target (Store-Targets sheet)",
-         qtd=[dict(r) for r in _sph_weekly],
-         qbasis="Per-store SPH vs each store's own target — QTD labour hours aren't separately sourced, so this mirrors the last completed week")   # company QTD tile stays on 55
+         qtd=[{"store": r["store"], "value": _sph_qtd_store.get(r["store"], r["value"]), "target": r["target"]} for r in _sph_weekly],
+         qbasis="Per-store SPH QTD = Σ sales ÷ Σ planner hours across the quarter's weeks, banked in sph_history.csv (upserted per week+store). Thin until several weeks accumulate; until then QTD ≈ the current week.")   # company QTD tile stays on 55
     # Franchise (Ian's) stores as DETAIL ONLY on the SPH per-store table — never in the company SPH
     # headline/aggregate (that stays on the 18-equity basis). Ian's planner doesn't record Section-A
     # hours used, so actual £/hr can't be computed -> value None (renders "—", awaiting hours); the
