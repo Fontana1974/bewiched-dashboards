@@ -7,42 +7,42 @@
    "share": 45,
    "gap": 9,
    "soft": false,
-   "total": 277087
+   "total": 277425
   },
   "Cold drinks": {
    "peak": "Lunch",
    "share": 39,
    "gap": 9,
    "soft": false,
-   "total": 229035
+   "total": 229629
   },
   "Milkshakes": {
    "peak": "Afternoon",
    "share": 39,
    "gap": 3,
    "soft": true,
-   "total": 108348
+   "total": 108744
   },
   "Food": {
    "peak": "Lunch",
    "share": 49,
    "gap": 14,
    "soft": false,
-   "total": 83551
+   "total": 83599
   },
   "Bakery": {
    "peak": "Lunch",
    "share": 40,
    "gap": 6,
    "soft": false,
-   "total": 68492
+   "total": 68561
   },
   "Other & retail": {
    "peak": "Lunch",
-   "share": 37,
+   "share": 36,
    "gap": 7,
    "soft": false,
-   "total": 47512
+   "total": 47665
   }
  },
  "bakery": [
@@ -51,17 +51,17 @@
    "peak": "Lunch",
    "share": 52,
    "hour": "11am",
-   "units": 3269,
-   "sales": 9151,
+   "units": 3270,
+   "sales": 9154,
    "sparse": false
   },
   {
    "name": "Luxury Millionaires Triangle Traybake",
    "peak": "Lunch",
-   "share": 46,
+   "share": 45,
    "hour": "11am",
-   "units": 2822,
-   "sales": 8416,
+   "units": 2826,
+   "sales": 8428,
    "sparse": false
   },
   {
@@ -69,8 +69,8 @@
    "peak": "Lunch",
    "share": 42,
    "hour": "12pm",
-   "units": 2305,
-   "sales": 7422,
+   "units": 2307,
+   "sales": 7429,
    "sparse": false
   },
   {
@@ -78,8 +78,8 @@
    "peak": "Morning",
    "share": 52,
    "hour": "10am",
-   "units": 1407,
-   "sales": 3578,
+   "units": 1408,
+   "sales": 3580,
    "sparse": false
   },
   {
@@ -87,8 +87,8 @@
    "peak": "Lunch",
    "share": 43,
    "hour": "12pm",
-   "units": 1398,
-   "sales": 3907,
+   "units": 1402,
+   "sales": 3919,
    "sparse": false
   },
   {
@@ -123,8 +123,8 @@
    "peak": "Lunch",
    "share": 41,
    "hour": "11am",
-   "units": 964,
-   "sales": 2727,
+   "units": 967,
+   "sales": 2735,
    "sparse": false
   },
   {
@@ -132,8 +132,8 @@
    "peak": "Lunch",
    "share": 42,
    "hour": "1pm",
-   "units": 957,
-   "sales": 2881,
+   "units": 958,
+   "sales": 2884,
    "sparse": false
   },
   {
@@ -149,9 +149,9 @@
    "name": "Marbled Crunch Slice",
    "peak": "Lunch",
    "share": 39,
-   "hour": "11am",
-   "units": 864,
-   "sales": 2602,
+   "hour": "2pm",
+   "units": 865,
+   "sales": 2605,
    "sparse": false
   },
   {
@@ -168,8 +168,8 @@
    "peak": "Lunch",
    "share": 48,
    "hour": "12pm",
-   "units": 666,
-   "sales": 1774,
+   "units": 667,
+   "sales": 1777,
    "sparse": false
   },
   {
@@ -186,8 +186,8 @@
    "peak": "Lunch",
    "share": 40,
    "hour": "11am",
-   "units": 292,
-   "sales": 1000,
+   "units": 293,
+   "sales": 1004,
    "sparse": false
   },
   {
@@ -211,19 +211,10 @@
   {
    "name": "GF Double Brownie",
    "peak": "Lunch",
-   "share": 43,
+   "share": 42,
    "hour": "11am",
-   "units": 197,
-   "sales": 519,
-   "sparse": false
-  },
-  {
-   "name": "Victoria Sponge Cake",
-   "peak": "Afternoon",
-   "share": 37,
-   "hour": "2pm",
-   "units": 196,
-   "sales": 668,
+   "units": 199,
+   "sales": 525,
    "sparse": false
   },
   {
@@ -233,6 +224,15 @@
    "hour": "11am",
    "units": 196,
    "sales": 589,
+   "sparse": false
+  },
+  {
+   "name": "Victoria Sponge Cake",
+   "peak": "Afternoon",
+   "share": 37,
+   "hour": "2pm",
+   "units": 196,
+   "sales": 668,
    "sparse": false
   },
   {
@@ -249,17 +249,26 @@
    "peak": "Afternoon",
    "share": 42,
    "hour": "2pm",
-   "units": 175,
-   "sales": 608,
+   "units": 176,
+   "sales": 612,
    "sparse": false
   },
   {
    "name": "Sausage Roll Meal Deal",
    "peak": "Morning",
    "share": 98,
-   "hour": "10am",
+   "hour": "9am",
    "units": 163,
    "sales": 976,
+   "sparse": false
+  },
+  {
+   "name": "Tea Time Coffee Cake",
+   "peak": "Lunch",
+   "share": 54,
+   "hour": "11am",
+   "units": 95,
+   "sales": 342,
    "sparse": false
   },
   {
@@ -269,15 +278,6 @@
    "hour": "8am",
    "units": 94,
    "sales": 591,
-   "sparse": false
-  },
-  {
-   "name": "Tea Time Coffee Cake",
-   "peak": "Lunch",
-   "share": 54,
-   "hour": "11am",
-   "units": 94,
-   "sales": 338,
    "sparse": false
   },
   {

@@ -14,7 +14,7 @@
   "2026-07-20",
   "2026-08-02"
  ],
- "_lastweek_count": 56,
+ "_lastweek_count": 57,
  "worst": [
   {
    "store": "Rothwell",
@@ -146,9 +146,9 @@
   },
   {
    "store": "Corby",
-   "avg": 3.0,
-   "n": 4,
-   "action": "Corby averaged 3.00★ from 4 shifts last week (lowest in the estate) — check in with the manager on what's driving it."
+   "avg": 3.2,
+   "n": 5,
+   "action": "Corby averaged 3.20★ from 5 shifts last week (lowest in the estate) — check in with the manager on what's driving it."
   }
  ],
  "per_store": {
@@ -168,12 +168,12 @@
   },
   "Corby": {
    "weekly": {
-    "n": 4,
-    "avg": 3.0
+    "n": 5,
+    "avg": 3.2
    },
    "qtd": {
-    "n": 17,
-    "avg": 2.29
+    "n": 18,
+    "avg": 2.39
    },
    "prevq": {
     "n": 69,
@@ -918,6 +918,15 @@
     "smt": null,
     "sentiment": "Positive",
     "action": null
+   },
+   {
+    "date": "2026-08-02",
+    "dow": "Sun 2 Aug",
+    "rating": 4.0,
+    "text": "Nice shift",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
    }
   ],
   "Market Harborough": [
@@ -1005,6 +1014,14 @@
    "date": "2026-08-02",
    "rating": 5.0,
    "text": "Oki oki",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Corby",
+   "date": "2026-08-02",
+   "rating": 4.0,
+   "text": "Nice shift",
    "smt": null,
    "sentiment": "Positive"
   },
@@ -1165,14 +1182,6 @@
    "date": "2026-07-31",
    "rating": 5.0,
    "text": "Busy, team work",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Leamington Parade",
-   "date": "2026-07-31",
-   "rating": 5.0,
-   "text": "Lovely shift",
    "smt": null,
    "sentiment": "Positive"
   }

@@ -1,9 +1,9 @@
 {
  "_basis": "Quarter-to-date. NOT last week.",
  "_updated": "2026-08-02",
- "_google_formula": "google_health = avg_star*0.5 + min(reviews/quarterly_target,1)*2.5 ; green>=3.32",
+ "_google_formula": "google_health = avg_star*0.5 + min(reviews/quarterly_target,1)*2.5 ; green>=3.32 ; ZERO reviews in period => 0.0 (red)",
  "_rms_formula": "rms_avg = quarterly mean shift rating (1-5); green>=4.5 amber>=4.0 red<4.0",
- "_google_feed_note": "Reviews scraper only live for 7 stores; 14 stale since ~Jul 2025 -> google_health null (shown as no-feed).",
+ "_google_feed_note": "No reviews in the period => Google Health forced to 0.0 (red), per rule - no rating credit without reviews.",
  "targets": {
   "Northampton Drive-Thru": 49,
   "Kettering": 24,
@@ -68,8 +68,8 @@
    "g_health": 2.8,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 17,
-   "r_avg": 2.29,
+   "r_n": 18,
+   "r_avg": 2.39,
    "r_rag": "red"
   },
   "Glenvale Drive Thru": {
@@ -95,10 +95,12 @@
    "r_rag": "green"
   },
   "Higham Ferrers": {
-   "g_n": null,
-   "g_health": null,
-   "g_rag": "na",
-   "g_stale": true,
+   "g_n": 0,
+   "g_avg": null,
+   "g_target": 10,
+   "g_health": 0.0,
+   "g_rag": "red",
+   "g_stale": false,
    "r_n": 1,
    "r_avg": 4.0,
    "r_rag": "amber"
@@ -236,10 +238,12 @@
    "r_rag": "red"
   },
   "Wellingborough": {
-   "g_n": null,
-   "g_health": null,
-   "g_rag": "na",
-   "g_stale": true,
+   "g_n": 0,
+   "g_avg": null,
+   "g_target": 18,
+   "g_health": 0.0,
+   "g_rag": "red",
+   "g_stale": false,
    "r_n": 4,
    "r_avg": 5.0,
    "r_rag": "green"

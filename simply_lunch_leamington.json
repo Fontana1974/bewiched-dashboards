@@ -40,7 +40,7 @@
    "item": "Sausage Bap",
    "category": "Breakfast baps & bagel",
    "daily": {
-    "1": 2.62,
+    "1": 2.75,
     "2": 2.12,
     "3": 2.25,
     "4": 1.12,
@@ -48,7 +48,7 @@
     "6": 1.5,
     "7": 4.38
    },
-   "weekly_mean": 16.1,
+   "weekly_mean": 16.2,
    "tue": 4,
    "thu": 5,
    "sat": 11,
@@ -173,7 +173,7 @@
    "item": "Caesar Wrap",
    "category": "Wraps",
    "daily": {
-    "1": 1.25,
+    "1": 1.38,
     "2": 1.12,
     "3": 0.88,
     "4": 1.0,
@@ -181,7 +181,7 @@
     "6": 0.88,
     "7": 2.25
    },
-   "weekly_mean": 8.9,
+   "weekly_mean": 9.0,
    "tue": 3,
    "thu": 3,
    "sat": 6,
