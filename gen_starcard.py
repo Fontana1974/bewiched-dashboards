@@ -470,6 +470,67 @@ CARDCSS=CSS+"""
 .flag .q{font-size:11.5px;font-weight:700}.flag .a{font-size:11px;font-weight:800;padding:2px 9px;border-radius:20px;background:#fff}
 .flag .a.no{color:var(--green)}.flag .a.yes{color:var(--red)}.flag .a.warn{color:var(--amber)}
 """
+# ================= AREA VIEW (grouped by area coach: Jon / Rich / Ian) =================
+COACH = {"Burton Latimer":"Jon","Peterborough Fletton Quays":"Jon","Rothwell":"Jon","Corby":"Jon",
+ "Kettering":"Jon","Rushden Lakes":"Jon","Peterborough Bridge Street":"Jon","Higham Ferrers":"Jon","Olney":"Jon",
+ "Leamington Parade":"Rich","Northampton":"Rich","Wellingborough Train Station":"Rich","Market Harborough":"Rich",
+ "Wellingborough":"Rich","Lower Heathcote":"Rich","Rugby":"Rich","Northampton Drive-Thru":"Rich","Billing Drive Thru":"Rich",
+ "Attleborough":"Ian","HOE Balsall Common":"Ian","Glenvale Drive Thru":"Ian"}
+AREAS={}
+for _k,_co in COACH.items():
+    _c=norm(_k)
+    if _c: AREAS.setdefault(_co,[]).append(_c)
+def _area_ov(co,win):
+    xs=[D[c]['S'][win]['overall'] for c in AREAS[co] if D[c]['S'][win]['overall'] is not None]
+    return sum(xs)/len(xs) if xs else None
+AREA_OV={w:{co:_area_ov(co,w) for co in AREAS} for w in WINDOWS}
+def area_vsytd(co):
+    q=AREA_OV['qtd'][co]; y=AREA_OV['ytd'][co]
+    if q is None or y is None: return "<span class='vsyc fl'>&ndash; <em>vs YTD</em></span>"
+    dv=q-y
+    if dv>=0.05: return "<span class='vsyc up'>&#9650; %.1f <em>vs YTD</em></span>"%dv
+    if dv<=-0.05: return "<span class='vsyc dn'>&#9660; %.1f <em>vs YTD</em></span>"%(-dv)
+    return "<span class='vsyc fl'>&#8776; 0 <em>vs YTD</em></span>"
+AREA_CSS="""
+.amethod{font-size:11.5px;color:var(--muted);line-height:1.55;margin-bottom:16px;max-width:1100px}.amethod b{color:var(--text)}
+.areagrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.acard{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 20px;box-shadow:0 1px 3px rgba(20,40,60,.05)}
+.ahead{display:flex;align-items:flex-start;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:12px}
+.acoach{font-size:19px;font-weight:800}.acnt{font-size:11px;color:var(--muted);font-weight:700;margin-top:2px}
+.arank{text-align:center}.arank .rn{font-size:26px;font-weight:800;color:var(--green);line-height:1}.arank .rl{font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);font-weight:800;margin-top:2px}
+.ascore{display:flex;align-items:center;gap:13px;flex-wrap:wrap;margin:14px 0 4px}.anum{font-size:42px;font-weight:800;line-height:1}
+.alab{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);font-weight:800}
+.apils{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0}
+.apil{border:1px solid var(--line);border-radius:10px;padding:8px 6px;text-align:center}
+.apl{font-size:8.5px;letter-spacing:.4px;text-transform:uppercase;color:var(--muted);font-weight:800}
+.aps{font-size:15px;font-weight:800;margin-top:2px}
+.apil.hit .aps{color:var(--green)}.apil.warn .aps{color:var(--amber)}.apil.miss .aps{color:var(--red)}.apil.neutral .aps{color:var(--dim)}
+.alisth{font-size:9px;letter-spacing:.8px;text-transform:uppercase;color:var(--dim);font-weight:800;border-top:1px solid var(--line);padding-top:9px}
+.arow{display:flex;align-items:center;justify-content:space-between;padding:4px 0;font-size:12px}
+.an{font-weight:700}.av{font-weight:800;white-space:nowrap;display:flex;align-items:center;gap:8px}.av .avn{min-width:22px;text-align:right}
+"""
+def area_view(win):
+    rows=[]
+    for co in AREAS:
+        ov=AREA_OV[win][co]; pil={}
+        for p in ('Team','Ops','Customers','Profit'):
+            xs=[D[c]['S'][win]['pillars'][p] for c in AREAS[co] if D[c]['S'][win]['pillars'][p] is not None]
+            pil[p]=sum(xs)/len(xs) if xs else None
+        rows.append((co,ov,pil))
+    rows.sort(key=lambda r:(r[1] if r[1] is not None else -1),reverse=True)
+    out="<div class='areagrid'>"
+    for i,(co,ov,pil) in enumerate(rows,1):
+        ms=sorted(AREAS[co],key=lambda c:(D[c]['S'][win]['overall'] if D[c]['S'][win]['overall'] is not None else -1),reverse=True)
+        slist="".join("<div class='arow'><span class='an'>%s</span><span class='av'><span class='avn'>%s</span>%s</span></div>"%(c,fmt(D[c]['S'][win]['overall']),stars(D[c]['S'][win]['overall'],12)) for c in ms)
+        pills="".join("<div class='apil %s'><div class='apl'>%s</div><div class='aps'>%s</div></div>"%(pcol(pil[p]),p,fmt(pil[p])) for p in ('Team','Ops','Customers','Profit'))
+        out+=("<div class='acard'><div class='ahead'><div><div class='acoach'>%s&rsquo;s area</div><div class='acnt'>%d stores</div></div><div class='arank'><div class='rn'>#%d</div><div class='rl'>of 3</div></div></div>"
+              "<div class='alab'>Area total score</div><div class='ascore'><span class='anum'>%s</span>%s%s</div>"
+              "<div class='apils'>%s</div><div class='alisth'>Stores &middot; overall Star Score</div>%s</div>")%(co,len(AREAS[co]),i,fmt(ov),stars(ov,24),area_vsytd(co),pills,slist)
+    return out+"</div>"
+AREA_VIEW={w:area_view(w) for w in WINDOWS}
+AREA_METHOD=("<div class='amethod'><b>Area Total Score = the average of that area&rsquo;s stores&rsquo; overall Star Scores</b> "
+ "(equal-weighted per store); area pillar sub-scores are the average of the stores&rsquo; pillar scores. Areas are ranked by total score. "
+ "The <b>vs YTD</b> trend compares the area&rsquo;s QTD total to its YTD total. Jon 9 stores &middot; Rich 9 &middot; Ian 3.</div>")
 # ================= LIVE 2-TAB PAGE: star-card.html =================
 LB_CSS = """
 .top{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:14px}
@@ -509,25 +570,27 @@ _lb = ("<div class='top'><div><div class='brand'>Star Card</div><div class='h1'>
        "<div style='text-align:right'><div class='sub'>Gold = overall rating &middot; pillars: <span class='hit'>green &ge;4</span> &middot; <span class='warn'>amber 3&ndash;4</span> &middot; <span class='miss'>red &lt;3</span></div></div></div>"
        "<table><thead><tr><th>#</th><th>Store</th><th>Overall Star Score</th><th class='plh'>Team</th><th class='plh'>Ops</th><th class='plh'>Customers</th><th class='plh'>Profit</th><th>Real data</th></tr></thead><tbody id='lbody'>"+TBODY["qtd"]+"</tbody></table>"+"<div class='foot'><b>Pillars:</b> Team (<b>RMS Health + New-starter</b>) &middot; Ops (<b>F1 avg Total Score QTD (target &le;175) + Google Health (EOS composite, green &ge;3.32)</b>) &middot; Customers (<b>sales + guest YoY, last completed week vs same week last year</b> on QTD; blended YoY on YTD) &middot; Profit (SPH + Food GP%). <b>Brand foundations</b> (Brand &amp; Remote + Open/Close %) and <b>Urgent support</b> (coach vacancy, bench gap, accidents, red maintenance) sit outside the score. <b>Real data (N / 8):</b> count of the 8 scored metrics (RMS, New-starter, F1, Google, Sales YoY, Guest counts, SPH, Food GP) on genuine real data. Overall = mean of available pillars. Targets indicative for Matt to set.</div>")
 PAGE = ("<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'>"
-        "<title>Bewiched Star Card</title><style>"+CARDCSS+LB_CSS+TAB_CSS+"</style></head><body><div class='wrap'>"
+        "<title>Bewiched Star Card</title><style>"+CARDCSS+LB_CSS+TAB_CSS+AREA_CSS+"</style></head><body><div class='wrap'>"
         "<div class='appbar'><div class='abrand'>"+_LOGO+"<div><div class='eyebrow'>Store Scorecard</div><div class='h1b'>Star Card</div></div></div>"
-        "<div class='tabs'><button data-tab='store' class='on'>Store Card</button><button data-tab='board'>Leaderboard</button></div>"
+        "<div class='tabs'><button data-tab='store' class='on'>Store Card</button><button data-tab='board'>Leaderboard</button><button data-tab='area'>Area</button></div>"
         "<div class='tgl'><button data-w='qtd' class='on'>QTD</button><button data-w='ytd'>YTD</button></div></div>"
         "<div id='pane-store' class='pane'><div class='storesel'><label>Store</label><select id='storesel'>"+_opts+"</select></div><div id='cardhost'></div></div>"
         "<div id='pane-board' class='pane' hidden>"+_lb+"</div>"
+        "<div id='pane-area' class='pane' hidden>"+AREA_METHOD+"<div id='areahost'>"+AREA_VIEW["qtd"]+"</div></div>"
         "</div><script>"
-        "var CARDS="+_json.dumps(CARDS)+",TBODY="+_json.dumps(TBODY)+",WLAB="+_json.dumps(WLAB)+";"
+        "var CARDS="+_json.dumps(CARDS)+",TBODY="+_json.dumps(TBODY)+",AREA="+_json.dumps(AREA_VIEW)+",WLAB="+_json.dumps(WLAB)+";"
         "var st={tab:'store',win:'qtd',store:"+_json.dumps(_default)+"};"
         "function rc(){document.getElementById('cardhost').innerHTML=CARDS[st.store][st.win];}"
         "function rb(){document.getElementById('lbody').innerHTML=TBODY[st.win];document.getElementById('winlab').textContent=WLAB[st.win];}"
+        "function ra(){document.getElementById('areahost').innerHTML=AREA[st.win];}"
         "document.querySelectorAll('.tabs button').forEach(function(b){b.onclick=function(){"
         "document.querySelectorAll('.tabs button').forEach(function(x){x.classList.remove('on')});b.classList.add('on');"
-        "st.tab=b.getAttribute('data-tab');document.getElementById('pane-store').hidden=(st.tab!='store');document.getElementById('pane-board').hidden=(st.tab!='board');};});"
+        "st.tab=b.getAttribute('data-tab');document.getElementById('pane-store').hidden=(st.tab!='store');document.getElementById('pane-board').hidden=(st.tab!='board');document.getElementById('pane-area').hidden=(st.tab!='area');};});"
         "document.querySelectorAll('.appbar .tgl button').forEach(function(b){b.onclick=function(){"
         "document.querySelectorAll('.appbar .tgl button').forEach(function(x){x.classList.remove('on')});b.classList.add('on');"
-        "st.win=b.getAttribute('data-w');rc();rb();};});"
+        "st.win=b.getAttribute('data-w');rc();rb();ra();};});"
         "document.getElementById('storesel').onchange=function(){st.store=this.value;rc();};"
-        "rc();rb();"
+        "rc();rb();ra();"
         "</script></body></html>")
 open(os.path.join(OUT,"star-card.html"),"w",encoding="utf-8").write(PAGE)
 print("[gen_starcard] wrote star-card.html (%d stores, 2 tabs); leftover placeholders: none"%len(CANON))
