@@ -14,7 +14,7 @@
   "2026-07-20",
   "2026-08-02"
  ],
- "_lastweek_count": 55,
+ "_lastweek_count": 56,
  "worst": [
   {
    "store": "Rothwell",
@@ -336,12 +336,12 @@
   },
   "Leamington Parade": {
    "weekly": {
-    "n": 11,
+    "n": 12,
     "avg": 5.0
    },
    "qtd": {
-    "n": 56,
-    "avg": 4.8
+    "n": 57,
+    "avg": 4.81
    },
    "prevq": {
     "n": 141,
@@ -544,6 +544,15 @@
     "dow": "Sat 1 Aug",
     "rating": 5.0,
     "text": "Lovely teamwork, to be honest",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-08-02",
+    "dow": "Sun 2 Aug",
+    "rating": 5.0,
+    "text": "Oki oki",
     "smt": null,
     "sentiment": "Positive",
     "action": null
@@ -992,6 +1001,14 @@
    "sentiment": "Positive"
   },
   {
+   "store": "Leamington Parade",
+   "date": "2026-08-02",
+   "rating": 5.0,
+   "text": "Oki oki",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
    "store": "Rothwell",
    "date": "2026-08-02",
    "rating": 3.0,
@@ -1156,14 +1173,6 @@
    "date": "2026-07-31",
    "rating": 5.0,
    "text": "Lovely shift",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Billing Drive Thru",
-   "date": "2026-07-31",
-   "rating": 5.0,
-   "text": "Clean/organized/positive",
    "smt": null,
    "sentiment": "Positive"
   }

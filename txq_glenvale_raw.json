@@ -3,27 +3,19 @@
  "grid": [
   {
    "channel": "DI",
-   "daypart": "Lunch",
-   "txns": 1661,
-   "sales": 14613.0,
-   "foodtxns": 609,
-   "retailtxns": 476
-  },
-  {
-   "channel": "DI",
-   "daypart": "Evening",
-   "txns": 786,
-   "sales": 5778.0,
-   "foodtxns": 140,
-   "retailtxns": 241
+   "daypart": "Afternoon",
+   "txns": 1225,
+   "sales": 9871.0,
+   "foodtxns": 323,
+   "retailtxns": 392
   },
   {
    "channel": "DT",
    "daypart": "Lunch",
-   "txns": 875,
-   "sales": 7038.0,
-   "foodtxns": 190,
-   "retailtxns": 187
+   "txns": 904,
+   "sales": 7283.0,
+   "foodtxns": 195,
+   "retailtxns": 195
   },
   {
    "channel": "DT",
@@ -35,35 +27,43 @@
   },
   {
    "channel": "DI",
-   "daypart": "Afternoon",
-   "txns": 1188,
-   "sales": 9569.0,
-   "foodtxns": 312,
-   "retailtxns": 383
+   "daypart": "Evening",
+   "txns": 786,
+   "sales": 5778.0,
+   "foodtxns": 140,
+   "retailtxns": 241
   },
   {
    "channel": "DT",
-   "daypart": "Afternoon",
-   "txns": 664,
-   "sales": 5680.0,
-   "foodtxns": 78,
-   "retailtxns": 143
+   "daypart": "Morning",
+   "txns": 1626,
+   "sales": 11347.0,
+   "foodtxns": 390,
+   "retailtxns": 347
+  },
+  {
+   "channel": "DI",
+   "daypart": "Lunch",
+   "txns": 1734,
+   "sales": 15292.0,
+   "foodtxns": 630,
+   "retailtxns": 501
   },
   {
    "channel": "DI",
    "daypart": "Morning",
-   "txns": 1682,
-   "sales": 13039.0,
-   "foodtxns": 524,
-   "retailtxns": 373
+   "txns": 1706,
+   "sales": 13245.0,
+   "foodtxns": 535,
+   "retailtxns": 382
   },
   {
    "channel": "DT",
-   "daypart": "Morning",
-   "txns": 1612,
-   "sales": 11201.0,
-   "foodtxns": 386,
-   "retailtxns": 346
+   "daypart": "Afternoon",
+   "txns": 675,
+   "sales": 5781.0,
+   "foodtxns": 79,
+   "retailtxns": 144
   }
  ]
 }

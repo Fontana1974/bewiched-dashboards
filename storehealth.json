@@ -62,10 +62,10 @@
    "r_rag": "green"
   },
   "Corby": {
-   "g_n": 2,
+   "g_n": 3,
    "g_avg": 5.0,
    "g_target": 25,
-   "g_health": 2.7,
+   "g_health": 2.8,
    "g_rag": "red",
    "g_stale": false,
    "r_n": 17,
@@ -121,8 +121,8 @@
    "g_health": 5.0,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 56,
-   "r_avg": 4.8,
+   "r_n": 57,
+   "r_avg": 4.81,
    "r_rag": "green"
   },
   "Lower Heathcote": {

@@ -21,7 +21,7 @@
    "item": "Bacon Bap",
    "category": "Breakfast baps & bagel",
    "daily": {
-    "1": 1.71,
+    "1": 1.75,
     "2": 2.38,
     "3": 2.5,
     "4": 1.75,
@@ -40,7 +40,7 @@
    "item": "Sausage Bap",
    "category": "Breakfast baps & bagel",
    "daily": {
-    "1": 2.57,
+    "1": 2.62,
     "2": 2.12,
     "3": 2.25,
     "4": 1.12,
@@ -59,7 +59,7 @@
    "item": "Breakfast Bagel",
    "category": "Breakfast baps & bagel",
    "daily": {
-    "1": 0.71,
+    "1": 0.62,
     "2": 1.62,
     "3": 0.38,
     "4": 0.75,
@@ -67,7 +67,7 @@
     "6": 0.75,
     "7": 1.62
    },
-   "weekly_mean": 6.5,
+   "weekly_mean": 6.4,
    "tue": 2,
    "thu": 2,
    "sat": 5,
@@ -78,7 +78,7 @@
    "item": "Egg & Spinach Sandwich",
    "category": "Sandwiches",
    "daily": {
-    "1": 1.71,
+    "1": 1.62,
     "2": 2.0,
     "3": 1.0,
     "4": 1.0,
@@ -86,7 +86,7 @@
     "6": 1.0,
     "7": 2.0
    },
-   "weekly_mean": 10.3,
+   "weekly_mean": 10.2,
    "tue": 3,
    "thu": 4,
    "sat": 7,
@@ -97,7 +97,7 @@
    "item": "Chicken Caprese Sandwich",
    "category": "Sandwiches",
    "daily": {
-    "1": 1.43,
+    "1": 1.25,
     "2": 1.88,
     "3": 1.0,
     "4": 0.5,
@@ -105,7 +105,7 @@
     "6": 1.25,
     "7": 2.25
    },
-   "weekly_mean": 9.9,
+   "weekly_mean": 9.8,
    "tue": 2,
    "thu": 4,
    "sat": 7,
@@ -116,7 +116,7 @@
    "item": "Tuna Ciabatta",
    "category": "Ciabattas",
    "daily": {
-    "1": 2.0,
+    "1": 2.38,
     "2": 1.88,
     "3": 1.75,
     "4": 2.75,
@@ -124,7 +124,7 @@
     "6": 1.12,
     "7": 2.25
    },
-   "weekly_mean": 13.6,
+   "weekly_mean": 14.0,
    "tue": 6,
    "thu": 4,
    "sat": 8,
@@ -135,7 +135,7 @@
    "item": "Chicken & Chorizo Ciabatta",
    "category": "Ciabattas",
    "daily": {
-    "1": 1.29,
+    "1": 1.38,
     "2": 1.5,
     "3": 1.12,
     "4": 1.12,
@@ -143,7 +143,7 @@
     "6": 1.0,
     "7": 3.0
    },
-   "weekly_mean": 11.3,
+   "weekly_mean": 11.4,
    "tue": 3,
    "thu": 4,
    "sat": 7,
@@ -154,7 +154,7 @@
    "item": "Mozzarella & Tomato Ciabatta",
    "category": "Ciabattas",
    "daily": {
-    "1": 1.57,
+    "1": 1.62,
     "2": 0.88,
     "3": 1.75,
     "4": 1.0,
@@ -162,7 +162,7 @@
     "6": 1.12,
     "7": 3.0
    },
-   "weekly_mean": 10.8,
+   "weekly_mean": 10.9,
    "tue": 4,
    "thu": 4,
    "sat": 7,
@@ -173,7 +173,7 @@
    "item": "Caesar Wrap",
    "category": "Wraps",
    "daily": {
-    "1": 1.43,
+    "1": 1.25,
     "2": 1.12,
     "3": 0.88,
     "4": 1.0,
@@ -181,7 +181,7 @@
     "6": 0.88,
     "7": 2.25
    },
-   "weekly_mean": 9.1,
+   "weekly_mean": 8.9,
    "tue": 3,
    "thu": 3,
    "sat": 6,
@@ -192,7 +192,7 @@
    "item": "Falafel Wrap",
    "category": "Wraps",
    "daily": {
-    "1": 0.43,
+    "1": 0.38,
     "2": 0.62,
     "3": 0.62,
     "4": 0.62,
@@ -200,7 +200,7 @@
     "6": 0.88,
     "7": 1.38
    },
-   "weekly_mean": 5.3,
+   "weekly_mean": 5.2,
    "tue": 2,
    "thu": 2,
    "sat": 3,
@@ -211,7 +211,7 @@
    "item": "Greek Style Chicken Salad",
    "category": "Salads",
    "daily": {
-    "1": 0.29,
+    "1": 0.25,
     "2": 1.5,
     "3": 0.38,
     "4": 0.38,
@@ -219,7 +219,7 @@
     "6": 0.5,
     "7": 1.62
    },
-   "weekly_mean": 5.7,
+   "weekly_mean": 5.6,
    "tue": 1,
    "thu": 2,
    "sat": 4,
@@ -249,7 +249,7 @@
    "item": "GF Vegan Wrapped Caramel Shortbread",
    "category": "Other",
    "daily": {
-    "1": 0.14,
+    "1": 0.25,
     "2": 0.0,
     "3": 0.25,
     "4": 0.62,
@@ -257,11 +257,11 @@
     "6": 0.12,
     "7": 0.62
    },
-   "weekly_mean": 2.0,
+   "weekly_mean": 2.1,
    "tue": 2,
    "thu": 1,
-   "sat": 1,
-   "weekly_order": 4,
+   "sat": 2,
+   "weekly_order": 5,
    "sparse": true
   },
   {
