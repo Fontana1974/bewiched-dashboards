@@ -7,42 +7,42 @@
    "share": 45,
    "gap": 9,
    "soft": false,
-   "total": 277425
+   "total": 277505
   },
   "Cold drinks": {
    "peak": "Lunch",
    "share": 39,
    "gap": 9,
    "soft": false,
-   "total": 229629
+   "total": 229837
   },
   "Milkshakes": {
    "peak": "Afternoon",
    "share": 39,
    "gap": 3,
    "soft": true,
-   "total": 108744
+   "total": 108868
   },
   "Food": {
    "peak": "Lunch",
    "share": 49,
    "gap": 14,
    "soft": false,
-   "total": 83599
+   "total": 83612
   },
   "Bakery": {
    "peak": "Lunch",
    "share": 40,
    "gap": 6,
    "soft": false,
-   "total": 68561
+   "total": 68575
   },
   "Other & retail": {
    "peak": "Lunch",
    "share": 36,
    "gap": 7,
    "soft": false,
-   "total": 47665
+   "total": 47709
   }
  },
  "bakery": [
@@ -69,8 +69,8 @@
    "peak": "Lunch",
    "share": 42,
    "hour": "12pm",
-   "units": 2307,
-   "sales": 7429,
+   "units": 2308,
+   "sales": 7432,
    "sparse": false
   },
   {
@@ -78,8 +78,8 @@
    "peak": "Morning",
    "share": 52,
    "hour": "10am",
-   "units": 1408,
-   "sales": 3580,
+   "units": 1409,
+   "sales": 3583,
    "sparse": false
   },
   {
@@ -132,8 +132,8 @@
    "peak": "Lunch",
    "share": 42,
    "hour": "1pm",
-   "units": 958,
-   "sales": 2884,
+   "units": 959,
+   "sales": 2887,
    "sparse": false
   },
   {
@@ -149,7 +149,7 @@
    "name": "Marbled Crunch Slice",
    "peak": "Lunch",
    "share": 39,
-   "hour": "2pm",
+   "hour": "11am",
    "units": 865,
    "sales": 2605,
    "sparse": false
@@ -168,8 +168,8 @@
    "peak": "Lunch",
    "share": 48,
    "hour": "12pm",
-   "units": 667,
-   "sales": 1777,
+   "units": 668,
+   "sales": 1780,
    "sparse": false
   },
   {
@@ -213,17 +213,8 @@
    "peak": "Lunch",
    "share": 42,
    "hour": "11am",
-   "units": 199,
-   "sales": 525,
-   "sparse": false
-  },
-  {
-   "name": "Granola Traybake",
-   "peak": "Lunch",
-   "share": 42,
-   "hour": "11am",
-   "units": 196,
-   "sales": 589,
+   "units": 200,
+   "sales": 527,
    "sparse": false
   },
   {
@@ -233,6 +224,15 @@
    "hour": "2pm",
    "units": 196,
    "sales": 668,
+   "sparse": false
+  },
+  {
+   "name": "Granola Traybake",
+   "peak": "Lunch",
+   "share": 42,
+   "hour": "11am",
+   "units": 196,
+   "sales": 589,
    "sparse": false
   },
   {
