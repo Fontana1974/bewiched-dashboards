@@ -85,15 +85,26 @@ for k,v in L("rms_feed.json")['per_store'].items():
     if c:
         D[c]['rms']=v.get('qtd',{}).get('avg'); D[c]['rms_wk']=v.get('weekly',{}).get('avg'); D[c]['rms_n']=v.get('qtd',{}).get('n')
         D[c]['rms_q2']=(v.get('prevq') or {}).get('avg')                       # prior-quarter RMS
-# Google reviews (rating 1-5, qtd) — [count, rating]
+# Google reviews raw (rating + count, qtd) — for the sub-note "★rating · N reviews"
 for k,v in L("_google_qtd.json").items():
     c=norm(k)
     if c: D[c]['goog']=v[1]; D[c]['goog_n']=v[0]
-# prior-quarter (Q2) Google rating for the real vs-last-quarter chip
+# Google HEALTH — the EOS per-store composite from storehealth.json
+#   g_health = avg_star*0.5 + min(reviews/quarterly_target, 1)*2.5  (0-5 scale; EOS green >= 3.32)
+_GH_TGT={}
+try:
+    _sh=L("storehealth.json"); _GH_TGT={norm(k):t for k,t in _sh.get('targets',{}).items() if norm(k)}
+    for k,v in _sh.get('stores',{}).items():
+        c=norm(k)
+        if c: D[c]['gh']=v.get('g_health'); D[c]['gh_n']=v.get('g_n'); D[c]['gh_avg']=v.get('g_avg'); D[c]['gh_tgt']=v.get('g_target')
+except Exception: pass
+# prior-quarter (Q2) Google Health via the SAME formula (Q2 count+rating from _google_prevq, same per-store review target)
 try:
     for k,v in L("_google_prevq.json").items():
         c=norm(k)
-        if c: D[c]['goog_q2']=v[1]
+        if not c: continue
+        D[c]['goog_q2']=v[1]; _t=_GH_TGT.get(c) or D[c].get('gh_tgt')
+        if _t and v[1] is not None: D[c]['gh_q2']=round(v[1]*0.5+min(v[0]/_t,1)*2.5,2)
 except Exception: pass
 # F1 QTD avg Total Score (lower=better, target 175) + prior-quarter (Q2) score for the QoQ chip
 try:
@@ -187,10 +198,10 @@ def score(c,win):
     rms=d.get('rms'); rms_r=clamp(rms/5) if rms is not None else None
     ns_r=None  # new-starter 0%-logged -> not real, excluded
     _t=[x for x in (rms_r,ns_r) if x is not None]; team=(sum(_t)/len(_t)*5) if _t else None
-    # Ops = F1 (QTD avg Total Score vs 175 target, lower=better) + Google reviews
-    f1s=d.get('f1_q3'); goog=d.get('goog')
+    # Ops = F1 (QTD avg Total Score vs 175 target, lower=better) + Google HEALTH (EOS composite, 0-5, green>=3.32)
+    f1s=d.get('f1_q3'); gh=d.get('gh')
     f1_r=clamp(175.0/f1s) if f1s else None
-    goog_r=clamp(goog/5) if goog is not None else None
+    goog_r=clamp(gh/5) if gh is not None else None
     _o=[x for x in (f1_r,goog_r) if x is not None]; ops=(sum(_o)/len(_o)*5) if _o else None
     yr=lambda v: clamp((v+10)/20) if v is not None else None
     _cp=[x for x in (yr(wv['sales']),yr(wv['gc'])) if x is not None]
@@ -200,7 +211,7 @@ def score(c,win):
     _pp=[x for x in (gp_r,sph_r) if x is not None]; profit=(sum(_pp)/len(_pp)*5) if _pp else None
     pil={'Team':team,'Ops':ops,'Customers':cust,'Profit':profit}
     av=[v for v in pil.values() if v is not None]
-    real={'RMS':d.get('rms') is not None,'New starter':False,'F1':d.get('f1_q3') is not None,'Google':d.get('goog') is not None,
+    real={'RMS':d.get('rms') is not None,'New starter':False,'F1':d.get('f1_q3') is not None,'Google':d.get('gh') is not None,
         'Sales YoY':wv['sales'] is not None,'Guest counts':wv['gc'] is not None,
         'SPH':d.get('sph') is not None,'Food GP':d.get('gp') is not None}
     return {'pillars':pil,'overall':(sum(av)/len(av) if av else None),'real':real,
@@ -294,7 +305,7 @@ tbody tr:last-child td{border-bottom:none}
 <div class='tglnote'>Ranking recomputes for the selected window. Each overall score carries a <span class='vsy up'>&#9650;<em>vs YTD</em></span> / <span class='vsy dn'>&#9660;<em>vs YTD</em></span> trend (current QTD overall vs that store's YTD overall). <b>QTD</b> = quarter to date (solid); <b>YTD</b> = year-to-date roll-up.</div></div>
 <table><thead><tr><th>#</th><th>Store</th><th>Overall Star Score</th><th class='plh'>Team</th><th class='plh'>Ops</th><th class='plh'>Customers</th><th class='plh'>Profit</th><th>Real data</th></tr></thead><tbody id='lbody'>"""
 +TBODY['qtd']+"""</tbody></table>
-<div class='foot'><b>Pillars:</b> Team (<b>RMS Health + New-starter</b>) &middot; Ops (<b>F1 avg Total Score QTD (target &le;175) + Google reviews</b>) &middot; Customers (<b>sales + guest YoY, last completed week vs same week last year</b> on QTD; blended YoY on YTD) &middot; Profit (SPH + Food GP%). <b>Brand foundations</b> (Brand &amp; Remote + Open/Close %) and <b>Urgent support</b> (coach vacancy, bench gap, accidents, red maintenance) sit outside the score. <b>Real data (N / 8):</b> count of the 8 scored metrics (RMS, New-starter, F1, Google, Sales YoY, Guest counts, SPH, Food GP) on genuine real data. <b>SPH is scored</b> from the banked sph_history.csv. QTD is the solid view; YTD blends Sales &amp; Guest YoY across the held quarters while RMS, Google, SPH, F1 &amp; Food GP carry QTD depth ("history building") until the year accumulates. Bench now sits only in Urgent support (not double-counted); New-starter is 0%-logged (not scored). Overall = mean of available pillars. Targets indicative for Matt to set.</div>
+<div class='foot'><b>Pillars:</b> Team (<b>RMS Health + New-starter</b>) &middot; Ops (<b>F1 avg Total Score QTD (target &le;175) + Google Health (EOS composite, green &ge;3.32)</b>) &middot; Customers (<b>sales + guest YoY, last completed week vs same week last year</b> on QTD; blended YoY on YTD) &middot; Profit (SPH + Food GP%). <b>Brand foundations</b> (Brand &amp; Remote + Open/Close %) and <b>Urgent support</b> (coach vacancy, bench gap, accidents, red maintenance) sit outside the score. <b>Real data (N / 8):</b> count of the 8 scored metrics (RMS, New-starter, F1, Google, Sales YoY, Guest counts, SPH, Food GP) on genuine real data. <b>SPH is scored</b> from the banked sph_history.csv. QTD is the solid view; YTD blends Sales &amp; Guest YoY across the held quarters while RMS, Google, SPH, F1 &amp; Food GP carry QTD depth ("history building") until the year accumulates. Bench now sits only in Urgent support (not double-counted); New-starter is 0%-logged (not scored). Overall = mean of available pillars. Targets indicative for Matt to set.</div>
 </div>
 <script>
 var TBODY=""" + _json.dumps(TBODY) + """, WLAB=""" + _json.dumps(WLAB) + """;
@@ -349,13 +360,14 @@ def card(c,win):
     # OPS — F1 avg Total Score (lower better, target 175) + Google reviews
     f1s=d.get('f1_q3'); _f2=d.get('f1_q2'); _fl=d.get('f1_latest'); _cr=d.get('champ_rank'); _cn=d.get('champ_n') or 21
     f1_sub=('Championship P%d/%d &middot; target &le;175'%(_cr,_cn)) if _cr else 'target &le;175'
-    googv=d.get('goog'); _gq2=d.get('goog_q2')
+    gh=d.get('gh'); gh_n=d.get('gh_n'); gh_avg=d.get('gh_avg'); _ghq2=d.get('gh_q2')
+    gh_sub=('&#9733;%.2f &middot; %d reviews &middot; target &ge;3.32'%(gh_avg,gh_n or 0)) if gh_avg is not None else 'target &ge;3.32 / 5'
     ops=(MW('F1 race (QTD avg)',win_tag,('%.0f'%f1s) if f1s is not None else 'n/a',(hc(f1s<=175) if f1s is not None else 'neutral'),f1_sub,
             rw('vs Last Week',('%.0f'%_fl) if _fl is not None else None,dl(f1s,_fl,False,''))
            +rw('vs Last Quarter',('%.0f'%_f2) if _f2 is not None else None,dl(f1s,_f2,False,'')))
-        +MW('Google reviews',win_tag,('%.2f'%googv) if googv is not None else 'n/a',(hc(googv>=4.5) if googv is not None else 'neutral'),'%s reviews &middot; target &ge;4.5'%(d.get('goog_n') or 0),
+        +MW('Google Health',win_tag,('%.2f'%gh) if gh is not None else 'n/a',(hc(gh>=3.32) if gh is not None else 'neutral'),gh_sub,
             rw('vs Last Week',None,"<span class='dlt fl'>&ndash;</span>")
-           +rw('vs Last Quarter',('%.2f'%_gq2) if _gq2 is not None else None,dl(googv,_gq2,True,'',2))))
+           +rw('vs Last Quarter',('%.2f'%_ghq2) if _ghq2 is not None else None,dl(gh,_ghq2,True,'',2))))
     # CUSTOMERS — Sales + Guest YoY (headline = last completed week vs LY on QTD; blended YoY on YTD)
     lws=d.get('yoy_lw'); lwg=d.get('gc_lw'); qs=qc.get('yoy_sales'); qg=qc.get('yoy_tx'); ps=qp.get('yoy_sales'); pg=qp.get('yoy_tx')
     sH=S['sales']; gH=S['gc']; s_tag=('LAST WK' if not ytd else 'YTD'); s_sub=('vs same wk last yr' if not ytd else 'blended YoY')
@@ -490,7 +502,7 @@ _opts = "".join("<option value=\"%s\"%s>%s</option>"%(c,(" selected" if c==_defa
 _lb = ("<div class='top'><div><div class='brand'>Star Card</div><div class='h1'>Estate leaderboard &mdash; all 21 stores</div>"
        "<div class='sub'>Ranked by overall Star score &middot; <span id='winlab'>rolling QTD</span> &middot; "+WKLABEL+"</div></div>"
        "<div style='text-align:right'><div class='sub'>Gold = overall rating &middot; pillars: <span class='hit'>green &ge;4</span> &middot; <span class='warn'>amber 3&ndash;4</span> &middot; <span class='miss'>red &lt;3</span></div></div></div>"
-       "<table><thead><tr><th>#</th><th>Store</th><th>Overall Star Score</th><th class='plh'>Team</th><th class='plh'>Ops</th><th class='plh'>Customers</th><th class='plh'>Profit</th><th>Real data</th></tr></thead><tbody id='lbody'>"+TBODY["qtd"]+"</tbody></table>"+"<div class='foot'><b>Pillars:</b> Team (<b>RMS Health + New-starter</b>) &middot; Ops (<b>F1 avg Total Score QTD (target &le;175) + Google reviews</b>) &middot; Customers (<b>sales + guest YoY, last completed week vs same week last year</b> on QTD; blended YoY on YTD) &middot; Profit (SPH + Food GP%). <b>Brand foundations</b> (Brand &amp; Remote + Open/Close %) and <b>Urgent support</b> (coach vacancy, bench gap, accidents, red maintenance) sit outside the score. <b>Real data (N / 8):</b> count of the 8 scored metrics (RMS, New-starter, F1, Google, Sales YoY, Guest counts, SPH, Food GP) on genuine real data. Overall = mean of available pillars. Targets indicative for Matt to set.</div>")
+       "<table><thead><tr><th>#</th><th>Store</th><th>Overall Star Score</th><th class='plh'>Team</th><th class='plh'>Ops</th><th class='plh'>Customers</th><th class='plh'>Profit</th><th>Real data</th></tr></thead><tbody id='lbody'>"+TBODY["qtd"]+"</tbody></table>"+"<div class='foot'><b>Pillars:</b> Team (<b>RMS Health + New-starter</b>) &middot; Ops (<b>F1 avg Total Score QTD (target &le;175) + Google Health (EOS composite, green &ge;3.32)</b>) &middot; Customers (<b>sales + guest YoY, last completed week vs same week last year</b> on QTD; blended YoY on YTD) &middot; Profit (SPH + Food GP%). <b>Brand foundations</b> (Brand &amp; Remote + Open/Close %) and <b>Urgent support</b> (coach vacancy, bench gap, accidents, red maintenance) sit outside the score. <b>Real data (N / 8):</b> count of the 8 scored metrics (RMS, New-starter, F1, Google, Sales YoY, Guest counts, SPH, Food GP) on genuine real data. Overall = mean of available pillars. Targets indicative for Matt to set.</div>")
 PAGE = ("<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'>"
         "<title>Bewiched Star Card</title><style>"+CARDCSS+LB_CSS+TAB_CSS+"</style></head><body><div class='wrap'>"
         "<div class='appbar'><div class='abrand'>"+_LOGO+"<div><div class='eyebrow'>Store Scorecard</div><div class='h1b'>Star Card</div></div></div>"
