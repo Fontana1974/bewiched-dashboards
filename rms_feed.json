@@ -14,7 +14,7 @@
   "2026-07-20",
   "2026-08-02"
  ],
- "_lastweek_count": 61,
+ "_lastweek_count": 63,
  "worst": [
   {
    "store": "Rothwell",
@@ -288,12 +288,12 @@
   },
   "Billing Drive Thru": {
    "weekly": {
-    "n": 16,
-    "avg": 4.56
+    "n": 17,
+    "avg": 4.59
    },
    "qtd": {
-    "n": 54,
-    "avg": 4.63
+    "n": 55,
+    "avg": 4.64
    },
    "prevq": {
     "n": 28,
@@ -316,12 +316,12 @@
   },
   "HOE Balsall Common": {
    "weekly": {
-    "n": 0,
-    "avg": null
+    "n": 1,
+    "avg": 5.0
    },
    "qtd": {
-    "n": 11,
-    "avg": 4.55
+    "n": 12,
+    "avg": 4.58
    },
    "prevq": {
     "n": 40,
@@ -770,6 +770,15 @@
     "smt": null,
     "sentiment": "Positive",
     "action": null
+   },
+   {
+    "date": "2026-08-02",
+    "dow": "Sun 2 Aug",
+    "rating": 5.0,
+    "text": "Coaching encouraging healthy 🤘",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
    }
   ],
   "Glenvale Drive Thru": [
@@ -1020,6 +1029,17 @@
     "sentiment": "Positive",
     "action": null
    }
+  ],
+  "HOE Balsall Common": [
+   {
+    "date": "2026-08-02",
+    "dow": "Sun 2 Aug",
+    "rating": 5.0,
+    "text": "Slay",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   }
   ]
  },
  "comments": [
@@ -1076,6 +1096,22 @@
    "date": "2026-08-02",
    "rating": 5.0,
    "text": "Nice shift",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Billing Drive Thru",
+   "date": "2026-08-02",
+   "rating": 5.0,
+   "text": "Coaching encouraging healthy 🤘",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "HOE Balsall Common",
+   "date": "2026-08-02",
+   "rating": 5.0,
+   "text": "Slay",
    "smt": null,
    "sentiment": "Positive"
   },
@@ -1197,22 +1233,6 @@
    "rating": 5.0,
    "text": "Interested. Listening . Laughter",
    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Northampton",
-   "date": "2026-07-31",
-   "rating": 5.0,
-   "text": "Honest conversations, hardworking and good teamwork",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Billing Drive Thru",
-   "date": "2026-07-31",
-   "rating": 5.0,
-   "text": "Nice cool end to the month 😎 Kel if you are reading this can you tell us a joke 👀",
-   "smt": "KF - Joke sent!",
    "sentiment": "Positive"
   }
  ]
