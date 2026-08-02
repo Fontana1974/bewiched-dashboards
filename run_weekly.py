@@ -126,7 +126,7 @@ CURWK_MON = CUR_END + datetime.timedelta(days=1)
 QSTART = datetime.date(CUR_END.year, ((CUR_END.month - 1) // 3) * 3 + 1, 1)   # calendar-quarter start
 _PQM = QSTART.month - 3; _PQY = QSTART.year
 if _PQM <= 0: _PQM += 12; _PQY -= 1
-PQSTART = datetime.date(_PQY, _PQM, 1)   # previous calendar-quarter start (for Q-1 comparisons)
+PREV_QSTART = datetime.date(_PQY, _PQM, 1)   # previous calendar-quarter start (module-level; avoids fn-local PQSTART shadow)
 def wlabel(dt): return "w/c " + dt.strftime("%-d %b %Y")
 def short_window():  # daypart-food window label
     return "4 weeks to %s vs same 4 weeks %d" % (CUR_END.strftime("%-d %b %Y"), CUR_END.year - 1)
@@ -635,7 +635,7 @@ def pull_f1():
             quali_arr = [fnum(q[14]), fnum(q[4]), fnum(q[5]), fnum(q[6]), fnum(q[7]),
                          fnum(q[8]), fnum(q[17]), qd.isoformat()]
         qtd = [x for x in rows if x[0] >= QSTART and fnum(x[1][18]) > 0]
-        q2 = [x for x in rows if PQSTART <= x[0] < QSTART and fnum(x[1][18]) > 0]   # prior quarter (F1 QoQ)
+        q2 = [x for x in rows if PREV_QSTART <= x[0] < QSTART and fnum(x[1][18]) > 0]   # prior quarter (F1 QoQ)
         def avg(idx, src=qtd):
             xs = [fnum(x[1][idx]) for x in src]
             return round(sum(xs) / len(xs), 2) if xs else None
@@ -1142,7 +1142,7 @@ def pull_reviews():
             lastwk.setdefault(st, []).append(star)
         if dt and dt >= QSTART:
             qtd_g.setdefault(st, []).append(star)
-        if dt and PQSTART <= dt < QSTART:
+        if dt and PREV_QSTART <= dt < QSTART:
             q2_g.setdefault(st, []).append(star)   # prior-quarter Google (QoQ)
     for st in rec:
         ls = life.get(st)
@@ -1188,7 +1188,7 @@ def pull_rms_storehealth():
             _lws = re.sub(r"\s+", " ", str(r[4])).strip() if len(r) > 4 and r[4] not in (None, "") else ""
             lastwk_rows.append((dt, st or str(r[1]).strip(), rating, _lwd, _lws))
         if st and dt >= QSTART: qtd.setdefault(st, []).append(rating)
-        if st and PQSTART <= dt < QSTART: q2.setdefault(st, []).append(rating)   # prior-quarter RMS (QoQ)
+        if st and PREV_QSTART <= dt < QSTART: q2.setdefault(st, []).append(rating)   # prior-quarter RMS (QoQ)
         # recent free-text comments (col D), with the manager's reply (col E) when present
         if COMMENT_LO <= dt <= TODAY:
             desc = re.sub(r"\s+", " ", str(r[3])).strip() if len(r) > 3 and r[3] not in (None, "") else ""
