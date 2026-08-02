@@ -14,13 +14,13 @@
      "metrics": [
       {
        "label": "Sales YoY (4-wk)",
-       "value": "+32.9%",
+       "value": "+29.5%",
        "star": 5.0,
        "on_target": true
       },
       {
        "label": "ATV vs £6.80",
-       "value": "£7.85",
+       "value": "£7.86",
        "star": 5.0,
        "on_target": true
       }
@@ -48,14 +48,14 @@
     },
     {
      "name": "Operations",
-     "star": 3.8,
+     "star": 3.7,
      "target": 4.6,
      "on_target": false,
      "metrics": [
       {
        "label": "F1 drivers' championship",
-       "value": "P13 of 21",
-       "star": 1.8,
+       "value": "P15 of 21",
+       "star": 1.4,
        "on_target": false
       },
       {
@@ -66,7 +66,7 @@
       },
       {
        "label": "Wastage %",
-       "value": "1.5%",
+       "value": "1.4%",
        "star": 4.9,
        "on_target": true
       }
@@ -118,7 +118,7 @@
     "rtw_detail": "RTW% from HRP sickness/RTW (Glenvale, QTD)"
    },
    "_cph_target": 63,
-   "_f1_pos": 13
+   "_f1_pos": 15
   },
   "Leamington Parade": {
    "composite": 4.0,
@@ -127,19 +127,19 @@
    "pillars": [
     {
      "name": "Sales",
-     "star": 4.9,
+     "star": 4.8,
      "target": 4.6,
      "on_target": true,
      "metrics": [
       {
        "label": "Sales YoY (4-wk)",
-       "value": "+22.4%",
-       "star": 5.0,
+       "value": "+16.1%",
+       "star": 4.9,
        "on_target": true
       },
       {
        "label": "ATV vs £6.80",
-       "value": "£7.55",
+       "value": "£7.43",
        "star": 4.8,
        "on_target": true
       }

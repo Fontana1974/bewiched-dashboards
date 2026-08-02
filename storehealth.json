@@ -1,6 +1,6 @@
 {
  "_basis": "Quarter-to-date. NOT last week.",
- "_updated": "2026-07-26",
+ "_updated": "2026-08-02",
  "_google_formula": "google_health = avg_star*0.5 + min(reviews/quarterly_target,1)*2.5 ; green>=3.32",
  "_rms_formula": "rms_avg = quarterly mean shift rating (1-5); green>=4.5 amber>=4.0 red<4.0",
  "_google_feed_note": "Reviews scraper only live for 7 stores; 14 stale since ~Jul 2025 -> google_health null (shown as no-feed).",
@@ -46,7 +46,7 @@
    "g_health": 3.65,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 52,
+   "r_n": 53,
    "r_avg": 4.62,
    "r_rag": "green"
   },
@@ -57,8 +57,8 @@
    "g_health": 3.25,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 5,
-   "r_avg": 4.8,
+   "r_n": 7,
+   "r_avg": 4.86,
    "r_rag": "green"
   },
   "Corby": {
@@ -68,8 +68,8 @@
    "g_health": 2.7,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 16,
-   "r_avg": 2.19,
+   "r_n": 17,
+   "r_avg": 2.29,
    "r_rag": "red"
   },
   "Glenvale Drive Thru": {
@@ -115,13 +115,13 @@
    "r_rag": "green"
   },
   "Leamington Parade": {
-   "g_n": 41,
+   "g_n": 43,
    "g_avg": 5.0,
    "g_target": 15,
    "g_health": 5.0,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 55,
+   "r_n": 56,
    "r_avg": 4.8,
    "r_rag": "green"
   },
@@ -209,8 +209,8 @@
    "g_health": 3.75,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 8,
-   "r_avg": 2.88,
+   "r_n": 9,
+   "r_avg": 2.89,
    "r_rag": "red"
   },
   "Rugby": {
@@ -220,8 +220,8 @@
    "g_health": 2.9,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 18,
-   "r_avg": 4.94,
+   "r_n": 19,
+   "r_avg": 4.95,
    "r_rag": "green"
   },
   "Rushden Lakes": {
