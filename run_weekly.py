@@ -124,6 +124,9 @@ CE = "DATE('%s')" % CUR_END.isoformat()
 LASTWK_MON = CUR_END - datetime.timedelta(days=6)
 CURWK_MON = CUR_END + datetime.timedelta(days=1)
 QSTART = datetime.date(CUR_END.year, ((CUR_END.month - 1) // 3) * 3 + 1, 1)   # calendar-quarter start
+_PQM = QSTART.month - 3; _PQY = QSTART.year
+if _PQM <= 0: _PQM += 12; _PQY -= 1
+PQSTART = datetime.date(_PQY, _PQM, 1)   # previous calendar-quarter start (for Q-1 comparisons)
 def wlabel(dt): return "w/c " + dt.strftime("%-d %b %Y")
 def short_window():  # daypart-food window label
     return "4 weeks to %s vs same 4 weeks %d" % (CUR_END.strftime("%-d %b %Y"), CUR_END.year - 1)
@@ -632,6 +635,7 @@ def pull_f1():
             quali_arr = [fnum(q[14]), fnum(q[4]), fnum(q[5]), fnum(q[6]), fnum(q[7]),
                          fnum(q[8]), fnum(q[17]), qd.isoformat()]
         qtd = [x for x in rows if x[0] >= QSTART and fnum(x[1][18]) > 0]
+        q2 = [x for x in rows if PQSTART <= x[0] < QSTART and fnum(x[1][18]) > 0]   # prior quarter (F1 QoQ)
         def avg(idx, src=qtd):
             xs = [fnum(x[1][idx]) for x in src]
             return round(sum(xs) / len(xs), 2) if xs else None
@@ -646,6 +650,7 @@ def pull_f1():
                     "queue_s": avgq(), "qcall": pct(avg(8)),
                     "hello": pct(avg(5)), "goodbye": pct(avg(6)), "howareyou": pct(avg(7)),
                     "queue": avgq(), "wtq": avg(8)}
+        race_q2 = {"n": len(q2), "score": avg(18, q2)}   # prior-quarter avg Total Score (lower = better)
         qqtd = [x for x in qrows if x[0] >= QSTART]
         def qavg(idx):   # average over Qualifying rows, skipping blank cells (penalty rows leave greetings/queue empty)
             xs = [fnum(x[1][idx]) for x in qqtd if len(x[1]) > idx and x[1][idx] not in (None, "")]
@@ -658,7 +663,7 @@ def pull_f1():
                      "queue": qavg(14)}
         last6 = [fnum(x[1][30]) for x in rows[-6:]][::-1]
         fd[st] = {"race": race_arr, "quali": quali_arr,
-                  "race_qtd": race_qtd, "quali_qtd": quali_qtd, "last6": last6}
+                  "race_qtd": race_qtd, "race_q2": race_q2, "quali_qtd": quali_qtd, "last6": last6}
     # F1 staleness marker (read by the generators to badge the section, and by the freshness
     # gate as a SOFT warning). Stale = the newest race audit is behind this reporting week's
     # Sunday (audits pending) — the F1 pull still ran, so we publish and badge rather than block.
@@ -1125,7 +1130,7 @@ def pull_reviews():
     W("reviews_raw.json", recs)       # working file (NOT committed) — build_reviews consumes it
     # lifetime cust + last-week customer.json + QTD google for storehealth
     a = load_all(); rec = a["rec"]
-    life = {}; lastwk = {}; qtd_g = {}
+    life = {}; lastwk = {}; qtd_g = {}; q2_g = {}
     for x in recs:
         st = normalize(x["store"])
         if st is None: continue
@@ -1137,6 +1142,8 @@ def pull_reviews():
             lastwk.setdefault(st, []).append(star)
         if dt and dt >= QSTART:
             qtd_g.setdefault(st, []).append(star)
+        if dt and PQSTART <= dt < QSTART:
+            q2_g.setdefault(st, []).append(star)   # prior-quarter Google (QoQ)
     for st in rec:
         ls = life.get(st)
         if ls: rec[st]["cust"] = {"rating": round(sum(ls) / len(ls), 2), "reviews": len(ls)}
@@ -1150,6 +1157,8 @@ def pull_reviews():
     save_all(a)
     json.dump({st: [len(v), round(sum(v) / len(v), 3)] for st, v in qtd_g.items()},
               open(os.path.join(HERE, "_google_qtd.json"), "w"))    # scratch for storehealth
+    json.dump({st: [len(v), round(sum(v) / len(v), 3)] for st, v in q2_g.items()},
+              open(os.path.join(HERE, "_google_prevq.json"), "w"))    # prior-quarter Google for the Star Card QoQ chip
     print("[pull] reviews: %d rows, %d stores last week" % (len(recs), len(lastwk)))
 
 
@@ -1161,6 +1170,7 @@ def pull_rms_storehealth():
     # Cols: A Date, B Store, C Rating(1-5), D Description(team comment), E SMT Comment(mgr reply), F DoW, G Area.
     lastwk = []                        # company last completed week
     qtd = {}                           # store -> [ratings] (QTD)
+    q2 = {}                            # store -> [ratings] (prior quarter, for QoQ)
     wk_store = {}                      # store -> [ratings] (last completed week, per store)
     COMMENT_LO = TODAY - datetime.timedelta(days=13)   # 'recent shift voice' = last ~2 weeks to the run date
     comment_rows = []                  # (date, store_disp, rating, description, smt_reply)
@@ -1178,6 +1188,7 @@ def pull_rms_storehealth():
             _lws = re.sub(r"\s+", " ", str(r[4])).strip() if len(r) > 4 and r[4] not in (None, "") else ""
             lastwk_rows.append((dt, st or str(r[1]).strip(), rating, _lwd, _lws))
         if st and dt >= QSTART: qtd.setdefault(st, []).append(rating)
+        if st and PQSTART <= dt < QSTART: q2.setdefault(st, []).append(rating)   # prior-quarter RMS (QoQ)
         # recent free-text comments (col D), with the manager's reply (col E) when present
         if COMMENT_LO <= dt <= TODAY:
             desc = re.sub(r"\s+", " ", str(r[3])).strip() if len(r) > 3 and r[3] not in (None, "") else ""
@@ -1211,10 +1222,11 @@ def pull_rms_storehealth():
         return "Positive" if rt >= 4 else ("Negative" if rt <= 2 else "Mixed")
     per_store = {}
     for st in rec:
-        wv = wk_store.get(st, []); qv = qtd.get(st, [])
+        wv = wk_store.get(st, []); qv = qtd.get(st, []); pv = q2.get(st, [])
         per_store[st] = {
             "weekly": {"n": len(wv), "avg": round(sum(wv) / len(wv), 2) if wv else None},
-            "qtd":    {"n": len(qv), "avg": round(sum(qv) / len(qv), 2) if qv else None}}
+            "qtd":    {"n": len(qv), "avg": round(sum(qv) / len(qv), 2) if qv else None},
+            "prevq":  {"n": len(pv), "avg": round(sum(pv) / len(pv), 2) if pv else None}}
     comments = []
     for (dt, st_disp, rt, desc, smt) in comment_rows:
         comments.append({"store": st_disp, "date": dt.isoformat(), "rating": rt,
