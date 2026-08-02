@@ -21,21 +21,23 @@ def grag(h):
 def rrag(a):
     return 'green' if a>=4.5 else ('amber' if a>=4.0 else 'red')
 out={"_basis":"Quarter-to-date. NOT last week.","_updated":_UPDATED or "2026-06-16",
-     "_google_formula":"google_health = avg_star*0.5 + min(reviews/quarterly_target,1)*2.5 ; green>=3.32",
+     "_google_formula":"google_health = avg_star*0.5 + min(reviews/quarterly_target,1)*2.5 ; green>=3.32 ; ZERO reviews in period => 0.0 (red)",
      "_rms_formula":"rms_avg = quarterly mean shift rating (1-5); green>=4.5 amber>=4.0 red<4.0",
-     "_google_feed_note":"Reviews scraper only live for 7 stores; 14 stale since ~Jul 2025 -> google_health null (shown as no-feed).",
+     "_google_feed_note":"No reviews in the period => Google Health forced to 0.0 (red), per rule - no rating credit without reviews.",
      "targets":targets,"stores":{}}
 print("%-28s | %-22s | %-22s"%("STORE","GOOGLE (n/target avg -> h RAG)","RMS (n avg -> RAG)"))
 for s in stores:
     rec={}
-    if s in g_canon:
+    if s in g_canon and (g_canon[s][0] or 0) > 0:
         n,avg=g_canon[s]; tgt=targets.get(s)
         vol=min(n/tgt,1.0); h=round(avg*0.5+vol*2.5,2)
         rec["g_n"]=n; rec["g_avg"]=avg; rec["g_target"]=tgt; rec["g_health"]=h; rec["g_rag"]=grag(h); rec["g_stale"]=False
         gtxt="%d/%d %.2f* -> %.2f %s"%(n,tgt,avg,h,grag(h))
     else:
-        rec["g_n"]=None; rec["g_health"]=None; rec["g_rag"]="na"; rec["g_stale"]=True
-        gtxt="stale feed (no recent data)"
+        # RULE (Matt): NO reviews in the period -> Google Health is a hard 0.0 (red). No residual
+        # rating credit, since with zero reviews there is no rating to reward. Flows to EOS + Star Card.
+        rec["g_n"]=0; rec["g_avg"]=None; rec["g_target"]=targets.get(s); rec["g_health"]=0.0; rec["g_rag"]="red"; rec["g_stale"]=False
+        gtxt="0 reviews -> 0.00 red"
     if s in rms_canon:
         n,avg=rms_canon[s]; rec["r_n"]=n; rec["r_avg"]=round(avg,2); rec["r_rag"]=rrag(avg)
         rtxt="%d %.2f -> %s"%(n,avg,rrag(avg))

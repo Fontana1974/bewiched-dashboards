@@ -106,6 +106,9 @@ try:
         D[c]['goog_q2']=v[1]; _t=_GH_TGT.get(c) or D[c].get('gh_tgt')
         if _t and v[1] is not None: D[c]['gh_q2']=round(v[1]*0.5+min(v[0]/_t,1)*2.5,2)
 except Exception: pass
+# no Q2 reviews -> Q2 Google Health is a hard 0.0 (same rule as the current period)
+for c in CANON:
+    if D[c].get('gh') is not None: D[c].setdefault('gh_q2',0.0)
 # F1 QTD avg Total Score (lower=better, target 175) + prior-quarter (Q2) score for the QoQ chip
 try:
     for k,v in L("f1_detail.json").items():
@@ -361,7 +364,9 @@ def card(c,win):
     f1s=d.get('f1_q3'); _f2=d.get('f1_q2'); _fl=d.get('f1_latest'); _cr=d.get('champ_rank'); _cn=d.get('champ_n') or 21
     f1_sub=('Championship P%d/%d &middot; target &le;175'%(_cr,_cn)) if _cr else 'target &le;175'
     gh=d.get('gh'); gh_n=d.get('gh_n'); gh_avg=d.get('gh_avg'); _ghq2=d.get('gh_q2')
-    gh_sub=('&#9733;%.2f &middot; %d reviews &middot; target &ge;3.32'%(gh_avg,gh_n or 0)) if gh_avg is not None else 'target &ge;3.32 / 5'
+    if gh_avg is not None: gh_sub='&#9733;%.2f &middot; %d reviews &middot; target &ge;3.32'%(gh_avg,gh_n or 0)
+    elif gh is not None: gh_sub='0 reviews in period &middot; target &ge;3.32'
+    else: gh_sub='target &ge;3.32 / 5'
     ops=(MW('F1 race (QTD avg)',win_tag,('%.0f'%f1s) if f1s is not None else 'n/a',(hc(f1s<=175) if f1s is not None else 'neutral'),f1_sub,
             rw('vs Last Week',('%.0f'%_fl) if _fl is not None else None,dl(f1s,_fl,False,''))
            +rw('vs Last Quarter',('%.0f'%_f2) if _f2 is not None else None,dl(f1s,_f2,False,'')))
