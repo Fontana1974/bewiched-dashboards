@@ -2608,6 +2608,11 @@ def build():
             _run("gen_maintenance.py")            # NON-FATAL: maintenance must never abort the whole build/commit
         except Exception as e:
             print("[build] gen_maintenance FAILED - Maintenance section degraded, run continues: %s" % e)
+    if os.path.exists(os.path.join(HERE, "gen_starcard.py")):
+        try:
+            _run("gen_starcard.py")               # NON-FATAL: live Bewiched Star Card (2 tabs); gated by apply_gate
+        except Exception as e:
+            print("[build] gen_starcard FAILED - Star Card degraded, run continues: %s" % e)
     # B9 store sales + E patcher (LAST)
     _run("build_newsite_sales.py")
     _run("patch_newsite.py")
