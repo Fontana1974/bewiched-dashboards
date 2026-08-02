@@ -151,11 +151,11 @@ for row in bench['rows']:
     D[c]['bench']=status
     D[c]['bench_detail']=("SM vacant" if not sm else ("bench-ready" if status=='green' else
         "not bench-ready ("+("Assistant Manager" if not am else "Supervisor 1" if not s1 else "successor")+" vacant)"))
-ns_sites={}
+ns_sites={}; ns_num={}
 for r in L("new_starter.json")['per_site']:
     c=norm(r['site'])
-    if c: ns_sites[c]=r['pct']
-for c in CANON: D[c]['ns']=ns_sites.get(c)
+    if c: ns_sites[c]=r['pct']; ns_num[c]=r.get('total')
+for c in CANON: D[c]['ns']=ns_sites.get(c); D[c]['ns_n']=ns_num.get(c)
 def _findkey(o,key):
     if isinstance(o,dict):
         if key in o: return o[key]
@@ -199,7 +199,9 @@ def score(c,win):
     d=D[c]; wv=d['win'][win]
     # Team = RMS Health + New-starter (bench dropped -> lives only as an Urgent flag)
     rms=d.get('rms'); rms_r=clamp(rms/5) if rms is not None else None
-    ns_r=None  # new-starter 0%-logged -> not real, excluded
+    # New-starter: SCORED off Youda onboarding-compliance % for stores that HAVE starters (0% => 0.0, a real penalty);
+    # stores with no current starters -> None (excluded, not penalised)
+    nsv=d.get('ns'); ns_r=clamp(nsv/100.0) if nsv is not None else None
     _t=[x for x in (rms_r,ns_r) if x is not None]; team=(sum(_t)/len(_t)*5) if _t else None
     # Ops = F1 (QTD avg Total Score vs 175 target, lower=better) + Google HEALTH (EOS composite, 0-5, green>=3.32)
     f1s=d.get('f1_q3'); gh=d.get('gh')
@@ -214,7 +216,7 @@ def score(c,win):
     _pp=[x for x in (gp_r,sph_r) if x is not None]; profit=(sum(_pp)/len(_pp)*5) if _pp else None
     pil={'Team':team,'Ops':ops,'Customers':cust,'Profit':profit}
     av=[v for v in pil.values() if v is not None]
-    real={'RMS':d.get('rms') is not None,'New starter':False,'F1':d.get('f1_q3') is not None,'Google':d.get('gh') is not None,
+    real={'RMS':d.get('rms') is not None,'New starter':d.get('ns') is not None,'F1':d.get('f1_q3') is not None,'Google':d.get('gh') is not None,
         'Sales YoY':wv['sales'] is not None,'Guest counts':wv['gc'] is not None,
         'SPH':d.get('sph') is not None,'Food GP':d.get('gp') is not None}
     return {'pillars':pil,'overall':(sum(av)/len(av) if av else None),'real':real,
@@ -354,12 +356,14 @@ def card(c,win):
     def hc(ok): return 'hit' if ok else 'miss'
     def pct(v): return ('%+.1f%%'%v) if v is not None else None
     # TEAM — RMS Health + New-starter
-    rmsv=d.get('rms'); _rw=d.get('rms_wk'); _rq2=d.get('rms_q2')
+    rmsv=d.get('rms'); _rw=d.get('rms_wk'); _rq2=d.get('rms_q2'); nsv=d.get('ns')
     team=(MW('RMS health',win_tag,('%.1f'%rmsv) if rmsv is not None else 'n/a',(hc(rmsv>=4.0) if rmsv is not None else 'neutral'),'target &ge;4.0 / 5',
             rw('vs Last Week',('%.1f'%_rw) if _rw is not None else None,dl(rmsv,_rw,True,''))
            +rw('vs Last Quarter',('%.1f'%_rq2) if _rq2 is not None else None,dl(rmsv,_rq2,True,'')))
-         +MW('New starter health',win_tag,'n/a','neutral','0% logged (not scored)',
-            brow('vs Last Week','n/a')+brow('vs Last Quarter','n/a')))
+         +MW('New starter health',win_tag,('%d%%'%nsv) if nsv is not None else 'n/a',
+            (hc(nsv>=90) if nsv is not None else 'neutral'),
+            ('%d in 90-day cohort &middot; onboarding compliance &middot; target &ge;90%%'%(d.get('ns_n') or 0)) if nsv is not None else 'no current starters &middot; not scored',
+            brow('vs Last Week','n/a')+brow('vs Last Quarter','building' if nsv is not None else 'n/a')))
     # OPS — F1 avg Total Score (lower better, target 175) + Google reviews
     f1s=d.get('f1_q3'); _f2=d.get('f1_q2'); _fl=d.get('f1_latest'); _cr=d.get('champ_rank'); _cn=d.get('champ_n') or 21
     f1_sub=('Championship P%d/%d &middot; target &le;175'%(_cr,_cn)) if _cr else 'target &le;175'
