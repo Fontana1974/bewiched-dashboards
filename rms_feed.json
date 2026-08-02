@@ -14,7 +14,7 @@
   "2026-07-20",
   "2026-08-02"
  ],
- "_lastweek_count": 57,
+ "_lastweek_count": 61,
  "worst": [
   {
    "store": "Rothwell",
@@ -143,12 +143,6 @@
    "avg": 2.75,
    "n": 4,
    "action": "Rothwell averaged 2.75★ from 4 shifts last week (lowest in the estate) — check in with the manager on what's driving it."
-  },
-  {
-   "store": "Corby",
-   "avg": 3.2,
-   "n": 5,
-   "action": "Corby averaged 3.20★ from 5 shifts last week (lowest in the estate) — check in with the manager on what's driving it."
   }
  ],
  "per_store": {
@@ -168,12 +162,12 @@
   },
   "Corby": {
    "weekly": {
-    "n": 5,
-    "avg": 3.2
+    "n": 6,
+    "avg": 3.5
    },
    "qtd": {
-    "n": 18,
-    "avg": 2.39
+    "n": 19,
+    "avg": 2.53
    },
    "prevq": {
     "n": 69,
@@ -294,12 +288,12 @@
   },
   "Billing Drive Thru": {
    "weekly": {
-    "n": 15,
-    "avg": 4.53
+    "n": 16,
+    "avg": 4.56
    },
    "qtd": {
-    "n": 53,
-    "avg": 4.62
+    "n": 54,
+    "avg": 4.63
    },
    "prevq": {
     "n": 28,
@@ -336,11 +330,11 @@
   },
   "Leamington Parade": {
    "weekly": {
-    "n": 12,
+    "n": 14,
     "avg": 5.0
    },
    "qtd": {
-    "n": 57,
+    "n": 59,
     "avg": 4.81
    },
    "prevq": {
@@ -556,6 +550,24 @@
     "smt": null,
     "sentiment": "Positive",
     "action": null
+   },
+   {
+    "date": "2026-08-02",
+    "dow": "Sun 2 Aug",
+    "rating": 5.0,
+    "text": "We really like to work together ❤️",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-08-02",
+    "dow": "Sun 2 Aug",
+    "rating": 5.0,
+    "text": "Amazing",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
    }
   ],
   "Rugby": [
@@ -749,6 +761,15 @@
     "smt": null,
     "sentiment": "Positive",
     "action": null
+   },
+   {
+    "date": "2026-08-02",
+    "dow": "Sun 2 Aug",
+    "rating": 5.0,
+    "text": "busy productive teamwork",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
    }
   ],
   "Glenvale Drive Thru": [
@@ -927,6 +948,15 @@
     "smt": null,
     "sentiment": "Positive",
     "action": null
+   },
+   {
+    "date": "2026-08-02",
+    "dow": "Sun 2 Aug",
+    "rating": 5.0,
+    "text": "Nice shift",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
    }
   ],
   "Market Harborough": [
@@ -1014,6 +1044,38 @@
    "date": "2026-08-02",
    "rating": 5.0,
    "text": "Oki oki",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Leamington Parade",
+   "date": "2026-08-02",
+   "rating": 5.0,
+   "text": "We really like to work together ❤️",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Leamington Parade",
+   "date": "2026-08-02",
+   "rating": 5.0,
+   "text": "Amazing",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Billing Drive Thru",
+   "date": "2026-08-02",
+   "rating": 5.0,
+   "text": "busy productive teamwork",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Corby",
+   "date": "2026-08-02",
+   "rating": 5.0,
+   "text": "Nice shift",
    "smt": null,
    "sentiment": "Positive"
   },
@@ -1151,38 +1213,6 @@
    "rating": 5.0,
    "text": "Nice cool end to the month 😎 Kel if you are reading this can you tell us a joke 👀",
    "smt": "KF - Joke sent!",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Rugby",
-   "date": "2026-07-31",
-   "rating": 5.0,
-   "text": ":/",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Billing Drive Thru",
-   "date": "2026-07-31",
-   "rating": 5.0,
-   "text": "Big slay today. Kel tell us a riddle please",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Northampton",
-   "date": "2026-07-31",
-   "rating": 5.0,
-   "text": "Had a great day. Busy day and everyone working well together",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Market Harborough",
-   "date": "2026-07-31",
-   "rating": 5.0,
-   "text": "Busy, team work",
-   "smt": null,
    "sentiment": "Positive"
   }
  ]

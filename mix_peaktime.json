@@ -7,21 +7,21 @@
    "share": 45,
    "gap": 9,
    "soft": false,
-   "total": 277505
+   "total": 277510
   },
   "Cold drinks": {
    "peak": "Lunch",
    "share": 39,
    "gap": 9,
    "soft": false,
-   "total": 229837
+   "total": 229866
   },
   "Milkshakes": {
    "peak": "Afternoon",
    "share": 39,
    "gap": 3,
    "soft": true,
-   "total": 108868
+   "total": 108884
   },
   "Food": {
    "peak": "Lunch",
@@ -35,14 +35,14 @@
    "share": 40,
    "gap": 6,
    "soft": false,
-   "total": 68575
+   "total": 68577
   },
   "Other & retail": {
    "peak": "Lunch",
    "share": 36,
    "gap": 7,
    "soft": false,
-   "total": 47709
+   "total": 47717
   }
  },
  "bakery": [
@@ -69,8 +69,8 @@
    "peak": "Lunch",
    "share": 42,
    "hour": "12pm",
-   "units": 2308,
-   "sales": 7432,
+   "units": 2309,
+   "sales": 7434,
    "sparse": false
   },
   {
@@ -149,7 +149,7 @@
    "name": "Marbled Crunch Slice",
    "peak": "Lunch",
    "share": 39,
-   "hour": "11am",
+   "hour": "2pm",
    "units": 865,
    "sales": 2605,
    "sparse": false
@@ -218,21 +218,21 @@
    "sparse": false
   },
   {
-   "name": "Victoria Sponge Cake",
-   "peak": "Afternoon",
-   "share": 37,
-   "hour": "2pm",
-   "units": 196,
-   "sales": 668,
-   "sparse": false
-  },
-  {
    "name": "Granola Traybake",
    "peak": "Lunch",
    "share": 42,
    "hour": "11am",
    "units": 196,
    "sales": 589,
+   "sparse": false
+  },
+  {
+   "name": "Victoria Sponge Cake",
+   "peak": "Afternoon",
+   "share": 37,
+   "hour": "2pm",
+   "units": 196,
+   "sales": 668,
    "sparse": false
   },
   {
