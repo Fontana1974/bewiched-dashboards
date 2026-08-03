@@ -1007,6 +1007,38 @@ def pull_sickness():
         # were tallied -> rtw_rate ran to 169/213/1350%. Pair it 1:1 with this-year sickness.
         if not dt or dt.year != yr: continue
         RT[st] = RT.get(st, 0) + 1
+    # ---- named OUTSTANDING RTW (last 4 weeks) + per-store table for the EOS RMS tab (mirrors Kel's Sentiment tab) ----
+    def _nn(x): return re.sub(r'\s+', ' ', str(x or '').strip().lower())
+    cutoff28 = CUR_END - datetime.timedelta(days=28)
+    rtw_by_name = {}
+    for r in rtw[1:]:
+        if not r or len(r) < 3 or not r[0]: continue
+        nm = _nn(r[0]); dtc = parse_any_date(r[2]) if len(r) > 2 else None
+        if nm and dtc: rtw_by_name.setdefault(nm, []).append(dtc)
+    outstanding = []
+    for r in sick[1:]:
+        if not r or len(r) < 6 or not r[0] or not r[1]: continue
+        typ = str(r[3]).strip().lower() if len(r) > 3 and r[3] else ''
+        if 'late' in typ: continue                       # RTW is for sickness, not lateness
+        dts = parse_any_date(r[5])
+        if not dts or dts < cutoff28 or dts > CUR_END: continue
+        nm = _nn(r[0]); stc = normalize(r[1])
+        done = any(d >= dts for d in rtw_by_name.get(nm, []))   # RTW interview conducted on/after the absence
+        if not done:
+            outstanding.append({'name': str(r[0]).strip(), 'store': stc or str(r[1]).strip(),
+                                'date': dts.isoformat(),
+                                'reason': (re.sub(r'\s+', ' ', str(r[4]).strip())[:90] if len(r) > 4 and r[4] else '')})
+    outstanding.sort(key=lambda x: x['date'], reverse=True)
+    _tbl = []
+    for st in sorted(rec, key=lambda z: -((S.get(z, {}) or {}).get('sick', 0))):
+        e = S.get(st, {})
+        _tbl.append({'store': st, 'sickfs': e.get('sickfs', 0), 'late': e.get('late', 0),
+                     'rep_pct': (round(100 * e.get('rep', 0) / e.get('tot', 1)) if e.get('tot') else None),
+                     'rtw': RT.get(st, 0), 'sick': e.get('sick', 0),
+                     'rtw_rate': (round(100 * RT.get(st, 0) / e.get('sick', 0)) if e.get('sick') else None)})
+    W('sickness_rtw.json', {'generated': CUR_END.isoformat(), 'window_days': 28,
+        'outstanding': outstanding, 'outstanding_n': len(outstanding), 'per_store': _tbl}, indent=1)
+    print('[pull] sickness named RTW: %d outstanding in last 28d' % len(outstanding))
     for st in rec:
         e = S.get(st, {})
         sickn = e.get("sick", 0)

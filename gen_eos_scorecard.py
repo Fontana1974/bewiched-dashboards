@@ -995,7 +995,47 @@ def rms_detail_html():
         worst_html += '<div class="md-section-h">Suggested actions &mdash; store outliers</div>' + orows
     # ---- store dropdown: All (company view) + per-store filtered detail ----
     psd = F.get("per_store_detail") or {}
-    all_view = (worst_html + '<div class="md-section-h">Store-by-store &mdash; who is posting</div>' + table + voice)
+    # ---- Sickness / RTW (mirrors Kel's engagement Sentiment tab) + OUTSTANDING named RTW (last 4 weeks) ----
+    def _tag(txt, k): return '<span class="tag %s">%s</span>' % (k, txt)
+    _MON = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    def _dfmt(iso):
+        try:
+            y, m, d = iso.split("-"); return "%d %s" % (int(d), _MON[int(m)])
+        except Exception:
+            return iso
+    sickrtw_html = ""
+    try:
+        SR = json.load(open(os.path.join(HERE, "sickness_rtw.json")))
+    except Exception:
+        SR = None
+    if SR:
+        out = SR.get("outstanding") or []
+        if out:
+            orows = ""
+            for o in out:
+                orows += ('<tr><td class="s">%s</td><td>%s</td><td class="v">%s</td><td style="font-size:11px;color:#8a7a6d">%s</td></tr>'
+                          % (esc(o.get("name", "")), esc(SH(o.get("store", ""))), esc(_dfmt(o.get("date", ""))), esc(o.get("reason", ""))))
+            out_block = ('<div class="md-section-h" style="color:#8a3b2b">Outstanding RTW &mdash; action needed <span class="mini">&middot; last 4 weeks &middot; %d due</span></div>'
+                         '<div class="md-ps-basis">Named individuals with a sickness absence in the last 4 weeks and <b>no return-to-work interview logged</b>. Managers to conduct the RTW chat and record it on the HRP RTW log.</div>'
+                         '<table class="md-ps"><thead><tr><th>Employee</th><th>Store</th><th class="v">Absence date</th><th>Reason</th></tr></thead><tbody>%s</tbody></table>'
+                         % (len(out), orows))
+        else:
+            out_block = '<div class="md-section-h">Outstanding RTW &mdash; action needed</div><div class="md-note">All return-to-work interviews are up to date for the last 4 weeks.</div>'
+        tbl = SR.get("per_store") or []
+        trows = ""
+        for t in tbl:
+            rr = t.get("rtw_rate"); rrk = "t-ok" if (rr is not None and rr >= 80) else ("t-amber" if (rr is not None and rr >= 50) else "t-red")
+            rep = t.get("rep_pct"); repk = "t-ok" if (rep is not None and rep >= 90) else ("t-amber" if (rep is not None and rep >= 70) else "t-red")
+            trows += ('<tr><td class="s">%s</td><td class="v">%s</td><td class="v">%s</td><td class="v">%s</td><td class="v">%s</td><td class="v">%s</td></tr>'
+                      % (esc(SH(t.get("store", ""))), t.get("sickfs", 0), t.get("late", 0),
+                         _tag(("%s%%" % rep) if rep is not None else "n/a", repk),
+                         t.get("rtw", 0), _tag(("%s%%" % rr) if rr is not None else "n/a", rrk)))
+        sick_block = ('<div class="md-section-h">Sickness &amp; return-to-work &mdash; by store <span class="mini">&middot; YTD to %s</span></div>'
+                      '<div class="md-ps-basis">From the HRP <b>Sickness / late</b> &amp; <b>RTW</b> logs. RTW policy: a return-to-work chat after every sickness absence. Mirrors Kel&rsquo;s engagement dashboard.</div>'
+                      '<table class="md-ps"><thead><tr><th>Store</th><th class="v">Sick-for-shift</th><th class="v">Late</th><th class="v">Reported&nbsp;%%</th><th class="v">RTW done</th><th class="v">RTW&nbsp;%%</th></tr></thead><tbody>%s</tbody></table>'
+                      % (esc(SR.get("generated", "")), trows))
+        sickrtw_html = out_block + sick_block
+    all_view = (worst_html + sickrtw_html + '<div class="md-section-h">Store-by-store &mdash; who is posting</div>' + table + voice)
     outmap = {o.get("store"): o for o in (F.get("outlier_stores") or [])}
     opts = ['<option value="__all__">All stores</option>']
     variants = ['<div data-store="__all__">%s</div>' % all_view]
