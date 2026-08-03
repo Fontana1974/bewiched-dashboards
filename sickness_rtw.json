@@ -162,6 +162,15 @@
    "rtw_rate": 53
   },
   {
+   "store": "Glenvale Drive Thru",
+   "sickfs": 16,
+   "late": 10,
+   "rep_pct": 96,
+   "rtw": 11,
+   "sick": 18,
+   "rtw_rate": 61
+  },
+  {
    "store": "Rushden Lakes",
    "sickfs": 17,
    "late": 20,
@@ -169,15 +178,6 @@
    "rtw": 6,
    "sick": 17,
    "rtw_rate": 35
-  },
-  {
-   "store": "Glenvale Drive Thru",
-   "sickfs": 15,
-   "late": 10,
-   "rep_pct": 96,
-   "rtw": 11,
-   "sick": 17,
-   "rtw_rate": 65
   },
   {
    "store": "Leamington Parade",
