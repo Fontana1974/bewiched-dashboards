@@ -404,7 +404,7 @@
     "avg": 5.0
    },
    "qtd": {
-    "n": 19,
+    "n": 20,
     "avg": 4.95
    },
    "prevq": {
@@ -1052,6 +1052,14 @@
    "sentiment": "Positive"
   },
   {
+   "store": "Rugby",
+   "date": "2026-08-03",
+   "rating": 5.0,
+   "text": "eotm - vlada! so focused and always going above and beyond on shift :)",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
    "store": "Billing Drive Thru",
    "date": "2026-08-03",
    "rating": 4.0,
@@ -1224,14 +1232,6 @@
    "date": "2026-08-01",
    "rating": 4.0,
    "text": "chill shift with a good team",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Corby",
-   "date": "2026-08-01",
-   "rating": 4.0,
-   "text": "Nice shift",
    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
    "sentiment": "Positive"
   }
