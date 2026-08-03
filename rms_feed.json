@@ -306,8 +306,8 @@
     "avg": 4.0
    },
    "qtd": {
-    "n": 18,
-    "avg": 3.5
+    "n": 20,
+    "avg": 3.55
    },
    "prevq": {
     "n": 62,
@@ -1044,6 +1044,22 @@
  },
  "comments": [
   {
+   "store": "Glenvale Drive Thru",
+   "date": "2026-08-03",
+   "rating": 5.0,
+   "text": "Customers asking for iced caramel macchiato be put on the menu please",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Glenvale Drive Thru",
+   "date": "2026-08-03",
+   "rating": 3.0,
+   "text": "Bin day needs changing! We have too much rubbish and it’s causing loads of flies to appear",
+   "smt": null,
+   "sentiment": "Mixed"
+  },
+  {
    "store": "Burton Latimer",
    "date": "2026-08-02",
    "rating": 5.0,
@@ -1218,22 +1234,6 @@
    "text": "No warning on rota",
    "smt": null,
    "sentiment": "Negative"
-  },
-  {
-   "store": "Rothwell",
-   "date": "2026-08-01",
-   "rating": 1.0,
-   "text": "Panini fridge",
-   "smt": null,
-   "sentiment": "Negative"
-  },
-  {
-   "store": "Billing Drive Thru",
-   "date": "2026-07-31",
-   "rating": 5.0,
-   "text": "Interested. Listening . Laughter",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
   }
  ]
 }
