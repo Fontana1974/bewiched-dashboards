@@ -1,107 +1,5 @@
 {
  "weeks": {
-  "2026-05-03": {
-   "Northampton Drive-Thru": {
-    "stock": 12.9,
-    "deliv": null,
-    "gp": 70.66
-   },
-   "Rushden Lakes": {
-    "stock": 16.6,
-    "deliv": null,
-    "gp": 69.29
-   },
-   "Kettering": {
-    "stock": 23.3,
-    "deliv": null,
-    "gp": 72.75
-   },
-   "Corby": {
-    "stock": 30.5,
-    "deliv": null,
-    "gp": 70.55
-   },
-   "Peterborough Bridge Street": {
-    "stock": 28.4,
-    "deliv": null,
-    "gp": 72.41
-   },
-   "Rugby": {
-    "stock": 54.9,
-    "deliv": null,
-    "gp": 70.24
-   },
-   "Wellingborough": {
-    "stock": 26.4,
-    "deliv": null,
-    "gp": 70.94
-   },
-   "Rothwell": {
-    "stock": 33.1,
-    "deliv": null,
-    "gp": 69.03
-   },
-   "Northampton": {
-    "stock": 17.9,
-    "deliv": null,
-    "gp": 71.37
-   },
-   "Wellingborough Train Station": {
-    "stock": 35.8,
-    "deliv": null,
-    "gp": 68.46
-   },
-   "Higham Ferrers": {
-    "stock": 46.8,
-    "deliv": null,
-    "gp": 68.98
-   },
-   "HOE Balsall Common": {
-    "stock": 34.7,
-    "deliv": null,
-    "gp": 69.56
-   },
-   "Burton Latimer": {
-    "stock": 31.4,
-    "deliv": null,
-    "gp": 69.36
-   },
-   "Peterborough Fletton Quays": {
-    "stock": 17.0,
-    "deliv": null,
-    "gp": 68.95
-   },
-   "Lower Heathcote": {
-    "stock": 43.4,
-    "deliv": null,
-    "gp": 72.04
-   },
-   "Market Harborough": {
-    "stock": 26.2,
-    "deliv": null,
-    "gp": 72.81
-   },
-   "Leamington Parade": {
-    "stock": 30.3,
-    "deliv": null,
-    "gp": 73.32
-   },
-   "Olney": {
-    "stock": 41.5,
-    "deliv": null,
-    "gp": 70.26
-   },
-   "Attleborough": {
-    "stock": 36.0,
-    "deliv": null,
-    "gp": 68.84
-   },
-   "Glenvale Drive Thru": {
-    "stock": 25.6,
-    "deliv": null,
-    "gp": 69.26
-   }
-  },
   "2026-05-10": {
    "Northampton Drive-Thru": {
     "stock": 11.4,
@@ -1364,6 +1262,43 @@
     "stock": 47.8,
     "deliv": 29.7,
     "gp": 69.77
+   }
+  },
+  "2026-08-03": {
+   "Olney": {
+    "stock": 0.0,
+    "deliv": 20.1,
+    "gp": 71.06
+   },
+   "Northampton": {
+    "stock": 0.0,
+    "deliv": 1.9,
+    "gp": 71.55
+   },
+   "Burton Latimer": {
+    "stock": 0.0,
+    "deliv": 22.9,
+    "gp": 70.51
+   },
+   "Corby": {
+    "stock": 0.0,
+    "deliv": 26.8,
+    "gp": 71.56
+   },
+   "Higham Ferrers": {
+    "stock": 0.0,
+    "deliv": 26.0,
+    "gp": 69.05
+   },
+   "Glenvale Drive Thru": {
+    "stock": 19.8,
+    "deliv": 20.1,
+    "gp": 69.75
+   },
+   "Kettering": {
+    "stock": 26.3,
+    "deliv": 18.7,
+    "gp": 73.22
    }
   }
  }

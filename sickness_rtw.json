@@ -1,0 +1,336 @@
+{
+ "generated": "2026-08-02",
+ "window_days": 28,
+ "outstanding": [
+  {
+   "name": "Hannah   Smyth",
+   "store": "Rugby",
+   "date": "2026-08-02",
+   "reason": "Unwell - fever and diarrhoea"
+  },
+  {
+   "name": "Hannah   Smyth",
+   "store": "Rugby",
+   "date": "2026-08-02",
+   "reason": "Unwell - fever and diarrhoea"
+  },
+  {
+   "name": "Zaneta Machova",
+   "store": "Burton Latimer",
+   "date": "2026-08-01",
+   "reason": "Stomach cramps"
+  },
+  {
+   "name": "Iulia Naumenko",
+   "store": "Northampton Drive-Thru",
+   "date": "2026-07-31",
+   "reason": "Iulia came into work but was suffering with period pains and felt like she was going to be"
+  },
+  {
+   "name": "Corinna Underdood",
+   "store": "Higham Ferrers",
+   "date": "2026-07-31",
+   "reason": "Signed off for 4 weeks due to depression and stress"
+  },
+  {
+   "name": "Katie Summer Wood",
+   "store": "Lower Heathcote",
+   "date": "2026-07-30",
+   "reason": "N/ASickness, nature unknown, suspected heat."
+  },
+  {
+   "name": "Jacob  Mitchell",
+   "store": "Kettering",
+   "date": "2026-07-29",
+   "reason": "Jai is now signed off work for 4 weeks due to mental health"
+  },
+  {
+   "name": "Millie Harrodine",
+   "store": "HOE Balsall Common",
+   "date": "2026-07-28",
+   "reason": "tbc - fever (?)"
+  },
+  {
+   "name": "Alexander Lloyd",
+   "store": "Rushden Lakes",
+   "date": "2026-07-24",
+   "reason": "Sickness"
+  },
+  {
+   "name": "Iulia Naumenko",
+   "store": "Northampton Drive-Thru",
+   "date": "2026-07-22",
+   "reason": "Uti"
+  },
+  {
+   "name": "Jamie Robertson",
+   "store": "Wellingborough",
+   "date": "2026-07-21",
+   "reason": "Family Emergency. Jamie text me as he said he couldn't get hold of Sylwia. No phone call a"
+  },
+  {
+   "name": "Trinity Lindley",
+   "store": "Northampton",
+   "date": "2026-07-20",
+   "reason": "N/AChronic stomach pains"
+  },
+  {
+   "name": "Dawn Mullane",
+   "store": "Billing Drive Thru",
+   "date": "2026-07-20",
+   "reason": "Had to attend A&E on a painful wrist Carpal tunnel"
+  },
+  {
+   "name": "Zoe Sharp",
+   "store": "Rugby",
+   "date": "2026-07-19",
+   "reason": "Zoe had floaters in her eye on the way to work, she had googled it on her way and it said "
+  },
+  {
+   "name": "Honey Gallen",
+   "store": "Rushden Lakes",
+   "date": "2026-07-18",
+   "reason": "Migraine"
+  },
+  {
+   "name": "Emily  Mayhew",
+   "store": "Peterborough Fletton Quays",
+   "date": "2026-07-17",
+   "reason": "NaEmily’s daughter was unwell so Emily needed to take care of her"
+  },
+  {
+   "name": "Katie Summer Wood",
+   "store": "Lower Heathcote",
+   "date": "2026-07-14",
+   "reason": "Not feeling well."
+  },
+  {
+   "name": "Corinna Underdood",
+   "store": "Higham Ferrers",
+   "date": "2026-07-11",
+   "reason": "Sickness"
+  },
+  {
+   "name": "Corinna Underdood",
+   "store": "Higham Ferrers",
+   "date": "2026-07-11",
+   "reason": "Vomiting"
+  },
+  {
+   "name": "Alesha Barrett",
+   "store": "Glenvale Drive Thru",
+   "date": "2026-07-09",
+   "reason": "Woke up this morning and started being sick"
+  },
+  {
+   "name": "Rachael Wooster",
+   "store": "Northampton Drive-Thru",
+   "date": "2026-07-09",
+   "reason": "Upset tummy"
+  },
+  {
+   "name": "Emily Phillips",
+   "store": "Peterborough Fletton Quays",
+   "date": "2026-07-07",
+   "reason": "NaEmily had to go to a&e today. She hurt her wrist playing netball the day prior"
+  },
+  {
+   "name": "Eva Musaphia",
+   "store": "Wellingborough Train Station",
+   "date": "2026-07-05",
+   "reason": "Stomach bug - due to cover in market street"
+  }
+ ],
+ "outstanding_n": 23,
+ "per_store": [
+  {
+   "store": "Peterborough Fletton Quays",
+   "sickfs": 21,
+   "late": 11,
+   "rep_pct": 86,
+   "rtw": 10,
+   "sick": 25,
+   "rtw_rate": 40
+  },
+  {
+   "store": "Northampton Drive-Thru",
+   "sickfs": 15,
+   "late": 2,
+   "rep_pct": 95,
+   "rtw": 10,
+   "sick": 19,
+   "rtw_rate": 53
+  },
+  {
+   "store": "Rushden Lakes",
+   "sickfs": 17,
+   "late": 20,
+   "rep_pct": 100,
+   "rtw": 6,
+   "sick": 17,
+   "rtw_rate": 35
+  },
+  {
+   "store": "Glenvale Drive Thru",
+   "sickfs": 15,
+   "late": 10,
+   "rep_pct": 96,
+   "rtw": 11,
+   "sick": 17,
+   "rtw_rate": 65
+  },
+  {
+   "store": "Leamington Parade",
+   "sickfs": 15,
+   "late": 11,
+   "rep_pct": 96,
+   "rtw": 8,
+   "sick": 15,
+   "rtw_rate": 53
+  },
+  {
+   "store": "Lower Heathcote",
+   "sickfs": 14,
+   "late": 8,
+   "rep_pct": 100,
+   "rtw": 10,
+   "sick": 15,
+   "rtw_rate": 67
+  },
+  {
+   "store": "Rugby",
+   "sickfs": 10,
+   "late": 5,
+   "rep_pct": 90,
+   "rtw": 8,
+   "sick": 15,
+   "rtw_rate": 53
+  },
+  {
+   "store": "Kettering",
+   "sickfs": 7,
+   "late": 2,
+   "rep_pct": 100,
+   "rtw": 6,
+   "sick": 9,
+   "rtw_rate": 67
+  },
+  {
+   "store": "Higham Ferrers",
+   "sickfs": 5,
+   "late": 3,
+   "rep_pct": 100,
+   "rtw": 5,
+   "sick": 8,
+   "rtw_rate": 62
+  },
+  {
+   "store": "Market Harborough",
+   "sickfs": 6,
+   "late": 7,
+   "rep_pct": 87,
+   "rtw": 6,
+   "sick": 8,
+   "rtw_rate": 75
+  },
+  {
+   "store": "Corby",
+   "sickfs": 5,
+   "late": 1,
+   "rep_pct": 100,
+   "rtw": 2,
+   "sick": 6,
+   "rtw_rate": 33
+  },
+  {
+   "store": "HOE Balsall Common",
+   "sickfs": 5,
+   "late": 2,
+   "rep_pct": 100,
+   "rtw": 3,
+   "sick": 5,
+   "rtw_rate": 60
+  },
+  {
+   "store": "Burton Latimer",
+   "sickfs": 3,
+   "late": 0,
+   "rep_pct": 100,
+   "rtw": 3,
+   "sick": 4,
+   "rtw_rate": 75
+  },
+  {
+   "store": "Olney",
+   "sickfs": 3,
+   "late": 7,
+   "rep_pct": 91,
+   "rtw": 3,
+   "sick": 4,
+   "rtw_rate": 75
+  },
+  {
+   "store": "Billing Drive Thru",
+   "sickfs": 3,
+   "late": 5,
+   "rep_pct": 89,
+   "rtw": 1,
+   "sick": 4,
+   "rtw_rate": 25
+  },
+  {
+   "store": "Northampton",
+   "sickfs": 4,
+   "late": 5,
+   "rep_pct": 78,
+   "rtw": 4,
+   "sick": 4,
+   "rtw_rate": 100
+  },
+  {
+   "store": "Peterborough Bridge Street",
+   "sickfs": 3,
+   "late": 5,
+   "rep_pct": 88,
+   "rtw": 4,
+   "sick": 3,
+   "rtw_rate": 133
+  },
+  {
+   "store": "Wellingborough Train Station",
+   "sickfs": 2,
+   "late": 0,
+   "rep_pct": 100,
+   "rtw": 4,
+   "sick": 3,
+   "rtw_rate": 133
+  },
+  {
+   "store": "Attleborough",
+   "sickfs": 2,
+   "late": 2,
+   "rep_pct": 100,
+   "rtw": 2,
+   "sick": 2,
+   "rtw_rate": 100
+  },
+  {
+   "store": "Wellingborough",
+   "sickfs": 1,
+   "late": 0,
+   "rep_pct": 100,
+   "rtw": 0,
+   "sick": 1,
+   "rtw_rate": 0
+  },
+  {
+   "store": "Rothwell",
+   "sickfs": 0,
+   "late": 0,
+   "rep_pct": null,
+   "rtw": 0,
+   "sick": 0,
+   "rtw_rate": null
+  }
+ ]
+}
