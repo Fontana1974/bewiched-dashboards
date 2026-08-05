@@ -1,0 +1,37 @@
+name: customer-contact-routing
+
+on:
+  schedule:
+    # 08:00 UTC = 09:00 UK during BST (summer), 08:00 UK during GMT (winter).
+    # Actions cron is UTC-only; the script stamps rows in true UK time regardless.
+    - cron: "0 8 * * *"
+  workflow_dispatch: {}   # lets you run it on demand from the Actions tab
+
+concurrency:
+  group: customer-contact-routing
+  cancel-in-progress: false
+
+jobs:
+  route:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install --quiet requests google-auth
+
+      - name: Run routing
+        env:
+          WIX_API_KEY: ${{ secrets.WIX_API_KEY }}
+          WIX_SITE_ID: ${{ secrets.WIX_SITE_ID }}
+          WIX_ACCOUNT_ID: ${{ secrets.WIX_ACCOUNT_ID }}
+          GOOGLE_SA_JSON: ${{ secrets.GOOGLE_SA_JSON }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          # DRY_RUN: "1"   # uncomment for a no-send test run
+        run: python route_contacts.py
