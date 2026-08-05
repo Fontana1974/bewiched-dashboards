@@ -29,9 +29,9 @@ jobs:
           WIX_API_KEY: ${{ secrets.WIX_API_KEY }}
           WIX_SITE_ID: ${{ secrets.WIX_SITE_ID }}
           WIX_ACCOUNT_ID: ${{ secrets.WIX_ACCOUNT_ID }}
-          GOOGLE_SA_JSON: ${{ secrets.GOOGLE_SA_JSON }}
+          GOOGLE_SA_JSON: ${{ secrets.GCP_SA_JSON }}
           SMTP_USER: ${{ secrets.SMTP_USER }}
           SMTP_PASS: ${{ secrets.SMTP_PASS }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          # DRY_RUN: "1"   # uncomment for a no-send test run
+          DRY_RUN: "1"   # uncomment for a no-send test run
         run: python route_contacts.py
