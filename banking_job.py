@@ -19,7 +19,7 @@ Auth read:  env GCP_SA_JSON (the service-account JSON, same GitHub secret the
             dashboards pipeline already uses); or GOOGLE_APPLICATION_CREDENTIALS file.
 Auth send:  env GMAIL_APP_PASSWORD (16-char Gmail App Password) as SMTP_USER/MAIL_FROM.
 """
-import os, sys, json, datetime as dt, smtplib
+import os, sys, json, re, datetime as dt, smtplib
 from email.mime.text import MIMEText
 
 SHEET_ID  = "1f_bWorTvRTN_LaijRXzD385c_8Y97g_lZNcOF_s1QhE"
@@ -38,13 +38,16 @@ EQUITY = [
 
 def monday_of(d): return d - dt.timedelta(days=d.weekday())
 def parse_amount(s):
+    # Robust to messy Form entries: "£1140 .38" (stray space), "913.30 (note...)",
+    # thousands separators. Strip currency/commas/ALL spaces, take the leading number.
     if s is None: return None
-    s = str(s).replace("£","").replace(",","").strip()
-    if s == "": return None
-    try: return float(s)
-    except ValueError: return None
+    s = str(s).replace("£","").replace(",","").replace(" ","")
+    m = re.match(r"-?\d+\.?\d*", s)
+    return float(m.group()) if (m and m.group() not in ("", "-", ".")) else None
 def parse_ts(s):
-    for fmt in ("%d/%m/%Y %H:%M:%S","%m/%d/%Y %H:%M:%S","%Y-%m-%d %H:%M:%S","%d/%m/%Y %H:%M"):
+    # Google Form timestamps are US M/D/YYYY (e.g. 7/31/2026, 8/3/2026) — try month-first
+    # BEFORE day-first so ambiguous dates like 8/3 read as 3 Aug, not 8 Mar.
+    for fmt in ("%m/%d/%Y %H:%M:%S","%m/%d/%Y %H:%M","%Y-%m-%d %H:%M:%S","%d/%m/%Y %H:%M:%S","%d/%m/%Y %H:%M"):
         try: return dt.datetime.strptime(str(s).strip(), fmt)
         except ValueError: continue
     return None
@@ -67,38 +70,46 @@ def read_responses():
 
 def compile_week(rows, today=None):
     today = today or dt.date.today()
-    # Report the most recently COMPLETED banking week: the last Friday that has passed
-    # (today included if today IS a Friday), plus that same week's Monday. When this runs
-    # on a Tuesday, that resolves to the PREVIOUS week's Mon+Fri — the finished pair the
-    # bookkeeper needs (this week's Friday hasn't happened yet).
-    wk_fri = today - dt.timedelta(days=(today.weekday() - 4) % 7)
-    wk_mon = wk_fri - dt.timedelta(days=4)
-    wk_sun = wk_mon + dt.timedelta(days=6)
+    # WEEKEND BANKING CYCLE: a FRIDAY paired with the FOLLOWING MONDAY's deposit
+    # (Friday takings + the Monday deposit of that weekend). Reference = the most recent
+    # completed Monday: this week's Monday once it has passed; if today IS Monday the
+    # deposit may not be in yet, so use the previous Monday. The Friday is 3 days before
+    # that Monday. Run this on a TUESDAY so both figures are in (see banking.yml cron).
+    mon = today - dt.timedelta(days=today.weekday())          # this week's Monday
+    if today.weekday() == 0:                                  # today IS Monday -> not in yet
+        mon -= dt.timedelta(days=7)
+    fri = mon - dt.timedelta(days=3)                          # Friday of that weekend
+    win_hi = mon + dt.timedelta(days=4)                       # tolerate late Monday entries (Fri..Thu)
     data = {s: {"mon": None, "fri": None, "_t": {"mon": None, "fri": None}} for s in EQUITY}
     for ts, store, day, amt in rows:
         store = str(store).strip()
         if store not in data: continue
         t = parse_ts(ts)
-        if t is not None and not (wk_mon <= t.date() <= wk_sun): continue
+        if t is None: continue
+        d = t.date()
         key = "mon" if str(day).lower().startswith("mon") else "fri" if str(day).lower().startswith("fri") else None
         if key is None: continue
+        if key == "fri" and not (fri <= d < mon): continue    # Friday figure window [fri, mon)
+        if key == "mon" and not (mon <= d < win_hi): continue # Monday figure window [mon, Thu)
         prev = data[store]["_t"][key]
-        if prev is None or (t and t >= prev):
-            data[store][key] = parse_amount(amt); data[store]["_t"][key] = t or dt.datetime.min
-    return wk_mon, wk_fri, data
+        if prev is None or t >= prev:
+            data[store][key] = parse_amount(amt); data[store]["_t"][key] = t
+    return fri, mon, data
 
-def build_email(wk_mon, wk_fri, data):
+def build_email(fri, mon, data):
     def money(x): return "—" if x is None else f"£{x:,.2f}"
+    sun = fri + dt.timedelta(days=2)                          # Sunday week-ending label (e.g. w/e 02 Aug)
     missing = [s for s,v in data.items() if v["mon"] is None or v["fri"] is None]
-    tot_mon = sum(v["mon"] or 0 for v in data.values())
     tot_fri = sum(v["fri"] or 0 for v in data.values())
-    subj = f"Bewiched Weekly Banking — w/c {wk_mon:%d %b %Y}"
-    lines = [f"{'Store':30} {'Mon '+wk_mon.strftime('%d %b'):>14} {'Fri '+wk_fri.strftime('%d %b'):>14}", "-"*60]
+    tot_mon = sum(v["mon"] or 0 for v in data.values())
+    subj = f"Bewiched Weekly Banking — w/e {sun:%d %b %Y}"
+    lines = [f"{'Store':30} {'Fri '+fri.strftime('%d %b'):>14} {'Mon '+mon.strftime('%d %b'):>14}", "-"*60]
     for s in EQUITY:
-        v = data[s]; lines.append(f"{s:30} {money(v['mon']):>14} {money(v['fri']):>14}")
-    lines += ["-"*60, f"{'TOTAL':30} {money(tot_mon):>14} {money(tot_fri):>14}"]
+        v = data[s]; lines.append(f"{s:30} {money(v['fri']):>14} {money(v['mon']):>14}")
+    lines += ["-"*60, f"{'TOTAL':30} {money(tot_fri):>14} {money(tot_mon):>14}"]
     body = ["Hi Joanne,", "",
-            f"Please find the weekly banking figures for the week commencing {wk_mon:%A %d %B %Y}.",
+            f"Please find the weekly banking figures for w/e {sun:%A %d %B %Y} "
+            f"(Friday {fri:%d %b} takings + the Monday {mon:%d %b} deposit).",
             "", "\n".join(lines), ""]
     if missing:
         body += ["Awaiting a figure from: " + ", ".join(missing) + ".",
@@ -116,8 +127,8 @@ def send_email(subj, body):
 def main():
     send = "--send" in sys.argv
     rows = read_responses()
-    wk_mon, wk_fri, data = compile_week(rows)
-    subj, body, missing = build_email(wk_mon, wk_fri, data)
+    fri, mon, data = compile_week(rows)
+    subj, body, missing = build_email(fri, mon, data)
     print("TO:", TO); print("FROM:", MAIL_FROM); print("SUBJECT:", subj); print(); print(body)
     if send:
         send_email(subj, body); print("\n[sent] email delivered to", TO)
