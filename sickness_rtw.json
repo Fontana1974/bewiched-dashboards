@@ -1,12 +1,36 @@
 {
- "generated": "2026-08-02",
+ "generated": "2026-08-09",
  "window_days": 28,
  "outstanding": [
   {
-   "name": "Hannah   Smyth",
-   "store": "Rugby",
-   "date": "2026-08-02",
-   "reason": "Unwell - fever and diarrhoea"
+   "name": "Katie Summer Wood",
+   "store": "Lower Heathcote",
+   "date": "2026-08-09",
+   "reason": ""
+  },
+  {
+   "name": "Lillie   Woodman",
+   "store": "Olney",
+   "date": "2026-08-09",
+   "reason": "Flu like symptoms - unable to get out of bed due to illness"
+  },
+  {
+   "name": "Leah-Nicole Ayling",
+   "store": "Peterborough Bridge Street",
+   "date": "2026-08-07",
+   "reason": "NaElena rang at 10:13 Thursday night to inform my she would not be in work tomorrow, she h"
+  },
+  {
+   "name": "Natalia Toro-Dominguez",
+   "store": "Wellingborough Train Station",
+   "date": "2026-08-06",
+   "reason": "N/AGall stones flair up"
+  },
+  {
+   "name": "Joanne Eades",
+   "store": "Corby",
+   "date": "2026-08-03",
+   "reason": "Jo has burned her right hand(palm of the hand is blistered) Have to wear a bandage and dre"
   },
   {
    "name": "Hannah   Smyth",
@@ -15,10 +39,10 @@
    "reason": "Unwell - fever and diarrhoea"
   },
   {
-   "name": "Zaneta Machova",
-   "store": "Burton Latimer",
-   "date": "2026-08-01",
-   "reason": "Stomach cramps"
+   "name": "Hannah   Smyth",
+   "store": "Rugby",
+   "date": "2026-08-02",
+   "reason": "Unwell - fever and diarrhoea"
   },
   {
    "name": "Iulia Naumenko",
@@ -87,12 +111,6 @@
    "reason": "Zoe had floaters in her eye on the way to work, she had googled it on her way and it said "
   },
   {
-   "name": "Honey Gallen",
-   "store": "Rushden Lakes",
-   "date": "2026-07-18",
-   "reason": "Migraine"
-  },
-  {
    "name": "Emily  Mayhew",
    "store": "Peterborough Fletton Quays",
    "date": "2026-07-17",
@@ -103,45 +121,9 @@
    "store": "Lower Heathcote",
    "date": "2026-07-14",
    "reason": "Not feeling well."
-  },
-  {
-   "name": "Corinna Underdood",
-   "store": "Higham Ferrers",
-   "date": "2026-07-11",
-   "reason": "Sickness"
-  },
-  {
-   "name": "Corinna Underdood",
-   "store": "Higham Ferrers",
-   "date": "2026-07-11",
-   "reason": "Vomiting"
-  },
-  {
-   "name": "Alesha Barrett",
-   "store": "Glenvale Drive Thru",
-   "date": "2026-07-09",
-   "reason": "Woke up this morning and started being sick"
-  },
-  {
-   "name": "Rachael Wooster",
-   "store": "Northampton Drive-Thru",
-   "date": "2026-07-09",
-   "reason": "Upset tummy"
-  },
-  {
-   "name": "Emily Phillips",
-   "store": "Peterborough Fletton Quays",
-   "date": "2026-07-07",
-   "reason": "NaEmily had to go to a&e today. She hurt her wrist playing netball the day prior"
-  },
-  {
-   "name": "Eva Musaphia",
-   "store": "Wellingborough Train Station",
-   "date": "2026-07-05",
-   "reason": "Stomach bug - due to cover in market street"
   }
  ],
- "outstanding_n": 23,
+ "outstanding_n": 20,
  "per_store": [
   {
    "store": "Peterborough Fletton Quays",
@@ -153,6 +135,15 @@
    "rtw_rate": 40
   },
   {
+   "store": "Glenvale Drive Thru",
+   "sickfs": 17,
+   "late": 10,
+   "rep_pct": 97,
+   "rtw": 12,
+   "sick": 19,
+   "rtw_rate": 63
+  },
+  {
    "store": "Northampton Drive-Thru",
    "sickfs": 15,
    "late": 2,
@@ -162,31 +153,13 @@
    "rtw_rate": 53
   },
   {
-   "store": "Glenvale Drive Thru",
-   "sickfs": 16,
-   "late": 10,
-   "rep_pct": 96,
-   "rtw": 11,
-   "sick": 18,
-   "rtw_rate": 61
-  },
-  {
    "store": "Rushden Lakes",
    "sickfs": 17,
    "late": 20,
    "rep_pct": 100,
-   "rtw": 6,
-   "sick": 17,
-   "rtw_rate": 35
-  },
-  {
-   "store": "Leamington Parade",
-   "sickfs": 15,
-   "late": 11,
-   "rep_pct": 96,
    "rtw": 8,
-   "sick": 15,
-   "rtw_rate": 53
+   "sick": 17,
+   "rtw_rate": 47
   },
   {
    "store": "Lower Heathcote",
@@ -194,8 +167,17 @@
    "late": 8,
    "rep_pct": 100,
    "rtw": 10,
+   "sick": 16,
+   "rtw_rate": 62
+  },
+  {
+   "store": "Leamington Parade",
+   "sickfs": 15,
+   "late": 12,
+   "rep_pct": 96,
+   "rtw": 8,
    "sick": 15,
-   "rtw_rate": 67
+   "rtw_rate": 53
   },
   {
    "store": "Rugby",
@@ -227,20 +209,38 @@
   {
    "store": "Market Harborough",
    "sickfs": 6,
-   "late": 7,
-   "rep_pct": 87,
+   "late": 9,
+   "rep_pct": 88,
    "rtw": 6,
    "sick": 8,
    "rtw_rate": 75
   },
   {
    "store": "Corby",
-   "sickfs": 5,
+   "sickfs": 6,
    "late": 1,
    "rep_pct": 100,
    "rtw": 2,
-   "sick": 6,
-   "rtw_rate": 33
+   "sick": 7,
+   "rtw_rate": 29
+  },
+  {
+   "store": "Burton Latimer",
+   "sickfs": 4,
+   "late": 0,
+   "rep_pct": 100,
+   "rtw": 4,
+   "sick": 5,
+   "rtw_rate": 80
+  },
+  {
+   "store": "Olney",
+   "sickfs": 4,
+   "late": 8,
+   "rep_pct": 92,
+   "rtw": 3,
+   "sick": 5,
+   "rtw_rate": 60
   },
   {
    "store": "HOE Balsall Common",
@@ -252,28 +252,19 @@
    "rtw_rate": 60
   },
   {
-   "store": "Burton Latimer",
-   "sickfs": 3,
-   "late": 0,
-   "rep_pct": 100,
-   "rtw": 3,
+   "store": "Peterborough Bridge Street",
+   "sickfs": 4,
+   "late": 5,
+   "rep_pct": 89,
+   "rtw": 4,
    "sick": 4,
-   "rtw_rate": 75
-  },
-  {
-   "store": "Olney",
-   "sickfs": 3,
-   "late": 7,
-   "rep_pct": 91,
-   "rtw": 3,
-   "sick": 4,
-   "rtw_rate": 75
+   "rtw_rate": 100
   },
   {
    "store": "Billing Drive Thru",
    "sickfs": 3,
-   "late": 5,
-   "rep_pct": 89,
+   "late": 6,
+   "rep_pct": 90,
    "rtw": 1,
    "sick": 4,
    "rtw_rate": 25
@@ -288,22 +279,13 @@
    "rtw_rate": 100
   },
   {
-   "store": "Peterborough Bridge Street",
-   "sickfs": 3,
-   "late": 5,
-   "rep_pct": 88,
-   "rtw": 4,
-   "sick": 3,
-   "rtw_rate": 133
-  },
-  {
    "store": "Wellingborough Train Station",
-   "sickfs": 2,
+   "sickfs": 3,
    "late": 0,
    "rep_pct": 100,
    "rtw": 4,
-   "sick": 3,
-   "rtw_rate": 133
+   "sick": 4,
+   "rtw_rate": 100
   },
   {
    "store": "Attleborough",
