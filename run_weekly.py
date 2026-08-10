@@ -688,11 +688,35 @@ def pull_f1():
                      "hello": pct(qavg(4)), "goodbye": pct(qavg(5)), "howareyou": pct(qavg(6)),
                      "queue": qavg(14)}
         last6 = [fnum(x[1][30]) for x in rows[-6:]][::-1]
+        # ---- Full race breakdown: every scored section (cols 19-27), QTD avg per store.
+        # These are PENALTY points that roll into Total Score (0 = full marks, lower = better).
+        _SECT = [(19,"Hello"),(20,"Goodbye"),(21,"How are you"),(22,"Working the queue"),
+                 (23,"Food & syrups"),(24,"Tables <3 mins"),(25,"Tables brand standard"),
+                 (26,"Virtual section plan"),(27,"No late team")]
+        _sections = {}
+        for _ix,_lab in _SECT:
+            _xs = [fnum(x[1][_ix]) for x in qtd if len(x[1]) > _ix and x[1][_ix] not in (None,"")]
+            _sections[_lab] = round(sum(_xs)/len(_xs),2) if _xs else None
         fd[st] = {"race": race_arr, "quali": quali_arr,
-                  "race_qtd": race_qtd, "race_q2": race_q2, "quali_qtd": quali_qtd, "last6": last6}
+                  "race_qtd": race_qtd, "race_q2": race_q2, "quali_qtd": quali_qtd, "last6": last6,
+                  "sections": _sections, "sect_queue": avgq()}
     # F1 staleness marker (read by the generators to badge the section, and by the freshness
     # gate as a SOFT warning). Stale = the newest race audit is behind this reporting week's
     # Sunday (audits pending) — the F1 pull still ran, so we publish and badge rather than block.
+    # Estate average per race section + section max points (for the full-breakdown visual).
+    _SECT_MAX = {"Hello":25,"Goodbye":25,"How are you":25,"Working the queue":25,
+                 "Food & syrups":31.25,"Tables <3 mins":31.25,"Tables brand standard":31.25,
+                 "Virtual section plan":31.25,"No late team":31.25}
+    _SECT_ORDER = ["Hello","Goodbye","How are you","Working the queue","Food & syrups",
+                   "Tables <3 mins","Tables brand standard","Virtual section plan","No late team"]
+    _est = {}
+    for _lab in _SECT_ORDER:
+        _vs = [fd[_s]["sections"][_lab] for _s in fd
+               if isinstance(fd.get(_s), dict) and fd[_s].get("sections")
+               and fd[_s]["sections"].get(_lab) is not None]
+        _est[_lab] = round(sum(_vs)/len(_vs),2) if _vs else None
+    fd["_race_sections"] = {"order": _SECT_ORDER, "maxpoints": _SECT_MAX, "estate": _est,
+        "note": "penalty points per audit section that roll into Total Score; lower = better (0 = full marks)"}
     _f1_stale = (newest is None) or (newest < CUR_END)
     fd["_stale"] = {"stale": bool(_f1_stale),
                     "newest": newest.isoformat() if newest else None,
@@ -722,6 +746,20 @@ def pull_f1():
     cons_rows = [[c, tot, cons_n[c], round(tot / cons_n[c], 1) if cons_n[c] else 0]
                  for c, tot in cons.items()]
     cons_rows.sort(key=lambda x: -x[3])
+    # SEASON-TO-DATE constructors: sum Championship Points across EVERY audited race this season
+    # (not reset each quarter), by area coach. season_from = earliest audited race in the data.
+    cons_s = {}; cons_s_n = {}; season_from = None
+    for st, rows in racer.items():
+        spts = sum(fnum(r[29]) for dt, r in rows if fnum(r[18]) > 0)
+        coach = COACH.get(st, "")
+        cons_s[coach] = cons_s.get(coach, 0) + round(spts)
+        cons_s_n[coach] = cons_s_n.get(coach, 0) + 1
+        for dt, r in rows:
+            if fnum(r[18]) > 0:
+                season_from = dt if season_from is None else min(season_from, dt)
+    cons_season = [[c, tot, cons_s_n[c], round(tot / cons_s_n[c], 1) if cons_s_n[c] else 0]
+                   for c, tot in cons_s.items()]
+    cons_season.sort(key=lambda x: -x[3])
     # ---- Q(this) vs Q(prev) QoQ: "Working the Queue" score (col I / idx 8) + Greet/Goodbye (Hello idx5 +
     #      Goodbye idx6). These are SCORED criteria, unaffected by the 29-Jun queue-TIMING cutover, so the
     #      quarter-over-quarter comparison is straight like-for-like. Company rollup + per-coach rollups.
@@ -754,6 +792,7 @@ def pull_f1():
                 "n_q3": acc["q3"]["qw"][1], "n_q2": acc["q2"]["qw"][1]}
     qn3 = (QSTART.month - 1) // 3 + 1; qn2 = (PQSTART.month - 1) // 3 + 1
     a["champ"] = {"drivers": drivers, "cons": cons_rows,
+        "cons_season": cons_season, "season_from": season_from.isoformat() if season_from else None,
         "f1_qoq": _qoq_out(comp_acc),
         "f1_qoq_coach": {c: _qoq_out(ac) for c, ac in coach_acc.items()},
         "f1_qoq_labels": {"q3": "Q%d" % qn3, "q2": "Q%d" % qn2,

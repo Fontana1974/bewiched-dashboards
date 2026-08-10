@@ -891,6 +891,84 @@ def f1_ops_html():
                    '<table class="f1t"><thead><tr><th>#</th><th class="l">Store (driver)</th><th>Coach</th><th>Pts</th></tr></thead><tbody>%s</tbody></table></div>'
                    '</div>' % (con_html, con_note, drv_rows))
 
+    # ---- Constructors' Championship — SEASON TO DATE (visualised, always on) ----
+    cons_s = sorted(champ.get('cons_season', []) or [], key=lambda x: -x[3])
+    season_cons_block = ""
+    if cons_s:
+        _sf = champ.get('season_from')
+        try:
+            _sflab = dt.date.fromisoformat(_sf).strftime('%-d %b %Y') if _sf else ''
+        except Exception:
+            _sflab = _sf or ''
+        maxavg = max(c[3] for c in cons_s) or 1
+        rowsh = ""
+        MED = ["#e7b35a", "#b8b8be", "#c8925a"]
+        for i, c in enumerate(cons_s):
+            cc, total, nst, avg = c; w = round(100 * avg / maxavg)
+            barcol = MED[i] if i < 3 else "var(--brown)"
+            rowsh += ('<div class="crow"><div class="crank">%d</div><div class="cbody">'
+                      '<div class="cname">%s</div><div class="cbar"><i style="width:%d%%;background:%s"></i></div>'
+                      '<div class="csub">%s pts total &middot; %s stores</div></div>'
+                      '<div class="cval">%s<small>pts/store</small></div></div>'
+                      % (i + 1, esc(cc), w, barcol, total, nst, avg))
+        season_cons_block = (
+            '<div class="f1sub">&#127942; Constructors&rsquo; Championship <span class="mini">&middot; SEASON TO DATE &middot; avg points per store'
+            + ((' &middot; since %s' % esc(_sflab)) if _sflab else '') + '</span></div>'
+            '<div class="f1panel"><div class="f1ph">Area-coach constructors &mdash; season-to-date standings <span class="mini">&middot; ranked by average championship points per store</span></div>'
+            + rowsh +
+            '<div class="mini" style="margin-top:9px">Every weekend race across the whole season counts here (not reset each quarter). '
+            '<b>%s</b> leads the constructors&rsquo; title on %s pts/store.</div></div>'
+            % (esc(cons_s[0][0]), cons_s[0][3]))
+
+    # ---- FULL RACE BREAKDOWN: every scored section, per store + estate (visualised) ----
+    _rsec = F1D.get("_race_sections") or {}
+    breakdown_block = ""
+    if _rsec and _rsec.get("order"):
+        order = _rsec["order"]; mx = _rsec.get("maxpoints", {}); est = _rsec.get("estate", {})
+        def _ach(pen, m):        # penalty -> achievement % (higher = better)
+            if pen is None or not m: return None
+            return max(0, min(100, round(100 * (1 - pen / m))))
+        def _acls(a):            # colour by achievement %
+            if a is None: return "t-na"
+            return "t-ok" if a >= 85 else ("t-amber" if a >= 65 else "t-red")
+        # estate bars
+        ebars = ""
+        for lab in order:
+            m = mx.get(lab); pen = est.get(lab); a = _ach(pen, m)
+            k = _acls(a); col = {"t-ok": "var(--green)", "t-amber": "#c8912f", "t-red": "var(--red)", "t-na": "#c9bdae"}[k]
+            aw = a if a is not None else 0
+            pv = ("%.1f" % pen) if pen is not None else "&mdash;"
+            av = ("%d%%" % a) if a is not None else "n/a"
+            ebars += ('<div class="crow"><div class="cbody"><div class="cname" style="font-size:12.5px">%s</div>'
+                      '<div class="cbar"><i style="width:%d%%;background:%s"></i></div>'
+                      '<div class="csub">%s achieved &middot; avg %s / %g penalty pts</div></div>'
+                      '<div class="cval" style="min-width:52px">%s</div></div>'
+                      % (esc(lab), aw, col, av, pv, m or 0, av))
+        # per-store heatmap (best Total score first)
+        bstores = [x for x in sorted(stores, key=lambda z: fin(z))]
+        head = "".join('<th class="mini" style="writing-mode:vertical-rl;transform:rotate(180deg);height:96px;padding:4px 2px">%s</th>' % esc(l) for l in order)
+        body = ""
+        for st in sorted(stores, key=lambda z: (F1D[z].get('race_qtd') or {}).get('score') or 999):
+            sec = (F1D[st].get("sections") or {})
+            cells = ""
+            for lab in order:
+                a = _ach(sec.get(lab), mx.get(lab))
+                cells += '<td>%s</td>' % tag(("%d%%" % a) if a is not None else "n/a", _acls(a))
+            body += '<tr><td class="l">%s</td>%s</tr>' % (esc(SH(st)), cells)
+        breakdown_block = (
+            '<div class="f1sub">Full race breakdown <span class="mini">&middot; every scored section &middot; quarter-to-date</span></div>'
+            '<div class="f1panel"><div class="f1ph">Estate average by section <span class="mini">&middot; % of full marks achieved (longer/greener = better)</span></div>'
+            + ebars +
+            '<div class="f1ph" style="margin-top:14px">By store &amp; section <span class="mini">&middot; % of full marks per section &middot; best Total Score first</span></div>'
+            '<div style="overflow-x:auto"><table class="f1t"><thead><tr><th class="l">Store</th>' + head + '</tr></thead><tbody>'
+            + body +
+            '</tbody></table></div>'
+            '<div class="mini" style="margin-top:9px">Each section is scored as penalty points that roll into the Total Score (0 = full marks). '
+            'Shown here as <b>% of full marks achieved</b> so higher &amp; greener = better. '
+            'Greetings (Hello/Goodbye/How-are-you/Working-the-queue) are marked out of 25; the operational sections '
+            '(Food &amp; syrups, Tables &lt;3 mins, Tables brand standard, Virtual section plan, No late team) out of 31.25. '
+            'This is where you can see, section by section, where the estate and each store win and lose.</div></div>')
+
     # ---- Latest race finish by store (finish / champ pts / score / last-6 sparkline) ----
     f1tbl = ""
     for s in sorted(stores, key=lambda x: fin(x)):
@@ -961,14 +1039,15 @@ def f1_ops_html():
     hint = ('<div class="md-note" style="margin-bottom:12px">Use the <b>period toggle</b> above '
             '(Weekly / Quarterly) to switch between <b>this week&rsquo;s race</b> and the '
             '<b>quarter-to-date</b> championship &amp; averages.</div>')
+    always_on = season_cons_block
     weekly_group = ('<div class="ps-basis" data-basis="weekly" style="display:block">'
                     + cards + finish_block + race_block + quali_block + focus + '</div>')
     qtd_group = ('<div class="ps-basis" data-basis="qtd" style="display:none">'
-                 + champ_block + race_qtd_block + quali_qtd_block + '</div>')
+                 + champ_block + breakdown_block + race_qtd_block + quali_qtd_block + '</div>')
     _f1st = F1D.get("_stale") or {}
     _badge = ('<div class="md-note" style="background:var(--redbg);border:1px solid #eccfca;color:#8c2f22;font-weight:800;margin-bottom:12px">&#9888; %s &mdash; the F1 figures below are the last completed audit, not this week\'s.</div>'
               % esc(_f1st.get("badge", "F1 awaiting this week's audit"))) if _f1st.get("stale") else ""
-    return (_badge + intro + hint + weekly_group + qtd_group)
+    return (_badge + intro + always_on + hint + weekly_group + qtd_group)
 
 
 # ============ Bench detail (mirrors the Company Dashboard 'Bench' tab) ============
