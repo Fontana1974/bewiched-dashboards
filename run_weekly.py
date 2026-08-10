@@ -1805,6 +1805,185 @@ def pull_accidents():
     print("[pull] accidents_feed: %d incidents across %d stores (last 180d)" % (total, len(stores)))
 
 
+
+def pull_backtoschool():
+    """5th EOS tab feed: Back-to-School sales & food forecast per store + estate. Mirrors the
+    standalone Bewiched_BackToSchool_Forecast methodology exactly:
+      * 2026 forecast week = 2025 SAME-week actual x each store's capped recent-8wk YoY.
+      * Weeks: Peak 24-30 Aug, Transition 31 Aug-6 Sep (term from Wed 2 Sep), Settled 7-13 Sep 2026,
+        baselined on 2025 weeks 25-31 Aug / 1-7 Sep / 8-14 Sep.
+      * Weekday->weekend shift from 3 holiday weeks (11-31 Aug 2025) vs 3 term weeks (8-28 Sep 2025),
+        weekend = Fri-Sun.  Food = per-store Food+Bakery item quantities, same YoY scaling.
+    Per-store food usage IS available from BigQuery (no pro-rata fallback for established stores).
+    New stores with no 2025 history (Billing DT, Attleborough, Olney): sales estimated from run-rate
+    x estate seasonal shape, food + weekend-shift shown as unavailable. Writes backtoschool_feed.json."""
+    FLATq = FLAT
+    PK=("2025-08-25","2025-08-31"); BK=("2025-09-01","2025-09-07"); ST=("2025-09-08","2025-09-14")
+    r26_end=datetime.date(2026,8,9); r26_start=r26_end-datetime.timedelta(days=55)
+    r25_end=r26_end-datetime.timedelta(days=364); r25_start=r26_start-datetime.timedelta(days=364)
+    R26S,R26E=r26_start.isoformat(),r26_end.isoformat(); R25S,R25E=r25_start.isoformat(),r25_end.isoformat()
+    HOL=("2025-08-11","2025-08-31"); TRM=("2025-09-08","2025-09-28")
+    def clampyoy(x):
+        try: x=float(x)
+        except Exception: return 1.0
+        return max(0.85, min(1.25, x))
+
+    q1=("SELECT item_outlet_name AS store,"
+        " ROUND(SUM(IF(d BETWEEN '%s' AND '%s', v,0)),2) sp,"
+        " ROUND(SUM(IF(d BETWEEN '%s' AND '%s', v,0)),2) sb,"
+        " ROUND(SUM(IF(d BETWEEN '%s' AND '%s', v,0)),2) ss,"
+        " ROUND(SUM(IF(d BETWEEN '%s' AND '%s', v,0)),2) s25,"
+        " ROUND(SUM(IF(d BETWEEN '%s' AND '%s', v,0)),2) s26"
+        " FROM (SELECT item_outlet_name, DATE(sales_date) d,"
+        " SAFE_CAST(item_line_total_after_discount AS FLOAT64) v FROM %s"
+        " WHERE DATE(sales_date) BETWEEN '%s' AND '%s' OR DATE(sales_date) BETWEEN '%s' AND '%s')"
+        " GROUP BY store" % (PK[0],PK[1],BK[0],BK[1],ST[0],ST[1],R25S,R25E,R26S,R26E,FLATq,R25S,ST[1],R26S,R26E))
+    q2=("SELECT item_outlet_name AS store,"
+        " ROUND(SUM(IF(d BETWEEN '%s' AND '%s', q,0))) fp,"
+        " ROUND(SUM(IF(d BETWEEN '%s' AND '%s', q,0))) fb,"
+        " ROUND(SUM(IF(d BETWEEN '%s' AND '%s', q,0))) fs"
+        " FROM (SELECT item_outlet_name, DATE(sales_date) d, SAFE_CAST(item_quantity AS FLOAT64) q"
+        " FROM %s WHERE DATE(sales_date) BETWEEN '%s' AND '%s' AND %s IN ('Food','Bakery'))"
+        " GROUP BY store" % (PK[0],PK[1],BK[0],BK[1],ST[0],ST[1],FLATq,PK[0],ST[1],cat_case('item_product_name')))
+    q4=("SELECT store,"
+        " ROUND(SUM(IF(period='hol' AND wknd, v,0))) hws, ROUND(SUM(IF(period='hol' AND NOT wknd, v,0))) hds,"
+        " ROUND(SUM(IF(period='term' AND wknd, v,0))) tws, ROUND(SUM(IF(period='term' AND NOT wknd, v,0))) tds,"
+        " ROUND(SUM(IF(period='hol' AND wknd, fq,0))) hwf, ROUND(SUM(IF(period='hol' AND NOT wknd, fq,0))) hdf,"
+        " ROUND(SUM(IF(period='term' AND wknd, fq,0))) twf, ROUND(SUM(IF(period='term' AND NOT wknd, fq,0))) tdf"
+        " FROM (SELECT item_outlet_name store, SAFE_CAST(item_line_total_after_discount AS FLOAT64) v,"
+        " IF(%s IN ('Food','Bakery'), SAFE_CAST(item_quantity AS FLOAT64), 0) fq,"
+        " EXTRACT(DAYOFWEEK FROM DATE(sales_date)) IN (6,7,1) wknd,"
+        " IF(DATE(sales_date) BETWEEN '%s' AND '%s','hol', IF(DATE(sales_date) BETWEEN '%s' AND '%s','term',NULL)) period"
+        " FROM %s WHERE DATE(sales_date) BETWEEN '%s' AND '%s') WHERE period IS NOT NULL GROUP BY store"
+        % (cat_case('item_product_name'),HOL[0],HOL[1],TRM[0],TRM[1],FLATq,HOL[0],TRM[1]))
+    q5=("SELECT dow, ROUND(SUM(IF(period='hol', v,0))/3) ha, ROUND(SUM(IF(period='term', v,0))/3) ta"
+        " FROM (SELECT EXTRACT(DAYOFWEEK FROM DATE(sales_date)) dow,"
+        " SAFE_CAST(item_line_total_after_discount AS FLOAT64) v,"
+        " IF(DATE(sales_date) BETWEEN '%s' AND '%s','hol', IF(DATE(sales_date) BETWEEN '%s' AND '%s','term',NULL)) period"
+        " FROM %s WHERE DATE(sales_date) BETWEEN '%s' AND '%s') WHERE period IS NOT NULL GROUP BY dow"
+        % (HOL[0],HOL[1],TRM[0],TRM[1],FLATq,HOL[0],TRM[1]))
+    q3=("SELECT item, cat,"
+        " ROUND(SUM(IF(d BETWEEN '%s' AND '%s', q,0))) qp,"
+        " ROUND(SUM(IF(d BETWEEN '%s' AND '%s', q,0))) qb,"
+        " ROUND(SUM(IF(d BETWEEN '%s' AND '%s', q,0))) qs"
+        " FROM (SELECT %s item, %s cat, DATE(sales_date) d, SAFE_CAST(item_quantity AS FLOAT64) q"
+        " FROM %s WHERE DATE(sales_date) BETWEEN '%s' AND '%s') WHERE cat IN ('Food','Bakery')"
+        " GROUP BY item, cat ORDER BY qp DESC LIMIT 19"
+        % (PK[0],PK[1],BK[0],BK[1],ST[0],ST[1],CLEAN,cat_case('item_product_name'),FLATq,PK[0],ST[1]))
+
+    try:
+        d1={normalize(r["store"]):r for r in bq(q1) if normalize(r["store"])}
+        d2={normalize(r["store"]):r for r in bq(q2) if normalize(r["store"])}
+        d4={normalize(r["store"]):r for r in bq(q4) if normalize(r["store"])}
+        d5=bq(q5); d3=bq(q3)
+    except Exception as e:
+        print("[pull] backtoschool SKIPPED (BQ error: %s)" % e); return
+
+    NEW_STORES={"Billing Drive Thru","Attleborough","Olney"}
+    def yoy(st):
+        r=d1.get(st) or {}; a=r.get("s25") or 0; b=r.get("s26") or 0
+        return clampyoy(b/a) if a else 1.0
+    # estate seasonal shape from established stores (for new-store estimate)
+    est_pk=est_bk=est_st=0.0
+    stores=[]
+    for st in CANON:
+        r1=d1.get(st); is_new = (st in NEW_STORES) or (not r1) or ((r1.get("sp") or 0) < 200)
+        y=yoy(st)
+        if not is_new:
+            pk=round((r1.get("sp") or 0)*y); tr=round((r1.get("sb") or 0)*y); se=round((r1.get("ss") or 0)*y)
+            est_pk+=pk; est_bk+=tr; est_st+=se
+        else:
+            pk=tr=se=None
+        stores.append({"store":st,"new":is_new,"peak":pk,"trans":tr,"settled":se,"_r1":r1})
+    # estate normal-week run-rate (recent26 estate weekly avg) for new-store sizing
+    est26=sum((d1.get(st,{}) or {}).get("s26") or 0 for st in CANON)
+    normal_wk = est26/8.0 if est26 else 1.0
+    idx_pk = (est_pk/ (len([s for s in stores if not s["new"]]) or 1)) # not used; use ratio vs settled
+    # seasonal indices relative to a normal week (established estate)
+    n_est=max(1,len([s for s in stores if not s["new"]]))
+    est_normal_est = sum(((d1.get(s["store"],{}) or {}).get("s26") or 0) for s in stores if not s["new"])/8.0 or 1.0
+    pk_idx = est_pk/est_normal_est if est_normal_est else 1.0
+    bk_idx = est_bk/est_normal_est if est_normal_est else 1.0
+    st_idx = est_st/est_normal_est if est_normal_est else 1.0
+    # scale indices so they represent a single store's weekly run-rate multiple
+    pk_ratio = est_pk/ (est_pk+est_bk+est_st) if (est_pk+est_bk+est_st) else 0.34
+    # simpler: new store weekly run-rate * seasonal factor derived from estate week-shape
+    shp_pk = est_pk/((est_pk+est_bk+est_st)/3) if (est_pk+est_bk+est_st) else 1.0
+    shp_bk = est_bk/((est_pk+est_bk+est_st)/3) if (est_pk+est_bk+est_st) else 1.0
+    shp_st = est_st/((est_pk+est_bk+est_st)/3) if (est_pk+est_bk+est_st) else 1.0
+    for s in stores:
+        if s["new"]:
+            rr=((d1.get(s["store"],{}) or {}).get("s26") or 0)/8.0   # this store's recent weekly run-rate
+            s["peak"]=round(rr*shp_pk); s["trans"]=round(rr*shp_bk); s["settled"]=round(rr*shp_st)
+    # per-store weekend shift + food
+    for s in stores:
+        st=s["store"]; y=yoy(st)
+        f=d2.get(st) or {}
+        if not s["new"]:
+            s["food_peak"]=round((f.get("fp") or 0)*y); s["food_trans"]=round((f.get("fb") or 0)*y); s["food_settled"]=round((f.get("fs") or 0)*y)
+        else:
+            s["food_peak"]=s["food_trans"]=s["food_settled"]=None
+        w=d4.get(st) or {}
+        hw=w.get("hws") or 0; hd=w.get("hds") or 0; tw=w.get("tws") or 0; td=w.get("tds") or 0
+        if (hw+hd)>0 and (tw+td)>0 and not s["new"]:
+            sh_hol=100*hw/(hw+hd); sh_term=100*tw/(tw+td)
+            s["wk_share_hol"]=round(sh_hol); s["wk_share_term"]=round(sh_term); s["wk_share_pp"]=round(sh_term-sh_hol)
+            s["weekday_delta"]=round(100*(td/hd-1)) if hd else None
+            s["weekend_delta"]=round(100*(tw/hw-1)) if hw else None
+        else:
+            s["wk_share_hol"]=s["wk_share_term"]=s["wk_share_pp"]=s["weekday_delta"]=s["weekend_delta"]=None
+        if s["peak"] and s["settled"]:
+            s["pk_settled_pct"]=round(100*(s["settled"]/s["peak"]-1))
+        else:
+            s["pk_settled_pct"]=None
+        s.pop("_r1",None)
+    stores.sort(key=lambda x:-(x["peak"] or 0))
+
+    # estate DOW (Mon..Sun) from q5 (dow 1=Sun..7=Sat)
+    DOWMAP={2:"Mon",3:"Tue",4:"Wed",5:"Thu",6:"Fri",7:"Sat",1:"Sun"}
+    dm={int(r["dow"]):r for r in d5}
+    dow=[]
+    for k in (2,3,4,5,6,7,1):
+        r=dm.get(k) or {}; ha=r.get("ha") or 0; ta=r.get("ta") or 0
+        dow.append({"day":DOWMAP[k],"hol":round(ha),"term":round(ta),"pct":round(100*(ta/ha-1)) if ha else 0})
+    # estate KPIs
+    wkday=[d for d in dow if d["day"] in ("Mon","Tue","Wed","Thu")]
+    wkday_pct=round(100*(sum(d["term"] for d in wkday)/ (sum(d["hol"] for d in wkday) or 1) -1))
+    satsun=[d for d in dow if d["day"] in ("Sat","Sun")]
+    wkend_pct=round(100*(sum(d["term"] for d in satsun)/(sum(d["hol"] for d in satsun) or 1)-1))
+    fri_sun_hol=sum(d["hol"] for d in dow if d["day"] in ("Fri","Sat","Sun")); all_hol=sum(d["hol"] for d in dow)
+    fri_sun_trm=sum(d["term"] for d in dow if d["day"] in ("Fri","Sat","Sun")); all_trm=sum(d["term"] for d in dow)
+    share_hol=round(100*fri_sun_hol/all_hol) if all_hol else 0
+    share_trm=round(100*fri_sun_trm/all_trm) if all_trm else 0
+    estate_peak=sum(s["peak"] or 0 for s in stores)
+    # top food lines
+    food_lines=[]
+    for r in d3:
+        qp=r.get("qp") or 0; qb=r.get("qb") or 0; qs=r.get("qs") or 0
+        food_lines.append({"item":r["item"],"cat":r["cat"],"peak":round(qp),"trans":round(qb),
+                           "settled":round(qs),"pct":round(100*(qs/qp-1)) if qp else 0})
+    # estate food seasonal index
+    fpk=sum((d2.get(st,{}) or {}).get("fp") or 0 for st in CANON if st not in NEW_STORES)
+    fst=sum((d2.get(st,{}) or {}).get("fs") or 0 for st in CANON if st not in NEW_STORES)
+    fbk=sum((d2.get(st,{}) or {}).get("fb") or 0 for st in CANON if st not in NEW_STORES)
+    fnorm=(fpk+fbk+fst)/3 or 1.0
+
+    out={"_generated": datetime.datetime.now(zoneinfo.ZoneInfo("Europe/London")).strftime("%-d %b %Y, %H:%M"),
+        "return_date":"2026-09-02",
+        "weeks":{"peak":"Mon 24 – Sun 30 Aug 2026","transition":"Mon 31 Aug – Sun 6 Sep 2026",
+                 "settled":"Mon 7 – Sun 13 Sep 2026"},
+        "estate":{"peak":estate_peak,"weekday_pct":wkday_pct,"weekend_pct":wkend_pct,
+                  "weekend_share_hol":share_hol,"weekend_share_term":share_trm,
+                  "dow":dow,"food_lines":food_lines,
+                  "food_index_peak":round(fpk/fnorm,2) if fnorm else None,
+                  "food_index_settled":round(fst/fnorm,2) if fnorm else None},
+        "stores":stores,
+        "_method":"2025 same-week actuals x capped recent-8wk YoY (0.85-1.25). Weekday/weekend from 3 holiday wks (11-31 Aug 25) vs 3 term wks (8-28 Sep 25); weekend=Fri-Sun. Per-store food usage from BigQuery item quantities. New stores (Billing DT, Attleborough, Olney): run-rate x estate seasonal shape; food/weekend n/a."}
+    W("backtoschool_feed.json", out, indent=1)
+    print("[pull] backtoschool: %d stores, estate peak £%s (weekday %s%%, weekend %s%%, wkend share %s->%s)"
+          % (len(stores), format(estate_peak,","), wkday_pct, wkend_pct, share_hol, share_trm))
+
+
 # ============================ BUILD / ASSEMBLE (B–E) ============================
 RUN_START = datetime.datetime.now().timestamp()
 GEN_LEFTOVER = {}
@@ -2891,6 +3070,7 @@ def pulls():
     pull_sl_raws()            # sl_*_raw.json (2)
     pull_txq_raws()           # txq_*_raw.json (2)
     pull_eos_scorecard()      # eos_scorecard.json (EOS Weekly+Quarterly scorecard)
+    pull_backtoschool()       # backtoschool_feed.json (EOS 5th tab: back-to-school forecast)
     pull_maintenance()        # maintenance.json (reactive/planned/coffee/audit)  [non-fatal]
 
 

@@ -791,6 +791,201 @@ F1_SHORT = {"Burton Latimer":"Burton","Corby":"Corby","Higham Ferrers":"Higham",
 "Northampton Drive-Thru":"Northampton DT","Rugby":"Rugby","Wellingborough":"Wellingborough","Wellingborough Train Station":"W'boro Train Stn",
 "Leam Retail":"Leam Retail"}
 
+
+def backtoschool_tab():
+    """Build the EOS 5th tab (Back-to-School forecast) — a tab button + a pane with a store
+    dropdown (reusing the generic .stsel/.st-scope/[data-store] switcher). Estate view + a panel
+    per store. Returns (button_html, pane_html). '' on any failure so the EOS build never breaks."""
+    try:
+        B = json.load(open(os.path.join(HERE, "backtoschool_feed.json")))
+    except Exception:
+        return "", ""
+    est = B.get("estate") or {}
+    stores = B.get("stores") or []
+    if not stores:
+        return "", ""
+    SH = lambda x: F1_SHORT.get(x, x)
+    def gbp(v):
+        return ("£" + format(int(round(v)), ",")) if v is not None else "&mdash;"
+    def pc(v, inv=False):
+        if v is None: return '<span class="bts-nn">&mdash;</span>'
+        k = ("bts-dn" if v < -3 else ("bts-up" if v > 3 else "bts-fl"))
+        return '<span class="%s">%s%d%%</span>' % (k, "+" if v > 0 else "", v)
+    wk = B.get("weeks", {})
+
+    # ---- estate DOW chart ----
+    dow = est.get("dow") or []
+    mx = max([max(d["hol"], d["term"]) for d in dow] or [1]) or 1
+    dcols = ""
+    for d in dow:
+        hh = max(3, round(70 * d["hol"] / mx)); th = max(3, round(70 * d["term"] / mx))
+        tk = "bts-bt-up" if d["pct"] > 3 else ("bts-bt-dn" if d["pct"] < -3 else "bts-bt-fl")
+        dcin = "bts-up" if d["pct"] > 3 else ("bts-dn" if d["pct"] < -3 else "bts-fl")
+        dcols += ('<div class="bts-dcol"><div class="bts-bars"><span class="bts-bh" style="height:%dpx" title="hol %s"></span>'
+                  '<span class="bts-bt %s" style="height:%dpx" title="term %s"></span></div>'
+                  '<div class="bts-dl">%s</div><div class="bts-dc %s">%s%d%%</div></div>'
+                  % (hh, gbp(d["hol"]), tk, th, gbp(d["term"]), d["day"], dcin, "+" if d["pct"] > 0 else "", d["pct"]))
+    dow_html = ('<div class="bts-h3">The weekday &rarr; weekend shift (estate)</div>'
+                '<div class="bts-hs">Average day&rsquo;s sales &mdash; school holidays vs term-time (2025). Term hollows out Mon&ndash;Thu and pushes the peak onto Sat/Sun.</div>'
+                '<div class="bts-dowwrap"><div class="bts-dowrow">' + dcols + '</div>'
+                '<div class="bts-legend"><span class="bts-swh"></span> holidays &nbsp; <span class="bts-swt"></span> term-time &nbsp;&middot;&nbsp; %% = term vs holiday for that day &nbsp;&middot;&nbsp; weekend share of week %d%% &rarr; %d%%</div></div>'
+                % (est.get("weekend_share_hol", 0), est.get("weekend_share_term", 0)))
+
+    # ---- week cards (estate framing, reused per store with store £) ----
+    def week_cards(pk, tr, se, pk_se=None):
+        note1 = "Kids still off · trade spread across the whole week · staff &amp; stock UP"
+        note2 = "<b>Term-time from Wed 2 Sep.</b> Mon 31 (bank hol) + Tue 1 (INSET) trade holiday-like; kids back Wed"
+        note3 = "Weekdays fully quiet · peak now on Fri&ndash;Sun · scale midweek back to this"
+        extra = (' &middot; Pk&rarr;Settled ' + pc(pk_se)) if pk_se is not None else ''
+        return ('<div class="bts-win">'
+                '<div class="bts-wk bts-peak"><div class="bts-l">&#9312; Peak &mdash; last holiday week</div><div class="bts-d">%s</div><div class="bts-v">%s</div><div class="bts-n">%s</div></div>'
+                '<div class="bts-wk bts-back"><div class="bts-l">&#9313; Transition week</div><div class="bts-d">%s</div><div class="bts-v">%s</div><div class="bts-n">%s</div></div>'
+                '<div class="bts-wk bts-settle"><div class="bts-l">&#9314; Settled &mdash; first full term week</div><div class="bts-d">%s</div><div class="bts-v">%s</div><div class="bts-n">%s%s</div></div>'
+                '</div>' % (wk.get("peak",""), gbp(pk), note1, wk.get("transition",""), gbp(tr), note2,
+                            wk.get("settled",""), gbp(se), note3, extra))
+
+    # ---- estate KPIs ----
+    kpis = ('<div class="bts-kpis">'
+            '<div class="bts-kpi"><div class="bts-kl">Estate peak week (fcast)</div><div class="bts-kv">%s</div><div class="bts-ks">last full holiday week</div></div>'
+            '<div class="bts-kpi"><div class="bts-kl">Term-time weekday</div><div class="bts-kv bts-dn">%d%%</div><div class="bts-ks">Mon&ndash;Thu, holiday &rarr; term</div></div>'
+            '<div class="bts-kpi"><div class="bts-kl">Term-time weekend</div><div class="bts-kv bts-up">+%d%%</div><div class="bts-ks">Sat &amp; Sun vs holidays</div></div>'
+            '<div class="bts-kpi"><div class="bts-kl">Weekend share of week</div><div class="bts-kv">%d%% &rarr; %d%%</div><div class="bts-ks">holiday &rarr; term (Fri&ndash;Sun)</div></div>'
+            '</div>' % (gbp(est.get("peak")), est.get("weekday_pct",0), est.get("weekend_pct",0),
+                        est.get("weekend_share_hol",0), est.get("weekend_share_term",0)))
+
+    # ---- per-store forecast table (estate view) ----
+    rows = ""
+    for s in stores:
+        newb = ' <span class="bts-new">new</span>' if s.get("new") else ''
+        if s.get("wk_share_hol") is not None:
+            ws = '%d%%&rarr;%d%% <b class="%s">(%+dpp)</b>' % (s["wk_share_hol"], s["wk_share_term"],
+                 "bts-wkend" if s["wk_share_pp"] >= 0 else "bts-wkday", s["wk_share_pp"])
+        else:
+            ws = '<span class="bts-nn">&mdash;</span>'
+        food = ('%s / %s / %s' % (s["food_peak"], s["food_trans"], s["food_settled"])) if s.get("food_peak") is not None else '<span class="bts-nn">&mdash;</span>'
+        rows += ('<tr><td class="bts-st">%s%s</td><td class="bts-num bts-pk">%s</td><td class="bts-num">%s</td>'
+                 '<td class="bts-num">%s</td><td class="bts-num">%s</td><td class="bts-ws">%s</td><td class="bts-fd">%s</td></tr>'
+                 % (esc(SH(s["store"])), newb, gbp(s["peak"]), gbp(s["trans"]), gbp(s["settled"]),
+                    pc(s.get("pk_settled_pct")), ws, food))
+    store_table = ('<div class="bts-h3">Per-store &mdash; forecast &amp; the weekend shift</div>'
+                   '<div class="bts-hs">Forecast weeks (&pound;) + how each store&rsquo;s mix moves to the weekend once term&rsquo;s back. <b>+pp</b> = shifts to Fri&ndash;Sun (pull midweek down); <b>&minus;pp</b> = stays weekday-led.</div>'
+                   '<table class="bts-t"><thead><tr><th class="l">Store</th><th>Peak wk</th><th>Transition</th><th>Settled</th><th>Pk&rarr;Settled</th><th class="l">Weekend share hol&rarr;term</th><th class="l">Food P/B/S</th></tr></thead><tbody>'
+                   + rows + '</tbody></table>')
+
+    # ---- estate food lines ----
+    fl = est.get("food_lines") or []
+    frows = ""
+    for r in fl:
+        frows += ('<tr><td class="l">%s</td><td class="bts-cat">%s</td><td class="bts-num">%s</td><td class="bts-num">%s</td><td class="bts-num">%s</td><td class="bts-num">%s</td></tr>'
+                  % (esc(r["item"]), esc(r["cat"]), r["peak"], r["trans"], r["settled"], pc(r["pct"])))
+    idx = est.get("food_index_peak"); idxs = est.get("food_index_settled")
+    food_table = ('<div class="bts-h3">Food usage &mdash; order lighter midweek, keep weekends stocked</div>'
+                  '<div class="bts-hs">Food &amp; bakery volume follows the same weekly reshape: lighter Mon&ndash;Thu, hold Fri&ndash;Sun in term. Estate food seasonal index: peak %s &middot; settled %s (normal week = 1.00).</div>'
+                  '<table class="bts-t"><thead><tr><th class="l">Line</th><th class="l">Category</th><th>Peak wk</th><th>Transition</th><th>Settled</th><th>Change</th></tr></thead><tbody>'
+                  % (idx, idxs) + frows + '</tbody></table>')
+
+    method = ('<div class="bts-note"><b>Method &amp; caveats.</b> Actuals from BigQuery <code>v_sales_details_flat</code>. '
+              '2026 forecast = 2025 same-week actual &times; each store&rsquo;s recent 8-week YoY (capped 0.85&ndash;1.25). '
+              'Weekday/weekend profile compares 3 holiday weeks (11&ndash;31 Aug 2025) with 3 term weeks (8&ndash;28 Sep 2025); weekend = Fri&ndash;Sun. '
+              'Schools return <b>Wed 2 Sep 2026</b> &mdash; Mon 31 Aug (bank hol) &amp; Tue 1 Sep (INSET) still trade holiday-like, so the transition week is a hybrid. '
+              'New stores (Billing DT, Attleborough, Olney) have no 2025 history &mdash; sales estimated from run-rate &times; estate seasonal shape; weekend-shift &amp; food not shown for them.</div>')
+
+    est_trans = sum(s.get("trans") or 0 for s in stores)
+    est_settled = sum(s.get("settled") or 0 for s in stores)
+    estate_panel = ('<div class="bts-panel" data-store="estate" style="display:block">'
+                    + week_cards(est.get("peak"), est_trans, est_settled)
+                    + kpis + dow_html + store_table + food_table + method + '</div>')
+
+    # ---- per-store panels ----
+    def store_panel(s):
+        newb = ' <span class="bts-new">new store</span>' if s.get("new") else ''
+        if s.get("wk_share_hol") is not None:
+            shift = ('<div class="bts-shift"><div class="bts-sh1">Weekend reshape (holiday &rarr; term)</div>'
+                     '<div class="bts-shrow"><div><div class="bts-shk">Weekend share</div><div class="bts-shv">%d%% &rarr; %d%% <b class="%s">(%+dpp)</b></div></div>'
+                     '<div><div class="bts-shk">Weekday Mon&ndash;Thu</div><div class="bts-shv">%s</div></div>'
+                     '<div><div class="bts-shk">Weekend Fri&ndash;Sun</div><div class="bts-shv">%s</div></div></div>'
+                     '<div class="bts-shn">%s</div></div>'
+                     % (s["wk_share_hol"], s["wk_share_term"], "bts-wkend" if s["wk_share_pp"]>=0 else "bts-wkday", s["wk_share_pp"],
+                        pc(s.get("weekday_delta")), pc(s.get("weekend_delta")),
+                        ("Destination/retail-park pattern &mdash; cut Mon&ndash;Thu hours &amp; perishable orders, protect Fri&ndash;Sun cover &amp; stock." if (s["wk_share_pp"] or 0) >= 4
+                         else ("Office/commuter pattern &mdash; midweek firms up in term, keep weekday cover." if (s["wk_share_pp"] or 0) < 0
+                               else "Modest shift to the weekend &mdash; trim midweek gently, hold Fri&ndash;Sun."))))
+        else:
+            shift = '<div class="bts-shift"><div class="bts-shn">Weekend-shift not available (new store &mdash; no 2025 history).</div></div>'
+        if s.get("food_peak") is not None:
+            food = ('<div class="bts-foodline"><b>Food &amp; bakery units (forecast):</b> Peak <b>%s</b> &middot; Transition <b>%s</b> &middot; Settled <b>%s</b> '
+                    '&mdash; order close to peak for the holiday week, then trim midweek deliveries from Wed 2 Sep and hold weekend stock.</div>'
+                    % (s["food_peak"], s["food_trans"], s["food_settled"]))
+        else:
+            food = '<div class="bts-foodline"><b>Food &amp; bakery:</b> per-store forecast not available (new store).</div>'
+        return ('<div class="bts-panel" data-store="%s" style="display:none">'
+                '<div class="bts-storehd">%s%s</div>'
+                % (esc(s["store"]), esc(SH(s["store"])), newb)
+                + week_cards(s.get("peak"), s.get("trans"), s.get("settled"), s.get("pk_settled_pct"))
+                + shift + food
+                + '<div class="bts-note">Forecast = this store&rsquo;s 2025 same-week actuals &times; its capped recent-8wk YoY. The estate weekday&rarr;weekend chart on the <b>All stores</b> view shows the wider pattern.</div>'
+                + '</div>')
+    store_panels = "".join(store_panel(s) for s in stores)
+
+    opts = '<option value="estate" selected>All stores (estate)</option>' + "".join(
+        '<option value="%s">%s%s</option>' % (esc(s["store"]), esc(SH(s["store"])), " (new)" if s.get("new") else "")
+        for s in stores)
+
+    STYLE = ("<style>"
+     "#pane-backtoschool .bts-sub{color:var(--muted);font-size:13px;line-height:1.55;margin:2px 0 14px;max-width:900px}"
+     "#pane-backtoschool .bts-selbar{display:flex;align-items:center;gap:10px;margin:4px 0 16px}"
+     "#pane-backtoschool .bts-selbar label{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);font-weight:800}"
+     "#pane-backtoschool .stsel{font:inherit;font-size:14px;font-weight:800;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:9px 14px;min-width:280px;cursor:pointer}"
+     "#pane-backtoschool .bts-win{display:flex;gap:12px;flex-wrap:wrap;margin:6px 0 14px}"
+     "#pane-backtoschool .bts-wk{flex:1;min-width:220px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px}"
+     "#pane-backtoschool .bts-wk .bts-l{font-size:10px;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);font-weight:800}"
+     "#pane-backtoschool .bts-wk .bts-d{font-size:14px;font-weight:800;margin-top:3px}"
+     "#pane-backtoschool .bts-wk .bts-v{font-size:22px;font-weight:800;margin:4px 0 2px}"
+     "#pane-backtoschool .bts-wk .bts-n{font-size:11px;color:var(--muted);line-height:1.4}"
+     "#pane-backtoschool .bts-peak{border-top:3px solid var(--green)} #pane-backtoschool .bts-back{border-top:3px solid var(--gold)} #pane-backtoschool .bts-settle{border-top:3px solid var(--red)}"
+     "#pane-backtoschool .bts-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:6px 0 16px}"
+     "#pane-backtoschool .bts-kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px}"
+     "#pane-backtoschool .bts-kl{font-size:10.5px;letter-spacing:.4px;text-transform:uppercase;color:var(--muted);font-weight:800}"
+     "#pane-backtoschool .bts-kv{font-size:22px;font-weight:800;margin-top:5px} #pane-backtoschool .bts-ks{font-size:11px;color:var(--muted);margin-top:3px}"
+     "#pane-backtoschool .bts-h3{font-size:15px;font-weight:800;margin:22px 0 3px;color:var(--ink)}"
+     "#pane-backtoschool .bts-hs{font-size:12px;color:var(--muted);margin-bottom:9px;line-height:1.5}"
+     "#pane-backtoschool table.bts-t{width:100%;border-collapse:separate;border-spacing:0;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:12.5px}"
+     "#pane-backtoschool .bts-t thead th{font-size:10px;letter-spacing:.4px;text-transform:uppercase;color:var(--muted);font-weight:800;text-align:right;padding:9px 8px;background:var(--greybg);border-bottom:1px solid var(--line);white-space:nowrap}"
+     "#pane-backtoschool .bts-t thead th.l{text-align:left}"
+     "#pane-backtoschool .bts-t tbody td{padding:8px;border-bottom:1px solid #eef1f5;text-align:right;white-space:nowrap} #pane-backtoschool .bts-t tbody tr:last-child td{border-bottom:none}"
+     "#pane-backtoschool .bts-st{text-align:left;font-weight:800} #pane-backtoschool .bts-fd,#pane-backtoschool .bts-ws{text-align:left;color:#4a4038;font-size:11.5px} #pane-backtoschool .bts-cat{text-align:left;color:var(--muted);font-size:11px} #pane-backtoschool td.l{text-align:left}"
+     "#pane-backtoschool .bts-num{font-variant-numeric:tabular-nums} #pane-backtoschool .bts-pk{font-weight:800}"
+     "#pane-backtoschool .bts-up{color:var(--green);font-weight:800} #pane-backtoschool .bts-dn{color:var(--red);font-weight:800} #pane-backtoschool .bts-fl{color:var(--muted);font-weight:800} #pane-backtoschool .bts-nn{color:var(--muted)}"
+     "#pane-backtoschool .bts-wkend{color:var(--green)} #pane-backtoschool .bts-wkday{color:#7a5cff}"
+     "#pane-backtoschool .bts-new{font-size:9px;background:var(--cream);color:var(--brown);border:1px solid var(--line);border-radius:4px;padding:1px 5px;font-weight:800}"
+     "#pane-backtoschool .bts-note{font-size:11.5px;color:var(--muted);line-height:1.6;margin-top:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 15px} #pane-backtoschool .bts-note b{color:var(--ink)} #pane-backtoschool code{background:var(--greybg);padding:1px 4px;border-radius:4px;font-size:11px}"
+     "#pane-backtoschool .bts-dowwrap{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px 18px}"
+     "#pane-backtoschool .bts-dowrow{display:flex;align-items:flex-end;gap:12px;justify-content:space-between;padding:6px 4px 0}"
+     "#pane-backtoschool .bts-dcol{flex:1;text-align:center} #pane-backtoschool .bts-bars{display:flex;gap:3px;align-items:flex-end;justify-content:center;height:74px}"
+     "#pane-backtoschool .bts-bh{width:15px;background:#c9bdae;border-radius:3px 3px 0 0} #pane-backtoschool .bts-bt{width:15px;border-radius:3px 3px 0 0} #pane-backtoschool .bts-bt-up{background:var(--green)} #pane-backtoschool .bts-bt-dn{background:var(--red)} #pane-backtoschool .bts-bt-fl{background:var(--gold)}"
+     "#pane-backtoschool .bts-dl{font-size:11px;font-weight:800;margin-top:5px} #pane-backtoschool .bts-dc{font-size:10.5px;font-weight:800}"
+     "#pane-backtoschool .bts-legend{font-size:11px;color:var(--muted);margin-top:8px} #pane-backtoschool .bts-swh{display:inline-block;width:10px;height:10px;background:#c9bdae;border-radius:2px;vertical-align:middle} #pane-backtoschool .bts-swt{display:inline-block;width:10px;height:10px;background:var(--green);border-radius:2px;vertical-align:middle}"
+     "#pane-backtoschool .bts-storehd{font-size:19px;font-weight:800;margin:2px 0 10px}"
+     "#pane-backtoschool .bts-shift{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:4px 0 12px}"
+     "#pane-backtoschool .bts-sh1{font-size:12px;letter-spacing:.4px;text-transform:uppercase;color:var(--muted);font-weight:800;margin-bottom:8px}"
+     "#pane-backtoschool .bts-shrow{display:flex;gap:26px;flex-wrap:wrap} #pane-backtoschool .bts-shk{font-size:10.5px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);font-weight:800} #pane-backtoschool .bts-shv{font-size:18px;font-weight:800;margin-top:3px}"
+     "#pane-backtoschool .bts-shn{font-size:11.5px;color:var(--muted);margin-top:9px;line-height:1.5}"
+     "#pane-backtoschool .bts-foodline{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 15px;font-size:12.5px;color:#4a4038;line-height:1.5} #pane-backtoschool .bts-foodline b{color:var(--ink)}"
+     "</style>")
+
+    pane = ('\n  <section class="pane" id="pane-backtoschool">\n'
+            + STYLE
+            + '<div class="bts-sub">The end-of-summer peak, the back-to-school fall-away, and how trade <b>reconcentrates onto the weekend</b> once term restarts. '
+              'Built from BigQuery 2025 actuals scaled by each store&rsquo;s recent year-on-year trend. Schools return <b>Wednesday 2 September 2026</b>. '
+              'Generated ' + esc(B.get("_generated","")) + '.</div>'
+            + '<div class="st-scope"><div class="bts-selbar"><label>Store</label><select class="stsel">' + opts + '</select></div>'
+            + estate_panel + store_panels
+            + '</div>\n  </section>\n')
+
+    button = '<button class="tab" data-pane="backtoschool">Back to School <span class="cnt">forecast</span></button>'
+    return button, pane
+
+
 def f1_ops_html():
     """Build the F1 'Op's Excellence' presentation for the EOS metric-detail view, mirroring the
     Company Dashboard tab. Returns '' on any failure so the EOS build is never broken."""
@@ -1522,6 +1717,8 @@ for i, (wm, qm) in enumerate(zip(weekly, quarterly)):
         + '</div>'
     )
 
+bts_btn, bts_pane = backtoschool_tab()
+
 HTML = f"""<!DOCTYPE html>
 <html lang="en-GB">
 <head>
@@ -1706,6 +1903,7 @@ HTML = f"""<!DOCTYPE html>
     <button class="tab" data-pane="quarterly">Quarterly <span class="cnt">{len(quarterly)} measurables</span></button>
     <button class="tab" data-pane="grid">Quarterly Scorecard <span class="cnt">{n_grid_weeks}-week grid</span></button>
     <button class="tab" data-pane="detail">Metric detail <span class="cnt">any of {len(weekly)}</span></button>
+    {bts_btn}
   </div>
 
   <section class="pane active" id="pane-weekly">
@@ -1743,6 +1941,7 @@ HTML = f"""<!DOCTYPE html>
     </div>
     <div class="md-wrap">{md_details}</div>
   </section>
+{bts_pane}
 
   <div class="legend">
     <span><span class="sw" style="background:var(--greenbg);border:1px solid #cfe6d8"></span>actual ≥ plan (on plan)</span>
