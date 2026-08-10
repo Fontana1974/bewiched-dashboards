@@ -193,7 +193,7 @@
     },
     {
      "name": "People & Customer",
-     "star": 4.3,
+     "star": 4.5,
      "target": 4.6,
      "on_target": false,
      "metrics": [
@@ -205,8 +205,8 @@
       },
       {
        "label": "RTW completion",
-       "value": "53%",
-       "star": 3.0,
+       "value": "60%",
+       "star": 3.5,
        "on_target": false
       },
       {

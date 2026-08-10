@@ -1,107 +1,5 @@
 {
  "weeks": {
-  "2026-05-10": {
-   "Northampton Drive-Thru": {
-    "stock": 11.4,
-    "deliv": null,
-    "gp": 70.46
-   },
-   "Rushden Lakes": {
-    "stock": 19.5,
-    "deliv": null,
-    "gp": 69.56
-   },
-   "Kettering": {
-    "stock": 24.0,
-    "deliv": null,
-    "gp": 72.07
-   },
-   "Corby": {
-    "stock": 34.0,
-    "deliv": null,
-    "gp": 69.88
-   },
-   "Peterborough Bridge Street": {
-    "stock": 30.0,
-    "deliv": null,
-    "gp": 72.55
-   },
-   "Rugby": {
-    "stock": 36.9,
-    "deliv": null,
-    "gp": 69.65
-   },
-   "Wellingborough": {
-    "stock": 24.9,
-    "deliv": null,
-    "gp": 71.46
-   },
-   "Rothwell": {
-    "stock": 32.6,
-    "deliv": null,
-    "gp": 69.73
-   },
-   "Northampton": {
-    "stock": 22.8,
-    "deliv": null,
-    "gp": 70.92
-   },
-   "Wellingborough Train Station": {
-    "stock": 27.9,
-    "deliv": null,
-    "gp": 67.24
-   },
-   "Higham Ferrers": {
-    "stock": 42.8,
-    "deliv": null,
-    "gp": 67.97
-   },
-   "HOE Balsall Common": {
-    "stock": 34.3,
-    "deliv": null,
-    "gp": 70.97
-   },
-   "Burton Latimer": {
-    "stock": 25.5,
-    "deliv": null,
-    "gp": 70.38
-   },
-   "Peterborough Fletton Quays": {
-    "stock": 25.8,
-    "deliv": null,
-    "gp": 68.29
-   },
-   "Lower Heathcote": {
-    "stock": 35.6,
-    "deliv": null,
-    "gp": 72.18
-   },
-   "Market Harborough": {
-    "stock": 23.2,
-    "deliv": null,
-    "gp": 73.18
-   },
-   "Leamington Parade": {
-    "stock": 23.2,
-    "deliv": null,
-    "gp": 73.46
-   },
-   "Olney": {
-    "stock": 23.9,
-    "deliv": null,
-    "gp": 69.12
-   },
-   "Attleborough": {
-    "stock": 46.5,
-    "deliv": null,
-    "gp": 69.13
-   },
-   "Glenvale Drive Thru": {
-    "stock": 22.7,
-    "deliv": null,
-    "gp": 69.59
-   }
-  },
   "2026-05-17": {
    "Northampton Drive-Thru": {
     "stock": 14.1,
@@ -1369,6 +1267,113 @@
     "stock": 41.3,
     "deliv": 19.9,
     "gp": 69.37
+   }
+  },
+  "2026-08-10": {
+   "Olney": {
+    "stock": 38.6,
+    "deliv": 28.3,
+    "gp": 71.37
+   },
+   "Northampton": {
+    "stock": 18.2,
+    "deliv": 18.6,
+    "gp": 71.73
+   },
+   "Burton Latimer": {
+    "stock": 28.0,
+    "deliv": 23.1,
+    "gp": 68.85
+   },
+   "Corby": {
+    "stock": 38.0,
+    "deliv": 23.8,
+    "gp": 69.79
+   },
+   "Higham Ferrers": {
+    "stock": 48.8,
+    "deliv": 26.0,
+    "gp": 69.85
+   },
+   "Glenvale Drive Thru": {
+    "stock": 20.4,
+    "deliv": 23.3,
+    "gp": 69.33
+   },
+   "Kettering": {
+    "stock": 26.4,
+    "deliv": 22.1,
+    "gp": 73.09
+   },
+   "Leamington Parade": {
+    "stock": 21.7,
+    "deliv": 22.4,
+    "gp": 74.26
+   },
+   "Lower Heathcote": {
+    "stock": 33.0,
+    "deliv": 22.2,
+    "gp": 72.96
+   },
+   "Market Harborough": {
+    "stock": 23.7,
+    "deliv": 27.6,
+    "gp": 72.41
+   },
+   "Northampton Drive-Thru": {
+    "stock": 23.6,
+    "deliv": 29.9,
+    "gp": 69.71
+   },
+   "Billing Drive Thru": {
+    "stock": 18.9,
+    "deliv": 26.2,
+    "gp": 69.82
+   },
+   "Peterborough Fletton Quays": {
+    "stock": 22.8,
+    "deliv": 24.8,
+    "gp": 70.89
+   },
+   "Peterborough Bridge Street": {
+    "stock": 25.1,
+    "deliv": 23.0,
+    "gp": 69.89
+   },
+   "Rothwell": {
+    "stock": 36.7,
+    "deliv": 24.8,
+    "gp": 70.34
+   },
+   "Rushden Lakes": {
+    "stock": 16.5,
+    "deliv": 24.9,
+    "gp": 69.41
+   },
+   "Attleborough": {
+    "stock": 41.7,
+    "deliv": 23.9,
+    "gp": 69.4
+   },
+   "Rugby": {
+    "stock": 27.2,
+    "deliv": 25.2,
+    "gp": 70.19
+   },
+   "Wellingborough": {
+    "stock": 30.3,
+    "deliv": 26.1,
+    "gp": 72.95
+   },
+   "Wellingborough Train Station": {
+    "stock": 26.2,
+    "deliv": 20.4,
+    "gp": 69.45
+   },
+   "HOE Balsall Common": {
+    "stock": 39.6,
+    "deliv": 25.0,
+    "gp": 71.26
    }
   }
  }
