@@ -35,8 +35,8 @@
    "g_health": 2.83,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 11,
-   "r_avg": 3.82,
+   "r_n": 12,
+   "r_avg": 3.92,
    "r_rag": "red"
   },
   "Billing Drive Thru": {
@@ -117,8 +117,8 @@
    "r_rag": "red"
   },
   "Leamington Parade": {
-   "g_n": 47,
-   "g_avg": 4.979,
+   "g_n": 52,
+   "g_avg": 4.981,
    "g_target": 15,
    "g_health": 4.99,
    "g_rag": "green",
@@ -156,8 +156,8 @@
    "g_health": 2.83,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 17,
-   "r_avg": 4.53,
+   "r_n": 18,
+   "r_avg": 4.56,
    "r_rag": "green"
   },
   "Northampton Drive-Thru": {
@@ -216,11 +216,11 @@
    "r_rag": "red"
   },
   "Rugby": {
-   "g_n": 7,
+   "g_n": 9,
    "g_avg": 5.0,
    "g_target": 25,
-   "g_health": 3.2,
-   "g_rag": "red",
+   "g_health": 3.4,
+   "g_rag": "green",
    "g_stale": false,
    "r_n": 23,
    "r_avg": 4.96,
@@ -249,10 +249,10 @@
    "r_rag": "green"
   },
   "Wellingborough Train Station": {
-   "g_n": 13,
-   "g_avg": 4.769,
+   "g_n": 14,
+   "g_avg": 4.714,
    "g_target": 10,
-   "g_health": 4.88,
+   "g_health": 4.86,
    "g_rag": "green",
    "g_stale": false,
    "r_n": 5,

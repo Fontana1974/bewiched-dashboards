@@ -284,8 +284,8 @@
     "avg": 3.75
    },
    "qtd": {
-    "n": 11,
-    "avg": 3.82
+    "n": 12,
+    "avg": 3.92
    },
    "prevq": {
     "n": 38,
@@ -382,8 +382,8 @@
     "avg": 4.67
    },
    "qtd": {
-    "n": 17,
-    "avg": 4.53
+    "n": 18,
+    "avg": 4.56
    },
    "prevq": {
     "n": 29,
@@ -1065,6 +1065,22 @@
  },
  "comments": [
   {
+   "store": "Attleborough",
+   "date": "2026-08-10",
+   "rating": 5.0,
+   "text": "Amazing training, legendary manager",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Northampton",
+   "date": "2026-08-10",
+   "rating": 5.0,
+   "text": "I do love my job! Had a great day",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
    "store": "Olney",
    "date": "2026-08-09",
    "rating": 5.0,
@@ -1239,22 +1255,6 @@
    "text": "When are we getting our new panini fridge 😢",
    "smt": "KF - Picked this up directly in store with Georgette",
    "sentiment": "Negative"
-  },
-  {
-   "store": "Burton Latimer",
-   "date": "2026-08-07",
-   "rating": 5.0,
-   "text": "Very happy with Rhys's maintenance visits to our store. Seems to be very organised and has a clean way of working which is much appreciated",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Attleborough",
-   "date": "2026-08-07",
-   "rating": 5.0,
-   "text": "Love this team",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
   }
  ]
 }
