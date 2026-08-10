@@ -105,6 +105,32 @@ def parse_any_date(v):
         except ValueError: return None
     return None
 
+def _accident_date(v):
+    """Accident-log date. Cells are normally REAL dates (Sheets serials -> unambiguous), so those
+    parse exactly. For any TEXT-entered date, disambiguate US M/D vs UK D/M robustly (the banking
+    US-format trap): prefer the interpretation that is valid AND not in the future; if both qualify,
+    prefer UK day-first (Bewiched is a UK business). Falls back to parse_any_date for other formats."""
+    if isinstance(v, (int, float)):
+        return serial_to_date(v)
+    s = str(v).strip()
+    if not s:
+        return None
+    m = re.match(r"^(\d{1,2})/(\d{1,2})/(\d{2,4})$", s)
+    if m:
+        a, b, y = int(m.group(1)), int(m.group(2)), int(m.group(3))
+        if y < 100: y += 2000
+        def mk(mo, da):
+            try: return datetime.date(y, mo, da)
+            except ValueError: return None
+        uk = mk(b, a); us = mk(a, b)                 # UK day/month ; US month/day
+        today = datetime.date.today()
+        for d in (uk, us):                            # UK-first, non-future wins
+            if d and d <= today:
+                return d
+        return uk or us
+    return parse_any_date(s)
+
+
 def fnum(v, default=0.0):
     try: return float(v)
     except Exception: return default
@@ -1711,7 +1737,7 @@ def pull_accidents():
     for r in rows[1:]:
         if not r:
             continue
-        d = parse_any_date(r[0] if len(r) > 0 else None)
+        d = _accident_date(r[0] if len(r) > 0 else None)
         if not d or d < cutoff or d > CUR_END:
             continue
         st = normalize(g(r, 5))
