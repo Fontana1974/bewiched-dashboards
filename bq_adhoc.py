@@ -114,4 +114,20 @@ FROM (SELECT EXTRACT(DAYOFWEEK FROM DATE(sales_date)) dow,
 WHERE period IS NOT NULL GROUP BY dow ORDER BY dow"""
 print("===Q4==="); print(json.dumps(bq(q4)))
 print("===Q5==="); print(json.dumps(bq(q5)))
+# ---- HRP sheet inspection: list tabs + dump any accident/incident tab (to build the feed) ----
+from googleapiclient.discovery import build as gbuild
+_sc=service_account.Credentials.from_service_account_info(json.loads(os.environ["GCP_SA_JSON"]),
+      scopes=["https://www.googleapis.com/auth/spreadsheets.readonly"])
+_sh=gbuild("sheets","v4",credentials=_sc,cache_discovery=False).spreadsheets()
+HRP="1f_nTz6TJTPlVP4CSX6AzQ9sf5KbF7QwpVdVnxiW-bM4"
+_meta=_sh.get(spreadsheetId=HRP, fields="sheets.properties.title").execute()
+_titles=[x["properties"]["title"] for x in _meta.get("sheets",[])]
+print("===HRP_TABS==="); print(json.dumps(_titles))
+for _t in _titles:
+    if any(k in _t.lower() for k in ("accident","incident","h&s","health & safety","near miss","riddor")):
+        try:
+            _v=_sh.values().get(spreadsheetId=HRP, range="'%s'!A1:N60"%_t).execute().get("values",[])
+        except Exception as _e:
+            _v=[["ERR",str(_e)]]
+        print("===HRPTAB:%s==="%_t); print(json.dumps(_v[:40]))
 print("===END===")
