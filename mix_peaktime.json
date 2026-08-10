@@ -182,21 +182,21 @@
    "sparse": false
   },
   {
-   "name": "Gluten Free Carrot Cake",
-   "peak": "Lunch",
-   "share": 40,
-   "hour": "11am",
-   "units": 300,
-   "sales": 1021,
-   "sparse": false
-  },
-  {
    "name": "GF Vegan Bakewell",
    "peak": "Lunch",
    "share": 41,
    "hour": "10am",
    "units": 300,
    "sales": 790,
+   "sparse": false
+  },
+  {
+   "name": "Gluten Free Carrot Cake",
+   "peak": "Lunch",
+   "share": 40,
+   "hour": "11am",
+   "units": 300,
+   "sales": 1021,
    "sparse": false
   },
   {
@@ -266,7 +266,7 @@
    "name": "Tea Time Coffee Cake",
    "peak": "Lunch",
    "share": 49,
-   "hour": "11am",
+   "hour": "12pm",
    "units": 114,
    "sales": 410,
    "sparse": false
