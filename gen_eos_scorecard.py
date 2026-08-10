@@ -589,6 +589,81 @@ def yoy_bystore_html(title):
             % (esc(title), body, total))
 
 
+def openclose_bystore_html():
+    """Per-store open/close checklist completion for the Brand Audit tab, from openclose_feed.json
+    (HRP open/close log + live Process Street status). Target >=90% green. Worst/awaiting first."""
+    try:
+        OC = json.load(open(os.path.join(HERE, "openclose_feed.json")))
+    except Exception:
+        return ""
+    rows = OC.get("stores") or []
+    if not rows:
+        return ""
+    SH = lambda x: F1_SHORT.get(x, x)
+    tgt = OC.get("target", 90)
+    green = red = 0
+    body = ""
+    for r in rows:
+        st = r.get("store"); pct = r.get("pct"); on = r.get("on_checklist"); aw = r.get("awaiting")
+        if pct is None or aw:
+            cell = '<span class="tag t-na">awaiting first rows</span>'
+        else:
+            ok = pct >= tgt
+            green += 1 if ok else 0; red += 0 if ok else 1
+            cell = '<span class="tag %s">%d%%</span>' % ("t-ok" if ok else "t-red", round(pct))
+        badge = '' if on else ' <span class="tag t-na">not yet on Process St</span>'
+        body += '<tr><td class="s">%s%s</td><td class="v">%s</td></tr>' % (esc(SH(st)), badge, cell)
+    return ('<div class="md-section-h">By store &mdash; open/close checklist completion</div>'
+            '<div class="md-ps-basis">Daily open &amp; close checklist completion per store (target &ge;%d%% green). '
+            'Two stores (Glenvale, Leamington) are on the live Process Street digital checklist; the rest run the HRP '
+            'open/close log until Process Street rolls out estate-wide. Lowest first &mdash; %d green / %d red.</div>'
+            '<table class="md-ps" style="max-width:540px"><thead><tr><th>Store</th>'
+            '<th class="v">Completion</th></tr></thead><tbody>%s</tbody></table>'
+            % (tgt, green, red, body))
+
+
+def accidents_bystore_html():
+    """Per-store accident/incident log for the Brand Audit tab (H&S), from accidents_feed.json
+    (HRP 'Accident Forms'). Recent incidents with date + person + short description, per-store
+    count. Most incidents first. Contact number / address are not carried in the feed."""
+    try:
+        AC = json.load(open(os.path.join(HERE, "accidents_feed.json")))
+    except Exception:
+        return ""
+    stores = AC.get("stores") or []
+    win = AC.get("window_days", 180)
+    total = AC.get("total", 0)
+    SH = lambda x: F1_SHORT.get(x, x)
+    if not stores:
+        return ('<div class="md-section-h">Accidents &amp; incidents (H&amp;S) &mdash; last %d days</div>'
+                '<div class="md-ps-basis">No accidents or incidents logged in the last %d days. &#10003;</div>'
+                % (win, win))
+    body = ""
+    for sdat in stores:
+        st = sdat.get("store"); cnt = sdat.get("count", 0)
+        li = ""
+        for it in (sdat.get("items") or []):
+            person = it.get("person") or ""
+            ptxt = (" &middot; <b>%s</b>" % esc(person)) if person else ""
+            fa = ' <span class="tag t-red">first aid</span>' if it.get("first_aid") else ""
+            desc = esc(it.get("incident") or it.get("injury") or "incident")
+            inj = it.get("injury")
+            injtxt = (" (%s)" % esc(inj)) if (inj and inj != it.get("incident")) else ""
+            det = it.get("details")
+            dtxt = (" &mdash; %s" % esc(det)) if det else ""
+            li += ('<div class="md-note" style="margin:3px 0"><b>%s</b>%s%s: %s%s%s</div>'
+                   % (esc(it.get("date", "")), ptxt, fa, desc, injtxt, dtxt))
+        body += ('<tr><td class="s" style="vertical-align:top">%s <span class="tag t-red">%d</span></td>'
+                 '<td>%s</td></tr>' % (esc(SH(st)), cnt, li))
+    return ('<div class="md-section-h">Accidents &amp; incidents (H&amp;S) &mdash; last %d days</div>'
+            '<div class="md-ps-basis">Logged accidents/incidents per store from the HRP Accident Forms log '
+            '(%d in total). Date, person and a short description; contact details are intentionally omitted. '
+            'Most incidents first.</div>'
+            '<table class="md-ps" style="max-width:780px"><thead><tr><th>Store</th>'
+            '<th>Recent incidents</th></tr></thead><tbody>%s</tbody></table>'
+            % (win, total, body))
+
+
 def blend_detail_html():
     """Per-store Brand & Remote Assessment: brand audit (/5), remote assessment (/100), and the
     50/50 blended score (/5), from D['brand_remote']. Estate footer row. Best blended first."""
@@ -1329,7 +1404,9 @@ for i, (wm, qm) in enumerate(zip(weekly, quarterly)):
         detail = ('<div class="md-section-h">This quarter, week by week</div>'
                   + trend_svg(name, plan, dirn)
                   + '<div class="md-section-h">Per-store breakdown &mdash; brand audit / remote / blended</div>'
-                  + (_br if _br else '<div class="md-note">Brand &amp; remote breakdown unavailable this run.</div>'))
+                  + (_br if _br else '<div class="md-note">Brand &amp; remote breakdown unavailable this run.</div>')
+                  + openclose_bystore_html()
+                  + accidents_bystore_html())
     elif name == "New Starter Health":
         _ns = ns_detail.new_starter_detail_html(D) if ns_detail else ""
         detail = ('<div class="md-section-h">New Starter Health &mdash; onboarding compliance (first 90 days)</div>'

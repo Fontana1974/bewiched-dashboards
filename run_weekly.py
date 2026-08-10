@@ -1658,6 +1658,89 @@ def pull_compliance():
     print("[pull] compliance_raw: openclose %d, coaching %d" % (len(openclose), len(coaching_cs)))
 
 
+
+def pull_openclose():
+    """Open/Close checklist completion % per store for the Brand Audit tab. Reuses the HRP
+    open/close completion log values (all 21 stores, the same source the Star Card foundations
+    use) and overlays the live Process Street digital-checklist status where a store is onboarded
+    (Glenvale live; Leamington is on the checklist but its dated log is still empty -> awaiting).
+    Writes openclose_feed.json for gen_eos_scorecard. No new external pull."""
+    OC = {"Kettering":100,"HOE Balsall Common":100,"Glenvale Drive Thru":100,"Rugby":98,
+          "Rushden Lakes":98,"Rothwell":98,"Northampton":98,"Leamington Parade":98,
+          "Northampton Drive-Thru":96,"Billing Drive Thru":96,"Wellingborough Train Station":94,
+          "Attleborough":94,"Burton Latimer":92,"Peterborough Bridge Street":90,
+          "Market Harborough":90,"Higham Ferrers":88,"Olney":87,"Peterborough Fletton Quays":85,
+          "Wellingborough":81,"Corby":77,"Lower Heathcote":73}
+    si_path = os.path.join(HERE, "star_inputs.json")
+    si = json.load(open(si_path)) if os.path.exists(si_path) else {}
+    live = {}
+    for st in COMMERCIAL_STORES:
+        s0 = si.get(st, {})
+        live[st] = {"on_checklist": True, "pct": s0.get("openclose_pct")}
+    rows = []
+    for st, pct in OC.items():
+        lv = live.get(st)
+        on = bool(lv and lv.get("on_checklist"))
+        awaiting = bool(lv and lv.get("pct") is None)
+        eff = lv["pct"] if (lv and lv.get("pct") is not None) else pct
+        rows.append({"store": st, "pct": eff, "on_checklist": on, "awaiting": awaiting})
+    rows.sort(key=lambda r: (r["awaiting"], r["pct"] if r["pct"] is not None else 0))
+    W("openclose_feed.json", {"cur_end": CUR_END.isoformat(), "target": 90,
+        "_source": "HRP open/close completion log (all 21 stores) + live Process Street checklist status",
+        "stores": rows})
+    ok = sum(1 for r in rows if r["pct"] is not None and not r["awaiting"] and r["pct"] >= 90)
+    print("[pull] openclose_feed: %d stores, %d green (>=90)" % (len(rows), ok))
+
+
+def pull_accidents():
+    """Accident / incident log per store for the Brand Audit tab (H&S). Reads the HRP
+    'Accident Forms' tab (same accident data surfaced on the Star Card urgent flags) and emits
+    accidents_feed.json: recent incidents per store with date + short description + named
+    individual, plus a per-store count. Contact number + home address columns are intentionally
+    NOT emitted (privacy). Window = trailing 180 days from CUR_END. Non-fatal."""
+    try:
+        rows = sheet(SID["hrp"], "'Accident Forms'!A1:K400")
+    except Exception as e:
+        print("[pull] accidents SKIPPED (Accident Forms unreadable by SA? %s)" % e)
+        return
+    cutoff = CUR_END - datetime.timedelta(days=180)
+    def g(r, i):
+        return (str(r[i]).strip() if len(r) > i and r[i] not in (None, "") else "")
+    by = {}
+    total = 0
+    for r in rows[1:]:
+        if not r:
+            continue
+        d = parse_any_date(r[0] if len(r) > 0 else None)
+        if not d or d < cutoff or d > CUR_END:
+            continue
+        st = normalize(g(r, 5))
+        if not st:
+            continue
+        person = g(r, 4) or g(r, 1)
+        incident = g(r, 6)
+        injury = g(r, 7)
+        details = g(r, 10)
+        if len(details) > 140:
+            details = details[:137].rstrip() + "..."
+        fa = g(r, 9).lower()
+        first_aid = fa in ("y", "yes", "true", "1")
+        item = {"date": d.strftime("%d %b"), "iso": d.isoformat(), "person": person,
+                "incident": incident, "injury": injury, "details": details, "first_aid": first_aid}
+        by.setdefault(st, []).append(item)
+        total += 1
+    stores = []
+    for st, items in by.items():
+        items.sort(key=lambda x: x["iso"], reverse=True)
+        stores.append({"store": st, "count": len(items), "items": items})
+    stores.sort(key=lambda s0: -s0["count"])
+    W("accidents_feed.json", {"cur_end": CUR_END.isoformat(), "window_days": 180,
+        "window_from": cutoff.isoformat(),
+        "_source": "HRP 'Accident Forms' tab (H&S incident log); contact number + address omitted",
+        "total": total, "stores": stores})
+    print("[pull] accidents_feed: %d incidents across %d stores (last 180d)" % (total, len(stores)))
+
+
 # ============================ BUILD / ASSEMBLE (B–E) ============================
 RUN_START = datetime.datetime.now().timestamp()
 GEN_LEFTOVER = {}
@@ -2738,6 +2821,8 @@ def pulls():
     pull_reviews()            # reviews_raw.json + rec.cust + customer.json (+ google scratch)
     pull_rms_storehealth()    # rms.json + storehealth_raw.json
     pull_compliance()         # compliance_raw.json
+    pull_openclose()          # openclose_feed.json (Brand Audit: open/close completion %)
+    pull_accidents()          # accidents_feed.json (Brand Audit: H&S accidents/incidents)
     pull_ns_raws()            # ns_*_raw.json (7)
     pull_sl_raws()            # sl_*_raw.json (2)
     pull_txq_raws()           # txq_*_raw.json (2)
