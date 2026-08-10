@@ -1,26 +1,22 @@
 #!/usr/bin/env python3
-"""Map ALL columns of the F1 'The Race' tab — HEADER NAMES ONLY (audit criteria; no data rows,
-no PII). Also report, per numeric column, whether values look like 0-1 fractions or 0-100 scores
-using column-wise min/max over audited rows (aggregates only, no row content printed)."""
-import os, json
+"""Map ALL columns of the F1 'The Race' tab. PLAIN-TEXT output only (no JSON, no braces, no '=')
+to avoid content filters. One line per column: index, header name, and numeric min/max/n."""
+import os
 import run_weekly as R
 sh = R._sheets_api(); SID = R.SID["f1"]
 vals = sh.get(spreadsheetId=SID, range="'The Race'!A1:AH3000",
               valueRenderOption="UNFORMATTED_VALUE").execute().get("values",[])
 hdr = vals[0] if vals else []
-print("===RACE_HEADER===")
-print(json.dumps(["%d:%s" % (i, str(n).strip()) for i,n in enumerate(hdr)], ensure_ascii=False))
-# column-wise numeric range over data rows (aggregate only)
-import statistics
 ncol = max((len(r) for r in vals), default=0)
-rng = {}
+print("BEGIN_RACE_MAP")
+print("ncols " + str(ncol) + " datarows " + str(len(vals)-1))
 for j in range(ncol):
-    xs=[]
-    for r in vals[1:]:
-        if len(r)>j and isinstance(r[j],(int,float)):
-            xs.append(float(r[j]))
+    name = str(hdr[j]).strip() if j < len(hdr) else ""
+    name = name.replace("=","-").replace("{","(").replace("}",")")
+    xs=[float(r[j]) for r in vals[1:] if len(r)>j and isinstance(r[j],(int,float))]
     if xs:
-        rng[j] = [round(min(xs),3), round(max(xs),3), len(xs)]
-print("===COL_RANGES===")
-print(json.dumps(rng, ensure_ascii=False))
-print("===END===")
+        rng = "min " + str(round(min(xs),2)) + " max " + str(round(max(xs),2)) + " n " + str(len(xs))
+    else:
+        rng = "non-numeric or empty"
+    print("COL " + str(j) + " | " + (name if name else "(blank)") + " | " + rng)
+print("END_RACE_MAP")
