@@ -1,23 +1,26 @@
 #!/usr/bin/env python3
-"""Map ALL columns of the F1 'The Race' tab (header row + a couple of sample audited data rows)
-to identify every scoring section. Column headers + numeric scores only (no PII)."""
+"""Map ALL columns of the F1 'The Race' tab — HEADER NAMES ONLY (audit criteria; no data rows,
+no PII). Also report, per numeric column, whether values look like 0-1 fractions or 0-100 scores
+using column-wise min/max over audited rows (aggregates only, no row content printed)."""
 import os, json
 import run_weekly as R
 sh = R._sheets_api(); SID = R.SID["f1"]
-def read(rng):
-    return sh.get(spreadsheetId=SID, range=rng, valueRenderOption="FORMATTED_VALUE").execute().get("values",[])
-hdr = read("'The Race'!A1:AH3")
+vals = sh.get(spreadsheetId=SID, range="'The Race'!A1:AH3000",
+              valueRenderOption="UNFORMATTED_VALUE").execute().get("values",[])
+hdr = vals[0] if vals else []
 print("===RACE_HEADER===")
-# header row 1
-h = hdr[0] if hdr else []
-out=[]
-for i,name in enumerate(h):
-    out.append("%d:%s" % (i, str(name).strip()))
-print(json.dumps(out, ensure_ascii=False))
-print("---sample row 2 (values)---")
-if len(hdr)>1: print(json.dumps([str(x).strip()[:16] for x in hdr[1]], ensure_ascii=False))
-if len(hdr)>2: print(json.dumps([str(x).strip()[:16] for x in hdr[2]], ensure_ascii=False))
-# also unformatted header widths
-uf = sh.get(spreadsheetId=SID, range="'The Race'!A1:AH1", valueRenderOption="UNFORMATTED_VALUE").execute().get("values",[])
-print("header_len", len(h))
+print(json.dumps(["%d:%s" % (i, str(n).strip()) for i,n in enumerate(hdr)], ensure_ascii=False))
+# column-wise numeric range over data rows (aggregate only)
+import statistics
+ncol = max((len(r) for r in vals), default=0)
+rng = {}
+for j in range(ncol):
+    xs=[]
+    for r in vals[1:]:
+        if len(r)>j and isinstance(r[j],(int,float)):
+            xs.append(float(r[j]))
+    if xs:
+        rng[j] = [round(min(xs),3), round(max(xs),3), len(xs)]
+print("===COL_RANGES===")
+print(json.dumps(rng, ensure_ascii=False))
 print("===END===")
