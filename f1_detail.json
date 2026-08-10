@@ -53,7 +53,19 @@
    8.0,
    16.0,
    12.0
-  ]
+  ],
+  "sections": {
+   "Hello": 0.0,
+   "Goodbye": 1.46,
+   "How are you": 3.54,
+   "Working the queue": 13.12,
+   "Food & syrups": 0.0,
+   "Tables <3 mins": 5.21,
+   "Tables brand standard": 17.08,
+   "Virtual section plan": 0.83,
+   "No late team": 9.38
+  },
+  "sect_queue": 148.67
  },
  "Glenvale Drive Thru": {
   "race": [
@@ -109,7 +121,19 @@
    19.0,
    14.0,
    2.0
-  ]
+  ],
+  "sections": {
+   "Hello": 0.0,
+   "Goodbye": 1.46,
+   "How are you": 7.71,
+   "Working the queue": 7.71,
+   "Food & syrups": 7.29,
+   "Tables <3 mins": 1.25,
+   "Tables brand standard": 2.08,
+   "Virtual section plan": 0.0,
+   "No late team": 0.0
+  },
+  "sect_queue": 116.9
  },
  "Wellingborough Train Station": {
   "race": [
@@ -165,7 +189,19 @@
    20.0,
    17.0,
    6.0
-  ]
+  ],
+  "sections": {
+   "Hello": 1.46,
+   "Goodbye": 2.92,
+   "How are you": 2.71,
+   "Working the queue": 4.17,
+   "Food & syrups": 10.42,
+   "Tables <3 mins": 0.0,
+   "Tables brand standard": 0.0,
+   "Virtual section plan": 0.0,
+   "No late team": 4.17
+  },
+  "sect_queue": 115.49
  },
  "Rothwell": {
   "race": [
@@ -221,7 +257,19 @@
    7.0,
    18.0,
    19.0
-  ]
+  ],
+  "sections": {
+   "Hello": 0.0,
+   "Goodbye": 0.0,
+   "How are you": 0.0,
+   "Working the queue": 16.67,
+   "Food & syrups": 16.46,
+   "Tables <3 mins": 2.08,
+   "Tables brand standard": 8.33,
+   "Virtual section plan": 0.0,
+   "No late team": 0.0
+  },
+  "sect_queue": 139.02
  },
  "Northampton": {
   "race": [
@@ -277,7 +325,19 @@
    18.0,
    6.0,
    7.0
-  ]
+  ],
+  "sections": {
+   "Hello": 4.38,
+   "Goodbye": 8.33,
+   "How are you": 0.0,
+   "Working the queue": 12.5,
+   "Food & syrups": 0.0,
+   "Tables <3 mins": 0.0,
+   "Tables brand standard": 9.58,
+   "Virtual section plan": 1.25,
+   "No late team": 0.0
+  },
+  "sect_queue": 96.0
  },
  "Northampton Drive-Thru": {
   "race": [
@@ -333,7 +393,19 @@
    4.0,
    20.0,
    16.0
-  ]
+  ],
+  "sections": {
+   "Hello": 8.33,
+   "Goodbye": 13.33,
+   "How are you": 2.71,
+   "Working the queue": 4.17,
+   "Food & syrups": 15.62,
+   "Tables <3 mins": 0.0,
+   "Tables brand standard": 7.29,
+   "Virtual section plan": 0.0,
+   "No late team": 0.83
+  },
+  "sect_queue": 141.1
  },
  "Wellingborough": {
   "race": [
@@ -389,7 +461,19 @@
    15.0,
    5.0,
    1.0
-  ]
+  ],
+  "sections": {
+   "Hello": 1.46,
+   "Goodbye": 7.08,
+   "How are you": 0.0,
+   "Working the queue": 4.17,
+   "Food & syrups": 2.08,
+   "Tables <3 mins": 0.0,
+   "Tables brand standard": 8.54,
+   "Virtual section plan": 0.0,
+   "No late team": 0.0
+  },
+  "sect_queue": 111.03
  },
  "Market Harborough": {
   "race": [
@@ -445,7 +529,19 @@
    3.0,
    4.0,
    8.0
-  ]
+  ],
+  "sections": {
+   "Hello": 2.92,
+   "Goodbye": 10.83,
+   "How are you": 0.0,
+   "Working the queue": 4.17,
+   "Food & syrups": 0.0,
+   "Tables <3 mins": 0.0,
+   "Tables brand standard": 9.79,
+   "Virtual section plan": 2.08,
+   "No late team": 0.0
+  },
+  "sect_queue": 99.17
  },
  "Lower Heathcote": {
   "race": [
@@ -501,7 +597,19 @@
    9.0,
    12.0,
    14.0
-  ]
+  ],
+  "sections": {
+   "Hello": 0.0,
+   "Goodbye": 0.0,
+   "How are you": 1.46,
+   "Working the queue": 7.71,
+   "Food & syrups": 0.0,
+   "Tables <3 mins": 0.83,
+   "Tables brand standard": 2.92,
+   "Virtual section plan": 0.0,
+   "No late team": 0.0
+  },
+  "sect_queue": 144.46
  },
  "Leamington Parade": {
   "race": [
@@ -557,7 +665,19 @@
    1.0,
    1.0,
    10.0
-  ]
+  ],
+  "sections": {
+   "Hello": 1.46,
+   "Goodbye": 1.46,
+   "How are you": 2.71,
+   "Working the queue": 4.17,
+   "Food & syrups": 0.0,
+   "Tables <3 mins": 0.0,
+   "Tables brand standard": 0.0,
+   "Virtual section plan": 0.83,
+   "No late team": 0.0
+  },
+  "sect_queue": 98.39
  },
  "Rushden Lakes": {
   "race": [
@@ -613,7 +733,19 @@
    10.0,
    9.0,
    9.0
-  ]
+  ],
+  "sections": {
+   "Hello": 5.83,
+   "Goodbye": 11.04,
+   "How are you": 1.46,
+   "Working the queue": 9.17,
+   "Food & syrups": 0.0,
+   "Tables <3 mins": 0.0,
+   "Tables brand standard": 2.92,
+   "Virtual section plan": 0.0,
+   "No late team": 0.83
+  },
+  "sect_queue": 116.25
  },
  "Kettering": {
   "race": [
@@ -669,7 +801,19 @@
    21.0,
    7.0,
    11.0
-  ]
+  ],
+  "sections": {
+   "Hello": 5.62,
+   "Goodbye": 6.88,
+   "How are you": 1.46,
+   "Working the queue": 16.67,
+   "Food & syrups": 0.0,
+   "Tables <3 mins": 5.21,
+   "Tables brand standard": 13.75,
+   "Virtual section plan": 0.0,
+   "No late team": 0.0
+  },
+  "sect_queue": 130.58
  },
  "Higham Ferrers": {
   "race": [
@@ -725,7 +869,19 @@
    2.0,
    19.0,
    3.0
-  ]
+  ],
+  "sections": {
+   "Hello": 3.12,
+   "Goodbye": 4.58,
+   "How are you": 7.08,
+   "Working the queue": 11.88,
+   "Food & syrups": 0.0,
+   "Tables <3 mins": 5.21,
+   "Tables brand standard": 6.04,
+   "Virtual section plan": 0.0,
+   "No late team": 0.0
+  },
+  "sect_queue": 141.98
  },
  "Corby": {
   "race": [
@@ -781,7 +937,19 @@
    11.0,
    13.0,
    15.0
-  ]
+  ],
+  "sections": {
+   "Hello": 8.54,
+   "Goodbye": 9.58,
+   "How are you": 1.46,
+   "Working the queue": 20.83,
+   "Food & syrups": 2.08,
+   "Tables <3 mins": 8.33,
+   "Tables brand standard": 12.29,
+   "Virtual section plan": 0.0,
+   "No late team": 0.0
+  },
+  "sect_queue": 124.81
  },
  "Peterborough Bridge Street": {
   "race": [
@@ -837,7 +1005,19 @@
    14.0,
    3.0,
    18.0
-  ]
+  ],
+  "sections": {
+   "Hello": 1.46,
+   "Goodbye": 2.71,
+   "How are you": 0.0,
+   "Working the queue": 9.79,
+   "Food & syrups": 26.04,
+   "Tables <3 mins": 5.21,
+   "Tables brand standard": 8.54,
+   "Virtual section plan": 0.0,
+   "No late team": 0.0
+  },
+  "sect_queue": 122.92
  },
  "Burton Latimer": {
   "race": [
@@ -893,7 +1073,19 @@
    16.0,
    21.0,
    4.0
-  ]
+  ],
+  "sections": {
+   "Hello": 2.71,
+   "Goodbye": 2.71,
+   "How are you": 2.71,
+   "Working the queue": 16.67,
+   "Food & syrups": 0.0,
+   "Tables <3 mins": 5.21,
+   "Tables brand standard": 10.21,
+   "Virtual section plan": 0.0,
+   "No late team": 0.0
+  },
+  "sect_queue": 114.67
  },
  "Peterborough Fletton Quays": {
   "race": [
@@ -949,7 +1141,19 @@
    6.0,
    10.0,
    17.0
-  ]
+  ],
+  "sections": {
+   "Hello": 0.0,
+   "Goodbye": 1.46,
+   "How are you": 0.0,
+   "Working the queue": 11.25,
+   "Food & syrups": 4.17,
+   "Tables <3 mins": 1.25,
+   "Tables brand standard": 0.0,
+   "Virtual section plan": 0.0,
+   "No late team": 0.83
+  },
+  "sect_queue": 132.41
  },
  "Olney": {
   "race": [
@@ -1005,7 +1209,19 @@
    5.0,
    15.0,
    21.0
-  ]
+  ],
+  "sections": {
+   "Hello": 2.71,
+   "Goodbye": 5.42,
+   "How are you": 2.71,
+   "Working the queue": 6.88,
+   "Food & syrups": 10.42,
+   "Tables <3 mins": 11.46,
+   "Tables brand standard": 12.5,
+   "Virtual section plan": 5.21,
+   "No late team": 0.0
+  },
+  "sect_queue": 170.13
  },
  "HOE Balsall Common": {
   "race": [
@@ -1061,7 +1277,19 @@
    12.0,
    8.0,
    20.0
-  ]
+  ],
+  "sections": {
+   "Hello": 0.0,
+   "Goodbye": 0.0,
+   "How are you": 5.0,
+   "Working the queue": 12.5,
+   "Food & syrups": 0.0,
+   "Tables <3 mins": 2.08,
+   "Tables brand standard": 9.38,
+   "Virtual section plan": 0.0,
+   "No late team": 0.0
+  },
+  "sect_queue": 145.88
  },
  "Attleborough": {
   "race": [
@@ -1117,7 +1345,19 @@
    17.0,
    11.0,
    13.0
-  ]
+  ],
+  "sections": {
+   "Hello": 0.0,
+   "Goodbye": 0.0,
+   "How are you": 5.0,
+   "Working the queue": 11.88,
+   "Food & syrups": 2.08,
+   "Tables <3 mins": 0.0,
+   "Tables brand standard": 0.0,
+   "Virtual section plan": 0.0,
+   "No late team": 0.0
+  },
+  "sect_queue": 170.37
  },
  "Billing Drive Thru": {
   "race": [
@@ -1173,7 +1413,55 @@
    13.0,
    2.0,
    5.0
-  ]
+  ],
+  "sections": {
+   "Hello": 4.38,
+   "Goodbye": 8.33,
+   "How are you": 0.0,
+   "Working the queue": 0.0,
+   "Food & syrups": 2.08,
+   "Tables <3 mins": 4.17,
+   "Tables brand standard": 4.17,
+   "Virtual section plan": 0.0,
+   "No late team": 0.0
+  },
+  "sect_queue": 112.39
+ },
+ "_race_sections": {
+  "order": [
+   "Hello",
+   "Goodbye",
+   "How are you",
+   "Working the queue",
+   "Food & syrups",
+   "Tables <3 mins",
+   "Tables brand standard",
+   "Virtual section plan",
+   "No late team"
+  ],
+  "maxpoints": {
+   "Hello": 25,
+   "Goodbye": 25,
+   "How are you": 25,
+   "Working the queue": 25,
+   "Food & syrups": 31.25,
+   "Tables <3 mins": 31.25,
+   "Tables brand standard": 31.25,
+   "Virtual section plan": 31.25,
+   "No late team": 31.25
+  },
+  "estate": {
+   "Hello": 2.59,
+   "Goodbye": 4.74,
+   "How are you": 2.27,
+   "Working the queue": 9.81,
+   "Food & syrups": 4.7,
+   "Tables <3 mins": 2.74,
+   "Tables brand standard": 6.92,
+   "Virtual section plan": 0.49,
+   "No late team": 0.76
+  },
+  "note": "penalty points per audit section that roll into Total Score; lower = better (0 = full marks)"
  },
  "_stale": {
   "stale": true,
