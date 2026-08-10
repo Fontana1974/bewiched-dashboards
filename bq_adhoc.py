@@ -81,4 +81,37 @@ print("META", json.dumps({"peak":PK,"back":BK,"settled":ST,
 print("===Q1==="); print(json.dumps(bq(q1)))
 print("===Q2==="); print(json.dumps(bq(q2)))
 print("===Q3==="); print(json.dumps(bq(q3)))
+# ---- day-of-week weekday(Mon-Thu) vs weekend(Fri-Sun): HOLIDAY (11-31 Aug 2025) vs TERM (8-28 Sep 2025) ----
+HOL=("2025-08-11","2025-08-31"); TRM=("2025-09-08","2025-09-28")  # 3 clean Mon-Sun weeks each
+q4=f"""
+SELECT store,
+  ROUND(SUM(IF(period='hol' AND wknd, v,0))) hol_wknd_s,
+  ROUND(SUM(IF(period='hol' AND NOT wknd, v,0))) hol_wkday_s,
+  ROUND(SUM(IF(period='term' AND wknd, v,0))) term_wknd_s,
+  ROUND(SUM(IF(period='term' AND NOT wknd, v,0))) term_wkday_s,
+  ROUND(SUM(IF(period='hol' AND wknd, fq,0))) hol_wknd_f,
+  ROUND(SUM(IF(period='hol' AND NOT wknd, fq,0))) hol_wkday_f,
+  ROUND(SUM(IF(period='term' AND wknd, fq,0))) term_wknd_f,
+  ROUND(SUM(IF(period='term' AND NOT wknd, fq,0))) term_wkday_f
+FROM (SELECT item_outlet_name store,
+        SAFE_CAST(item_line_total_after_discount AS FLOAT64) v,
+        IF({cat_case('item_product_name')} IN ('Food','Bakery'), SAFE_CAST(item_quantity AS FLOAT64), 0) fq,
+        EXTRACT(DAYOFWEEK FROM DATE(sales_date)) IN (6,7,1) wknd,
+        IF(DATE(sales_date) BETWEEN '{HOL[0]}' AND '{HOL[1]}','hol',
+           IF(DATE(sales_date) BETWEEN '{TRM[0]}' AND '{TRM[1]}','term',NULL)) period
+      FROM {FLAT} WHERE DATE(sales_date) BETWEEN '{HOL[0]}' AND '{TRM[1]}')
+WHERE period IS NOT NULL GROUP BY store ORDER BY store"""
+
+q5=f"""
+SELECT dow,
+  ROUND(SUM(IF(period='hol', v,0))/3) hol_avg,
+  ROUND(SUM(IF(period='term', v,0))/3) term_avg
+FROM (SELECT EXTRACT(DAYOFWEEK FROM DATE(sales_date)) dow,
+        SAFE_CAST(item_line_total_after_discount AS FLOAT64) v,
+        IF(DATE(sales_date) BETWEEN '{HOL[0]}' AND '{HOL[1]}','hol',
+           IF(DATE(sales_date) BETWEEN '{TRM[0]}' AND '{TRM[1]}','term',NULL)) period
+      FROM {FLAT} WHERE DATE(sales_date) BETWEEN '{HOL[0]}' AND '{TRM[1]}')
+WHERE period IS NOT NULL GROUP BY dow ORDER BY dow"""
+print("===Q4==="); print(json.dumps(bq(q4)))
+print("===Q5==="); print(json.dumps(bq(q5)))
 print("===END===")
