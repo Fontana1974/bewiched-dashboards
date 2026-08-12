@@ -132,25 +132,6 @@
    "sparse": false
   },
   {
-   "item": "Chicken & Chorizo Ciabatta",
-   "category": "Ciabattas",
-   "daily": {
-    "1": 1.62,
-    "2": 1.0,
-    "3": 1.0,
-    "4": 0.88,
-    "5": 2.5,
-    "6": 0.88,
-    "7": 2.75
-   },
-   "weekly_mean": 10.6,
-   "tue": 3,
-   "thu": 4,
-   "sat": 7,
-   "weekly_order": 14,
-   "sparse": false
-  },
-  {
    "item": "Mozzarella & Tomato Ciabatta",
    "category": "Ciabattas",
    "daily": {
@@ -167,6 +148,25 @@
    "thu": 4,
    "sat": 7,
    "weekly_order": 15,
+   "sparse": false
+  },
+  {
+   "item": "Chicken & Chorizo Ciabatta",
+   "category": "Ciabattas",
+   "daily": {
+    "1": 1.62,
+    "2": 1.0,
+    "3": 1.0,
+    "4": 0.88,
+    "5": 2.5,
+    "6": 0.88,
+    "7": 2.75
+   },
+   "weekly_mean": 10.6,
+   "tue": 3,
+   "thu": 4,
+   "sat": 7,
+   "weekly_order": 14,
    "sparse": false
   },
   {

@@ -104,7 +104,7 @@
    "name": "Blueberry Muffin",
    "peak": "Lunch",
    "share": 43,
-   "hour": "11am",
+   "hour": "12pm",
    "units": 1085,
    "sales": 3170,
    "sparse": false
@@ -182,21 +182,21 @@
    "sparse": false
   },
   {
-   "name": "GF Vegan Bakewell",
-   "peak": "Lunch",
-   "share": 41,
-   "hour": "10am",
-   "units": 300,
-   "sales": 790,
-   "sparse": false
-  },
-  {
    "name": "Gluten Free Carrot Cake",
    "peak": "Lunch",
    "share": 40,
    "hour": "11am",
    "units": 300,
    "sales": 1021,
+   "sparse": false
+  },
+  {
+   "name": "GF Vegan Bakewell",
+   "peak": "Lunch",
+   "share": 41,
+   "hour": "10am",
+   "units": 300,
+   "sales": 790,
    "sparse": false
   },
   {
