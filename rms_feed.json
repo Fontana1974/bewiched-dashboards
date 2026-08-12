@@ -172,8 +172,8 @@
     "avg": 3.4
    },
    "qtd": {
-    "n": 24,
-    "avg": 2.71
+    "n": 25,
+    "avg": 2.76
    },
    "prevq": {
     "n": 69,
@@ -200,8 +200,8 @@
     "avg": 1.0
    },
    "qtd": {
-    "n": 3,
-    "avg": 3.67
+    "n": 4,
+    "avg": 4.0
    },
    "prevq": {
     "n": 25,
@@ -298,7 +298,7 @@
     "avg": 4.46
    },
    "qtd": {
-    "n": 70,
+    "n": 71,
     "avg": 4.61
    },
    "prevq": {
@@ -312,8 +312,8 @@
     "avg": 3.83
    },
    "qtd": {
-    "n": 28,
-    "avg": 3.68
+    "n": 29,
+    "avg": 3.69
    },
    "prevq": {
     "n": 62,
@@ -340,7 +340,7 @@
     "avg": 4.86
    },
    "qtd": {
-    "n": 76,
+    "n": 78,
     "avg": 4.83
    },
    "prevq": {
@@ -368,8 +368,8 @@
     "avg": 5.0
    },
    "qtd": {
-    "n": 11,
-    "avg": 4.36
+    "n": 12,
+    "avg": 4.25
    },
    "prevq": {
     "n": 20,
@@ -396,8 +396,8 @@
     "avg": 4.0
    },
    "qtd": {
-    "n": 12,
-    "avg": 3.42
+    "n": 13,
+    "avg": 3.54
    },
    "prevq": {
     "n": 44,
@@ -410,7 +410,7 @@
     "avg": 5.0
    },
    "qtd": {
-    "n": 23,
+    "n": 24,
     "avg": 4.96
    },
    "prevq": {
@@ -1069,7 +1069,7 @@
    "date": "2026-08-12",
    "rating": 5.0,
    "text": "Lovely morning",
-   "smt": null,
+   "smt": "KF - Outstanding as replied to 1 rating on this review.",
    "sentiment": "Positive"
   },
   {
@@ -1077,7 +1077,7 @@
    "date": "2026-08-12",
    "rating": 5.0,
    "text": "It’s great the store is feeling cool in the heat! 😎",
-   "smt": null,
+   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
    "sentiment": "Positive"
   },
   {
@@ -1085,6 +1085,70 @@
    "date": "2026-08-12",
    "rating": 5.0,
    "text": "Great shift with busy spells!",
+   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Leamington Parade",
+   "date": "2026-08-12",
+   "rating": 5.0,
+   "text": "Great communication between team",
+   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Northampton Drive-Thru",
+   "date": "2026-08-12",
+   "rating": 5.0,
+   "text": "Happy supportive teamwork",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Rugby",
+   "date": "2026-08-12",
+   "rating": 5.0,
+   "text": "Issues w syrup pumps. Chocolate and banana",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Kettering",
+   "date": "2026-08-12",
+   "rating": 5.0,
+   "text": "Awesome, great, teamwork",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Leamington Parade",
+   "date": "2026-08-12",
+   "rating": 5.0,
+   "text": "Lovely shift yupii",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Glenvale Drive Thru",
+   "date": "2026-08-12",
+   "rating": 4.0,
+   "text": "Customers keep asking for Mango smoothies to come back!",
+   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Billing Drive Thru",
+   "date": "2026-08-12",
+   "rating": 4.0,
+   "text": "Messy/day jobs not completed/catching up",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Corby",
+   "date": "2026-08-12",
+   "rating": 4.0,
+   "text": "Good shift",
    "smt": null,
    "sentiment": "Positive"
   },
@@ -1093,6 +1157,14 @@
    "date": "2026-08-12",
    "rating": 3.0,
    "text": "Coffee price still wrong on the till and food menu boards need updating",
+   "smt": "KF - Chased with MAtt and resolved. Informed store.",
+   "sentiment": "Mixed"
+  },
+  {
+   "store": "Market Harborough",
+   "date": "2026-08-12",
+   "rating": 3.0,
+   "text": "10 hours complete",
    "smt": null,
    "sentiment": "Mixed"
   },
@@ -1117,7 +1189,7 @@
    "date": "2026-08-11",
    "rating": 5.0,
    "text": "Fun, busy, productive, teamwork, all round good vibes",
-   "smt": null,
+   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
    "sentiment": "Positive"
   },
   {
@@ -1125,7 +1197,7 @@
    "date": "2026-08-11",
    "rating": 5.0,
    "text": "Lovely admin and communication",
-   "smt": null,
+   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
    "sentiment": "Positive"
   },
   {
@@ -1133,7 +1205,7 @@
    "date": "2026-08-11",
    "rating": 5.0,
    "text": "Entertaining and chaotic",
-   "smt": null,
+   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
    "sentiment": "Positive"
   },
   {
@@ -1141,7 +1213,7 @@
    "date": "2026-08-11",
    "rating": 5.0,
    "text": "❣️",
-   "smt": null,
+   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
    "sentiment": "Positive"
   },
   {
@@ -1149,7 +1221,7 @@
    "date": "2026-08-11",
    "rating": 5.0,
    "text": "good",
-   "smt": null,
+   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
    "sentiment": "Positive"
   },
   {
@@ -1157,7 +1229,7 @@
    "date": "2026-08-11",
    "rating": 5.0,
    "text": "Good busy day",
-   "smt": null,
+   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
    "sentiment": "Positive"
   },
   {
@@ -1173,7 +1245,7 @@
    "date": "2026-08-11",
    "rating": 4.0,
    "text": "white chocolate syrup",
-   "smt": null,
+   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
    "sentiment": "Positive"
   },
   {
@@ -1181,78 +1253,6 @@
    "date": "2026-08-11",
    "rating": 4.0,
    "text": "Busy, supportive and inspiring",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Northampton",
-   "date": "2026-08-11",
-   "rating": 2.0,
-   "text": "Good teamwork and did have good comments about coffee from customers",
-   "smt": null,
-   "sentiment": "Negative"
-  },
-  {
-   "store": "Attleborough",
-   "date": "2026-08-10",
-   "rating": 5.0,
-   "text": "Amazing training, legendary manager",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Northampton",
-   "date": "2026-08-10",
-   "rating": 5.0,
-   "text": "I do love my job! Had a great day",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Leamington Parade",
-   "date": "2026-08-10",
-   "rating": 5.0,
-   "text": "I love our team and teamwork",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Northampton Drive-Thru",
-   "date": "2026-08-10",
-   "rating": 1.0,
-   "text": "Terrible, incompetent people, stressful",
-   "smt": "KF - Apologised and asked respondent to reach out via a DM or call to talk this through.",
-   "sentiment": "Negative"
-  },
-  {
-   "store": "Olney",
-   "date": "2026-08-09",
-   "rating": 5.0,
-   "text": "Milkshakes, great team",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Rugby",
-   "date": "2026-08-09",
-   "rating": 5.0,
-   "text": "4 the till, can we make a BLC number button?",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Leamington Parade",
-   "date": "2026-08-09",
-   "rating": 5.0,
-   "text": "Great team work while being very busy",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Northampton Drive-Thru",
-   "date": "2026-08-09",
-   "rating": 5.0,
-   "text": "Really great shift",
    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
    "sentiment": "Positive"
   }
