@@ -181,6 +181,15 @@ for c in CANON: D[c]['maint_open']=maint.get(c,0)
 ACC={"Kettering","Olney"}
 
 def clamp(x,a=0.0,b=1.0): return max(a,min(b,x))
+def band(v,target,below_w,above_w,hib=True):
+    """Anchored 0-5 sub-score (fixes ratio-to-target compression). On-target = 4.0 exactly; each unit
+    the RIGHT side of target climbs +1 per above_w toward 5.0; each unit the WRONG side drops -4 per
+    below_w toward 0.0 (so anything below target is < 4, and a clear miss is red). hib=True: higher
+    is better (SPH, Food GP). hib=False: lower is better (F1)."""
+    if v is None or target is None: return None
+    if hib:
+        return min(5.0, 4.0 + (v-target)/above_w) if v>=target else max(0.0, 4.0 - (target-v)*(4.0/below_w))
+    return min(5.0, 4.0 + (target-v)/above_w) if v<=target else max(0.0, 4.0 - (v-target)*(4.0/below_w))
 import json as _json
 
 # ---- window (QTD / YTD) metric values --------------------------------------
@@ -214,18 +223,18 @@ def score(c,win):
     _t=[x for x in (rms_r,bench_r) if x is not None]; team=(sum(_t)/len(_t)*5) if _t else None
     # OPS = F1 (QTD avg Total Score vs 175, lower=better) + Brand & Remote (blended /5, moved IN from
     # Brand Foundations). Google Health moved OUT to Customers.
-    f1s=d.get('f1_q3'); f1_r=clamp(175.0/f1s) if f1s else None
-    br=d.get('brand'); br_r=clamp(br/5) if br is not None else None
-    _o=[x for x in (f1_r,br_r) if x is not None]; ops=(sum(_o)/len(_o)*5) if _o else None
+    f1s=d.get('f1_q3'); f1_s=band(f1s,175,50,25,hib=False) if f1s else None
+    br=d.get('brand'); br_s=br if br is not None else None    # brand audit is already a genuine 0-5 (target 4.6)
+    _o=[x for x in (f1_s,br_s) if x is not None]; ops=(sum(_o)/len(_o)) if _o else None
     # CUSTOMERS = Guest Check count (YoY) + Google Health (moved IN from Ops). Sales YoY dropped out.
     gh=d.get('gh'); goog_r=clamp(gh/5) if gh is not None else None
     yr=lambda v: clamp((v+10)/20) if v is not None else None
     _cp=[x for x in (yr(wv['gc']),goog_r) if x is not None]
     cust=(sum(_cp)/len(_cp)*5) if _cp else None
     # PROFIT = SPH + Food GP (unchanged)
-    gp=d.get('gp'); gp_r=clamp(gp/71) if gp is not None else None
-    sphv=d.get('sph'); spht=d.get('sph_tgt') or 55; sph_r=clamp(sphv/spht) if sphv is not None else None
-    _pp=[x for x in (gp_r,sph_r) if x is not None]; profit=(sum(_pp)/len(_pp)*5) if _pp else None
+    gp=d.get('gp'); gp_s=band(gp,71,6,3,hib=True) if gp is not None else None
+    sphv=d.get('sph'); spht=d.get('sph_tgt') or 55; sph_s=band(sphv,spht,6,4,hib=True) if sphv is not None else None
+    _pp=[x for x in (gp_s,sph_s) if x is not None]; profit=(sum(_pp)/len(_pp)) if _pp else None
     pil={'Team':team,'Ops':ops,'Customers':cust,'Profit':profit}
     av=[v for v in pil.values() if v is not None]
     # Completeness N/8 = the 8 SCORED metrics under the new mix
