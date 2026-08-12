@@ -203,29 +203,34 @@ for c in CANON:
         'ytd':{'sales':_blend(qc,qp,'yoy_sales'),'gc':_blend(qc,qp,'yoy_tx')},
     }
 WINDOWS=('qtd','ytd')
+BENCH5={'green':5.0,'amber':2.5,'red':0.0}   # bench-ready traffic-light -> /5 (modelling choice, Matt to tune)
 def score(c,win):
     d=D[c]; wv=d['win'][win]
-    # Team = RMS Health + RTW % completed (New-starter now a Brand Foundation, outside the score; bench = Urgent flag)
+    # TEAM = RMS Health + Bench-ready (/5). Bench-ready moved IN from Urgent flags; SAME bench-ready
+    # rule as EOS (SM+AM+Sup1 + a named successor). green=5.0 / amber(building)=2.5 / red(SM vacant)=0.0.
+    # RTW moved OUT to Brand Foundations.
     rms=d.get('rms'); rms_r=clamp(rms/5) if rms is not None else None
-    # RTW: SCORED off the store's return-to-work completion % vs the RTW target (>100% caps at full via clamp);
-    # stores with no sickness absences this window -> None (excluded, not penalised)
-    rtwv=d.get('rtw'); rtw_r=clamp(rtwv/RTW_TGT) if rtwv is not None else None
-    _t=[x for x in (rms_r,rtw_r) if x is not None]; team=(sum(_t)/len(_t)*5) if _t else None
-    # Ops = F1 (QTD avg Total Score vs 175 target, lower=better) + Google HEALTH (EOS composite, 0-5, green>=3.32)
-    f1s=d.get('f1_q3'); gh=d.get('gh')
-    f1_r=clamp(175.0/f1s) if f1s else None
-    goog_r=clamp(gh/5) if gh is not None else None
-    _o=[x for x in (f1_r,goog_r) if x is not None]; ops=(sum(_o)/len(_o)*5) if _o else None
+    bench5=BENCH5.get(d.get('bench')); bench_r=(bench5/5) if bench5 is not None else None
+    _t=[x for x in (rms_r,bench_r) if x is not None]; team=(sum(_t)/len(_t)*5) if _t else None
+    # OPS = F1 (QTD avg Total Score vs 175, lower=better) + Brand & Remote (blended /5, moved IN from
+    # Brand Foundations). Google Health moved OUT to Customers.
+    f1s=d.get('f1_q3'); f1_r=clamp(175.0/f1s) if f1s else None
+    br=d.get('brand'); br_r=clamp(br/5) if br is not None else None
+    _o=[x for x in (f1_r,br_r) if x is not None]; ops=(sum(_o)/len(_o)*5) if _o else None
+    # CUSTOMERS = Guest Check count (YoY) + Google Health (moved IN from Ops). Sales YoY dropped out.
+    gh=d.get('gh'); goog_r=clamp(gh/5) if gh is not None else None
     yr=lambda v: clamp((v+10)/20) if v is not None else None
-    _cp=[x for x in (yr(wv['sales']),yr(wv['gc'])) if x is not None]
+    _cp=[x for x in (yr(wv['gc']),goog_r) if x is not None]
     cust=(sum(_cp)/len(_cp)*5) if _cp else None
+    # PROFIT = SPH + Food GP (unchanged)
     gp=d.get('gp'); gp_r=clamp(gp/71) if gp is not None else None
     sphv=d.get('sph'); spht=d.get('sph_tgt') or 55; sph_r=clamp(sphv/spht) if sphv is not None else None
     _pp=[x for x in (gp_r,sph_r) if x is not None]; profit=(sum(_pp)/len(_pp)*5) if _pp else None
     pil={'Team':team,'Ops':ops,'Customers':cust,'Profit':profit}
     av=[v for v in pil.values() if v is not None]
-    real={'RMS':d.get('rms') is not None,'RTW':d.get('rtw') is not None,'F1':d.get('f1_q3') is not None,'Google':d.get('gh') is not None,
-        'Sales YoY':wv['sales'] is not None,'Guest counts':wv['gc'] is not None,
+    # Completeness N/8 = the 8 SCORED metrics under the new mix
+    real={'RMS':d.get('rms') is not None,'Bench':bench_r is not None,'F1':d.get('f1_q3') is not None,
+        'Brand&Remote':br is not None,'Guest counts':wv['gc'] is not None,'Google':d.get('gh') is not None,
         'SPH':d.get('sph') is not None,'Food GP':d.get('gp') is not None}
     return {'pillars':pil,'overall':(sum(av)/len(av) if av else None),'real':real,
             'real_n':sum(1 for v in real.values() if v),'sales':wv['sales'],'gc':wv['gc']}
@@ -318,7 +323,7 @@ tbody tr:last-child td{border-bottom:none}
 <div class='tglnote'>Ranking recomputes for the selected window. Each overall score carries a <span class='vsy up'>&#9650;<em>vs YTD</em></span> / <span class='vsy dn'>&#9660;<em>vs YTD</em></span> trend (current QTD overall vs that store's YTD overall). <b>QTD</b> = quarter to date (solid); <b>YTD</b> = year-to-date roll-up.</div></div>
 <table><thead><tr><th>#</th><th>Store</th><th>Overall Star Score</th><th class='plh'>Team</th><th class='plh'>Ops</th><th class='plh'>Customers</th><th class='plh'>Profit</th><th>Real data</th></tr></thead><tbody id='lbody'>"""
 +TBODY['qtd']+"""</tbody></table>
-<div class='foot'><b>Pillars:</b> Team (<b>RMS Health + RTW % completed</b>) &middot; Ops (<b>F1 avg Total Score QTD (target &le;175) + Google Health (EOS composite, green &ge;3.32)</b>) &middot; Customers (<b>sales + guest YoY, last completed week vs same week last year</b> on QTD; blended YoY on YTD) &middot; Profit (SPH + Food GP%). <b>Brand foundations</b> (Brand &amp; Remote + Open/Close % + New Starter Health) and <b>Urgent support</b> (coach vacancy, bench gap, accidents, red maintenance) sit outside the score. <b>Real data (N / 8):</b> count of the 8 scored metrics (RMS, RTW, F1, Google, Sales YoY, Guest counts, SPH, Food GP) on genuine real data. <b>RTW %</b> is each store's return-to-work completion from the sickness/RTW log (target &ge;90%, indicative). <b>SPH is scored</b> from the banked sph_history.csv. QTD is the solid view; YTD blends Sales &amp; Guest YoY across the held quarters while RMS, Google, SPH, F1 &amp; Food GP carry QTD depth ("history building") until the year accumulates. Bench sits only in Urgent support; New Starter Health is now a Brand Foundation (flagged vs &ge;90%, outside the score). Overall = mean of available pillars. Targets indicative for Matt to set.</div>
+<div class='foot'><b>Pillars:</b> Team (<b>RMS Health + Bench-ready /5</b>) &middot; Ops (<b>F1 avg Total Score QTD (target &le;175) + Brand &amp; Remote (blended audit &amp; remote, target 4.6)</b>) &middot; Customers (<b>Guest Check counts YoY (last completed week vs same week last year) + Google Health (green &ge;3.32)</b>) &middot; Profit (SPH + Food GP%). <b>Brand foundations</b> (Open/Close % + RTW % completed + New Starter Health) and <b>Urgent support</b> (coach vacancy, accidents/near-misses, red maintenance) sit outside the score. <b>Real data (N / 8):</b> count of the 8 scored metrics (RMS, Bench-ready, F1, Brand &amp; Remote, Guest counts, Google, SPH, Food GP) on genuine real data. <b>RTW %</b> is each store's return-to-work completion from the sickness/RTW log (target &ge;90%, indicative). <b>SPH is scored</b> from the banked sph_history.csv. QTD is the solid view; YTD blends Sales &amp; Guest YoY across the held quarters while RMS, Google, SPH, F1 &amp; Food GP carry QTD depth ("history building") until the year accumulates. Bench-ready is now scored inside the Team pillar (green 5 / amber 2.5 / red 0, /5); RTW % completed &amp; New Starter Health are Brand Foundations (flagged vs &ge;90%, outside the score). Overall = mean of available pillars. Targets indicative for Matt to set.</div>
 </div>
 <script>
 var TBODY=""" + _json.dumps(TBODY) + """, WLAB=""" + _json.dumps(WLAB) + """;
@@ -347,6 +352,11 @@ def card(c,win):
     occ,oct=hm(d.get('oc'),90,'%','%d'); brc,brt=hm(d.get('brand'),4.6,'','%.2f')
     _nsv=d.get('ns'); nsc=(('hit' if _nsv>=90 else 'miss') if _nsv is not None else 'neutral')
     nsval=((('%d%%'%_nsv)+(' ✓' if _nsv>=90 else ' ✗')) if _nsv is not None else 'n/a')
+    _rtwv=d.get('rtw'); _rtwc=(('hit' if _rtwv>=90 else 'miss') if _rtwv is not None else 'neutral')
+    _rtwval=((('%d%%'%round(_rtwv))+(' ✓' if _rtwv>=90 else ' ✗')) if _rtwv is not None else 'n/a')
+    _bst=d.get('bench'); _b5={'green':5.0,'amber':2.5,'red':0.0}.get(_bst)
+    _bcls={'green':'hit','amber':'warn','red':'miss'}.get(_bst,'neutral')
+    _bsub=('%s &middot; target bench-ready (5 / 5)'%(d.get('bench_detail') or 'not set'))
     # ---- UNIFORM Starbucks-style metric widget: title+window, big value+sub, then two labelled rows ----
     def _arrow(dv,hib):
         up=dv>0.049; dn=dv<-0.049; imp=(dv>0) if hib else (dv<0)
@@ -371,10 +381,8 @@ def card(c,win):
     team=(MW('RMS health',win_tag,('%.1f'%rmsv) if rmsv is not None else 'n/a',(hc(rmsv>=4.0) if rmsv is not None else 'neutral'),'target &ge;4.0 / 5',
             rw('vs Last Week',('%.1f'%_rw) if _rw is not None else None,dl(rmsv,_rw,True,''))
            +rw('vs Last Quarter',('%.1f'%_rq2) if _rq2 is not None else None,dl(rmsv,_rq2,True,'')))
-         +MW('RTW % completed',win_tag,('%d%%'%rtwv) if rtwv is not None else 'n/a',
-            (hc(rtwv>=90) if rtwv is not None else 'neutral'),
-            ('%d of %d absences logged &middot; return-to-work &middot; target &ge;90%%'%(_rtd or 0,_rts or 0)) if rtwv is not None else 'no sickness absences &middot; not scored',
-            brow('vs Last Week','n/a')+brow('vs Last Quarter','QTD' if rtwv is not None else 'n/a')))
+         +MW('Bench-ready',win_tag,('%.1f'%_b5) if _b5 is not None else 'n/a',_bcls,_bsub,
+            brow('vs Last Week','n/a')+brow('vs Last Quarter','QTD' if _b5 is not None else 'n/a')))
     # OPS — F1 avg Total Score (lower better, target 175) + Google reviews
     f1s=d.get('f1_q3'); _f2=d.get('f1_q2'); _fl=d.get('f1_latest'); _cr=d.get('champ_rank'); _cn=d.get('champ_n') or 21
     f1_sub=('Championship P%d/%d &middot; target &le;175'%(_cr,_cn)) if _cr else 'target &le;175'
@@ -382,20 +390,21 @@ def card(c,win):
     if gh_avg is not None: gh_sub='&#9733;%.2f &middot; %d reviews &middot; target &ge;3.32'%(gh_avg,gh_n or 0)
     elif gh is not None: gh_sub='0 reviews in period &middot; target &ge;3.32'
     else: gh_sub='target &ge;3.32 / 5'
+    _brv=d.get('brand')
     ops=(MW('F1 race (QTD avg)',win_tag,('%.0f'%f1s) if f1s is not None else 'n/a',(hc(f1s<=175) if f1s is not None else 'neutral'),f1_sub,
             rw('vs Last Week',('%.0f'%_fl) if _fl is not None else None,dl(f1s,_fl,False,''))
            +rw('vs Last Quarter',('%.0f'%_f2) if _f2 is not None else None,dl(f1s,_f2,False,'')))
-        +MW('Google Health',win_tag,('%.2f'%gh) if gh is not None else 'n/a',(hc(gh>=3.32) if gh is not None else 'neutral'),gh_sub,
-            rw('vs Last Week',None,"<span class='dlt fl'>&ndash;</span>")
-           +rw('vs Last Quarter',('%.2f'%_ghq2) if _ghq2 is not None else None,dl(gh,_ghq2,True,'',2))))
+        +MW('Brand &amp; Remote',win_tag,('%.2f'%_brv) if _brv is not None else 'n/a',(hc(_brv>=4.6) if _brv is not None else 'neutral'),'blended audit &amp; remote &middot; target 4.6 / 5',
+            brow('vs Last Week','n/a')+brow('vs Last Quarter','QTD' if _brv is not None else 'n/a')))
     # CUSTOMERS — Sales + Guest YoY (headline = last completed week vs LY on QTD; blended YoY on YTD)
     lws=d.get('yoy_lw'); lwg=d.get('gc_lw'); qs=qc.get('yoy_sales'); qg=qc.get('yoy_tx'); ps=qp.get('yoy_sales'); pg=qp.get('yoy_tx')
     sH=S['sales']; gH=S['gc']; s_tag=('LAST WK' if not ytd else 'YTD'); s_sub=('vs same wk last yr' if not ytd else 'blended YoY')
     _rowA='QTD'   # Customers headline is already last-week, so top row shows the quarter (not "vs last week")
-    cust=(MW('Sales (YoY)',s_tag,pct(sH) or 'n/a',(hc(sH>=5) if sH is not None else 'neutral'),s_sub,
-            rw('vs '+_rowA,pct(qs),dl(sH,qs,True,'%'))+rw('vs Last Quarter',pct(ps),dl(sH,ps,True,'%')))
-         +MW('Guest counts (YoY)',s_tag,pct(gH) or 'n/a',(hc(gH>=5) if gH is not None else 'neutral'),s_sub,
-            rw('vs '+_rowA,pct(qg),dl(gH,qg,True,'%'))+rw('vs Last Quarter',pct(pg),dl(gH,pg,True,'%'))))
+    cust=(MW('Guest counts (YoY)',s_tag,pct(gH) or 'n/a',(hc(gH>=5) if gH is not None else 'neutral'),s_sub,
+            rw('vs '+_rowA,pct(qg),dl(gH,qg,True,'%'))+rw('vs Last Quarter',pct(pg),dl(gH,pg,True,'%')))
+         +MW('Google Health',win_tag,('%.2f'%gh) if gh is not None else 'n/a',(hc(gh>=3.32) if gh is not None else 'neutral'),gh_sub,
+            rw('vs Last Week',None,"<span class='dlt fl'>&ndash;</span>")
+           +rw('vs Last Quarter',('%.2f'%_ghq2) if _ghq2 is not None else None,dl(gh,_ghq2,True,'',2))))
     # PROFIT — SPH + Food GP
     sphv=d.get('sph'); spht=d.get('sph_tgt') or 55
     if sphv is None:
@@ -409,7 +418,7 @@ def card(c,win):
             rw('vs Last Week',('%.1f%%'%gpw) if gpw is not None else None,dl(gpq,gpw,True,'%'))
            +rw('vs Last Quarter',('%.1f%%'%gp_pv) if gp_pv is not None else None,dl(gpq,gp_pv,True,'%'))))
     def pc(nm,scr,body): return "<div class='pcard'><div class='phead'><div class='pname'>%s</div><div class='pstar'>%s<div class='pscore'>%s / 5</div></div></div>%s</div>"%(nm,stars(scr,16),fmt(scr),body)
-    flags=(yn('Store coach vacancy?',d.get('bench')=='red')+yn('Bench gap?',d.get('bench') in ('amber','red'),amber=(d.get('bench')=='amber'))
+    flags=(yn('Store coach vacancy?',d.get('bench')=='red')
           +yn('Accidents / near misses?',c in ACC)+yn('Red maintenance issues?',d.get('maint_open',0)>=3))
     cwk=(('Year to date &middot; ' if ytd else 'Rolling QTD &middot; ')+WKLABEL)
     return ("<div class='card'><div class='chead'><div class='cleft'>%s<div class='cbrand'>Star Card</div><div class='cstore'>%s</div><div class='cwk'>%s</div></div>"
@@ -420,14 +429,14 @@ def card(c,win):
             "<div class='pillars'>%s%s%s%s</div>"
             "<div class='foundlab'>Brand foundations <span class='excl'>excluded from score</span></div>"
             "<div class='foundations'>"
-            "<div class='foundation'><div class='lab'>Brand &amp; Remote</div><div class='val %s'>%s</div><div class='meta'>Blended audit &amp; remote &middot; target 4.6</div></div>"
             "<div class='foundation'><div class='lab'>Open / Close %%</div><div class='val %s'>%s</div><div class='meta'>HRP Process St &middot; target &ge;90%%</div></div>"
+            "<div class='foundation'><div class='lab'>RTW %% completed</div><div class='val %s'>%s</div><div class='meta'>Return-to-work log &middot; target &ge;90%%</div></div>"
             "<div class='foundation'><div class='lab'>New Starter Health</div><div class='val %s'>%s</div><div class='meta'>Youda onboarding &middot; target &ge;90%%</div></div>"
             "</div>"
             "<div class='urgent'><h3>Urgent support needed? <span class='excl'>excluded from score</span></h3><div class='flags'>%s</div></div></div>"
             %(LOGO_IMG,c,cwk,fmt(ov),stars(ov,30),vsytd_card(c),S['real_n'],rk,pc('Team',p['Team'],team),pc('Ops excellence',p['Ops'],ops),
               pc('Customers served',p['Customers'],cust),pc('Profit',p['Profit'],prof),
-              brc,(brt if d.get('brand') is not None else 'n/a'),occ,oct,nsc,nsval,flags))
+              occ,oct,_rtwc,_rtwval,nsc,nsval,flags))
 CARDCSS=CSS+"""
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin-bottom:18px;box-shadow:0 1px 3px rgba(20,40,60,.05)}
 .chead{display:flex;align-items:center;justify-content:space-between;gap:16px;border-bottom:1px solid var(--line);padding-bottom:18px}
@@ -591,22 +600,24 @@ def area_card(co,win):
     sphv=am(lambda d:d.get('sph')); spht=am(lambda d:d.get('sph_tgt')) or 55
     gpq=am(lambda d:d.get('gp')); gpw=am(lambda d:d.get('gp_week')); gp_pv=am(lambda d:d.get('gp_prevq'))
     brand=am(lambda d:d.get('brand')); ocv=am(lambda d:d.get('oc')); nsv=am(lambda d:d.get('ns'))
+    bench5a=am(lambda d:{'green':5.0,'amber':2.5,'red':0.0}.get(d.get('bench')))
+    _bac=(('hit' if bench5a>=4.0 else ('warn' if bench5a>=2.5 else 'miss')) if bench5a is not None else 'neutral')
     s_tag=('LAST WK' if not ytd else 'YTD'); s_sub=('vs same wk last yr' if not ytd else 'blended YoY')
     team=(MW('RMS health',win_tag,('%.1f'%rmsv) if rmsv is not None else 'n/a',(hc(rmsv>=4.0) if rmsv is not None else 'neutral'),'area avg &middot; target &ge;4.0',
             rw('vs Last Week',('%.1f'%_rw) if _rw is not None else None,dl(rmsv,_rw,True,''))
            +rw('vs Last Quarter',('%.1f'%_rq2) if _rq2 is not None else None,dl(rmsv,_rq2,True,'')))
-         +MW('RTW % completed',win_tag,('%d%%'%round(rtwv)) if rtwv is not None else 'n/a',(hc(rtwv>=90) if rtwv is not None else 'neutral'),'area avg &middot; target &ge;90%%',
-            brow('vs Last Week','n/a')+brow('vs Last Quarter','QTD' if rtwv is not None else 'n/a')))
+         +MW('Bench-ready',win_tag,('%.1f'%bench5a) if bench5a is not None else 'n/a',_bac,'area avg &middot; target bench-ready (5 / 5)',
+            brow('vs Last Week','n/a')+brow('vs Last Quarter','QTD' if bench5a is not None else 'n/a')))
     ops=(MW('F1 race (QTD avg)',win_tag,('%.0f'%f1s) if f1s is not None else 'n/a',(hc(f1s<=175) if f1s is not None else 'neutral'),'area avg &middot; target &le;175',
             rw('vs Last Week',('%.0f'%_fl) if _fl is not None else None,dl(f1s,_fl,False,''))
            +rw('vs Last Quarter',('%.0f'%_f2) if _f2 is not None else None,dl(f1s,_f2,False,'')))
-        +MW('Google Health',win_tag,('%.2f'%gh) if gh is not None else 'n/a',(hc(gh>=3.32) if gh is not None else 'neutral'),'area avg &middot; target &ge;3.32',
+        +MW('Brand &amp; Remote',win_tag,('%.2f'%brand) if brand is not None else 'n/a',(hc(brand>=4.6) if brand is not None else 'neutral'),'area avg &middot; blended audit &amp; remote &middot; target 4.6',
+            brow('vs Last Week','n/a')+brow('vs Last Quarter','QTD' if brand is not None else 'n/a')))
+    cust=(MW('Guest counts (YoY)',s_tag,pct(gH) or 'n/a',(hc(gH>=5) if gH is not None else 'neutral'),'area avg &middot; '+s_sub,
+            rw('vs QTD',pct(qg),dl(gH,qg,True,'%'))+rw('vs Last Quarter',pct(pg),dl(gH,pg,True,'%')))
+         +MW('Google Health',win_tag,('%.2f'%gh) if gh is not None else 'n/a',(hc(gh>=3.32) if gh is not None else 'neutral'),'area avg &middot; target &ge;3.32',
             rw('vs Last Week',None,"<span class='dlt fl'>&ndash;</span>")
            +rw('vs Last Quarter',('%.2f'%_ghq2) if _ghq2 is not None else None,dl(gh,_ghq2,True,'',2))))
-    cust=(MW('Sales (YoY)',s_tag,pct(sH) or 'n/a',(hc(sH>=5) if sH is not None else 'neutral'),'area avg &middot; '+s_sub,
-            rw('vs QTD',pct(qs),dl(sH,qs,True,'%'))+rw('vs Last Quarter',pct(ps),dl(sH,ps,True,'%')))
-         +MW('Guest counts (YoY)',s_tag,pct(gH) or 'n/a',(hc(gH>=5) if gH is not None else 'neutral'),'area avg &middot; '+s_sub,
-            rw('vs QTD',pct(qg),dl(gH,qg,True,'%'))+rw('vs Last Quarter',pct(pg),dl(gH,pg,True,'%'))))
     prof=(MW('SPH',win_tag,('&pound;%.1f'%sphv) if sphv is not None else 'n/a',(hc(sphv>=spht) if sphv is not None else 'neutral'),'area avg &middot; target &pound;%.0f/hr'%spht,
             brow('vs Last Week','building')+brow('vs Last Quarter','building'))
          +MW('Food GP %',win_tag,('%.1f%%'%gpq) if gpq is not None else 'n/a',(hc(gpq>=71) if gpq is not None else 'neutral'),'area avg &middot; target &ge;71%%',
@@ -619,6 +630,8 @@ def area_card(co,win):
     octxt=((('%d%%'%round(ocv))+(' ✓' if ocv>=90 else ' ✗')) if ocv is not None else 'n/a')
     nsc=(('hit' if nsv>=90 else 'miss') if nsv is not None else 'neutral')
     nsval=((('%d%%'%round(nsv))+(' ✓' if nsv>=90 else ' ✗')) if nsv is not None else 'n/a')
+    _rtwca=(('hit' if rtwv>=90 else 'miss') if rtwv is not None else 'neutral')
+    _rtwvala=((('%d%%'%round(rtwv))+(' ✓' if rtwv>=90 else ' ✗')) if rtwv is not None else 'n/a')
     def _cnt(pred): return sum(1 for c in stores if pred(D[c]))
     vac=_cnt(lambda d:d.get('bench')=='red'); gap=_cnt(lambda d:d.get('bench') in ('amber','red'))
     acc=sum(1 for c in stores if c in ACC); rmn=_cnt(lambda d:d.get('maint_open',0)>=3)
@@ -626,7 +639,7 @@ def area_card(co,win):
         cls=('warn' if amber else 'on') if n>0 else ''
         chip=('warn' if amber else 'yes') if n>0 else 'no'
         return "<div class='flag %s'><span class='q'>%s</span><span class='a %s'>%d</span></div>"%(cls,lbl,chip,n)
-    flags=(fcount('Store coach vacancy',vac)+fcount('Bench gap',gap,amber=(gap>0 and vac==0))
+    flags=(fcount('Store coach vacancy',vac)
           +fcount('Accidents / near misses',acc)+fcount('Red maintenance',rmn))
     n8=[D[c]['S'][win]['real_n'] for c in stores]; avg8=(sum(n8)/len(n8)) if n8 else 0
     cwk=(('Year to date &middot; ' if ytd else 'Rolling QTD &middot; ')+WKLABEL)
@@ -638,14 +651,14 @@ def area_card(co,win):
             "<div class='pillars'>%s%s%s%s</div>"
             "<div class='foundlab'>Brand foundations <span class='excl'>area average &middot; excluded from score</span></div>"
             "<div class='foundations'>"
-            "<div class='foundation'><div class='lab'>Brand &amp; Remote</div><div class='val %s'>%s</div><div class='meta'>Blended audit &amp; remote &middot; target 4.6</div></div>"
             "<div class='foundation'><div class='lab'>Open / Close %%</div><div class='val %s'>%s</div><div class='meta'>HRP Process St &middot; target &ge;90%%</div></div>"
+            "<div class='foundation'><div class='lab'>RTW %% completed</div><div class='val %s'>%s</div><div class='meta'>Return-to-work log &middot; target &ge;90%%</div></div>"
             "<div class='foundation'><div class='lab'>New Starter Health</div><div class='val %s'>%s</div><div class='meta'>Youda onboarding &middot; target &ge;90%%</div></div>"
             "</div>"
             "<div class='urgent'><h3>Urgent support needed? <span class='excl'>stores in area &middot; excluded from score</span></h3><div class='flags'>%s</div></div></div>"
             %(LOGO_IMG,co,cwk,fmt(ov),stars(ov,30),area_vsytd(co),len(stores),avg8,arank,
               pc('Team',pil['Team'],team),pc('Ops excellence',pil['Ops'],ops),pc('Customers served',pil['Customers'],cust),pc('Profit',pil['Profit'],prof),
-              brc,brtxt,occ,octxt,nsc,nsval,flags))
+              occ,octxt,_rtwca,_rtwvala,nsc,nsval,flags))
 # ================= LIVE 2-TAB PAGE: star-card.html =================
 LB_CSS = """
 .top{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:14px}
@@ -686,7 +699,7 @@ _opts = "<optgroup label=\"Area coaches\">"+_aopts+"</optgroup><optgroup label=\
 _lb = ("<div class='top'><div><div class='brand'>Star Card</div><div class='h1'>Estate leaderboard &mdash; all 21 stores</div>"
        "<div class='sub'>Ranked by overall Star score &middot; <span id='winlab'>rolling QTD</span> &middot; "+WKLABEL+"</div></div>"
        "<div style='text-align:right'><div class='sub'>Gold = overall rating &middot; pillars: <span class='hit'>green &ge;4</span> &middot; <span class='warn'>amber 3&ndash;4</span> &middot; <span class='miss'>red &lt;3</span></div></div></div>"
-       "<table><thead><tr><th>#</th><th>Store</th><th>Overall Star Score</th><th class='plh'>Team</th><th class='plh'>Ops</th><th class='plh'>Customers</th><th class='plh'>Profit</th><th>Real data</th></tr></thead><tbody id='lbody'>"+TBODY["qtd"]+"</tbody></table>"+"<div class='foot'><b>Pillars:</b> Team (<b>RMS Health + RTW % completed</b>) &middot; Ops (<b>F1 avg Total Score QTD (target &le;175) + Google Health (EOS composite, green &ge;3.32)</b>) &middot; Customers (<b>sales + guest YoY, last completed week vs same week last year</b> on QTD; blended YoY on YTD) &middot; Profit (SPH + Food GP%). <b>Brand foundations</b> (Brand &amp; Remote + Open/Close % + New Starter Health) and <b>Urgent support</b> (coach vacancy, bench gap, accidents, red maintenance) sit outside the score. <b>RTW %</b> = each store's return-to-work completion from the sickness/RTW log (target &ge;90%, indicative). <b>Real data (N / 8):</b> count of the 8 scored metrics (RMS, RTW, F1, Google, Sales YoY, Guest counts, SPH, Food GP) on genuine real data. New Starter Health is now a Brand Foundation (flagged vs &ge;90%, outside the score). The Store Card dropdown also renders a full <b>area</b> card for each coach (Jon / Rich / Ian). Overall = mean of available pillars. Targets indicative for Matt to set.</div>")
+       "<table><thead><tr><th>#</th><th>Store</th><th>Overall Star Score</th><th class='plh'>Team</th><th class='plh'>Ops</th><th class='plh'>Customers</th><th class='plh'>Profit</th><th>Real data</th></tr></thead><tbody id='lbody'>"+TBODY["qtd"]+"</tbody></table>"+"<div class='foot'><b>Pillars:</b> Team (<b>RMS Health + Bench-ready /5</b>) &middot; Ops (<b>F1 avg Total Score QTD (target &le;175) + Brand &amp; Remote (blended audit &amp; remote, target 4.6)</b>) &middot; Customers (<b>Guest Check counts YoY (last completed week vs same week last year) + Google Health (green &ge;3.32)</b>) &middot; Profit (SPH + Food GP%). <b>Brand foundations</b> (Open/Close % + RTW % completed + New Starter Health) and <b>Urgent support</b> (coach vacancy, accidents/near-misses, red maintenance) sit outside the score. <b>RTW %</b> = each store's return-to-work completion from the sickness/RTW log (target &ge;90%, indicative). <b>Real data (N / 8):</b> count of the 8 scored metrics (RMS, Bench-ready, F1, Brand &amp; Remote, Guest counts, Google, SPH, Food GP) on genuine real data. New Starter Health is now a Brand Foundation (flagged vs &ge;90%, outside the score). The Store Card dropdown also renders a full <b>area</b> card for each coach (Jon / Rich / Ian). Overall = mean of available pillars. Targets indicative for Matt to set.</div>")
 PAGE = ("<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'>"
         "<title>Bewiched Star Card</title><style>"+CARDCSS+LB_CSS+TAB_CSS+AREA_CSS+"</style></head><body><div class='wrap'>"
         "<div class='appbar'><div class='abrand'>"+_LOGO+"<div><div class='eyebrow'>Store Scorecard</div><div class='h1b'>Star Card</div></div></div>"
