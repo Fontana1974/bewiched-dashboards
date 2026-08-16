@@ -1419,6 +1419,122 @@ def rms_detail_html():
     return '<div class="st-scope">%s%s</div>' % (bar, "".join(variants))
 
 
+
+def _se_fmt_int(v):
+    try: return format(int(round(float(v))), ",")
+    except Exception: return "&mdash;"
+
+def _se_nice_date(x):
+    try:
+        import datetime as _dt
+        return _dt.datetime.strptime(str(x)[:10], "%Y-%m-%d").date().strftime("%-d %b")
+    except Exception:
+        return ""
+
+def _se_load():
+    try:
+        return json.load(open(os.path.join(HERE, "sales_extras.json")))
+    except Exception:
+        return None
+
+def dt_lanes_html():
+    """TOP of the Sales view: drive-thru lane throughput per lane. All of a site's 'drive'-named
+    registers are aggregated into one lane figure (Northampton has two DT tills). QTD + last week
+    with YoY vs 52 weeks earlier. A lane with no prior-year DT history (Billing DT, opened May 2026)
+    shows 'new' rather than a fabricated YoY. Reads sales_extras.json. Fault-tolerant."""
+    S = _se_load()
+    if not S: return ""
+    lanes = S.get("dt_lanes") or []
+    if not lanes: return ""
+    def _pct(v):
+        if v is None: return "&mdash;"
+        return ("+%.1f%%" % v) if v >= 0 else ("%.1f%%" % v)
+    tiles = ""
+    for L in lanes:
+        new = L.get("new"); yoy = L.get("qtd_yoy")
+        if new:
+            accent = "var(--gold)"
+            badge = ('<span style="display:inline-block;background:var(--gold);color:#fff;font-size:10.5px;'
+                     'font-weight:800;padding:1px 8px;border-radius:9px;letter-spacing:.03em">NEW LANE</span>')
+            sub = "last wk <b>%s</b> &middot; opened May 2026, no prior-year baseline" % _se_fmt_int(L.get("lw"))
+        else:
+            up = (yoy is not None and yoy >= 0)
+            accent = "var(--green)" if up else "var(--red)"
+            badge = ('<span style="font-size:14px;font-weight:800;color:%s">%s '
+                     '<span style="color:var(--muted);font-weight:600;font-size:11px">YoY</span></span>'
+                     % (accent, _pct(yoy)))
+            sub = ("last wk <b>%s</b> (%s vs %s LY)"
+                   % (_se_fmt_int(L.get("lw")), _pct(L.get("lw_yoy")), _se_fmt_int(L.get("lw_ly"))))
+        tiles += ('<div style="flex:1 1 210px;min-width:200px;border:1px solid var(--line);border-top:3px solid %s;'
+                  'border-radius:12px;padding:12px 14px;background:#fff">'
+                  '<div style="font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:700">%s</div>'
+                  '<div style="font-size:27px;font-weight:800;color:var(--brown);line-height:1.1;margin:5px 0 3px">%s '
+                  '<span style="font-size:12px;color:var(--muted);font-weight:600">cars QTD</span></div>'
+                  '<div style="margin:2px 0 4px">%s</div>'
+                  '<div style="font-size:11.5px;color:var(--muted)">%s</div></div>'
+                  % (accent, esc(L.get("store","")), _se_fmt_int(L.get("qtd")), badge, sub))
+    note = ('Each lane counts the distinct orders taken through that site&rsquo;s drive-thru till(s) '
+            '&mdash; Northampton aggregates both its DT registers &mdash; a fair proxy for cars served '
+            'through the lane. YoY compares the same window 52 weeks earlier.')
+    return ('<div class="md-section-h">Drive-thru &mdash; cars through the lane, by site '
+            '<span style="font-weight:600;color:var(--muted);font-size:12px">(%s)</span></div>'
+            '<div style="display:flex;gap:12px;flex-wrap:wrap;margin:2px 0 6px">%s</div>'
+            '<div class="md-note">%s</div>' % (esc(S.get("qtd_label","")), tiles, note))
+
+def fridge_items_html():
+    """TOP of the Sales view: top chilled grab-and-go 'fridge' food items estate-wide, QTD units
+    (with last week + estate share), the recent range-refresh SKUs flagged NEW (spotlight strip +
+    inline badges). Reads sales_extras.json. Fault-tolerant."""
+    S = _se_load()
+    if not S: return ""
+    F = S.get("fridge") or {}
+    items = F.get("items") or []
+    if not items: return ""
+    new_items = [i for i in items if i.get("new")]
+    top = items[:12]
+    mx = max((i.get("qtd") or 0) for i in top) or 1
+    spot = ""
+    for i in new_items:
+        spot += ('<div style="flex:1 1 170px;min-width:158px;border:1px solid var(--line);border-top:3px solid var(--gold);'
+                 'border-radius:12px;padding:10px 12px;background:#fffdf6">'
+                 '<div style="display:flex;justify-content:space-between;align-items:center;gap:6px">'
+                 '<span style="font-size:10px;font-weight:800;color:#fff;background:var(--gold);padding:1px 7px;'
+                 'border-radius:9px;letter-spacing:.03em">NEW</span>'
+                 '<span style="font-size:11px;color:var(--muted)">%s units</span></div>'
+                 '<div style="font-size:13px;font-weight:700;color:var(--brown);margin:6px 0 2px;line-height:1.2">%s</div>'
+                 '<div style="font-size:11px;color:var(--muted)">%s last wk &middot; launched %s</div></div>'
+                 % (_se_fmt_int(i.get("qtd")), esc(i.get("name","")),
+                    _se_fmt_int(i.get("lw")), esc(_se_nice_date(i.get("first_sold")))))
+    spot_block = ('<div style="font-size:12px;font-weight:700;color:var(--brown);margin:4px 0 5px">'
+                  '&#10024; New this range refresh</div>'
+                  '<div style="display:flex;gap:10px;flex-wrap:wrap;margin:0 0 13px">%s</div>' % spot) if spot else ""
+    bars = ""
+    for idx, i in enumerate(top, 1):
+        new = i.get("new"); w = 100.0 * (i.get("qtd") or 0) / mx
+        barcol = ("linear-gradient(90deg,var(--gold),#e0a92e)" if new
+                  else "linear-gradient(90deg,#8a6d4b,#b98a5e)")
+        namehtml = esc(i.get("name",""))
+        if new:
+            namehtml += (' <span style="font-size:9px;font-weight:800;color:#fff;background:var(--gold);'
+                         'padding:0 6px;border-radius:8px;vertical-align:1px">NEW</span>')
+        bars += ('<div style="display:flex;align-items:center;gap:10px;margin:3px 0">'
+                 '<div style="width:18px;text-align:right;font-size:11px;color:var(--muted);font-weight:700">%d</div>'
+                 '<div style="width:215px;font-size:12.5px;color:var(--brown);font-weight:600;overflow:hidden;'
+                 'text-overflow:ellipsis;white-space:nowrap">%s</div>'
+                 '<div style="flex:1;min-width:70px;background:#f0ece6;border-radius:6px;height:18px">'
+                 '<div style="width:%.1f%%;background:%s;height:100%%;border-radius:6px"></div></div>'
+                 '<div style="width:135px;text-align:right;font-size:12px;color:var(--brown);font-weight:700">%s '
+                 '<span style="color:var(--muted);font-weight:500">units &middot; %s%%</span></div></div>'
+                 % (idx, namehtml, w, barcol, _se_fmt_int(i.get("qtd")), ("%.0f" % (i.get("share") or 0))))
+    header = ('<div class="md-section-h">Food fridge &mdash; top chilled grab-and-go items '
+              '<span style="font-weight:600;color:var(--muted);font-size:12px">(%s)</span></div>'
+              % esc(S.get("qtd_label","")))
+    note = ('<div class="md-note">Chilled grab-and-go range only (sandwiches, ciabattas, wraps, salads, '
+            'bagels, croques &amp; toasties); cooked-to-order baps, hot sausage rolls and the kids range '
+            'excluded. Estate units for %s; eat-in and takeaway variants combined; share = %% of these items.</div>'
+            % esc(S.get("qtd_label","")))
+    return header + spot_block + ('<div style="margin:2px 0 6px">%s</div>' % bars) + note
+
 def sales_records_html():
     """Two all-time company record widgets for the top of the Sales (YoY Sales Growth) view:
     record weekly sales + record busiest single trading hour. Reads sales_records.json
@@ -1661,7 +1777,9 @@ for i, (wm, qm) in enumerate(zip(weekly, quarterly)):
                   + trend_svg(name, plan, dirn)
                   + (_rms if _rms else '<div class="md-note">Rate My Shift detail unavailable this run (rms_feed.json missing).</div>'))
     elif name == "YoY Sales Growth":
-        detail = (sales_records_html()
+        detail = (dt_lanes_html()
+                  + fridge_items_html()
+                  + sales_records_html()
                   + avg_per_store_html()
                   + '<div class="md-section-h">This quarter, week by week</div>'
                   + trend_svg(name, plan, dirn)

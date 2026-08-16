@@ -1988,6 +1988,90 @@ def pull_backtoschool():
 RUN_START = datetime.datetime.now().timestamp()
 GEN_LEFTOVER = {}
 
+
+def pull_sales_extras():
+    """EOS Sales-tab additions -> sales_extras.json (rendered at the TOP of the YoY Sales Growth
+    'Sales' view by gen_eos_scorecard.py).
+      1. Drive-thru lane throughput: distinct orders taken through each DT site's drive-thru
+         register(s). A site may have MORE THAN ONE 'drive'-named register (Northampton has a lane
+         till + an order-storing till); ALL of them roll into ONE lane figure via
+         LOWER(register.register_name) LIKE '%drive%' with COUNT(DISTINCT id) (an order seen on two
+         DT registers counts once). YoY vs the weekday-aligned window 364 days (52 weeks) earlier.
+         A lane with no prior-year DT history (e.g. Billing DT, opened May 2026) is flagged 'new'
+         rather than shown a fabricated YoY.
+      2. Top chilled grab-and-go 'fridge' food items estate-wide (sandwiches, ciabattas, wraps,
+         salads, bagels, croques/toasties; cooked-to-order baps and the hot sausage roll excluded),
+         units QTD + last week, with the recent range-refresh SKUs flagged 'new'.
+    Fault-tolerant: any failure leaves the last-good sales_extras.json in place."""
+    try:
+        LW0=(CUR_END-datetime.timedelta(days=6)).isoformat(); LW1=CUR_END.isoformat()
+        LWl0=(CUR_END-datetime.timedelta(days=6+364)).isoformat(); LWl1=(CUR_END-datetime.timedelta(days=364)).isoformat()
+        QT0=QSTART.isoformat(); QT1=CUR_END.isoformat()
+        QTl0=(QSTART-datetime.timedelta(days=364)).isoformat(); QTl1=(CUR_END-datetime.timedelta(days=364)).isoformat()
+        # ---- 1. Drive-thru lanes (all 'drive'-named registers per site rolled into one) ----
+        dsql = """
+          SELECT store,
+            COUNT(DISTINCT IF(dd BETWEEN DATE('%s') AND DATE('%s'), id, NULL)) lw26,
+            COUNT(DISTINCT IF(dd BETWEEN DATE('%s') AND DATE('%s'), id, NULL)) lw25,
+            COUNT(DISTINCT IF(dd BETWEEN DATE('%s') AND DATE('%s'), id, NULL)) qtd26,
+            COUNT(DISTINCT IF(dd BETWEEN DATE('%s') AND DATE('%s'), id, NULL)) qtd25
+          FROM (SELECT outlet.outlet_name store, id, DATE(sales_date) dd
+                FROM %s
+                WHERE LOWER(register.register_name) LIKE '%%drive%%'
+                  AND DATE(sales_date) BETWEEN DATE('%s') AND DATE('%s'))
+          GROUP BY store
+        """ % (LW0,LW1, LWl0,LWl1, QT0,QT1, QTl0,QTl1, SDET, QTl0, QT1)
+        def _yoy(a,b): return round(100.0*(a/b-1.0),1) if (b and b>0) else None
+        lanes=[]
+        for r in bq(dsql):
+            q26=int(r["qtd26"] or 0); q25=int(r["qtd25"] or 0)
+            l26=int(r["lw26"] or 0);  l25=int(r["lw25"] or 0)
+            new = (q25==0 and l25==0)
+            lanes.append({"store": r["store"], "lw": l26, "lw_ly": l25,
+                          "lw_yoy": (None if new else _yoy(l26,l25)),
+                          "qtd": q26, "qtd_ly": q25,
+                          "qtd_yoy": (None if new else _yoy(q26,q25)), "new": new})
+        lanes.sort(key=lambda x: -x["qtd"])
+        # ---- 2. Chilled grab-and-go 'fridge' food items ----
+        NEW_WINDOW = 70
+        new_cut = (CUR_END-datetime.timedelta(days=NEW_WINDOW)).isoformat()
+        fsql = """
+          WITH base AS (
+            SELECT %s AS prod, DATE(sales_date) dd, SAFE_CAST(item_quantity AS FLOAT64) q
+            FROM %s
+            WHERE DATE(sales_date) BETWEEN DATE('2023-01-01') AND DATE('%s')
+              AND REGEXP_CONTAINS(LOWER(item_product_name), r'ciabatta|sandwich|\\bwrap\\b|bagel|salad|croque|toastie|toasty|panini')
+              AND NOT REGEXP_CONTAINS(LOWER(item_product_name), r'\\bbap\\b|sausage roll|pastry|wrapped|kids')
+          )
+          SELECT prod,
+            ROUND(SUM(IF(dd BETWEEN DATE('%s') AND DATE('%s'), q, 0))) units_qtd,
+            ROUND(SUM(IF(dd BETWEEN DATE('%s') AND DATE('%s'), q, 0))) units_lw,
+            MIN(dd) first_sold
+          FROM base GROUP BY prod HAVING units_qtd > 0 ORDER BY units_qtd DESC
+        """ % (CLEAN, FLAT, QT1, QT0, QT1, LW0, LW1)
+        frows = bq(fsql)
+        tot_qtd = sum(float(r["units_qtd"] or 0) for r in frows) or 1.0
+        items=[]
+        for r in frows:
+            fs = r["first_sold"]; fs = fs.isoformat() if hasattr(fs,"isoformat") else (str(fs) if fs else None)
+            items.append({"name": r["prod"], "qtd": int(r["units_qtd"] or 0),
+                          "lw": int(r["units_lw"] or 0),
+                          "share": round(100.0*float(r["units_qtd"] or 0)/tot_qtd,1),
+                          "first_sold": fs, "new": bool(fs and fs >= new_cut)})
+        out = {"_updated": CUR_END.isoformat(),
+               "week_label": wlabel(LASTWK_MON),
+               "qtd_label": "%s – %s" % (QSTART.strftime("%-d %b"), CUR_END.strftime("%-d %b %Y")),
+               "yoy_basis": "vs same window 364 days (52 weeks) earlier, weekday-aligned",
+               "dt_lanes": lanes,
+               "fridge": {"items": items, "total_qtd": int(tot_qtd), "new_window_days": NEW_WINDOW}}
+        W("sales_extras.json", out)
+        print("[pull] sales_extras: %d DT lanes (%d new), %d fridge items (%d flagged new), fridge QTD units=%d"
+              % (len(lanes), sum(1 for l in lanes if l["new"]), len(items),
+                 sum(1 for i in items if i["new"]), int(tot_qtd)))
+    except Exception as e:
+        print("[pull] sales_extras SKIPPED (non-fatal) - %s" % str(e)[:200])
+
+
 def pull_maintenance():
     """Maintenance dashboard feed (reactive jobs / planned visits / coffee servicing / audit
     action plans). Sources are Google Sheets read live under the service account. Writes
@@ -3071,6 +3155,7 @@ def pulls():
     pull_txq_raws()           # txq_*_raw.json (2)
     pull_eos_scorecard()      # eos_scorecard.json (EOS Weekly+Quarterly scorecard)
     pull_backtoschool()       # backtoschool_feed.json (EOS 5th tab: back-to-school forecast)
+    pull_sales_extras()       # sales_extras.json (EOS Sales tab: DT lane throughput + fridge items)
     pull_maintenance()        # maintenance.json (reactive/planned/coffee/audit)  [non-fatal]
 
 
