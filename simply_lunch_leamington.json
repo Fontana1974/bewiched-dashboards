@@ -1,6 +1,6 @@
 {
  "store": "Leamington Parade",
- "cur_end": "2026-08-09",
+ "cur_end": "2026-08-16",
  "window_weeks": 8,
  "buffer_pct": 15,
  "sparse_threshold_weekly": 10,
@@ -21,15 +21,15 @@
    "item": "Bacon Bap",
    "category": "Breakfast baps & bagel",
    "daily": {
-    "1": 1.75,
-    "2": 2.25,
-    "3": 3.0,
-    "4": 1.88,
-    "5": 3.0,
-    "6": 1.75,
-    "7": 4.5
+    "1": 1.62,
+    "2": 1.75,
+    "3": 3.12,
+    "4": 1.75,
+    "5": 2.5,
+    "6": 1.88,
+    "7": 4.62
    },
-   "weekly_mean": 18.1,
+   "weekly_mean": 17.2,
    "tue": 6,
    "thu": 6,
    "sat": 10,
@@ -40,15 +40,15 @@
    "item": "Sausage Bap",
    "category": "Breakfast baps & bagel",
    "daily": {
-    "1": 2.88,
+    "1": 2.75,
     "2": 2.0,
-    "3": 1.62,
-    "4": 1.12,
-    "5": 2.25,
-    "6": 1.62,
-    "7": 4.38
+    "3": 1.25,
+    "4": 1.5,
+    "5": 2.12,
+    "6": 1.88,
+    "7": 4.5
    },
-   "weekly_mean": 15.9,
+   "weekly_mean": 16.0,
    "tue": 4,
    "thu": 5,
    "sat": 11,
@@ -59,34 +59,34 @@
    "item": "Breakfast Bagel",
    "category": "Breakfast baps & bagel",
    "daily": {
-    "1": 0.62,
-    "2": 1.25,
+    "1": 0.5,
+    "2": 1.0,
     "3": 0.5,
-    "4": 0.88,
+    "4": 0.75,
     "5": 0.88,
-    "6": 0.5,
-    "7": 1.38
+    "6": 0.88,
+    "7": 1.12
    },
-   "weekly_mean": 6.0,
+   "weekly_mean": 5.6,
    "tue": 2,
-   "thu": 2,
+   "thu": 3,
    "sat": 4,
-   "weekly_order": 8,
+   "weekly_order": 9,
    "sparse": true
   },
   {
    "item": "Chicken Caprese Sandwich",
    "category": "Sandwiches",
    "daily": {
-    "1": 1.0,
-    "2": 2.0,
+    "1": 0.88,
+    "2": 1.75,
     "3": 1.12,
-    "4": 0.62,
-    "5": 1.75,
+    "4": 0.75,
+    "5": 2.0,
     "6": 1.0,
-    "7": 2.0
+    "7": 2.12
    },
-   "weekly_mean": 9.5,
+   "weekly_mean": 9.6,
    "tue": 3,
    "thu": 4,
    "sat": 6,
@@ -97,34 +97,34 @@
    "item": "Egg & Spinach Sandwich",
    "category": "Sandwiches",
    "daily": {
-    "1": 1.38,
-    "2": 1.75,
-    "3": 0.88,
-    "4": 1.0,
-    "5": 1.25,
-    "6": 0.75,
-    "7": 1.75
+    "1": 1.12,
+    "2": 1.5,
+    "3": 0.75,
+    "4": 0.88,
+    "5": 1.12,
+    "6": 0.62,
+    "7": 1.62
    },
-   "weekly_mean": 8.8,
-   "tue": 3,
+   "weekly_mean": 7.6,
+   "tue": 2,
    "thu": 3,
-   "sat": 6,
-   "weekly_order": 12,
+   "sat": 5,
+   "weekly_order": 10,
    "sparse": true
   },
   {
    "item": "Tuna Ciabatta",
    "category": "Ciabattas",
    "daily": {
-    "1": 2.38,
+    "1": 2.12,
     "2": 1.88,
-    "3": 1.62,
-    "4": 2.5,
-    "5": 1.88,
+    "3": 1.75,
+    "4": 2.12,
+    "5": 2.0,
     "6": 1.38,
-    "7": 2.12
+    "7": 2.38
    },
-   "weekly_mean": 13.8,
+   "weekly_mean": 13.6,
    "tue": 5,
    "thu": 4,
    "sat": 8,
@@ -132,41 +132,41 @@
    "sparse": false
   },
   {
-   "item": "Chicken & Chorizo Ciabatta",
-   "category": "Ciabattas",
-   "daily": {
-    "1": 1.62,
-    "2": 1.0,
-    "3": 1.0,
-    "4": 0.88,
-    "5": 2.5,
-    "6": 0.88,
-    "7": 2.75
-   },
-   "weekly_mean": 10.6,
-   "tue": 3,
-   "thu": 4,
-   "sat": 7,
-   "weekly_order": 14,
-   "sparse": false
-  },
-  {
    "item": "Mozzarella & Tomato Ciabatta",
    "category": "Ciabattas",
    "daily": {
     "1": 1.5,
-    "2": 0.75,
-    "3": 1.5,
+    "2": 0.62,
+    "3": 1.75,
     "4": 1.25,
-    "5": 1.62,
-    "6": 1.0,
-    "7": 3.0
+    "5": 1.5,
+    "6": 1.12,
+    "7": 2.88
    },
    "weekly_mean": 10.6,
    "tue": 4,
    "thu": 4,
-   "sat": 7,
-   "weekly_order": 15,
+   "sat": 6,
+   "weekly_order": 14,
+   "sparse": false
+  },
+  {
+   "item": "Chicken & Chorizo Ciabatta",
+   "category": "Ciabattas",
+   "daily": {
+    "1": 1.25,
+    "2": 1.0,
+    "3": 0.75,
+    "4": 0.62,
+    "5": 2.38,
+    "6": 1.25,
+    "7": 2.88
+   },
+   "weekly_mean": 10.1,
+   "tue": 2,
+   "thu": 5,
+   "sat": 6,
+   "weekly_order": 13,
    "sparse": false
   },
   {
@@ -174,14 +174,14 @@
    "category": "Wraps",
    "daily": {
     "1": 1.0,
-    "2": 1.25,
+    "2": 1.0,
     "3": 0.62,
-    "4": 1.0,
+    "4": 0.75,
     "5": 1.5,
-    "6": 0.88,
-    "7": 1.75
+    "6": 0.75,
+    "7": 1.5
    },
-   "weekly_mean": 8.0,
+   "weekly_mean": 7.1,
    "tue": 2,
    "thu": 3,
    "sat": 5,
@@ -193,18 +193,18 @@
    "category": "Wraps",
    "daily": {
     "1": 0.5,
-    "2": 0.62,
+    "2": 0.5,
     "3": 0.5,
-    "4": 0.62,
-    "5": 0.75,
+    "4": 0.5,
+    "5": 0.88,
     "6": 1.0,
-    "7": 1.5
+    "7": 1.38
    },
-   "weekly_mean": 5.5,
+   "weekly_mean": 5.3,
    "tue": 2,
    "thu": 3,
-   "sat": 4,
-   "weekly_order": 9,
+   "sat": 3,
+   "weekly_order": 8,
    "sparse": true
   },
   {
@@ -212,14 +212,14 @@
    "category": "Salads",
    "daily": {
     "1": 0.25,
-    "2": 1.75,
-    "3": 0.38,
+    "2": 1.5,
+    "3": 0.25,
     "4": 0.38,
-    "5": 0.75,
-    "6": 0.5,
-    "7": 1.38
+    "5": 0.62,
+    "6": 0.38,
+    "7": 1.0
    },
-   "weekly_mean": 5.4,
+   "weekly_mean": 4.4,
    "tue": 1,
    "thu": 2,
    "sat": 4,
@@ -246,18 +246,37 @@
    "sparse": true
   },
   {
+   "item": "Chicken & Cheese BBQ Toastie",
+   "category": "Other",
+   "daily": {
+    "1": 0.25,
+    "2": 0.12,
+    "3": 0.25,
+    "4": 0.12,
+    "5": 0.75,
+    "6": 0.12,
+    "7": 0.62
+   },
+   "weekly_mean": 2.2,
+   "tue": 1,
+   "thu": 2,
+   "sat": 2,
+   "weekly_order": 5,
+   "sparse": true
+  },
+  {
    "item": "GF Vegan Wrapped Caramel Shortbread",
    "category": "Other",
    "daily": {
     "1": 0.25,
     "2": 0.0,
     "3": 0.12,
-    "4": 0.5,
+    "4": 0.25,
     "5": 0.25,
-    "6": 0.12,
-    "7": 1.0
+    "6": 0.0,
+    "7": 1.12
    },
-   "weekly_mean": 2.2,
+   "weekly_mean": 2.0,
    "tue": 1,
    "thu": 1,
    "sat": 2,
@@ -265,22 +284,22 @@
    "sparse": true
   },
   {
-   "item": "Chicken & Cheese BBQ Toastie",
+   "item": "Smoked Ham & Cheese Ciabatta",
    "category": "Other",
    "daily": {
     "1": 0.12,
-    "2": 0.0,
-    "3": 0.12,
-    "4": 0.0,
-    "5": 0.75,
-    "6": 0.0,
-    "7": 0.38
+    "2": 0.25,
+    "3": 0.0,
+    "4": 0.25,
+    "5": 0.25,
+    "6": 0.38,
+    "7": 0.5
    },
-   "weekly_mean": 1.4,
+   "weekly_mean": 1.8,
    "tue": 1,
    "thu": 1,
-   "sat": 1,
-   "weekly_order": 3,
+   "sat": 2,
+   "weekly_order": 4,
    "sparse": true
   },
   {
@@ -289,13 +308,13 @@
    "daily": {
     "1": 0.12,
     "2": 0.0,
-    "3": 0.12,
-    "4": 0.12,
-    "5": 0.25,
-    "6": 0.12,
+    "3": 0.25,
+    "4": 0.25,
+    "5": 0.38,
+    "6": 0.38,
     "7": 0.25
    },
-   "weekly_mean": 1.0,
+   "weekly_mean": 1.6,
    "tue": 1,
    "thu": 1,
    "sat": 1,
@@ -303,41 +322,22 @@
    "sparse": true
   },
   {
-   "item": "Smoked Ham & Cheese Ciabatta",
-   "category": "Other",
-   "daily": {
-    "1": 0.0,
-    "2": 0.0,
-    "3": 0.0,
-    "4": 0.0,
-    "5": 0.12,
-    "6": 0.25,
-    "7": 0.38
-   },
-   "weekly_mean": 0.8,
-   "tue": 0,
-   "thu": 1,
-   "sat": 1,
-   "weekly_order": 2,
-   "sparse": true
-  },
-  {
    "item": "Smoked Ham Sandwich",
    "category": "Other",
    "daily": {
-    "1": 0.0,
+    "1": 0.12,
     "2": 0.0,
-    "3": 0.12,
-    "4": 0.0,
-    "5": 0.0,
-    "6": 0.0,
+    "3": 0.38,
+    "4": 0.12,
+    "5": 0.12,
+    "6": 0.12,
     "7": 0.25
    },
-   "weekly_mean": 0.4,
+   "weekly_mean": 1.1,
    "tue": 1,
-   "thu": 0,
+   "thu": 1,
    "sat": 1,
-   "weekly_order": 2,
+   "weekly_order": 3,
    "sparse": true
   },
   {

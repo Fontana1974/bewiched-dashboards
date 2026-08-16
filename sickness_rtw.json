@@ -1,7 +1,31 @@
 {
- "generated": "2026-08-09",
+ "generated": "2026-08-16",
  "window_days": 28,
  "outstanding": [
+  {
+   "name": "Rui Yan",
+   "store": "Leamington Parade",
+   "date": "2026-08-14",
+   "reason": "Cold,"
+  },
+  {
+   "name": "Chloe  Walker",
+   "store": "Rushden Lakes",
+   "date": "2026-08-14",
+   "reason": "Nausea/ Sickness"
+  },
+  {
+   "name": "Melika Barzegar",
+   "store": "Leamington Parade",
+   "date": "2026-08-13",
+   "reason": "I haven’t been feeling well I’ve had dizziness, nausea and stomach cramps since yesterday."
+  },
+  {
+   "name": "Imogen  Harrison",
+   "store": "Rushden Lakes",
+   "date": "2026-08-12",
+   "reason": "Sickness and in need of rest"
+  },
   {
    "name": "Katie Summer Wood",
    "store": "Lower Heathcote",
@@ -97,21 +121,9 @@
    "store": "Rugby",
    "date": "2026-07-19",
    "reason": "Zoe had floaters in her eye on the way to work, she had googled it on her way and it said "
-  },
-  {
-   "name": "Emily  Mayhew",
-   "store": "Peterborough Fletton Quays",
-   "date": "2026-07-17",
-   "reason": "NaEmily’s daughter was unwell so Emily needed to take care of her"
-  },
-  {
-   "name": "Katie Summer Wood",
-   "store": "Lower Heathcote",
-   "date": "2026-07-14",
-   "reason": "Not feeling well."
   }
  ],
- "outstanding_n": 18,
+ "outstanding_n": 20,
  "per_store": [
   {
    "store": "Peterborough Fletton Quays",
@@ -121,6 +133,15 @@
    "rtw": 10,
    "sick": 25,
    "rtw_rate": 40
+  },
+  {
+   "store": "Rushden Lakes",
+   "sickfs": 19,
+   "late": 21,
+   "rep_pct": 100,
+   "rtw": 8,
+   "sick": 19,
+   "rtw_rate": 42
   },
   {
    "store": "Glenvale Drive Thru",
@@ -141,40 +162,31 @@
    "rtw_rate": 53
   },
   {
-   "store": "Rushden Lakes",
-   "sickfs": 18,
-   "late": 21,
-   "rep_pct": 100,
-   "rtw": 8,
-   "sick": 18,
-   "rtw_rate": 44
+   "store": "Leamington Parade",
+   "sickfs": 17,
+   "late": 12,
+   "rep_pct": 97,
+   "rtw": 10,
+   "sick": 17,
+   "rtw_rate": 59
   },
   {
    "store": "Lower Heathcote",
    "sickfs": 14,
-   "late": 8,
+   "late": 9,
    "rep_pct": 100,
    "rtw": 10,
    "sick": 16,
    "rtw_rate": 62
   },
   {
-   "store": "Leamington Parade",
-   "sickfs": 15,
-   "late": 12,
-   "rep_pct": 96,
-   "rtw": 9,
-   "sick": 15,
-   "rtw_rate": 60
-  },
-  {
    "store": "Rugby",
    "sickfs": 10,
    "late": 5,
    "rep_pct": 90,
-   "rtw": 9,
+   "rtw": 10,
    "sick": 15,
-   "rtw_rate": 60
+   "rtw_rate": 67
   },
   {
    "store": "Kettering",
@@ -199,9 +211,9 @@
    "sickfs": 6,
    "late": 9,
    "rep_pct": 88,
-   "rtw": 6,
+   "rtw": 7,
    "sick": 8,
-   "rtw_rate": 75
+   "rtw_rate": 88
   },
   {
    "store": "Corby",
@@ -224,8 +236,8 @@
   {
    "store": "Olney",
    "sickfs": 4,
-   "late": 8,
-   "rep_pct": 92,
+   "late": 9,
+   "rep_pct": 93,
    "rtw": 3,
    "sick": 5,
    "rtw_rate": 60

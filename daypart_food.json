@@ -1,5 +1,5 @@
 {
- "_window": "4 weeks to 9 Aug 2026 vs same 4 weeks 2025",
+ "_window": "4 weeks to 16 Aug 2026 vs same 4 weeks 2025",
  "hours": {
   "Morning": "5am-11am",
   "Lunch": "11am-2pm",
@@ -12,31 +12,31 @@
    "top": [
     [
      "Breakfast Meal Deal",
-     6232.0,
-     56.5,
-     2250
+     6088.0,
+     55.0,
+     2161
     ],
     [
      "Large Breakfast Pastry Meal Deal",
-     3126.0,
-     132.6,
-     1782
+     3374.0,
+     160.9,
+     2081
     ],
     [
-     "Ham & Cheese Croque",
-     3547.0,
-     48.6,
-     1160
+     "Cherry Bakewell Slice Traybake",
+     1633.0,
+     4436.1,
+     1597
     ]
    ],
    "new": [
     [
      "Breakfast Bagel",
-     1952.0
+     1732.0
     ],
     [
-     "Cherry Bakewell Slice Traybake",
-     1782.0
+     "Sausage Roll Meal Deal",
+     942.0
     ]
    ]
   },
@@ -45,31 +45,31 @@
    "top": [
     [
      "Cherry Bakewell Slice Traybake",
-     3184.0,
-     35277.8,
-     3175
+     3352.0,
+     4090.0,
+     3272
     ],
     [
      "Chicken & Chorizo Ciabatta",
-     3509.0,
-     33.1,
-     873
+     3418.0,
+     29.4,
+     776
     ],
     [
-     "Tuna Ciabatta",
-     4220.0,
-     21.1,
-     735
+     "Cheese & Onion Croque",
+     4958.0,
+     15.7,
+     673
     ]
    ],
    "new": [
     [
      "Breakfast Bagel",
-     1698.0
+     1772.0
     ],
     [
      "Chicken Caprese Sandwich",
-     1401.0
+     1372.0
     ]
    ]
   },
@@ -78,31 +78,31 @@
    "top": [
     [
      "Cherry Bakewell Slice Traybake",
-     2402.0,
-     79966.7,
-     2399
+     2271.0,
+     4731.9,
+     2224
     ],
     [
      "Tuna Ciabatta",
-     1381.0,
-     32.7,
-     340
+     1359.0,
+     28.0,
+     297
     ],
     [
      "Chicken & Chorizo Ciabatta",
-     1006.0,
-     24.7,
-     199
+     998.0,
+     27.3,
+     214
     ]
    ],
    "new": [
     [
-     "Chicken Caprese Sandwich",
-     450.0
+     "Breakfast Bagel",
+     476.0
     ],
     [
-     "Breakfast Bagel",
-     445.0
+     "Chicken Caprese Sandwich",
+     420.0
     ]
    ]
   },
@@ -110,30 +110,25 @@
    "hours": "5pm+",
    "top": [
     [
-     "Luxury Millionaires Triangle Traybake",
-     484.0,
-     15.2,
-     64
+     "Cherry Bakewell Slice Traybake",
+     348.0,
+     11500.0,
+     345
     ],
     [
-     "Ham & Mozzarella Croissant",
-     140.0,
-     81.8,
-     63
+     "Tuna Ciabatta",
+     200.0,
+     31.6,
+     48
     ],
     [
-     "Lemon Muffin",
-     126.0,
-     80.0,
-     56
+     "Ham & Cheese Croque",
+     304.0,
+     16.9,
+     44
     ]
    ],
-   "new": [
-    [
-     "Cherry Bakewell Slice Traybake",
-     378.0
-    ]
-   ]
+   "new": []
   }
  }
 }
