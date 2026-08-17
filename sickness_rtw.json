@@ -9,12 +9,6 @@
    "reason": "Cold,"
   },
   {
-   "name": "Chloe  Walker",
-   "store": "Rushden Lakes",
-   "date": "2026-08-14",
-   "reason": "Nausea/ Sickness"
-  },
-  {
    "name": "Melika Barzegar",
    "store": "Leamington Parade",
    "date": "2026-08-13",
@@ -123,7 +117,7 @@
    "reason": "Zoe had floaters in her eye on the way to work, she had googled it on her way and it said "
   }
  ],
- "outstanding_n": 20,
+ "outstanding_n": 19,
  "per_store": [
   {
    "store": "Peterborough Fletton Quays",
@@ -139,9 +133,9 @@
    "sickfs": 19,
    "late": 21,
    "rep_pct": 100,
-   "rtw": 9,
+   "rtw": 10,
    "sick": 19,
-   "rtw_rate": 47
+   "rtw_rate": 53
   },
   {
    "store": "Glenvale Drive Thru",

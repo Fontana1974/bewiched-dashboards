@@ -229,8 +229,8 @@
     "avg": 4.33
    },
    "qtd": {
-    "n": 7,
-    "avg": 3.71
+    "n": 8,
+    "avg": 3.88
    },
    "prevq": {
     "n": 15,
@@ -327,8 +327,8 @@
     "avg": 4.92
    },
    "qtd": {
-    "n": 86,
-    "avg": 4.84
+    "n": 89,
+    "avg": 4.83
    },
    "prevq": {
     "n": 141,
@@ -355,8 +355,8 @@
     "avg": 3.5
    },
    "qtd": {
-    "n": 12,
-    "avg": 4.25
+    "n": 13,
+    "avg": 4.31
    },
    "prevq": {
     "n": 20,
@@ -369,8 +369,8 @@
     "avg": 4.0
    },
    "qtd": {
-    "n": 20,
-    "avg": 4.45
+    "n": 21,
+    "avg": 4.48
    },
    "prevq": {
     "n": 29,
@@ -383,8 +383,8 @@
     "avg": 3.8
    },
    "qtd": {
-    "n": 15,
-    "avg": 3.6
+    "n": 16,
+    "avg": 3.69
    },
    "prevq": {
     "n": 44,
@@ -397,7 +397,7 @@
     "avg": 5.0
    },
    "qtd": {
-    "n": 24,
+    "n": 25,
     "avg": 4.96
    },
    "prevq": {
@@ -986,6 +986,70 @@
  },
  "comments": [
   {
+   "store": "Rugby",
+   "date": "2026-08-17",
+   "rating": 5.0,
+   "text": "Busy, productive, fun",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Leamington Parade",
+   "date": "2026-08-17",
+   "rating": 5.0,
+   "text": "Great teamwork when busy",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Peterborough Fletton Quays",
+   "date": "2026-08-17",
+   "rating": 5.0,
+   "text": "Decently busy, nice interactions with customers",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Market Harborough",
+   "date": "2026-08-17",
+   "rating": 5.0,
+   "text": "Pride, hard-work, high standard",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Leamington Parade",
+   "date": "2026-08-17",
+   "rating": 5.0,
+   "text": "Great and busy, yupii",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Northampton Drive-Thru",
+   "date": "2026-08-17",
+   "rating": 5.0,
+   "text": "Great Monday vibes",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Northampton",
+   "date": "2026-08-17",
+   "rating": 5.0,
+   "text": "Enjoyed my shift",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Leamington Parade",
+   "date": "2026-08-17",
+   "rating": 4.0,
+   "text": "Busy, productive",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
    "store": "Leamington Parade",
    "date": "2026-08-16",
    "rating": 5.0,
@@ -1111,70 +1175,6 @@
    "rating": 5.0,
    "text": "Coached believed in learned",
    "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Leamington Parade",
-   "date": "2026-08-14",
-   "rating": 5.0,
-   "text": "Everyone help each another, cover shift etc",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Northampton",
-   "date": "2026-08-14",
-   "rating": 5.0,
-   "text": "Fabulous shift,we worked hard but had some fun and laughs too",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Peterborough Bridge Street",
-   "date": "2026-08-14",
-   "rating": 4.0,
-   "text": "chaotic and clumsy",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Corby",
-   "date": "2026-08-14",
-   "rating": 4.0,
-   "text": "Good shift",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Billing Drive Thru",
-   "date": "2026-08-14",
-   "rating": 4.0,
-   "text": "Funny, supportive, encouraging",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Peterborough Fletton Quays",
-   "date": "2026-08-14",
-   "rating": 4.0,
-   "text": "Today’s shift was almost perfect",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Rothwell",
-   "date": "2026-08-13",
-   "rating": 5.0,
-   "text": "Productive fun",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Peterborough Bridge Street",
-   "date": "2026-08-13",
-   "rating": 5.0,
-   "text": "Educational, Enjoyable Teamwork",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
    "sentiment": "Positive"
   }
  ]

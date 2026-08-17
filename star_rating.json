@@ -185,7 +185,7 @@
       },
       {
        "label": "Wastage %",
-       "value": "1.4%",
+       "value": "1.5%",
        "star": 4.9,
        "on_target": true
       }
@@ -193,13 +193,13 @@
     },
     {
      "name": "People & Customer",
-     "star": 4.5,
+     "star": 4.4,
      "target": 4.6,
      "on_target": false,
      "metrics": [
       {
        "label": "RMS health /5",
-       "value": "4.84",
+       "value": "4.83",
        "star": 5.0,
        "on_target": true
       },

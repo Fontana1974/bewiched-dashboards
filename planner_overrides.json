@@ -1,50 +1,58 @@
 {
  "Rushden Lakes": {
+  "worked_lastwk": 339.0,
+  "holiday_lastwk": 0.0,
   "used_lastwk": 339.0,
   "actual_cph_lastwk": 68.0,
   "cph": 63.0,
   "fc": [
    20000,
    25000,
-   25000
+   20000
   ],
   "hrs": [
    309.0,
    397.0,
-   397.0
+   317.0
   ]
  },
  "Kettering": {
+  "worked_lastwk": 164.0,
+  "holiday_lastwk": 0.0,
   "used_lastwk": 164.0,
   "actual_cph_lastwk": 63.5,
   "cph": 59.0,
   "fc": [
    9800,
    9800,
-   9800
+   9500
   ],
   "hrs": [
    168.4,
    166.0,
-   166.0
+   161.0
   ]
  },
  "Peterborough Fletton Quays": {
+  "worked_lastwk": 165.0,
+  "holiday_lastwk": 0.0,
   "used_lastwk": 165.0,
   "actual_cph_lastwk": 49.3,
   "cph": 52.0,
   "fc": [
    8800,
    8400,
-   8600
+   8450
   ],
   "hrs": [
    169.0,
    162.0,
-   165.0
+   163.0
   ]
  },
  "Corby": {
+  "worked_lastwk": 159.0,
+  "holiday_lastwk": 0.0,
   "used_lastwk": 159.0,
   "actual_cph_lastwk": 53.3,
   "cph": 48.0,
@@ -60,6 +68,8 @@
   ]
  },
  "Olney": {
+  "worked_lastwk": 125.0,
+  "holiday_lastwk": 0.0,
   "used_lastwk": 125.0,
   "actual_cph_lastwk": 45.3,
   "cph": 49.0,
@@ -75,66 +85,76 @@
   ]
  },
  "Rothwell": {
+  "worked_lastwk": 115.0,
+  "holiday_lastwk": 0.0,
   "used_lastwk": 115.0,
   "actual_cph_lastwk": 49.9,
   "cph": 48.0,
   "fc": [
    5700,
    6400,
-   6350
+   5900
   ],
   "hrs": [
    120.0,
    133.0,
-   132.0
+   123.0
   ]
  },
  "Peterborough Bridge Street": {
+  "worked_lastwk": 117.0,
+  "holiday_lastwk": 0.0,
   "used_lastwk": 117.0,
   "actual_cph_lastwk": 48.6,
   "cph": 48.0,
   "fc": [
    5000,
    5300,
-   5500
+   5100
   ],
   "hrs": [
    110.0,
    110.0,
-   115.0
+   106.0
   ]
  },
  "Burton Latimer": {
+  "worked_lastwk": 117.0,
+  "holiday_lastwk": 0.0,
   "used_lastwk": 117.0,
   "actual_cph_lastwk": 43.4,
   "cph": 40.0,
   "fc": [
    5450,
    5400,
-   5500
+   5200
   ],
   "hrs": [
    121.2,
    124.0,
-   138.0
+   130.0
   ]
  },
  "Higham Ferrers": {
+  "worked_lastwk": 103.0,
+  "holiday_lastwk": 0.0,
   "used_lastwk": 103.0,
   "actual_cph_lastwk": 42.5,
   "cph": 40.0,
   "fc": [
    5100,
    5200,
-   5200
+   5000
   ],
   "hrs": [
    128.0,
    113.0,
-   130.0
+   125.0
   ]
  },
  "Northampton Drive-Thru": {
+  "worked_lastwk": 372.0,
+  "holiday_lastwk": 0.0,
   "used_lastwk": 372.0,
   "actual_cph_lastwk": 69.9,
   "cph": 70.0,
@@ -150,6 +170,8 @@
   ]
  },
  "Billing Drive Thru": {
+  "worked_lastwk": 264.0,
+  "holiday_lastwk": 0.0,
   "used_lastwk": 264.0,
   "actual_cph_lastwk": 52.8,
   "cph": 56.0,
@@ -165,6 +187,8 @@
   ]
  },
  "Market Harborough": {
+  "worked_lastwk": 180.0,
+  "holiday_lastwk": 0.0,
   "used_lastwk": 180.0,
   "actual_cph_lastwk": 63.8,
   "cph": 58.0,
@@ -180,6 +204,8 @@
   ]
  },
  "Northampton": {
+  "worked_lastwk": 168.0,
+  "holiday_lastwk": 0.0,
   "used_lastwk": 168.0,
   "actual_cph_lastwk": 61.9,
   "cph": 60.0,
@@ -195,6 +221,8 @@
   ]
  },
  "Leamington Parade": {
+  "worked_lastwk": 160.0,
+  "holiday_lastwk": 0.0,
   "used_lastwk": 160.0,
   "actual_cph_lastwk": 54.4,
   "cph": 57.0,
@@ -210,6 +238,8 @@
   ]
  },
  "Rugby": {
+  "worked_lastwk": 150.0,
+  "holiday_lastwk": 0.0,
   "used_lastwk": 150.0,
   "actual_cph_lastwk": 51.1,
   "cph": 55.0,
@@ -225,6 +255,8 @@
   ]
  },
  "Wellingborough Train Station": {
+  "worked_lastwk": 102.0,
+  "holiday_lastwk": 0.0,
   "used_lastwk": 102.0,
   "actual_cph_lastwk": 52.8,
   "cph": 55.0,
@@ -240,6 +272,8 @@
   ]
  },
  "Wellingborough": {
+  "worked_lastwk": 133.0,
+  "holiday_lastwk": 0.0,
   "used_lastwk": 133.0,
   "actual_cph_lastwk": 53.1,
   "cph": 53.0,
@@ -255,6 +289,8 @@
   ]
  },
  "Lower Heathcote": {
+  "worked_lastwk": 110.0,
+  "holiday_lastwk": 0.0,
   "used_lastwk": 110.0,
   "actual_cph_lastwk": 43.3,
   "cph": 40.0,
@@ -270,6 +306,8 @@
   ]
  },
  "Glenvale Drive Thru": {
+  "worked_lastwk": 290.0,
+  "holiday_lastwk": 0.0,
   "used_lastwk": 290.0,
   "actual_cph_lastwk": 66.1,
   "cph": 63.0,
@@ -285,6 +323,8 @@
   ]
  },
  "HOE Balsall Common": {
+  "worked_lastwk": 150.0,
+  "holiday_lastwk": 0.0,
   "used_lastwk": 150.0,
   "actual_cph_lastwk": 44.6,
   "cph": 48.0,
@@ -300,6 +340,8 @@
   ]
  },
  "Attleborough": {
+  "worked_lastwk": 158.0,
+  "holiday_lastwk": 0.0,
   "used_lastwk": 158.0,
   "actual_cph_lastwk": 39.4,
   "cph": 49.0,

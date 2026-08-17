@@ -40,8 +40,8 @@
    "r_rag": "amber"
   },
   "Billing Drive Thru": {
-   "g_n": 54,
-   "g_avg": 4.981,
+   "g_n": 56,
+   "g_avg": 4.982,
    "g_target": 49,
    "g_health": 4.99,
    "g_rag": "green",
@@ -117,14 +117,14 @@
    "r_rag": "red"
   },
   "Leamington Parade": {
-   "g_n": 61,
-   "g_avg": 4.984,
+   "g_n": 66,
+   "g_avg": 4.985,
    "g_target": 15,
    "g_health": 4.99,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 86,
-   "r_avg": 4.84,
+   "r_n": 89,
+   "r_avg": 4.83,
    "r_rag": "green"
   },
   "Lower Heathcote": {
@@ -145,8 +145,8 @@
    "g_health": 4.18,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 12,
-   "r_avg": 4.25,
+   "r_n": 13,
+   "r_avg": 4.31,
    "r_rag": "amber"
   },
   "Northampton": {
@@ -156,8 +156,8 @@
    "g_health": 3.0,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 20,
-   "r_avg": 4.45,
+   "r_n": 21,
+   "r_avg": 4.48,
    "r_rag": "amber"
   },
   "Northampton Drive-Thru": {
@@ -167,8 +167,8 @@
    "g_health": 2.57,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 15,
-   "r_avg": 3.6,
+   "r_n": 16,
+   "r_avg": 3.69,
    "r_rag": "red"
   },
   "Olney": {
@@ -200,8 +200,8 @@
    "g_health": 4.8,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 7,
-   "r_avg": 3.71,
+   "r_n": 8,
+   "r_avg": 3.88,
    "r_rag": "red"
   },
   "Rothwell": {
@@ -222,7 +222,7 @@
    "g_health": 3.6,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 24,
+   "r_n": 25,
    "r_avg": 4.96,
    "r_rag": "green"
   },
