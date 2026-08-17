@@ -12,7 +12,7 @@ Master) and REMOVES it, leaving the tabs clean.
 Prints SAFE diagnostics only (tab names, counts, booleans — no '{...}' / '!' refs) so the
 GitHub Actions log stays readable through the content filter.
 """
-import datetime, time
+import os, datetime, time
 from smt_diary import _svc, build_element_template, parse_tab_date, col_letter, SMT_ID
 
 TARGET_MONDAYS = [datetime.date(2026, 8, 3),  datetime.date(2026, 8, 10),
