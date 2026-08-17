@@ -749,17 +749,27 @@ def pull_f1():
     # SEASON-TO-DATE constructors: sum Championship Points across EVERY audited race this season
     # (not reset each quarter), by area coach. season_from = earliest audited race in the data.
     cons_s = {}; cons_s_n = {}; season_from = None
+    drivers_season = []   # per-store season championship points — the DRIVERS that roll up into each constructor
     for st, rows in racer.items():
-        spts = sum(fnum(r[29]) for dt, r in rows if fnum(r[18]) > 0)
+        srows = [(dt, r) for dt, r in rows if fnum(r[18]) > 0]   # audited races only, this season
+        spts = round(sum(fnum(r[29]) for dt, r in srows))         # store's season championship points
         coach = COACH.get(st, "")
-        cons_s[coach] = cons_s.get(coach, 0) + round(spts)
+        cons_s[coach] = cons_s.get(coach, 0) + spts               # constructor total = Sum of its drivers' points
         cons_s_n[coach] = cons_s_n.get(coach, 0) + 1
-        for dt, r in rows:
-            if fnum(r[18]) > 0:
-                season_from = dt if season_from is None else min(season_from, dt)
+        first_race = min((dt for dt, r in srows), default=None)
+        drivers_season.append([st, coach, spts, len(srows),
+                               first_race.isoformat() if first_race else None])
+        for dt, r in srows:
+            season_from = dt if season_from is None else min(season_from, dt)
+    drivers_season.sort(key=lambda x: -x[2])
     cons_season = [[c, tot, cons_s_n[c], round(tot / cons_s_n[c], 1) if cons_s_n[c] else 0]
                    for c, tot in cons_s.items()]
     cons_season.sort(key=lambda x: -x[3])
+    # reconciliation: sum of each constructor's drivers' points must equal the constructor total
+    _drv_by_coach = {}
+    for _st, _cc, _pts, _n, _fr in drivers_season:
+        _drv_by_coach[_cc] = _drv_by_coach.get(_cc, 0) + _pts
+    _recon_ok = all(abs(_drv_by_coach.get(_c, 0) - _tot) < 1 for _c, _tot in cons_s.items())
     # ---- Q(this) vs Q(prev) QoQ: "Working the Queue" score (col I / idx 8) + Greet/Goodbye (Hello idx5 +
     #      Goodbye idx6). These are SCORED criteria, unaffected by the 29-Jun queue-TIMING cutover, so the
     #      quarter-over-quarter comparison is straight like-for-like. Company rollup + per-coach rollups.
@@ -792,7 +802,8 @@ def pull_f1():
                 "n_q3": acc["q3"]["qw"][1], "n_q2": acc["q2"]["qw"][1]}
     qn3 = (QSTART.month - 1) // 3 + 1; qn2 = (PQSTART.month - 1) // 3 + 1
     a["champ"] = {"drivers": drivers, "cons": cons_rows,
-        "cons_season": cons_season, "season_from": season_from.isoformat() if season_from else None,
+        "cons_season": cons_season, "drivers_season": drivers_season,
+        "season_from": season_from.isoformat() if season_from else None,
         "f1_qoq": _qoq_out(comp_acc),
         "f1_qoq_coach": {c: _qoq_out(ac) for c, ac in coach_acc.items()},
         "f1_qoq_labels": {"q3": "Q%d" % qn3, "q2": "Q%d" % qn2,
@@ -803,6 +814,7 @@ def pull_f1():
         w = csv.writer(f); w.writerow(["Date", "Store Name", "Queue average", "Area Coach"])
         w.writerows(csv_rows)
     print("[pull] f1: %d stores, newest race %s (cur_end %s)" % (len(fd), newest, CUR_END))
+    print("[pull] f1 drivers_season: %d drivers, reconciles_to_constructors=%s" % (len(drivers_season), _recon_ok))
     return newest
 
 

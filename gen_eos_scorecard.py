@@ -1115,6 +1115,48 @@ def f1_ops_html():
             '<b>%s</b> leads the constructors&rsquo; title on %s pts/store.</div></div>'
             % (esc(cons_s[0][0]), cons_s[0][3]))
 
+    # ---- Drivers' Championship — SEASON TO DATE (stores as drivers; reconciles to constructors) ----
+    drv_s = list(champ.get('drivers_season', []) or [])
+    season_drv_block = ""
+    if drv_s:
+        _sf2 = champ.get('season_from')
+        try:
+            _sflab2 = dt.date.fromisoformat(_sf2).strftime('%-d %b %Y') if _sf2 else ''
+        except Exception:
+            _sflab2 = _sf2 or ''
+        maxpts = max((r[2] for r in drv_s), default=0) or 1
+        leadpts = drv_s[0][2]
+        maxraces = max((r[3] for r in drv_s), default=0) or 0
+        MED2 = ["#e7b35a", "#b8b8be", "#c8925a"]
+        COACHCHIP2 = {"Jon": "t-ok", "Rich": "t-amber", "Ian": "t-amber"}
+        rowsd = ""; any_partial = False
+        for i, r in enumerate(drv_s):
+            stn, cc, pts, nraces = r[0], r[1], r[2], (r[3] if len(r) > 3 else None)
+            w = round(100 * pts / maxpts)
+            barcol = MED2[i] if i < 3 else "var(--brown)"
+            gap = "leader" if i == 0 else ("&minus;%d to leader" % (leadpts - pts))
+            partial = (nraces is not None and maxraces and nraces < 0.6 * maxraces)
+            if partial: any_partial = True
+            racetxt = ("%s races" % nraces) if nraces is not None else ""
+            ptag = ' <span class="tag t-na">partial season</span>' if partial else ''
+            chip = '<span class="tag %s">%s</span>' % (COACHCHIP2.get(cc, "t-na"), esc(cc))
+            rowsd += ('<div class="crow"><div class="crank">%d</div><div class="cbody">'
+                      '<div class="cname">%s &nbsp;%s%s</div>'
+                      '<div class="cbar"><i style="width:%d%%;background:%s"></i></div>'
+                      '<div class="csub">%s pts &middot; %s &middot; %s</div></div>'
+                      '<div class="cval">%s<small>pts</small></div></div>'
+                      % (i + 1, esc(SH(stn)), chip, ptag, w, barcol, pts, racetxt, gap, pts))
+        note_extra = (' Stores flagged <b>partial season</b> joined the grid mid-season (fewer audited races) &mdash; ranked on points earned, not pro-rated.'
+                      if any_partial else '')
+        season_drv_block = (
+            '<div class="f1sub">&#127942; Drivers&rsquo; Championship <span class="mini">&middot; SEASON TO DATE &middot; championship points by store'
+            + ((' &middot; since %s' % esc(_sflab2)) if _sflab2 else '') + '</span></div>'
+            '<div class="f1panel"><div class="f1ph">Stores as drivers &mdash; season-to-date standings <span class="mini">&middot; ranked by total championship points</span></div>'
+            + rowsd +
+            '<div class="mini" style="margin-top:9px"><b>%s</b> leads the drivers&rsquo; title on %s pts. '
+            'Each driver&rsquo;s points roll up into their Area Coach&rsquo;s constructor total above (the two reconcile exactly).%s</div></div>'
+            % (esc(SH(drv_s[0][0])), drv_s[0][2], note_extra))
+
     # ---- FULL RACE BREAKDOWN: every scored section, per store + estate (visualised) ----
     _rsec = F1D.get("_race_sections") or {}
     breakdown_block = ""
@@ -1234,7 +1276,7 @@ def f1_ops_html():
     hint = ('<div class="md-note" style="margin-bottom:12px">Use the <b>period toggle</b> above '
             '(Weekly / Quarterly) to switch between <b>this week&rsquo;s race</b> and the '
             '<b>quarter-to-date</b> championship &amp; averages.</div>')
-    always_on = season_cons_block
+    always_on = season_cons_block + season_drv_block
     weekly_group = ('<div class="ps-basis" data-basis="weekly" style="display:block">'
                     + cards + finish_block + race_block + quali_block + focus + '</div>')
     qtd_group = ('<div class="ps-basis" data-basis="qtd" style="display:none">'
