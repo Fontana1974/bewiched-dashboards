@@ -109,7 +109,7 @@ document.getElementById("bwgate_in").focus();
 <div class="brandbar"><div class="inner">
   <div class="logo"><div><div class="word">Be<span>wiched</span></div><div class="eyebrow">Area Performance</div></div></div>
   <div class="spacer"></div>
-  <div class="ctx">Area: <b>Ian</b> · 3 stores<br>4-week window: <b>11 May → 7 Jun 2026</b> · YoY vs 2025<br><span style="color:#e7b35a;font-weight:700">🔄 Refreshed 17 Aug 2026, 05:33 · auto Mon 9am</span></div>
+  <div class="ctx">Area: <b>Ian</b> · 3 stores<br>4-week window: <b>11 May → 7 Jun 2026</b> · YoY vs 2025<br><span style="color:#e7b35a;font-weight:700">🔄 Refreshed 17 Aug 2026, 06:36 · auto Mon 9am</span></div>
 </div></div>
 <div class="wrap">
   <header class="page">
@@ -216,7 +216,7 @@ document.getElementById("bwgate_in").focus();
     <div class="section-title">Last week (W/C 10 Aug) — actual vs forecast</div>
     <div class="panel"><div style="overflow-x:auto">
       <table class="scorecard"><thead><tr><th>Store</th><th>Forecast £</th><th>Actual £</th><th>Sales vs FC</th><th>Sched hrs</th><th>Used hrs</th><th>Hrs vs sched</th><th>Target CPH</th><th>Actual CPH</th></tr></thead>
-      <tbody><tr><td style="font-weight:700">Glenvale Drive Thru</td><td>£18,450</td><td style="font-weight:700">£19,161</td><td><span class="tag t-ok">+4%</span></td><td>294</td><td>—</td><td><span class="tag t-amber">n/a</span></td><td>£63.0</td><td><span class="tag t-red">n/a</span></td></tr><tr><td style="font-weight:700">HOE Balsall Common</td><td>£6,680</td><td style="font-weight:700">£6,691</td><td><span class="tag t-ok">+0%</span></td><td>152</td><td>—</td><td><span class="tag t-amber">n/a</span></td><td>£48.0</td><td><span class="tag t-red">n/a</span></td></tr><tr><td style="font-weight:700">Attleborough</td><td>£164</td><td style="font-weight:700">£6,225</td><td><span class="tag t-ok">+3696%</span></td><td>160</td><td>—</td><td><span class="tag t-amber">n/a</span></td><td>£49.0</td><td><span class="tag t-red">n/a</span></td></tr><tr style="font-weight:700;background:#EFE6DC"><td>TOTAL</td><td>£25,294</td><td>£32,077</td><td>+27%</td><td>606</td><td>—</td><td>—</td><td></td><td>—</td></tr></tbody></table></div>
+      <tbody><tr><td style="font-weight:700">Glenvale Drive Thru</td><td>£18,450</td><td style="font-weight:700">£19,161</td><td><span class="tag t-ok">+4%</span></td><td>294</td><td>290</td><td><span class="tag t-ok">-4</span></td><td>£63.0</td><td><span class="tag t-ok">£66.07</span></td></tr><tr><td style="font-weight:700">HOE Balsall Common</td><td>£6,680</td><td style="font-weight:700">£6,691</td><td><span class="tag t-ok">+0%</span></td><td>152</td><td>150</td><td><span class="tag t-ok">-2</span></td><td>£48.0</td><td><span class="tag t-red">£44.61</span></td></tr><tr><td style="font-weight:700">Attleborough</td><td>£164</td><td style="font-weight:700">£6,225</td><td><span class="tag t-ok">+3696%</span></td><td>160</td><td>158</td><td><span class="tag t-ok">-2</span></td><td>£49.0</td><td><span class="tag t-red">£39.40</span></td></tr><tr style="font-weight:700;background:#EFE6DC"><td>TOTAL</td><td>£25,294</td><td>£32,077</td><td>+27%</td><td>606</td><td>598</td><td>-8</td><td></td><td>£53.64</td></tr></tbody></table></div>
       <div class="note">Forecast = the week&#39;s committed forecast (Col Report Master Populator); actual sales = live BigQuery; actual CPH = actual sales &divide; hours used. Green sales = beat forecast; green CPH = met or beat target; amber/red hours = ran over the schedule.</div>
     </div>
     <div class="section-title">3-week sales &amp; hours forecast</div>
@@ -431,7 +431,7 @@ function renderWaste(store){
     b.classList.add("active");document.getElementById("tab-"+b.dataset.tab).classList.add("active");
     requestAnimationFrame(()=>{(window.CHARTS||[]).forEach(c=>{try{c.resize();}catch(e){}});});}));})();
 function goTab(t){var b=document.querySelector('.tab-btn[data-tab="'+t+'"]');if(b){b.click();window.scrollTo({top:0,behavior:"smooth"});}}
-document.getElementById("foot").innerHTML="Data refreshed 17 Aug 2026, 05:33 · auto-refreshes every Monday 9am. Sources: live BigQuery POS, polling sheet, F1 audit, the visit rota, HRP &amp; Google reviews.";
+document.getElementById("foot").innerHTML="Data refreshed 17 Aug 2026, 06:36 · auto-refreshes every Monday 9am. Sources: live BigQuery POS, polling sheet, F1 audit, the visit rota, HRP &amp; Google reviews.";
 (function(){var q=document.getElementById("qsel");if(!q)return;function sw(v){document.querySelectorAll("[data-qperiod]").forEach(function(d){d.style.display=(d.getAttribute("data-qperiod")===v)?"block":"none";});}q.addEventListener("change",function(){sw(q.value);});sw(q.value);})();
 </script>
 </body>
