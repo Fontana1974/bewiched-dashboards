@@ -770,6 +770,26 @@ def pull_f1():
     for _st, _cc, _pts, _n, _fr in drivers_season:
         _drv_by_coach[_cc] = _drv_by_coach.get(_cc, 0) + _pts
     _recon_ok = all(abs(_drv_by_coach.get(_c, 0) - _tot) < 1 for _c, _tot in cons_s.items())
+    # ---- QUARTER-TO-DATE constructors + drivers (Option A): same points system, current calendar
+    # quarter only (dt >= QSTART = 1st of this quarter). Both reconcile: constructor = Sum of drivers. ----
+    cons_q = {}; cons_q_n = {}; drivers_qtd = []
+    for st, rows in racer.items():
+        qrows = [(dt, r) for dt, r in rows if fnum(r[18]) > 0 and dt >= QSTART]   # audited races THIS quarter
+        qpts = round(sum(fnum(r[29]) for dt, r in qrows))
+        coach = COACH.get(st, "")
+        cons_q[coach] = cons_q.get(coach, 0) + qpts
+        cons_q_n[coach] = cons_q_n.get(coach, 0) + 1
+        first_q = min((dt for dt, r in qrows), default=None)
+        drivers_qtd.append([st, coach, qpts, len(qrows),
+                            first_q.isoformat() if first_q else None])
+    drivers_qtd.sort(key=lambda x: -x[2])
+    cons_qtd = [[c, tot, cons_q_n[c], round(tot / cons_q_n[c], 1) if cons_q_n[c] else 0]
+                for c, tot in cons_q.items()]
+    cons_qtd.sort(key=lambda x: -x[3])
+    _drvq_by_coach = {}
+    for _st, _cc, _pts, _n, _fr in drivers_qtd:
+        _drvq_by_coach[_cc] = _drvq_by_coach.get(_cc, 0) + _pts
+    _recon_qtd_ok = all(abs(_drvq_by_coach.get(_c, 0) - _tot) < 1 for _c, _tot in cons_q.items())
     # ---- Q(this) vs Q(prev) QoQ: "Working the Queue" score (col I / idx 8) + Greet/Goodbye (Hello idx5 +
     #      Goodbye idx6). These are SCORED criteria, unaffected by the 29-Jun queue-TIMING cutover, so the
     #      quarter-over-quarter comparison is straight like-for-like. Company rollup + per-coach rollups.
@@ -803,6 +823,8 @@ def pull_f1():
     qn3 = (QSTART.month - 1) // 3 + 1; qn2 = (PQSTART.month - 1) // 3 + 1
     a["champ"] = {"drivers": drivers, "cons": cons_rows,
         "cons_season": cons_season, "drivers_season": drivers_season,
+        "cons_qtd": cons_qtd, "drivers_qtd": drivers_qtd,
+        "qtd_from": QSTART.isoformat(),
         "season_from": season_from.isoformat() if season_from else None,
         "f1_qoq": _qoq_out(comp_acc),
         "f1_qoq_coach": {c: _qoq_out(ac) for c, ac in coach_acc.items()},
@@ -815,6 +837,7 @@ def pull_f1():
         w.writerows(csv_rows)
     print("[pull] f1: %d stores, newest race %s (cur_end %s)" % (len(fd), newest, CUR_END))
     print("[pull] f1 drivers_season: %d drivers, reconciles_to_constructors=%s" % (len(drivers_season), _recon_ok))
+    print("[pull] f1 drivers_qtd (since %s): %d drivers, reconciles_to_constructors=%s" % (QSTART.isoformat(), len(drivers_qtd), _recon_qtd_ok))
     return newest
 
 

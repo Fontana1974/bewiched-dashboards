@@ -1086,15 +1086,16 @@ def f1_ops_html():
                    '<table class="f1t"><thead><tr><th>#</th><th class="l">Store (driver)</th><th>Coach</th><th>Pts</th></tr></thead><tbody>%s</tbody></table></div>'
                    '</div>' % (con_html, con_note, drv_rows))
 
-    # ---- Constructors' Championship — SEASON TO DATE (visualised, always on) ----
-    cons_s = sorted(champ.get('cons_season', []) or [], key=lambda x: -x[3])
+    # ---- Constructors' Championship — QUARTER TO DATE (Option A: resets each quarter, visualised, always on) ----
+    cons_s = sorted(champ.get('cons_qtd', []) or [], key=lambda x: -x[3])
+    _cons_season_sorted = sorted(champ.get('cons_season', []) or [], key=lambda x: -x[3])
     season_cons_block = ""
     if cons_s:
-        _sf = champ.get('season_from')
+        _qf = champ.get('qtd_from')
         try:
-            _sflab = dt.date.fromisoformat(_sf).strftime('%-d %b %Y') if _sf else ''
+            _qflab = dt.date.fromisoformat(_qf).strftime('%-d %b %Y') if _qf else ''
         except Exception:
-            _sflab = _sf or ''
+            _qflab = _qf or ''
         maxavg = max(c[3] for c in cons_s) or 1
         rowsh = ""
         MED = ["#e7b35a", "#b8b8be", "#c8925a"]
@@ -1106,20 +1107,25 @@ def f1_ops_html():
                       '<div class="csub">%s pts total &middot; %s stores</div></div>'
                       '<div class="cval">%s<small>pts/store</small></div></div>'
                       % (i + 1, esc(cc), w, barcol, total, nst, avg))
+        _seasftr = ""
+        if _cons_season_sorted:
+            _seasftr = (' Season-to-date (since 10 Apr), <b>%s</b> leads on %s pts/store.'
+                        % (esc(_cons_season_sorted[0][0]), _cons_season_sorted[0][3]))
         season_cons_block = (
-            '<div class="f1sub">&#127942; Constructors&rsquo; Championship <span class="mini">&middot; SEASON TO DATE &middot; avg points per store'
-            + ((' &middot; since %s' % esc(_sflab)) if _sflab else '') + '</span></div>'
-            '<div class="f1panel"><div class="f1ph">Area-coach constructors &mdash; season-to-date standings <span class="mini">&middot; ranked by average championship points per store</span></div>'
+            '<div class="f1sub">&#127942; Constructors&rsquo; Championship <span class="mini">&middot; QUARTER TO DATE &middot; avg points per store'
+            + ((' &middot; since %s' % esc(_qflab)) if _qflab else '') + '</span></div>'
+            '<div class="f1panel"><div class="f1ph">Area-coach constructors &mdash; quarter-to-date standings <span class="mini">&middot; ranked by average championship points per store</span></div>'
             + rowsh +
-            '<div class="mini" style="margin-top:9px">Every weekend race across the whole season counts here (not reset each quarter). '
-            '<b>%s</b> leads the constructors&rsquo; title on %s pts/store.</div></div>'
-            % (esc(cons_s[0][0]), cons_s[0][3]))
+            '<div class="mini" style="margin-top:9px">Resets each quarter &mdash; only this quarter&rsquo;s weekend races count. '
+            '<b>%s</b> leads the constructors&rsquo; title on %s pts/store.%s</div></div>'
+            % (esc(cons_s[0][0]), cons_s[0][3], _seasftr))
 
     # ---- Drivers' Championship — SEASON TO DATE (stores as drivers; reconciles to constructors) ----
-    drv_s = list(champ.get('drivers_season', []) or [])
+    drv_s = list(champ.get('drivers_qtd', []) or [])
+    _drv_season = list(champ.get('drivers_season', []) or [])
     season_drv_block = ""
     if drv_s:
-        _sf2 = champ.get('season_from')
+        _sf2 = champ.get('qtd_from')
         try:
             _sflab2 = dt.date.fromisoformat(_sf2).strftime('%-d %b %Y') if _sf2 else ''
         except Exception:
@@ -1139,7 +1145,7 @@ def f1_ops_html():
             # partial season = store joined the grid materially after season start (new store),
             # so its lower points reflect fewer audited races, not weaker performance.
             partial = False
-            _sfr = champ.get('season_from')
+            _sfr = champ.get('qtd_from')
             if fr and _sfr:
                 try: partial = (dt.date.fromisoformat(fr) - dt.date.fromisoformat(_sfr)).days > 21
                 except Exception: partial = False
@@ -1157,14 +1163,19 @@ def f1_ops_html():
                       % (i + 1, esc(SH(stn)), chip, ptag, w, barcol, pts, racetxt, gap, pts))
         note_extra = (' Stores flagged <b>partial season</b> joined the grid mid-season (fewer audited races) &mdash; ranked on points earned, not pro-rated.'
                       if any_partial else '')
+        _seasdrv = ""
+        if _drv_season:
+            _dss = sorted(_drv_season, key=lambda x: -x[2])
+            _seasdrv = (' Season-to-date (since 10 Apr), <b>%s</b> leads on %s pts.'
+                        % (esc(SH(_dss[0][0])), _dss[0][2]))
         season_drv_block = (
-            '<div class="f1sub">&#127942; Drivers&rsquo; Championship <span class="mini">&middot; SEASON TO DATE &middot; championship points by store'
+            '<div class="f1sub">&#127942; Drivers&rsquo; Championship <span class="mini">&middot; QUARTER TO DATE &middot; championship points by store'
             + ((' &middot; since %s' % esc(_sflab2)) if _sflab2 else '') + '</span></div>'
-            '<div class="f1panel"><div class="f1ph">Stores as drivers &mdash; season-to-date standings <span class="mini">&middot; ranked by total championship points</span></div>'
+            '<div class="f1panel"><div class="f1ph">Stores as drivers &mdash; quarter-to-date standings <span class="mini">&middot; ranked by total championship points</span></div>'
             + rowsd +
-            '<div class="mini" style="margin-top:9px"><b>%s</b> leads the drivers&rsquo; title on %s pts. '
-            'Each driver&rsquo;s points roll up into their Area Coach&rsquo;s constructor total above (the two reconcile exactly).%s</div></div>'
-            % (esc(SH(drv_s[0][0])), drv_s[0][2], note_extra))
+            '<div class="mini" style="margin-top:9px"><b>%s</b> leads the drivers&rsquo; title on %s pts this quarter. '
+            'Each driver&rsquo;s points roll up into their Area Coach&rsquo;s constructor total above (the two reconcile exactly).%s%s</div></div>'
+            % (esc(SH(drv_s[0][0])), drv_s[0][2], note_extra, _seasdrv))
 
     # ---- FULL RACE BREAKDOWN: every scored section, per store + estate (visualised) ----
     _rsec = F1D.get("_race_sections") or {}
