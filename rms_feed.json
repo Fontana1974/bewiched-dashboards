@@ -9,12 +9,12 @@
   "2026-07-01",
   "2026-08-16"
  ],
- "_comments_label": "recent shift voice — last 2 weeks to 16 Aug 2026",
+ "_comments_label": "recent shift voice — last 2 weeks to 17 Aug 2026",
  "_comments_window": [
-  "2026-08-03",
-  "2026-08-16"
+  "2026-08-04",
+  "2026-08-17"
  ],
- "_lastweek_count": 57,
+ "_lastweek_count": 58,
  "worst": [
   {
    "store": "Northampton Drive-Thru",
@@ -281,11 +281,11 @@
   },
   "Billing Drive Thru": {
    "weekly": {
-    "n": 8,
-    "avg": 4.62
+    "n": 9,
+    "avg": 4.67
    },
    "qtd": {
-    "n": 76,
+    "n": 77,
     "avg": 4.61
    },
    "prevq": {
@@ -769,6 +769,15 @@
     "smt": null,
     "sentiment": "Positive",
     "action": null
+   },
+   {
+    "date": "2026-08-16",
+    "dow": "Sun 16 Aug",
+    "rating": 5.0,
+    "text": "Everyone had such a great attitude today!",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
    }
   ],
   "Market Harborough": [
@@ -1009,6 +1018,14 @@
    "sentiment": "Positive"
   },
   {
+   "store": "Billing Drive Thru",
+   "date": "2026-08-16",
+   "rating": 5.0,
+   "text": "Everyone had such a great attitude today!",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
    "store": "Corby",
    "date": "2026-08-16",
    "rating": 4.0,
@@ -1157,14 +1174,6 @@
    "date": "2026-08-13",
    "rating": 5.0,
    "text": "Educational, Enjoyable Teamwork",
-   "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Billing Drive Thru",
-   "date": "2026-08-13",
-   "rating": 5.0,
-   "text": "Supported coached relaxed",
    "smt": "KF - Thanked via store Slack channel and encouraged further contributions.",
    "sentiment": "Positive"
   }

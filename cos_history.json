@@ -1,112 +1,5 @@
 {
  "weeks": {
-  "2026-05-17": {
-   "Northampton Drive-Thru": {
-    "stock": 14.1,
-    "deliv": null,
-    "gp": 70.44
-   },
-   "Rushden Lakes": {
-    "stock": 25.9,
-    "deliv": null,
-    "gp": 68.51
-   },
-   "Kettering": {
-    "stock": 28.9,
-    "deliv": null,
-    "gp": 72.17
-   },
-   "Corby": {
-    "stock": 39.0,
-    "deliv": null,
-    "gp": 71.06
-   },
-   "Peterborough Bridge Street": {
-    "stock": 36.8,
-    "deliv": null,
-    "gp": 70.9
-   },
-   "Rugby": {
-    "stock": 25.4,
-    "deliv": null,
-    "gp": 69.74
-   },
-   "Wellingborough": {
-    "stock": 31.4,
-    "deliv": null,
-    "gp": 72.22
-   },
-   "Rothwell": {
-    "stock": 35.5,
-    "deliv": null,
-    "gp": 68.57
-   },
-   "Northampton": {
-    "stock": 19.7,
-    "deliv": null,
-    "gp": 72.72
-   },
-   "Wellingborough Train Station": {
-    "stock": 22.3,
-    "deliv": null,
-    "gp": 68.5
-   },
-   "Higham Ferrers": {
-    "stock": 41.3,
-    "deliv": null,
-    "gp": 69.37
-   },
-   "HOE Balsall Common": {
-    "stock": 36.5,
-    "deliv": null,
-    "gp": 70.82
-   },
-   "Burton Latimer": {
-    "stock": 21.0,
-    "deliv": null,
-    "gp": 69.38
-   },
-   "Peterborough Fletton Quays": {
-    "stock": 23.1,
-    "deliv": null,
-    "gp": 69.11
-   },
-   "Lower Heathcote": {
-    "stock": 31.2,
-    "deliv": null,
-    "gp": 72.62
-   },
-   "Market Harborough": {
-    "stock": 19.6,
-    "deliv": null,
-    "gp": 73.6
-   },
-   "Leamington Parade": {
-    "stock": 24.7,
-    "deliv": null,
-    "gp": 73.65
-   },
-   "Olney": {
-    "stock": 35.0,
-    "deliv": null,
-    "gp": 72.05
-   },
-   "Attleborough": {
-    "stock": 52.1,
-    "deliv": null,
-    "gp": 67.8
-   },
-   "Billing Drive Thru": {
-    "stock": 0.0,
-    "deliv": null,
-    "gp": 68.88
-   },
-   "Glenvale Drive Thru": {
-    "stock": 22.8,
-    "deliv": null,
-    "gp": 70.16
-   }
-  },
   "2026-05-24": {
    "Northampton Drive-Thru": {
     "stock": 14.9,
@@ -1374,6 +1267,13 @@
     "stock": 39.6,
     "deliv": 25.0,
     "gp": 71.26
+   }
+  },
+  "2026-08-17": {
+   "Olney": {
+    "stock": 46.1,
+    "deliv": 23.2,
+    "gp": 71.31
    }
   }
  }
