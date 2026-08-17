@@ -35,15 +35,16 @@ def _body(starters, steps, sites, head, comp, n):
     hcol = "var(--green)" if (isinstance(head, (int, float)) and head >= 90) else "var(--red)"
     P.append(
         '<div style="margin:4px 0 16px;padding:14px 16px;border-radius:12px;background:#faf6f0;border:1px solid #ece3d6">'
-        '<div style="font-size:13px;color:#8a7a6d;letter-spacing:.02em">ONBOARDING COMPLIANCE &middot; FIRST 90 DAYS</div>'
+        '<div style="font-size:13px;color:#8a7a6d;letter-spacing:.02em">ON-TIME ONBOARDING &middot; FIRST 90 DAYS</div>'
         '<div style="margin-top:2px"><span style="font-size:30px;font-weight:800;color:%s">%s%%</span> '
-        '<span style="color:#5c5148">fully compliant</span> '
-        '<span style="color:#8a7a6d">&mdash; %s of %s starters are clear of every step that is due. Target 90%%.</span></div></div>'
-        % (hcol, _esc(head), _esc(comp), _esc(n)))
+        '<span style="color:#5c5148">of due steps on-time</span> '
+        '<span style="color:#8a7a6d">&mdash; share of onboarding steps not overdue across %s starters in the first-90-day cohort (not-yet-due steps excluded from the penalty). Target 90%%.</span></div></div>'
+        % (hcol, _esc(head), _esc(n)))
 
     P.append('<h4 style="margin:16px 0 4px;font-size:15px">Step completion</h4>')
     P.append('<p style="margin:0 0 8px;color:#8a7a6d;font-size:13px">Of the starters who have each step '
-             'active on their Youda checklist, the share marked <b>done</b>.</p>')
+             'active on their Youda checklist, the share marked <b>done</b>. The headline scores steps that are '
+             '<b>not overdue</b> (done or still within time); not-yet-due steps are not penalised.</p>')
     P.append('<table style="width:100%;border-collapse:collapse;font-size:14px">')
     for s in steps:
         lab = s.get("label", ""); pct = s.get("pct"); tgt = s.get("target", 90)
@@ -167,8 +168,11 @@ def new_starter_detail_html(D):
         opts.append('<option value="%s">%s</option>' % (_esc(st), _esc(st)))
         variants.append('<div data-store="%s" style="display:none">%s</div>'
                         % (_esc(st), _body(sub, s_steps, [sr] if sr else [], s_head, s_comp, s_tot)))
+    _stl = (ns.get("_stale") or {})
+    stale_badge = ('<div class="md-note" style="background:#fbeee9;border:1px solid #eccfca;color:#8c2f22;font-weight:800;margin-bottom:10px">&#9888; %s</div>'
+                   % _esc(_stl.get("badge", "New Starter Health awaiting Youda refresh"))) if _stl.get("stale") else ""
     bar = ('<div class="md-storebar"><span class="lbl">Store:</span> '
            '<select class="stsel mdsel">%s</select></div>' % "".join(opts))
     foot = ('<p style="margin:12px 0 0;color:#a99;font-size:12px">Source: Youda '
             'onboarding journey &middot; pulled %s</p>' % _esc(src)) if src else ""
-    return '<div class="st-scope">%s%s%s</div>' % (bar, "".join(variants), foot)
+    return '<div class="st-scope">%s%s%s%s</div>' % (stale_badge, bar, "".join(variants), foot)

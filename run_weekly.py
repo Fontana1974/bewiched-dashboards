@@ -2304,8 +2304,64 @@ def pull_eos_scorecard():
     #      can't reach Youda; it is refreshed separately). Persist it into the scorecard each run so a
     #      regeneration never wipes it, and derive the two tiles from its headline. ----
     new_starter = jload("new_starter.json") or {}
+    # ---- New Starter Health scoring (Matt-approved): replace the all-or-nothing "clear of EVERY
+    #      step" headline (which pinned the metric at 0-7%) with an ON-TIME STEP-COMPLETION RATE =
+    #      share of due onboarding steps that are NOT overdue = (present - overdue) / present.
+    #      Not-yet-due ('due') steps are excluded from the penalty (pending, not late). Recomputed
+    #      each build from the raw per_step/per_starter the Youda pull writes, then persisted back
+    #      into new_starter.json so EVERY surface (EOS tile/detail + Star Card brand-foundation,
+    #      which reads per_site.pct) shows the SAME corrected score. Rolling 90-day cohort unchanged.
+    if isinstance(new_starter, dict) and new_starter.get("per_step"):
+        _ps = new_starter.get("per_step") or []
+        _P = sum(int(x.get("present", 0) or 0) for x in _ps)
+        _O = sum(int(x.get("overdue", 0) or 0) for x in _ps)
+        _D = sum(int(x.get("done", 0) or 0) for x in _ps)
+        _ontime = round(100 * (_P - _O) / _P) if _P else None
+        if _ontime is not None:
+            new_starter.setdefault("headline_compliant_alltime", new_starter.get("headline"))
+            new_starter["headline"] = _ontime
+            new_starter["scoring"] = "on_time_step_completion"
+            new_starter["ontime"] = {"present": _P, "overdue": _O, "done": _D, "pct": _ontime}
+        from collections import defaultdict as _dd
+        _sp = _dd(lambda: [0, 0])   # site -> [present, overdue] from per-starter step statuses
+        for _r in (new_starter.get("per_starter") or []):
+            _site = _r.get("site", "")
+            for _lab, _st in (_r.get("steps") or {}).items():
+                if _st in ("done", "overdue", "due"):
+                    _sp[_site][0] += 1
+                    if _st == "overdue":
+                        _sp[_site][1] += 1
+        _newps = []
+        for _r in (new_starter.get("per_site") or []):
+            _site = _r.get("site", ""); _P2, _O2 = _sp.get(_site, [0, 0])
+            _r = dict(_r); _r.setdefault("pct_compliant_alltime", _r.get("pct"))
+            _r["pct"] = (round(100 * (_P2 - _O2) / _P2) if _P2 else 0)
+            _r["ontime_present"] = _P2; _r["ontime_overdue"] = _O2
+            _newps.append(_r)
+        if _newps:
+            new_starter["per_site"] = _newps
+        # staleness guard: Youda pull (Cowork Bot) refreshes new_starter.json weekly; if it stops,
+        # badge the tile instead of showing a real-looking number. Base on the 'generated' stamp.
+        _gen = new_starter.get("generated")
+        try:
+            _gd = datetime.datetime.strptime(str(_gen), "%d %b %Y").date()
+            _age = (CUR_END - _gd).days
+            new_starter["_stale"] = {"stale": bool(_age > 10), "age_days": _age, "generated": _gen,
+                                     "badge": "New Starter Health awaiting Youda refresh (last pulled %s)" % _gen}
+        except Exception:
+            new_starter["_stale"] = {"stale": True, "generated": _gen,
+                                     "badge": "New Starter Health awaiting Youda refresh"}
+        W("new_starter.json", new_starter, indent=1)
     ns_headline = new_starter.get("headline")
     ns_comp = new_starter.get("compliant", 0); ns_n = new_starter.get("cohort_n", 0)
+    ns_ot = (new_starter.get("ontime") or {})
+    ns_stale = (new_starter.get("_stale") or {})
+    _ns_ontrack = (ns_ot.get("present", 0) - ns_ot.get("overdue", 0))
+    _ns_pre = ns_ot.get("present", 0)
+    _ns_badge = ((ns_stale.get("badge", "") + " — ") if ns_stale.get("stale") else "")
+    _ns_detail_wk = ((_ns_badge + ("On-time onboarding — %s%% of due steps on track (%s of %s steps not overdue) across %s starters in the first-90-day cohort"
+                     % (ns_headline, _ns_ontrack, _ns_pre, ns_n))) if new_starter else "New Starter Health source (new_starter.json) unavailable")
+    _ns_note = ("Youda onboarding: ON-TIME step completion — share of due onboarding steps NOT overdue (not-yet-due steps excluded from the penalty), rolling first-90-day cohort. From new_starter.json (refreshed weekly from Youda by the Cowork Bot; badged if that refresh stalls). Target 90%.")
     # ---- Food GP% — Cost-of-Sales sheet is weekly; cos estate avg already = latest CoS week ----
     cos_week = jload("cos_metrics.json").get("_week", "")
     # ---- Brew Crew Kudos Participation: distinct employees who gave kudos, DATE-WINDOWED / total employees ----
@@ -2550,8 +2606,7 @@ def pull_eos_scorecard():
                _npat_detail("Weekly flex", npat_wk_gp, npat_wk_lab),
                npat_note),
         metric("new_starter_health_wk", "New Starter Health", 90, ns_headline, "%", "pct0", "derived",
-               ("Onboarding compliance — %s of %s new starters clear of every due step (first 90 days)" % (ns_comp, ns_n)) if new_starter else "New Starter Health source (new_starter.json) unavailable",
-               "Youda onboarding: share of first-90-day starters compliant on every due step. From new_starter.json (committed; refreshed from Youda on its own schedule). Target 90%."),
+               _ns_detail_wk, _ns_note),
     ]
     quarterly = [
         metric("yoy_sales", "YoY Sales Growth", 12, yoy_sales, "%", "pct_signed", "live",
@@ -2590,8 +2645,7 @@ def pull_eos_scorecard():
                _npat_detail("QTD flex", npat_qtd_gp, npat_qtd_lab),
                npat_note),
         metric("new_starter_health", "New Starter Health", 90, ns_headline, "%", "pct0", "derived",
-               ("Onboarding compliance — %s of %s new starters clear of every due step (first 90 days)" % (ns_comp, ns_n)) if new_starter else "New Starter Health source (new_starter.json) unavailable",
-               "Youda onboarding: share of first-90-day starters compliant on every due step. From new_starter.json (committed; refreshed from Youda on its own schedule). Target 90%."),
+               _ns_detail_wk, _ns_note),
     ]
     flags = [
         "Status is strictly binary: GREEN when actual ≥ plan, RED when below — no near-target band. Bench is green when ≥ 3.",

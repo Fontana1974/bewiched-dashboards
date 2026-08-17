@@ -155,7 +155,8 @@ ns_sites={}; ns_num={}
 for r in L("new_starter.json")['per_site']:
     c=norm(r['site'])
     if c: ns_sites[c]=r['pct']; ns_num[c]=r.get('total')
-for c in CANON: D[c]['ns']=ns_sites.get(c); D[c]['ns_n']=ns_num.get(c)
+_NSFEED=L("new_starter.json"); NS_STALE=bool((_NSFEED.get('_stale') or {}).get('stale'))
+for c in CANON: D[c]['ns']=(None if NS_STALE else ns_sites.get(c)); D[c]['ns_n']=ns_num.get(c)
 # RTW completion % per store (sickness_rtw.json per_store[].rtw_rate) — Team metric (replaces New-starter in the score)
 try:
     for r in L("sickness_rtw.json").get("per_store",[]):
