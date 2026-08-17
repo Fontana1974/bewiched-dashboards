@@ -1437,9 +1437,15 @@ def pull_planner():
             if st is None: continue
             o = ovr.setdefault(st, {})
             if sec == "A":
-                used = r[5] if len(r) > 5 and r[5] not in (None, "") else None
-                acph = r[6] if len(r) > 6 and r[6] not in (None, "") else None
-                if used is not None: o["used_lastwk"] = round(fnum(used), 1)
+                worked = r[5] if len(r) > 5 and r[5] not in (None, "") else None
+                hol = r[8] if len(r) > 8 and r[8] not in (None, "") else None   # NEW: Holiday Pay Hours (col I)
+                acph = r[6] if len(r) > 6 and r[6] not in (None, "") else None  # Actual CPH = C/(F+I): sheet now folds holiday in
+                if worked is not None:
+                    w = round(fnum(worked), 1)
+                    hh = round(fnum(hol), 1) if hol is not None else 0.0
+                    o["worked_lastwk"] = w                       # worked hours only (kept separate/visible)
+                    o["holiday_lastwk"] = hh                     # holiday pay hours (paid, non-worked)
+                    o["used_lastwk"] = round(w + hh, 1)          # SPH hours = worked + holiday (feeds den + sph_history + Vizz)
                 if acph is not None: o["actual_cph_lastwk"] = round(fnum(acph), 1)
             elif sec == "B":
                 o["cph"] = round(fnum(r[1]), 1) if len(r) > 1 and r[1] not in (None, "") else o.get("cph")
