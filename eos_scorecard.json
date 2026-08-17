@@ -1,6 +1,6 @@
 {
  "_about": "Bewiched EOS Scorecard data. Written by run_weekly.py pull_eos_scorecard(); rendered by gen_eos_scorecard.py. Live = BigQuery; derived = other feeds; manual = inputs sheet.",
- "generated": "17 Aug 2026, 06:26",
+ "generated": "17 Aug 2026, 06:32",
  "cur_end": "2026-08-16",
  "quarter_start": "2026-07-01",
  "week_label": "w/c 10 Aug 2026",
@@ -135,7 +135,7 @@
    "id": "food_gp_wk",
    "name": "Food GP%",
    "plan": 71,
-   "actual": 71.31,
+   "actual": 71.5,
    "unit": "%",
    "fmt": "pct1",
    "dir": "high",
@@ -147,13 +147,13 @@
    "id": "npat_wk",
    "name": "Net Profit After Tax (projected)",
    "plan": 18,
-   "actual": 9.1,
+   "actual": 9.3,
    "unit": "%",
    "fmt": "pct1",
    "dir": "high",
    "source": "derived",
-   "detail": "Weekly flex · baseline 7.9% · GP +1.2pp · labour +0.0pp",
-   "note": "Projected (GP + labour flex off the May 2026 P&L). NPAT% = baseline 7.9% + (estate GP% − May 2026 baseline) − (labour% − baseline). Baseline: product GP 66.1%, labour 33.9%, admin 24.3% (held), avg labour £19.53/hr. GP movement = estate Gross Profit% from the CoS sheet (col Q, sales-weighted; May 2026 baseline 70.11%, latest week 71.31%, QTD 70.58%). Labour flexes via planner actual CPH £0.0 ÷ baseline £57.7 (avg £19.53/hr ÷ live CPH). Weekly CPH = this week's planner CPH; QTD CPH £56.9 is hours-weighted from weekly_history.csv (7 weeks so far)."
+   "detail": "Weekly flex · baseline 7.9% · GP +1.4pp · labour +0.0pp",
+   "note": "Projected (GP + labour flex off the May 2026 P&L). NPAT% = baseline 7.9% + (estate GP% − May 2026 baseline) − (labour% − baseline). Baseline: product GP 66.1%, labour 33.9%, admin 24.3% (held), avg labour £19.53/hr. GP movement = estate Gross Profit% from the CoS sheet (col Q, sales-weighted; May 2026 baseline 70.11%, latest week 71.5%, QTD 70.59%). Labour flexes via planner actual CPH £0.0 ÷ baseline £57.7 (avg £19.53/hr ÷ live CPH). Weekly CPH = this week's planner CPH; QTD CPH £56.9 is hours-weighted from weekly_history.csv (7 weeks so far)."
   },
   {
    "id": "new_starter_health_wk",
@@ -294,7 +294,7 @@
    "id": "food_gp",
    "name": "Food GP%",
    "plan": 71,
-   "actual": 70.58,
+   "actual": 70.59,
    "unit": "%",
    "fmt": "pct1",
    "dir": "high",
@@ -312,7 +312,7 @@
    "dir": "high",
    "source": "derived",
    "detail": "QTD flex · baseline 7.9% · GP +0.5pp · labour -0.5pp",
-   "note": "Projected (GP + labour flex off the May 2026 P&L). NPAT% = baseline 7.9% + (estate GP% − May 2026 baseline) − (labour% − baseline). Baseline: product GP 66.1%, labour 33.9%, admin 24.3% (held), avg labour £19.53/hr. GP movement = estate Gross Profit% from the CoS sheet (col Q, sales-weighted; May 2026 baseline 70.11%, latest week 71.31%, QTD 70.58%). Labour flexes via planner actual CPH £0.0 ÷ baseline £57.7 (avg £19.53/hr ÷ live CPH). Weekly CPH = this week's planner CPH; QTD CPH £56.9 is hours-weighted from weekly_history.csv (7 weeks so far)."
+   "note": "Projected (GP + labour flex off the May 2026 P&L). NPAT% = baseline 7.9% + (estate GP% − May 2026 baseline) − (labour% − baseline). Baseline: product GP 66.1%, labour 33.9%, admin 24.3% (held), avg labour £19.53/hr. GP movement = estate Gross Profit% from the CoS sheet (col Q, sales-weighted; May 2026 baseline 70.11%, latest week 71.5%, QTD 70.59%). Labour flexes via planner actual CPH £0.0 ÷ baseline £57.7 (avg £19.53/hr ÷ live CPH). Weekly CPH = this week's planner CPH; QTD CPH £56.9 is hours-weighted from weekly_history.csv (7 weeks so far)."
   },
   {
    "id": "new_starter_health",
@@ -681,7 +681,7 @@
      },
      {
       "store": "Northampton",
-      "value": 71.7
+      "value": 71.6
      },
      {
       "store": "Wellingborough Train Station",
@@ -3461,6 +3461,6 @@
   "Manual inputs sheet 'Bewiched EOS Scorecard Inputs' (ID 1HimYAjZg4zlMQG91-KUefkeYMPvrU4ddVuO2IuERTqg) must be shared (Viewer) with dashboards-bot@bewiched-coffee-368116.iam.gserviceaccount.com for the automated run to read it.",
   "Manual inputs sheet not readable (<HttpError 403 when requesting https://sheets.googleapis.com/v4/spreadsheets/1HimYAjZg4zlM) — share it (Viewer) with the service account dashboards-bot@bewiched-coffee-368116.iam.gserviceaccount.com. Manual metrics shown as awaiting.",
   "Brew Crew Kudos per-store: 5 QTD contributor(s) matched no employee (head-office/ex-staff — excluded, as in the company calc); 7 matched contributor(s) have no store Location (e.g. Head Office — excluded from the per-store split but still in the company headcount). 21 stores resolved from the Employee List Location column.",
-  "Net Profit After Tax: P&L sheet not readable by the service account (The read operation timed out) — share 'May 2026 P&L' (ID 1RTsnnz5F9XIdkg4j8m8MiuKqeAvZaAWcndbFifNNLhM, Viewer) with dashboards-bot@bewiched-coffee-368116.iam.gserviceaccount.com. Using FROZEN May baseline constants."
+  "Net Profit After Tax: P&L sheet not readable by the service account (<HttpError 403 when requesting https://sheets.googleapis.com) — share 'May 2026 P&L' (ID 1RTsnnz5F9XIdkg4j8m8MiuKqeAvZaAWcndbFifNNLhM, Viewer) with dashboards-bot@bewiched-coffee-368116.iam.gserviceaccount.com. Using FROZEN May baseline constants."
  ]
 }
