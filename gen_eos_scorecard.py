@@ -1132,10 +1132,19 @@ def f1_ops_html():
         rowsd = ""; any_partial = False
         for i, r in enumerate(drv_s):
             stn, cc, pts, nraces = r[0], r[1], r[2], (r[3] if len(r) > 3 else None)
+            fr = r[4] if len(r) > 4 else None
             w = round(100 * pts / maxpts)
             barcol = MED2[i] if i < 3 else "var(--brown)"
             gap = "leader" if i == 0 else ("&minus;%d to leader" % (leadpts - pts))
-            partial = (nraces is not None and maxraces and nraces < 0.6 * maxraces)
+            # partial season = store joined the grid materially after season start (new store),
+            # so its lower points reflect fewer audited races, not weaker performance.
+            partial = False
+            _sfr = champ.get('season_from')
+            if fr and _sfr:
+                try: partial = (dt.date.fromisoformat(fr) - dt.date.fromisoformat(_sfr)).days > 21
+                except Exception: partial = False
+            if nraces is not None and maxraces and nraces < 0.6 * maxraces:
+                partial = True
             if partial: any_partial = True
             racetxt = ("%s races" % nraces) if nraces is not None else ""
             ptag = ' <span class="tag t-na">partial season</span>' if partial else ''
