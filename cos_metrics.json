@@ -3,48 +3,48 @@
  "_pulled": "2026-08-16",
  "stores": {
   "Northampton Drive-Thru": {
-   "holding_pct": 0.0,
+   "holding_pct": 11.3,
    "gp_pct": 70.46,
    "gp_qtd": 70.38,
-   "delivery_pct": 14.8,
-   "deliv_gbp": 3848,
+   "delivery_pct": 17.5,
+   "deliv_gbp": 4547,
    "suppliers": {
     "Select Catering": 1616,
     "Fresh Ideas": 1727,
     "K&W": 505,
-    "Simply": null
+    "Simply": 699
    },
-   "delivery_pct_qtd": 23.0,
+   "delivery_pct_qtd": 23.4,
    "suppliers_qtd": {
     "Select Catering": 15837,
     "Fresh Ideas": 14590,
     "K&W": 4760,
-    "Simply": 6352
+    "Simply": 7051
    },
-   "stock_target_pct": 9.3,
-   "deliv_target_pct": 19.9
+   "stock_target_pct": 14.6,
+   "deliv_target_pct": 21.6
   },
   "Rushden Lakes": {
-   "holding_pct": 16.5,
-   "gp_pct": 69.41,
-   "gp_qtd": 69.41,
-   "delivery_pct": 24.9,
-   "deliv_gbp": 5850,
+   "holding_pct": 19.3,
+   "gp_pct": 69.05,
+   "gp_qtd": 69.36,
+   "delivery_pct": 26.0,
+   "deliv_gbp": 6000,
    "suppliers": {
-    "Select Catering": 2365,
-    "Fresh Ideas": 2255,
-    "K&W": 460,
-    "Simply": 770
+    "Select Catering": 2079,
+    "Fresh Ideas": 2553,
+    "K&W": 533,
+    "Simply": 835
    },
-   "delivery_pct_qtd": 23.1,
+   "delivery_pct_qtd": 23.6,
    "suppliers_qtd": {
-    "Select Catering": 12099,
-    "Fresh Ideas": 12411,
-    "K&W": 2805,
-    "Simply": 4619
+    "Select Catering": 14178,
+    "Fresh Ideas": 14964,
+    "K&W": 3338,
+    "Simply": 5454
    },
-   "stock_target_pct": 9.9,
-   "deliv_target_pct": 19.9
+   "stock_target_pct": 15.0,
+   "deliv_target_pct": 21.7
   },
   "Kettering": {
    "holding_pct": 27.0,
@@ -65,8 +65,8 @@
     "K&W": 1516,
     "Simply": 2085
    },
-   "stock_target_pct": 18.1,
-   "deliv_target_pct": 19.9
+   "stock_target_pct": 19.8,
+   "deliv_target_pct": 23.1
   },
   "Corby": {
    "holding_pct": 31.8,
@@ -87,77 +87,77 @@
     "K&W": 1433,
     "Simply": 2082
    },
-   "stock_target_pct": 21.5,
-   "deliv_target_pct": 19.9
+   "stock_target_pct": 21.8,
+   "deliv_target_pct": 23.7
   },
   "Peterborough Bridge Street": {
    "holding_pct": 0.0,
    "gp_pct": 69.42,
    "gp_qtd": 70.76,
-   "delivery_pct": 0.0,
-   "deliv_gbp": 0,
+   "delivery_pct": 23.4,
+   "deliv_gbp": 1397,
    "suppliers": {
-    "Select Catering": null,
-    "Fresh Ideas": null,
-    "K&W": null,
-    "Simply": null
+    "Select Catering": 498,
+    "Fresh Ideas": 440,
+    "K&W": 194,
+    "Simply": 265
    },
-   "delivery_pct_qtd": 17.7,
+   "delivery_pct_qtd": 21.3,
    "suppliers_qtd": {
-    "Select Catering": 2647,
-    "Fresh Ideas": 2205,
-    "K&W": 998,
-    "Simply": 1019
+    "Select Catering": 3145,
+    "Fresh Ideas": 2645,
+    "K&W": 1192,
+    "Simply": 1284
    },
-   "stock_target_pct": 29.1,
-   "deliv_target_pct": 20.0
+   "stock_target_pct": 26.3,
+   "deliv_target_pct": 25.1
   },
   "Rugby": {
-   "holding_pct": 27.2,
-   "gp_pct": 70.19,
-   "gp_qtd": 70.57,
-   "delivery_pct": 25.2,
-   "deliv_gbp": 2041,
+   "holding_pct": 24.1,
+   "gp_pct": 69.44,
+   "gp_qtd": 70.42,
+   "delivery_pct": 29.1,
+   "deliv_gbp": 2228,
    "suppliers": {
-    "Select Catering": 813,
-    "Fresh Ideas": 736,
+    "Select Catering": 686,
+    "Fresh Ideas": 805,
     "K&W": 214,
-    "Simply": 278
+    "Simply": 523
    },
-   "delivery_pct_qtd": 23.7,
+   "delivery_pct_qtd": 24.5,
    "suppliers_qtd": {
-    "Select Catering": 3966,
-    "Fresh Ideas": 4287,
-    "K&W": 1342,
-    "Simply": 1870
+    "Select Catering": 4652,
+    "Fresh Ideas": 5092,
+    "K&W": 1556,
+    "Simply": 2393
    },
-   "stock_target_pct": 22.4,
-   "deliv_target_pct": 20.0
+   "stock_target_pct": 23.0,
+   "deliv_target_pct": 24.1
   },
   "Wellingborough": {
-   "holding_pct": 30.3,
-   "gp_pct": 72.95,
-   "gp_qtd": 71.99,
-   "delivery_pct": 26.1,
-   "deliv_gbp": 1908,
+   "holding_pct": 24.7,
+   "gp_pct": 71.52,
+   "gp_qtd": 71.92,
+   "delivery_pct": 15.3,
+   "deliv_gbp": 1081,
    "suppliers": {
-    "Select Catering": 896,
-    "Fresh Ideas": 595,
-    "K&W": 227,
-    "Simply": 190
+    "Select Catering": 355,
+    "Fresh Ideas": 367,
+    "K&W": 192,
+    "Simply": 167
    },
-   "delivery_pct_qtd": 22.0,
+   "delivery_pct_qtd": 21.0,
    "suppliers_qtd": {
-    "Select Catering": 4290,
-    "Fresh Ideas": 2811,
-    "K&W": 1316,
-    "Simply": 1027
+    "Select Catering": 4645,
+    "Fresh Ideas": 3178,
+    "K&W": 1508,
+    "Simply": 1194
    },
-   "stock_target_pct": 24.4,
-   "deliv_target_pct": 20.0
+   "stock_target_pct": 24.0,
+   "deliv_target_pct": 24.4
   },
   "Rothwell": {
-   "holding_pct": 0.0,
+   "holding_pct": 38.1,
    "gp_pct": 68.79,
    "gp_qtd": 69.9,
    "delivery_pct": 22.5,
@@ -175,52 +175,52 @@
     "K&W": 1402,
     "Simply": 1495
    },
-   "stock_target_pct": 28.8,
-   "deliv_target_pct": 20.0
+   "stock_target_pct": 26.2,
+   "deliv_target_pct": 25.0
   },
   "Northampton": {
    "holding_pct": 0.0,
    "gp_pct": 71.6,
    "gp_qtd": 71.35,
-   "delivery_pct": 0.0,
-   "deliv_gbp": 0,
+   "delivery_pct": 21.1,
+   "deliv_gbp": 2192,
    "suppliers": {
-    "Select Catering": 0,
-    "Fresh Ideas": 0,
-    "K&W": null,
-    "Simply": null
+    "Select Catering": 740,
+    "Fresh Ideas": 846,
+    "K&W": 266,
+    "Simply": 340
    },
-   "delivery_pct_qtd": 19.4,
+   "delivery_pct_qtd": 22.3,
    "suppliers_qtd": {
-    "Select Catering": 4684,
-    "Fresh Ideas": 5180,
-    "K&W": 1542,
-    "Simply": 2800
+    "Select Catering": 5424,
+    "Fresh Ideas": 6026,
+    "K&W": 1808,
+    "Simply": 3140
    },
-   "stock_target_pct": 18.1,
-   "deliv_target_pct": 19.9
+   "stock_target_pct": 19.8,
+   "deliv_target_pct": 23.1
   },
   "Wellingborough Train Station": {
-   "holding_pct": 26.2,
-   "gp_pct": 69.45,
-   "gp_qtd": 69.71,
-   "delivery_pct": 20.4,
-   "deliv_gbp": 1201,
+   "holding_pct": 33.8,
+   "gp_pct": 69.28,
+   "gp_qtd": 69.65,
+   "delivery_pct": 27.7,
+   "deliv_gbp": 1491,
    "suppliers": {
-    "Select Catering": 334,
-    "Fresh Ideas": 398,
-    "K&W": 147,
-    "Simply": 322
+    "Select Catering": 498,
+    "Fresh Ideas": 544,
+    "K&W": 119,
+    "Simply": 330
    },
-   "delivery_pct_qtd": 23.4,
+   "delivery_pct_qtd": 24.0,
    "suppliers_qtd": {
-    "Select Catering": 2723,
-    "Fresh Ideas": 2643,
-    "K&W": 1314,
-    "Simply": 1962
+    "Select Catering": 3221,
+    "Fresh Ideas": 3187,
+    "K&W": 1433,
+    "Simply": 2292
    },
-   "stock_target_pct": 29.4,
-   "deliv_target_pct": 20.0
+   "stock_target_pct": 28.0,
+   "deliv_target_pct": 25.6
   },
   "Higham Ferrers": {
    "holding_pct": 48.7,
@@ -241,8 +241,8 @@
     "K&W": 1113,
     "Simply": 1458
    },
-   "stock_target_pct": 38.5,
-   "deliv_target_pct": 20.1
+   "stock_target_pct": 31.9,
+   "deliv_target_pct": 26.8
   },
   "HOE Balsall Common": {
    "holding_pct": 39.6,
@@ -263,8 +263,8 @@
     "K&W": 1081,
     "Simply": 1899
    },
-   "stock_target_pct": 26.0,
-   "deliv_target_pct": 20.0
+   "stock_target_pct": 24.5,
+   "deliv_target_pct": 24.5
   },
   "Burton Latimer": {
    "holding_pct": 29.7,
@@ -285,30 +285,30 @@
     "K&W": 1231,
     "Simply": 1372
    },
-   "stock_target_pct": 33.6,
-   "deliv_target_pct": 20.0
+   "stock_target_pct": 29.0,
+   "deliv_target_pct": 25.9
   },
   "Peterborough Fletton Quays": {
    "holding_pct": 0.0,
    "gp_pct": 70.5,
    "gp_qtd": 69.98,
-   "delivery_pct": 0.0,
-   "deliv_gbp": 0,
+   "delivery_pct": 27.4,
+   "deliv_gbp": 2232,
    "suppliers": {
-    "Select Catering": null,
-    "Fresh Ideas": null,
-    "K&W": null,
-    "Simply": null
+    "Select Catering": 736,
+    "Fresh Ideas": 654,
+    "K&W": 238,
+    "Simply": 604
    },
-   "delivery_pct_qtd": 21.4,
+   "delivery_pct_qtd": 25.1,
    "suppliers_qtd": {
-    "Select Catering": 4203,
-    "Fresh Ideas": 3610,
-    "K&W": 1236,
-    "Simply": 3790
+    "Select Catering": 4939,
+    "Fresh Ideas": 4264,
+    "K&W": 1474,
+    "Simply": 4394
    },
-   "stock_target_pct": 22.2,
-   "deliv_target_pct": 20.0
+   "stock_target_pct": 22.3,
+   "deliv_target_pct": 23.9
   },
   "Lower Heathcote": {
    "holding_pct": 28.0,
@@ -329,8 +329,8 @@
     "K&W": 621,
     "Simply": 622
    },
-   "stock_target_pct": 35.6,
-   "deliv_target_pct": 20.0
+   "stock_target_pct": 30.2,
+   "deliv_target_pct": 26.3
   },
   "Market Harborough": {
    "holding_pct": 25.5,
@@ -351,8 +351,8 @@
     "K&W": 2341,
     "Simply": 3211
    },
-   "stock_target_pct": 16.8,
-   "deliv_target_pct": 19.9
+   "stock_target_pct": 19.0,
+   "deliv_target_pct": 22.9
   },
   "Leamington Parade": {
    "holding_pct": 26.3,
@@ -373,8 +373,8 @@
     "K&W": 1652,
     "Simply": 2805
    },
-   "stock_target_pct": 21.0,
-   "deliv_target_pct": 19.9
+   "stock_target_pct": 21.5,
+   "deliv_target_pct": 23.7
   },
   "Glenvale Drive Thru": {
    "holding_pct": 17.6,
@@ -395,8 +395,8 @@
     "K&W": 3260,
     "Simply": 5673
    },
-   "stock_target_pct": 11.4,
-   "deliv_target_pct": 19.9
+   "stock_target_pct": 15.8,
+   "deliv_target_pct": 21.9
   },
   "Olney": {
    "holding_pct": 46.1,
@@ -417,30 +417,30 @@
     "K&W": 893,
     "Simply": 766
    },
-   "stock_target_pct": 30.5,
-   "deliv_target_pct": 20.0
+   "stock_target_pct": 27.2,
+   "deliv_target_pct": 25.3
   },
   "Attleborough": {
-   "holding_pct": 41.7,
-   "gp_pct": 69.4,
-   "gp_qtd": 68.98,
-   "delivery_pct": 23.9,
-   "deliv_gbp": 1550,
+   "holding_pct": 0.0,
+   "gp_pct": 68.23,
+   "gp_qtd": 68.87,
+   "delivery_pct": 28.7,
+   "deliv_gbp": 1787,
    "suppliers": {
-    "Select Catering": 608,
-    "Fresh Ideas": 380,
-    "K&W": 213,
-    "Simply": 349
+    "Select Catering": 530,
+    "Fresh Ideas": 667,
+    "K&W": 230,
+    "Simply": 360
    },
-   "delivery_pct_qtd": 24.5,
+   "delivery_pct_qtd": 25.1,
    "suppliers_qtd": {
-    "Select Catering": 3385,
-    "Fresh Ideas": 3271,
-    "K&W": 1020,
-    "Simply": 1816
+    "Select Catering": 3915,
+    "Fresh Ideas": 3938,
+    "K&W": 1250,
+    "Simply": 2176
    },
-   "stock_target_pct": 27.1,
-   "deliv_target_pct": 20.0
+   "stock_target_pct": 25.7,
+   "deliv_target_pct": 24.9
   },
   "Billing Drive Thru": {
    "holding_pct": 16.8,
@@ -461,13 +461,13 @@
     "K&W": 2265,
     "Simply": 4381
    },
-   "stock_target_pct": 14.4,
-   "deliv_target_pct": 19.9
+   "stock_target_pct": 17.6,
+   "deliv_target_pct": 22.5
   }
  },
  "_estate_gp_basis": "Master COS Input col Q Gross Profit%, sales-weighted: Σ(Sales×GP)/ΣSales",
- "estate_gp_wk": 70.6,
- "estate_gp_qtd": 70.58,
+ "estate_gp_wk": 70.3,
+ "estate_gp_qtd": 70.54,
  "estate_gp_may": 70.11,
  "estate_gp_wk_date": "2026-08-17",
  "_week": "2026-08-17",
@@ -641,27 +641,27 @@
   "2026-07-26": 70.53,
   "2026-08-02": 70.7,
   "2026-08-09": 70.63,
-  "2026-08-16": 70.6
+  "2026-08-16": 70.3
  },
- "holding_median": 26.3,
+ "holding_median": 25.5,
  "holding_band": [
-  16.3,
-  36.3
+  15.5,
+  35.5
  ],
- "holding_band_basis": "estate median 26.3% of sales +/- 10 pp (n=21 stores)",
+ "holding_band_basis": "estate median 25.5% of sales +/- 10 pp (n=21 stores)",
  "delivery_target": 23.0,
  "delivery_saving_per_pct": 31000,
- "delivery_company_pct": 19.9,
- "delivery_company_qtd": 22.7,
- "delivery_opportunity_gbp": 0,
+ "delivery_company_pct": 23.3,
+ "delivery_company_qtd": 23.3,
+ "delivery_opportunity_gbp": 9300,
  "stock_model": {
-  "base_gbp": 1535,
-  "rate_pct": 3.4,
-  "_basis": "planned stock £ = 1535 + 3.4% of weekly sales (fit across 21 stores)"
+  "base_gbp": 910,
+  "rate_pct": 11.1,
+  "_basis": "planned stock £ = 910 + 11.1% of weekly sales (fit across 21 stores)"
  },
  "deliv_model": {
-  "base_gbp": 11,
-  "rate_pct": 19.8,
-  "_basis": "planned delivery £ = 11 + 19.8% of weekly sales (fit across 21 stores); company ref 23%"
+  "base_gbp": 274,
+  "rate_pct": 20.5,
+  "_basis": "planned delivery £ = 274 + 20.5% of weekly sales (fit across 21 stores); company ref 23%"
  }
 }

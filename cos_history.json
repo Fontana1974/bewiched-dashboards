@@ -1277,7 +1277,7 @@
    },
    "Northampton": {
     "stock": 0.0,
-    "deliv": 0.0,
+    "deliv": 21.1,
     "gp": 71.6
    },
    "Burton Latimer": {
@@ -1321,8 +1321,8 @@
     "gp": 71.86
    },
    "Northampton Drive-Thru": {
-    "stock": 0.0,
-    "deliv": 14.8,
+    "stock": 11.3,
+    "deliv": 17.5,
     "gp": 70.46
    },
    "Billing Drive Thru": {
@@ -1332,18 +1332,43 @@
    },
    "Peterborough Fletton Quays": {
     "stock": 0.0,
-    "deliv": 0.0,
+    "deliv": 27.4,
     "gp": 70.5
    },
    "Peterborough Bridge Street": {
     "stock": 0.0,
-    "deliv": 0.0,
+    "deliv": 23.4,
     "gp": 69.42
    },
    "Rothwell": {
-    "stock": 0.0,
+    "stock": 38.1,
     "deliv": 22.5,
     "gp": 68.79
+   },
+   "Rushden Lakes": {
+    "stock": 19.3,
+    "deliv": 26.0,
+    "gp": 69.05
+   },
+   "Attleborough": {
+    "stock": 0.0,
+    "deliv": 28.7,
+    "gp": 68.23
+   },
+   "Rugby": {
+    "stock": 24.1,
+    "deliv": 29.1,
+    "gp": 69.44
+   },
+   "Wellingborough": {
+    "stock": 24.7,
+    "deliv": 15.3,
+    "gp": 71.52
+   },
+   "Wellingborough Train Station": {
+    "stock": 33.8,
+    "deliv": 27.7,
+    "gp": 69.28
    }
   }
  }
