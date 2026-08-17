@@ -1226,6 +1226,30 @@ def f1_ops_html():
             '(Food &amp; syrups, Tables &lt;3 mins, Tables brand standard, Virtual section plan, No late team) out of 31.25. '
             'This is where you can see, section by section, where the estate and each store win and lose.</div></div>')
 
+    # ---- RACE VISUAL (always-on, two-column, screenshot format): LEFT = constructors' championship
+    #      bars + estate-average-by-section bars; RIGHT = by-store x section heatmap. Quarter-to-date. ----
+    race_visual_block = ""
+    if cons_s and _rsec and 'ebars' in dir():
+        _left = ('<div class="f1ph">Area-coach constructors <span class="mini">&middot; QTD avg pts/store</span></div>'
+                 + rowsh
+                 + '<div class="f1ph" style="margin-top:16px">Estate average by section <span class="mini">&middot; % of full marks (red = weak)</span></div>'
+                 + ebars)
+        _right = ('<div class="f1ph">By store &amp; section <span class="mini">&middot; % of full marks &middot; best Total Score first</span></div>'
+                  '<div style="overflow-x:auto"><table class="f1t"><thead><tr><th class="l">Store</th>'
+                  + head + '</tr></thead><tbody>' + body + '</tbody></table></div>')
+        _rvftr = ('Constructors = area coaches; each section is scored as penalty points that roll into the Total Score '
+                  '(0 = full marks), shown here as <b>% of full marks</b> so higher &amp; greener = better. '
+                  'Greetings (Hello / Goodbye / How-are-you / Working-the-queue) are out of 25; the operational sections out of 31.25. '
+                  'Quarter-to-date &mdash; only this quarter&rsquo;s races count.')
+        race_visual_block = (
+            '<div class="f1sub">&#127942; Constructors&rsquo; Championship &amp; race breakdown <span class="mini">&middot; QUARTER TO DATE'
+            + ((' &middot; since %s' % esc(_qflab)) if _qflab else '') + '</span></div>'
+            '<div class="f1grid2">'
+            '<div class="f1panel">' + _left + '</div>'
+            '<div class="f1panel">' + _right + '</div>'
+            '</div>'
+            '<div class="mini" style="margin:8px 2px 4px">' + _rvftr + '</div>')
+
     # ---- Latest race finish by store (finish / champ pts / score / last-6 sparkline) ----
     f1tbl = ""
     for s in sorted(stores, key=lambda x: fin(x)):
@@ -1296,11 +1320,11 @@ def f1_ops_html():
     hint = ('<div class="md-note" style="margin-bottom:12px">Use the <b>period toggle</b> above '
             '(Weekly / Quarterly) to switch between <b>this week&rsquo;s race</b> and the '
             '<b>quarter-to-date</b> championship &amp; averages.</div>')
-    always_on = season_cons_block + season_drv_block
+    always_on = (race_visual_block if race_visual_block else season_cons_block) + season_drv_block
     weekly_group = ('<div class="ps-basis" data-basis="weekly" style="display:block">'
                     + cards + finish_block + race_block + quali_block + focus + '</div>')
     qtd_group = ('<div class="ps-basis" data-basis="qtd" style="display:none">'
-                 + champ_block + breakdown_block + race_qtd_block + quali_qtd_block + '</div>')
+                 + champ_block + ('' if race_visual_block else breakdown_block) + race_qtd_block + quali_qtd_block + '</div>')
     _f1st = F1D.get("_stale") or {}
     _badge = ('<div class="md-note" style="background:var(--redbg);border:1px solid #eccfca;color:#8c2f22;font-weight:800;margin-bottom:12px">&#9888; %s &mdash; the F1 figures below are the last completed audit, not this week\'s.</div>'
               % esc(_f1st.get("badge", "F1 awaiting this week's audit"))) if _f1st.get("stale") else ""
