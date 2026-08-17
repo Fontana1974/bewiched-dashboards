@@ -1276,7 +1276,7 @@
     "gp": 71.31
    },
    "Northampton": {
-    "stock": 0.0,
+    "stock": 17.9,
     "deliv": 21.1,
     "gp": 71.6
    },
@@ -1331,12 +1331,12 @@
     "gp": 69.32
    },
    "Peterborough Fletton Quays": {
-    "stock": 0.0,
+    "stock": 27.1,
     "deliv": 27.4,
     "gp": 70.5
    },
    "Peterborough Bridge Street": {
-    "stock": 0.0,
+    "stock": 27.7,
     "deliv": 23.4,
     "gp": 69.42
    },
@@ -1351,7 +1351,7 @@
     "gp": 69.05
    },
    "Attleborough": {
-    "stock": 0.0,
+    "stock": 42.6,
     "deliv": 28.7,
     "gp": 68.23
    },
@@ -1369,6 +1369,11 @@
     "stock": 33.8,
     "deliv": 27.7,
     "gp": 69.28
+   },
+   "HOE Balsall Common": {
+    "stock": 34.2,
+    "deliv": 22.9,
+    "gp": 69.89
    }
   }
  }
