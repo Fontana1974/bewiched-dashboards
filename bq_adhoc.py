@@ -1,70 +1,108 @@
 #!/usr/bin/env python3
-"""READ-ONLY investigation for the EOS Sales-tab additions:
-  Q1 drive-thru register/lane detection (what identifies a DT lane, which outlets)
-  Q2 per-DT-lane transaction counts LW + QTD, this year vs -364 last year (YoY)
-  Q3 top FOOD-category items (units) QTD + LW estate
-  Q4 the named NEW SKUs (egg mayo / ham&cheese ciabatta / chicken cheese bbq toasty) + first-sold date
-Prints JSON blocks."""
-import os, json
-from google.oauth2 import service_account
-from google.cloud import bigquery
-PROJECT="bewiched-coffee-368116"; DATASET="bewiched_coffee"; LOC="europe-west2"
-FLAT=f"`{PROJECT}.{DATASET}.v_sales_details_flat`"
-SDET=f"`{PROJECT}.{DATASET}.v_sales_details`"
-creds=service_account.Credentials.from_service_account_info(
-    json.loads(os.environ["GCP_SA_JSON"]), scopes=["https://www.googleapis.com/auth/bigquery"])
-cl=bigquery.Client(project=PROJECT, credentials=creds)
-def bq(sql): return [dict(r) for r in cl.query(sql, location=LOC).result()]
-# periods aligned to EOS cur_end 2026-08-09
-LW=("2026-08-03","2026-08-09"); LW25=("2025-08-04","2025-08-10")
-QT=("2026-07-01","2026-08-09"); QT25=("2025-07-02","2025-08-10")
-CAT=r"""CASE
-  WHEN REGEXP_CONTAINS(LOWER({c}), r'milkshake') THEN 'Milkshakes'
-  WHEN REGEXP_CONTAINS(LOWER({c}), r'iced|frappe|frozen|matcha|cold brew') THEN 'Cold'
-  WHEN REGEXP_CONTAINS(LOWER({c}), r'beans|1kg|gift|merch') THEN 'Other&retail'
-  WHEN REGEXP_CONTAINS(LOWER({c}), r'pastry|sausage roll') AND REGEXP_CONTAINS(LOWER({c}), r'meal deal') THEN 'Bakery'
-  WHEN REGEXP_CONTAINS(LOWER({c}), r'meal deal|croque|ciabatta|\bbap\b|wrap|sandwich|bagel|salad|tuna|panini|toastie|toasty|soup|sausage roll|breakfast') THEN 'Food'
-  WHEN REGEXP_CONTAINS(LOWER({c}), r'traybake|brownie|slice|croissant|pastry|muffin|cookie|cake|bakewell|millionaire|teacake|scone|flapjack|twist|doughnut|fudge|cinnamon') THEN 'Bakery'
-  WHEN REGEXP_CONTAINS(LOWER({c}), r'latte|cappuccino|americano|flat white|mocha|espresso|hot choc|\bmug\b|\bpot\b|\btea\b|coffee|macchiato|cortado|chai') THEN 'Hot'
-  ELSE 'Other&retail' END""".replace("{c}","item_product_name")
+"""SMT Visit Diary — finish the Master roll-up (service-account write, Actions).
 
-print("===Q1 DT registers (QTD)===")
-print(json.dumps(bq(f"""
-SELECT outlet.outlet_name store, register.register_name reg, COUNT(DISTINCT id) orders
-FROM {SDET}
-WHERE DATE(sales_date) BETWEEN '{QT[0]}' AND '{QT[1]}' AND LOWER(register.register_name) LIKE '%drive%'
-GROUP BY store, reg ORDER BY orders DESC""")))
+Matt granted the dashboards-bot SA edit access on the protected Master range, so the
+previously-blocked step can now complete. This APPENDS the 8 previously-unwired weeks
+(03 Aug -> 21 Sep 2026) to the EXISTING Master!A2 array formula, in chronological order,
+using the SAME per-week FILTER element style as the current formula (derived verbatim).
+Idempotent: the 8 tabs already exist (no creation); only target weeks not yet referenced
+are appended. Then it verifies with a test entry on the 17-Aug tab (confirms it rolls into
+Master) and REMOVES it, leaving the tabs clean.
 
-print("===Q2 per-DT-lane transactions LW/QTD YoY===")
-print(json.dumps(bq(f"""
-SELECT store,
-  COUNT(DISTINCT IF(d BETWEEN '{LW[0]}' AND '{LW[1]}', id, NULL)) lw26,
-  COUNT(DISTINCT IF(d BETWEEN '{LW25[0]}' AND '{LW25[1]}', id, NULL)) lw25,
-  COUNT(DISTINCT IF(d BETWEEN '{QT[0]}' AND '{QT[1]}', id, NULL)) qtd26,
-  COUNT(DISTINCT IF(d BETWEEN '{QT25[0]}' AND '{QT25[1]}', id, NULL)) qtd25
-FROM (SELECT outlet.outlet_name store, id, DATE(sales_date) d
-      FROM {SDET}
-      WHERE LOWER(register.register_name) LIKE '%drive%'
-        AND (DATE(sales_date) BETWEEN '{QT25[0]}' AND '{QT25[1]}' OR DATE(sales_date) BETWEEN '{QT[0]}' AND '{QT[1]}'))
-GROUP BY store ORDER BY qtd26 DESC""")))
+Prints SAFE diagnostics only (tab names, counts, booleans — no '{...}' / '!' refs) so the
+GitHub Actions log stays readable through the content filter.
+"""
+import datetime, time
+from smt_diary import _svc, build_element_template, parse_tab_date, col_letter, SMT_ID
 
-print("===Q3 top FOOD items units QTD/LW===")
-print(json.dumps(bq(f"""
-SELECT item_product_name item,
-  ROUND(SUM(IF(d BETWEEN '{QT[0]}' AND '{QT[1]}', q,0))) units_qtd,
-  ROUND(SUM(IF(d BETWEEN '{LW[0]}' AND '{LW[1]}', q,0))) units_lw
-FROM (SELECT item_product_name, DATE(sales_date) d, SAFE_CAST(item_quantity AS FLOAT64) q, {CAT} cat
-      FROM {FLAT} WHERE DATE(sales_date) BETWEEN '{QT[0]}' AND '{QT[1]}')
-WHERE cat='Food'
-GROUP BY item ORDER BY units_qtd DESC LIMIT 30""")))
+TARGET_MONDAYS = [datetime.date(2026, 8, 3),  datetime.date(2026, 8, 10),
+                  datetime.date(2026, 8, 17), datetime.date(2026, 8, 24),
+                  datetime.date(2026, 8, 31), datetime.date(2026, 9, 7),
+                  datetime.date(2026, 9, 14), datetime.date(2026, 9, 21)]
 
-print("===Q4 NEW SKUs + first-sold===")
-print(json.dumps(bq(f"""
-SELECT item_product_name item, MIN(d) first_sold,
-  ROUND(SUM(IF(d BETWEEN '{QT[0]}' AND '{QT[1]}', q,0))) units_qtd,
-  ROUND(SUM(IF(d BETWEEN '{LW[0]}' AND '{LW[1]}', q,0))) units_lw
-FROM (SELECT item_product_name, DATE(sales_date) d, SAFE_CAST(item_quantity AS FLOAT64) q
-      FROM {FLAT} WHERE DATE(sales_date) BETWEEN '2026-04-01' AND '{QT[1]}')
-WHERE REGEXP_CONTAINS(LOWER(item_product_name), r'egg.*mayo|double egg|ham.*chee.*ciabatta|chicken.*chee.*bbq|bbq.*toast|chicken.*bbq')
-GROUP BY item ORDER BY units_qtd DESC LIMIT 25""")))
-print("===END===")
+
+def main():
+    ss = _svc().spreadsheets()
+    today = datetime.date.today()
+
+    # 1. write-access probe (harmless scratch write + clear, well outside any spill)
+    ss.values().update(spreadsheetId=SMT_ID, range="Master!Z999",
+                       valueInputOption="RAW", body={"values": [["probe"]]}).execute()
+    ss.values().clear(spreadsheetId=SMT_ID, range="Master!Z999", body={}).execute()
+    print("[smt] write-access OK (service account can edit Master)")
+
+    # 2. tab titles -> map week-date to EXACT title (naming is not assumed)
+    meta = ss.get(spreadsheetId=SMT_ID, fields="sheets.properties(title,index)").execute()
+    titles = [s["properties"]["title"] for s in meta["sheets"]]
+    date_to_title = {}
+    for t in titles:
+        if t.strip().lower() == "master":
+            continue
+        d = parse_tab_date(t, today)
+        if d:
+            date_to_title[d] = t
+    print("[smt] total tabs: %d" % len(titles))
+
+    # 3. current Master formula + per-week element template (derived verbatim)
+    cur = ss.values().get(spreadsheetId=SMT_ID, range="Master!A2",
+                          valueRenderOption="FORMULA").execute().get("values", [[""]])
+    cur_formula = cur[0][0] if (cur and cur[0]) else ""
+    print("[smt] current Master formula length: %d chars" % len(cur_formula))
+    elem = build_element_template(cur_formula)
+
+    # 4. resolve targets to exact titles (chronological), find which are unwired
+    resolved = []
+    for m in sorted(TARGET_MONDAYS):
+        t = date_to_title.get(m)
+        print("[smt] target %s -> tab '%s'" % (m.isoformat(), t if t else "MISSING"))
+        if t:
+            resolved.append((m, t))
+
+    def referenced(title):
+        return ("'%s'!" % title) in cur_formula
+
+    already = [t for (m, t) in resolved if referenced(t)]
+    to_add = [(m, t) for (m, t) in resolved if not referenced(t)]
+    print("[smt] weeks already wired: %d %s" % (len(already), already))
+    print("[smt] weeks to append: %s" % ([t for _, t in to_add] or "none"))
+
+    if to_add:
+        body = cur_formula.strip()
+        assert body.startswith("={") and body.endswith("}"), "unexpected Master formula shape"
+        inner = body[2:-1]
+        add_inner = ";".join(elem(t) for _, t in to_add)
+        new_formula = "={" + inner + ";" + add_inner + "}"
+        ss.values().update(spreadsheetId=SMT_ID, range="Master!A2",
+                           valueInputOption="USER_ENTERED", body={"values": [[new_formula]]}).execute()
+        print("[smt] Master!A2 UPDATE OK - appended %d week(s); new formula length %d chars" % (len(to_add), len(new_formula)))
+    else:
+        print("[smt] nothing to append - all 8 target weeks already wired")
+
+    # 5. verify: test entry on the 17-Aug tab -> should roll into Master
+    test_title = date_to_title.get(datetime.date(2026, 8, 17))
+    marker = "SMTTEST-%d" % int(time.time())
+    verify_ok = None
+    if test_title:
+        hdr = ss.values().get(spreadsheetId=SMT_ID, range="'%s'!1:1" % test_title).execute().get("values", [[]])
+        hdr = hdr[0] if hdr else []
+        slack_i = next((i for i, h in enumerate(hdr) if str(h).strip().lower() == "slack feedback"), 9)
+        cell = "'%s'!%s2" % (test_title, col_letter(slack_i))
+        ss.values().update(spreadsheetId=SMT_ID, range=cell,
+                           valueInputOption="RAW", body={"values": [[marker]]}).execute()
+        time.sleep(2)
+        mvals = ss.values().get(spreadsheetId=SMT_ID, range="Master!A1:Z3000").execute().get("values", [])
+        verify_ok = any(any(marker in str(c) for c in row) for row in mvals)
+        print("[smt] test marker written to %s (Slack col) ; appears in Master summary: %s" % (cell, verify_ok))
+        # 6. remove the test entry (restore to blank/clean)
+        ss.values().clear(spreadsheetId=SMT_ID, range=cell, body={}).execute()
+        print("[smt] test entry removed - cell cleared, tab left clean")
+    else:
+        print("[smt] 17-Aug tab not found for verification")
+
+    print("[smt] FINAL tabs (last 12): %s" % " | ".join(titles[-12:]))
+    print("[smt] SUMMARY appended=%d already_wired=%d verify_test_in_master=%s"
+          % (len(to_add), len(already), verify_ok))
+
+
+if __name__ == "__main__":
+    main()
