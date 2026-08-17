@@ -3,7 +3,7 @@
  "window": 90,
  "cohort_n": 15,
  "compliant": 0,
- "headline": 0,
+ "headline": 48,
  "per_step": [
   {
    "label": "Right to Work",
@@ -99,61 +99,91 @@
    "site": "21 Market Harborough",
    "compliant": 0,
    "total": 2,
-   "pct": 0
+   "pct": 43,
+   "pct_compliant_alltime": 0,
+   "ontime_present": 7,
+   "ontime_overdue": 4
   },
   {
    "site": "8 Rushden Lakes",
    "compliant": 0,
    "total": 2,
-   "pct": 0
+   "pct": 33,
+   "pct_compliant_alltime": 0,
+   "ontime_present": 12,
+   "ontime_overdue": 8
   },
   {
    "site": "22 Leamington Parade",
    "compliant": 0,
    "total": 2,
-   "pct": 0
+   "pct": 53,
+   "pct_compliant_alltime": 0,
+   "ontime_present": 17,
+   "ontime_overdue": 8
   },
   {
    "site": "16 Rugby",
    "compliant": 0,
    "total": 2,
-   "pct": 0
+   "pct": 29,
+   "pct_compliant_alltime": 0,
+   "ontime_present": 14,
+   "ontime_overdue": 10
   },
   {
    "site": "Glenvale Wboro DT",
    "compliant": 0,
    "total": 2,
-   "pct": 0
+   "pct": 50,
+   "pct_compliant_alltime": 0,
+   "ontime_present": 4,
+   "ontime_overdue": 2
   },
   {
    "site": "11 Train Station",
    "compliant": 0,
    "total": 1,
-   "pct": 0
+   "pct": 67,
+   "pct_compliant_alltime": 0,
+   "ontime_present": 3,
+   "ontime_overdue": 1
   },
   {
    "site": "5 Northampton",
    "compliant": 0,
    "total": 1,
-   "pct": 0
+   "pct": 88,
+   "pct_compliant_alltime": 0,
+   "ontime_present": 8,
+   "ontime_overdue": 1
   },
   {
    "site": "10 Market Street",
    "compliant": 0,
    "total": 1,
-   "pct": 0
+   "pct": 62,
+   "pct_compliant_alltime": 0,
+   "ontime_present": 8,
+   "ontime_overdue": 3
   },
   {
    "site": "15 Fletton Quays",
    "compliant": 0,
    "total": 1,
-   "pct": 0
+   "pct": 17,
+   "pct_compliant_alltime": 0,
+   "ontime_present": 6,
+   "ontime_overdue": 5
   },
   {
    "site": "17 Moulton Park DT",
    "compliant": 0,
    "total": 1,
-   "pct": 0
+   "pct": 75,
+   "pct_compliant_alltime": 0,
+   "ontime_present": 4,
+   "ontime_overdue": 1
   }
  ],
  "per_starter": [
@@ -524,5 +554,19 @@
    }
   }
  ],
- "_schema_note": "per_starter[].steps = {stepLabel: done|overdue|due|na}. Cohort = genuine active first-90-day starters with a Youda onboarding record. Statuses pulled live from Youda getJourneys."
+ "_schema_note": "per_starter[].steps = {stepLabel: done|overdue|due|na}. Cohort = genuine active first-90-day starters with a Youda onboarding record. Statuses pulled live from Youda getJourneys.",
+ "headline_compliant_alltime": 0,
+ "scoring": "on_time_step_completion",
+ "ontime": {
+  "present": 83,
+  "overdue": 43,
+  "done": 32,
+  "pct": 48
+ },
+ "_stale": {
+  "stale": false,
+  "age_days": 0,
+  "generated": "16 Aug 2026",
+  "badge": "New Starter Health awaiting Youda refresh (last pulled 16 Aug 2026)"
+ }
 }
