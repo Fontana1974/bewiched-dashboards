@@ -3324,6 +3324,67 @@ def freshness_gate():
     print("[gate] freshness OK — estate outputs refreshed to %s%s" % (CUR_END, " (F1 degraded)" if warns else ""))
 
 
+
+def push_cos_planner():
+    """STEP (pull) — write per-store Wastage% + Discounts% into each area planner's COS tab (cols K,L)
+    each run. Coach fills Stock£ + the four supplier £ (Stock%, Total Deliveries, Delivery% are in-sheet
+    formulas; Sales links from the Weekly Planner). Wastage% = v_sales_vs_wastage 28d retail (allstores
+    rec.waste_pct); Discounts% = (gross-net)/net at sale level over 28d. Idempotent per-cell overwrite."""
+    try:
+        rec = (json.load(open(os.path.join(HERE, "allstores.json"))) or {}).get("rec", {})
+    except Exception as e:
+        print("[cos-planner] allstores.json missing (%s) -- skip" % e); return
+    dmap = {}
+    try:
+        for r in bq(f"""
+          SELECT s, ROUND(SUM(gross-net)) dgbp, ROUND(SUM(net)) net FROM (
+            SELECT item_outlet_name s, id,
+              ANY_VALUE(SAFE_CAST(sales_total_before_line_discount AS FLOAT64)) gross,
+              ANY_VALUE(SAFE_CAST(sales_total_after_line_discount AS FLOAT64)) net
+            FROM {FLAT}
+            WHERE DATE(sales_date) BETWEEN {d(27)} AND {CE}
+            GROUP BY s, id)
+          GROUP BY s"""):
+            st = normalize(r["s"])
+            if st: dmap[st] = (r.get("dgbp") or 0, r.get("net") or 0)
+    except Exception as e:
+        print("[cos-planner] discounts query failed (%s) -- discounts left blank" % e)
+    api = _sheets_api()
+    for nm, sid in (("Jon", SID["planner_jon"]), ("Rich", SID["planner_rich"]), ("Ian", SID["planner_ian"])):
+        try:
+            col = api.get(spreadsheetId=sid, range="COS!A4:A20").execute().get("values", [])
+        except Exception as e:
+            print("[cos-planner] %s: read COS!A failed (%s) -- skip" % (nm, e)); continue
+        data = []; totrow = None
+        for i, rowv in enumerate(col):
+            label = (rowv[0].strip() if rowv and rowv[0] else "")
+            if not label: continue
+            r = 4 + i
+            if label.upper().startswith("AREA TOTAL"): totrow = r; continue
+            data.append((r, normalize(label)))
+        updates = []; swr = ss4 = sdg = snet = 0.0
+        for r, st in data:
+            wp = rec.get(st, {}).get("waste_pct")
+            dg, nt = dmap.get(st, (None, None))
+            dpct = round(100 * dg / nt, 1) if (dg is not None and nt) else None
+            updates.append({"range": "COS!K%d:L%d" % (r, r),
+                            "values": [[("" if wp is None else wp), ("" if dpct is None else dpct)]]})
+            if rec.get(st, {}).get("wr") is not None and rec.get(st, {}).get("s4"):
+                swr += rec[st]["wr"]; ss4 += rec[st]["s4"]
+            if dg is not None and nt: sdg += dg; snet += nt
+        if totrow:
+            awp = round(100 * swr / ss4, 1) if ss4 else ""
+            adp = round(100 * sdg / snet, 1) if snet else ""
+            updates.append({"range": "COS!K%d:L%d" % (totrow, totrow), "values": [[awp, adp]]})
+        try:
+            api.batchUpdate(spreadsheetId=sid,
+                            body={"valueInputOption": "USER_ENTERED", "data": updates}).execute()
+            print("[cos-planner] %s: wrote wastage%%+discounts%% for %d stores%s"
+                  % (nm, len(data), " + area" if totrow else ""))
+        except Exception as e:
+            print("[cos-planner] %s: write failed (%s)" % (nm, e))
+
+
 # ============================ ORCHESTRATION ============================
 def pulls():
     """All estate + store-page pulls (A) in dependency order."""
@@ -3358,6 +3419,7 @@ def pulls():
     pull_backtoschool()       # backtoschool_feed.json (EOS 5th tab: back-to-school forecast)
     pull_sales_extras()       # sales_extras.json (EOS Sales tab: DT lane throughput + fridge items)
     pull_franchise()          # franchise_fees.json (Franchise Fees Scale dashboard)
+    push_cos_planner()        # write Wastage%+Discounts% into each planner COS tab (K,L)
     pull_maintenance()        # maintenance.json (reactive/planned/coffee/audit)  [non-fatal]
 
 
