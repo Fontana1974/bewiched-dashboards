@@ -159,8 +159,8 @@
     "avg": 4.2
    },
    "qtd": {
-    "n": 29,
-    "avg": 2.97
+    "n": 32,
+    "avg": 2.78
    },
    "prevq": {
     "n": 69,
@@ -986,6 +986,30 @@
  },
  "comments": [
   {
+   "store": "Corby",
+   "date": "2026-08-18",
+   "rating": 1.0,
+   "text": "NO REFIT YET MONEY FOR NEW STORE",
+   "smt": null,
+   "sentiment": "Negative"
+  },
+  {
+   "store": "Corby",
+   "date": "2026-08-18",
+   "rating": 1.0,
+   "text": "Neglected",
+   "smt": null,
+   "sentiment": "Negative"
+  },
+  {
+   "store": "Corby",
+   "date": "2026-08-18",
+   "rating": 1.0,
+   "text": "Bailiffs in store",
+   "smt": null,
+   "sentiment": "Negative"
+  },
+  {
    "store": "Rugby",
    "date": "2026-08-17",
    "rating": 5.0,
@@ -1150,30 +1174,6 @@
    "date": "2026-08-15",
    "rating": 5.0,
    "text": "Epic teamwork",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Corby",
-   "date": "2026-08-15",
-   "rating": 4.0,
-   "text": "Shift was great,team work 100% ,struggling to keep up with demand on milkshakes without the ice cream machine",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Peterborough Bridge Street",
-   "date": "2026-08-15",
-   "rating": 3.0,
-   "text": "no clue how to explain",
-   "smt": null,
-   "sentiment": "Mixed"
-  },
-  {
-   "store": "Northampton Drive-Thru",
-   "date": "2026-08-14",
-   "rating": 5.0,
-   "text": "Coached believed in learned",
    "smt": null,
    "sentiment": "Positive"
   }

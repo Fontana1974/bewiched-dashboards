@@ -29,11 +29,11 @@
  },
  "stores": {
   "Attleborough": {
-   "g_n": 5,
-   "g_avg": 4.8,
+   "g_n": 6,
+   "g_avg": 4.667,
    "g_target": 15,
-   "g_health": 3.23,
-   "g_rag": "red",
+   "g_health": 3.33,
+   "g_rag": "green",
    "g_stale": false,
    "r_n": 13,
    "r_avg": 4.0,
@@ -68,8 +68,8 @@
    "g_health": 2.9,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 29,
-   "r_avg": 2.97,
+   "r_n": 32,
+   "r_avg": 2.78,
    "r_rag": "red"
   },
   "Glenvale Drive Thru": {
@@ -139,10 +139,10 @@
    "r_rag": "red"
   },
   "Market Harborough": {
-   "g_n": 17,
-   "g_avg": 4.824,
+   "g_n": 18,
+   "g_avg": 4.778,
    "g_target": 24,
-   "g_health": 4.18,
+   "g_health": 4.26,
    "g_rag": "green",
    "g_stale": false,
    "r_n": 13,
@@ -183,10 +183,10 @@
    "r_rag": "red"
   },
   "Peterborough Bridge Street": {
-   "g_n": 12,
-   "g_avg": 5.0,
+   "g_n": 13,
+   "g_avg": 4.923,
    "g_target": 18,
-   "g_health": 4.17,
+   "g_health": 4.27,
    "g_rag": "green",
    "g_stale": false,
    "r_n": 12,
