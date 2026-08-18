@@ -1420,7 +1420,7 @@ def pull_planner():
     Section B: CPH=idx1, Forecast=idx4/7/10, Plan hrs=idx5/8/11. Blank hours -> field absent."""
     ovr = {}
     for sid in (SID["planner_jon"], SID["planner_rich"], SID["planner_ian"]):
-        rows = sheet(sid, "'Weekly Planner'!A1:L60")
+        rows = sheet(sid, "'Weekly Planner'!A1:S60")
         sec = None
         for r in rows:
             if not r: continue
@@ -1454,6 +1454,15 @@ def pull_planner():
                 o["hrs"] = [round(fnum(r[5]), 1) if len(r) > 5 and r[5] not in (None, "") else None,
                             round(fnum(r[8]), 1) if len(r) > 8 and r[8] not in (None, "") else None,
                             round(fnum(r[11]), 1) if len(r) > 11 and r[11] not in (None, "") else None]
+                # NEW: holiday-forecast N/P/R (idx 13/15/17); forecast SPH = forecast / (plan hrs + holiday fcst), mirrors sheet O/Q/S
+                def hvf(i): return round(fnum(r[i]), 1) if len(r) > i and r[i] not in (None, "") else 0.0
+                o["hol_fc"] = [hvf(13), hvf(15), hvf(17)]
+                _sfc = []
+                for _k in range(3):
+                    _f = o["fc"][_k]; _h = o["hrs"][_k]; _hol = o["hol_fc"][_k]
+                    _den = (_h or 0) + (_hol or 0)
+                    _sfc.append(round(_f / _den) if (_f is not None and _den > 0) else None)
+                o["sph_fc"] = _sfc
     W("planner_overrides.json", ovr, indent=1)
     print("[pull] planner: %d stores" % len(ovr))
 

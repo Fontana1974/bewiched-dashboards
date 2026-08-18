@@ -357,20 +357,25 @@ def build(coach):
     def _fc(s,i):
         ly=R[s].get('ly',[0,0,0,0])[i]; y=R[s].get('yoy_4w')
         return round(ly*(1+y/100)) if (ly>0 and y is not None) else R[s]['lw26']
-    sumly=[0,0,0]; sumf=[0,0,0]; sumh=[0,0,0]; sumlw=0; fcst_rows=""
+    sumly=[0,0,0]; sumf=[0,0,0]; sumh=[0,0,0]; sumhol=[0,0,0]; sumlw=0; fcst_rows=""
     for s in sorted(stores,key=lambda x:-R[x]['lw26']):
         cph=(OVR[s].get('cph') if isinstance(OVR.get(s),dict) and OVR[s].get('cph') else R[s].get('cph',55)); lw=R[s]['lw26']; sumlw+=lw
         cells=f'<td style="text-align:left">{SHORT[s]}</td><td>£{cph}</td><td>{GBP(lw)}</td>'
+        _ov=OVR.get(s) if isinstance(OVR.get(s),dict) else {}
         for wi in range(3):
             ly=R[s].get('ly',[0,0,0,0])[wi+1]; f=_fc(s,wi+1); h=round(f/cph) if cph else 0
-            if isinstance(OVR.get(s),dict): f=OVR[s]['fc'][wi]; h=OVR[s]['hrs'][wi]
-            sumly[wi]+=ly; sumf[wi]+=f; sumh[wi]+=h
-            cells+=f'<td class="mini">{GBP(ly) if ly>0 else "&mdash;"}</td><td style="font-weight:600">{GBP(f)}</td><td>{h}</td>'
+            if _ov: f=_ov['fc'][wi]; h=_ov['hrs'][wi]
+            hol=(_ov.get('hol_fc') or [0,0,0])[wi] or 0
+            den=(h or 0)+hol; sph=round(f/den) if (f and den>0) else None
+            sumly[wi]+=ly; sumf[wi]+=(f or 0); sumh[wi]+=(h or 0); sumhol[wi]+=hol
+            cells+=f'<td class="mini">{GBP(ly) if ly>0 else "&mdash;"}</td><td style="font-weight:600">{GBP(f)}</td><td>{h}</td><td>{("£"+str(sph)) if sph is not None else "&mdash;"}</td>'
         fcst_rows+=f'<tr>{cells}</tr>'
     tot=f'<tr style="font-weight:700;background:#EFE6DC"><td style="text-align:left">AREA TOTAL</td><td></td><td>{GBP(sumlw)}</td>'
-    for wi in range(3): tot+=f'<td>{GBP(sumly[wi])}</td><td>{GBP(sumf[wi])}</td><td>{sumh[wi]}</td>'
+    for wi in range(3):
+        _asph=round(sumf[wi]/(sumh[wi]+sumhol[wi])) if (sumh[wi]+sumhol[wi])>0 else None
+        tot+=f'<td>{GBP(sumly[wi])}</td><td>{GBP(sumf[wi])}</td><td>{sumh[wi]}</td><td>{("£"+str(_asph)) if _asph is not None else "&mdash;"}</td>'
     fcst_rows+=tot+'</tr>'
-    fcst_blended=round(sumf[0]/sumh[0],1) if sumh[0] else 0
+    fcst_blended=round(sumf[0]/(sumh[0]+sumhol[0]),1) if (sumh[0]+sumhol[0]) else 0
     TARGETS="https://docs.google.com/spreadsheets/d/18iUyF6Usm5QnUAARPgNsAkqWp00fKPv1WA3waBKJFZU/edit"
 
     # ---- F1 Qualifying / Race detail tables (area-scoped: this coach's stores; Rank/Finish = company-wide championship position) ----
