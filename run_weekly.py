@@ -3328,8 +3328,8 @@ def freshness_gate():
 def push_cos_planner():
     """STEP (pull) — write per-store Wastage% + Discounts% into each area planner's COS tab (cols K,L)
     each run. Coach fills Stock£ + the four supplier £ (Stock%, Total Deliveries, Delivery% are in-sheet
-    formulas; Sales links from the Weekly Planner). Wastage% = v_sales_vs_wastage 28d retail (allstores
-    rec.waste_pct); Discounts% = (gross-net)/net at sale level over 28d. Idempotent per-cell overwrite."""
+    formulas; Sales links from the Weekly Planner). Wastage% = v_sales_vs_wastage for the exact last-completed week (rec.waste_pct_lw); Discounts% =
+    (gross-net)/net at sale level for that SAME week (matches the COS Sales week). Idempotent per-cell overwrite."""
     try:
         rec = (json.load(open(os.path.join(HERE, "allstores.json"))) or {}).get("rec", {})
     except Exception as e:
@@ -3342,7 +3342,7 @@ def push_cos_planner():
               ANY_VALUE(SAFE_CAST(sales_total_before_line_discount AS FLOAT64)) gross,
               ANY_VALUE(SAFE_CAST(sales_total_after_line_discount AS FLOAT64)) net
             FROM {FLAT}
-            WHERE DATE(sales_date) BETWEEN {d(27)} AND {CE}
+            WHERE DATE(sales_date) BETWEEN {d(6)} AND {CE}
             GROUP BY s, id)
           GROUP BY s"""):
             st = normalize(r["s"])
@@ -3364,13 +3364,13 @@ def push_cos_planner():
             data.append((r, normalize(label)))
         updates = []; swr = ss4 = sdg = snet = 0.0
         for r, st in data:
-            wp = rec.get(st, {}).get("waste_pct")
+            wp = rec.get(st, {}).get("waste_pct_lw")
             dg, nt = dmap.get(st, (None, None))
             dpct = round(100 * dg / nt, 1) if (dg is not None and nt) else None
             updates.append({"range": "COS!K%d:L%d" % (r, r),
                             "values": [[("" if wp is None else wp), ("" if dpct is None else dpct)]]})
-            if rec.get(st, {}).get("wr") is not None and rec.get(st, {}).get("s4"):
-                swr += rec[st]["wr"]; ss4 += rec[st]["s4"]
+            if rec.get(st, {}).get("wr_lw") is not None and rec.get(st, {}).get("lw26"):
+                swr += rec[st]["wr_lw"]; ss4 += rec[st]["lw26"]
             if dg is not None and nt: sdg += dg; snet += nt
         if totrow:
             awp = round(100 * swr / ss4, 1) if ss4 else ""
