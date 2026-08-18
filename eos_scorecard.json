@@ -1,6 +1,6 @@
 {
  "_about": "Bewiched EOS Scorecard data. Written by run_weekly.py pull_eos_scorecard(); rendered by gen_eos_scorecard.py. Live = BigQuery; derived = other feeds; manual = inputs sheet.",
- "generated": "18 Aug 2026, 16:17",
+ "generated": "18 Aug 2026, 16:51",
  "cur_end": "2026-08-16",
  "quarter_start": "2026-07-01",
  "week_label": "w/c 10 Aug 2026",
@@ -62,12 +62,12 @@
    "id": "brew_crew_kudos",
    "name": "Brew Crew Kudos Participation",
    "plan": 50,
-   "actual": 36.7,
+   "actual": null,
    "unit": "%",
    "fmt": "pct0",
    "dir": "high",
    "source": "derived",
-   "detail": "76 of 207 employees gave kudos last week (BCKH)",
+   "detail": "No BCKH entries last week (latest n/a)",
    "note": "Distinct employees who contributed to Brew Crew Kudos (BCKH tab, F1 workbook) in the LAST COMPLETED WEEK, matched by email to the Employee List, ÷ total employees. Awaiting if no entries that week."
   },
   {
@@ -209,24 +209,24 @@
    "id": "rms_health_qtd",
    "name": "Rate My Shift Health",
    "plan": 70,
-   "actual": 86.9,
+   "actual": 87.0,
    "unit": "%",
    "fmt": "pct0",
    "dir": "high",
    "source": "derived",
-   "detail": "399 submissions (÷490) · 4.25★ (÷4.6) QTD",
+   "detail": "400 submissions (÷490) · 4.24★ (÷4.6) QTD",
    "note": "Blend: avg of QTD submissions÷(70×7 wks) and avg score÷4.6, each capped 100%."
   },
   {
    "id": "brew_crew_kudos_qtd",
    "name": "Brew Crew Kudos Participation",
    "plan": 50,
-   "actual": 49.3,
+   "actual": null,
    "unit": "%",
    "fmt": "pct0",
    "dir": "high",
    "source": "derived",
-   "detail": "102 of 207 employees gave kudos this quarter (BCKH)",
+   "detail": "",
    "note": "Distinct employees who contributed to Brew Crew Kudos (BCKH tab) QUARTER-TO-DATE, matched by email to the Employee List, ÷ total employees."
   },
   {
@@ -411,20 +411,20 @@
     "basis": "Quarter-to-date vs 2025, like-for-like (per store)",
     "rows": [
      {
-      "store": "Peterborough Fletton Quays",
-      "value": 18.6
-     },
-     {
       "store": "Corby",
       "value": -18.9
      },
      {
-      "store": "Higham Ferrers",
-      "value": 17.6
+      "store": "Northampton",
+      "value": 11.8
      },
      {
-      "store": "Northampton Drive-Thru",
-      "value": 14.9
+      "store": "Burton Latimer",
+      "value": 4.9
+     },
+     {
+      "store": "Rothwell",
+      "value": 21.8
      },
      {
       "store": "Peterborough Bridge Street",
@@ -435,52 +435,52 @@
       "value": 9.1
      },
      {
-      "store": "Glenvale Drive Thru",
-      "value": 34.8
-     },
-     {
-      "store": "Wellingborough Train Station",
-      "value": -5.6
-     },
-     {
-      "store": "Rugby",
-      "value": 6.1
-     },
-     {
-      "store": "Leamington Parade",
-      "value": 17.7
-     },
-     {
-      "store": "HOE Balsall Common",
-      "value": 15.1
-     },
-     {
       "store": "Wellingborough",
       "value": 17.4
-     },
-     {
-      "store": "Northampton",
-      "value": 11.8
-     },
-     {
-      "store": "Rothwell",
-      "value": 21.8
-     },
-     {
-      "store": "Burton Latimer",
-      "value": 4.9
-     },
-     {
-      "store": "Lower Heathcote",
-      "value": 35.2
      },
      {
       "store": "Rushden Lakes",
       "value": 6.3
      },
      {
+      "store": "Lower Heathcote",
+      "value": 35.2
+     },
+     {
       "store": "Market Harborough",
       "value": 15.1
+     },
+     {
+      "store": "Glenvale Drive Thru",
+      "value": 34.8
+     },
+     {
+      "store": "HOE Balsall Common",
+      "value": 15.1
+     },
+     {
+      "store": "Wellingborough Train Station",
+      "value": -5.6
+     },
+     {
+      "store": "Northampton Drive-Thru",
+      "value": 14.9
+     },
+     {
+      "store": "Higham Ferrers",
+      "value": 17.6
+     },
+     {
+      "store": "Rugby",
+      "value": 6.1
+     },
+     {
+      "store": "Peterborough Fletton Quays",
+      "value": 18.6
+     },
+     {
+      "store": "Leamington Parade",
+      "value": 17.7
      }
     ]
    }
@@ -568,20 +568,20 @@
     "basis": "Quarter-to-date transactions vs 2025, like-for-like (per store)",
     "rows": [
      {
-      "store": "Peterborough Fletton Quays",
-      "value": 11.2
-     },
-     {
       "store": "Corby",
       "value": -19.5
      },
      {
-      "store": "Higham Ferrers",
-      "value": 8.5
+      "store": "Northampton",
+      "value": 5.0
      },
      {
-      "store": "Northampton Drive-Thru",
-      "value": 8.0
+      "store": "Burton Latimer",
+      "value": -3.6
+     },
+     {
+      "store": "Rothwell",
+      "value": 11.0
      },
      {
       "store": "Peterborough Bridge Street",
@@ -592,52 +592,52 @@
       "value": -1.1
      },
      {
-      "store": "Glenvale Drive Thru",
-      "value": 21.2
-     },
-     {
-      "store": "Wellingborough Train Station",
-      "value": -10.0
-     },
-     {
-      "store": "Rugby",
-      "value": -1.7
-     },
-     {
-      "store": "Leamington Parade",
-      "value": 10.1
-     },
-     {
-      "store": "HOE Balsall Common",
-      "value": 2.8
-     },
-     {
       "store": "Wellingborough",
       "value": 2.4
-     },
-     {
-      "store": "Northampton",
-      "value": 5.0
-     },
-     {
-      "store": "Rothwell",
-      "value": 11.0
-     },
-     {
-      "store": "Burton Latimer",
-      "value": -3.6
-     },
-     {
-      "store": "Lower Heathcote",
-      "value": 28.5
      },
      {
       "store": "Rushden Lakes",
       "value": 1.8
      },
      {
+      "store": "Lower Heathcote",
+      "value": 28.5
+     },
+     {
       "store": "Market Harborough",
       "value": 7.1
+     },
+     {
+      "store": "Glenvale Drive Thru",
+      "value": 21.2
+     },
+     {
+      "store": "HOE Balsall Common",
+      "value": 2.8
+     },
+     {
+      "store": "Wellingborough Train Station",
+      "value": -10.0
+     },
+     {
+      "store": "Northampton Drive-Thru",
+      "value": 8.0
+     },
+     {
+      "store": "Higham Ferrers",
+      "value": 8.5
+     },
+     {
+      "store": "Rugby",
+      "value": -1.7
+     },
+     {
+      "store": "Peterborough Fletton Quays",
+      "value": 11.2
+     },
+     {
+      "store": "Leamington Parade",
+      "value": 10.1
      }
     ]
    }
@@ -1503,7 +1503,7 @@
     "rows": [
      {
       "store": "Corby",
-      "value": 33.5
+      "value": 33.0
      },
      {
       "store": "Olney",
@@ -1676,187 +1676,6 @@
      {
       "store": "Kettering",
       "value": 4.21
-     }
-    ]
-   }
-  },
-  "Brew Crew Kudos Participation": {
-   "plan": 50,
-   "weekly": {
-    "basis": "Distinct employees at the store who gave kudos last week ÷ store headcount (per store, vs 50% plan)",
-    "rows": [
-     {
-      "store": "Attleborough",
-      "value": 40.0
-     },
-     {
-      "store": "Billing Drive Thru",
-      "value": 92.9
-     },
-     {
-      "store": "Burton Latimer",
-      "value": 50.0
-     },
-     {
-      "store": "Corby",
-      "value": 25.0
-     },
-     {
-      "store": "Glenvale Drive Thru",
-      "value": 7.7
-     },
-     {
-      "store": "HOE Balsall Common",
-      "value": 22.2
-     },
-     {
-      "store": "Higham Ferrers",
-      "value": 20.0
-     },
-     {
-      "store": "Kettering",
-      "value": 22.2
-     },
-     {
-      "store": "Leamington Parade",
-      "value": 57.1
-     },
-     {
-      "store": "Lower Heathcote",
-      "value": 33.3
-     },
-     {
-      "store": "Market Harborough",
-      "value": 62.5
-     },
-     {
-      "store": "Northampton",
-      "value": 66.7
-     },
-     {
-      "store": "Northampton Drive-Thru",
-      "value": 38.5
-     },
-     {
-      "store": "Olney",
-      "value": 16.7
-     },
-     {
-      "store": "Peterborough Bridge Street",
-      "value": 60.0
-     },
-     {
-      "store": "Peterborough Fletton Quays",
-      "value": 77.8
-     },
-     {
-      "store": "Rothwell",
-      "value": 40.0
-     },
-     {
-      "store": "Rugby",
-      "value": 37.5
-     },
-     {
-      "store": "Rushden Lakes",
-      "value": 35.7
-     },
-     {
-      "store": "Wellingborough",
-      "value": 16.7
-     },
-     {
-      "store": "Wellingborough Train Station",
-      "value": 25.0
-     }
-    ]
-   },
-   "qtd": {
-    "basis": "Distinct employees at the store who gave kudos this quarter ÷ store headcount (per store, vs 50% plan)",
-    "rows": [
-     {
-      "store": "Attleborough",
-      "value": 40.0
-     },
-     {
-      "store": "Billing Drive Thru",
-      "value": 92.9
-     },
-     {
-      "store": "Burton Latimer",
-      "value": 50.0
-     },
-     {
-      "store": "Corby",
-      "value": 50.0
-     },
-     {
-      "store": "Glenvale Drive Thru",
-      "value": 30.8
-     },
-     {
-      "store": "HOE Balsall Common",
-      "value": 33.3
-     },
-     {
-      "store": "Higham Ferrers",
-      "value": 60.0
-     },
-     {
-      "store": "Kettering",
-      "value": 44.4
-     },
-     {
-      "store": "Leamington Parade",
-      "value": 57.1
-     },
-     {
-      "store": "Lower Heathcote",
-      "value": 33.3
-     },
-     {
-      "store": "Market Harborough",
-      "value": 75.0
-     },
-     {
-      "store": "Northampton",
-      "value": 77.8
-     },
-     {
-      "store": "Northampton Drive-Thru",
-      "value": 53.8
-     },
-     {
-      "store": "Olney",
-      "value": 16.7
-     },
-     {
-      "store": "Peterborough Bridge Street",
-      "value": 60.0
-     },
-     {
-      "store": "Peterborough Fletton Quays",
-      "value": 77.8
-     },
-     {
-      "store": "Rothwell",
-      "value": 60.0
-     },
-     {
-      "store": "Rugby",
-      "value": 75.0
-     },
-     {
-      "store": "Rushden Lakes",
-      "value": 42.9
-     },
-     {
-      "store": "Wellingborough",
-      "value": 66.7
-     },
-     {
-      "store": "Wellingborough Train Station",
-      "value": 50.0
      }
     ]
    }
@@ -2638,7 +2457,7 @@
     ],
     "last": [
      25279.0,
-     27413.0,
+     27412.0,
      20791.0
     ]
    },
@@ -2656,32 +2475,6 @@
    }
   },
   "weekend_by_store": {
-   "Rugby": {
-    "sales": {
-     "this": [
-      1175.0,
-      1284.0,
-      707.0
-     ],
-     "last": [
-      1331.0,
-      1288.0,
-      682.0
-     ]
-    },
-    "tx": {
-     "this": [
-      158,
-      163,
-      98
-     ],
-     "last": [
-      201,
-      161,
-      94
-     ]
-    }
-   },
    "Northampton Drive-Thru": {
     "sales": {
      "this": [
@@ -2691,7 +2484,7 @@
      ],
      "last": [
       3861.0,
-      2879.0,
+      2878.0,
       2890.0
      ]
     },
@@ -2705,214 +2498,6 @@
       482,
       367,
       333
-     ]
-    }
-   },
-   "Kettering": {
-    "sales": {
-     "this": [
-      1455.0,
-      2074.0,
-      1104.0
-     ],
-     "last": [
-      1438.0,
-      1919.0,
-      869.0
-     ]
-    },
-    "tx": {
-     "this": [
-      200,
-      241,
-      134
-     ],
-     "last": [
-      226,
-      254,
-      124
-     ]
-    }
-   },
-   "Market Harborough": {
-    "sales": {
-     "this": [
-      1483.0,
-      2428.0,
-      1580.0
-     ],
-     "last": [
-      1278.0,
-      1888.0,
-      1571.0
-     ]
-    },
-    "tx": {
-     "this": [
-      192,
-      276,
-      188
-     ],
-     "last": [
-      174,
-      221,
-      194
-     ]
-    }
-   },
-   "Rushden Lakes": {
-    "sales": {
-     "this": [
-      3047.0,
-      4090.0,
-      4053.0
-     ],
-     "last": [
-      3554.0,
-      3688.0,
-      3838.0
-     ]
-    },
-    "tx": {
-     "this": [
-      329,
-      414,
-      432
-     ],
-     "last": [
-      413,
-      423,
-      417
-     ]
-    }
-   },
-   "Glenvale Drive Thru": {
-    "sales": {
-     "this": [
-      3115.0,
-      2981.0,
-      2975.0
-     ],
-     "last": [
-      2048.0,
-      2024.0,
-      2099.0
-     ]
-    },
-    "tx": {
-     "this": [
-      396,
-      351,
-      340
-     ],
-     "last": [
-      279,
-      265,
-      256
-     ]
-    }
-   },
-   "Rothwell": {
-    "sales": {
-     "this": [
-      858.0,
-      867.0,
-      952.0
-     ],
-     "last": [
-      617.0,
-      811.0,
-      745.0
-     ]
-    },
-    "tx": {
-     "this": [
-      134,
-      116,
-      116
-     ],
-     "last": [
-      104,
-      117,
-      99
-     ]
-    }
-   },
-   "Peterborough Fletton Quays": {
-    "sales": {
-     "this": [
-      1027.0,
-      522.0,
-      252.0
-     ],
-     "last": [
-      850.0,
-      776.0,
-      431.0
-     ]
-    },
-    "tx": {
-     "this": [
-      160,
-      67,
-      38
-     ],
-     "last": [
-      135,
-      116,
-      64
-     ]
-    }
-   },
-   "Higham Ferrers": {
-    "sales": {
-     "this": [
-      657.0,
-      804.0,
-      603.0
-     ],
-     "last": [
-      511.0,
-      652.0,
-      476.0
-     ]
-    },
-    "tx": {
-     "this": [
-      92,
-      106,
-      77
-     ],
-     "last": [
-      79,
-      82,
-      67
-     ]
-    }
-   },
-   "Northampton": {
-    "sales": {
-     "this": [
-      1561.0,
-      1925.0,
-      995.0
-     ],
-     "last": [
-      1308.0,
-      1830.0,
-      795.0
-     ]
-    },
-    "tx": {
-     "this": [
-      212,
-      249,
-      132
-     ],
-     "last": [
-      195,
-      249,
-      122
      ]
     }
    },
@@ -2942,211 +2527,55 @@
      ]
     }
    },
-   "Peterborough Bridge Street": {
+   "Rushden Lakes": {
     "sales": {
      "this": [
-      786.0,
-      958.0,
-      624.0
+      3047.0,
+      4090.0,
+      4053.0
      ],
      "last": [
-      918.0,
-      899.0,
-      525.0
+      3554.0,
+      3688.0,
+      3838.0
      ]
     },
     "tx": {
      "this": [
-      115,
-      119,
-      71
+      329,
+      414,
+      432
      ],
      "last": [
-      136,
-      137,
-      82
+      413,
+      423,
+      417
      ]
     }
    },
-   "Burton Latimer": {
+   "Kettering": {
     "sales": {
      "this": [
-      684.0,
-      953.0,
-      775.0
+      1455.0,
+      2074.0,
+      1104.0
      ],
      "last": [
-      774.0,
-      890.0,
-      553.0
+      1438.0,
+      1919.0,
+      869.0
      ]
     },
     "tx": {
      "this": [
-      96,
-      105,
-      90
+      200,
+      241,
+      134
      ],
      "last": [
-      97,
-      119,
-      68
-     ]
-    }
-   },
-   "Attleborough": {
-    "sales": {
-     "this": [
-      897.0,
-      902.0,
-      706.0
-     ],
-     "last": [
-      0,
-      0,
-      0
-     ]
-    },
-    "tx": {
-     "this": [
-      122,
-      109,
-      85
-     ],
-     "last": [
-      0,
-      0,
-      0
-     ]
-    }
-   },
-   "Leamington Parade": {
-    "sales": {
-     "this": [
-      1282.0,
-      1715.0,
-      1168.0
-     ],
-     "last": [
-      1160.0,
-      1824.0,
-      968.0
-     ]
-    },
-    "tx": {
-     "this": [
-      186,
-      235,
-      146
-     ],
-     "last": [
-      167,
-      234,
-      129
-     ]
-    }
-   },
-   "Lower Heathcote": {
-    "sales": {
-     "this": [
-      816.0,
-      601.0,
-      485.0
-     ],
-     "last": [
-      499.0,
-      450.0,
-      506.0
-     ]
-    },
-    "tx": {
-     "this": [
-      112,
-      84,
-      66
-     ],
-     "last": [
-      69,
-      61,
-      68
-     ]
-    }
-   },
-   "Wellingborough Train Station": {
-    "sales": {
-     "this": [
-      681.0,
-      628.0,
-      566.0
-     ],
-     "last": [
-      886.0,
-      1104.0,
-      365.0
-     ]
-    },
-    "tx": {
-     "this": [
-      109,
-      90,
-      102
-     ],
-     "last": [
-      167,
-      186,
-      74
-     ]
-    }
-   },
-   "HOE Balsall Common": {
-    "sales": {
-     "this": [
-      921.0,
-      1113.0,
-      1039.0
-     ],
-     "last": [
-      964.0,
-      778.0,
-      614.0
-     ]
-    },
-    "tx": {
-     "this": [
-      113,
-      137,
-      113
-     ],
-     "last": [
-      138,
-      111,
-      86
-     ]
-    }
-   },
-   "Billing Drive Thru": {
-    "sales": {
-     "this": [
-      2014.0,
-      2211.0,
-      1934.0
-     ],
-     "last": [
-      0,
-      0,
-      0
-     ]
-    },
-    "tx": {
-     "this": [
-      247,
-      243,
-      215
-     ],
-     "last": [
-      0,
-      0,
-      0
+      226,
+      254,
+      124
      ]
     }
    },
@@ -3176,6 +2605,318 @@
      ]
     }
    },
+   "Glenvale Drive Thru": {
+    "sales": {
+     "this": [
+      3115.0,
+      2981.0,
+      2975.0
+     ],
+     "last": [
+      2048.0,
+      2024.0,
+      2099.0
+     ]
+    },
+    "tx": {
+     "this": [
+      396,
+      351,
+      340
+     ],
+     "last": [
+      279,
+      265,
+      256
+     ]
+    }
+   },
+   "Market Harborough": {
+    "sales": {
+     "this": [
+      1483.0,
+      2428.0,
+      1580.0
+     ],
+     "last": [
+      1278.0,
+      1888.0,
+      1571.0
+     ]
+    },
+    "tx": {
+     "this": [
+      192,
+      276,
+      188
+     ],
+     "last": [
+      174,
+      221,
+      194
+     ]
+    }
+   },
+   "HOE Balsall Common": {
+    "sales": {
+     "this": [
+      921.0,
+      1113.0,
+      1039.0
+     ],
+     "last": [
+      964.0,
+      778.0,
+      614.0
+     ]
+    },
+    "tx": {
+     "this": [
+      113,
+      137,
+      113
+     ],
+     "last": [
+      138,
+      111,
+      86
+     ]
+    }
+   },
+   "Attleborough": {
+    "sales": {
+     "this": [
+      897.0,
+      902.0,
+      706.0
+     ],
+     "last": [
+      0,
+      0,
+      0
+     ]
+    },
+    "tx": {
+     "this": [
+      122,
+      109,
+      85
+     ],
+     "last": [
+      0,
+      0,
+      0
+     ]
+    }
+   },
+   "Burton Latimer": {
+    "sales": {
+     "this": [
+      684.0,
+      953.0,
+      775.0
+     ],
+     "last": [
+      774.0,
+      890.0,
+      553.0
+     ]
+    },
+    "tx": {
+     "this": [
+      96,
+      105,
+      90
+     ],
+     "last": [
+      97,
+      119,
+      68
+     ]
+    }
+   },
+   "Peterborough Fletton Quays": {
+    "sales": {
+     "this": [
+      1027.0,
+      522.0,
+      252.0
+     ],
+     "last": [
+      850.0,
+      776.0,
+      431.0
+     ]
+    },
+    "tx": {
+     "this": [
+      160,
+      67,
+      38
+     ],
+     "last": [
+      135,
+      116,
+      64
+     ]
+    }
+   },
+   "Leamington Parade": {
+    "sales": {
+     "this": [
+      1282.0,
+      1715.0,
+      1168.0
+     ],
+     "last": [
+      1160.0,
+      1824.0,
+      968.0
+     ]
+    },
+    "tx": {
+     "this": [
+      186,
+      235,
+      146
+     ],
+     "last": [
+      167,
+      234,
+      129
+     ]
+    }
+   },
+   "Rothwell": {
+    "sales": {
+     "this": [
+      858.0,
+      867.0,
+      952.0
+     ],
+     "last": [
+      617.0,
+      811.0,
+      745.0
+     ]
+    },
+    "tx": {
+     "this": [
+      134,
+      116,
+      116
+     ],
+     "last": [
+      104,
+      117,
+      99
+     ]
+    }
+   },
+   "Rugby": {
+    "sales": {
+     "this": [
+      1175.0,
+      1284.0,
+      707.0
+     ],
+     "last": [
+      1331.0,
+      1288.0,
+      682.0
+     ]
+    },
+    "tx": {
+     "this": [
+      158,
+      163,
+      98
+     ],
+     "last": [
+      201,
+      161,
+      94
+     ]
+    }
+   },
+   "Peterborough Bridge Street": {
+    "sales": {
+     "this": [
+      786.0,
+      958.0,
+      624.0
+     ],
+     "last": [
+      918.0,
+      899.0,
+      525.0
+     ]
+    },
+    "tx": {
+     "this": [
+      115,
+      119,
+      71
+     ],
+     "last": [
+      136,
+      137,
+      82
+     ]
+    }
+   },
+   "Wellingborough Train Station": {
+    "sales": {
+     "this": [
+      681.0,
+      628.0,
+      566.0
+     ],
+     "last": [
+      886.0,
+      1104.0,
+      365.0
+     ]
+    },
+    "tx": {
+     "this": [
+      109,
+      90,
+      102
+     ],
+     "last": [
+      167,
+      186,
+      74
+     ]
+    }
+   },
+   "Higham Ferrers": {
+    "sales": {
+     "this": [
+      657.0,
+      804.0,
+      603.0
+     ],
+     "last": [
+      511.0,
+      652.0,
+      476.0
+     ]
+    },
+    "tx": {
+     "this": [
+      92,
+      106,
+      77
+     ],
+     "last": [
+      79,
+      82,
+      67
+     ]
+    }
+   },
    "Olney": {
     "sales": {
      "this": [
@@ -3199,6 +2940,84 @@
       0,
       0,
       0
+     ]
+    }
+   },
+   "Billing Drive Thru": {
+    "sales": {
+     "this": [
+      2014.0,
+      2211.0,
+      1934.0
+     ],
+     "last": [
+      0,
+      0,
+      0
+     ]
+    },
+    "tx": {
+     "this": [
+      247,
+      243,
+      215
+     ],
+     "last": [
+      0,
+      0,
+      0
+     ]
+    }
+   },
+   "Northampton": {
+    "sales": {
+     "this": [
+      1561.0,
+      1925.0,
+      995.0
+     ],
+     "last": [
+      1308.0,
+      1830.0,
+      795.0
+     ]
+    },
+    "tx": {
+     "this": [
+      212,
+      249,
+      132
+     ],
+     "last": [
+      195,
+      249,
+      122
+     ]
+    }
+   },
+   "Lower Heathcote": {
+    "sales": {
+     "this": [
+      816.0,
+      601.0,
+      485.0
+     ],
+     "last": [
+      499.0,
+      450.0,
+      506.0
+     ]
+    },
+    "tx": {
+     "this": [
+      112,
+      84,
+      66
+     ],
+     "last": [
+      69,
+      61,
+      68
      ]
     }
    }
@@ -3448,20 +3267,20 @@
     "basis": "Quarter-to-date sales ÷ transactions (per store)",
     "rows": [
      {
-      "store": "Peterborough Fletton Quays",
-      "value": 6.57
-     },
-     {
       "store": "Corby",
       "value": 7.52
      },
      {
-      "store": "Higham Ferrers",
-      "value": 7.37
+      "store": "Northampton",
+      "value": 7.18
      },
      {
-      "store": "Northampton Drive-Thru",
-      "value": 8.03
+      "store": "Burton Latimer",
+      "value": 7.75
+     },
+     {
+      "store": "Rothwell",
+      "value": 7.06
      },
      {
       "store": "Peterborough Bridge Street",
@@ -3472,64 +3291,64 @@
       "value": 7.43
      },
      {
-      "store": "Glenvale Drive Thru",
-      "value": 7.95
-     },
-     {
-      "store": "Wellingborough Train Station",
-      "value": 5.48
-     },
-     {
-      "store": "Rugby",
-      "value": 7.65
-     },
-     {
-      "store": "Leamington Parade",
-      "value": 7.38
-     },
-     {
-      "store": "HOE Balsall Common",
-      "value": 7.83
-     },
-     {
       "store": "Wellingborough",
       "value": 6.63
-     },
-     {
-      "store": "Northampton",
-      "value": 7.18
-     },
-     {
-      "store": "Rothwell",
-      "value": 7.06
-     },
-     {
-      "store": "Burton Latimer",
-      "value": 7.75
-     },
-     {
-      "store": "Lower Heathcote",
-      "value": 7.1
      },
      {
       "store": "Rushden Lakes",
       "value": 9.13
      },
      {
-      "store": "Olney",
-      "value": 7.32
+      "store": "Lower Heathcote",
+      "value": 7.1
      },
      {
       "store": "Market Harborough",
       "value": 8.1
      },
      {
-      "store": "Billing Drive Thru",
-      "value": 8.23
+      "store": "Glenvale Drive Thru",
+      "value": 7.95
+     },
+     {
+      "store": "HOE Balsall Common",
+      "value": 7.83
+     },
+     {
+      "store": "Wellingborough Train Station",
+      "value": 5.48
+     },
+     {
+      "store": "Northampton Drive-Thru",
+      "value": 8.03
+     },
+     {
+      "store": "Higham Ferrers",
+      "value": 7.37
+     },
+     {
+      "store": "Rugby",
+      "value": 7.65
+     },
+     {
+      "store": "Olney",
+      "value": 7.32
+     },
+     {
+      "store": "Peterborough Fletton Quays",
+      "value": 6.57
+     },
+     {
+      "store": "Leamington Parade",
+      "value": 7.38
      },
      {
       "store": "Attleborough",
       "value": 7.79
+     },
+     {
+      "store": "Billing Drive Thru",
+      "value": 8.23
      }
     ]
    }
@@ -3539,88 +3358,88 @@
     "basis": "Food or Bakery guest-checks ÷ transactions, last completed week (per store)",
     "rows": [
      {
-      "store": "Wellingborough",
-      "value": 17.0
-     },
-     {
-      "store": "Wellingborough Train Station",
-      "value": 23.1
-     },
-     {
-      "store": "Northampton",
-      "value": 30.0
-     },
-     {
-      "store": "Peterborough Bridge Street",
-      "value": 29.4
-     },
-     {
-      "store": "Billing Drive Thru",
-      "value": 26.4
-     },
-     {
-      "store": "Rugby",
-      "value": 26.8
-     },
-     {
-      "store": "Leamington Parade",
-      "value": 27.7
-     },
-     {
-      "store": "Higham Ferrers",
-      "value": 26.4
-     },
-     {
-      "store": "Rushden Lakes",
-      "value": 24.3
-     },
-     {
-      "store": "HOE Balsall Common",
-      "value": 37.8
-     },
-     {
-      "store": "Burton Latimer",
-      "value": 28.5
-     },
-     {
-      "store": "Corby",
-      "value": 24.9
-     },
-     {
-      "store": "Olney",
-      "value": 25.3
+      "store": "Peterborough Fletton Quays",
+      "value": 36.8
      },
      {
       "store": "Northampton Drive-Thru",
       "value": 26.2
      },
      {
-      "store": "Kettering",
-      "value": 24.4
+      "store": "Rugby",
+      "value": 26.8
      },
      {
       "store": "Market Harborough",
       "value": 28.8
      },
      {
-      "store": "Glenvale Drive Thru",
-      "value": 25.2
+      "store": "Rushden Lakes",
+      "value": 24.3
      },
      {
       "store": "Lower Heathcote",
       "value": 23.2
      },
      {
-      "store": "Peterborough Fletton Quays",
-      "value": 36.8
+      "store": "Kettering",
+      "value": 24.4
+     },
+     {
+      "store": "HOE Balsall Common",
+      "value": 37.8
+     },
+     {
+      "store": "Wellingborough",
+      "value": 17.0
+     },
+     {
+      "store": "Glenvale Drive Thru",
+      "value": 25.2
+     },
+     {
+      "store": "Peterborough Bridge Street",
+      "value": 29.4
+     },
+     {
+      "store": "Burton Latimer",
+      "value": 28.5
+     },
+     {
+      "store": "Leamington Parade",
+      "value": 27.7
+     },
+     {
+      "store": "Rothwell",
+      "value": 19.2
      },
      {
       "store": "Attleborough",
       "value": 35.0
      },
      {
-      "store": "Rothwell",
-      "value": 19.2
+      "store": "Corby",
+      "value": 24.9
+     },
+     {
+      "store": "Billing Drive Thru",
+      "value": 26.4
+     },
+     {
+      "store": "Northampton",
+      "value": 30.0
+     },
+     {
+      "store": "Olney",
+      "value": 25.3
+     },
+     {
+      "store": "Higham Ferrers",
+      "value": 26.4
+     },
+     {
+      "store": "Wellingborough Train Station",
+      "value": 23.1
      }
     ]
    },
@@ -3628,88 +3447,88 @@
     "basis": "Food or Bakery guest-checks ÷ transactions, quarter-to-date (per store)",
     "rows": [
      {
-      "store": "Northampton",
-      "value": 29.0
-     },
-     {
-      "store": "Northampton Drive-Thru",
-      "value": 25.8
-     },
-     {
-      "store": "Rushden Lakes",
-      "value": 26.4
-     },
-     {
-      "store": "Kettering",
-      "value": 24.2
-     },
-     {
-      "store": "Leamington Parade",
-      "value": 29.3
-     },
-     {
       "store": "Peterborough Bridge Street",
       "value": 30.2
-     },
-     {
-      "store": "HOE Balsall Common",
-      "value": 35.4
-     },
-     {
-      "store": "Glenvale Drive Thru",
-      "value": 25.8
-     },
-     {
-      "store": "Higham Ferrers",
-      "value": 23.7
-     },
-     {
-      "store": "Wellingborough Train Station",
-      "value": 23.9
-     },
-     {
-      "store": "Billing Drive Thru",
-      "value": 27.6
-     },
-     {
-      "store": "Rugby",
-      "value": 29.1
-     },
-     {
-      "store": "Peterborough Fletton Quays",
-      "value": 35.2
-     },
-     {
-      "store": "Burton Latimer",
-      "value": 28.0
-     },
-     {
-      "store": "Olney",
-      "value": 24.4
-     },
-     {
-      "store": "Market Harborough",
-      "value": 30.3
      },
      {
       "store": "Attleborough",
       "value": 36.4
      },
      {
-      "store": "Rothwell",
-      "value": 20.5
+      "store": "Market Harborough",
+      "value": 30.3
      },
      {
-      "store": "Wellingborough",
-      "value": 16.6
+      "store": "Kettering",
+      "value": 24.2
+     },
+     {
+      "store": "Rugby",
+      "value": 29.1
+     },
+     {
+      "store": "Glenvale Drive Thru",
+      "value": 25.8
+     },
+     {
+      "store": "Northampton Drive-Thru",
+      "value": 25.8
      },
      {
       "store": "Corby",
       "value": 27.2
      },
      {
+      "store": "Northampton",
+      "value": 29.0
+     },
+     {
+      "store": "Olney",
+      "value": 24.4
+     },
+     {
+      "store": "Rothwell",
+      "value": 20.5
+     },
+     {
+      "store": "Leamington Parade",
+      "value": 29.3
+     },
+     {
+      "store": "Billing Drive Thru",
+      "value": 27.6
+     },
+     {
+      "store": "Wellingborough Train Station",
+      "value": 23.9
+     },
+     {
       "store": "Lower Heathcote",
       "value": 22.7
+     },
+     {
+      "store": "Peterborough Fletton Quays",
+      "value": 35.2
+     },
+     {
+      "store": "Higham Ferrers",
+      "value": 23.7
+     },
+     {
+      "store": "Rushden Lakes",
+      "value": 26.4
+     },
+     {
+      "store": "HOE Balsall Common",
+      "value": 35.4
+     },
+     {
+      "store": "Wellingborough",
+      "value": 16.6
+     },
+     {
+      "store": "Burton Latimer",
+      "value": 28.0
      }
     ]
    }
@@ -3731,7 +3550,7 @@
   "QTD CPH/SPH and the labour side of QTD NPAT now read from the committed weekly_history.csv (one row per week-ending, upserted each run — re-runs update, no dupes). Thin until several weeks accumulate; until then QTD ≈ the current week. YoY (BigQuery), Kudos QTD (BCKH), GP QTD (COS master) keep their own source-of-truth and are also logged to history.",
   "Manual inputs sheet 'Bewiched EOS Scorecard Inputs' (ID 1HimYAjZg4zlMQG91-KUefkeYMPvrU4ddVuO2IuERTqg) must be shared (Viewer) with dashboards-bot@bewiched-coffee-368116.iam.gserviceaccount.com for the automated run to read it.",
   "Manual inputs sheet not readable (<HttpError 403 when requesting https://sheets.googleapis.com/v4/spreadsheets/1HimYAjZg4zlM) — share it (Viewer) with the service account dashboards-bot@bewiched-coffee-368116.iam.gserviceaccount.com. Manual metrics shown as awaiting.",
-  "Brew Crew Kudos per-store: 7 QTD contributor(s) matched no employee (head-office/ex-staff — excluded, as in the company calc); 7 matched contributor(s) have no store Location (e.g. Head Office — excluded from the per-store split but still in the company headcount). 21 stores resolved from the Employee List Location column.",
+  "Brew Crew Kudos: could not read Employee List (<HttpError 503 when requesting https://sheets.googleapis.com) or BCKH tab — share the Employee List (ID 11QhNGGM5BIJrO1NOflso5I1VnSzlWGWcC5FbXJoLQgM, Viewer) with dashboards-bot@bewiched-coffee-368116.iam.gserviceaccount.com (the BCKH tab is in the F1 workbook, already shared). Tiles shown as awaiting.",
   "Net Profit After Tax: P&L sheet not readable by the service account (<HttpError 403 when requesting https://sheets.googleapis.com) — share 'May 2026 P&L' (ID 1RTsnnz5F9XIdkg4j8m8MiuKqeAvZaAWcndbFifNNLhM, Viewer) with dashboards-bot@bewiched-coffee-368116.iam.gserviceaccount.com. Using FROZEN May baseline constants."
  ]
 }

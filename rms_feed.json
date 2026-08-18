@@ -159,8 +159,8 @@
     "avg": 4.2
    },
    "qtd": {
-    "n": 32,
-    "avg": 2.78
+    "n": 33,
+    "avg": 2.73
    },
    "prevq": {
     "n": 69,
@@ -1010,6 +1010,14 @@
    "sentiment": "Negative"
   },
   {
+   "store": "Corby",
+   "date": "2026-08-18",
+   "rating": 1.0,
+   "text": "No refit",
+   "smt": null,
+   "sentiment": "Negative"
+  },
+  {
    "store": "Rugby",
    "date": "2026-08-17",
    "rating": 5.0,
@@ -1166,14 +1174,6 @@
    "date": "2026-08-15",
    "rating": 5.0,
    "text": "Great vibes and teamwork",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Attleborough",
-   "date": "2026-08-15",
-   "rating": 5.0,
-   "text": "Epic teamwork",
    "smt": null,
    "sentiment": "Positive"
   }
