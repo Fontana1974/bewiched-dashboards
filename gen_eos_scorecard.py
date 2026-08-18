@@ -986,6 +986,162 @@ def backtoschool_tab():
     return button, pane
 
 
+
+def forecast_tab():
+    """EOS Forecast tab — Company-style 3-week forecast (LY / Forecast / Plan hrs / SPH incl holiday)
+    + a daily sales strip (weekly forecast split by each store's 8-week day-of-week share; weekend
+    Fri-Sun highlighted). Store/area dropdown (estate, each area, each store) + week selector.
+    Returns (button, pane); '' on failure so the EOS build never breaks."""
+    try:
+        F = json.load(open(os.path.join(HERE, "forecast_feed.json")))
+    except Exception:
+        return "", ""
+    weeks = F.get("weeks") or []
+    STO = F.get("stores") or {}
+    days = F.get("dow_days") or ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]
+    if not weeks or not STO:
+        return "", ""
+    SH = lambda x: F1_SHORT.get(x, x)
+    def gbp(v): return ("£" + format(int(round(v)), ",")) if v not in (None, "") else "&mdash;"
+    def num(v): return v if isinstance(v, (int, float)) else 0
+    areas = ["Jon", "Rich", "Ian"]
+    def scope_stores(key):
+        if key == "estate": return [s for s in STO]
+        if key.startswith("area:"): return [s for s, v in STO.items() if v.get("area") == key[5:]]
+        return [key] if key in STO else []
+
+    def sales_table(keylist, label):
+        # header
+        hdr = ('<tr><th class="l" rowspan="2">Store</th>'
+               + "".join('<th colspan="4">%s</th>' % esc(w["label"]) for w in weeks) + '</tr>'
+               + '<tr>' + "".join('<th>LY</th><th>Fcst</th><th>Hrs</th><th>SPH</th>' for _ in weeks) + '</tr>')
+        body = ""
+        tly=[0,0,0]; tfc=[0,0,0]; thr=[0,0,0]; thol=[0,0,0]
+        for s in sorted(keylist, key=lambda x: -num((STO[x].get("fc") or [0])[0])):
+            d = STO[s]; cells = '<td class="l fc-st">%s</td>' % esc(SH(s))
+            for w in range(3):
+                ly = num((d.get("ly") or [0,0,0])[w]); fc = num((d.get("fc") or [None,None,None])[w])
+                hr = num((d.get("hrs") or [None,None,None])[w]); hol = num((d.get("hol") or [0,0,0])[w])
+                sph = (d.get("sph") or [None,None,None])[w]
+                tly[w]+=ly; tfc[w]+=fc; thr[w]+=hr; thol[w]+=hol
+                cells += ('<td class="fc-mini">%s</td><td class="fc-f">%s</td><td>%s</td><td class="fc-sph">%s</td>'
+                          % (gbp(ly) if ly>0 else "&mdash;", gbp(fc), (round(hr) if hr else "&mdash;"),
+                             ("£%d" % round(sph)) if sph not in (None,"") else "&mdash;"))
+            body += '<tr>%s</tr>' % cells
+        tot = '<td class="l">%s</td>' % label
+        for w in range(3):
+            den = thr[w] + thol[w]; bl = round(tfc[w]/den) if den>0 else None
+            tot += ('<td class="fc-mini">%s</td><td class="fc-f">%s</td><td>%s</td><td class="fc-sph">%s</td>'
+                    % (gbp(tly[w]) if tly[w]>0 else "&mdash;", gbp(tfc[w]), round(thr[w]),
+                       ("£%d" % bl) if bl is not None else "&mdash;"))
+        body += '<tr class="fc-tot">%s</tr>' % tot
+        # blended SPH cards (per week, incl holiday)
+        cards = ""
+        for w in range(3):
+            den = thr[w] + thol[w]; bl = round(tfc[w]/den,1) if den>0 else None
+            cards += ('<div class="fc-kpi"><div class="fc-kl">Blended SPH &mdash; %s</div>'
+                      '<div class="fc-kv">%s</div><div class="fc-ks">forecast £ &divide; (plan + holiday hrs)</div></div>'
+                      % (esc(weeks[w]["label"]), ("£%.1f" % bl) if bl is not None else "&mdash;"))
+        return ('<div class="fc-kpis">'+cards+'</div>'
+                '<div class="fc-h3">Three-week forecast &mdash; sales &amp; labour</div>'
+                '<div class="fc-hs">Forecast &amp; plan hours from the area planners&rsquo; Section B; <b>SPH incl holiday</b> = forecast &pound; &divide; (plan + holiday-forecast hours). LY = same weeks last year.</div>'
+                '<table class="fc-t"><thead>'+hdr+'</thead><tbody>'+body+'</tbody></table>')
+
+    def daily_strip(keylist):
+        # aggregate daily = sum over scope of fc[w]*dow[day]
+        blocks = ""
+        # global max across weeks for consistent bar scale
+        allvals = []
+        perwk = []
+        for w in range(3):
+            dv = [0.0]*7
+            for s in keylist:
+                d = STO[s]; fc = num((d.get("fc") or [None,None,None])[w]); dow = d.get("dow") or [1/7]*7
+                for i in range(7): dv[i] += fc*(dow[i] if i < len(dow) else 0)
+            perwk.append(dv); allvals += dv
+        mx = max(allvals) if allvals else 1
+        mx = mx or 1
+        for w in range(3):
+            dv = perwk[w]; wtot = sum(dv)
+            bars = ""
+            for i, dd in enumerate(days):
+                h = max(3, round(78*dv[i]/mx)); wknd = i >= 4  # Fri,Sat,Sun
+                bars += ('<div class="fc-dcol"><div class="fc-dv">%s</div>'
+                         '<div class="fc-bar %s" style="height:%dpx" title="%s %s"></div>'
+                         '<div class="fc-dl">%s</div></div>'
+                         % (gbp(dv[i]), "fc-bw" if wknd else "fc-bd", h, dd, gbp(dv[i]), dd))
+            blocks += ('<div class="fc-wk" data-wk="%d"><div class="fc-wkh">%s &nbsp;<span class="fc-wt">total %s</span></div>'
+                       '<div class="fc-drow">%s</div></div>' % (w, esc(weeks[w]["label"]), gbp(wtot), bars))
+        return ('<div class="fc-h3">Daily sales forecast &mdash; next three weeks</div>'
+                '<div class="fc-hs">Each week&rsquo;s forecast split across the days using this store&rsquo;s (or scope&rsquo;s) last-8-week day-of-week mix. '
+                '<span class="fc-lw">Weekend Fri&ndash;Sun</span> highlighted. New stores use the estate day-mix.</div>'
+                '<div class="fc-wkwrap">'+blocks+'</div>')
+
+    def panel(key, disp, label, show):
+        ks = scope_stores(key)
+        est_note = ""
+        if key not in ("estate",) and not key.startswith("area:"):
+            if STO.get(key, {}).get("dow_est"): est_note = '<div class="fc-note">Daily split uses the <b>estate</b> day-of-week mix (this store has limited recent history).</div>'
+        return ('<div class="fc-panel" data-store="%s" style="display:%s">'
+                '<div class="fc-scopehd">%s</div>%s%s%s</div>'
+                % (esc(key), "block" if show else "none", esc(disp),
+                   sales_table(ks, label), daily_strip(ks), est_note))
+
+    panels = panel("estate", "All stores &mdash; estate", "ESTATE TOTAL", True)
+    for a in areas:
+        panels += panel("area:%s" % a, "%s&rsquo;s area" % a, "%s TOTAL" % a.upper(), False)
+    for s in sorted(STO, key=lambda x: (STO[x].get("area",""), SH(x))):
+        panels += panel(s, SH(s), "TOTAL", False)
+
+    opts = ('<option value="estate" selected>All stores (estate)</option>'
+            + "".join('<option value="area:%s">%s&rsquo;s area</option>' % (a, a) for a in areas)
+            + "".join('<option value="%s">%s%s</option>' % (esc(s), esc(SH(s)), " ("+STO[s].get("area","")+")" if STO[s].get("area") else "")
+                      for s in sorted(STO, key=lambda x:(STO[x].get("area",""), SH(x)))))
+    wkopts = '<option value="all" selected>All 3 weeks</option>' + "".join('<option value="%d">%s</option>' % (w, esc(weeks[w]["label"])) for w in range(3))
+
+    STYLE = ("<style>"
+     "#pane-forecast .fc-sub{color:var(--muted);font-size:13px;line-height:1.55;margin:2px 0 14px;max-width:940px}"
+     "#pane-forecast .fc-selbar{display:flex;align-items:center;gap:10px;margin:4px 0 16px;flex-wrap:wrap}"
+     "#pane-forecast .fc-selbar label{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);font-weight:800}"
+     "#pane-forecast .stsel,#pane-forecast .fcwk{font:inherit;font-size:14px;font-weight:800;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:9px 14px;cursor:pointer}"
+     "#pane-forecast .stsel{min-width:280px}"
+     "#pane-forecast .fc-scopehd{font-size:19px;font-weight:800;margin:2px 0 12px}"
+     "#pane-forecast .fc-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:6px 0 16px}"
+     "#pane-forecast .fc-kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px;border-top:3px solid var(--green)}"
+     "#pane-forecast .fc-kl{font-size:10.5px;letter-spacing:.4px;text-transform:uppercase;color:var(--muted);font-weight:800}"
+     "#pane-forecast .fc-kv{font-size:22px;font-weight:800;margin-top:5px} #pane-forecast .fc-ks{font-size:11px;color:var(--muted);margin-top:3px}"
+     "#pane-forecast .fc-h3{font-size:15px;font-weight:800;margin:22px 0 3px;color:var(--ink)}"
+     "#pane-forecast .fc-hs{font-size:12px;color:var(--muted);margin-bottom:9px;line-height:1.5}"
+     "#pane-forecast .fc-lw{color:var(--green);font-weight:800}"
+     "#pane-forecast table.fc-t{width:100%;border-collapse:separate;border-spacing:0;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:12px}"
+     "#pane-forecast .fc-t thead th{font-size:10px;letter-spacing:.3px;text-transform:uppercase;color:var(--muted);font-weight:800;text-align:right;padding:7px 7px;background:var(--greybg);border-bottom:1px solid var(--line);white-space:nowrap}"
+     "#pane-forecast .fc-t thead th.l{text-align:left}"
+     "#pane-forecast .fc-t tbody td{padding:7px;border-bottom:1px solid #eef1f5;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums} #pane-forecast .fc-t tbody tr:last-child td{border-bottom:none}"
+     "#pane-forecast .fc-t td.l,#pane-forecast .fc-st{text-align:left;font-weight:800}"
+     "#pane-forecast .fc-mini{color:#9a8a7c} #pane-forecast .fc-f{font-weight:700} #pane-forecast .fc-sph{font-weight:700;color:#15602b}"
+     "#pane-forecast tr.fc-tot td{font-weight:800;background:var(--cream)}"
+     "#pane-forecast .fc-wkwrap{display:flex;flex-direction:column;gap:12px}"
+     "#pane-forecast .fc-wk{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px}"
+     "#pane-forecast .fc-wkh{font-size:13px;font-weight:800;margin-bottom:8px} #pane-forecast .fc-wt{font-size:11.5px;color:var(--muted);font-weight:700}"
+     "#pane-forecast .fc-drow{display:flex;align-items:flex-end;gap:10px;justify-content:space-between;height:118px;padding-top:4px}"
+     "#pane-forecast .fc-dcol{flex:1;text-align:center;display:flex;flex-direction:column;justify-content:flex-end;height:100%}"
+     "#pane-forecast .fc-bar{width:70%;margin:0 auto;border-radius:4px 4px 0 0}"
+     "#pane-forecast .fc-bd{background:#c9bdae} #pane-forecast .fc-bw{background:var(--green)}"
+     "#pane-forecast .fc-dv{font-size:9.5px;color:var(--muted);font-weight:700;margin-bottom:3px} #pane-forecast .fc-dl{font-size:10.5px;font-weight:800;margin-top:5px}"
+     "#pane-forecast .fc-note{font-size:11.5px;color:var(--muted);line-height:1.6;margin-top:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px 14px} #pane-forecast .fc-note b{color:var(--ink)}"
+     "</style>")
+
+    pane = ('\n  <section class="pane" id="pane-forecast">\n' + STYLE
+            + '<div class="fc-sub">The three area planners&rsquo; next-three-week forecast &mdash; sales, plan hours and <b>SPH (incl holiday)</b> &mdash; with each week split into a <b>daily</b> shape from each store&rsquo;s recent day-of-week mix. Pick a store or area, and a week. Generated ' + esc(F.get("_generated","")) + '.</div>'
+            + '<div class="st-scope"><div class="fc-selbar"><label>Store / area</label><select class="stsel">' + opts + '</select>'
+            + '<label>Week</label><select class="fcwk">' + wkopts + '</select></div>'
+            + panels + '</div>'
+            + '<script>(function(){var p=document.getElementById("pane-forecast");if(!p)return;var wk=p.querySelector(".fcwk");if(!wk)return;wk.addEventListener("change",function(){var v=wk.value;p.querySelectorAll("[data-wk]").forEach(function(b){b.style.display=(v==="all"||b.getAttribute("data-wk")===v)?"":"none";});});})();</script>'
+            + '\n  </section>\n')
+    button = '<button class="tab" data-pane="forecast">Forecast <span class="cnt">3-week</span></button>'
+    return button, pane
+
+
 def f1_ops_html():
     """Build the F1 'Op's Excellence' presentation for the EOS metric-detail view, mirroring the
     Company Dashboard tab. Returns '' on any failure so the EOS build is never broken."""
@@ -1922,6 +2078,7 @@ for i, (wm, qm) in enumerate(zip(weekly, quarterly)):
     )
 
 bts_btn, bts_pane = backtoschool_tab()
+fct_btn, fct_pane = forecast_tab()
 
 HTML = f"""<!DOCTYPE html>
 <html lang="en-GB">
@@ -2108,6 +2265,7 @@ HTML = f"""<!DOCTYPE html>
     <button class="tab" data-pane="grid">Quarterly Scorecard <span class="cnt">{n_grid_weeks}-week grid</span></button>
     <button class="tab" data-pane="detail">Metric detail <span class="cnt">any of {len(weekly)}</span></button>
     {bts_btn}
+    {fct_btn}
   </div>
 
   <section class="pane active" id="pane-weekly">
@@ -2146,6 +2304,7 @@ HTML = f"""<!DOCTYPE html>
     <div class="md-wrap">{md_details}</div>
   </section>
 {bts_pane}
+{fct_pane}
 
   <div class="legend">
     <span><span class="sw" style="background:var(--greenbg);border:1px solid #cfe6d8"></span>actual ≥ plan (on plan)</span>

@@ -1856,6 +1856,64 @@ def pull_accidents():
 
 
 
+def pull_forecast_daily():
+    """EOS Forecast tab feed. 3-week planner forecast (planner_overrides: fc/hrs/hol_fc/sph_fc) + LY
+    (allstores rec.ly) per store, plus each store's day-of-week SHARE from the last 8 weeks (BigQuery)
+    so the weekly forecast can be split into daily. New/low-history stores fall back to the estate DOW
+    share. Labour metric = forecast SPH incl holiday (already fc/(hrs+hol)); no food cost. -> forecast_feed.json"""
+    import datetime as _dt
+    try:
+        ovr = json.load(open(os.path.join(HERE, "planner_overrides.json")))
+    except Exception as e:
+        print("[pull] forecast_daily SKIPPED (no planner_overrides: %s)" % e); return
+    try:
+        rec = (json.load(open(os.path.join(HERE, "allstores.json"))) or {}).get("rec", {})
+    except Exception:
+        rec = {}
+    mon = CUR_END + _dt.timedelta(days=1)
+    def wl(dd): return "W/C %d %s" % (dd.day, dd.strftime("%b"))
+    weeks = [{"label": wl(mon + _dt.timedelta(days=7 * i)),
+              "monday": (mon + _dt.timedelta(days=7 * i)).isoformat()} for i in range(3)]
+    # day-of-week shares (last 8 weeks). BQ DAYOFWEEK: 1=Sun..7=Sat -> Mon..Sun index
+    raw = {}
+    try:
+        for r in bq(f"""
+          SELECT item_outlet_name s, EXTRACT(DAYOFWEEK FROM DATE(sales_date)) dw,
+                 ROUND(SUM(SAFE_CAST(item_line_total_after_discount AS FLOAT64))) v
+          FROM {FLAT} WHERE DATE(sales_date) BETWEEN {d(55)} AND {CE}
+          GROUP BY s, dw"""):
+            st = normalize(r["s"]); di = {2:0,3:1,4:2,5:3,6:4,7:5,1:6}.get(int(r["dw"]))
+            if st and di is not None: raw.setdefault(st, [0.0]*7)[di] += (r["v"] or 0)
+    except Exception as e:
+        print("[pull] forecast_daily DOW query failed (%s) -- estate share only" % e)
+    def shares(arr):
+        t = sum(arr) if arr else 0
+        return [round(x / t, 4) for x in arr] if t > 0 else None
+    est = [0.0]*7
+    for arr in raw.values():
+        for i in range(7): est[i] += arr[i]
+    est_share = shares(est) or [round(1/7, 4)]*7
+    stores = {}
+    for st in COACH:
+        o = ovr.get(st) or {}
+        ly = rec.get(st, {}).get("ly") or [0, 0, 0, 0]
+        sh = shares(raw.get(st, []))
+        stores[st] = {"area": COACH.get(st, ""),
+                      "fc": o.get("fc") or [None, None, None],
+                      "hrs": o.get("hrs") or [None, None, None],
+                      "hol": o.get("hol_fc") or [0, 0, 0],
+                      "sph": o.get("sph_fc") or [None, None, None],
+                      "ly": [ly[1] if len(ly) > 1 else 0, ly[2] if len(ly) > 2 else 0, ly[3] if len(ly) > 3 else 0],
+                      "dow": sh or est_share, "dow_est": sh is None}
+    W("forecast_feed.json", {"_generated": CUR_END.isoformat(), "weeks": weeks,
+        "dow_days": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], "estate_dow": est_share,
+        "stores": stores,
+        "_note": "Forecast \u00a3 / plan hrs / SPH (incl holiday) from the area planners' Section B (3-week forecast). "
+                 "Daily split = each week's forecast \u00d7 the store's last-8-week day-of-week share; new stores use the estate share."},
+      indent=1)
+    print("[pull] forecast_daily: %d stores, weeks %s" % (len(stores), ", ".join(w["label"] for w in weeks)))
+
+
 def pull_backtoschool():
     """5th EOS tab feed: Back-to-School sales & food forecast per store + estate. Mirrors the
     standalone Bewiched_BackToSchool_Forecast methodology exactly:
@@ -3417,6 +3475,7 @@ def pulls():
     pull_txq_raws()           # txq_*_raw.json (2)
     pull_eos_scorecard()      # eos_scorecard.json (EOS Weekly+Quarterly scorecard)
     pull_backtoschool()       # backtoschool_feed.json (EOS 5th tab: back-to-school forecast)
+    pull_forecast_daily()     # forecast_feed.json (EOS Forecast tab: 3-wk forecast + daily DOW split)
     pull_sales_extras()       # sales_extras.json (EOS Sales tab: DT lane throughput + fridge items)
     pull_franchise()          # franchise_fees.json (Franchise Fees Scale dashboard)
     push_cos_planner()        # write Wastage%+Discounts% into each planner COS tab (K,L)
