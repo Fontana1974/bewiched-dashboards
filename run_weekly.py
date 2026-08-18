@@ -2113,6 +2113,98 @@ def pull_sales_extras():
         print("[pull] sales_extras SKIPPED (non-fatal) - %s" % str(e)[:200])
 
 
+
+def pull_franchise():
+    """Franchise Fees Scale (HoE / Ian's franchise stores) -> franchise_fees.json.
+    MONTHLY per-store Brand audit (/5, Total col J) + Remote assessment (/100 col E -> /5) from the
+    Richard Wagg sheet, blended 50/50 on the /5 scale (4.6 = 100/100 target). The combined score keys
+    the royalty fee tier (Matt's 'Royalty fees linked to brand execution' scale). Monthly turnover from
+    BigQuery gives the GBP fee = Total Fee % x turnover. Franchise stores: Attleborough, Glenvale Drive
+    Thru, HOE Balsall Common; Warwick Market Square listed 'opening soon' until it has audits.
+    Fault-tolerant: any failure leaves the last-good franchise_fees.json in place."""
+    try:
+        import collections
+        FRAN = ["Attleborough", "Glenvale Drive Thru", "HOE Balsall Common"]
+        NEW = [{"store": "Warwick Market Square", "status": "opening soon"}]
+        # brand monthly (cols A Store, D Date, J Total; A:J avoids the huge action-plan column)
+        bmon = collections.defaultdict(lambda: collections.defaultdict(list))
+        for r in sheet(SID["audit"], "'Brand Audit Date (NEW24/25)'!A1:J4000")[1:]:
+            if not r or not r[0]: continue
+            st = normalize(r[0])
+            if st not in FRAN: continue
+            dt = parse_any_date(r[3]) if len(r) > 3 else None
+            tot = fnum(r[9]) if len(r) > 9 else None
+            if not dt or not tot: continue
+            bmon[st][dt.strftime("%Y-%m")].append(tot)
+        # remote monthly (cols B Store, D Date, E Score/100; skip <=0 = not completed)
+        rmon = collections.defaultdict(lambda: collections.defaultdict(list))
+        for r in sheet(SID["audit"], "'Remote Assessment Data'!A1:F4000")[1:]:
+            if len(r) < 5 or not r[1]: continue
+            st = normalize(r[1])
+            if st not in FRAN: continue
+            dt = parse_any_date(r[3]); sc = fnum(r[4])
+            if not dt or sc is None or sc <= 0: continue
+            rmon[st][dt.strftime("%Y-%m")].append(sc)
+        # monthly turnover (BigQuery) for the GBP fee
+        tvr = {}
+        try:
+            for row in bq(("SELECT item_outlet_name store, FORMAT_DATE('%%Y-%%m', DATE(sales_date)) ym, "
+                           "ROUND(SUM(SAFE_CAST(item_line_total_after_discount AS FLOAT64))) rev FROM %s "
+                           "WHERE DATE(sales_date) >= DATE('2024-01-01') AND item_outlet_name IN "
+                           "('Attleborough','Glenvale Drive Thru','HOE Balsall Common') GROUP BY store, ym") % FLAT):
+                tvr[(row["store"], row["ym"])] = float(row["rev"] or 0)
+        except Exception as e:
+            print("[pull] franchise turnover BQ skipped (fee %% only): %s" % str(e)[:120])
+
+        def tier(x):
+            if x is None: return None
+            if x >= 4.9: return ("Excelling", "\u2b50", 3.0, 1.0)
+            if x >= 4.8: return ("Above Target", "\U0001f7e0", 3.5, 1.5)
+            if x >= 4.6: return ("On Target", "\u2705", 4.0, 2.0)
+            if x >= 4.4: return ("Fail", "\u26a0\ufe0f", 6.0, 2.0)
+            return ("Breakdown", "\U0001f534", 6.5, 2.5)
+
+        months = set()
+        for st in FRAN:
+            months |= set(bmon[st]); months |= set(rmon[st])
+        months = sorted(months)
+        data = {}
+        for st in FRAN:
+            rows = {}
+            for ym in months:
+                bs = bmon[st].get(ym); rs = rmon[st].get(ym)
+                brand5 = round(sum(bs) / len(bs), 2) if bs else None
+                rem100 = round(sum(rs) / len(rs), 1) if rs else None
+                rem5 = round(rem100 / 20, 2) if rem100 is not None else None
+                if brand5 is not None and rem5 is not None: comb5 = round((brand5 + rem5) / 2, 2)
+                elif rem5 is not None: comb5 = rem5
+                elif brand5 is not None: comb5 = brand5
+                else: comb5 = None
+                if comb5 is None:
+                    rows[ym] = {"audit": False}; continue
+                t = tier(comb5); tot_pct = round(t[2] + t[3], 2)
+                turn = tvr.get((st, ym))
+                rows[ym] = {"audit": True, "brand5": brand5, "brand_n": len(bs) if bs else 0,
+                            "remote100": rem100, "remote5": rem5, "remote_n": len(rs) if rs else 0,
+                            "comb5": comb5, "comb100": round(comb5 / 4.6 * 100, 1),
+                            "tier": t[0], "emoji": t[1], "royalty": t[2], "marketing": t[3],
+                            "total_pct": tot_pct, "turnover": round(turn) if turn else None,
+                            "fee_gbp": round(turn * tot_pct / 100) if turn else None}
+            data[st] = rows
+        out = {"_updated": CUR_END.isoformat(), "months": months, "stores": FRAN, "new_stores": NEW,
+               "data": data,
+               "scale": [{"band": "\u2265 4.9", "tier": "Excelling", "emoji": "\u2b50", "royalty": 3.0, "marketing": 1.0, "total": 4.0},
+                         {"band": "4.8 \u2013 4.89", "tier": "Above Target", "emoji": "\U0001f7e0", "royalty": 3.5, "marketing": 1.5, "total": 5.0},
+                         {"band": "4.6 \u2013 4.79", "tier": "On Target", "emoji": "\u2705", "royalty": 4.0, "marketing": 2.0, "total": 6.0},
+                         {"band": "4.4 \u2013 4.59", "tier": "Fail", "emoji": "\u26a0\ufe0f", "royalty": 6.0, "marketing": 2.0, "total": 8.0},
+                         {"band": "< 4.4", "tier": "Breakdown", "emoji": "\U0001f534", "royalty": 6.5, "marketing": 2.5, "total": 9.0}],
+               "note": "Combined = 50/50 brand+remote on /5 (4.6 = 100/100 target). Fees are % of turnover."}
+        W("franchise_fees.json", out, indent=1)
+        print("[pull] franchise: %d months, %d stores, turnover_rows=%d" % (len(months), len(FRAN), len(tvr)))
+    except Exception as e:
+        print("[pull] franchise SKIPPED (non-fatal) - %s" % str(e)[:200])
+
+
 def pull_maintenance():
     """Maintenance dashboard feed (reactive jobs / planned visits / coffee servicing / audit
     action plans). Sources are Google Sheets read live under the service account. Writes
@@ -3151,6 +3243,11 @@ def build():
         except Exception as e:
             print("[build] gen_starcard FAILED - Star Card degraded, run continues: %s" % e)
     # B9 store sales + E patcher (LAST)
+    if os.path.exists(os.path.join(HERE, "gen_franchise.py")):
+        try:
+            _run("gen_franchise.py")             # NON-FATAL: Franchise Fees Scale (gated by apply_gate)
+        except Exception as e:
+            print("[build] gen_franchise FAILED - franchise page degraded, run continues: %s" % e)
     _run("build_newsite_sales.py")
     _run("patch_newsite.py")
     # F — client-side password gate: stamp every served dashboard with its own
@@ -3251,6 +3348,7 @@ def pulls():
     pull_eos_scorecard()      # eos_scorecard.json (EOS Weekly+Quarterly scorecard)
     pull_backtoschool()       # backtoschool_feed.json (EOS 5th tab: back-to-school forecast)
     pull_sales_extras()       # sales_extras.json (EOS Sales tab: DT lane throughput + fridge items)
+    pull_franchise()          # franchise_fees.json (Franchise Fees Scale dashboard)
     pull_maintenance()        # maintenance.json (reactive/planned/coffee/audit)  [non-fatal]
 
 

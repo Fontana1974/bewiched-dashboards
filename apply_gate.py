@@ -36,6 +36,7 @@ GATE = {
     "fresh-ideas-june.html":       "50ede448ac6d66a23669a4e5c735da2ddddca7b53a222f049f3d7025435e5c09",
     "simply-lunch.html":           "5a18ad835c7f678caf69dcd3185df200ac0e73acd651ec6c58c7bc47d891e4a0",
     "star-card.html":              "c8e82dde554b35d639ece945068688c5bc0f895bb60813f13efb725be5e4d4a4",
+    "franchise-fees.html":         "d8762d57f0f249492badee3d19d16a3d69f4d7fd685c023738d678c43763ee3f",
 }
 # Fallback for any served page not explicitly listed (e.g. a brand-new NSO forecast),
 # so a new dashboard is never accidentally published ungated.
