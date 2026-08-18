@@ -1,0 +1,1545 @@
+{
+ "_updated": "2026-08-16",
+ "months": [
+  "2022-10",
+  "2022-11",
+  "2022-12",
+  "2023-01",
+  "2023-02",
+  "2023-03",
+  "2023-04",
+  "2023-05",
+  "2023-06",
+  "2023-07",
+  "2023-08",
+  "2023-09",
+  "2023-10",
+  "2023-11",
+  "2023-12",
+  "2024-01",
+  "2024-02",
+  "2024-03",
+  "2024-04",
+  "2024-05",
+  "2024-06",
+  "2024-07",
+  "2024-08",
+  "2024-09",
+  "2024-10",
+  "2024-11",
+  "2024-12",
+  "2025-01",
+  "2025-02",
+  "2025-03",
+  "2025-04",
+  "2025-05",
+  "2025-06",
+  "2025-07",
+  "2025-08",
+  "2025-09",
+  "2025-10",
+  "2025-11",
+  "2025-12",
+  "2026-01",
+  "2026-02",
+  "2026-03",
+  "2026-04",
+  "2026-05",
+  "2026-06",
+  "2026-07",
+  "2026-08"
+ ],
+ "stores": [
+  "Attleborough",
+  "Glenvale Drive Thru",
+  "HOE Balsall Common"
+ ],
+ "new_stores": [
+  {
+   "store": "Warwick Market Square",
+   "status": "opening soon"
+  }
+ ],
+ "data": {
+  "Attleborough": {
+   "2022-10": {
+    "audit": false
+   },
+   "2022-11": {
+    "audit": false
+   },
+   "2022-12": {
+    "audit": false
+   },
+   "2023-01": {
+    "audit": false
+   },
+   "2023-02": {
+    "audit": false
+   },
+   "2023-03": {
+    "audit": false
+   },
+   "2023-04": {
+    "audit": false
+   },
+   "2023-05": {
+    "audit": false
+   },
+   "2023-06": {
+    "audit": false
+   },
+   "2023-07": {
+    "audit": false
+   },
+   "2023-08": {
+    "audit": false
+   },
+   "2023-09": {
+    "audit": false
+   },
+   "2023-10": {
+    "audit": false
+   },
+   "2023-11": {
+    "audit": false
+   },
+   "2023-12": {
+    "audit": false
+   },
+   "2024-01": {
+    "audit": false
+   },
+   "2024-02": {
+    "audit": false
+   },
+   "2024-03": {
+    "audit": false
+   },
+   "2024-04": {
+    "audit": false
+   },
+   "2024-05": {
+    "audit": false
+   },
+   "2024-06": {
+    "audit": false
+   },
+   "2024-07": {
+    "audit": false
+   },
+   "2024-08": {
+    "audit": false
+   },
+   "2024-09": {
+    "audit": false
+   },
+   "2024-10": {
+    "audit": false
+   },
+   "2024-11": {
+    "audit": false
+   },
+   "2024-12": {
+    "audit": false
+   },
+   "2025-01": {
+    "audit": false
+   },
+   "2025-02": {
+    "audit": false
+   },
+   "2025-03": {
+    "audit": false
+   },
+   "2025-04": {
+    "audit": false
+   },
+   "2025-05": {
+    "audit": false
+   },
+   "2025-06": {
+    "audit": false
+   },
+   "2025-07": {
+    "audit": false
+   },
+   "2025-08": {
+    "audit": false
+   },
+   "2025-09": {
+    "audit": false
+   },
+   "2025-10": {
+    "audit": false
+   },
+   "2025-11": {
+    "audit": false
+   },
+   "2025-12": {
+    "audit": false
+   },
+   "2026-01": {
+    "audit": false
+   },
+   "2026-02": {
+    "audit": false
+   },
+   "2026-03": {
+    "audit": false
+   },
+   "2026-04": {
+    "audit": false
+   },
+   "2026-05": {
+    "audit": true,
+    "brand5": 4.81,
+    "brand_n": 1,
+    "remote100": 92.4,
+    "remote5": 4.62,
+    "remote_n": 5,
+    "comb5": 4.71,
+    "comb100": 102.4,
+    "tier": "On Target",
+    "emoji": "✅",
+    "royalty": 4.0,
+    "marketing": 2.0,
+    "total_pct": 6.0,
+    "turnover": 29534,
+    "fee_gbp": 1772
+   },
+   "2026-06": {
+    "audit": true,
+    "brand5": 4.71,
+    "brand_n": 1,
+    "remote100": 86.0,
+    "remote5": 4.3,
+    "remote_n": 4,
+    "comb5": 4.5,
+    "comb100": 97.8,
+    "tier": "Fail",
+    "emoji": "⚠️",
+    "royalty": 6.0,
+    "marketing": 2.0,
+    "total_pct": 8.0,
+    "turnover": 27254,
+    "fee_gbp": 2180
+   },
+   "2026-07": {
+    "audit": true,
+    "brand5": 4.76,
+    "brand_n": 1,
+    "remote100": 89.6,
+    "remote5": 4.48,
+    "remote_n": 5,
+    "comb5": 4.62,
+    "comb100": 100.4,
+    "tier": "On Target",
+    "emoji": "✅",
+    "royalty": 4.0,
+    "marketing": 2.0,
+    "total_pct": 6.0,
+    "turnover": 28345,
+    "fee_gbp": 1701
+   },
+   "2026-08": {
+    "audit": true,
+    "brand5": 4.64,
+    "brand_n": 1,
+    "remote100": 91.5,
+    "remote5": 4.58,
+    "remote_n": 2,
+    "comb5": 4.61,
+    "comb100": 100.2,
+    "tier": "On Target",
+    "emoji": "✅",
+    "royalty": 4.0,
+    "marketing": 2.0,
+    "total_pct": 6.0,
+    "turnover": 15261,
+    "fee_gbp": 916
+   }
+  },
+  "Glenvale Drive Thru": {
+   "2022-10": {
+    "audit": false
+   },
+   "2022-11": {
+    "audit": false
+   },
+   "2022-12": {
+    "audit": false
+   },
+   "2023-01": {
+    "audit": false
+   },
+   "2023-02": {
+    "audit": false
+   },
+   "2023-03": {
+    "audit": false
+   },
+   "2023-04": {
+    "audit": false
+   },
+   "2023-05": {
+    "audit": false
+   },
+   "2023-06": {
+    "audit": false
+   },
+   "2023-07": {
+    "audit": false
+   },
+   "2023-08": {
+    "audit": false
+   },
+   "2023-09": {
+    "audit": false
+   },
+   "2023-10": {
+    "audit": false
+   },
+   "2023-11": {
+    "audit": false
+   },
+   "2023-12": {
+    "audit": false
+   },
+   "2024-01": {
+    "audit": false
+   },
+   "2024-02": {
+    "audit": false
+   },
+   "2024-03": {
+    "audit": false
+   },
+   "2024-04": {
+    "audit": false
+   },
+   "2024-05": {
+    "audit": false
+   },
+   "2024-06": {
+    "audit": false
+   },
+   "2024-07": {
+    "audit": false
+   },
+   "2024-08": {
+    "audit": false
+   },
+   "2024-09": {
+    "audit": false
+   },
+   "2024-10": {
+    "audit": false
+   },
+   "2024-11": {
+    "audit": false
+   },
+   "2024-12": {
+    "audit": true,
+    "brand5": null,
+    "brand_n": 0,
+    "remote100": 91.2,
+    "remote5": 4.56,
+    "remote_n": 6,
+    "comb5": 4.56,
+    "comb100": 99.1,
+    "tier": "Fail",
+    "emoji": "⚠️",
+    "royalty": 6.0,
+    "marketing": 2.0,
+    "total_pct": 8.0,
+    "turnover": 54998,
+    "fee_gbp": 4400
+   },
+   "2025-01": {
+    "audit": true,
+    "brand5": null,
+    "brand_n": 0,
+    "remote100": 82.5,
+    "remote5": 4.12,
+    "remote_n": 4,
+    "comb5": 4.12,
+    "comb100": 89.6,
+    "tier": "Breakdown",
+    "emoji": "🔴",
+    "royalty": 6.5,
+    "marketing": 2.5,
+    "total_pct": 9.0,
+    "turnover": 51432,
+    "fee_gbp": 4629
+   },
+   "2025-02": {
+    "audit": true,
+    "brand5": 4.48,
+    "brand_n": 1,
+    "remote100": 94.2,
+    "remote5": 4.71,
+    "remote_n": 3,
+    "comb5": 4.6,
+    "comb100": 100.0,
+    "tier": "On Target",
+    "emoji": "✅",
+    "royalty": 4.0,
+    "marketing": 2.0,
+    "total_pct": 6.0,
+    "turnover": 51086,
+    "fee_gbp": 3065
+   },
+   "2025-03": {
+    "audit": true,
+    "brand5": null,
+    "brand_n": 0,
+    "remote100": 93.1,
+    "remote5": 4.65,
+    "remote_n": 8,
+    "comb5": 4.65,
+    "comb100": 101.1,
+    "tier": "On Target",
+    "emoji": "✅",
+    "royalty": 4.0,
+    "marketing": 2.0,
+    "total_pct": 6.0,
+    "turnover": 57334,
+    "fee_gbp": 3440
+   },
+   "2025-04": {
+    "audit": true,
+    "brand5": 4.88,
+    "brand_n": 1,
+    "remote100": 94.4,
+    "remote5": 4.72,
+    "remote_n": 9,
+    "comb5": 4.8,
+    "comb100": 104.3,
+    "tier": "Above Target",
+    "emoji": "🟠",
+    "royalty": 3.5,
+    "marketing": 1.5,
+    "total_pct": 5.0,
+    "turnover": 56062,
+    "fee_gbp": 2803
+   },
+   "2025-05": {
+    "audit": true,
+    "brand5": 4.68,
+    "brand_n": 1,
+    "remote100": 89.4,
+    "remote5": 4.47,
+    "remote_n": 8,
+    "comb5": 4.57,
+    "comb100": 99.3,
+    "tier": "Fail",
+    "emoji": "⚠️",
+    "royalty": 6.0,
+    "marketing": 2.0,
+    "total_pct": 8.0,
+    "turnover": 59683,
+    "fee_gbp": 4775
+   },
+   "2025-06": {
+    "audit": true,
+    "brand5": 4.64,
+    "brand_n": 1,
+    "remote100": 93.8,
+    "remote5": 4.69,
+    "remote_n": 6,
+    "comb5": 4.67,
+    "comb100": 101.5,
+    "tier": "On Target",
+    "emoji": "✅",
+    "royalty": 4.0,
+    "marketing": 2.0,
+    "total_pct": 6.0,
+    "turnover": 58210,
+    "fee_gbp": 3493
+   },
+   "2025-07": {
+    "audit": true,
+    "brand5": 4.89,
+    "brand_n": 1,
+    "remote100": 92.5,
+    "remote5": 4.62,
+    "remote_n": 4,
+    "comb5": 4.75,
+    "comb100": 103.3,
+    "tier": "On Target",
+    "emoji": "✅",
+    "royalty": 4.0,
+    "marketing": 2.0,
+    "total_pct": 6.0,
+    "turnover": 59805,
+    "fee_gbp": 3588
+   },
+   "2025-08": {
+    "audit": true,
+    "brand5": 4.9,
+    "brand_n": 1,
+    "remote100": 89.4,
+    "remote5": 4.47,
+    "remote_n": 4,
+    "comb5": 4.69,
+    "comb100": 102.0,
+    "tier": "On Target",
+    "emoji": "✅",
+    "royalty": 4.0,
+    "marketing": 2.0,
+    "total_pct": 6.0,
+    "turnover": 60777,
+    "fee_gbp": 3647
+   },
+   "2025-09": {
+    "audit": true,
+    "brand5": 4.84,
+    "brand_n": 1,
+    "remote100": 84.6,
+    "remote5": 4.23,
+    "remote_n": 6,
+    "comb5": 4.54,
+    "comb100": 98.7,
+    "tier": "Fail",
+    "emoji": "⚠️",
+    "royalty": 6.0,
+    "marketing": 2.0,
+    "total_pct": 8.0,
+    "turnover": 57476,
+    "fee_gbp": 4598
+   },
+   "2025-10": {
+    "audit": true,
+    "brand5": 4.78,
+    "brand_n": 1,
+    "remote100": 95.5,
+    "remote5": 4.78,
+    "remote_n": 5,
+    "comb5": 4.78,
+    "comb100": 103.9,
+    "tier": "On Target",
+    "emoji": "✅",
+    "royalty": 4.0,
+    "marketing": 2.0,
+    "total_pct": 6.0,
+    "turnover": 65360,
+    "fee_gbp": 3922
+   },
+   "2025-11": {
+    "audit": true,
+    "brand5": 4.62,
+    "brand_n": 1,
+    "remote100": 97.5,
+    "remote5": 4.88,
+    "remote_n": 4,
+    "comb5": 4.75,
+    "comb100": 103.3,
+    "tier": "On Target",
+    "emoji": "✅",
+    "royalty": 4.0,
+    "marketing": 2.0,
+    "total_pct": 6.0,
+    "turnover": 65354,
+    "fee_gbp": 3921
+   },
+   "2025-12": {
+    "audit": true,
+    "brand5": 4.75,
+    "brand_n": 1,
+    "remote100": 86.0,
+    "remote5": 4.3,
+    "remote_n": 5,
+    "comb5": 4.53,
+    "comb100": 98.5,
+    "tier": "Fail",
+    "emoji": "⚠️",
+    "royalty": 6.0,
+    "marketing": 2.0,
+    "total_pct": 8.0,
+    "turnover": 62422,
+    "fee_gbp": 4994
+   },
+   "2026-01": {
+    "audit": true,
+    "brand5": 4.73,
+    "brand_n": 1,
+    "remote100": 91.8,
+    "remote5": 4.59,
+    "remote_n": 3,
+    "comb5": 4.66,
+    "comb100": 101.3,
+    "tier": "On Target",
+    "emoji": "✅",
+    "royalty": 4.0,
+    "marketing": 2.0,
+    "total_pct": 6.0,
+    "turnover": 62645,
+    "fee_gbp": 3759
+   },
+   "2026-02": {
+    "audit": true,
+    "brand5": 4.56,
+    "brand_n": 1,
+    "remote100": 94.1,
+    "remote5": 4.71,
+    "remote_n": 5,
+    "comb5": 4.63,
+    "comb100": 100.7,
+    "tier": "On Target",
+    "emoji": "✅",
+    "royalty": 4.0,
+    "marketing": 2.0,
+    "total_pct": 6.0,
+    "turnover": 62503,
+    "fee_gbp": 3750
+   },
+   "2026-03": {
+    "audit": true,
+    "brand5": 4.89,
+    "brand_n": 1,
+    "remote100": 94.5,
+    "remote5": 4.72,
+    "remote_n": 4,
+    "comb5": 4.8,
+    "comb100": 104.3,
+    "tier": "Above Target",
+    "emoji": "🟠",
+    "royalty": 3.5,
+    "marketing": 1.5,
+    "total_pct": 5.0,
+    "turnover": 73358,
+    "fee_gbp": 3668
+   },
+   "2026-04": {
+    "audit": true,
+    "brand5": 4.58,
+    "brand_n": 2,
+    "remote100": 84.7,
+    "remote5": 4.24,
+    "remote_n": 3,
+    "comb5": 4.41,
+    "comb100": 95.9,
+    "tier": "Fail",
+    "emoji": "⚠️",
+    "royalty": 6.0,
+    "marketing": 2.0,
+    "total_pct": 8.0,
+    "turnover": 74451,
+    "fee_gbp": 5956
+   },
+   "2026-05": {
+    "audit": true,
+    "brand5": 4.85,
+    "brand_n": 1,
+    "remote100": 92.2,
+    "remote5": 4.61,
+    "remote_n": 5,
+    "comb5": 4.73,
+    "comb100": 102.8,
+    "tier": "On Target",
+    "emoji": "✅",
+    "royalty": 4.0,
+    "marketing": 2.0,
+    "total_pct": 6.0,
+    "turnover": 81464,
+    "fee_gbp": 4888
+   },
+   "2026-06": {
+    "audit": true,
+    "brand5": 4.74,
+    "brand_n": 1,
+    "remote100": 88.8,
+    "remote5": 4.44,
+    "remote_n": 5,
+    "comb5": 4.59,
+    "comb100": 99.8,
+    "tier": "Fail",
+    "emoji": "⚠️",
+    "royalty": 6.0,
+    "marketing": 2.0,
+    "total_pct": 8.0,
+    "turnover": 77434,
+    "fee_gbp": 6195
+   },
+   "2026-07": {
+    "audit": true,
+    "brand5": 4.68,
+    "brand_n": 1,
+    "remote100": 92.5,
+    "remote5": 4.62,
+    "remote_n": 4,
+    "comb5": 4.65,
+    "comb100": 101.1,
+    "tier": "On Target",
+    "emoji": "✅",
+    "royalty": 4.0,
+    "marketing": 2.0,
+    "total_pct": 6.0,
+    "turnover": 80413,
+    "fee_gbp": 4825
+   },
+   "2026-08": {
+    "audit": true,
+    "brand5": null,
+    "brand_n": 0,
+    "remote100": 91.7,
+    "remote5": 4.58,
+    "remote_n": 3,
+    "comb5": 4.58,
+    "comb100": 99.6,
+    "tier": "Fail",
+    "emoji": "⚠️",
+    "royalty": 6.0,
+    "marketing": 2.0,
+    "total_pct": 8.0,
+    "turnover": 45268,
+    "fee_gbp": 3621
+   }
+  },
+  "HOE Balsall Common": {
+   "2022-10": {
+    "audit": true,
+    "brand5": null,
+    "brand_n": 0,
+    "remote100": 79.0,
+    "remote5": 3.95,
+    "remote_n": 1,
+    "comb5": 3.95,
+    "comb100": 85.9,
+    "tier": "Breakdown",
+    "emoji": "🔴",
+    "royalty": 6.5,
+    "marketing": 2.5,
+    "total_pct": 9.0,
+    "turnover": null,
+    "fee_gbp": null
+   },
+   "2022-11": {
+    "audit": true,
+    "brand5": null,
+    "brand_n": 0,
+    "remote100": 93.0,
+    "remote5": 4.65,
+    "remote_n": 1,
+    "comb5": 4.65,
+    "comb100": 101.1,
+    "tier": "On Target",
+    "emoji": "✅",
+    "royalty": 4.0,
+    "marketing": 2.0,
+    "total_pct": 6.0,
+    "turnover": null,
+    "fee_gbp": null
+   },
+   "2022-12": {
+    "audit": true,
+    "brand5": null,
+    "brand_n": 0,
+    "remote100": 93.0,
+    "remote5": 4.65,
+    "remote_n": 1,
+    "comb5": 4.65,
+    "comb100": 101.1,
+    "tier": "On Target",
+    "emoji": "✅",
+    "royalty": 4.0,
+    "marketing": 2.0,
+    "total_pct": 6.0,
+    "turnover": null,
+    "fee_gbp": null
+   },
+   "2023-01": {
+    "audit": true,
+    "brand5": null,
+    "brand_n": 0,
+    "remote100": 100.0,
+    "remote5": 5.0,
+    "remote_n": 1,
+    "comb5": 5.0,
+    "comb100": 108.7,
+    "tier": "Excelling",
+    "emoji": "⭐",
+    "royalty": 3.0,
+    "marketing": 1.0,
+    "total_pct": 4.0,
+    "turnover": null,
+    "fee_gbp": null
+   },
+   "2023-02": {
+    "audit": true,
+    "brand5": null,
+    "brand_n": 0,
+    "remote100": 88.8,
+    "remote5": 4.44,
+    "remote_n": 2,
+    "comb5": 4.44,
+    "comb100": 96.5,
+    "tier": "Fail",
+    "emoji": "⚠️",
+    "royalty": 6.0,
+    "marketing": 2.0,
+    "total_pct": 8.0,
+    "turnover": null,
+    "fee_gbp": null
+   },
+   "2023-03": {
+    "audit": true,
+    "brand5": null,
+    "brand_n": 0,
+    "remote100": 95.0,
+    "remote5": 4.75,
+    "remote_n": 2,
+    "comb5": 4.75,
+    "comb100": 103.3,
+    "tier": "On Target",
+    "emoji": "✅",
+    "royalty": 4.0,
+    "marketing": 2.0,
+    "total_pct": 6.0,
+    "turnover": null,
+    "fee_gbp": null
+   },
+   "2023-04": {
+    "audit": true,
+    "brand5": null,
+    "brand_n": 0,
+    "remote100": 95.0,
+    "remote5": 4.75,
+    "remote_n": 3,
+    "comb5": 4.75,
+    "comb100": 103.3,
+    "tier": "On Target",
+    "emoji": "✅",
+    "royalty": 4.0,
+    "marketing": 2.0,
+    "total_pct": 6.0,
+    "turnover": null,
+    "fee_gbp": null
+   },
+   "2023-05": {
+    "audit": true,
+    "brand5": null,
+    "brand_n": 0,
+    "remote100": 95.0,
+    "remote5": 4.75,
+    "remote_n": 3,
+    "comb5": 4.75,
+    "comb100": 103.3,
+    "tier": "On Target",
+    "emoji": "✅",
+    "royalty": 4.0,
+    "marketing": 2.0,
+    "total_pct": 6.0,
+    "turnover": null,
+    "fee_gbp": null
+   },
+   "2023-06": {
+    "audit": true,
+    "brand5": null,
+    "brand_n": 0,
+    "remote100": 92.5,
+    "remote5": 4.62,
+    "remote_n": 3,
+    "comb5": 4.62,
+    "comb100": 100.4,
+    "tier": "On Target",
+    "emoji": "✅",
+    "royalty": 4.0,
+    "marketing": 2.0,
+    "total_pct": 6.0,
+    "turnover": null,
+    "fee_gbp": null
+   },
+   "2023-07": {
+    "audit": true,
+    "brand5": null,
+    "brand_n": 0,
+    "remote100": 96.7,
+    "remote5": 4.83,
+    "remote_n": 3,
+    "comb5": 4.83,
+    "comb100": 105.0,
+    "tier": "Above Target",
+    "emoji": "🟠",
+    "royalty": 3.5,
+    "marketing": 1.5,
+    "total_pct": 5.0,
+    "turnover": null,
+    "fee_gbp": null
+   },
+   "2023-08": {
+    "audit": true,
+    "brand5": null,
+    "brand_n": 0,
+    "remote100": 93.1,
+    "remote5": 4.65,
+    "remote_n": 4,
+    "comb5": 4.65,
+    "comb100": 101.1,
+    "tier": "On Target",
+    "emoji": "✅",
+    "royalty": 4.0,
+    "marketing": 2.0,
+    "total_pct": 6.0,
+    "turnover": null,
+    "fee_gbp": null
+   },
+   "2023-09": {
+    "audit": true,
+    "brand5": null,
+    "brand_n": 0,
+    "remote100": 94.5,
+    "remote5": 4.72,
+    "remote_n": 5,
+    "comb5": 4.72,
+    "comb100": 102.6,
+    "tier": "On Target",
+    "emoji": "✅",
+    "royalty": 4.0,
+    "marketing": 2.0,
+    "total_pct": 6.0,
+    "turnover": null,
+    "fee_gbp": null
+   },
+   "2023-10": {
+    "audit": true,
+    "brand5": null,
+    "brand_n": 0,
+    "remote100": 95.8,
+    "remote5": 4.79,
+    "remote_n": 3,
+    "comb5": 4.79,
+    "comb100": 104.1,
+    "tier": "On Target",
+    "emoji": "✅",
+    "royalty": 4.0,
+    "marketing": 2.0,
+    "total_pct": 6.0,
+    "turnover": null,
+    "fee_gbp": null
+   },
+   "2023-11": {
+    "audit": true,
+    "brand5": null,
+    "brand_n": 0,
+    "remote100": 95.0,
+    "remote5": 4.75,
+    "remote_n": 4,
+    "comb5": 4.75,
+    "comb100": 103.3,
+    "tier": "On Target",
+    "emoji": "✅",
+    "royalty": 4.0,
+    "marketing": 2.0,
+    "total_pct": 6.0,
+    "turnover": null,
+    "fee_gbp": null
+   },
+   "2023-12": {
+    "audit": true,
+    "brand5": null,
+    "brand_n": 0,
+    "remote100": 95.6,
+    "remote5": 4.78,
+    "remote_n": 4,
+    "comb5": 4.78,
+    "comb100": 103.9,
+    "tier": "On Target",
+    "emoji": "✅",
+    "royalty": 4.0,
+    "marketing": 2.0,
+    "total_pct": 6.0,
+    "turnover": null,
+    "fee_gbp": null
+   },
+   "2024-01": {
+    "audit": true,
+    "brand5": null,
+    "brand_n": 0,
+    "remote100": 100.0,
+    "remote5": 5.0,
+    "remote_n": 4,
+    "comb5": 5.0,
+    "comb100": 108.7,
+    "tier": "Excelling",
+    "emoji": "⭐",
+    "royalty": 3.0,
+    "marketing": 1.0,
+    "total_pct": 4.0,
+    "turnover": 23029,
+    "fee_gbp": 921
+   },
+   "2024-02": {
+    "audit": true,
+    "brand5": null,
+    "brand_n": 0,
+    "remote100": 99.0,
+    "remote5": 4.95,
+    "remote_n": 5,
+    "comb5": 4.95,
+    "comb100": 107.6,
+    "tier": "Excelling",
+    "emoji": "⭐",
+    "royalty": 3.0,
+    "marketing": 1.0,
+    "total_pct": 4.0,
+    "turnover": 23246,
+    "fee_gbp": 930
+   },
+   "2024-03": {
+    "audit": true,
+    "brand5": null,
+    "brand_n": 0,
+    "remote100": 95.5,
+    "remote5": 4.78,
+    "remote_n": 5,
+    "comb5": 4.78,
+    "comb100": 103.9,
+    "tier": "On Target",
+    "emoji": "✅",
+    "royalty": 4.0,
+    "marketing": 2.0,
+    "total_pct": 6.0,
+    "turnover": 25135,
+    "fee_gbp": 1508
+   },
+   "2024-04": {
+    "audit": true,
+    "brand5": null,
+    "brand_n": 0,
+    "remote100": 95.0,
+    "remote5": 4.75,
+    "remote_n": 5,
+    "comb5": 4.75,
+    "comb100": 103.3,
+    "tier": "On Target",
+    "emoji": "✅",
+    "royalty": 4.0,
+    "marketing": 2.0,
+    "total_pct": 6.0,
+    "turnover": 23658,
+    "fee_gbp": 1419
+   },
+   "2024-05": {
+    "audit": true,
+    "brand5": null,
+    "brand_n": 0,
+    "remote100": 95.8,
+    "remote5": 4.79,
+    "remote_n": 6,
+    "comb5": 4.79,
+    "comb100": 104.1,
+    "tier": "On Target",
+    "emoji": "✅",
+    "royalty": 4.0,
+    "marketing": 2.0,
+    "total_pct": 6.0,
+    "turnover": 24958,
+    "fee_gbp": 1497
+   },
+   "2024-06": {
+    "audit": true,
+    "brand5": null,
+    "brand_n": 0,
+    "remote100": 100.0,
+    "remote5": 5.0,
+    "remote_n": 5,
+    "comb5": 5.0,
+    "comb100": 108.7,
+    "tier": "Excelling",
+    "emoji": "⭐",
+    "royalty": 3.0,
+    "marketing": 1.0,
+    "total_pct": 4.0,
+    "turnover": 23712,
+    "fee_gbp": 948
+   },
+   "2024-07": {
+    "audit": true,
+    "brand5": null,
+    "brand_n": 0,
+    "remote100": 100.0,
+    "remote5": 5.0,
+    "remote_n": 3,
+    "comb5": 5.0,
+    "comb100": 108.7,
+    "tier": "Excelling",
+    "emoji": "⭐",
+    "royalty": 3.0,
+    "marketing": 1.0,
+    "total_pct": 4.0,
+    "turnover": 24745,
+    "fee_gbp": 990
+   },
+   "2024-08": {
+    "audit": true,
+    "brand5": null,
+    "brand_n": 0,
+    "remote100": 96.9,
+    "remote5": 4.85,
+    "remote_n": 4,
+    "comb5": 4.85,
+    "comb100": 105.4,
+    "tier": "Above Target",
+    "emoji": "🟠",
+    "royalty": 3.5,
+    "marketing": 1.5,
+    "total_pct": 5.0,
+    "turnover": 23798,
+    "fee_gbp": 1190
+   },
+   "2024-09": {
+    "audit": true,
+    "brand5": null,
+    "brand_n": 0,
+    "remote100": 90.0,
+    "remote5": 4.5,
+    "remote_n": 1,
+    "comb5": 4.5,
+    "comb100": 97.8,
+    "tier": "Fail",
+    "emoji": "⚠️",
+    "royalty": 6.0,
+    "marketing": 2.0,
+    "total_pct": 8.0,
+    "turnover": 23724,
+    "fee_gbp": 1898
+   },
+   "2024-10": {
+    "audit": true,
+    "brand5": null,
+    "brand_n": 0,
+    "remote100": 100.0,
+    "remote5": 5.0,
+    "remote_n": 4,
+    "comb5": 5.0,
+    "comb100": 108.7,
+    "tier": "Excelling",
+    "emoji": "⭐",
+    "royalty": 3.0,
+    "marketing": 1.0,
+    "total_pct": 4.0,
+    "turnover": 25256,
+    "fee_gbp": 1010
+   },
+   "2024-11": {
+    "audit": true,
+    "brand5": 4.93,
+    "brand_n": 1,
+    "remote100": 90.0,
+    "remote5": 4.5,
+    "remote_n": 3,
+    "comb5": 4.71,
+    "comb100": 102.4,
+    "tier": "On Target",
+    "emoji": "✅",
+    "royalty": 4.0,
+    "marketing": 2.0,
+    "total_pct": 6.0,
+    "turnover": 25804,
+    "fee_gbp": 1548
+   },
+   "2024-12": {
+    "audit": true,
+    "brand5": 4.66,
+    "brand_n": 1,
+    "remote100": 83.1,
+    "remote5": 4.15,
+    "remote_n": 4,
+    "comb5": 4.41,
+    "comb100": 95.9,
+    "tier": "Fail",
+    "emoji": "⚠️",
+    "royalty": 6.0,
+    "marketing": 2.0,
+    "total_pct": 8.0,
+    "turnover": 26147,
+    "fee_gbp": 2092
+   },
+   "2025-01": {
+    "audit": true,
+    "brand5": null,
+    "brand_n": 0,
+    "remote100": 96.9,
+    "remote5": 4.85,
+    "remote_n": 4,
+    "comb5": 4.85,
+    "comb100": 105.4,
+    "tier": "Above Target",
+    "emoji": "🟠",
+    "royalty": 3.5,
+    "marketing": 1.5,
+    "total_pct": 5.0,
+    "turnover": 26864,
+    "fee_gbp": 1343
+   },
+   "2025-02": {
+    "audit": true,
+    "brand5": null,
+    "brand_n": 0,
+    "remote100": 87.5,
+    "remote5": 4.38,
+    "remote_n": 4,
+    "comb5": 4.38,
+    "comb100": 95.2,
+    "tier": "Breakdown",
+    "emoji": "🔴",
+    "royalty": 6.5,
+    "marketing": 2.5,
+    "total_pct": 9.0,
+    "turnover": 25741,
+    "fee_gbp": 2317
+   },
+   "2025-03": {
+    "audit": true,
+    "brand5": 4.67,
+    "brand_n": 1,
+    "remote100": 95.8,
+    "remote5": 4.79,
+    "remote_n": 3,
+    "comb5": 4.73,
+    "comb100": 102.8,
+    "tier": "On Target",
+    "emoji": "✅",
+    "royalty": 4.0,
+    "marketing": 2.0,
+    "total_pct": 6.0,
+    "turnover": 28036,
+    "fee_gbp": 1682
+   },
+   "2025-04": {
+    "audit": true,
+    "brand5": null,
+    "brand_n": 0,
+    "remote100": 84.4,
+    "remote5": 4.22,
+    "remote_n": 4,
+    "comb5": 4.22,
+    "comb100": 91.7,
+    "tier": "Breakdown",
+    "emoji": "🔴",
+    "royalty": 6.5,
+    "marketing": 2.5,
+    "total_pct": 9.0,
+    "turnover": 24713,
+    "fee_gbp": 2224
+   },
+   "2025-05": {
+    "audit": true,
+    "brand5": 4.91,
+    "brand_n": 1,
+    "remote100": 94.0,
+    "remote5": 4.7,
+    "remote_n": 5,
+    "comb5": 4.8,
+    "comb100": 104.3,
+    "tier": "Above Target",
+    "emoji": "🟠",
+    "royalty": 3.5,
+    "marketing": 1.5,
+    "total_pct": 5.0,
+    "turnover": 25139,
+    "fee_gbp": 1257
+   },
+   "2025-06": {
+    "audit": true,
+    "brand5": 4.79,
+    "brand_n": 1,
+    "remote100": 100.0,
+    "remote5": 5.0,
+    "remote_n": 2,
+    "comb5": 4.89,
+    "comb100": 106.3,
+    "tier": "Above Target",
+    "emoji": "🟠",
+    "royalty": 3.5,
+    "marketing": 1.5,
+    "total_pct": 5.0,
+    "turnover": 25489,
+    "fee_gbp": 1274
+   },
+   "2025-07": {
+    "audit": true,
+    "brand5": 4.83,
+    "brand_n": 1,
+    "remote100": 98.0,
+    "remote5": 4.9,
+    "remote_n": 5,
+    "comb5": 4.87,
+    "comb100": 105.9,
+    "tier": "Above Target",
+    "emoji": "🟠",
+    "royalty": 3.5,
+    "marketing": 1.5,
+    "total_pct": 5.0,
+    "turnover": 25750,
+    "fee_gbp": 1288
+   },
+   "2025-08": {
+    "audit": true,
+    "brand5": 4.79,
+    "brand_n": 1,
+    "remote100": 100.0,
+    "remote5": 5.0,
+    "remote_n": 3,
+    "comb5": 4.89,
+    "comb100": 106.3,
+    "tier": "Above Target",
+    "emoji": "🟠",
+    "royalty": 3.5,
+    "marketing": 1.5,
+    "total_pct": 5.0,
+    "turnover": 24480,
+    "fee_gbp": 1224
+   },
+   "2025-09": {
+    "audit": true,
+    "brand5": 4.88,
+    "brand_n": 1,
+    "remote100": 96.2,
+    "remote5": 4.81,
+    "remote_n": 4,
+    "comb5": 4.84,
+    "comb100": 105.2,
+    "tier": "Above Target",
+    "emoji": "🟠",
+    "royalty": 3.5,
+    "marketing": 1.5,
+    "total_pct": 5.0,
+    "turnover": 26443,
+    "fee_gbp": 1322
+   },
+   "2025-10": {
+    "audit": true,
+    "brand5": 4.63,
+    "brand_n": 1,
+    "remote100": 89.0,
+    "remote5": 4.45,
+    "remote_n": 5,
+    "comb5": 4.54,
+    "comb100": 98.7,
+    "tier": "Fail",
+    "emoji": "⚠️",
+    "royalty": 6.0,
+    "marketing": 2.0,
+    "total_pct": 8.0,
+    "turnover": 27335,
+    "fee_gbp": 2187
+   },
+   "2025-11": {
+    "audit": true,
+    "brand5": 4.62,
+    "brand_n": 1,
+    "remote100": 88.0,
+    "remote5": 4.4,
+    "remote_n": 5,
+    "comb5": 4.51,
+    "comb100": 98.0,
+    "tier": "Fail",
+    "emoji": "⚠️",
+    "royalty": 6.0,
+    "marketing": 2.0,
+    "total_pct": 8.0,
+    "turnover": 28043,
+    "fee_gbp": 2243
+   },
+   "2025-12": {
+    "audit": true,
+    "brand5": 4.57,
+    "brand_n": 1,
+    "remote100": 96.9,
+    "remote5": 4.85,
+    "remote_n": 4,
+    "comb5": 4.71,
+    "comb100": 102.4,
+    "tier": "On Target",
+    "emoji": "✅",
+    "royalty": 4.0,
+    "marketing": 2.0,
+    "total_pct": 6.0,
+    "turnover": 27800,
+    "fee_gbp": 1668
+   },
+   "2026-01": {
+    "audit": true,
+    "brand5": 4.82,
+    "brand_n": 1,
+    "remote100": 94.2,
+    "remote5": 4.71,
+    "remote_n": 5,
+    "comb5": 4.77,
+    "comb100": 103.7,
+    "tier": "On Target",
+    "emoji": "✅",
+    "royalty": 4.0,
+    "marketing": 2.0,
+    "total_pct": 6.0,
+    "turnover": 29594,
+    "fee_gbp": 1776
+   },
+   "2026-02": {
+    "audit": true,
+    "brand5": null,
+    "brand_n": 0,
+    "remote100": 86.9,
+    "remote5": 4.35,
+    "remote_n": 4,
+    "comb5": 4.35,
+    "comb100": 94.6,
+    "tier": "Breakdown",
+    "emoji": "🔴",
+    "royalty": 6.5,
+    "marketing": 2.5,
+    "total_pct": 9.0,
+    "turnover": 27953,
+    "fee_gbp": 2516
+   },
+   "2026-03": {
+    "audit": true,
+    "brand5": 4.82,
+    "brand_n": 1,
+    "remote100": 93.1,
+    "remote5": 4.65,
+    "remote_n": 4,
+    "comb5": 4.74,
+    "comb100": 103.0,
+    "tier": "On Target",
+    "emoji": "✅",
+    "royalty": 4.0,
+    "marketing": 2.0,
+    "total_pct": 6.0,
+    "turnover": 31815,
+    "fee_gbp": 1909
+   },
+   "2026-04": {
+    "audit": true,
+    "brand5": 4.61,
+    "brand_n": 1,
+    "remote100": 94.0,
+    "remote5": 4.7,
+    "remote_n": 2,
+    "comb5": 4.66,
+    "comb100": 101.3,
+    "tier": "On Target",
+    "emoji": "✅",
+    "royalty": 4.0,
+    "marketing": 2.0,
+    "total_pct": 6.0,
+    "turnover": 28687,
+    "fee_gbp": 1721
+   },
+   "2026-05": {
+    "audit": true,
+    "brand5": 4.63,
+    "brand_n": 1,
+    "remote100": 86.0,
+    "remote5": 4.3,
+    "remote_n": 5,
+    "comb5": 4.46,
+    "comb100": 97.0,
+    "tier": "Fail",
+    "emoji": "⚠️",
+    "royalty": 6.0,
+    "marketing": 2.0,
+    "total_pct": 8.0,
+    "turnover": 30984,
+    "fee_gbp": 2479
+   },
+   "2026-06": {
+    "audit": true,
+    "brand5": 4.69,
+    "brand_n": 1,
+    "remote100": 88.8,
+    "remote5": 4.44,
+    "remote_n": 4,
+    "comb5": 4.57,
+    "comb100": 99.3,
+    "tier": "Fail",
+    "emoji": "⚠️",
+    "royalty": 6.0,
+    "marketing": 2.0,
+    "total_pct": 8.0,
+    "turnover": 26428,
+    "fee_gbp": 2114
+   },
+   "2026-07": {
+    "audit": true,
+    "brand5": 4.72,
+    "brand_n": 1,
+    "remote100": 90.5,
+    "remote5": 4.53,
+    "remote_n": 4,
+    "comb5": 4.62,
+    "comb100": 100.4,
+    "tier": "On Target",
+    "emoji": "✅",
+    "royalty": 4.0,
+    "marketing": 2.0,
+    "total_pct": 6.0,
+    "turnover": 28740,
+    "fee_gbp": 1724
+   },
+   "2026-08": {
+    "audit": true,
+    "brand5": 4.44,
+    "brand_n": 1,
+    "remote100": 88.0,
+    "remote5": 4.4,
+    "remote_n": 3,
+    "comb5": 4.42,
+    "comb100": 96.1,
+    "tier": "Fail",
+    "emoji": "⚠️",
+    "royalty": 6.0,
+    "marketing": 2.0,
+    "total_pct": 8.0,
+    "turnover": 16435,
+    "fee_gbp": 1315
+   }
+  }
+ },
+ "scale": [
+  {
+   "band": "≥ 4.9",
+   "tier": "Excelling",
+   "emoji": "⭐",
+   "royalty": 3.0,
+   "marketing": 1.0,
+   "total": 4.0
+  },
+  {
+   "band": "4.8 – 4.89",
+   "tier": "Above Target",
+   "emoji": "🟠",
+   "royalty": 3.5,
+   "marketing": 1.5,
+   "total": 5.0
+  },
+  {
+   "band": "4.6 – 4.79",
+   "tier": "On Target",
+   "emoji": "✅",
+   "royalty": 4.0,
+   "marketing": 2.0,
+   "total": 6.0
+  },
+  {
+   "band": "4.4 – 4.59",
+   "tier": "Fail",
+   "emoji": "⚠️",
+   "royalty": 6.0,
+   "marketing": 2.0,
+   "total": 8.0
+  },
+  {
+   "band": "< 4.4",
+   "tier": "Breakdown",
+   "emoji": "🔴",
+   "royalty": 6.5,
+   "marketing": 2.5,
+   "total": 9.0
+  }
+ ],
+ "note": "Combined = 50/50 brand+remote on /5 (4.6 = 100/100 target). Fees are % of turnover."
+}
