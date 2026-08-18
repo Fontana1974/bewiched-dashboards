@@ -1428,7 +1428,7 @@ def pull_planner():
             low = head.lower()
             if low == "store" and any("hours used" == str(c).strip().lower() for c in r):
                 sec = "A"; continue
-            if low == "store" and any("cph target" == str(c).strip().lower() for c in r) and len(r) >= 12:
+            if low == "store" and any(str(c).strip().lower() in ("cph target", "sph target") for c in r) and len(r) >= 12:
                 sec = "B"; continue
             if head.startswith("AREA TOTAL") or head.startswith("②") or head.startswith("①"):
                 if head.startswith("AREA"): sec = None
