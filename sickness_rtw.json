@@ -237,6 +237,15 @@
    "rtw_rate": 60
   },
   {
+   "store": "Peterborough Bridge Street",
+   "sickfs": 5,
+   "late": 5,
+   "rep_pct": 90,
+   "rtw": 4,
+   "sick": 5,
+   "rtw_rate": 80
+  },
+  {
    "store": "HOE Balsall Common",
    "sickfs": 5,
    "late": 2,
@@ -244,15 +253,6 @@
    "rtw": 3,
    "sick": 5,
    "rtw_rate": 60
-  },
-  {
-   "store": "Peterborough Bridge Street",
-   "sickfs": 4,
-   "late": 5,
-   "rep_pct": 89,
-   "rtw": 4,
-   "sick": 4,
-   "rtw_rate": 100
   },
   {
    "store": "Billing Drive Thru",
