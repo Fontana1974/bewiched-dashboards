@@ -1011,19 +1011,23 @@ def forecast_tab():
         return [key] if key in STO else []
 
     def sales_table(keylist, label):
-        # header
         hdr = ('<tr><th class="l" rowspan="2">Store</th>'
                + "".join('<th colspan="4">%s</th>' % esc(w["label"]) for w in weeks) + '</tr>'
                + '<tr>' + "".join('<th>LY</th><th>Fcst</th><th>Hrs</th><th>SPH</th>' for _ in weeks) + '</tr>')
         body = ""
-        tly=[0,0,0]; tfc=[0,0,0]; thr=[0,0,0]; thol=[0,0,0]
-        for s in sorted(keylist, key=lambda x: -num((STO[x].get("fc") or [0])[0])):
-            d = STO[s]; cells = '<td class="l fc-st">%s</td>' % esc(SH(s))
+        tly=[0,0,0]; tfc=[0,0,0]; thr=[0,0,0]; thol=[0,0,0]; anymiss=[False,False,False]
+        for s in sorted(keylist, key=lambda x: -num((STO[x].get("fc") or [0])[0] or 0)):
+            d = STO[s]; miss = d.get("miss") or [False,False,False]
+            cells = '<td class="l fc-st">%s</td>' % esc(SH(s))
             for w in range(3):
-                ly = num((d.get("ly") or [0,0,0])[w]); fc = num((d.get("fc") or [None,None,None])[w])
-                hr = num((d.get("hrs") or [None,None,None])[w]); hol = num((d.get("hol") or [0,0,0])[w])
-                sph = (d.get("sph") or [None,None,None])[w]
-                tly[w]+=ly; tfc[w]+=fc; thr[w]+=hr; thol[w]+=hol
+                ly = num((d.get("ly") or [0,0,0])[w]); tly[w]+=ly
+                if miss[w] or (d.get("fc") or [None,None,None])[w] is None:
+                    anymiss[w]=True
+                    cells += '<td class="fc-mini">%s</td><td class="fc-nf" colspan="3">no forecast</td>' % (gbp(ly) if ly>0 else "&mdash;")
+                    continue
+                fc = num((d.get("fc") or [None,None,None])[w]); hr = num((d.get("hrs") or [None,None,None])[w])
+                hol = num((d.get("hol") or [0,0,0])[w]); sph = (d.get("sph") or [None,None,None])[w]
+                tfc[w]+=fc; thr[w]+=hr; thol[w]+=hol
                 cells += ('<td class="fc-mini">%s</td><td class="fc-f">%s</td><td>%s</td><td class="fc-sph">%s</td>'
                           % (gbp(ly) if ly>0 else "&mdash;", gbp(fc), (round(hr) if hr else "&mdash;"),
                              ("£%d" % round(sph)) if sph not in (None,"") else "&mdash;"))
@@ -1031,41 +1035,53 @@ def forecast_tab():
         tot = '<td class="l">%s</td>' % label
         for w in range(3):
             den = thr[w] + thol[w]; bl = round(tfc[w]/den) if den>0 else None
-            tot += ('<td class="fc-mini">%s</td><td class="fc-f">%s</td><td>%s</td><td class="fc-sph">%s</td>'
-                    % (gbp(tly[w]) if tly[w]>0 else "&mdash;", gbp(tfc[w]), round(thr[w]),
-                       ("£%d" % bl) if bl is not None else "&mdash;"))
+            if tfc[w]==0 and anymiss[w]:
+                tot += '<td class="fc-mini">%s</td><td class="fc-nf" colspan="3">no forecast</td>' % (gbp(tly[w]) if tly[w]>0 else "&mdash;")
+            else:
+                tot += ('<td class="fc-mini">%s</td><td class="fc-f">%s</td><td>%s</td><td class="fc-sph">%s</td>'
+                        % (gbp(tly[w]) if tly[w]>0 else "&mdash;", gbp(tfc[w]), round(thr[w]),
+                           ("£%d" % bl) if bl is not None else "&mdash;"))
         body += '<tr class="fc-tot">%s</tr>' % tot
-        # blended SPH cards (per week, incl holiday)
         cards = ""
         for w in range(3):
             den = thr[w] + thol[w]; bl = round(tfc[w]/den,1) if den>0 else None
             cards += ('<div class="fc-kpi"><div class="fc-kl">Blended SPH &mdash; %s</div>'
-                      '<div class="fc-kv">%s</div><div class="fc-ks">forecast £ &divide; (plan + holiday hrs)</div></div>'
-                      % (esc(weeks[w]["label"]), ("£%.1f" % bl) if bl is not None else "&mdash;"))
-        return ('<div class="fc-kpis">'+cards+'</div>'
-                '<div class="fc-h3">Three-week forecast &mdash; sales &amp; labour</div>'
-                '<div class="fc-hs">Forecast &amp; plan hours from the area planners&rsquo; Section B; <b>SPH incl holiday</b> = forecast &pound; &divide; (plan + holiday-forecast hours). LY = same weeks last year.</div>'
+                      '<div class="fc-kv">%s</div><div class="fc-ks">%s</div></div>'
+                      % (esc(weeks[w]["label"]), ("£%.1f" % bl) if bl is not None else "&mdash;",
+                         "no forecast entered yet" if bl is None else "forecast &pound; &divide; (plan + holiday hrs)"))
+        miss_note = ""
+        if any(anymiss):
+            wls = ", ".join(esc(weeks[w]["label"]) for w in range(3) if anymiss[w])
+            miss_note = ('<div class="fc-missnote">&#9888; No coach forecast is currently labelled for <b>%s</b>. '
+                         'The area planner&rsquo;s Section B doesn&rsquo;t yet cover this calendar week &mdash; enter it against the matching '
+                         '<b>W/C</b> label and it flows through here automatically (nothing is overwritten).</div>' % wls)
+        return ('<div class="fc-kpis">'+cards+'</div>'+miss_note
+                +'<div class="fc-h3">Three-week forecast &mdash; sales &amp; labour</div>'
+                '<div class="fc-hs">Forecast &amp; plan hours from the area planners&rsquo; Section B, <b>pinned to each labelled calendar week</b>; <b>SPH incl holiday</b> = forecast &pound; &divide; (plan + holiday-forecast hours). LY = same weeks last year.</div>'
                 '<table class="fc-t"><thead>'+hdr+'</thead><tbody>'+body+'</tbody></table>')
 
     def daily_strip(keylist):
-        # aggregate daily = sum over scope of fc[w]*dow[day]
-        blocks = ""
-        # global max across weeks for consistent bar scale
-        allvals = []
-        perwk = []
+        blocks = ""; allvals = []; perwk = []; present = [0,0,0]
         for w in range(3):
-            dv = [0.0]*7
+            dv = [0.0]*7; cnt = 0
             for s in keylist:
-                d = STO[s]; fc = num((d.get("fc") or [None,None,None])[w]); dow = d.get("dow") or [1/7]*7
+                d = STO[s]; miss = d.get("miss") or [False,False,False]
+                if miss[w] or (d.get("fc") or [None,None,None])[w] is None: continue
+                fc = num((d.get("fc") or [None,None,None])[w]); dow = d.get("dow") or [1/7]*7; cnt += 1
                 for i in range(7): dv[i] += fc*(dow[i] if i < len(dow) else 0)
-            perwk.append(dv); allvals += dv
+            present[w] = cnt; perwk.append(dv); allvals += dv
         mx = max(allvals) if allvals else 1
         mx = mx or 1
         for w in range(3):
+            if present[w] == 0:
+                blocks += ('<div class="fc-wk" data-wk="%d"><div class="fc-wkh">%s</div>'
+                           '<div class="fc-nfbox">&#9888; No forecast entered for this week yet &mdash; add it in the area planner against the <b>%s</b> label and it appears here automatically.</div></div>'
+                           % (w, esc(weeks[w]["label"]), esc(weeks[w]["label"])))
+                continue
             dv = perwk[w]; wtot = sum(dv)
             bars = ""
             for i, dd in enumerate(days):
-                h = max(3, round(78*dv[i]/mx)); wknd = i >= 4  # Fri,Sat,Sun
+                h = max(3, round(78*dv[i]/mx)); wknd = i >= 4
                 bars += ('<div class="fc-dcol"><div class="fc-dv">%s</div>'
                          '<div class="fc-bar %s" style="height:%dpx" title="%s %s"></div>'
                          '<div class="fc-dl">%s</div></div>'
@@ -1128,6 +1144,9 @@ def forecast_tab():
      "#pane-forecast .fc-bar{width:70%;margin:0 auto;border-radius:4px 4px 0 0}"
      "#pane-forecast .fc-bd{background:#c9bdae} #pane-forecast .fc-bw{background:var(--green)}"
      "#pane-forecast .fc-dv{font-size:9.5px;color:var(--muted);font-weight:700;margin-bottom:3px} #pane-forecast .fc-dl{font-size:10.5px;font-weight:800;margin-top:5px}"
+     "#pane-forecast .fc-nf{text-align:center;color:#b08968;font-weight:700;font-size:11px;font-style:italic;background:repeating-linear-gradient(45deg,var(--greybg),var(--greybg) 6px,#f2ede6 6px,#f2ede6 12px)}"
+     "#pane-forecast .fc-missnote{font-size:11.5px;color:#8a5a2b;background:#fdf3e6;border:1px solid #f0d9b8;border-radius:10px;padding:9px 13px;margin:2px 0 14px;line-height:1.5} #pane-forecast .fc-missnote b{color:#6b4423}"
+     "#pane-forecast .fc-nfbox{font-size:12px;color:#8a5a2b;background:#fdf3e6;border:1px dashed #e6c79a;border-radius:8px;padding:16px;text-align:center;line-height:1.5}"
      "#pane-forecast .fc-note{font-size:11.5px;color:var(--muted);line-height:1.6;margin-top:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px 14px} #pane-forecast .fc-note b{color:var(--ink)}"
      "</style>")
 

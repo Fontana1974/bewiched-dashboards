@@ -223,6 +223,26 @@ _MAP = {
 COMPETITORS = {"costa", "nero", "nero's", "starbucks", "coffee#1", "coffee #1", "pret"}
 def is_competitor(name):
     return str(name).strip().lower().rstrip("'s") in {c.rstrip("'s") for c in COMPETITORS}
+_WC_MONTHS = {"jan":1,"feb":2,"mar":3,"apr":4,"may":5,"jun":6,"jul":7,"aug":8,"sep":9,"oct":10,"nov":11,"dec":12}
+def _parse_wc(v):
+    """Parse a 'W/C 17 Aug 2026' style week-commencing label -> datetime.date (the Monday).
+    Robust to ordinals (1st/2nd/3rd/17th), 3+ letter month names, and a missing year
+    (falls back to the current run year). Returns None if it can't be parsed."""
+    if v in (None, ""):
+        return None
+    m = re.search(r"(\d{1,2})\s*(?:st|nd|rd|th)?\s+([A-Za-z]{3,})\.?(?:\s+(\d{4}))?", str(v))
+    if not m:
+        return None
+    day = int(m.group(1)); mon = _WC_MONTHS.get(m.group(2)[:3].lower())
+    if not mon:
+        return None
+    yr = int(m.group(3)) if m.group(3) else CUR_END.year
+    try:
+        return datetime.date(yr, mon, day)
+    except Exception:
+        return None
+
+
 def normalize(name):
     """Informal source label -> canonical store, or None if dropped/competitor/unknown."""
     if name is None: return None
@@ -1422,6 +1442,7 @@ def pull_planner():
     for sid in (SID["planner_jon"], SID["planner_rich"], SID["planner_ian"]):
         rows = sheet(sid, "'Weekly Planner'!A1:S60")
         sec = None
+        secB_weeks = [None, None, None]   # calendar weeks the 3 forecast cols are LABELLED for (row 19 D/G/J)
         for r in rows:
             if not r: continue
             head = str(r[0]).strip() if r[0] is not None else ""
@@ -1432,6 +1453,9 @@ def pull_planner():
                 sec = "B"; continue
             if head.startswith("AREA TOTAL") or head.startswith("②") or head.startswith("①"):
                 if head.startswith("AREA"): sec = None
+                continue
+            if low.startswith("forecast = last year"):   # Section B week-label row: D/G/J = 'W/C .. 2026'
+                secB_weeks = [_parse_wc(r[i]) if len(r) > i else None for i in (3, 6, 9)]
                 continue
             st = normalize(r[0])
             if st is None: continue
@@ -1463,6 +1487,8 @@ def pull_planner():
                     _den = (_h or 0) + (_hol or 0)
                     _sfc.append(round(_f / _den) if (_f is not None and _den > 0) else None)
                 o["sph_fc"] = _sfc
+                # LABEL-KEYED: the calendar week (Monday ISO) each forecast column is labelled for
+                o["fc_weeks"] = [w.isoformat() if w else None for w in secB_weeks]
     W("planner_overrides.json", ovr, indent=1)
     print("[pull] planner: %d stores" % len(ovr))
 
@@ -1893,22 +1919,41 @@ def pull_forecast_daily():
     for arr in raw.values():
         for i in range(7): est[i] += arr[i]
     est_share = shares(est) or [round(1/7, 4)]*7
+    wk_iso = [w["monday"] for w in weeks]
     stores = {}
     for st in COACH:
         o = ovr.get(st) or {}
         ly = rec.get(st, {}).get("ly") or [0, 0, 0, 0]
         sh = shares(raw.get(st, []))
+        # LABEL-KEYED: pin each coach forecast column to the calendar week it is LABELLED for,
+        # then re-order to the dashboard's rolling weeks. Missing label -> None (miss flag set).
+        fcw = o.get("fc_weeks") or [None, None, None]
+        fc_raw = o.get("fc") or [None, None, None]; hr_raw = o.get("hrs") or [None, None, None]
+        hol_raw = o.get("hol_fc") or [0, 0, 0]; sph_raw = o.get("sph_fc") or [None, None, None]
+        idxof = {}
+        for _j, _w in enumerate(fcw):
+            if _w: idxof[_w] = _j
+        have_labels = any(fcw)
+        fc = [None, None, None]; hrs = [None, None, None]; hol = [0, 0, 0]; sph = [None, None, None]; miss = [False, False, False]
+        for _i in range(3):
+            j = idxof.get(wk_iso[_i]) if have_labels else (_i if o else None)   # positional fallback if labels unreadable
+            if j is None:
+                miss[_i] = True
+            else:
+                fc[_i] = fc_raw[j] if j < len(fc_raw) else None
+                hrs[_i] = hr_raw[j] if j < len(hr_raw) else None
+                hol[_i] = hol_raw[j] if j < len(hol_raw) else 0
+                sph[_i] = sph_raw[j] if j < len(sph_raw) else None
+                if fc[_i] is None: miss[_i] = True
         stores[st] = {"area": COACH.get(st, ""),
-                      "fc": o.get("fc") or [None, None, None],
-                      "hrs": o.get("hrs") or [None, None, None],
-                      "hol": o.get("hol_fc") or [0, 0, 0],
-                      "sph": o.get("sph_fc") or [None, None, None],
+                      "fc": fc, "hrs": hrs, "hol": hol, "sph": sph, "miss": miss,
+                      "labels_ok": have_labels, "fc_weeks": fcw,
                       "ly": [ly[1] if len(ly) > 1 else 0, ly[2] if len(ly) > 2 else 0, ly[3] if len(ly) > 3 else 0],
                       "dow": sh or est_share, "dow_est": sh is None}
     W("forecast_feed.json", {"_generated": CUR_END.isoformat(), "weeks": weeks,
         "dow_days": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], "estate_dow": est_share,
         "stores": stores,
-        "_note": "Forecast \u00a3 / plan hrs / SPH (incl holiday) from the area planners' Section B (3-week forecast). "
+        "_note": "Forecast \u00a3 / plan hrs / SPH (incl holiday) from the area planners' Section B, LABEL-KEYED: each coach forecast column is pinned to the calendar week it is labelled for (row 19 W/C dates), then aligned to these dashboard weeks; a week with no matching label shows 'no forecast entered'. "
                  "Daily split = each week's forecast \u00d7 the store's last-8-week day-of-week share; new stores use the estate share."},
       indent=1)
     print("[pull] forecast_daily: %d stores, weeks %s" % (len(stores), ", ".join(w["label"] for w in weeks)))

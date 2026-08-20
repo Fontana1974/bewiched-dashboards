@@ -315,11 +315,27 @@ def build():
     for s in sorted(stores,key=lambda x:-R[x]['lw26']):
         cph=(OVR[s].get('cph') if isinstance(OVR.get(s),dict) and OVR[s].get('cph') else R[s].get('cph',55)); lw=R[s]['lw26']; sumlw+=lw
         cells=f'<td style="text-align:left">{SHORT[s]}</td><td>£{cph}</td><td>{GBP(lw)}</td>'
+        _ov=OVR.get(s) if isinstance(OVR.get(s),dict) else {}
+        _fcw=_ov.get('fc_weeks') or []
         for wi in range(3):
-            ly=R[s].get('ly',[0,0,0,0])[wi+1]; f=_fc(s,wi+1); h=round(f/cph) if cph else 0
-            if isinstance(OVR.get(s),dict): f=OVR[s]['fc'][wi]; h=OVR[s]['hrs'][wi]
-            sumly[wi]+=ly; sumf[wi]+=f; sumh[wi]+=h
-            cells+=f'<td class="mini">{GBP(ly) if ly>0 else "&mdash;"}</td><td style="font-weight:600">{GBP(f)}</td><td>{h}</td>'
+            ly=R[s].get('ly',[0,0,0,0])[wi+1]
+            _tgt=(_mon+_dt.timedelta(days=7*wi)).isoformat()   # LABEL-KEYED: pin coach forecast to this calendar week
+            _miss=False
+            if _ov:
+                _j=(_fcw.index(_tgt) if _tgt in _fcw else None) if any(_fcw) else wi
+                if _j is None:
+                    _miss=True; f=None; h=None
+                else:
+                    f=_ov['fc'][_j]; h=_ov['hrs'][_j]
+            else:
+                f=_fc(s,wi+1); h=round(f/cph) if cph else 0
+            sumly[wi]+=ly
+            if not _miss and f is not None:
+                sumf[wi]+=(f or 0); sumh[wi]+=(h or 0)
+            if _miss:
+                cells+=f'<td class="mini">{GBP(ly) if ly>0 else "&mdash;"}</td><td colspan="2" style="text-align:center;color:#b08968;font-style:italic;font-size:11px">no forecast</td>'
+            else:
+                cells+=f'<td class="mini">{GBP(ly) if ly>0 else "&mdash;"}</td><td style="font-weight:600">{GBP(f)}</td><td>{h}</td>'
         fcst_rows+=f'<tr>{cells}</tr>'
     tot=f'<tr style="font-weight:700;background:#EFE6DC"><td style="text-align:left">COMPANY TOTAL</td><td></td><td>{GBP(sumlw)}</td>'
     for wi in range(3): tot+=f'<td>{GBP(sumly[wi])}</td><td>{GBP(sumf[wi])}</td><td>{sumh[wi]}</td>'

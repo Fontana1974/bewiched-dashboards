@@ -362,13 +362,27 @@ def build(coach):
         cph=(OVR[s].get('cph') if isinstance(OVR.get(s),dict) and OVR[s].get('cph') else R[s].get('cph',55)); lw=R[s]['lw26']; sumlw+=lw
         cells=f'<td style="text-align:left">{SHORT[s]}</td><td>£{cph}</td><td>{GBP(lw)}</td>'
         _ov=OVR.get(s) if isinstance(OVR.get(s),dict) else {}
+        _fcw=_ov.get('fc_weeks') or []
         for wi in range(3):
-            ly=R[s].get('ly',[0,0,0,0])[wi+1]; f=_fc(s,wi+1); h=round(f/cph) if cph else 0
-            if _ov: f=_ov['fc'][wi]; h=_ov['hrs'][wi]
-            hol=(_ov.get('hol_fc') or [0,0,0])[wi] or 0
+            ly=R[s].get('ly',[0,0,0,0])[wi+1]
+            _tgt=(_mon+_dt.timedelta(days=7*wi)).isoformat()   # LABEL-KEYED: pin coach forecast to this calendar week
+            _miss=False
+            if _ov:
+                _j=(_fcw.index(_tgt) if _tgt in _fcw else None) if any(_fcw) else wi
+                if _j is None:
+                    _miss=True; f=None; h=None; hol=0
+                else:
+                    f=_ov['fc'][_j]; h=_ov['hrs'][_j]; hol=(_ov.get('hol_fc') or [0,0,0])[_j] or 0
+            else:
+                f=_fc(s,wi+1); h=round(f/cph) if cph else 0; hol=0
             den=(h or 0)+hol; sph=round(f/den) if (f and den>0) else None
-            sumly[wi]+=ly; sumf[wi]+=(f or 0); sumh[wi]+=(h or 0); sumhol[wi]+=hol
-            cells+=f'<td class="mini">{GBP(ly) if ly>0 else "&mdash;"}</td><td style="font-weight:600">{GBP(f)}</td><td>{h}</td><td>{("£"+str(sph)) if sph is not None else "&mdash;"}</td>'
+            sumly[wi]+=ly
+            if not _miss and f is not None:
+                sumf[wi]+=(f or 0); sumh[wi]+=(h or 0); sumhol[wi]+=hol
+            if _miss:
+                cells+=f'<td class="mini">{GBP(ly) if ly>0 else "&mdash;"}</td><td colspan="3" style="text-align:center;color:#b08968;font-style:italic;font-size:11px">no forecast</td>'
+            else:
+                cells+=f'<td class="mini">{GBP(ly) if ly>0 else "&mdash;"}</td><td style="font-weight:600">{GBP(f)}</td><td>{h}</td><td>{("£"+str(sph)) if sph is not None else "&mdash;"}</td>'
         fcst_rows+=f'<tr>{cells}</tr>'
     tot=f'<tr style="font-weight:700;background:#EFE6DC"><td style="text-align:left">AREA TOTAL</td><td></td><td>{GBP(sumlw)}</td>'
     for wi in range(3):
