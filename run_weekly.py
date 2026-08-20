@@ -3136,20 +3136,37 @@ def pull_eos_scorecard():
     # ---- YoY Sales detail extras: per-store ATV + food-attachment %, DUAL basis (weekly + QTD) ----
     atv_ps = [{"store": st, "value": round(r["lw26"] / r["tx26"], 2)}
               for st, r in rec.items() if (r.get("tx26") or 0) > 0 and (r.get("lw26") or 0) > 0]
-    food_attach = []
+    food_attach = []; fa_map = {}
     try:
+        _faly0 = (LASTWK_MON - datetime.timedelta(days=364)).isoformat()
+        _faly1 = (CUR_END - datetime.timedelta(days=364)).isoformat()
         fa_rows = bq(f"""
           WITH t AS (
-            SELECT item_outlet_name s, id, MAX(IF(cat IN ('Food','Bakery'),1,0)) hasfood
-            FROM (SELECT item_outlet_name, id, {cat_case('item_product_name')} cat
-                  FROM {FLAT}
-                  WHERE DATE(sales_date) BETWEEN DATE('{LASTWK_MON.isoformat()}') AND {CE}
-                    AND item_outlet_name NOT IN ('Royal Leamington Spa','Leamington Retail','Leamington Spa'))
+            SELECT s, id,
+              MAX(IF(cat IN ('Food','Bakery') AND ty, 1, 0)) hf_ty,
+              MAX(IF(cat IN ('Food','Bakery') AND ly, 1, 0)) hf_ly,
+              MAX(IF(ty, 1, 0)) is_ty, MAX(IF(ly, 1, 0)) is_ly
+            FROM (
+              SELECT item_outlet_name s, id, {cat_case('item_product_name')} cat,
+                     DATE(sales_date) BETWEEN DATE('{LASTWK_MON.isoformat()}') AND {CE} ty,
+                     DATE(sales_date) BETWEEN DATE('{_faly0}') AND DATE('{_faly1}') ly
+              FROM {FLAT}
+              WHERE (DATE(sales_date) BETWEEN DATE('{LASTWK_MON.isoformat()}') AND {CE}
+                     OR DATE(sales_date) BETWEEN DATE('{_faly0}') AND DATE('{_faly1}'))
+                AND item_outlet_name NOT IN ('Royal Leamington Spa','Leamington Retail','Leamington Spa'))
             GROUP BY s, id)
-          SELECT s, COUNT(*) txns, SUM(hasfood) foodtx, ROUND(100*SUM(hasfood)/COUNT(*),1) fa
+          SELECT s,
+            SUM(is_ty) tx_ty, ROUND(100*SUM(hf_ty)/NULLIF(SUM(is_ty),0),1) fa_ty,
+            SUM(is_ly) tx_ly, ROUND(100*SUM(hf_ly)/NULLIF(SUM(is_ly),0),1) fa_ly
           FROM t GROUP BY s""")
-        food_attach = [{"store": normalize(r["s"]), "value": r["fa"]} for r in fa_rows
-                       if normalize(r["s"]) and (r.get("txns") or 0) > 0]
+        for r in fa_rows:
+            st = normalize(r["s"])
+            if not st: continue
+            fa_ty = r["fa_ty"] if (r.get("tx_ty") or 0) > 0 else None
+            fa_ly = r["fa_ly"] if (r.get("tx_ly") or 0) > 0 else None
+            fa_map[st] = (fa_ty, fa_ly)
+            if fa_ty is not None:
+                food_attach.append({"store": st, "value": fa_ty})
     except Exception as e:
         flags.append("YoY detail: per-store food-attach (BigQuery) failed (%s)." % str(e)[:70])
     # ---- Weekend Fri/Sat/Sun visual: previous completed weekend vs the prior-year equivalent weekend
@@ -3195,7 +3212,8 @@ def pull_eos_scorecard():
         flags.append("YoY detail: weekend Fri/Sat/Sun (BigQuery) failed (%s)." % str(e)[:70])
     # Per-store last-week YoY raw figures (company Sales-tab table: sales £, ATV, guest counts + YoY).
     yoy_by_store = [{"store": st, "lw26": r.get("lw26") or 0, "lw25": r.get("lw25") or 0,
-                     "tx26": r.get("tx26") or 0, "tx25": r.get("tx25") or 0}
+                     "tx26": r.get("tx26") or 0, "tx25": r.get("tx25") or 0,
+                     "fa26": fa_map.get(st, (None, None))[0], "fa25": fa_map.get(st, (None, None))[1]}
                     for st, r in rec.items() if (r.get("lw26") or 0) > 0]
     yoy_detail = {
         "atv_target": 6.8,

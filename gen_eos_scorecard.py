@@ -556,36 +556,55 @@ def _yoycell(v):
 
 
 def yoy_bystore_html(title):
-    """By-store last-week table mirroring the Company Dashboard Sales tab exactly:
-    Store | Sales | YoY | Av spend | YoY | Guest counts | YoY. Sorted by last-week sales desc,
-    COMPANY total row at the bottom (YoY on the like-for-like subset, as the company dashboard does)."""
+    """By-store last-week table mirroring the Company Dashboard Sales tab, PLUS food attachment:
+    Store | Sales | YoY | Av spend | YoY | Food attach | YoY | Guest counts | YoY. Sorted by
+    last-week sales desc, COMPANY total row (YoY on the like-for-like subset)."""
     rows = YOY.get("by_store") or []
     if not rows:
         return ""
     rows = sorted(rows, key=lambda r: -(r.get("lw26") or 0))
     body = ""; A = [0, 0, 0, 0]; sl = 0; stt = 0
+    F26n = F26d = F25n = F25d = 0.0
     for r in rows:
         lw = r.get("lw26") or 0; lw25 = r.get("lw25") or 0; t26 = r.get("tx26") or 0; t25 = r.get("tx25") or 0
+        fa26 = r.get("fa26"); fa25 = r.get("fa25")
         sl += lw; stt += t26
         sy = None if not lw25 else 100 * (lw / lw25 - 1)
         avs = (lw / t26) if t26 else 0
         avs25 = (lw25 / t25) if t25 else None
         ay = None if avs25 in (None, 0) else 100 * (avs / avs25 - 1)
         gy = None if not t25 else 100 * (t26 / t25 - 1)
+        fy = None if (fa25 in (None, 0) or fa26 is None) else 100 * (fa26 / fa25 - 1)
+        fa_cell = ('%.1f%%' % fa26) if fa26 is not None else '&mdash;'
         if lw25 > 0 and lw > 0:
             A[0] += lw; A[1] += lw25; A[2] += t26; A[3] += t25
-        body += ('<tr><td>%s</td><td style="font-weight:700">£%s</td>%s<td>£%.2f</td>%s<td>%s</td>%s</tr>'
-                 % (esc(r.get("store", "")), format(int(round(lw)), ","), _yoycell(sy), avs, _yoycell(ay), format(int(t26), ","), _yoycell(gy)))
+            if fa26 is not None and t26: F26n += fa26 * t26; F26d += t26
+            if fa25 is not None and t25: F25n += fa25 * t25; F25d += t25
+        body += ('<tr><td>%s</td><td style="font-weight:700">£%s</td>%s<td>£%.2f</td>%s'
+                 '<td style="font-weight:700">%s</td>%s<td>%s</td>%s</tr>'
+                 % (esc(r.get("store", "")), format(int(round(lw)), ","), _yoycell(sy), avs, _yoycell(ay),
+                    fa_cell, _yoycell(fy), format(int(t26), ","), _yoycell(gy)))
     asy = 100 * (A[0] / A[1] - 1) if A[1] else None
     aavs = (sl / stt) if stt else 0
     aay = 100 * ((A[0] / A[2]) / (A[1] / A[3]) - 1) if (A[3] and A[2]) else None
     agy = 100 * (A[2] / A[3] - 1) if A[3] else None
+    fa_ty_tot = (F26n / F26d) if F26d else None
+    fa_ly_tot = (F25n / F25d) if F25d else None
+    afy = 100 * (fa_ty_tot / fa_ly_tot - 1) if (fa_ty_tot and fa_ly_tot) else None
+    fa_tot_cell = ('%.1f%%' % fa_ty_tot) if fa_ty_tot is not None else '&mdash;'
     total = ('<tr style="border-top:2px solid var(--line)"><td style="font-weight:800">COMPANY (%d stores)</td>'
-             '<td style="font-weight:800">£%s</td>%s<td style="font-weight:700">£%.2f</td>%s<td style="font-weight:700">%s</td>%s</tr>'
-             % (len(rows), format(int(round(sl)), ","), _yoycell(asy), aavs, _yoycell(aay), format(int(stt), ","), _yoycell(agy)))
+             '<td style="font-weight:800">£%s</td>%s<td style="font-weight:700">£%.2f</td>%s'
+             '<td style="font-weight:800">%s</td>%s<td style="font-weight:700">%s</td>%s</tr>'
+             % (len(rows), format(int(round(sl)), ","), _yoycell(asy), aavs, _yoycell(aay),
+                fa_tot_cell, _yoycell(afy), format(int(stt), ","), _yoycell(agy)))
     return ('<div class="md-section-h">%s</div>'
-            '<table class="md-ps" style="max-width:760px"><thead><tr><th>Store</th><th>Sales</th><th>YoY</th>'
-            '<th>Av spend</th><th>YoY</th><th>Guest counts</th><th>YoY</th></tr></thead><tbody>%s%s</tbody></table>'
+            '<table class="md-ps" style="max-width:900px"><thead><tr><th>Store</th><th>Sales</th><th>YoY</th>'
+            '<th>Av spend</th><th>YoY</th><th>Food attach</th><th>YoY</th><th>Guest counts</th><th>YoY</th>'
+            '</tr></thead><tbody>%s%s</tbody></table>'
+            '<div class="md-note">Av spend = sales &divide; transactions (ATV). Food attach = %% of transactions with a '
+            '<b>food or bakery</b> item (category from the product-name classifier; drinks-only orders excluded). '
+            'Both shown this year vs the same week last year (like-for-like; YoY = relative change). '
+            'Last completed week, estate net sales.</div>'
             % (esc(title), body, total))
 
 
