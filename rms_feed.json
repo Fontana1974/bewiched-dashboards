@@ -271,8 +271,8 @@
     "avg": 5.0
    },
    "qtd": {
-    "n": 13,
-    "avg": 4.0
+    "n": 14,
+    "avg": 4.07
    },
    "prevq": {
     "n": 38,
@@ -986,6 +986,14 @@
  },
  "comments": [
   {
+   "store": "Attleborough",
+   "date": "2026-08-20",
+   "rating": 5.0,
+   "text": "FIXED MILKSHAKE MACHINE 🥳🥳🥳😄😄😄🙌🏼🙌🏼🙌🏼",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
    "store": "Leamington Parade",
    "date": "2026-08-19",
    "rating": 5.0,
@@ -1166,14 +1174,6 @@
    "date": "2026-08-16",
    "rating": 5.0,
    "text": "Great communication between team",
-   "smt": "KF - Gave short explanation around change to weekly round-up feedback style and thanked for contributions.",
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Leamington Parade",
-   "date": "2026-08-16",
-   "rating": 5.0,
-   "text": "Teamwork",
    "smt": "KF - Gave short explanation around change to weekly round-up feedback style and thanked for contributions.",
    "sentiment": "Positive"
   }
