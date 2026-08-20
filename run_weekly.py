@@ -283,6 +283,22 @@ def cat_case(col):
       WHEN REGEXP_CONTAINS(LOWER({c}), r'traybake|brownie|slice|croissant|pastry|muffin|cookie|cake|bakewell|millionaire|teacake|scone|flapjack|twist|doughnut|fudge|cinnamon') THEN 'Bakery'
       WHEN REGEXP_CONTAINS(LOWER({c}), r'latte|cappuccino|americano|flat white|mocha|espresso|hot choc|\bmug\b|\bpot\b|\btea\b|coffee|macchiato|cortado|chai') THEN 'Hot'
       ELSE 'Other&retail' END""").replace("{c}", col)
+def cat_case7(col):
+    """Like cat_case but splits Retail (beans/1kg/gift/merch) out from the ELSE catch-all 'Other'.
+    Categories: Hot, Cold, Milkshakes, Food, Bakery, Retail, Other."""
+    return (r"""CASE
+      WHEN REGEXP_CONTAINS(LOWER({c}), r'milkshake') THEN 'Milkshakes'
+      WHEN REGEXP_CONTAINS(LOWER({c}), r'iced|frappe|frozen|matcha|cold brew') THEN 'Cold'
+      WHEN REGEXP_CONTAINS(LOWER({c}), r'beans|1kg|gift|merch') THEN 'Retail'
+      WHEN REGEXP_CONTAINS(LOWER({c}), r'pastry|sausage roll') AND REGEXP_CONTAINS(LOWER({c}), r'meal deal') THEN 'Bakery'
+      WHEN REGEXP_CONTAINS(LOWER({c}), r'meal deal|croque|ciabatta|\bbap\b|wrap|sandwich|bagel|salad|tuna|panini|toastie|soup|sausage roll|breakfast') THEN 'Food'
+      WHEN REGEXP_CONTAINS(LOWER({c}), r'traybake|brownie|slice|croissant|pastry|muffin|cookie|cake|bakewell|millionaire|teacake|scone|flapjack|twist|doughnut|fudge|cinnamon') THEN 'Bakery'
+      WHEN REGEXP_CONTAINS(LOWER({c}), r'latte|cappuccino|americano|flat white|mocha|espresso|hot choc|\bmug\b|\bpot\b|\btea\b|coffee|macchiato|cortado|chai') THEN 'Hot'
+      ELSE 'Other' END""").replace("{c}", col)
+CAT7LABEL = {"Hot": "Hot drinks", "Cold": "Cold drinks", "Milkshakes": "Milkshakes",
+             "Food": "Food", "Bakery": "Bakery", "Retail": "Retail", "Other": "Other"}
+CAT7ORDER = ["Hot drinks", "Cold drinks", "Milkshakes", "Food", "Bakery", "Retail", "Other"]
+
 CATLABEL = {"Hot": "Hot drinks", "Cold": "Cold drinks", "Milkshakes": "Milkshakes",
             "Food": "Food", "Bakery": "Bakery", "Other&retail": "Other & retail"}
 # daypart from the sales_date_time STRING ('YYYY-MM-DD HH:MM:SS') — do NOT EXTRACT(HOUR..)
@@ -2211,10 +2227,57 @@ def pull_sales_extras():
                           "lw": int(r["units_lw"] or 0),
                           "share": round(100.0*float(r["units_qtd"] or 0)/tot_qtd,1),
                           "first_sold": fs, "new": bool(fs and fs >= new_cut)})
+        # ---- 3. Sales by category (estate): last complete week + QTD (£ and % of sales) ----
+        catsql = """
+          SELECT cat,
+            ROUND(SUM(IF(dd BETWEEN DATE('%s') AND DATE('%s'), v, 0))) wk,
+            ROUND(SUM(IF(dd BETWEEN DATE('%s') AND DATE('%s'), v, 0))) qtd
+          FROM (SELECT %s cat, DATE(sales_date) dd,
+                       SAFE_CAST(item_line_total_after_discount AS FLOAT64) v
+                FROM %s WHERE DATE(sales_date) BETWEEN DATE('%s') AND DATE('%s'))
+          GROUP BY cat
+        """ % (LW0, LW1, QT0, QT1, cat_case7('item_product_name'), FLAT, QT0, QT1)
+        _cm = {}
+        for r in bq(catsql):
+            _cm[CAT7LABEL.get(r["cat"], r["cat"])] = (float(r["wk"] or 0), float(r["qtd"] or 0))
+        _wk_tot = sum(v[0] for v in _cm.values()) or 1.0
+        _qt_tot = sum(v[1] for v in _cm.values()) or 1.0
+        cat_week = []; cat_qtd = []
+        for lab in CAT7ORDER:
+            w, q = _cm.get(lab, (0.0, 0.0))
+            cat_week.append({"cat": lab, "gbp": round(w), "pct": round(100.0 * w / _wk_tot, 1)})
+            cat_qtd.append({"cat": lab, "gbp": round(q), "pct": round(100.0 * q / _qt_tot, 1)})
+        # ---- 4. Top selling DRINKS (Hot+Cold+Milkshakes), last complete week: units + £ ----
+        dnew_cut = (CUR_END - datetime.timedelta(days=NEW_WINDOW)).isoformat()
+        drsql = """
+          WITH base AS (
+            SELECT %s prod, DATE(sales_date) dd,
+                   SAFE_CAST(item_quantity AS FLOAT64) q,
+                   SAFE_CAST(item_line_total_after_discount AS FLOAT64) v
+            FROM %s
+            WHERE DATE(sales_date) BETWEEN DATE('2023-01-01') AND DATE('%s')
+              AND %s IN ('Hot','Cold','Milkshakes'))
+          SELECT prod,
+            ROUND(SUM(IF(dd BETWEEN DATE('%s') AND DATE('%s'), q, 0))) units,
+            ROUND(SUM(IF(dd BETWEEN DATE('%s') AND DATE('%s'), v, 0))) gbp,
+            MIN(dd) first_sold
+          FROM base GROUP BY prod HAVING units > 0 ORDER BY units DESC LIMIT 20
+        """ % (CLEAN, FLAT, LW1, cat_case7('item_product_name'), LW0, LW1, LW0, LW1)
+        drows = bq(drsql)
+        _du_tot = sum(float(r["units"] or 0) for r in drows) or 1.0
+        drinks = []
+        for r in drows:
+            fs = r["first_sold"]; fs = fs.isoformat() if hasattr(fs, "isoformat") else (str(fs) if fs else None)
+            drinks.append({"name": r["prod"], "units": int(r["units"] or 0), "gbp": int(r["gbp"] or 0),
+                           "share": round(100.0 * float(r["units"] or 0) / _du_tot, 1),
+                           "first_sold": fs, "new": bool(fs and fs >= dnew_cut)})
         out = {"_updated": CUR_END.isoformat(),
                "week_label": wlabel(LASTWK_MON),
                "qtd_label": "%s – %s" % (QSTART.strftime("%-d %b"), CUR_END.strftime("%-d %b %Y")),
                "yoy_basis": "vs same window 364 days (52 weeks) earlier, weekday-aligned",
+               "category": {"week": cat_week, "qtd": cat_qtd,
+                            "week_total": round(_wk_tot), "qtd_total": round(_qt_tot)},
+               "top_drinks": {"items": drinks, "week_total_units": int(_du_tot), "new_window_days": NEW_WINDOW},
                "dt_lanes": lanes,
                "fridge": {"items": items, "total_qtd": int(tot_qtd), "new_window_days": NEW_WINDOW}}
         W("sales_extras.json", out)

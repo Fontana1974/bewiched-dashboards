@@ -1796,6 +1796,108 @@ def fridge_items_html():
             % esc(S.get("qtd_label","")))
     return header + spot_block + ('<div style="margin:2px 0 6px">%s</div>' % bars) + note
 
+
+def sales_category_html():
+    """TOP of the Sales view: estate sales by category (Hot/Cold/Milkshakes/Food/Bakery/Retail/Other),
+    last complete week AND QTD, as £ and % of sales with bars. Reads sales_extras.json. Fault-tolerant."""
+    S = _se_load()
+    if not S: return ""
+    C = S.get("category") or {}
+    wk = C.get("week") or []; qt = C.get("qtd") or []
+    if not wk: return ""
+    qmap = {r["cat"]: r for r in qt}
+    DRINK = {"Hot drinks", "Cold drinks", "Milkshakes"}
+    def col(cat):
+        if cat in DRINK: return "linear-gradient(90deg,var(--gold),#e0a92e)"
+        if cat in ("Food", "Bakery"): return "linear-gradient(90deg,#8a6d4b,#b98a5e)"
+        if cat == "Retail": return "linear-gradient(90deg,#3f7d78,#5aa39c)"
+        return "linear-gradient(90deg,#b9b0a4,#cfc7bb)"
+    def gbpf(v): return "&pound;" + format(int(v or 0), ",")
+    mxw = max((r["pct"] for r in wk), default=1) or 1
+    mxq = max((r["pct"] for r in qt), default=1) or 1
+    colhdr = ('<div style="display:flex;align-items:center;gap:12px;margin:2px 0 4px">'
+              '<div style="width:120px"></div>'
+              '<div style="flex:1;font-size:10px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)">Last complete week</div>'
+              '<div style="flex:1;font-size:10px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)">Quarter to date</div></div>')
+    rows = ""
+    for r in wk:
+        cat = r["cat"]; q = qmap.get(cat, {"gbp": 0, "pct": 0})
+        badge = (' <span style="font-size:8.5px;font-weight:800;color:#6b4423;background:#fbf1dd;border:1px solid #ecd9b0;padding:0 5px;border-radius:7px;vertical-align:1px">DRINK</span>' if cat in DRINK else '')
+        def grp(gbp, pct, mx):
+            return ('<div style="flex:1;display:flex;align-items:center;gap:8px">'
+                    '<div style="flex:1;min-width:60px;background:#f0ece6;border-radius:6px;height:16px">'
+                    '<div style="width:%.1f%%;background:%s;height:100%%;border-radius:6px"></div></div>'
+                    '<div style="width:118px;text-align:right;font-size:11.5px;color:var(--brown);font-weight:700">%s '
+                    '<span style="color:var(--muted);font-weight:500">%s%%</span></div></div>'
+                    % (100.0 * pct / mx, col(cat), gbpf(gbp), ("%.1f" % pct)))
+        rows += ('<div style="display:flex;align-items:center;gap:12px;margin:4px 0">'
+                 '<div style="width:120px;font-weight:700;color:var(--brown);font-size:12.5px">%s%s</div>%s%s</div>'
+                 % (esc(cat), badge, grp(r["gbp"], r["pct"], mxw), grp(q.get("gbp", 0), q.get("pct", 0), mxq)))
+    header = ('<div class="md-section-h">Sales by category &mdash; estate '
+              '<span style="font-weight:600;color:var(--muted);font-size:12px">(%s &middot; QTD %s)</span></div>'
+              % (esc(S.get("week_label", "")), esc(S.get("qtd_label", ""))))
+    tot = ('<div style="display:flex;align-items:center;gap:12px;margin:6px 0 2px;padding-top:6px;border-top:1px solid var(--line)">'
+           '<div style="width:120px;font-weight:800;color:var(--brown);font-size:12.5px">Total sales</div>'
+           '<div style="flex:1;text-align:right;font-size:12px;font-weight:800;color:var(--brown);padding-right:126px">%s</div>'
+           '<div style="flex:1;text-align:right;font-size:12px;font-weight:800;color:var(--brown);padding-right:126px">%s</div></div>'
+           % (gbpf(C.get("week_total", 0)), gbpf(C.get("qtd_total", 0))))
+    note = ('<div class="md-note">Category is derived from the product name (the EPOS has no category field): '
+            '<b>drinks</b> = Hot + Cold + Milkshakes; <b>Retail</b> = beans / 1kg / gift / merch; '
+            '<b>Other</b> is the catch-all for anything the classifier doesn&rsquo;t recognise (shown openly so nothing is hidden). '
+            'Meal deals count as Food (a meal-deal drink sits inside that line). Estate net sales, share = %% of total.</div>')
+    return header + colhdr + rows + tot + note
+
+
+def top_drinks_html():
+    """TOP of the Sales view: top selling drinks (Hot+Cold+Milkshakes) for the PREVIOUS complete week,
+    by units (with £ + share), new/seasonal drinks flagged. Reads sales_extras.json. Fault-tolerant."""
+    S = _se_load()
+    if not S: return ""
+    D = S.get("top_drinks") or {}
+    items = D.get("items") or []
+    if not items: return ""
+    def gbpf(v): return "&pound;" + format(int(v or 0), ",")
+    new_items = [i for i in items if i.get("new")]
+    top = items[:12]
+    mx = max((i.get("units") or 0) for i in top) or 1
+    spot = ""
+    for i in new_items[:6]:
+        spot += ('<div style="flex:1 1 170px;min-width:158px;border:1px solid var(--line);border-top:3px solid var(--gold);'
+                 'border-radius:12px;padding:10px 12px;background:#fffdf6">'
+                 '<div style="display:flex;justify-content:space-between;align-items:center;gap:6px">'
+                 '<span style="font-size:10px;font-weight:800;color:#fff;background:var(--gold);padding:1px 7px;border-radius:9px">NEW</span>'
+                 '<span style="font-size:11px;color:var(--muted)">%s units</span></div>'
+                 '<div style="font-size:13px;font-weight:700;color:var(--brown);margin:6px 0 2px;line-height:1.2">%s</div>'
+                 '<div style="font-size:11px;color:var(--muted)">%s &middot; launched %s</div></div>'
+                 % (_se_fmt_int(i.get("units")), esc(i.get("name", "")), gbpf(i.get("gbp")),
+                    esc(_se_nice_date(i.get("first_sold")))))
+    spot_block = ('<div style="font-size:12px;font-weight:700;color:var(--brown);margin:4px 0 5px">&#10024; New / seasonal drinks</div>'
+                  '<div style="display:flex;gap:10px;flex-wrap:wrap;margin:0 0 13px">%s</div>' % spot) if spot else ""
+    bars = ""
+    for idx, i in enumerate(top, 1):
+        new = i.get("new"); w = 100.0 * (i.get("units") or 0) / mx
+        barcol = ("linear-gradient(90deg,var(--gold),#e0a92e)" if new else "linear-gradient(90deg,#8a6d4b,#b98a5e)")
+        namehtml = esc(i.get("name", ""))
+        if new:
+            namehtml += ' <span style="font-size:9px;font-weight:800;color:#fff;background:var(--gold);padding:0 6px;border-radius:8px;vertical-align:1px">NEW</span>'
+        bars += ('<div style="display:flex;align-items:center;gap:10px;margin:3px 0">'
+                 '<div style="width:18px;text-align:right;font-size:11px;color:var(--muted);font-weight:700">%d</div>'
+                 '<div style="width:215px;font-size:12.5px;color:var(--brown);font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">%s</div>'
+                 '<div style="flex:1;min-width:70px;background:#f0ece6;border-radius:6px;height:18px">'
+                 '<div style="width:%.1f%%;background:%s;height:100%%;border-radius:6px"></div></div>'
+                 '<div style="width:165px;text-align:right;font-size:12px;color:var(--brown);font-weight:700">%s '
+                 '<span style="color:var(--muted);font-weight:500">units &middot; %s &middot; %s%%</span></div></div>'
+                 % (idx, namehtml, w, barcol, _se_fmt_int(i.get("units")), gbpf(i.get("gbp")), ("%.0f" % (i.get("share") or 0))))
+    header = ('<div class="md-section-h">Top selling drinks &mdash; previous week '
+              '<span style="font-weight:600;color:var(--muted);font-size:12px">(%s)</span></div>'
+              % esc(S.get("week_label", "")))
+    note = ('<div class="md-note">Hot + cold + milkshakes only, estate-wide, ranked by units for the previous complete Mon&ndash;Sun. '
+            '<b>Standalone drink lines only</b> &mdash; drinks sold inside a meal deal aren&rsquo;t counted here (the meal deal books as Food). '
+            'Eat-in &amp; takeaway variants combined; share = %% of drink units. New = first sold in the last %d days.</div>'
+            % int(D.get("new_window_days", 70)))
+    return header + spot_block + ('<div style="margin:2px 0 6px">%s</div>' % bars) + note
+
+
 def sales_records_html():
     """Two all-time company record widgets for the top of the Sales (YoY Sales Growth) view:
     record weekly sales + record busiest single trading hour. Reads sales_records.json
@@ -2038,7 +2140,9 @@ for i, (wm, qm) in enumerate(zip(weekly, quarterly)):
                   + trend_svg(name, plan, dirn)
                   + (_rms if _rms else '<div class="md-note">Rate My Shift detail unavailable this run (rms_feed.json missing).</div>'))
     elif name == "YoY Sales Growth":
-        detail = (dt_lanes_html()
+        detail = (sales_category_html()
+                  + top_drinks_html()
+                  + dt_lanes_html()
                   + fridge_items_html()
                   + sales_records_html()
                   + avg_per_store_html()
