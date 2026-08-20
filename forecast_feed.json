@@ -38,22 +38,33 @@
    "fc": [
     5450,
     5400,
-    5200
+    null
    ],
    "hrs": [
     121.2,
     124.0,
-    130.0
+    null
    ],
    "hol": [
     0.0,
     0.0,
-    0.0
+    0
    ],
    "sph": [
     45,
     44,
-    40
+    null
+   ],
+   "miss": [
+    false,
+    false,
+    true
+   ],
+   "labels_ok": true,
+   "fc_weeks": [
+    "2026-08-17",
+    "2026-08-24",
+    "2026-09-07"
    ],
    "ly": [
     4989.0,
@@ -76,22 +87,33 @@
    "fc": [
     8800,
     8400,
-    8450
+    null
    ],
    "hrs": [
     169.0,
     162.0,
-    163.0
+    null
    ],
    "hol": [
     0.0,
     0.0,
-    0.0
+    0
    ],
    "sph": [
     52,
     52,
-    52
+    null
+   ],
+   "miss": [
+    false,
+    false,
+    true
+   ],
+   "labels_ok": true,
+   "fc_weeks": [
+    "2026-08-17",
+    "2026-08-24",
+    "2026-09-07"
    ],
    "ly": [
     7107.0,
@@ -114,22 +136,33 @@
    "fc": [
     5700,
     6400,
-    5900
+    null
    ],
    "hrs": [
     120.0,
     133.0,
-    123.0
+    null
    ],
    "hol": [
     0.0,
     0.0,
-    0.0
+    0
    ],
    "sph": [
     48,
     48,
-    48
+    null
+   ],
+   "miss": [
+    false,
+    false,
+    true
+   ],
+   "labels_ok": true,
+   "fc_weeks": [
+    "2026-08-17",
+    "2026-08-24",
+    "2026-09-07"
    ],
    "ly": [
     5463.0,
@@ -151,23 +184,34 @@
    "area": "Jon",
    "fc": [
     7500,
-    7650,
-    7700
+    8500,
+    null
    ],
    "hrs": [
     159.4,
     164.0,
-    160.0
+    null
    ],
    "hol": [
     0.0,
     0.0,
-    0.0
+    0
    ],
    "sph": [
     47,
-    47,
-    48
+    52,
+    null
+   ],
+   "miss": [
+    false,
+    false,
+    true
+   ],
+   "labels_ok": true,
+   "fc_weeks": [
+    "2026-08-17",
+    "2026-08-24",
+    "2026-09-07"
    ],
    "ly": [
     7971.0,
@@ -190,22 +234,33 @@
    "fc": [
     9800,
     9800,
-    9500
+    null
    ],
    "hrs": [
     168.4,
     166.0,
-    161.0
+    null
    ],
    "hol": [
     0.0,
     0.0,
-    0.0
+    0
    ],
    "sph": [
     58,
     59,
-    59
+    null
+   ],
+   "miss": [
+    false,
+    false,
+    true
+   ],
+   "labels_ok": true,
+   "fc_weeks": [
+    "2026-08-17",
+    "2026-08-24",
+    "2026-09-07"
    ],
    "ly": [
     9724.0,
@@ -227,23 +282,34 @@
    "area": "Jon",
    "fc": [
     20000,
-    25000,
-    20000
+    26000,
+    null
    ],
    "hrs": [
     309.0,
-    397.0,
-    317.0
+    413.0,
+    null
    ],
    "hol": [
     0.0,
     0.0,
-    0.0
+    0
    ],
    "sph": [
     65,
     63,
-    63
+    null
+   ],
+   "miss": [
+    false,
+    false,
+    true
+   ],
+   "labels_ok": true,
+   "fc_weeks": [
+    "2026-08-17",
+    "2026-08-24",
+    "2026-09-07"
    ],
    "ly": [
     22952.0,
@@ -266,22 +332,33 @@
    "fc": [
     5000,
     5300,
-    5100
+    null
    ],
    "hrs": [
     110.0,
     110.0,
-    106.0
+    null
    ],
    "hol": [
     0.0,
     0.0,
-    0.0
+    0
    ],
    "sph": [
     45,
     48,
-    48
+    null
+   ],
+   "miss": [
+    false,
+    false,
+    true
+   ],
+   "labels_ok": true,
+   "fc_weeks": [
+    "2026-08-17",
+    "2026-08-24",
+    "2026-09-07"
    ],
    "ly": [
     5609.0,
@@ -304,22 +381,33 @@
    "fc": [
     5100,
     5200,
-    5000
+    null
    ],
    "hrs": [
     128.0,
     113.0,
-    125.0
+    null
    ],
    "hol": [
     0.0,
     0.0,
-    0.0
+    0
    ],
    "sph": [
     40,
     46,
-    40
+    null
+   ],
+   "miss": [
+    false,
+    false,
+    true
+   ],
+   "labels_ok": true,
+   "fc_weeks": [
+    "2026-08-17",
+    "2026-08-24",
+    "2026-09-07"
    ],
    "ly": [
     4180.0,
@@ -342,22 +430,33 @@
    "fc": [
     5500,
     5500,
-    5600
+    null
    ],
    "hrs": [
     134.5,
     135.0,
-    114.0
+    null
    ],
    "hol": [
     0.0,
     0.0,
-    0.0
+    0
    ],
    "sph": [
     41,
     41,
-    49
+    null
+   ],
+   "miss": [
+    false,
+    false,
+    true
+   ],
+   "labels_ok": true,
+   "fc_weeks": [
+    "2026-08-17",
+    "2026-08-24",
+    "2026-09-07"
    ],
    "ly": [
     0,
@@ -397,6 +496,17 @@
     57,
     57
    ],
+   "miss": [
+    false,
+    false,
+    false
+   ],
+   "labels_ok": true,
+   "fc_weeks": [
+    "2026-08-17",
+    "2026-08-24",
+    "2026-08-31"
+   ],
    "ly": [
     8436.0,
     8930.0,
@@ -434,6 +544,17 @@
     60,
     60,
     60
+   ],
+   "miss": [
+    false,
+    false,
+    false
+   ],
+   "labels_ok": true,
+   "fc_weeks": [
+    "2026-08-17",
+    "2026-08-24",
+    "2026-08-31"
    ],
    "ly": [
     9850.0,
@@ -473,6 +594,17 @@
     55,
     55
    ],
+   "miss": [
+    false,
+    false,
+    false
+   ],
+   "labels_ok": true,
+   "fc_weeks": [
+    "2026-08-17",
+    "2026-08-24",
+    "2026-08-31"
+   ],
    "ly": [
     6105.0,
     5829.0,
@@ -510,6 +642,17 @@
     58,
     58,
     58
+   ],
+   "miss": [
+    false,
+    false,
+    false
+   ],
+   "labels_ok": true,
+   "fc_weeks": [
+    "2026-08-17",
+    "2026-08-24",
+    "2026-08-31"
    ],
    "ly": [
     10310.0,
@@ -549,6 +692,17 @@
     53,
     53
    ],
+   "miss": [
+    false,
+    false,
+    false
+   ],
+   "labels_ok": true,
+   "fc_weeks": [
+    "2026-08-17",
+    "2026-08-24",
+    "2026-08-31"
+   ],
    "ly": [
     6005.0,
     6176.0,
@@ -586,6 +740,17 @@
     40,
     40,
     40
+   ],
+   "miss": [
+    false,
+    false,
+    false
+   ],
+   "labels_ok": true,
+   "fc_weeks": [
+    "2026-08-17",
+    "2026-08-24",
+    "2026-08-31"
    ],
    "ly": [
     3383.0,
@@ -625,6 +790,17 @@
     55,
     55
    ],
+   "miss": [
+    false,
+    false,
+    false
+   ],
+   "labels_ok": true,
+   "fc_weeks": [
+    "2026-08-17",
+    "2026-08-24",
+    "2026-08-31"
+   ],
    "ly": [
     7930.0,
     7532.0,
@@ -662,6 +838,17 @@
     70,
     70,
     70
+   ],
+   "miss": [
+    false,
+    false,
+    false
+   ],
+   "labels_ok": true,
+   "fc_weeks": [
+    "2026-08-17",
+    "2026-08-24",
+    "2026-08-31"
    ],
    "ly": [
     20667.0,
@@ -701,6 +888,17 @@
     56,
     56
    ],
+   "miss": [
+    false,
+    false,
+    false
+   ],
+   "labels_ok": true,
+   "fc_weeks": [
+    "2026-08-17",
+    "2026-08-24",
+    "2026-08-31"
+   ],
    "ly": [
     0,
     0,
@@ -738,6 +936,17 @@
     49,
     49,
     49
+   ],
+   "miss": [
+    false,
+    false,
+    false
+   ],
+   "labels_ok": true,
+   "fc_weeks": [
+    "2026-08-17",
+    "2026-08-24",
+    "2026-08-31"
    ],
    "ly": [
     0,
@@ -777,6 +986,17 @@
     48,
     48
    ],
+   "miss": [
+    false,
+    false,
+    false
+   ],
+   "labels_ok": true,
+   "fc_weeks": [
+    "2026-08-17",
+    "2026-08-24",
+    "2026-08-31"
+   ],
    "ly": [
     5552.0,
     5523.0,
@@ -815,6 +1035,17 @@
     63,
     63
    ],
+   "miss": [
+    false,
+    false,
+    false
+   ],
+   "labels_ok": true,
+   "fc_weeks": [
+    "2026-08-17",
+    "2026-08-24",
+    "2026-08-31"
+   ],
    "ly": [
     13497.0,
     14002.0,
@@ -832,5 +1063,5 @@
    "dow_est": false
   }
  },
- "_note": "Forecast £ / plan hrs / SPH (incl holiday) from the area planners' Section B (3-week forecast). Daily split = each week's forecast × the store's last-8-week day-of-week share; new stores use the estate share."
+ "_note": "Forecast £ / plan hrs / SPH (incl holiday) from the area planners' Section B, LABEL-KEYED: each coach forecast column is pinned to the calendar week it is labelled for (row 19 W/C dates), then aligned to these dashboard weeks; a week with no matching label shows 'no forecast entered'. Daily split = each week's forecast × the store's last-8-week day-of-week share; new stores use the estate share."
 }

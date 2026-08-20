@@ -140,8 +140,8 @@
   {
    "store": "Glenvale Drive Thru",
    "sickfs": 17,
-   "late": 10,
-   "rep_pct": 97,
+   "late": 11,
+   "rep_pct": 93,
    "rtw": 13,
    "sick": 19,
    "rtw_rate": 68
@@ -192,6 +192,15 @@
    "rtw_rate": 67
   },
   {
+   "store": "Market Harborough",
+   "sickfs": 7,
+   "late": 9,
+   "rep_pct": 89,
+   "rtw": 7,
+   "sick": 9,
+   "rtw_rate": 78
+  },
+  {
    "store": "Higham Ferrers",
    "sickfs": 5,
    "late": 3,
@@ -199,15 +208,6 @@
    "rtw": 5,
    "sick": 8,
    "rtw_rate": 62
-  },
-  {
-   "store": "Market Harborough",
-   "sickfs": 6,
-   "late": 9,
-   "rep_pct": 88,
-   "rtw": 7,
-   "sick": 8,
-   "rtw_rate": 88
   },
   {
    "store": "Corby",

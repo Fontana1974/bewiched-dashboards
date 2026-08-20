@@ -9,10 +9,10 @@
   "2026-07-01",
   "2026-08-16"
  ],
- "_comments_label": "recent shift voice — last 2 weeks to 18 Aug 2026",
+ "_comments_label": "recent shift voice — last 2 weeks to 20 Aug 2026",
  "_comments_window": [
-  "2026-08-05",
-  "2026-08-18"
+  "2026-08-07",
+  "2026-08-20"
  ],
  "_lastweek_count": 58,
  "worst": [
@@ -243,8 +243,8 @@
     "avg": 5.0
    },
    "qtd": {
-    "n": 12,
-    "avg": 3.08
+    "n": 13,
+    "avg": 3.23
    },
    "prevq": {
     "n": 17,
@@ -285,8 +285,8 @@
     "avg": 4.67
    },
    "qtd": {
-    "n": 77,
-    "avg": 4.61
+    "n": 78,
+    "avg": 4.62
    },
    "prevq": {
     "n": 28,
@@ -299,8 +299,8 @@
     "avg": 4.2
    },
    "qtd": {
-    "n": 29,
-    "avg": 3.69
+    "n": 30,
+    "avg": 3.67
    },
    "prevq": {
     "n": 62,
@@ -327,8 +327,8 @@
     "avg": 4.92
    },
    "qtd": {
-    "n": 89,
-    "avg": 4.83
+    "n": 92,
+    "avg": 4.84
    },
    "prevq": {
     "n": 141,
@@ -369,8 +369,8 @@
     "avg": 4.0
    },
    "qtd": {
-    "n": 21,
-    "avg": 4.48
+    "n": 22,
+    "avg": 4.5
    },
    "prevq": {
     "n": 29,
@@ -397,7 +397,7 @@
     "avg": 5.0
    },
    "qtd": {
-    "n": 25,
+    "n": 26,
     "avg": 4.96
    },
    "prevq": {
@@ -425,8 +425,8 @@
     "avg": null
    },
    "qtd": {
-    "n": 5,
-    "avg": 3.4
+    "n": 6,
+    "avg": 3.67
    },
    "prevq": {
     "n": 13,
@@ -986,6 +986,78 @@
  },
  "comments": [
   {
+   "store": "Leamington Parade",
+   "date": "2026-08-19",
+   "rating": 5.0,
+   "text": "Great shift, and great brand audit",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Northampton",
+   "date": "2026-08-19",
+   "rating": 5.0,
+   "text": "Fabulous shift",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Rugby",
+   "date": "2026-08-19",
+   "rating": 5.0,
+   "text": "Busy, productive and happy",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Leamington Parade",
+   "date": "2026-08-19",
+   "rating": 5.0,
+   "text": "Great teamwork 👏",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Rothwell",
+   "date": "2026-08-19",
+   "rating": 5.0,
+   "text": "Good teamwork productive",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Billing Drive Thru",
+   "date": "2026-08-19",
+   "rating": 5.0,
+   "text": "Nice clean shift",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Leamington Parade",
+   "date": "2026-08-18",
+   "rating": 5.0,
+   "text": "Teamwork 💕",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Wellingborough Train Station",
+   "date": "2026-08-18",
+   "rating": 5.0,
+   "text": "Productive",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Glenvale Drive Thru",
+   "date": "2026-08-18",
+   "rating": 3.0,
+   "text": "Can we please have a new cutlery tray for the dishwasher, ours is falling apart and cutlery is falling through",
+   "smt": null,
+   "sentiment": "Mixed"
+  },
+  {
    "store": "Corby",
    "date": "2026-08-18",
    "rating": 1.0,
@@ -1102,78 +1174,6 @@
    "date": "2026-08-16",
    "rating": 5.0,
    "text": "Teamwork",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Leamington Parade",
-   "date": "2026-08-16",
-   "rating": 5.0,
-   "text": "Good shift",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Corby",
-   "date": "2026-08-16",
-   "rating": 5.0,
-   "text": "Very positive and caring team. Good vibes",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Billing Drive Thru",
-   "date": "2026-08-16",
-   "rating": 5.0,
-   "text": "Everyone had such a great attitude today!",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Corby",
-   "date": "2026-08-16",
-   "rating": 4.0,
-   "text": "Lovely shift",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Billing Drive Thru",
-   "date": "2026-08-16",
-   "rating": 4.0,
-   "text": "Supported . Hectic. Tired",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Billing Drive Thru",
-   "date": "2026-08-15",
-   "rating": 5.0,
-   "text": "Supported. Laughter . Teamwork",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Peterborough Fletton Quays",
-   "date": "2026-08-15",
-   "rating": 5.0,
-   "text": "Productive teamwork happy",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Leamington Parade",
-   "date": "2026-08-15",
-   "rating": 5.0,
-   "text": "Great teamwork",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Billing Drive Thru",
-   "date": "2026-08-15",
-   "rating": 5.0,
-   "text": "Boom 🎶",
    "smt": null,
    "sentiment": "Positive"
   }

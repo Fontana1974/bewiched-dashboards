@@ -60,8 +60,8 @@
       },
       {
        "label": "Brand audit /5",
-       "value": "4.68",
-       "star": 4.7,
+       "value": "4.7",
+       "star": 4.8,
        "on_target": true
       },
       {
@@ -80,7 +80,7 @@
      "metrics": [
       {
        "label": "RMS health /5",
-       "value": "3.69",
+       "value": "3.67",
        "star": 4.7,
        "on_target": true
       },
@@ -98,7 +98,7 @@
       },
       {
        "label": "Lateness (shown, not scored)",
-       "value": "10 late",
+       "value": "11 late",
        "star": null,
        "on_target": false
       }
@@ -106,7 +106,7 @@
     }
    ],
    "ops": {
-    "brand_audit": 4.68,
+    "brand_audit": 4.7,
     "remote_audit": 89,
     "remote_n": 10,
     "compliance_pct": 90.3,
@@ -179,7 +179,7 @@
       },
       {
        "label": "Brand audit /5",
-       "value": "4.92",
+       "value": "4.84",
        "star": 4.9,
        "on_target": true
       },
@@ -193,13 +193,13 @@
     },
     {
      "name": "People & Customer",
-     "star": 4.4,
+     "star": 4.5,
      "target": 4.6,
      "on_target": false,
      "metrics": [
       {
        "label": "RMS health /5",
-       "value": "4.83",
+       "value": "4.84",
        "star": 5.0,
        "on_target": true
       },
