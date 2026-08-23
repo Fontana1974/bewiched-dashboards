@@ -1,15 +1,15 @@
 {
- "generated": "16 Aug 2026",
+ "generated": "23 Aug 2026",
  "window": 90,
- "cohort_n": 15,
+ "cohort_n": 16,
  "compliant": 0,
- "headline": 48,
+ "headline": 0,
  "per_step": [
   {
    "label": "Right to Work",
    "pct": 100,
-   "done": 15,
-   "present": 15,
+   "done": 16,
+   "present": 16,
    "overdue": 0,
    "target": 100
   },
@@ -17,64 +17,64 @@
    "label": "Contract signed",
    "pct": 0,
    "done": 0,
-   "present": 4,
-   "overdue": 4,
+   "present": 3,
+   "overdue": 3,
    "target": 90
   },
   {
    "label": "Induction",
-   "pct": 60,
-   "done": 3,
+   "pct": 80,
+   "done": 4,
    "present": 5,
    "overdue": 0,
    "target": 90
   },
   {
    "label": "Orientation",
-   "pct": 38,
-   "done": 3,
+   "pct": 50,
+   "done": 4,
    "present": 8,
    "overdue": 3,
    "target": 90
   },
   {
    "label": "H&S Quiz",
-   "pct": 38,
-   "done": 3,
-   "present": 8,
-   "overdue": 4,
+   "pct": 40,
+   "done": 4,
+   "present": 10,
+   "overdue": 5,
    "target": 90
   },
   {
    "label": "Allergens",
-   "pct": 30,
-   "done": 3,
-   "present": 10,
-   "overdue": 6,
-   "target": 90
-  },
-  {
-   "label": "Day 1 check-in",
-   "pct": 22,
-   "done": 2,
-   "present": 9,
+   "pct": 31,
+   "done": 4,
+   "present": 13,
    "overdue": 7,
    "target": 90
   },
   {
-   "label": "Day 7 check-in",
-   "pct": 11,
-   "done": 1,
+   "label": "Day 1 check-in",
+   "pct": 33,
+   "done": 3,
    "present": 9,
+   "overdue": 6,
+   "target": 90
+  },
+  {
+   "label": "Day 7 check-in",
+   "pct": 20,
+   "done": 2,
+   "present": 10,
    "overdue": 8,
    "target": 90
   },
   {
    "label": "Day 30 check-in",
-   "pct": 29,
+   "pct": 22,
    "done": 2,
-   "present": 7,
-   "overdue": 5,
+   "present": 9,
+   "overdue": 7,
    "target": 90
   },
   {
@@ -87,156 +87,86 @@
   },
   {
    "label": "Day 90 check-in",
-   "pct": 0,
+   "pct": null,
    "done": 0,
-   "present": 2,
+   "present": 0,
    "overdue": 0,
    "target": 90
   }
  ],
  "per_site": [
   {
-   "site": "21 Market Harborough",
-   "compliant": 0,
-   "total": 2,
-   "pct": 43,
-   "pct_compliant_alltime": 0,
-   "ontime_present": 7,
-   "ontime_overdue": 4
-  },
-  {
-   "site": "8 Rushden Lakes",
-   "compliant": 0,
-   "total": 2,
-   "pct": 33,
-   "pct_compliant_alltime": 0,
-   "ontime_present": 12,
-   "ontime_overdue": 8
-  },
-  {
    "site": "22 Leamington Parade",
    "compliant": 0,
    "total": 2,
-   "pct": 53,
-   "pct_compliant_alltime": 0,
-   "ontime_present": 17,
-   "ontime_overdue": 8
+   "pct": 0
   },
   {
    "site": "16 Rugby",
    "compliant": 0,
    "total": 2,
-   "pct": 29,
-   "pct_compliant_alltime": 0,
-   "ontime_present": 14,
-   "ontime_overdue": 10
+   "pct": 0
+  },
+  {
+   "site": "HOE Warwick",
+   "compliant": 0,
+   "total": 2,
+   "pct": 0
   },
   {
    "site": "Glenvale Wboro DT",
    "compliant": 0,
    "total": 2,
-   "pct": 50,
-   "pct_compliant_alltime": 0,
-   "ontime_present": 4,
-   "ontime_overdue": 2
+   "pct": 0
   },
   {
-   "site": "11 Train Station",
+   "site": "12 Higham Ferrers + Higham Food Hub",
+   "compliant": 0,
+   "total": 2,
+   "pct": 0
+  },
+  {
+   "site": "8 Rushden Lakes",
    "compliant": 0,
    "total": 1,
-   "pct": 67,
-   "pct_compliant_alltime": 0,
-   "ontime_present": 3,
-   "ontime_overdue": 1
+   "pct": 0
+  },
+  {
+   "site": "21 Market Harborough",
+   "compliant": 0,
+   "total": 1,
+   "pct": 0
   },
   {
    "site": "5 Northampton",
    "compliant": 0,
    "total": 1,
-   "pct": 88,
-   "pct_compliant_alltime": 0,
-   "ontime_present": 8,
-   "ontime_overdue": 1
+   "pct": 0
   },
   {
    "site": "10 Market Street",
    "compliant": 0,
    "total": 1,
-   "pct": 62,
-   "pct_compliant_alltime": 0,
-   "ontime_present": 8,
-   "ontime_overdue": 3
+   "pct": 0
   },
   {
    "site": "15 Fletton Quays",
    "compliant": 0,
    "total": 1,
-   "pct": 17,
-   "pct_compliant_alltime": 0,
-   "ontime_present": 6,
-   "ontime_overdue": 5
+   "pct": 0
   },
   {
    "site": "17 Moulton Park DT",
    "compliant": 0,
    "total": 1,
-   "pct": 75,
-   "pct_compliant_alltime": 0,
-   "ontime_present": 4,
-   "ontime_overdue": 1
+   "pct": 0
   }
  ],
  "per_starter": [
   {
-   "name": "Hamraz Fattahi",
-   "site": "21 Market Harborough",
-   "tenure": 90,
-   "ok": false,
-   "outstanding": [
-    "Day 60 check-in",
-    "Day 90 check-in"
-   ],
-   "steps": {
-    "Right to Work": "done",
-    "Contract signed": "na",
-    "Induction": "na",
-    "Orientation": "na",
-    "H&S Quiz": "na",
-    "Allergens": "na",
-    "Day 1 check-in": "na",
-    "Day 7 check-in": "na",
-    "Day 30 check-in": "na",
-    "Day 60 check-in": "overdue",
-    "Day 90 check-in": "due"
-   }
-  },
-  {
-   "name": "Megan Cable",
-   "site": "11 Train Station",
-   "tenure": 90,
-   "ok": false,
-   "outstanding": [
-    "Day 60 check-in",
-    "Day 90 check-in"
-   ],
-   "steps": {
-    "Right to Work": "done",
-    "Contract signed": "na",
-    "Induction": "na",
-    "Orientation": "na",
-    "H&S Quiz": "na",
-    "Allergens": "na",
-    "Day 1 check-in": "na",
-    "Day 7 check-in": "na",
-    "Day 30 check-in": "na",
-    "Day 60 check-in": "overdue",
-    "Day 90 check-in": "due"
-   }
-  },
-  {
    "name": "Anna Johnson",
    "site": "8 Rushden Lakes",
-   "tenure": 76,
+   "tenure": 83,
    "ok": false,
    "outstanding": [
     "H&S Quiz",
@@ -263,7 +193,7 @@
   {
    "name": "Amelia Woodforth",
    "site": "22 Leamington Parade",
-   "tenure": 62,
+   "tenure": 69,
    "ok": false,
    "outstanding": [
     "Orientation",
@@ -291,7 +221,7 @@
   {
    "name": "Patrick Lynch",
    "site": "21 Market Harborough",
-   "tenure": 73,
+   "tenure": 80,
    "ok": false,
    "outstanding": [
     "Day 7 check-in",
@@ -315,7 +245,7 @@
   {
    "name": "Vlada Haidarzhy",
    "site": "16 Rugby",
-   "tenure": 65,
+   "tenure": 72,
    "ok": false,
    "outstanding": [
     "Contract signed",
@@ -344,10 +274,11 @@
   {
    "name": "Prisha Patel",
    "site": "5 Northampton",
-   "tenure": 58,
+   "tenure": 65,
    "ok": false,
    "outstanding": [
-    "Day 7 check-in"
+    "Day 7 check-in",
+    "Day 60 check-in"
    ],
    "steps": {
     "Right to Work": "done",
@@ -359,19 +290,20 @@
     "Day 1 check-in": "done",
     "Day 7 check-in": "overdue",
     "Day 30 check-in": "done",
-    "Day 60 check-in": "na",
+    "Day 60 check-in": "overdue",
     "Day 90 check-in": "na"
    }
   },
   {
    "name": "Jamie Robertson",
    "site": "10 Market Street",
-   "tenure": 55,
+   "tenure": 62,
    "ok": false,
    "outstanding": [
     "Day 1 check-in",
     "Day 7 check-in",
-    "Day 30 check-in"
+    "Day 30 check-in",
+    "Day 60 check-in"
    ],
    "steps": {
     "Right to Work": "done",
@@ -383,14 +315,14 @@
     "Day 1 check-in": "overdue",
     "Day 7 check-in": "overdue",
     "Day 30 check-in": "overdue",
-    "Day 60 check-in": "na",
+    "Day 60 check-in": "overdue",
     "Day 90 check-in": "na"
    }
   },
   {
    "name": "Amber Cronshaw",
    "site": "22 Leamington Parade",
-   "tenure": 41,
+   "tenure": 48,
    "ok": false,
    "outstanding": [
     "Contract signed"
@@ -410,16 +342,39 @@
    }
   },
   {
+   "name": "Priya Sohal",
+   "site": "HOE Warwick",
+   "tenure": 31,
+   "ok": false,
+   "outstanding": [
+    "Day 30 check-in"
+   ],
+   "steps": {
+    "Right to Work": "done",
+    "Contract signed": "na",
+    "Induction": "na",
+    "Orientation": "na",
+    "H&S Quiz": "na",
+    "Allergens": "na",
+    "Day 1 check-in": "na",
+    "Day 7 check-in": "na",
+    "Day 30 check-in": "overdue",
+    "Day 60 check-in": "na",
+    "Day 90 check-in": "na"
+   }
+  },
+  {
    "name": "suzanna omar",
    "site": "15 Fletton Quays",
-   "tenure": 26,
+   "tenure": 33,
    "ok": false,
    "outstanding": [
     "Orientation",
     "H&S Quiz",
     "Allergens",
     "Day 1 check-in",
-    "Day 7 check-in"
+    "Day 7 check-in",
+    "Day 30 check-in"
    ],
    "steps": {
     "Right to Work": "done",
@@ -430,6 +385,28 @@
     "Allergens": "overdue",
     "Day 1 check-in": "overdue",
     "Day 7 check-in": "overdue",
+    "Day 30 check-in": "overdue",
+    "Day 60 check-in": "na",
+    "Day 90 check-in": "na"
+   }
+  },
+  {
+   "name": "Lucie Arthurs",
+   "site": "Glenvale Wboro DT",
+   "tenure": 27,
+   "ok": false,
+   "outstanding": [
+    "Allergens"
+   ],
+   "steps": {
+    "Right to Work": "done",
+    "Contract signed": "na",
+    "Induction": "na",
+    "Orientation": "na",
+    "H&S Quiz": "na",
+    "Allergens": "overdue",
+    "Day 1 check-in": "na",
+    "Day 7 check-in": "na",
     "Day 30 check-in": "na",
     "Day 60 check-in": "na",
     "Day 90 check-in": "na"
@@ -438,7 +415,7 @@
   {
    "name": "Aaron Yeboah",
    "site": "Glenvale Wboro DT",
-   "tenure": 20,
+   "tenure": 27,
    "ok": false,
    "outstanding": [
     "Allergens"
@@ -460,7 +437,7 @@
   {
    "name": "Frankie Kaiser",
    "site": "17 Moulton Park DT",
-   "tenure": 13,
+   "tenure": 20,
    "ok": false,
    "outstanding": [
     "H&S Quiz",
@@ -472,8 +449,8 @@
     "Contract signed": "na",
     "Induction": "na",
     "Orientation": "na",
-    "H&S Quiz": "due",
-    "Allergens": "due",
+    "H&S Quiz": "overdue",
+    "Allergens": "overdue",
     "Day 1 check-in": "na",
     "Day 7 check-in": "overdue",
     "Day 30 check-in": "na",
@@ -482,9 +459,31 @@
    }
   },
   {
-   "name": "Lucie Arthurs",
-   "site": "Glenvale Wboro DT",
-   "tenure": 20,
+   "name": "Martyna Korczynska",
+   "site": "16 Rugby",
+   "tenure": 13,
+   "ok": false,
+   "outstanding": [
+    "Contract signed"
+   ],
+   "steps": {
+    "Right to Work": "done",
+    "Contract signed": "overdue",
+    "Induction": "done",
+    "Orientation": "done",
+    "H&S Quiz": "done",
+    "Allergens": "done",
+    "Day 1 check-in": "done",
+    "Day 7 check-in": "done",
+    "Day 30 check-in": "na",
+    "Day 60 check-in": "na",
+    "Day 90 check-in": "na"
+   }
+  },
+  {
+   "name": "Jemma English",
+   "site": "HOE Warwick",
+   "tenure": 13,
    "ok": false,
    "outstanding": [
     "Allergens"
@@ -495,7 +494,7 @@
     "Induction": "na",
     "Orientation": "na",
     "H&S Quiz": "na",
-    "Allergens": "overdue",
+    "Allergens": "due",
     "Day 1 check-in": "na",
     "Day 7 check-in": "na",
     "Day 30 check-in": "na",
@@ -504,24 +503,22 @@
    }
   },
   {
-   "name": "Martyna Korczynska",
-   "site": "16 Rugby",
-   "tenure": 6,
+   "name": "Esme Christian",
+   "site": "12 Higham Ferrers + Higham Food Hub",
+   "tenure": 11,
    "ok": false,
    "outstanding": [
-    "Contract signed",
-    "Induction",
-    "Orientation",
-    "Day 1 check-in"
+    "H&S Quiz",
+    "Allergens"
    ],
    "steps": {
     "Right to Work": "done",
-    "Contract signed": "overdue",
-    "Induction": "due",
-    "Orientation": "due",
-    "H&S Quiz": "na",
-    "Allergens": "na",
-    "Day 1 check-in": "overdue",
+    "Contract signed": "na",
+    "Induction": "na",
+    "Orientation": "na",
+    "H&S Quiz": "due",
+    "Allergens": "due",
+    "Day 1 check-in": "na",
     "Day 7 check-in": "na",
     "Day 30 check-in": "na",
     "Day 60 check-in": "na",
@@ -529,19 +526,18 @@
    }
   },
   {
-   "name": "Bahar Kilic",
-   "site": "8 Rushden Lakes",
+   "name": "Taylor Pinsent",
+   "site": "12 Higham Ferrers + Higham Food Hub",
    "tenure": 5,
    "ok": false,
    "outstanding": [
-    "Contract signed",
     "Induction",
     "Orientation",
     "Day 1 check-in"
    ],
    "steps": {
     "Right to Work": "done",
-    "Contract signed": "overdue",
+    "Contract signed": "na",
     "Induction": "due",
     "Orientation": "due",
     "H&S Quiz": "na",
@@ -554,19 +550,5 @@
    }
   }
  ],
- "_schema_note": "per_starter[].steps = {stepLabel: done|overdue|due|na}. Cohort = genuine active first-90-day starters with a Youda onboarding record. Statuses pulled live from Youda getJourneys.",
- "headline_compliant_alltime": 0,
- "scoring": "on_time_step_completion",
- "ontime": {
-  "present": 83,
-  "overdue": 43,
-  "done": 32,
-  "pct": 48
- },
- "_stale": {
-  "stale": false,
-  "age_days": 0,
-  "generated": "16 Aug 2026",
-  "badge": "New Starter Health awaiting Youda refresh (last pulled 16 Aug 2026)"
- }
+ "_schema_note": "per_starter[].steps = {stepLabel: done|overdue|due|na}. Cohort = genuine active first-90-day starters with a Youda onboarding record. Statuses pulled live from Youda getJourneys."
 }
