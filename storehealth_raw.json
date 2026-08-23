@@ -1,78 +1,78 @@
 {
- "_updated": "2026-08-16",
+ "_updated": "2026-08-23",
  "_basis": "Quarter-to-date (from 2026-07-01). NOT last week.",
  "rms": {
   "Corby": [
-   34,
-   2.676
+   37,
+   2.811
   ],
   "Olney": [
-   2,
-   3.5
-  ],
-  "HOE Balsall Common": [
-   13,
-   4.615
-  ],
-  "Attleborough": [
-   14,
-   4.071
-  ],
-  "Northampton": [
-   22,
-   4.5
-  ],
-  "Rugby": [
-   26,
-   4.962
-  ],
-  "Billing Drive Thru": [
-   78,
-   4.615
-  ],
-  "Glenvale Drive Thru": [
-   30,
+   3,
    3.667
   ],
+  "HOE Balsall Common": [
+   15,
+   4.667
+  ],
+  "Attleborough": [
+   16,
+   4.125
+  ],
+  "Northampton": [
+   23,
+   4.478
+  ],
+  "Rugby": [
+   28,
+   4.964
+  ],
+  "Billing Drive Thru": [
+   81,
+   4.617
+  ],
+  "Glenvale Drive Thru": [
+   31,
+   3.645
+  ],
   "Leamington Parade": [
-   92,
-   4.837
+   99,
+   4.848
   ],
   "Market Harborough": [
-   13,
-   4.308
+   14,
+   4.214
   ],
   "Burton Latimer": [
-   8,
-   4.875
+   10,
+   4.7
   ],
   "Lower Heathcote": [
    9,
    3.444
   ],
   "Wellingborough Train Station": [
-   6,
-   3.667
-  ],
-  "Northampton Drive-Thru": [
-   16,
-   3.688
-  ],
-  "Peterborough Fletton Quays": [
    8,
    3.875
+  ],
+  "Northampton Drive-Thru": [
+   18,
+   3.833
+  ],
+  "Peterborough Fletton Quays": [
+   9,
+   4.0
   ],
   "Higham Ferrers": [
    3,
    3.333
   ],
   "Wellingborough": [
-   5,
-   5.0
+   6,
+   4.833
   ],
   "Peterborough Bridge Street": [
-   12,
-   4.25
+   16,
+   4.375
   ],
   "Rushden Lakes": [
    2,
@@ -89,59 +89,59 @@
  },
  "google": {
   "Peterborough Bridge Street": [
-   14,
-   4.857
+   17,
+   4.882
   ],
   "Lower Heathcote": [
    17,
    4.882
   ],
   "Rothwell": [
-   8,
-   5.0
+   9,
+   4.667
   ],
   "Glenvale Drive Thru": [
    15,
    4.8
   ],
   "Billing Drive Thru": [
-   64,
-   4.984
+   68,
+   4.985
   ],
   "Rushden Lakes": [
    12,
    4.583
   ],
   "Olney": [
-   7,
+   8,
    5.0
   ],
   "Market Harborough": [
-   20,
-   4.8
+   21,
+   4.81
   ],
   "Peterborough Fletton Quays": [
-   19,
-   4.947
+   22,
+   4.955
   ],
   "Burton Latimer": [
-   5,
+   6,
    5.0
   ],
   "Wellingborough Train Station": [
-   18,
-   4.778
+   21,
+   4.81
   ],
   "Northampton Drive-Thru": [
-   11,
-   4.364
+   22,
+   4.682
   ],
   "Leamington Parade": [
-   71,
-   4.972
+   74,
+   4.973
   ],
   "HOE Balsall Common": [
-   5,
+   6,
    4.0
   ],
   "Rugby": [
@@ -157,11 +157,11 @@
    4.5
   ],
   "Corby": [
-   4,
-   5.0
+   5,
+   4.6
   ],
   "Northampton": [
-   3,
+   4,
    5.0
   ]
  }

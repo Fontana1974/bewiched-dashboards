@@ -1,7 +1,43 @@
 {
- "generated": "2026-08-16",
+ "generated": "2026-08-23",
  "window_days": 28,
  "outstanding": [
+  {
+   "name": "Amy Devlin",
+   "store": "Northampton Drive-Thru",
+   "date": "2026-08-23",
+   "reason": "I had a migraine come on at work, I took my prescribed medication (as I suffer from hemipl"
+  },
+  {
+   "name": "Rebecca Tye",
+   "store": "Billing Drive Thru",
+   "date": "2026-08-21",
+   "reason": "Mental health- attended shift but sent home"
+  },
+  {
+   "name": "Katie Summer Wood",
+   "store": "Lower Heathcote",
+   "date": "2026-08-20",
+   "reason": ""
+  },
+  {
+   "name": "Emily  Mayhew",
+   "store": "Peterborough Fletton Quays",
+   "date": "2026-08-20",
+   "reason": "NaEmily has injured her leg, she feel and has tore a ligament in her leg and is currently "
+  },
+  {
+   "name": "Leah-Nicole Ayling",
+   "store": "Peterborough Bridge Street",
+   "date": "2026-08-18",
+   "reason": "NaElena has been physically sick all night"
+  },
+  {
+   "name": "Mabel  Baxter-McCurdy",
+   "store": "Market Harborough",
+   "date": "2026-08-18",
+   "reason": "N/aCold/flu"
+  },
   {
    "name": "Rui Yan",
    "store": "Leamington Parade",
@@ -45,12 +81,6 @@
    "reason": "N/AGall stones flair up"
   },
   {
-   "name": "Joanne Eades",
-   "store": "Corby",
-   "date": "2026-08-03",
-   "reason": "Jo has burned her right hand(palm of the hand is blistered) Have to wear a bandage and dre"
-  },
-  {
    "name": "Iulia Naumenko",
    "store": "Northampton Drive-Thru",
    "date": "2026-07-31",
@@ -79,45 +109,9 @@
    "store": "HOE Balsall Common",
    "date": "2026-07-28",
    "reason": "tbc - fever (?)"
-  },
-  {
-   "name": "Alexander Lloyd",
-   "store": "Rushden Lakes",
-   "date": "2026-07-24",
-   "reason": "Sickness"
-  },
-  {
-   "name": "Iulia Naumenko",
-   "store": "Northampton Drive-Thru",
-   "date": "2026-07-22",
-   "reason": "Uti"
-  },
-  {
-   "name": "Jamie Robertson",
-   "store": "Wellingborough",
-   "date": "2026-07-21",
-   "reason": "Family Emergency. Jamie text me as he said he couldn't get hold of Sylwia. No phone call a"
-  },
-  {
-   "name": "Trinity Lindley",
-   "store": "Northampton",
-   "date": "2026-07-20",
-   "reason": "N/AChronic stomach pains"
-  },
-  {
-   "name": "Dawn Mullane",
-   "store": "Billing Drive Thru",
-   "date": "2026-07-20",
-   "reason": "Had to attend A&E on a painful wrist Carpal tunnel"
-  },
-  {
-   "name": "Zoe Sharp",
-   "store": "Rugby",
-   "date": "2026-07-19",
-   "reason": "Zoe had floaters in her eye on the way to work, she had googled it on her way and it said "
   }
  ],
- "outstanding_n": 19,
+ "outstanding_n": 18,
  "per_store": [
   {
    "store": "Peterborough Fletton Quays",
@@ -127,6 +121,15 @@
    "rtw": 10,
    "sick": 26,
    "rtw_rate": 38
+  },
+  {
+   "store": "Northampton Drive-Thru",
+   "sickfs": 16,
+   "late": 2,
+   "rep_pct": 95,
+   "rtw": 10,
+   "sick": 20,
+   "rtw_rate": 50
   },
   {
    "store": "Rushden Lakes",
@@ -145,15 +148,6 @@
    "rtw": 13,
    "sick": 19,
    "rtw_rate": 68
-  },
-  {
-   "store": "Northampton Drive-Thru",
-   "sickfs": 15,
-   "late": 2,
-   "rep_pct": 95,
-   "rtw": 10,
-   "sick": 19,
-   "rtw_rate": 53
   },
   {
    "store": "Leamington Parade",
@@ -196,9 +190,9 @@
    "sickfs": 7,
    "late": 9,
    "rep_pct": 89,
-   "rtw": 7,
+   "rtw": 8,
    "sick": 9,
-   "rtw_rate": 78
+   "rtw_rate": 89
   },
   {
    "store": "Higham Ferrers",
@@ -214,9 +208,9 @@
    "sickfs": 6,
    "late": 1,
    "rep_pct": 100,
-   "rtw": 2,
+   "rtw": 3,
    "sick": 7,
-   "rtw_rate": 29
+   "rtw_rate": 43
   },
   {
    "store": "Burton Latimer",
@@ -241,9 +235,18 @@
    "sickfs": 5,
    "late": 5,
    "rep_pct": 90,
-   "rtw": 4,
+   "rtw": 5,
    "sick": 5,
-   "rtw_rate": 80
+   "rtw_rate": 100
+  },
+  {
+   "store": "Billing Drive Thru",
+   "sickfs": 4,
+   "late": 6,
+   "rep_pct": 91,
+   "rtw": 1,
+   "sick": 5,
+   "rtw_rate": 20
   },
   {
    "store": "HOE Balsall Common",
@@ -253,15 +256,6 @@
    "rtw": 3,
    "sick": 5,
    "rtw_rate": 60
-  },
-  {
-   "store": "Billing Drive Thru",
-   "sickfs": 3,
-   "late": 6,
-   "rep_pct": 90,
-   "rtw": 1,
-   "sick": 4,
-   "rtw_rate": 25
   },
   {
    "store": "Northampton",

@@ -1,23 +1,23 @@
 {
  "Leamington Parade": {
-  "qtd": 4.84,
-  "n": 4,
-  "window": "Jul–Aug 2026 · 4 audits",
+  "qtd": 4.92,
+  "n": 3,
+  "window": "Jul–Aug 2026 · 3 audits",
   "pillars": {
-   "Store Culture": 4.95,
+   "Store Culture": 4.97,
    "Shift Management": 5.0,
-   "Cleanliness": 4.77,
-   "Product": 4.67,
+   "Cleanliness": 4.75,
+   "Product": 5.0,
    "Maintenance": 5.0
   },
   "weakest": [
    {
-    "name": "Product",
-    "avg": 4.67
+    "name": "Cleanliness",
+    "avg": 4.75
    },
    {
-    "name": "Cleanliness",
-    "avg": 4.77
+    "name": "Store Culture",
+    "avg": 4.97
    }
   ],
   "themes": [],
@@ -47,5 +47,5 @@
   "themes": [],
   "themes_status": "pending"
  },
- "_pulled": "2026-08-16"
+ "_pulled": "2026-08-23"
 }
