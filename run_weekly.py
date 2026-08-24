@@ -977,7 +977,14 @@ def pull_cos():
                 latest_x[st] = (ds, dpc, tdv, sales, {"Select Catering": sel, "Fresh Ideas": fre, "K&W": kw, "Simply": sim})
             _wk = serial_to_iso(ds)
             if _wk:
-                week_hist.setdefault(_wk, {})[st] = {"stock": hold, "deliv": dpc, "gp": round(gp * 100, 2)}
+                week_hist.setdefault(_wk, {})[st] = {"stock": hold, "deliv": dpc, "gp": round(gp * 100, 2),
+                    "sales": (round(sales) if sales is not None else None),
+                    "stock_gbp": (round(hold / 100.0 * sales) if (hold is not None and sales) else None),
+                    "deliv_gbp": (round(tdv) if tdv is not None else None),
+                    "sup": {"Select Catering": (round(sel) if sel is not None else None),
+                            "Fresh Ideas": (round(fre) if fre is not None else None),
+                            "K&W": (round(kw) if kw is not None else None),
+                            "Simply": (round(sim) if sim is not None else None)}}
             if ds >= QSTART_S:
                 qx = qtd_x.setdefault(st, {"sales": 0.0, "deliv": 0.0, "sel": 0.0, "fresh": 0.0, "kw": 0.0, "sim": 0.0})
                 qx["sales"] += sales; qx["deliv"] += (tdv or 0)
@@ -3510,6 +3517,100 @@ def freshness_gate():
 
 
 
+def push_cos_history():
+    """Bank the full weekly COS history per store and mirror it into the 'COS History' tab of the
+    Bewiched SPH History sheet (dashboards-bot SA has editor). Idempotent full-range clear+rewrite,
+    same pattern as the SPH mirror. stock%/sales/delivery£/per-supplier£/GP% come from the Master COS
+    sheet history (banked in cos_history.json); Wastage% + Discounts% are backfilled from BigQuery for
+    every banked week. Enriches cos_history.json (adds waste/disc) and writes the sheet tab.
+    Non-fatal: any failure leaves the last-good tab in place."""
+    SHEET_ID = "1VpPT7irAcm8Wiq0gXmyF9P60YO2VAPPYx51J4S03R1g"
+    TAB = "COS History"
+    SUPS = ["Select Catering", "Fresh Ideas", "K&W", "Simply"]
+    try:
+        ch = json.load(open(os.path.join(HERE, "cos_history.json")))
+        weeks = ch.get("weeks", {})
+        if not weeks:
+            print("[cos-history] no weeks banked -- skip"); return
+        wk_iso = sorted(weeks.keys())
+        _mon0 = (datetime.date.fromisoformat(wk_iso[0]) - datetime.timedelta(days=6)).isoformat()
+        # ---- BQ backfill: Wastage% + Discounts% per store per week_ending (Sunday) over the span ----
+        WQ = "SAFE_CAST(WastageQuantity AS FLOAT64)"; RV = "SAFE_CAST(RetailValue AS FLOAT64)"
+        WE_F = "DATE_ADD(DATE_TRUNC(DATE(sales_date), WEEK(MONDAY)), INTERVAL 6 DAY)"
+        WE_W = "DATE_ADD(DATE_TRUNC(date, WEEK(MONDAY)), INTERVAL 6 DAY)"
+        _sal, _dsc, _wst = {}, {}, {}
+        try:
+            for r in bq(("SELECT item_outlet_name s, %s we, "
+                         "ROUND(SUM(SAFE_CAST(item_line_total_after_discount AS FLOAT64))) sales "
+                         "FROM %s WHERE DATE(sales_date) BETWEEN '%s' AND %s GROUP BY s, we")
+                        % (WE_F, FLAT, _mon0, CE)):
+                st = normalize(r["s"]);  we = str(r["we"])
+                if st: _sal[(we, st)] = r.get("sales") or 0
+            for r in bq(("SELECT s, we, ROUND(SUM(gross-net)) dgbp, ROUND(SUM(net)) net FROM ("
+                         " SELECT item_outlet_name s, id, %s we, "
+                         "  ANY_VALUE(SAFE_CAST(sales_total_before_line_discount AS FLOAT64)) gross, "
+                         "  ANY_VALUE(SAFE_CAST(sales_total_after_line_discount AS FLOAT64)) net "
+                         " FROM %s WHERE DATE(sales_date) BETWEEN '%s' AND %s GROUP BY s, id, we) "
+                         "GROUP BY s, we") % (WE_F, FLAT, _mon0, CE)):
+                st = normalize(r["s"]); we = str(r["we"])
+                if st and r.get("net"): _dsc[(we, st)] = round(100 * (r.get("dgbp") or 0) / r["net"], 1)
+            for r in bq(("SELECT outlet s, %s we, ROUND(SUM(IF(%s>0, %s, 0))) wr "
+                         "FROM %s WHERE date BETWEEN '%s' AND %s GROUP BY s, we")
+                        % (WE_W, WQ, RV, WASTE, _mon0, CE)):
+                st = normalize(r["s"]); we = str(r["we"])
+                if st: _wst[(we, st)] = r.get("wr") or 0
+        except Exception as _be:
+            print("[cos-history] BQ backfill wastage/discounts partial (%s)" % str(_be)[:140])
+        # ---- merge waste%/disc% into the banked weeks ----
+        for we, stores in weeks.items():
+            for st, d in stores.items():
+                sa = _sal.get((we, st)) or d.get("sales")
+                wr = _wst.get((we, st))
+                d["waste"] = (round(100 * wr / sa, 1) if (wr is not None and sa) else None)
+                d["disc"] = _dsc.get((we, st))
+        W("cos_history.json", {"weeks": weeks}, indent=1)
+        # ---- flatten -> one row per store per week ----
+        HDR = ["Week Ending", "Store", "Area", "Sales £", "Stock £", "Stock %",
+               "Delivery £", "Delivery %", "Wastage %", "Discounts %", "GP %",
+               "Select £", "Fresh Ideas £", "K&W £", "Simply £"]
+        def _s(x): return "" if x is None else x
+        out_rows = []
+        for we in wk_iso:
+            for st in sorted(weeks[we].keys()):
+                d = weeks[we][st]; sup = d.get("sup") or {}
+                out_rows.append([we, st, COACH.get(st, ""), _s(d.get("sales")), _s(d.get("stock_gbp")),
+                                 _s(d.get("stock")), _s(d.get("deliv_gbp")), _s(d.get("deliv")),
+                                 _s(d.get("waste")), _s(d.get("disc")), _s(d.get("gp")),
+                                 _s(sup.get("Select Catering")), _s(sup.get("Fresh Ideas")),
+                                 _s(sup.get("K&W")), _s(sup.get("Simply"))])
+        # ---- mirror into the 'COS History' tab (create if missing); clear+rewrite = idempotent ----
+        from googleapiclient.discovery import build as _gbuild
+        _svc = _gbuild("sheets", "v4", credentials=_creds(), cache_discovery=False).spreadsheets()
+        _meta = _svc.get(spreadsheetId=SHEET_ID).execute()
+        _tab = next((s for s in _meta["sheets"] if s["properties"]["title"] == TAB), None)
+        if _tab is None:
+            _r = _svc.batchUpdate(spreadsheetId=SHEET_ID, body={"requests": [
+                {"addSheet": {"properties": {"title": TAB, "gridProperties": {"columnCount": 16}}}}]}).execute()
+            _sid = _r["replies"][0]["addSheet"]["properties"]["sheetId"]
+        else:
+            _sid = _tab["properties"]["sheetId"]
+        _svc.values().clear(spreadsheetId=SHEET_ID, range="'%s'!A:O" % TAB).execute()
+        _svc.values().update(spreadsheetId=SHEET_ID, range="'%s'!A1" % TAB, valueInputOption="USER_ENTERED",
+                             body={"values": [HDR] + out_rows}).execute()
+        try:
+            _svc.batchUpdate(spreadsheetId=SHEET_ID, body={"requests": [
+                {"repeatCell": {"range": {"sheetId": _sid, "startRowIndex": 0, "endRowIndex": 1},
+                                "cell": {"userEnteredFormat": {"textFormat": {"bold": True}}},
+                                "fields": "userEnteredFormat.textFormat.bold"}},
+                {"updateSheetProperties": {"properties": {"sheetId": _sid,
+                                "gridProperties": {"frozenRowCount": 1}}, "fields": "gridProperties.frozenRowCount"}}]}).execute()
+        except Exception as _fe:
+            print("[cos-history] header format skipped (%s)" % str(_fe)[:80])
+        print("[cos-history] wrote %d rows (%d weeks) to 'COS History' tab" % (len(out_rows), len(wk_iso)))
+    except Exception as _e:
+        print("[cos-history] SKIPPED (non-fatal) - %s" % str(_e)[:200])
+
+
 def push_cos_planner():
     """STEP (pull) — write per-store Wastage% + Discounts% into each area planner's COS tab (cols K,L)
     each run. Coach fills Stock£ + the four supplier £ (Stock%, Total Deliveries, Delivery% are in-sheet
@@ -3606,6 +3707,7 @@ def pulls():
     pull_sales_extras()       # sales_extras.json (EOS Sales tab: DT lane throughput + fridge items)
     pull_franchise()          # franchise_fees.json (Franchise Fees Scale dashboard)
     push_cos_planner()        # write Wastage%+Discounts% into each planner COS tab (K,L)
+    push_cos_history()        # bank + mirror full weekly COS history -> "COS History" tab
     pull_maintenance()        # maintenance.json (reactive/planned/coffee/audit)  [non-fatal]
 
 
