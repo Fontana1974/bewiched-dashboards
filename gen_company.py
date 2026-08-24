@@ -70,7 +70,7 @@ DRVMAP={"Burton":"Burton Latimer","Fletton":"Peterborough Fletton Quays","Lakes"
 "Balsall Common":"HOE Balsall Common","Attleborough":"Attleborough","Billing Drive Thru":"Billing Drive Thru"}
 
 def build():
-    stores=sorted(REC.keys())
+    stores=sorted([s for s in REC if 'f1' in REC[s]])  # exclude brand-new stores lacking full data (e.g. no F1 yet) from this legacy page
     COL={s:PAL[i%len(PAL)] for i,s in enumerate(stores)}
     R={s:REC[s] for s in stores}
     atv_med=median([R[s]['atv'] for s in stores])

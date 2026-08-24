@@ -78,7 +78,7 @@ PLANNERS_HTML=('<a class="plannerbtn" href="https://docs.google.com/spreadsheets
  '<a class="plannerbtn" href="https://docs.google.com/spreadsheets/d/1_qdK6fzqPg1NcA2KKMy2TnaZ8nQJtVE-fglz2On3oBw/edit" target="_blank" rel="noopener">Ian&#39;s Planner</a>'
  '<a class="plannerbtn" href="https://docs.google.com/spreadsheets/d/11XuXn9zQr-JB4x2fQ0ORV96Sf-U7xWPQPvg2YlCl_dQ/edit" target="_blank" rel="noopener">Rich&#39;s Planner</a>')
 
-stores=sorted(REC.keys())
+stores=sorted([s for s in REC if 'f1' in REC[s]])  # exclude brand-new stores lacking full data (e.g. no F1 yet) from this legacy page
 R={s:REC[s] for s in stores}
 atv_med=median([R[s]['atv'] for s in stores])
 area_last=sum(R[s]['lw26'] for s in stores); area_4wk=sum(R[s]['s4'] for s in stores)
