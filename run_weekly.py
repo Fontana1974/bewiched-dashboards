@@ -3561,13 +3561,22 @@ def push_cos_history():
                 if st: _wst[(we, st)] = r.get("wr") or 0
         except Exception as _be:
             print("[cos-history] BQ backfill wastage/discounts partial (%s)" % str(_be)[:140])
-        # ---- merge waste%/disc% into the banked weeks ----
+        # ---- merge waste%/disc% into the banked weeks. The Master-COS week labels are mostly the
+        # ---- Sunday week-ending but some are the Monday after; the BQ backfill keys to Sunday
+        # ---- week-endings, so match by nearest day (+/-2d) rather than exact string. ----
+        def _near(dmap, we, st):
+            try: L = datetime.date.fromisoformat(we)
+            except Exception: return None
+            for off in (0, -1, 1, -2, 2):
+                k = (L + datetime.timedelta(days=off)).isoformat()
+                if (k, st) in dmap: return dmap[(k, st)]
+            return None
         for we, stores in weeks.items():
             for st, d in stores.items():
-                sa = _sal.get((we, st)) or d.get("sales")
-                wr = _wst.get((we, st))
+                sa = _near(_sal, we, st) or d.get("sales")
+                wr = _near(_wst, we, st)
                 d["waste"] = (round(100 * wr / sa, 1) if (wr is not None and sa) else None)
-                d["disc"] = _dsc.get((we, st))
+                d["disc"] = _near(_dsc, we, st)
         W("cos_history.json", {"weeks": weeks}, indent=1)
         # ---- flatten -> one row per store per week ----
         HDR = ["Week Ending", "Store", "Area", "Sales £", "Stock £", "Stock %",
