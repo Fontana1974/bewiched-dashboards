@@ -39,12 +39,6 @@
    "reason": "N/aCold/flu"
   },
   {
-   "name": "Rui Yan",
-   "store": "Leamington Parade",
-   "date": "2026-08-14",
-   "reason": "Cold,"
-  },
-  {
    "name": "Melika Barzegar",
    "store": "Leamington Parade",
    "date": "2026-08-13",
@@ -111,7 +105,7 @@
    "reason": "tbc - fever (?)"
   }
  ],
- "outstanding_n": 18,
+ "outstanding_n": 17,
  "per_store": [
   {
    "store": "Peterborough Fletton Quays",
@@ -154,9 +148,9 @@
    "sickfs": 17,
    "late": 12,
    "rep_pct": 97,
-   "rtw": 10,
+   "rtw": 11,
    "sick": 17,
-   "rtw_rate": 59
+   "rtw_rate": 65
   },
   {
    "store": "Lower Heathcote",

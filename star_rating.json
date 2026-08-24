@@ -193,9 +193,9 @@
     },
     {
      "name": "People & Customer",
-     "star": 4.5,
+     "star": 4.6,
      "target": 4.6,
-     "on_target": false,
+     "on_target": true,
      "metrics": [
       {
        "label": "RMS health /5",
@@ -205,8 +205,8 @@
       },
       {
        "label": "RTW completion",
-       "value": "59%",
-       "star": 3.4,
+       "value": "65%",
+       "star": 3.7,
        "on_target": false
       },
       {
