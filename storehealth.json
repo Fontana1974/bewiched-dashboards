@@ -46,7 +46,7 @@
    "g_health": 4.99,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 81,
+   "r_n": 82,
    "r_avg": 4.62,
    "r_rag": "green"
   },
@@ -68,15 +68,15 @@
    "g_health": 2.8,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 39,
-   "r_avg": 2.92,
+   "r_n": 40,
+   "r_avg": 2.95,
    "r_rag": "red"
   },
   "Glenvale Drive Thru": {
-   "g_n": 15,
-   "g_avg": 4.8,
+   "g_n": 16,
+   "g_avg": 4.812,
    "g_target": 49,
-   "g_health": 3.17,
+   "g_health": 3.22,
    "g_rag": "red",
    "g_stale": false,
    "r_n": 31,
@@ -117,19 +117,19 @@
    "r_rag": "red"
   },
   "Leamington Parade": {
-   "g_n": 74,
-   "g_avg": 4.973,
+   "g_n": 77,
+   "g_avg": 4.974,
    "g_target": 15,
    "g_health": 4.99,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 99,
+   "r_n": 101,
    "r_avg": 4.85,
    "r_rag": "green"
   },
   "Lower Heathcote": {
-   "g_n": 17,
-   "g_avg": 4.882,
+   "g_n": 18,
+   "g_avg": 4.889,
    "g_target": 8,
    "g_health": 4.94,
    "g_rag": "green",
@@ -156,8 +156,8 @@
    "g_health": 3.17,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 23,
-   "r_avg": 4.48,
+   "r_n": 24,
+   "r_avg": 4.46,
    "r_rag": "amber"
   },
   "Northampton Drive-Thru": {
@@ -183,10 +183,10 @@
    "r_rag": "red"
   },
   "Peterborough Bridge Street": {
-   "g_n": 17,
-   "g_avg": 4.882,
+   "g_n": 18,
+   "g_avg": 4.889,
    "g_target": 18,
-   "g_health": 4.8,
+   "g_health": 4.94,
    "g_rag": "green",
    "g_stale": false,
    "r_n": 16,
@@ -222,8 +222,8 @@
    "g_health": 3.6,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 28,
-   "r_avg": 4.96,
+   "r_n": 30,
+   "r_avg": 4.97,
    "r_rag": "green"
   },
   "Rushden Lakes": {
@@ -244,8 +244,8 @@
    "g_health": 0.0,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 6,
-   "r_avg": 4.83,
+   "r_n": 7,
+   "r_avg": 4.86,
    "r_rag": "green"
   },
   "Wellingborough Train Station": {
@@ -255,9 +255,9 @@
    "g_health": 4.9,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 8,
-   "r_avg": 3.88,
-   "r_rag": "red"
+   "r_n": 9,
+   "r_avg": 4.0,
+   "r_rag": "amber"
   }
  }
 }

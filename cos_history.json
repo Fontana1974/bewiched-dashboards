@@ -4,1376 +4,4346 @@
    "Northampton Drive-Thru": {
     "stock": 14.9,
     "deliv": null,
-    "gp": 70.6
+    "gp": 70.6,
+    "sales": 24646,
+    "stock_gbp": 3672,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 1.5,
+    "disc": 1.7
    },
    "Rushden Lakes": {
     "stock": 29.2,
     "deliv": null,
-    "gp": 68.13
+    "gp": 68.13,
+    "sales": 19572,
+    "stock_gbp": 5715,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 3.4,
+    "disc": 2.4
    },
    "Kettering": {
     "stock": 31.0,
     "deliv": null,
-    "gp": 72.08
+    "gp": 72.08,
+    "sales": 9364,
+    "stock_gbp": 2903,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 2.3,
+    "disc": 0.9
    },
    "Corby": {
     "stock": 34.3,
     "deliv": null,
-    "gp": 69.37
+    "gp": 69.37,
+    "sales": 7343,
+    "stock_gbp": 2519,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 3.3,
+    "disc": 3.3
    },
    "Peterborough Bridge Street": {
     "stock": 33.2,
     "deliv": null,
-    "gp": 70.89
+    "gp": 70.89,
+    "sales": 4798,
+    "stock_gbp": 1593,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 5.4,
+    "disc": 1.8
    },
    "Rugby": {
     "stock": 30.7,
     "deliv": null,
-    "gp": 69.84
+    "gp": 69.84,
+    "sales": 7903,
+    "stock_gbp": 2426,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 4.2,
+    "disc": 2.8
    },
    "Wellingborough": {
     "stock": 27.2,
     "deliv": null,
-    "gp": 71.43
+    "gp": 71.43,
+    "sales": 7181,
+    "stock_gbp": 1953,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 1.1,
+    "disc": 1.1
    },
    "Rothwell": {
     "stock": 42.6,
     "deliv": null,
-    "gp": 69.07
+    "gp": 69.07,
+    "sales": 5830,
+    "stock_gbp": 2484,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 5.8,
+    "disc": 3.6
    },
    "Northampton": {
     "stock": 21.1,
     "deliv": null,
-    "gp": 71.3
+    "gp": 71.3,
+    "sales": 9869,
+    "stock_gbp": 2082,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 2.6,
+    "disc": 1.8
    },
    "Wellingborough Train Station": {
     "stock": 18.5,
     "deliv": null,
-    "gp": 69.14
+    "gp": 69.14,
+    "sales": 7498,
+    "stock_gbp": 1387,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 1.0,
+    "disc": 1.8
    },
    "Higham Ferrers": {
     "stock": 46.5,
     "deliv": null,
-    "gp": 68.74
+    "gp": 68.74,
+    "sales": 4479,
+    "stock_gbp": 2083,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 4.0,
+    "disc": 3.7
    },
    "HOE Balsall Common": {
     "stock": 62.3,
     "deliv": null,
-    "gp": 69.76
+    "gp": 69.76,
+    "sales": 6326,
+    "stock_gbp": 3941,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 4.6,
+    "disc": 3.8
    },
    "Burton Latimer": {
     "stock": 29.9,
     "deliv": null,
-    "gp": 71.39
+    "gp": 71.39,
+    "sales": 4955,
+    "stock_gbp": 1482,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 1.7,
+    "disc": 3.0
    },
    "Peterborough Fletton Quays": {
     "stock": 28.3,
     "deliv": null,
-    "gp": 69.42
+    "gp": 69.42,
+    "sales": 7840,
+    "stock_gbp": 2219,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 3.1,
+    "disc": 1.7
    },
    "Lower Heathcote": {
     "stock": 44.8,
     "deliv": null,
-    "gp": 72.3
+    "gp": 72.3,
+    "sales": 4297,
+    "stock_gbp": 1925,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 4.1,
+    "disc": 2.6
    },
    "Market Harborough": {
     "stock": 24.9,
     "deliv": null,
-    "gp": 72.71
+    "gp": 72.71,
+    "sales": 9277,
+    "stock_gbp": 2310,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 3.2,
+    "disc": 2.1
    },
    "Leamington Parade": {
     "stock": 30.4,
     "deliv": null,
-    "gp": 73.78
+    "gp": 73.78,
+    "sales": 8296,
+    "stock_gbp": 2522,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 3.3,
+    "disc": 2.4
    },
    "Olney": {
     "stock": 34.6,
     "deliv": null,
-    "gp": 70.72
+    "gp": 70.72,
+    "sales": 4804,
+    "stock_gbp": 1662,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 5.3,
+    "disc": 1.7
    },
    "Attleborough": {
     "stock": 48.5,
     "deliv": null,
-    "gp": 67.25
+    "gp": 67.25,
+    "sales": 6166,
+    "stock_gbp": 2991,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 6.2,
+    "disc": 5.0
    },
    "Billing Drive Thru": {
     "stock": 0.0,
     "deliv": null,
-    "gp": 67.71
+    "gp": 67.71,
+    "sales": 12122,
+    "stock_gbp": 0,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 4.7,
+    "disc": 3.1
    },
    "Glenvale Drive Thru": {
     "stock": 23.9,
     "deliv": null,
-    "gp": 68.56
+    "gp": 68.56,
+    "sales": 17615,
+    "stock_gbp": 4210,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 3.5,
+    "disc": 3.0
    }
   },
   "2026-05-31": {
    "Northampton Drive-Thru": {
     "stock": 15.2,
     "deliv": null,
-    "gp": 69.91
+    "gp": 69.91,
+    "sales": 25541,
+    "stock_gbp": 3882,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 1.7,
+    "disc": 1.8
    },
    "Rushden Lakes": {
     "stock": 14.4,
     "deliv": null,
-    "gp": 67.86
+    "gp": 67.86,
+    "sales": 26927,
+    "stock_gbp": 3877,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 2.5,
+    "disc": 2.1
    },
    "Kettering": {
     "stock": 26.6,
     "deliv": null,
-    "gp": 71.32
+    "gp": 71.32,
+    "sales": 9741,
+    "stock_gbp": 2591,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 2.3,
+    "disc": 0.9
    },
    "Corby": {
     "stock": 27.7,
     "deliv": null,
-    "gp": 67.84
+    "gp": 67.84,
+    "sales": 8906,
+    "stock_gbp": 2467,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 4.5,
+    "disc": 3.3
    },
    "Peterborough Bridge Street": {
     "stock": 26.1,
     "deliv": null,
-    "gp": 69.82
+    "gp": 69.82,
+    "sales": 5351,
+    "stock_gbp": 1397,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 5.0,
+    "disc": 1.2
    },
    "Rugby": {
     "stock": 28.3,
     "deliv": null,
-    "gp": 67.89
+    "gp": 67.89,
+    "sales": 7885,
+    "stock_gbp": 2231,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 5.0,
+    "disc": 3.6
    },
    "Wellingborough": {
     "stock": 25.3,
     "deliv": null,
-    "gp": 71.75
+    "gp": 71.75,
+    "sales": 7477,
+    "stock_gbp": 1892,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 2.0,
+    "disc": 1.5
    },
    "Rothwell": {
     "stock": 39.6,
     "deliv": null,
-    "gp": 67.32
+    "gp": 67.32,
+    "sales": 5752,
+    "stock_gbp": 2278,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 5.6,
+    "disc": 3.2
    },
    "Northampton": {
     "stock": 19.7,
     "deliv": null,
-    "gp": 69.96
+    "gp": 69.96,
+    "sales": 10528,
+    "stock_gbp": 2074,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 3.5,
+    "disc": 1.5
    },
    "Wellingborough Train Station": {
     "stock": 24.1,
     "deliv": null,
-    "gp": 70.0
+    "gp": 70.0,
+    "sales": 6891,
+    "stock_gbp": 1661,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 1.8,
+    "disc": 1.4
    },
    "Higham Ferrers": {
     "stock": 46.9,
     "deliv": null,
-    "gp": 67.47
+    "gp": 67.47,
+    "sales": 4803,
+    "stock_gbp": 2253,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 4.3,
+    "disc": 3.3
    },
    "HOE Balsall Common": {
     "stock": 40.1,
     "deliv": null,
-    "gp": 69.2
+    "gp": 69.2,
+    "sales": 6826,
+    "stock_gbp": 2737,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 4.2,
+    "disc": 3.4
    },
    "Burton Latimer": {
     "stock": 28.6,
     "deliv": null,
-    "gp": 69.35
+    "gp": 69.35,
+    "sales": 5169,
+    "stock_gbp": 1478,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 3.3,
+    "disc": 3.3
    },
    "Peterborough Fletton Quays": {
     "stock": 36.9,
     "deliv": null,
-    "gp": 66.85
+    "gp": 66.85,
+    "sales": 6888,
+    "stock_gbp": 2542,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 5.9,
+    "disc": 2.2
    },
    "Lower Heathcote": {
     "stock": 44.6,
     "deliv": null,
-    "gp": 72.52
+    "gp": 72.52,
+    "sales": 4357,
+    "stock_gbp": 1943,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 6.0,
+    "disc": 2.2
    },
    "Market Harborough": {
     "stock": 16.4,
     "deliv": null,
-    "gp": 72.04
+    "gp": 72.04,
+    "sales": 12376,
+    "stock_gbp": 2030,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 3.2,
+    "disc": 1.5
    },
    "Leamington Parade": {
     "stock": 23.7,
     "deliv": null,
-    "gp": 72.56
+    "gp": 72.56,
+    "sales": 9838,
+    "stock_gbp": 2332,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 2.8,
+    "disc": 2.3
    },
    "Olney": {
     "stock": 28.4,
     "deliv": null,
-    "gp": 70.87
+    "gp": 70.87,
+    "sales": 5765,
+    "stock_gbp": 1637,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 3.5,
+    "disc": 1.6
    },
    "Attleborough": {
     "stock": 49.4,
     "deliv": null,
-    "gp": 66.89
+    "gp": 66.89,
+    "sales": 6350,
+    "stock_gbp": 3137,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 6.2,
+    "disc": 4.2
    },
    "Billing Drive Thru": {
     "stock": 25.4,
     "deliv": null,
-    "gp": 65.95
+    "gp": 65.95,
+    "sales": 13205,
+    "stock_gbp": 3354,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 8.3,
+    "disc": 3.5
    },
    "Glenvale Drive Thru": {
     "stock": 22.5,
     "deliv": null,
-    "gp": 68.0
+    "gp": 68.0,
+    "sales": 18842,
+    "stock_gbp": 4239,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 3.0,
+    "disc": 2.9
    }
   },
   "2026-06-07": {
    "Northampton Drive-Thru": {
     "stock": 13.3,
     "deliv": null,
-    "gp": 70.81
+    "gp": 70.81,
+    "sales": 26446,
+    "stock_gbp": 3517,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 1.0,
+    "disc": 1.5
    },
    "Rushden Lakes": {
     "stock": 27.0,
     "deliv": null,
-    "gp": 67.7
+    "gp": 67.7,
+    "sales": 16719,
+    "stock_gbp": 4514,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 3.5,
+    "disc": 3.4
    },
    "Kettering": {
     "stock": 26.3,
     "deliv": null,
-    "gp": 73.06
+    "gp": 73.06,
+    "sales": 9921,
+    "stock_gbp": 2609,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 0.5,
+    "disc": 1.1
    },
    "Corby": {
     "stock": 40.3,
     "deliv": null,
-    "gp": 69.88
+    "gp": 69.88,
+    "sales": 6757,
+    "stock_gbp": 2723,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 2.0,
+    "disc": 3.5
    },
    "Peterborough Bridge Street": {
     "stock": 26.4,
     "deliv": null,
-    "gp": 70.16
+    "gp": 70.16,
+    "sales": 4945,
+    "stock_gbp": 1305,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 4.3,
+    "disc": 2.0
    },
    "Rugby": {
     "stock": 21.5,
     "deliv": null,
-    "gp": 70.26
+    "gp": 70.26,
+    "sales": 8673,
+    "stock_gbp": 1865,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 3.1,
+    "disc": 2.6
    },
    "Wellingborough": {
     "stock": 25.4,
     "deliv": null,
-    "gp": 71.85
+    "gp": 71.85,
+    "sales": 7166,
+    "stock_gbp": 1820,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 2.2,
+    "disc": 1.2
    },
    "Rothwell": {
     "stock": 47.2,
     "deliv": null,
-    "gp": 68.61
+    "gp": 68.61,
+    "sales": 5164,
+    "stock_gbp": 2437,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 2.9,
+    "disc": 3.3
    },
    "Northampton": {
     "stock": 19.4,
     "deliv": null,
-    "gp": 71.33
+    "gp": 71.33,
+    "sales": 10578,
+    "stock_gbp": 2052,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 2.8,
+    "disc": 1.9
    },
    "Wellingborough Train Station": {
     "stock": 23.3,
     "deliv": null,
-    "gp": 68.27
+    "gp": 68.27,
+    "sales": 7379,
+    "stock_gbp": 1719,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 1.0,
+    "disc": 1.8
    },
    "Higham Ferrers": {
     "stock": 64.8,
     "deliv": null,
-    "gp": 68.92
+    "gp": 68.92,
+    "sales": 4359,
+    "stock_gbp": 2825,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 3.1,
+    "disc": 2.9
    },
    "HOE Balsall Common": {
     "stock": 49.9,
     "deliv": null,
-    "gp": 68.71
+    "gp": 68.71,
+    "sales": 6077,
+    "stock_gbp": 3032,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 5.7,
+    "disc": 3.8
    },
    "Burton Latimer": {
     "stock": 31.0,
     "deliv": null,
-    "gp": 69.59
+    "gp": 69.59,
+    "sales": 4834,
+    "stock_gbp": 1499,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 3.8,
+    "disc": 3.1
    },
    "Peterborough Fletton Quays": {
     "stock": 30.2,
     "deliv": null,
-    "gp": 69.48
+    "gp": 69.48,
+    "sales": 8284,
+    "stock_gbp": 2502,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 2.6,
+    "disc": 1.5
    },
    "Lower Heathcote": {
     "stock": 41.6,
     "deliv": null,
-    "gp": 73.84
+    "gp": 73.84,
+    "sales": 4493,
+    "stock_gbp": 1869,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 2.6,
+    "disc": 1.7
    },
    "Market Harborough": {
     "stock": 17.2,
     "deliv": null,
-    "gp": 72.94
+    "gp": 72.94,
+    "sales": 10869,
+    "stock_gbp": 1869,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 2.7,
+    "disc": 1.6
    },
    "Leamington Parade": {
     "stock": 23.6,
     "deliv": null,
-    "gp": 74.16
+    "gp": 74.16,
+    "sales": 9064,
+    "stock_gbp": 2139,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 1.7,
+    "disc": 2.7
    },
    "Olney": {
     "stock": 36.5,
     "deliv": null,
-    "gp": 71.1
+    "gp": 71.1,
+    "sales": 5241,
+    "stock_gbp": 1913,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 5.5,
+    "disc": 2.0
    },
    "Attleborough": {
     "stock": 51.4,
     "deliv": null,
-    "gp": 67.7
+    "gp": 67.7,
+    "sales": 6038,
+    "stock_gbp": 3104,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 6.9,
+    "disc": 5.0
    },
    "Billing Drive Thru": {
     "stock": 30.4,
     "deliv": null,
-    "gp": 67.41
+    "gp": 67.41,
+    "sales": 11584,
+    "stock_gbp": 3522,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 4.2,
+    "disc": 3.7
    },
    "Glenvale Drive Thru": {
     "stock": 23.1,
     "deliv": null,
-    "gp": 68.92
+    "gp": 68.92,
+    "sales": 17343,
+    "stock_gbp": 4006,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 3.3,
+    "disc": 2.9
    }
   },
   "2026-06-14": {
    "Northampton Drive-Thru": {
     "stock": 13.1,
     "deliv": null,
-    "gp": 70.92
+    "gp": 70.92,
+    "sales": 26378,
+    "stock_gbp": 3456,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 0.7,
+    "disc": 1.4
    },
    "Rushden Lakes": {
     "stock": 0.0,
     "deliv": null,
-    "gp": 67.32
+    "gp": 67.32,
+    "sales": 18037,
+    "stock_gbp": 0,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 4.9,
+    "disc": 3.1
    },
    "Kettering": {
     "stock": 24.4,
     "deliv": null,
-    "gp": 71.43
+    "gp": 71.43,
+    "sales": 10105,
+    "stock_gbp": 2466,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 2.3,
+    "disc": 1.1
    },
    "Corby": {
     "stock": 42.1,
     "deliv": null,
-    "gp": 67.98
+    "gp": 67.98,
+    "sales": 6947,
+    "stock_gbp": 2925,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 2.6,
+    "disc": 3.9
    },
    "Peterborough Bridge Street": {
     "stock": 37.9,
     "deliv": null,
-    "gp": 70.11
+    "gp": 70.11,
+    "sales": 4653,
+    "stock_gbp": 1763,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 6.4,
+    "disc": 2.3
    },
    "Rugby": {
     "stock": 0.0,
     "deliv": null,
-    "gp": 71.0
+    "gp": 71.0,
+    "sales": 8192,
+    "stock_gbp": 0,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 2.4,
+    "disc": 2.8
    },
    "Wellingborough": {
     "stock": 27.0,
     "deliv": null,
-    "gp": 71.39
+    "gp": 71.39,
+    "sales": 6866,
+    "stock_gbp": 1854,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 2.6,
+    "disc": 1.0
    },
    "Rothwell": {
     "stock": 0.0,
     "deliv": null,
-    "gp": 69.23
+    "gp": 69.23,
+    "sales": 6415,
+    "stock_gbp": 0,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 1.9,
+    "disc": 3.4
    },
    "Northampton": {
     "stock": 16.8,
     "deliv": null,
-    "gp": 72.29
+    "gp": 72.29,
+    "sales": 10367,
+    "stock_gbp": 1742,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 2.1,
+    "disc": 1.0
    },
    "Wellingborough Train Station": {
     "stock": 25.7,
     "deliv": null,
-    "gp": 68.67
+    "gp": 68.67,
+    "sales": 6703,
+    "stock_gbp": 1723,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 1.5,
+    "disc": 2.4
    },
    "Higham Ferrers": {
     "stock": 64.1,
     "deliv": null,
-    "gp": 69.73
+    "gp": 69.73,
+    "sales": 4280,
+    "stock_gbp": 2743,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 6.0,
+    "disc": 2.9
    },
    "HOE Balsall Common": {
     "stock": 0.0,
     "deliv": null,
-    "gp": 69.78
+    "gp": 69.78,
+    "sales": 6348,
+    "stock_gbp": 0,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 5.2,
+    "disc": 3.1
    },
    "Burton Latimer": {
     "stock": 29.3,
     "deliv": null,
-    "gp": 69.89
+    "gp": 69.89,
+    "sales": 5199,
+    "stock_gbp": 1523,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 2.7,
+    "disc": 4.1
    },
    "Peterborough Fletton Quays": {
     "stock": 0.0,
     "deliv": null,
-    "gp": 69.89
+    "gp": 69.89,
+    "sales": 8637,
+    "stock_gbp": 0,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 2.1,
+    "disc": 1.6
    },
    "Lower Heathcote": {
     "stock": 0.0,
     "deliv": null,
-    "gp": 72.88
+    "gp": 72.88,
+    "sales": 4592,
+    "stock_gbp": 0,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 3.3,
+    "disc": 2.7
    },
    "Market Harborough": {
     "stock": 21.0,
     "deliv": null,
-    "gp": 73.53
+    "gp": 73.53,
+    "sales": 9821,
+    "stock_gbp": 2062,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 2.0,
+    "disc": 1.3
    },
    "Leamington Parade": {
     "stock": 27.5,
     "deliv": null,
-    "gp": 74.34
+    "gp": 74.34,
+    "sales": 9173,
+    "stock_gbp": 2523,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 0.9,
+    "disc": 2.1
    },
    "Olney": {
     "stock": 0.0,
     "deliv": null,
-    "gp": 71.39
+    "gp": 71.39,
+    "sales": 6198,
+    "stock_gbp": 0,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 2.8,
+    "disc": 1.3
    },
    "Attleborough": {
     "stock": 0.0,
     "deliv": null,
-    "gp": 68.44
+    "gp": 68.44,
+    "sales": 6137,
+    "stock_gbp": 0,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 5.1,
+    "disc": 4.0
    },
    "Billing Drive Thru": {
     "stock": 28.1,
     "deliv": null,
-    "gp": 67.55
+    "gp": 67.55,
+    "sales": 11495,
+    "stock_gbp": 3230,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 3.5,
+    "disc": 3.3
    },
    "Glenvale Drive Thru": {
     "stock": 21.5,
     "deliv": null,
-    "gp": 64.7
+    "gp": 64.7,
+    "sales": 17214,
+    "stock_gbp": 3701,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 2.1,
+    "disc": 2.8
    }
   },
   "2026-06-21": {
    "Northampton Drive-Thru": {
     "stock": 16.2,
     "deliv": null,
-    "gp": 70.21
+    "gp": 70.21,
+    "sales": 24899,
+    "stock_gbp": 4034,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 1.4,
+    "disc": 1.9
    },
    "Rushden Lakes": {
     "stock": 17.3,
     "deliv": null,
-    "gp": 67.69
+    "gp": 67.69,
+    "sales": 19651,
+    "stock_gbp": 3400,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 1.9,
+    "disc": 3.0
    },
    "Kettering": {
     "stock": 29.9,
     "deliv": null,
-    "gp": 72.14
+    "gp": 72.14,
+    "sales": 9601,
+    "stock_gbp": 2871,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 2.7,
+    "disc": 1.4
    },
    "Corby": {
     "stock": 40.7,
     "deliv": null,
-    "gp": 69.03
+    "gp": 69.03,
+    "sales": 7259,
+    "stock_gbp": 2954,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 2.8,
+    "disc": 3.6
    },
    "Peterborough Bridge Street": {
     "stock": 39.8,
     "deliv": null,
-    "gp": 70.34
+    "gp": 70.34,
+    "sales": 5046,
+    "stock_gbp": 2008,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 3.9,
+    "disc": 1.4
    },
    "Rugby": {
     "stock": 21.9,
     "deliv": null,
-    "gp": 71.06
+    "gp": 71.06,
+    "sales": 8164,
+    "stock_gbp": 1788,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 2.6,
+    "disc": 3.8
    },
    "Wellingborough": {
     "stock": 30.2,
     "deliv": null,
-    "gp": 71.46
+    "gp": 71.46,
+    "sales": 6813,
+    "stock_gbp": 2058,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 2.8,
+    "disc": 1.4
    },
    "Rothwell": {
     "stock": 37.5,
     "deliv": null,
-    "gp": 70.12
+    "gp": 70.12,
+    "sales": 6407,
+    "stock_gbp": 2403,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 2.0,
+    "disc": 2.8
    },
    "Northampton": {
     "stock": 19.3,
     "deliv": null,
-    "gp": 71.17
+    "gp": 71.17,
+    "sales": 10427,
+    "stock_gbp": 2012,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 2.2,
+    "disc": 1.1
    },
    "Wellingborough Train Station": {
     "stock": 28.6,
     "deliv": null,
-    "gp": 69.33
+    "gp": 69.33,
+    "sales": 5546,
+    "stock_gbp": 1586,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 2.8,
+    "disc": 2.4
    },
    "Higham Ferrers": {
     "stock": 53.0,
     "deliv": null,
-    "gp": 69.4
+    "gp": 69.4,
+    "sales": 4665,
+    "stock_gbp": 2472,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 5.5,
+    "disc": 3.8
    },
    "HOE Balsall Common": {
     "stock": 43.1,
     "deliv": null,
-    "gp": 70.23
+    "gp": 70.23,
+    "sales": 6387,
+    "stock_gbp": 2753,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 1.9,
+    "disc": 3.8
    },
    "Burton Latimer": {
     "stock": 24.5,
     "deliv": null,
-    "gp": 70.34
+    "gp": 70.34,
+    "sales": 5913,
+    "stock_gbp": 1449,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 2.5,
+    "disc": 3.0
    },
    "Peterborough Fletton Quays": {
     "stock": 33.6,
     "deliv": null,
-    "gp": 68.43
+    "gp": 68.43,
+    "sales": 8033,
+    "stock_gbp": 2699,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 3.5,
+    "disc": 2.1
    },
    "Lower Heathcote": {
     "stock": 39.1,
     "deliv": null,
-    "gp": 72.4
+    "gp": 72.4,
+    "sales": 4628,
+    "stock_gbp": 1810,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 3.8,
+    "disc": 2.3
    },
    "Market Harborough": {
     "stock": 16.8,
     "deliv": null,
-    "gp": 73.65
+    "gp": 73.65,
+    "sales": 11397,
+    "stock_gbp": 1915,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 1.5,
+    "disc": 1.3
    },
    "Leamington Parade": {
     "stock": 29.1,
     "deliv": null,
-    "gp": 73.14
+    "gp": 73.14,
+    "sales": 8619,
+    "stock_gbp": 2508,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 3.5,
+    "disc": 2.5
    },
    "Olney": {
     "stock": 38.6,
     "deliv": null,
-    "gp": 71.68
+    "gp": 71.68,
+    "sales": 5309,
+    "stock_gbp": 2049,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 2.6,
+    "disc": 1.8
    },
    "Attleborough": {
     "stock": 34.8,
     "deliv": null,
-    "gp": 69.47
+    "gp": 69.47,
+    "sales": 6758,
+    "stock_gbp": 2352,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 3.3,
+    "disc": 4.5
    },
    "Billing Drive Thru": {
     "stock": 23.1,
     "deliv": null,
-    "gp": 68.58
+    "gp": 68.58,
+    "sales": 12382,
+    "stock_gbp": 2860,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 3.8,
+    "disc": 2.5
    },
    "Glenvale Drive Thru": {
     "stock": 20.7,
     "deliv": null,
-    "gp": 69.06
+    "gp": 69.06,
+    "sales": 17932,
+    "stock_gbp": 3712,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": 2.7,
+    "disc": 3.4
    }
   },
   "2026-06-29": {
    "Northampton Drive-Thru": {
     "stock": null,
     "deliv": null,
-    "gp": 69.71
+    "gp": 69.71,
+    "sales": 29793,
+    "stock_gbp": null,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": null,
+    "disc": null
    },
    "Rushden Lakes": {
     "stock": null,
     "deliv": null,
-    "gp": 66.93
+    "gp": 66.93,
+    "sales": 20735,
+    "stock_gbp": null,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": null,
+    "disc": null
    },
    "Kettering": {
     "stock": null,
     "deliv": null,
-    "gp": 70.95
+    "gp": 70.95,
+    "sales": 8785,
+    "stock_gbp": null,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": null,
+    "disc": null
    },
    "Corby": {
     "stock": null,
     "deliv": null,
-    "gp": 70.32
+    "gp": 70.32,
+    "sales": 8085,
+    "stock_gbp": null,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": null,
+    "disc": null
    },
    "Peterborough Bridge Street": {
     "stock": null,
     "deliv": null,
-    "gp": 70.38
+    "gp": 70.38,
+    "sales": 5073,
+    "stock_gbp": null,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": null,
+    "disc": null
    },
    "Rugby": {
     "stock": null,
     "deliv": null,
-    "gp": 70.36
+    "gp": 70.36,
+    "sales": 8945,
+    "stock_gbp": null,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": null,
+    "disc": null
    },
    "Wellingborough": {
     "stock": null,
     "deliv": null,
-    "gp": 71.83
+    "gp": 71.83,
+    "sales": 6784,
+    "stock_gbp": null,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": null,
+    "disc": null
    },
    "Rothwell": {
     "stock": null,
     "deliv": null,
-    "gp": 68.96
+    "gp": 68.96,
+    "sales": 5790,
+    "stock_gbp": null,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": null,
+    "disc": null
    },
    "Northampton": {
     "stock": null,
     "deliv": null,
-    "gp": 70.37
+    "gp": 70.37,
+    "sales": 9778,
+    "stock_gbp": null,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": null,
+    "disc": null
    },
    "Wellingborough Train Station": {
     "stock": null,
     "deliv": null,
-    "gp": 54.25
+    "gp": 54.25,
+    "sales": 1001,
+    "stock_gbp": null,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": null,
+    "disc": null
    },
    "Higham Ferrers": {
     "stock": null,
     "deliv": null,
-    "gp": 68.05
+    "gp": 68.05,
+    "sales": 5098,
+    "stock_gbp": null,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": null,
+    "disc": null
    },
    "HOE Balsall Common": {
     "stock": null,
     "deliv": null,
-    "gp": 70.12
+    "gp": 70.12,
+    "sales": 6698,
+    "stock_gbp": null,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": null,
+    "disc": null
    },
    "Burton Latimer": {
     "stock": null,
     "deliv": null,
-    "gp": 69.01
+    "gp": 69.01,
+    "sales": 5284,
+    "stock_gbp": null,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": null,
+    "disc": null
    },
    "Peterborough Fletton Quays": {
     "stock": null,
     "deliv": null,
-    "gp": 67.0
+    "gp": 67.0,
+    "sales": 8168,
+    "stock_gbp": null,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": null,
+    "disc": null
    },
    "Lower Heathcote": {
     "stock": null,
     "deliv": null,
-    "gp": 72.49
+    "gp": 72.49,
+    "sales": 4893,
+    "stock_gbp": null,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": null,
+    "disc": null
    },
    "Market Harborough": {
     "stock": null,
     "deliv": null,
-    "gp": 70.86
+    "gp": 70.86,
+    "sales": 11213,
+    "stock_gbp": null,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": null,
+    "disc": null
    },
    "Leamington Parade": {
     "stock": null,
     "deliv": null,
-    "gp": 72.66
+    "gp": 72.66,
+    "sales": 9231,
+    "stock_gbp": null,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": null,
+    "disc": null
    },
    "Olney": {
     "stock": null,
     "deliv": null,
-    "gp": 71.51
+    "gp": 71.51,
+    "sales": 5668,
+    "stock_gbp": null,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": null,
+    "disc": null
    },
    "Attleborough": {
     "stock": null,
     "deliv": null,
-    "gp": 67.93
+    "gp": 67.93,
+    "sales": 6835,
+    "stock_gbp": null,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": null,
+    "disc": null
    },
    "Billing Drive Thru": {
     "stock": null,
     "deliv": null,
-    "gp": 67.81
+    "gp": 67.81,
+    "sales": 15150,
+    "stock_gbp": null,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": null,
+    "disc": null
    },
    "Glenvale Drive Thru": {
     "stock": null,
     "deliv": null,
-    "gp": 68.59
+    "gp": 68.59,
+    "sales": 20350,
+    "stock_gbp": null,
+    "deliv_gbp": null,
+    "sup": {
+     "Select Catering": 0,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": null,
+    "disc": null
    }
   },
   "2026-07-06": {
    "Olney": {
     "stock": 34.3,
     "deliv": 0.0,
-    "gp": 70.52
+    "gp": 70.52,
+    "sales": 5393,
+    "stock_gbp": 1850,
+    "deliv_gbp": 0,
+    "sup": {
+     "Select Catering": null,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": null,
+    "disc": null
    },
    "Northampton": {
     "stock": 21.6,
     "deliv": 26.0,
-    "gp": 70.11
+    "gp": 70.11,
+    "sales": 9930,
+    "stock_gbp": 2145,
+    "deliv_gbp": 2585,
+    "sup": {
+     "Select Catering": 941,
+     "Fresh Ideas": 895,
+     "K&W": 284,
+     "Simply": 465
+    },
+    "waste": null,
+    "disc": null
    },
    "Burton Latimer": {
     "stock": 27.1,
     "deliv": 22.6,
-    "gp": 70.83
+    "gp": 70.83,
+    "sales": 5635,
+    "stock_gbp": 1527,
+    "deliv_gbp": 1273,
+    "sup": {
+     "Select Catering": 571,
+     "Fresh Ideas": 336,
+     "K&W": 171,
+     "Simply": 195
+    },
+    "waste": null,
+    "disc": null
    },
    "Corby": {
     "stock": 39.8,
     "deliv": 19.0,
-    "gp": 72.88
+    "gp": 72.88,
+    "sales": 7041,
+    "stock_gbp": 2802,
+    "deliv_gbp": 1340,
+    "sup": {
+     "Select Catering": 473,
+     "Fresh Ideas": 375,
+     "K&W": 153,
+     "Simply": 339
+    },
+    "waste": null,
+    "disc": null
    },
    "Higham Ferrers": {
     "stock": 47.2,
     "deliv": 28.4,
-    "gp": 68.58
+    "gp": 68.58,
+    "sales": 5018,
+    "stock_gbp": 2368,
+    "deliv_gbp": 1424,
+    "sup": {
+     "Select Catering": 433,
+     "Fresh Ideas": 654,
+     "K&W": 132,
+     "Simply": 205
+    },
+    "waste": null,
+    "disc": null
    },
    "Glenvale Drive Thru": {
     "stock": 21.0,
     "deliv": 23.8,
-    "gp": 69.75
+    "gp": 69.75,
+    "sales": 18427,
+    "stock_gbp": 3870,
+    "deliv_gbp": 4390,
+    "sup": {
+     "Select Catering": 1575,
+     "Fresh Ideas": 1465,
+     "K&W": 444,
+     "Simply": 906
+    },
+    "waste": null,
+    "disc": null
    },
    "Kettering": {
     "stock": 28.4,
     "deliv": 24.2,
-    "gp": 72.73
+    "gp": 72.73,
+    "sales": 9757,
+    "stock_gbp": 2771,
+    "deliv_gbp": 2362,
+    "sup": {
+     "Select Catering": 1014,
+     "Fresh Ideas": 847,
+     "K&W": 187,
+     "Simply": 314
+    },
+    "waste": null,
+    "disc": null
    },
    "Leamington Parade": {
     "stock": 31.4,
     "deliv": 27.7,
-    "gp": 74.27
+    "gp": 74.27,
+    "sales": 8168,
+    "stock_gbp": 2565,
+    "deliv_gbp": 2261,
+    "sup": {
+     "Select Catering": 604,
+     "Fresh Ideas": 703,
+     "K&W": 193,
+     "Simply": 761
+    },
+    "waste": null,
+    "disc": null
    },
    "Market Harborough": {
     "stock": 24.1,
     "deliv": 28.1,
-    "gp": 72.57
+    "gp": 72.57,
+    "sales": 12723,
+    "stock_gbp": 3066,
+    "deliv_gbp": 3574,
+    "sup": {
+     "Select Catering": 1365,
+     "Fresh Ideas": 1292,
+     "K&W": 377,
+     "Simply": 540
+    },
+    "waste": null,
+    "disc": null
    },
    "Northampton Drive-Thru": {
     "stock": 13.5,
     "deliv": 24.8,
-    "gp": 71.05
+    "gp": 71.05,
+    "sales": 25691,
+    "stock_gbp": 3468,
+    "deliv_gbp": 6366,
+    "sup": {
+     "Select Catering": 2719,
+     "Fresh Ideas": 2000,
+     "K&W": 660,
+     "Simply": 987
+    },
+    "waste": null,
+    "disc": null
    },
    "Billing Drive Thru": {
     "stock": 23.7,
     "deliv": 26.2,
-    "gp": 68.77
+    "gp": 68.77,
+    "sales": 13239,
+    "stock_gbp": 3138,
+    "deliv_gbp": 3462,
+    "sup": {
+     "Select Catering": 1289,
+     "Fresh Ideas": 1314,
+     "K&W": 230,
+     "Simply": 629
+    },
+    "waste": null,
+    "disc": null
    },
    "Peterborough Fletton Quays": {
     "stock": 26.2,
     "deliv": 25.5,
-    "gp": 68.75
+    "gp": 68.75,
+    "sales": 8903,
+    "stock_gbp": 2333,
+    "deliv_gbp": 2268,
+    "sup": {
+     "Select Catering": 831,
+     "Fresh Ideas": 573,
+     "K&W": 186,
+     "Simply": 678
+    },
+    "waste": null,
+    "disc": null
    },
    "Peterborough Bridge Street": {
     "stock": 28.4,
     "deliv": 21.2,
-    "gp": 70.96
+    "gp": 70.96,
+    "sales": 5570,
+    "stock_gbp": 1582,
+    "deliv_gbp": 1182,
+    "sup": {
+     "Select Catering": 385,
+     "Fresh Ideas": 447,
+     "K&W": 141,
+     "Simply": 209
+    },
+    "waste": null,
+    "disc": null
    },
    "Rothwell": {
     "stock": 34.0,
     "deliv": 20.5,
-    "gp": 71.06
+    "gp": 71.06,
+    "sales": 6924,
+    "stock_gbp": 2354,
+    "deliv_gbp": 1417,
+    "sup": {
+     "Select Catering": 531,
+     "Fresh Ideas": 501,
+     "K&W": 165,
+     "Simply": 220
+    },
+    "waste": null,
+    "disc": null
    },
    "Rushden Lakes": {
     "stock": 19.2,
     "deliv": 27.9,
-    "gp": 68.54
+    "gp": 68.54,
+    "sales": 21543,
+    "stock_gbp": 4136,
+    "deliv_gbp": 6007,
+    "sup": {
+     "Select Catering": 2570,
+     "Fresh Ideas": 2120,
+     "K&W": 441,
+     "Simply": 876
+    },
+    "waste": null,
+    "disc": null
    },
    "Attleborough": {
     "stock": 39.7,
     "deliv": 16.3,
-    "gp": 67.89
+    "gp": 67.89,
+    "sales": 6283,
+    "stock_gbp": 2494,
+    "deliv_gbp": 1026,
+    "sup": {
+     "Select Catering": 473,
+     "Fresh Ideas": 433,
+     "K&W": 120,
+     "Simply": null
+    },
+    "waste": null,
+    "disc": null
    },
    "Rugby": {
     "stock": 23.5,
     "deliv": 20.4,
-    "gp": 71.43
+    "gp": 71.43,
+    "sales": 7852,
+    "stock_gbp": 1845,
+    "deliv_gbp": 1605,
+    "sup": {
+     "Select Catering": 340,
+     "Fresh Ideas": 737,
+     "K&W": 218,
+     "Simply": 310
+    },
+    "waste": null,
+    "disc": null
    },
    "Wellingborough": {
     "stock": 23.6,
     "deliv": 16.8,
-    "gp": 72.24
+    "gp": 72.24,
+    "sales": 7647,
+    "stock_gbp": 1805,
+    "deliv_gbp": 1286,
+    "sup": {
+     "Select Catering": 613,
+     "Fresh Ideas": 310,
+     "K&W": 206,
+     "Simply": 157
+    },
+    "waste": null,
+    "disc": null
    },
    "Wellingborough Train Station": {
     "stock": 22.7,
     "deliv": 18.6,
-    "gp": 70.31
+    "gp": 70.31,
+    "sales": 6582,
+    "stock_gbp": 1494,
+    "deliv_gbp": 1227,
+    "sup": {
+     "Select Catering": 327,
+     "Fresh Ideas": 339,
+     "K&W": 232,
+     "Simply": 329
+    },
+    "waste": null,
+    "disc": null
    },
    "HOE Balsall Common": {
     "stock": 37.7,
     "deliv": 22.8,
-    "gp": 70.61
+    "gp": 70.61,
+    "sales": 6348,
+    "stock_gbp": 2393,
+    "deliv_gbp": 1447,
+    "sup": {
+     "Select Catering": 477,
+     "Fresh Ideas": 509,
+     "K&W": 160,
+     "Simply": 301
+    },
+    "waste": null,
+    "disc": null
    }
   },
   "2026-07-13": {
    "Olney": {
     "stock": 36.4,
     "deliv": 0.0,
-    "gp": 71.3
+    "gp": 71.3,
+    "sales": 5429,
+    "stock_gbp": 1976,
+    "deliv_gbp": 0,
+    "sup": {
+     "Select Catering": null,
+     "Fresh Ideas": null,
+     "K&W": null,
+     "Simply": null
+    },
+    "waste": null,
+    "disc": null
    },
    "Northampton": {
     "stock": 17.7,
     "deliv": 15.5,
-    "gp": 70.25
+    "gp": 70.25,
+    "sales": 11512,
+    "stock_gbp": 2038,
+    "deliv_gbp": 1781,
+    "sup": {
+     "Select Catering": 380,
+     "Fresh Ideas": 814,
+     "K&W": 122,
+     "Simply": 465
+    },
+    "waste": null,
+    "disc": null
    },
    "Burton Latimer": {
     "stock": 21.5,
     "deliv": 22.6,
-    "gp": 69.18
+    "gp": 69.18,
+    "sales": 5250,
+    "stock_gbp": 1129,
+    "deliv_gbp": 1189,
+    "sup": {
+     "Select Catering": 380,
+     "Fresh Ideas": 497,
+     "K&W": 122,
+     "Simply": 190
+    },
+    "waste": null,
+    "disc": null
    },
    "Corby": {
     "stock": 51.4,
     "deliv": 27.8,
-    "gp": 72.4
+    "gp": 72.4,
+    "sales": 6113,
+    "stock_gbp": 3142,
+    "deliv_gbp": 1700,
+    "sup": {
+     "Select Catering": 732,
+     "Fresh Ideas": 500,
+     "K&W": 180,
+     "Simply": 288
+    },
+    "waste": null,
+    "disc": null
    },
    "Higham Ferrers": {
     "stock": 40.2,
     "deliv": 23.6,
-    "gp": 69.29
+    "gp": 69.29,
+    "sales": 5109,
+    "stock_gbp": 2054,
+    "deliv_gbp": 1204,
+    "sup": {
+     "Select Catering": 412,
+     "Fresh Ideas": 411,
+     "K&W": 177,
+     "Simply": 204
+    },
+    "waste": null,
+    "disc": null
    },
    "Glenvale Drive Thru": {
     "stock": 21.3,
     "deliv": 22.5,
-    "gp": 69.36
+    "gp": 69.36,
+    "sales": 18998,
+    "stock_gbp": 4047,
+    "deliv_gbp": 4270,
+    "sup": {
+     "Select Catering": 1543,
+     "Fresh Ideas": 1444,
+     "K&W": 463,
+     "Simply": 820
+    },
+    "waste": null,
+    "disc": null
    },
    "Kettering": {
     "stock": 24.1,
     "deliv": 21.5,
-    "gp": 71.52
+    "gp": 71.52,
+    "sales": 10038,
+    "stock_gbp": 2419,
+    "deliv_gbp": 2162,
+    "sup": {
+     "Select Catering": 660,
+     "Fresh Ideas": 992,
+     "K&W": 214,
+     "Simply": 296
+    },
+    "waste": null,
+    "disc": null
    },
    "Leamington Parade": {
     "stock": 26.5,
     "deliv": 20.9,
-    "gp": 72.46
+    "gp": 72.46,
+    "sales": 9097,
+    "stock_gbp": 2411,
+    "deliv_gbp": 1899,
+    "sup": {
+     "Select Catering": 651,
+     "Fresh Ideas": 621,
+     "K&W": 281,
+     "Simply": 346
+    },
+    "waste": null,
+    "disc": null
    },
    "Market Harborough": {
     "stock": 22.3,
     "deliv": 16.5,
-    "gp": 71.87
+    "gp": 71.87,
+    "sales": 10694,
+    "stock_gbp": 2385,
+    "deliv_gbp": 1764,
+    "sup": {
+     "Select Catering": 405,
+     "Fresh Ideas": 570,
+     "K&W": 319,
+     "Simply": 470
+    },
+    "waste": null,
+    "disc": null
    },
    "Northampton Drive-Thru": {
     "stock": 11.9,
     "deliv": 22.5,
-    "gp": 70.39
+    "gp": 70.39,
+    "sales": 28348,
+    "stock_gbp": 3373,
+    "deliv_gbp": 6366,
+    "sup": {
+     "Select Catering": 2195,
+     "Fresh Ideas": 2507,
+     "K&W": 631,
+     "Simply": 1033
+    },
+    "waste": null,
+    "disc": null
    },
    "Billing Drive Thru": {
     "stock": 19.5,
     "deliv": 22.8,
-    "gp": 68.99
+    "gp": 68.99,
+    "sales": 15201,
+    "stock_gbp": 2964,
+    "deliv_gbp": 3465,
+    "sup": {
+     "Select Catering": 917,
+     "Fresh Ideas": 1551,
+     "K&W": 344,
+     "Simply": 653
+    },
+    "waste": null,
+    "disc": null
    },
    "Peterborough Fletton Quays": {
     "stock": 25.7,
     "deliv": 25.8,
-    "gp": 69.33
+    "gp": 69.33,
+    "sales": 8477,
+    "stock_gbp": 2179,
+    "deliv_gbp": 2183,
+    "sup": {
+     "Select Catering": 688,
+     "Fresh Ideas": 691,
+     "K&W": 187,
+     "Simply": 617
+    },
+    "waste": null,
+    "disc": null
    },
    "Peterborough Bridge Street": {
     "stock": 22.2,
     "deliv": 22.0,
-    "gp": 71.01
+    "gp": 71.01,
+    "sales": 5580,
+    "stock_gbp": 1239,
+    "deliv_gbp": 1227,
+    "sup": {
+     "Select Catering": 434,
+     "Fresh Ideas": 413,
+     "K&W": 175,
+     "Simply": 205
+    },
+    "waste": null,
+    "disc": null
    },
    "Rothwell": {
     "stock": 37.0,
     "deliv": 27.0,
-    "gp": 68.96
+    "gp": 68.96,
+    "sales": 6626,
+    "stock_gbp": 2452,
+    "deliv_gbp": 1787,
+    "sup": {
+     "Select Catering": 761,
+     "Fresh Ideas": 643,
+     "K&W": 170,
+     "Simply": 213
+    },
+    "waste": null,
+    "disc": null
    },
    "Rushden Lakes": {
     "stock": 14.8,
     "deliv": 19.0,
-    "gp": 69.18
+    "gp": 69.18,
+    "sales": 21921,
+    "stock_gbp": 3244,
+    "deliv_gbp": 4158,
+    "sup": {
+     "Select Catering": 1382,
+     "Fresh Ideas": 1568,
+     "K&W": 425,
+     "Simply": 783
+    },
+    "waste": null,
+    "disc": null
    },
    "Attleborough": {
     "stock": 35.1,
     "deliv": 25.7,
-    "gp": 68.68
+    "gp": 68.68,
+    "sales": 7238,
+    "stock_gbp": 2541,
+    "deliv_gbp": 1860,
+    "sup": {
+     "Select Catering": 722,
+     "Fresh Ideas": 582,
+     "K&W": 180,
+     "Simply": 376
+    },
+    "waste": null,
+    "disc": null
    },
    "Rugby": {
     "stock": 25.0,
     "deliv": 23.2,
-    "gp": 70.38
+    "gp": 70.38,
+    "sales": 8295,
+    "stock_gbp": 2074,
+    "deliv_gbp": 1922,
+    "sup": {
+     "Select Catering": 657,
+     "Fresh Ideas": 701,
+     "K&W": 244,
+     "Simply": 320
+    },
+    "waste": null,
+    "disc": null
    },
    "Wellingborough": {
     "stock": 27.3,
     "deliv": 23.7,
-    "gp": 71.98
+    "gp": 71.98,
+    "sales": 6785,
+    "stock_gbp": 1852,
+    "deliv_gbp": 1606,
+    "sup": {
+     "Select Catering": 710,
+     "Fresh Ideas": 513,
+     "K&W": 228,
+     "Simply": 155
+    },
+    "waste": null,
+    "disc": null
    },
    "Wellingborough Train Station": {
     "stock": 31.6,
     "deliv": 31.2,
-    "gp": 70.48
+    "gp": 70.48,
+    "sales": 5779,
+    "stock_gbp": 1826,
+    "deliv_gbp": 1805,
+    "sup": {
+     "Select Catering": 614,
+     "Fresh Ideas": 620,
+     "K&W": 200,
+     "Simply": 371
+    },
+    "waste": null,
+    "disc": null
    },
    "HOE Balsall Common": {
     "stock": 35.8,
     "deliv": 25.0,
-    "gp": 69.49
+    "gp": 69.49,
+    "sales": 6869,
+    "stock_gbp": 2459,
+    "deliv_gbp": 1715,
+    "sup": {
+     "Select Catering": 621,
+     "Fresh Ideas": 590,
+     "K&W": 206,
+     "Simply": 298
+    },
+    "waste": null,
+    "disc": null
    }
   },
   "2026-07-20": {
    "Olney": {
     "stock": 36.5,
     "deliv": 21.0,
-    "gp": 70.59
+    "gp": 70.59,
+    "sales": 5956,
+    "stock_gbp": 2174,
+    "deliv_gbp": 1252,
+    "sup": {
+     "Select Catering": 689,
+     "Fresh Ideas": 198,
+     "K&W": 215,
+     "Simply": 150
+    },
+    "waste": null,
+    "disc": null
    },
    "Northampton": {
     "stock": 22.7,
     "deliv": 30.4,
-    "gp": 72.22
+    "gp": 72.22,
+    "sales": 10216,
+    "stock_gbp": 2319,
+    "deliv_gbp": 3102,
+    "sup": {
+     "Select Catering": 1380,
+     "Fresh Ideas": 968,
+     "K&W": 304,
+     "Simply": 450
+    },
+    "waste": null,
+    "disc": null
    },
    "Burton Latimer": {
     "stock": 25.8,
     "deliv": 22.9,
-    "gp": 70.76
+    "gp": 70.76,
+    "sales": 5472,
+    "stock_gbp": 1412,
+    "deliv_gbp": 1252,
+    "sup": {
+     "Select Catering": 349,
+     "Fresh Ideas": 530,
+     "K&W": 187,
+     "Simply": 186
+    },
+    "waste": null,
+    "disc": null
    },
    "Corby": {
     "stock": 39.6,
     "deliv": 18.2,
-    "gp": 72.36
+    "gp": 72.36,
+    "sales": 6176,
+    "stock_gbp": 2446,
+    "deliv_gbp": 1124,
+    "sup": {
+     "Select Catering": 518,
+     "Fresh Ideas": 126,
+     "K&W": 197,
+     "Simply": 283
+    },
+    "waste": null,
+    "disc": null
    },
    "Higham Ferrers": {
     "stock": 44.3,
     "deliv": 30.1,
-    "gp": 69.86
+    "gp": 69.86,
+    "sales": 4957,
+    "stock_gbp": 2196,
+    "deliv_gbp": 1493,
+    "sup": {
+     "Select Catering": 516,
+     "Fresh Ideas": 617,
+     "K&W": 161,
+     "Simply": 199
+    },
+    "waste": null,
+    "disc": null
    },
    "Glenvale Drive Thru": {
     "stock": 23.9,
     "deliv": 25.3,
-    "gp": 70.5
+    "gp": 70.5,
+    "sales": 18384,
+    "stock_gbp": 4394,
+    "deliv_gbp": 4649,
+    "sup": {
+     "Select Catering": 1743,
+     "Fresh Ideas": 1604,
+     "K&W": 436,
+     "Simply": 866
+    },
+    "waste": null,
+    "disc": null
    },
    "Kettering": {
     "stock": 32.8,
     "deliv": 28.4,
-    "gp": 72.36
+    "gp": 72.36,
+    "sales": 9634,
+    "stock_gbp": 3160,
+    "deliv_gbp": 2739,
+    "sup": {
+     "Select Catering": 1092,
+     "Fresh Ideas": 1126,
+     "K&W": 226,
+     "Simply": 295
+    },
+    "waste": null,
+    "disc": null
    },
    "Leamington Parade": {
     "stock": 24.2,
     "deliv": 22.1,
-    "gp": 74.0
+    "gp": 74.0,
+    "sales": 9289,
+    "stock_gbp": 2248,
+    "deliv_gbp": 2053,
+    "sup": {
+     "Select Catering": 862,
+     "Fresh Ideas": 642,
+     "K&W": 185,
+     "Simply": 364
+    },
+    "waste": null,
+    "disc": null
    },
    "Market Harborough": {
     "stock": 23.3,
     "deliv": 27.3,
-    "gp": 72.3
+    "gp": 72.3,
+    "sales": 10363,
+    "stock_gbp": 2415,
+    "deliv_gbp": 2830,
+    "sup": {
+     "Select Catering": 1155,
+     "Fresh Ideas": 887,
+     "K&W": 277,
+     "Simply": 511
+    },
+    "waste": null,
+    "disc": null
    },
    "Northampton Drive-Thru": {
     "stock": 13.6,
     "deliv": 24.8,
-    "gp": 70.51
+    "gp": 70.51,
+    "sales": 25572,
+    "stock_gbp": 3478,
+    "deliv_gbp": 6353,
+    "sup": {
+     "Select Catering": 2397,
+     "Fresh Ideas": 2276,
+     "K&W": 632,
+     "Simply": 1048
+    },
+    "waste": null,
+    "disc": null
    },
    "Billing Drive Thru": {
     "stock": 23.4,
     "deliv": 25.3,
-    "gp": 69.17
+    "gp": 69.17,
+    "sales": 13179,
+    "stock_gbp": 3084,
+    "deliv_gbp": 3334,
+    "sup": {
+     "Select Catering": 1360,
+     "Fresh Ideas": 950,
+     "K&W": 320,
+     "Simply": 704
+    },
+    "waste": null,
+    "disc": null
    },
    "Peterborough Fletton Quays": {
     "stock": 27.4,
     "deliv": 23.6,
-    "gp": 69.88
+    "gp": 69.88,
+    "sales": 8950,
+    "stock_gbp": 2452,
+    "deliv_gbp": 2111,
+    "sup": {
+     "Select Catering": 710,
+     "Fresh Ideas": 599,
+     "K&W": 190,
+     "Simply": 612
+    },
+    "waste": null,
+    "disc": null
    },
    "Peterborough Bridge Street": {
     "stock": 28.0,
     "deliv": 26.2,
-    "gp": 71.41
+    "gp": 71.41,
+    "sales": 4796,
+    "stock_gbp": 1343,
+    "deliv_gbp": 1258,
+    "sup": {
+     "Select Catering": 456,
+     "Fresh Ideas": 415,
+     "K&W": 174,
+     "Simply": 213
+    },
+    "waste": null,
+    "disc": null
    },
    "Rothwell": {
     "stock": 34.4,
     "deliv": 21.2,
-    "gp": 70.63
+    "gp": 70.63,
+    "sales": 6824,
+    "stock_gbp": 2347,
+    "deliv_gbp": 1450,
+    "sup": {
+     "Select Catering": 477,
+     "Fresh Ideas": 568,
+     "K&W": 179,
+     "Simply": 226
+    },
+    "waste": null,
+    "disc": null
    },
    "Rushden Lakes": {
     "stock": 17.8,
     "deliv": 22.7,
-    "gp": 70.28
+    "gp": 70.28,
+    "sales": 21927,
+    "stock_gbp": 3903,
+    "deliv_gbp": 4987,
+    "sup": {
+     "Select Catering": 2056,
+     "Fresh Ideas": 1821,
+     "K&W": 450,
+     "Simply": 660
+    },
+    "waste": null,
+    "disc": null
    },
    "Attleborough": {
     "stock": 41.9,
     "deliv": 28.3,
-    "gp": 69.26
+    "gp": 69.26,
+    "sales": 6873,
+    "stock_gbp": 2880,
+    "deliv_gbp": 1942,
+    "sup": {
+     "Select Catering": 690,
+     "Fresh Ideas": 722,
+     "K&W": 174,
+     "Simply": 356
+    },
+    "waste": null,
+    "disc": null
    },
    "Rugby": {
     "stock": 20.1,
     "deliv": 23.6,
-    "gp": 71.43
+    "gp": 71.43,
+    "sales": 8030,
+    "stock_gbp": 1614,
+    "deliv_gbp": 1897,
+    "sup": {
+     "Select Catering": 617,
+     "Fresh Ideas": 748,
+     "K&W": 198,
+     "Simply": 334
+    },
+    "waste": null,
+    "disc": null
    },
    "Wellingborough": {
     "stock": 22.7,
     "deliv": 18.8,
-    "gp": 71.7
+    "gp": 71.7,
+    "sales": 7183,
+    "stock_gbp": 1631,
+    "deliv_gbp": 1351,
+    "sup": {
+     "Select Catering": 591,
+     "Fresh Ideas": 393,
+     "K&W": 200,
+     "Simply": 167
+    },
+    "waste": null,
+    "disc": null
    },
    "Wellingborough Train Station": {
     "stock": 24.8,
     "deliv": 22.8,
-    "gp": 68.25
+    "gp": 68.25,
+    "sales": 6531,
+    "stock_gbp": 1620,
+    "deliv_gbp": 1486,
+    "sup": {
+     "Select Catering": 428,
+     "Fresh Ideas": 362,
+     "K&W": 364,
+     "Simply": 332
+    },
+    "waste": null,
+    "disc": null
    },
    "HOE Balsall Common": {
     "stock": 41.3,
     "deliv": 28.4,
-    "gp": 70.76
+    "gp": 70.76,
+    "sales": 7072,
+    "stock_gbp": 2921,
+    "deliv_gbp": 2005,
+    "sup": {
+     "Select Catering": 752,
+     "Fresh Ideas": 761,
+     "K&W": 170,
+     "Simply": 322
+    },
+    "waste": null,
+    "disc": null
    }
   },
   "2026-07-27": {
    "Olney": {
     "stock": 39.8,
     "deliv": 22.3,
-    "gp": 70.23
+    "gp": 70.23,
+    "sales": 5241,
+    "stock_gbp": 2086,
+    "deliv_gbp": 1171,
+    "sup": {
+     "Select Catering": 350,
+     "Fresh Ideas": 465,
+     "K&W": 198,
+     "Simply": 158
+    },
+    "waste": null,
+    "disc": null
    },
    "Northampton": {
     "stock": 26.1,
     "deliv": 22.6,
-    "gp": 72.06
+    "gp": 72.06,
+    "sales": 10208,
+    "stock_gbp": 2664,
+    "deliv_gbp": 2309,
+    "sup": {
+     "Select Catering": 591,
+     "Fresh Ideas": 979,
+     "K&W": 257,
+     "Simply": 482
+    },
+    "waste": null,
+    "disc": null
    },
    "Burton Latimer": {
     "stock": 28.1,
     "deliv": 23.8,
-    "gp": 69.77
+    "gp": 69.77,
+    "sales": 5098,
+    "stock_gbp": 1433,
+    "deliv_gbp": 1213,
+    "sup": {
+     "Select Catering": 521,
+     "Fresh Ideas": 289,
+     "K&W": 204,
+     "Simply": 199
+    },
+    "waste": null,
+    "disc": null
    },
    "Corby": {
     "stock": 38.7,
     "deliv": 24.2,
-    "gp": 72.54
+    "gp": 72.54,
+    "sales": 6301,
+    "stock_gbp": 2438,
+    "deliv_gbp": 1522,
+    "sup": {
+     "Select Catering": 836,
+     "Fresh Ideas": 205,
+     "K&W": 198,
+     "Simply": 283
+    },
+    "waste": null,
+    "disc": null
    },
    "Higham Ferrers": {
     "stock": 44.7,
     "deliv": 26.0,
-    "gp": 68.82
+    "gp": 68.82,
+    "sales": 4651,
+    "stock_gbp": 2079,
+    "deliv_gbp": 1208,
+    "sup": {
+     "Select Catering": 327,
+     "Fresh Ideas": 506,
+     "K&W": 168,
+     "Simply": 207
+    },
+    "waste": null,
+    "disc": null
    },
    "Glenvale Drive Thru": {
     "stock": 22.7,
     "deliv": 21.0,
-    "gp": 69.08
+    "gp": 69.08,
+    "sales": 16800,
+    "stock_gbp": 3814,
+    "deliv_gbp": 3527,
+    "sup": {
+     "Select Catering": 1404,
+     "Fresh Ideas": 973,
+     "K&W": 420,
+     "Simply": 730
+    },
+    "waste": null,
+    "disc": null
    },
    "Kettering": {
     "stock": 29.0,
     "deliv": 21.6,
-    "gp": 73.33
+    "gp": 73.33,
+    "sales": 10633,
+    "stock_gbp": 3084,
+    "deliv_gbp": 2301,
+    "sup": {
+     "Select Catering": 995,
+     "Fresh Ideas": 803,
+     "K&W": 227,
+     "Simply": 276
+    },
+    "waste": null,
+    "disc": null
    },
    "Leamington Parade": {
     "stock": 23.1,
     "deliv": 20.6,
-    "gp": 74.0
+    "gp": 74.0,
+    "sales": 9247,
+    "stock_gbp": 2136,
+    "deliv_gbp": 1909,
+    "sup": {
+     "Select Catering": 690,
+     "Fresh Ideas": 633,
+     "K&W": 256,
+     "Simply": 330
+    },
+    "waste": null,
+    "disc": null
    },
    "Lower Heathcote": {
     "stock": 35.7,
     "deliv": 23.9,
-    "gp": 71.54
+    "gp": 71.54,
+    "sales": 4642,
+    "stock_gbp": 1657,
+    "deliv_gbp": 1111,
+    "sup": {
+     "Select Catering": 441,
+     "Fresh Ideas": 369,
+     "K&W": 148,
+     "Simply": 153
+    },
+    "waste": null,
+    "disc": null
    },
    "Market Harborough": {
     "stock": 25.3,
     "deliv": 24.0,
-    "gp": 72.33
+    "gp": 72.33,
+    "sales": 11284,
+    "stock_gbp": 2855,
+    "deliv_gbp": 2708,
+    "sup": {
+     "Select Catering": 1095,
+     "Fresh Ideas": 1089,
+     "K&W": 255,
+     "Simply": 269
+    },
+    "waste": null,
+    "disc": null
    },
    "Northampton Drive-Thru": {
     "stock": 16.0,
     "deliv": 24.2,
-    "gp": 70.14
+    "gp": 70.14,
+    "sales": 25429,
+    "stock_gbp": 4069,
+    "deliv_gbp": 6150,
+    "sup": {
+     "Select Catering": 2354,
+     "Fresh Ideas": 2003,
+     "K&W": 777,
+     "Simply": 1016
+    },
+    "waste": null,
+    "disc": null
    },
    "Billing Drive Thru": {
     "stock": 18.7,
     "deliv": 19.5,
-    "gp": 68.23
+    "gp": 68.23,
+    "sales": 13366,
+    "stock_gbp": 2499,
+    "deliv_gbp": 2604,
+    "sup": {
+     "Select Catering": 702,
+     "Fresh Ideas": 863,
+     "K&W": 338,
+     "Simply": 701
+    },
+    "waste": null,
+    "disc": null
    },
    "Peterborough Fletton Quays": {
     "stock": 34.2,
     "deliv": 25.8,
-    "gp": 69.75
+    "gp": 69.75,
+    "sales": 8003,
+    "stock_gbp": 2737,
+    "deliv_gbp": 2061,
+    "sup": {
+     "Select Catering": 621,
+     "Fresh Ideas": 522,
+     "K&W": 241,
+     "Simply": 677
+    },
+    "waste": null,
+    "disc": null
    },
    "Peterborough Bridge Street": {
     "stock": 26.1,
     "deliv": 11.6,
-    "gp": 72.19
+    "gp": 72.19,
+    "sales": 5436,
+    "stock_gbp": 1419,
+    "deliv_gbp": 628,
+    "sup": {
+     "Select Catering": 453,
+     "Fresh Ideas": null,
+     "K&W": 175,
+     "Simply": null
+    },
+    "waste": null,
+    "disc": null
    },
    "Rothwell": {
     "stock": 30.4,
     "deliv": 21.1,
-    "gp": 70.47
+    "gp": 70.47,
+    "sales": 7519,
+    "stock_gbp": 2286,
+    "deliv_gbp": 1584,
+    "sup": {
+     "Select Catering": 591,
+     "Fresh Ideas": 540,
+     "K&W": 220,
+     "Simply": 233
+    },
+    "waste": null,
+    "disc": null
    },
    "Rushden Lakes": {
     "stock": 15.7,
     "deliv": 22.0,
-    "gp": 69.47
+    "gp": 69.47,
+    "sales": 23598,
+    "stock_gbp": 3705,
+    "deliv_gbp": 5200,
+    "sup": {
+     "Select Catering": 1653,
+     "Fresh Ideas": 2295,
+     "K&W": 491,
+     "Simply": 761
+    },
+    "waste": null,
+    "disc": null
    },
    "Attleborough": {
     "stock": 44.5,
     "deliv": 22.6,
-    "gp": 69.47
+    "gp": 69.47,
+    "sales": 5855,
+    "stock_gbp": 2605,
+    "deliv_gbp": 1323,
+    "sup": {
+     "Select Catering": 223,
+     "Fresh Ideas": 559,
+     "K&W": 168,
+     "Simply": 373
+    },
+    "waste": null,
+    "disc": null
    },
    "Rugby": {
     "stock": 21.9,
     "deliv": 27.1,
-    "gp": 69.49
+    "gp": 69.49,
+    "sales": 7960,
+    "stock_gbp": 1743,
+    "deliv_gbp": 2161,
+    "sup": {
+     "Select Catering": 975,
+     "Fresh Ideas": 678,
+     "K&W": 202,
+     "Simply": 306
+    },
+    "waste": null,
+    "disc": null
    },
    "Wellingborough": {
     "stock": 28.9,
     "deliv": 26.9,
-    "gp": 71.64
+    "gp": 71.64,
+    "sales": 7051,
+    "stock_gbp": 2038,
+    "deliv_gbp": 1895,
+    "sup": {
+     "Select Catering": 908,
+     "Fresh Ideas": 608,
+     "K&W": 205,
+     "Simply": 174
+    },
+    "waste": null,
+    "disc": null
    },
    "Wellingborough Train Station": {
     "stock": 24.7,
     "deliv": 23.8,
-    "gp": 70.18
+    "gp": 70.18,
+    "sales": 6333,
+    "stock_gbp": 1564,
+    "deliv_gbp": 1505,
+    "sup": {
+     "Select Catering": 517,
+     "Fresh Ideas": 462,
+     "K&W": 171,
+     "Simply": 355
+    },
+    "waste": null,
+    "disc": null
    },
    "HOE Balsall Common": {
     "stock": 47.8,
     "deliv": 29.7,
-    "gp": 69.77
+    "gp": 69.77,
+    "sales": 5828,
+    "stock_gbp": 2786,
+    "deliv_gbp": 1732,
+    "sup": {
+     "Select Catering": 715,
+     "Fresh Ideas": 528,
+     "K&W": 145,
+     "Simply": 344
+    },
+    "waste": null,
+    "disc": null
    }
   },
   "2026-08-03": {
    "Olney": {
     "stock": 36.6,
     "deliv": 20.1,
-    "gp": 71.06
+    "gp": 71.06,
+    "sales": 5410,
+    "stock_gbp": 1980,
+    "deliv_gbp": 1088,
+    "sup": {
+     "Select Catering": 300,
+     "Fresh Ideas": 450,
+     "K&W": 184,
+     "Simply": 154
+    },
+    "waste": null,
+    "disc": null
    },
    "Northampton": {
     "stock": 23.8,
     "deliv": 23.4,
-    "gp": 71.55
+    "gp": 71.55,
+    "sales": 10553,
+    "stock_gbp": 2512,
+    "deliv_gbp": 2465,
+    "sup": {
+     "Select Catering": 911,
+     "Fresh Ideas": 762,
+     "K&W": 294,
+     "Simply": 498
+    },
+    "waste": null,
+    "disc": null
    },
    "Burton Latimer": {
     "stock": 29.0,
     "deliv": 22.9,
-    "gp": 70.51
+    "gp": 70.51,
+    "sales": 5399,
+    "stock_gbp": 1566,
+    "deliv_gbp": 1235,
+    "sup": {
+     "Select Catering": 489,
+     "Fresh Ideas": 369,
+     "K&W": 177,
+     "Simply": 200
+    },
+    "waste": null,
+    "disc": null
    },
    "Corby": {
     "stock": 33.5,
     "deliv": 26.8,
-    "gp": 71.56
+    "gp": 71.56,
+    "sales": 7609,
+    "stock_gbp": 2549,
+    "deliv_gbp": 2043,
+    "sup": {
+     "Select Catering": 833,
+     "Fresh Ideas": 637,
+     "K&W": 225,
+     "Simply": 348
+    },
+    "waste": null,
+    "disc": null
    },
    "Higham Ferrers": {
     "stock": 51.6,
     "deliv": 26.0,
-    "gp": 69.05
+    "gp": 69.05,
+    "sales": 4322,
+    "stock_gbp": 2230,
+    "deliv_gbp": 1122,
+    "sup": {
+     "Select Catering": 252,
+     "Fresh Ideas": 521,
+     "K&W": 154,
+     "Simply": 195
+    },
+    "waste": null,
+    "disc": null
    },
    "Glenvale Drive Thru": {
     "stock": 19.8,
     "deliv": 20.1,
-    "gp": 69.75
+    "gp": 69.75,
+    "sales": 18038,
+    "stock_gbp": 3572,
+    "deliv_gbp": 3618,
+    "sup": {
+     "Select Catering": 1427,
+     "Fresh Ideas": 843,
+     "K&W": 547,
+     "Simply": 801
+    },
+    "waste": null,
+    "disc": null
    },
    "Kettering": {
     "stock": 26.3,
     "deliv": 18.7,
-    "gp": 73.22
+    "gp": 73.22,
+    "sales": 10290,
+    "stock_gbp": 2706,
+    "deliv_gbp": 1928,
+    "sup": {
+     "Select Catering": 617,
+     "Fresh Ideas": 807,
+     "K&W": 220,
+     "Simply": 284
+    },
+    "waste": null,
+    "disc": null
    },
    "Leamington Parade": {
     "stock": 21.2,
     "deliv": 22.5,
-    "gp": 74.36
+    "gp": 74.36,
+    "sales": 9754,
+    "stock_gbp": 2068,
+    "deliv_gbp": 2194,
+    "sup": {
+     "Select Catering": 897,
+     "Fresh Ideas": 680,
+     "K&W": 252,
+     "Simply": 365
+    },
+    "waste": null,
+    "disc": null
    },
    "Lower Heathcote": {
     "stock": 34.5,
     "deliv": 25.0,
-    "gp": 72.75
+    "gp": 72.75,
+    "sales": 4666,
+    "stock_gbp": 1610,
+    "deliv_gbp": 1168,
+    "sup": {
+     "Select Catering": 500,
+     "Fresh Ideas": 346,
+     "K&W": 169,
+     "Simply": 153
+    },
+    "waste": null,
+    "disc": null
    },
    "Market Harborough": {
     "stock": 20.5,
     "deliv": 20.6,
-    "gp": 72.38
+    "gp": 72.38,
+    "sales": 11673,
+    "stock_gbp": 2393,
+    "deliv_gbp": 2404,
+    "sup": {
+     "Select Catering": 415,
+     "Fresh Ideas": 1100,
+     "K&W": 420,
+     "Simply": 469
+    },
+    "waste": null,
+    "disc": null
    },
    "Northampton Drive-Thru": {
     "stock": 13.2,
     "deliv": 20.6,
-    "gp": 70.37
+    "gp": 70.37,
+    "sales": 25157,
+    "stock_gbp": 3321,
+    "deliv_gbp": 5192,
+    "sup": {
+     "Select Catering": 1900,
+     "Fresh Ideas": 1442,
+     "K&W": 750,
+     "Simply": 1100
+    },
+    "waste": null,
+    "disc": null
    },
    "Billing Drive Thru": {
     "stock": 18.0,
     "deliv": 23.7,
-    "gp": 69.83
+    "gp": 69.83,
+    "sales": 14385,
+    "stock_gbp": 2589,
+    "deliv_gbp": 3408,
+    "sup": {
+     "Select Catering": 1516,
+     "Fresh Ideas": 1021,
+     "K&W": 316,
+     "Simply": 555
+    },
+    "waste": null,
+    "disc": null
    },
    "Peterborough Fletton Quays": {
     "stock": 23.5,
     "deliv": 23.5,
-    "gp": 70.78
+    "gp": 70.78,
+    "sales": 8768,
+    "stock_gbp": 2060,
+    "deliv_gbp": 2058,
+    "sup": {
+     "Select Catering": 615,
+     "Fresh Ideas": 597,
+     "K&W": 246,
+     "Simply": 600
+    },
+    "waste": null,
+    "disc": null
    },
    "Peterborough Bridge Street": {
     "stock": 23.1,
     "deliv": 21.6,
-    "gp": 70.68
+    "gp": 70.68,
+    "sales": 5641,
+    "stock_gbp": 1303,
+    "deliv_gbp": 1216,
+    "sup": {
+     "Select Catering": 433,
+     "Fresh Ideas": 421,
+     "K&W": 158,
+     "Simply": 204
+    },
+    "waste": null,
+    "disc": null
    },
    "Rothwell": {
     "stock": 37.7,
     "deliv": 24.8,
-    "gp": 68.71
+    "gp": 68.71,
+    "sales": 6199,
+    "stock_gbp": 2337,
+    "deliv_gbp": 1539,
+    "sup": {
+     "Select Catering": 541,
+     "Fresh Ideas": 581,
+     "K&W": 182,
+     "Simply": 235
+    },
+    "waste": null,
+    "disc": null
    },
    "Rushden Lakes": {
     "stock": 12.1,
     "deliv": 22.5,
-    "gp": 69.55
+    "gp": 69.55,
+    "sales": 25456,
+    "stock_gbp": 3080,
+    "deliv_gbp": 5732,
+    "sup": {
+     "Select Catering": 2073,
+     "Fresh Ideas": 2352,
+     "K&W": 538,
+     "Simply": 769
+    },
+    "waste": null,
+    "disc": null
    },
    "Attleborough": {
     "stock": 43.5,
     "deliv": 30.1,
-    "gp": 69.2
+    "gp": 69.2,
+    "sales": 5959,
+    "stock_gbp": 2592,
+    "deliv_gbp": 1791,
+    "sup": {
+     "Select Catering": 669,
+     "Fresh Ideas": 595,
+     "K&W": 165,
+     "Simply": 362
+    },
+    "waste": null,
+    "disc": null
    },
    "Rugby": {
     "stock": 24.1,
     "deliv": 22.7,
-    "gp": 70.52
+    "gp": 70.52,
+    "sales": 8107,
+    "stock_gbp": 1954,
+    "deliv_gbp": 1839,
+    "sup": {
+     "Select Catering": 564,
+     "Fresh Ideas": 687,
+     "K&W": 266,
+     "Simply": 322
+    },
+    "waste": null,
+    "disc": null
    },
    "Wellingborough": {
     "stock": 26.4,
     "deliv": 19.9,
-    "gp": 71.38
+    "gp": 71.38,
+    "sales": 7041,
+    "stock_gbp": 1859,
+    "deliv_gbp": 1398,
+    "sup": {
+     "Select Catering": 572,
+     "Fresh Ideas": 392,
+     "K&W": 250,
+     "Simply": 184
+    },
+    "waste": null,
+    "disc": null
    },
    "Wellingborough Train Station": {
     "stock": 31.5,
     "deliv": 24.6,
-    "gp": 69.64
+    "gp": 69.64,
+    "sales": 5759,
+    "stock_gbp": 1814,
+    "deliv_gbp": 1418,
+    "sup": {
+     "Select Catering": 503,
+     "Fresh Ideas": 462,
+     "K&W": 200,
+     "Simply": 253
+    },
+    "waste": null,
+    "disc": null
    },
    "HOE Balsall Common": {
     "stock": 41.3,
     "deliv": 19.9,
-    "gp": 69.37
+    "gp": 69.37,
+    "sales": 6566,
+    "stock_gbp": 2712,
+    "deliv_gbp": 1308,
+    "sup": {
+     "Select Catering": 446,
+     "Fresh Ideas": 342,
+     "K&W": 202,
+     "Simply": 318
+    },
+    "waste": null,
+    "disc": null
    }
   },
   "2026-08-10": {
    "Olney": {
     "stock": 38.6,
     "deliv": 28.3,
-    "gp": 71.37
+    "gp": 71.37,
+    "sales": 5360,
+    "stock_gbp": 2069,
+    "deliv_gbp": 1516,
+    "sup": {
+     "Select Catering": 642,
+     "Fresh Ideas": 517,
+     "K&W": 205,
+     "Simply": 152
+    },
+    "waste": null,
+    "disc": null
    },
    "Northampton": {
     "stock": 18.2,
     "deliv": 18.6,
-    "gp": 71.73
+    "gp": 71.73,
+    "sales": 10582,
+    "stock_gbp": 1926,
+    "deliv_gbp": 1964,
+    "sup": {
+     "Select Catering": 481,
+     "Fresh Ideas": 762,
+     "K&W": 281,
+     "Simply": 440
+    },
+    "waste": null,
+    "disc": null
    },
    "Burton Latimer": {
     "stock": 28.0,
     "deliv": 23.1,
-    "gp": 68.85
+    "gp": 68.85,
+    "sales": 5502,
+    "stock_gbp": 1541,
+    "deliv_gbp": 1273,
+    "sup": {
+     "Select Catering": 430,
+     "Fresh Ideas": 453,
+     "K&W": 195,
+     "Simply": 195
+    },
+    "waste": null,
+    "disc": null
    },
    "Corby": {
     "stock": 38.0,
     "deliv": 23.8,
-    "gp": 69.79
+    "gp": 69.79,
+    "sales": 7963,
+    "stock_gbp": 3026,
+    "deliv_gbp": 1895,
+    "sup": {
+     "Select Catering": 753,
+     "Fresh Ideas": 670,
+     "K&W": 231,
+     "Simply": 241
+    },
+    "waste": null,
+    "disc": null
    },
    "Higham Ferrers": {
     "stock": 48.8,
     "deliv": 26.0,
-    "gp": 69.85
+    "gp": 69.85,
+    "sales": 4364,
+    "stock_gbp": 2130,
+    "deliv_gbp": 1135,
+    "sup": {
+     "Select Catering": 280,
+     "Fresh Ideas": 460,
+     "K&W": 170,
+     "Simply": 225
+    },
+    "waste": null,
+    "disc": null
    },
    "Glenvale Drive Thru": {
     "stock": 20.4,
     "deliv": 23.3,
-    "gp": 69.33
+    "gp": 69.33,
+    "sales": 17770,
+    "stock_gbp": 3625,
+    "deliv_gbp": 4142,
+    "sup": {
+     "Select Catering": 1568,
+     "Fresh Ideas": 1383,
+     "K&W": 436,
+     "Simply": 755
+    },
+    "waste": null,
+    "disc": null
    },
    "Kettering": {
     "stock": 26.4,
     "deliv": 22.1,
-    "gp": 73.09
+    "gp": 73.09,
+    "sales": 10494,
+    "stock_gbp": 2770,
+    "deliv_gbp": 2316,
+    "sup": {
+     "Select Catering": 733,
+     "Fresh Ideas": 1044,
+     "K&W": 229,
+     "Simply": 310
+    },
+    "waste": null,
+    "disc": null
    },
    "Leamington Parade": {
     "stock": 21.7,
     "deliv": 22.4,
-    "gp": 74.26
+    "gp": 74.26,
+    "sales": 9497,
+    "stock_gbp": 2061,
+    "deliv_gbp": 2125,
+    "sup": {
+     "Select Catering": 680,
+     "Fresh Ideas": 882,
+     "K&W": 235,
+     "Simply": 328
+    },
+    "waste": null,
+    "disc": null
    },
    "Lower Heathcote": {
     "stock": 33.0,
     "deliv": 22.2,
-    "gp": 72.96
+    "gp": 72.96,
+    "sales": 4257,
+    "stock_gbp": 1405,
+    "deliv_gbp": 943,
+    "sup": {
+     "Select Catering": 350,
+     "Fresh Ideas": 282,
+     "K&W": 152,
+     "Simply": 159
+    },
+    "waste": null,
+    "disc": null
    },
    "Market Harborough": {
     "stock": 23.7,
     "deliv": 27.6,
-    "gp": 72.41
+    "gp": 72.41,
+    "sales": 11733,
+    "stock_gbp": 2781,
+    "deliv_gbp": 3234,
+    "sup": {
+     "Select Catering": 1338,
+     "Fresh Ideas": 1136,
+     "K&W": 286,
+     "Simply": 474
+    },
+    "waste": null,
+    "disc": null
    },
    "Northampton Drive-Thru": {
     "stock": 23.6,
     "deliv": 29.9,
-    "gp": 69.71
+    "gp": 69.71,
+    "sales": 24275,
+    "stock_gbp": 5729,
+    "deliv_gbp": 7264,
+    "sup": {
+     "Select Catering": 2656,
+     "Fresh Ideas": 2635,
+     "K&W": 805,
+     "Simply": 1168
+    },
+    "waste": null,
+    "disc": null
    },
    "Billing Drive Thru": {
     "stock": 18.9,
     "deliv": 26.2,
-    "gp": 69.82
+    "gp": 69.82,
+    "sales": 13069,
+    "stock_gbp": 2470,
+    "deliv_gbp": 3430,
+    "sup": {
+     "Select Catering": 998,
+     "Fresh Ideas": 1501,
+     "K&W": 374,
+     "Simply": 557
+    },
+    "waste": null,
+    "disc": null
    },
    "Peterborough Fletton Quays": {
     "stock": 22.8,
     "deliv": 24.8,
-    "gp": 70.89
+    "gp": 70.89,
+    "sales": 8719,
+    "stock_gbp": 1988,
+    "deliv_gbp": 2158,
+    "sup": {
+     "Select Catering": 738,
+     "Fresh Ideas": 628,
+     "K&W": 186,
+     "Simply": 606
+    },
+    "waste": null,
+    "disc": null
    },
    "Peterborough Bridge Street": {
     "stock": 25.1,
     "deliv": 23.0,
-    "gp": 69.89
+    "gp": 69.89,
+    "sales": 5909,
+    "stock_gbp": 1483,
+    "deliv_gbp": 1358,
+    "sup": {
+     "Select Catering": 486,
+     "Fresh Ideas": 509,
+     "K&W": 175,
+     "Simply": 188
+    },
+    "waste": null,
+    "disc": null
    },
    "Rothwell": {
     "stock": 36.7,
     "deliv": 24.8,
-    "gp": 70.34
+    "gp": 70.34,
+    "sales": 6629,
+    "stock_gbp": 2433,
+    "deliv_gbp": 1644,
+    "sup": {
+     "Select Catering": 592,
+     "Fresh Ideas": 599,
+     "K&W": 277,
+     "Simply": 176
+    },
+    "waste": null,
+    "disc": null
    },
    "Rushden Lakes": {
     "stock": 16.5,
     "deliv": 24.9,
-    "gp": 69.41
+    "gp": 69.41,
+    "sales": 23518,
+    "stock_gbp": 3880,
+    "deliv_gbp": 5850,
+    "sup": {
+     "Select Catering": 2365,
+     "Fresh Ideas": 2255,
+     "K&W": 460,
+     "Simply": 770
+    },
+    "waste": null,
+    "disc": null
    },
    "Attleborough": {
     "stock": 41.7,
     "deliv": 23.9,
-    "gp": 69.4
+    "gp": 69.4,
+    "sales": 6485,
+    "stock_gbp": 2704,
+    "deliv_gbp": 1550,
+    "sup": {
+     "Select Catering": 608,
+     "Fresh Ideas": 380,
+     "K&W": 213,
+     "Simply": 349
+    },
+    "waste": null,
+    "disc": null
    },
    "Rugby": {
     "stock": 27.2,
     "deliv": 25.2,
-    "gp": 70.19
+    "gp": 70.19,
+    "sales": 8097,
+    "stock_gbp": 2202,
+    "deliv_gbp": 2041,
+    "sup": {
+     "Select Catering": 813,
+     "Fresh Ideas": 736,
+     "K&W": 214,
+     "Simply": 278
+    },
+    "waste": null,
+    "disc": null
    },
    "Wellingborough": {
     "stock": 30.3,
     "deliv": 26.1,
-    "gp": 72.95
+    "gp": 72.95,
+    "sales": 7307,
+    "stock_gbp": 2214,
+    "deliv_gbp": 1908,
+    "sup": {
+     "Select Catering": 896,
+     "Fresh Ideas": 595,
+     "K&W": 227,
+     "Simply": 190
+    },
+    "waste": null,
+    "disc": null
    },
    "Wellingborough Train Station": {
     "stock": 26.2,
     "deliv": 20.4,
-    "gp": 69.45
+    "gp": 69.45,
+    "sales": 5892,
+    "stock_gbp": 1544,
+    "deliv_gbp": 1201,
+    "sup": {
+     "Select Catering": 334,
+     "Fresh Ideas": 398,
+     "K&W": 147,
+     "Simply": 322
+    },
+    "waste": null,
+    "disc": null
    },
    "HOE Balsall Common": {
     "stock": 39.6,
     "deliv": 25.0,
-    "gp": 71.26
+    "gp": 71.26,
+    "sales": 6785,
+    "stock_gbp": 2687,
+    "deliv_gbp": 1698,
+    "sup": {
+     "Select Catering": 659,
+     "Fresh Ideas": 525,
+     "K&W": 198,
+     "Simply": 316
+    },
+    "waste": null,
+    "disc": null
    }
   },
   "2026-08-17": {
    "Olney": {
     "stock": 46.1,
     "deliv": 23.2,
-    "gp": 71.31
+    "gp": 71.31,
+    "sales": 5662,
+    "stock_gbp": 2610,
+    "deliv_gbp": 1312,
+    "sup": {
+     "Select Catering": 754,
+     "Fresh Ideas": 315,
+     "K&W": 91,
+     "Simply": 152
+    },
+    "waste": null,
+    "disc": null
    },
    "Northampton": {
     "stock": 17.9,
     "deliv": 21.1,
-    "gp": 71.6
+    "gp": 71.6,
+    "sales": 10405,
+    "stock_gbp": 1862,
+    "deliv_gbp": 2192,
+    "sup": {
+     "Select Catering": 740,
+     "Fresh Ideas": 846,
+     "K&W": 266,
+     "Simply": 340
+    },
+    "waste": null,
+    "disc": null
    },
    "Burton Latimer": {
     "stock": 29.7,
     "deliv": 23.9,
-    "gp": 69.65
+    "gp": 69.65,
+    "sales": 5082,
+    "stock_gbp": 1509,
+    "deliv_gbp": 1217,
+    "sup": {
+     "Select Catering": 431,
+     "Fresh Ideas": 404,
+     "K&W": 175,
+     "Simply": 207
+    },
+    "waste": null,
+    "disc": null
    },
    "Corby": {
     "stock": 31.8,
     "deliv": 20.2,
-    "gp": 70.11
+    "gp": 70.11,
+    "sales": 8472,
+    "stock_gbp": 2694,
+    "deliv_gbp": 1710,
+    "sup": {
+     "Select Catering": 445,
+     "Fresh Ideas": 716,
+     "K&W": 249,
+     "Simply": 300
+    },
+    "waste": null,
+    "disc": null
    },
    "Higham Ferrers": {
     "stock": 48.7,
     "deliv": 30.0,
-    "gp": 69.69
+    "gp": 69.69,
+    "sales": 4376,
+    "stock_gbp": 2131,
+    "deliv_gbp": 1314,
+    "sup": {
+     "Select Catering": 386,
+     "Fresh Ideas": 554,
+     "K&W": 151,
+     "Simply": 223
+    },
+    "waste": null,
+    "disc": null
    },
    "Glenvale Drive Thru": {
     "stock": 17.6,
     "deliv": 23.2,
-    "gp": 69.39
+    "gp": 69.39,
+    "sales": 19162,
+    "stock_gbp": 3373,
+    "deliv_gbp": 4441,
+    "sup": {
+     "Select Catering": 1601,
+     "Fresh Ideas": 1531,
+     "K&W": 514,
+     "Simply": 795
+    },
+    "waste": null,
+    "disc": null
    },
    "Kettering": {
     "stock": 27.0,
     "deliv": 22.9,
-    "gp": 71.69
+    "gp": 71.69,
+    "sales": 10410,
+    "stock_gbp": 2811,
+    "deliv_gbp": 2389,
+    "sup": {
+     "Select Catering": 932,
+     "Fresh Ideas": 934,
+     "K&W": 213,
+     "Simply": 310
+    },
+    "waste": null,
+    "disc": null
    },
    "Leamington Parade": {
     "stock": 26.3,
     "deliv": 23.5,
-    "gp": 74.11
+    "gp": 74.11,
+    "sales": 8703,
+    "stock_gbp": 2289,
+    "deliv_gbp": 2045,
+    "sup": {
+     "Select Catering": 797,
+     "Fresh Ideas": 687,
+     "K&W": 250,
+     "Simply": 311
+    },
+    "waste": null,
+    "disc": null
    },
    "Lower Heathcote": {
     "stock": 28.0,
     "deliv": 25.0,
-    "gp": 71.92
+    "gp": 71.92,
+    "sales": 4761,
+    "stock_gbp": 1333,
+    "deliv_gbp": 1190,
+    "sup": {
+     "Select Catering": 491,
+     "Fresh Ideas": 390,
+     "K&W": 152,
+     "Simply": 157
+    },
+    "waste": null,
+    "disc": null
    },
    "Market Harborough": {
     "stock": 25.5,
     "deliv": 24.8,
-    "gp": 71.86
+    "gp": 71.86,
+    "sales": 11490,
+    "stock_gbp": 2930,
+    "deliv_gbp": 2846,
+    "sup": {
+     "Select Catering": 1110,
+     "Fresh Ideas": 851,
+     "K&W": 407,
+     "Simply": 478
+    },
+    "waste": null,
+    "disc": null
    },
    "Northampton Drive-Thru": {
     "stock": 11.3,
     "deliv": 17.5,
-    "gp": 70.46
+    "gp": 70.46,
+    "sales": 25996,
+    "stock_gbp": 2938,
+    "deliv_gbp": 4547,
+    "sup": {
+     "Select Catering": 1616,
+     "Fresh Ideas": 1727,
+     "K&W": 505,
+     "Simply": 699
+    },
+    "waste": null,
+    "disc": null
    },
    "Billing Drive Thru": {
     "stock": 16.8,
     "deliv": 23.4,
-    "gp": 69.32
+    "gp": 69.32,
+    "sales": 13958,
+    "stock_gbp": 2345,
+    "deliv_gbp": 3270,
+    "sup": {
+     "Select Catering": 1382,
+     "Fresh Ideas": 963,
+     "K&W": 343,
+     "Simply": 582
+    },
+    "waste": null,
+    "disc": null
    },
    "Peterborough Fletton Quays": {
     "stock": 27.1,
     "deliv": 27.4,
-    "gp": 70.5
+    "gp": 70.5,
+    "sales": 8142,
+    "stock_gbp": 2206,
+    "deliv_gbp": 2232,
+    "sup": {
+     "Select Catering": 736,
+     "Fresh Ideas": 654,
+     "K&W": 238,
+     "Simply": 604
+    },
+    "waste": null,
+    "disc": null
    },
    "Peterborough Bridge Street": {
     "stock": 27.7,
     "deliv": 23.4,
-    "gp": 69.42
+    "gp": 69.42,
+    "sales": 5963,
+    "stock_gbp": 1652,
+    "deliv_gbp": 1397,
+    "sup": {
+     "Select Catering": 498,
+     "Fresh Ideas": 440,
+     "K&W": 194,
+     "Simply": 265
+    },
+    "waste": null,
+    "disc": null
    },
    "Rothwell": {
     "stock": 38.1,
     "deliv": 22.5,
-    "gp": 68.79
+    "gp": 68.79,
+    "sales": 6033,
+    "stock_gbp": 2299,
+    "deliv_gbp": 1360,
+    "sup": {
+     "Select Catering": 426,
+     "Fresh Ideas": 533,
+     "K&W": 209,
+     "Simply": 192
+    },
+    "waste": null,
+    "disc": null
    },
    "Rushden Lakes": {
     "stock": 19.3,
     "deliv": 26.0,
-    "gp": 69.05
+    "gp": 69.05,
+    "sales": 23060,
+    "stock_gbp": 4451,
+    "deliv_gbp": 6000,
+    "sup": {
+     "Select Catering": 2079,
+     "Fresh Ideas": 2553,
+     "K&W": 533,
+     "Simply": 835
+    },
+    "waste": null,
+    "disc": null
    },
    "Attleborough": {
     "stock": 42.6,
     "deliv": 28.7,
-    "gp": 68.23
+    "gp": 68.23,
+    "sales": 6224,
+    "stock_gbp": 2651,
+    "deliv_gbp": 1787,
+    "sup": {
+     "Select Catering": 530,
+     "Fresh Ideas": 667,
+     "K&W": 230,
+     "Simply": 360
+    },
+    "waste": null,
+    "disc": null
    },
    "Rugby": {
     "stock": 24.1,
     "deliv": 29.1,
-    "gp": 69.44
+    "gp": 69.44,
+    "sales": 7660,
+    "stock_gbp": 1846,
+    "deliv_gbp": 2228,
+    "sup": {
+     "Select Catering": 686,
+     "Fresh Ideas": 805,
+     "K&W": 214,
+     "Simply": 523
+    },
+    "waste": null,
+    "disc": null
    },
    "Wellingborough": {
     "stock": 24.7,
     "deliv": 15.3,
-    "gp": 71.52
+    "gp": 71.52,
+    "sales": 7060,
+    "stock_gbp": 1744,
+    "deliv_gbp": 1081,
+    "sup": {
+     "Select Catering": 355,
+     "Fresh Ideas": 367,
+     "K&W": 192,
+     "Simply": 167
+    },
+    "waste": null,
+    "disc": null
    },
    "Wellingborough Train Station": {
     "stock": 33.8,
     "deliv": 27.7,
-    "gp": 69.28
+    "gp": 69.28,
+    "sales": 5384,
+    "stock_gbp": 1820,
+    "deliv_gbp": 1491,
+    "sup": {
+     "Select Catering": 498,
+     "Fresh Ideas": 544,
+     "K&W": 119,
+     "Simply": 330
+    },
+    "waste": null,
+    "disc": null
    },
    "HOE Balsall Common": {
     "stock": 34.2,
     "deliv": 22.9,
-    "gp": 69.89
+    "gp": 69.89,
+    "sales": 6693,
+    "stock_gbp": 2289,
+    "deliv_gbp": 1532,
+    "sup": {
+     "Select Catering": 441,
+     "Fresh Ideas": 589,
+     "K&W": 184,
+     "Simply": 318
+    },
+    "waste": null,
+    "disc": null
    }
   }
  }

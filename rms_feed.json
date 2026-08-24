@@ -172,8 +172,8 @@
     "avg": 2.25
    },
    "qtd": {
-    "n": 39,
-    "avg": 2.92
+    "n": 40,
+    "avg": 2.95
    },
    "prevq": {
     "n": 69,
@@ -298,7 +298,7 @@
     "avg": 4.75
    },
    "qtd": {
-    "n": 81,
+    "n": 82,
     "avg": 4.62
    },
    "prevq": {
@@ -340,7 +340,7 @@
     "avg": 4.92
    },
    "qtd": {
-    "n": 99,
+    "n": 101,
     "avg": 4.85
    },
    "prevq": {
@@ -382,8 +382,8 @@
     "avg": 4.67
    },
    "qtd": {
-    "n": 23,
-    "avg": 4.48
+    "n": 24,
+    "avg": 4.46
    },
    "prevq": {
     "n": 29,
@@ -410,8 +410,8 @@
     "avg": 5.0
    },
    "qtd": {
-    "n": 28,
-    "avg": 4.96
+    "n": 30,
+    "avg": 4.97
    },
    "prevq": {
     "n": 70,
@@ -424,8 +424,8 @@
     "avg": 4.0
    },
    "qtd": {
-    "n": 6,
-    "avg": 4.83
+    "n": 7,
+    "avg": 4.86
    },
    "prevq": {
     "n": 12,
@@ -438,8 +438,8 @@
     "avg": 4.67
    },
    "qtd": {
-    "n": 8,
-    "avg": 3.88
+    "n": 9,
+    "avg": 4.0
    },
    "prevq": {
     "n": 13,
@@ -1037,6 +1037,94 @@
    "sentiment": "Positive"
   },
   {
+   "store": "Rugby",
+   "date": "2026-08-24",
+   "rating": 5.0,
+   "text": "Fun really enjoyed working with rosie she was teally helpful when it got busy",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Leamington Parade",
+   "date": "2026-08-24",
+   "rating": 5.0,
+   "text": "Love working here",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Rugby",
+   "date": "2026-08-24",
+   "rating": 5.0,
+   "text": "another busy day but 100% effort from everyone!",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Warwick Market Place",
+   "date": "2026-08-24",
+   "rating": 5.0,
+   "text": "Chair broke from beneath me, I will sue",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Warwick Market Place",
+   "date": "2026-08-24",
+   "rating": 5.0,
+   "text": "Anya fell off chair.",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Billing Drive Thru",
+   "date": "2026-08-24",
+   "rating": 5.0,
+   "text": "great level 10 meeting",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Wellingborough",
+   "date": "2026-08-24",
+   "rating": 5.0,
+   "text": "Lovely busy day",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Leamington Parade",
+   "date": "2026-08-24",
+   "rating": 5.0,
+   "text": "Great sales, great teamwork",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Wellingborough Train Station",
+   "date": "2026-08-24",
+   "rating": 5.0,
+   "text": "Positive productive teamwork",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Corby",
+   "date": "2026-08-24",
+   "rating": 4.0,
+   "text": "Lovely shift",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Northampton",
+   "date": "2026-08-24",
+   "rating": 4.0,
+   "text": "Good shift in general",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
    "store": "HOE Balsall Common",
    "date": "2026-08-23",
    "rating": 5.0,
@@ -1123,94 +1211,6 @@
    "text": "Please can you look at more vegetarian options",
    "smt": null,
    "sentiment": "Mixed"
-  },
-  {
-   "store": "Burton Latimer",
-   "date": "2026-08-23",
-   "rating": 3.0,
-   "text": "Busy teamwork vibes",
-   "smt": null,
-   "sentiment": "Mixed"
-  },
-  {
-   "store": "Market Harborough",
-   "date": "2026-08-23",
-   "rating": 3.0,
-   "text": "quiet but not",
-   "smt": null,
-   "sentiment": "Mixed"
-  },
-  {
-   "store": "Corby",
-   "date": "2026-08-22",
-   "rating": 5.0,
-   "text": "Positive vibes",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Attleborough",
-   "date": "2026-08-22",
-   "rating": 5.0,
-   "text": "Today is testing my patience",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Peterborough Bridge Street",
-   "date": "2026-08-22",
-   "rating": 5.0,
-   "text": "Good vibes,fun, enjoyable",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Peterborough Bridge Street",
-   "date": "2026-08-22",
-   "rating": 5.0,
-   "text": "Fun! Laughs! Happy!",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Leamington Parade",
-   "date": "2026-08-22",
-   "rating": 5.0,
-   "text": "Great communication between team at busy times",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Wellingborough Train Station",
-   "date": "2026-08-22",
-   "rating": 5.0,
-   "text": "Fantastic team effort",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Leamington Parade",
-   "date": "2026-08-22",
-   "rating": 5.0,
-   "text": "Great teamwork 👏",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Northampton Drive-Thru",
-   "date": "2026-08-22",
-   "rating": 5.0,
-   "text": "Great team work",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Wellingborough Train Station",
-   "date": "2026-08-22",
-   "rating": 4.0,
-   "text": "Chill Consistent Good",
-   "smt": null,
-   "sentiment": "Positive"
   }
  ]
 }
