@@ -116,11 +116,20 @@
   {
    "store": "Peterborough Fletton Quays",
    "sickfs": 22,
-   "late": 11,
-   "rep_pct": 86,
+   "late": 12,
+   "rep_pct": 84,
    "rtw": 10,
    "sick": 26,
    "rtw_rate": 38
+  },
+  {
+   "store": "Glenvale Drive Thru",
+   "sickfs": 18,
+   "late": 11,
+   "rep_pct": 94,
+   "rtw": 13,
+   "sick": 20,
+   "rtw_rate": 65
   },
   {
    "store": "Northampton Drive-Thru",
@@ -139,15 +148,6 @@
    "rtw": 10,
    "sick": 19,
    "rtw_rate": 53
-  },
-  {
-   "store": "Glenvale Drive Thru",
-   "sickfs": 17,
-   "late": 11,
-   "rep_pct": 93,
-   "rtw": 13,
-   "sick": 19,
-   "rtw_rate": 68
   },
   {
    "store": "Leamington Parade",
