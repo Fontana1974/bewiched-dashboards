@@ -2390,7 +2390,7 @@ HTML = f"""<!DOCTYPE html>
 <div class="brandbar"><div class="inner">
   <div class="logo"><div><div class="word">Be<span>wiched</span></div><div class="eyebrow">EOS Scorecard</div></div></div>
   <div class="spacer"></div>
-  <div class="ctx">Company level · 21 stores<br>Weekly &amp; Quarterly measurables<br><span style="color:var(--gold);font-weight:700">🔄 Generated {GEN}</span></div>
+  <div class="ctx">Company level · 22 stores<br>Weekly &amp; Quarterly measurables<br><span style="color:var(--gold);font-weight:700">🔄 Generated {GEN}</span></div>
 </div></div>
 <div class="wrap">
   <a class="back" href="index.html">← All dashboards</a>

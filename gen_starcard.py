@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Bewiched Star Card — estate build (21 stores). QTD/YTD toggle + last-week layer."""
+"""Bewiched Star Card — estate build (22 stores). QTD/YTD toggle + last-week layer."""
 import json, re, os
 HERE=os.path.dirname(os.path.abspath(__file__))
 BW=HERE
@@ -21,7 +21,7 @@ except Exception:
 CANON = ["Northampton Drive Thru","Rushden Lakes","Northampton Grosvenor","Kettering",
  "Leamington Parade","Fletton Quays","Market Harborough","Wellingborough Market St","Wellingborough Train Station",
  "Rothwell","Burton Latimer","Corby","Rugby","Higham Ferrers","Peterborough Bridge St","Olney",
- "Lower Heathcote","Billing Drive Thru","Glenvale Drive Thru","Balsall Common","Attleborough"]
+ "Lower Heathcote","Billing Drive Thru","Glenvale Drive Thru","Balsall Common","Attleborough","Warwick"]
 def norm(s):
     s=str(s).strip().lower().replace("’","'")
     s=re.sub(r'^\d+\s+','',s)
@@ -38,6 +38,7 @@ def norm(s):
     if 'fletton' in s: return "Fletton Quays"
     if 'bridge street' in s or s=='peterborough': return "Peterborough Bridge St"
     if 'heathcote' in s: return "Lower Heathcote"
+    if 'warwick' in s: return "Warwick"
     if 'harborough' in s: return "Market Harborough"
     if 'leamington parade' in s: return "Leamington Parade"
     if 'burton' in s: return "Burton Latimer"
@@ -326,7 +327,7 @@ tbody tr:last-child td{border-bottom:none}
 .pl{font-weight:800;text-align:center;width:74px}.cov{font-size:10.5px;color:var(--dim)}
 .foot{margin-top:12px;font-size:11px;color:var(--dim);line-height:1.55}.foot b{color:var(--muted)}
 </style></head><body><div class='wrap'>
-<div class='top'><div><div class='brand'>Bewiched &middot; Star Card</div><div class='h1'>Estate leaderboard &mdash; all 21 stores</div>
+<div class='top'><div><div class='brand'>Bewiched &middot; Star Card</div><div class='h1'>Estate leaderboard &mdash; all 22 stores</div>
 <div class='sub'>Ranked by overall Star score &middot; <span id='winlab'>rolling QTD</span> &middot; """+WKLABEL+"""</div></div>
 <div style='text-align:right'><div class='sub'>Gold = overall rating &middot; pillars: <span class='hit'>green &ge;4</span> &middot; <span class='warn'>amber 3&ndash;4</span> &middot; <span class='miss'>red &lt;3</span></div></div></div>
 <div class='tglwrap'><div class='tgl'><button data-w='qtd' class='on'>QTD</button><button data-w='ytd'>YTD</button></div>
@@ -706,7 +707,7 @@ for _co in AREAS: CARDS[_co+" (area)"]={w:area_card(_co,w) for w in WINDOWS}
 _sopts = "".join("<option value=\"%s\"%s>%s</option>"%(c,(" selected" if c==_default else ""),c) for c in sorted(CANON))
 _aopts = "".join("<option value=\"%s (area)\">%s&rsquo;s area (all stores)</option>"%(co,co) for co in AREAS)
 _opts = "<optgroup label=\"Area coaches\">"+_aopts+"</optgroup><optgroup label=\"Stores\">"+_sopts+"</optgroup>"
-_lb = ("<div class='top'><div><div class='brand'>Star Card</div><div class='h1'>Estate leaderboard &mdash; all 21 stores</div>"
+_lb = ("<div class='top'><div><div class='brand'>Star Card</div><div class='h1'>Estate leaderboard &mdash; all 22 stores</div>"
        "<div class='sub'>Ranked by overall Star score &middot; <span id='winlab'>rolling QTD</span> &middot; "+WKLABEL+"</div></div>"
        "<div style='text-align:right'><div class='sub'>Gold = overall rating &middot; pillars: <span class='hit'>green &ge;4</span> &middot; <span class='warn'>amber 3&ndash;4</span> &middot; <span class='miss'>red &lt;3</span></div></div></div>"
        "<table><thead><tr><th>#</th><th>Store</th><th>Overall Star Score</th><th class='plh'>Team</th><th class='plh'>Ops</th><th class='plh'>Customers</th><th class='plh'>Profit</th><th>Real data</th></tr></thead><tbody id='lbody'>"+TBODY["qtd"]+"</tbody></table>"+"<div class='foot'><b>Pillars:</b> Team (<b>RMS Health + Bench-ready /5</b>) &middot; Ops (<b>F1 avg Total Score QTD (target &le;175) + Brand &amp; Remote (blended audit &amp; remote, target 4.6)</b>) &middot; Customers (<b>Guest Check counts YoY (last completed week vs same week last year) + Google Health (green &ge;3.32)</b>) &middot; Profit (SPH + Food GP%). <b>Brand foundations</b> (Open/Close % + RTW % completed + New Starter Health) and <b>Urgent support</b> (coach vacancy, accidents/near-misses, red maintenance) sit outside the score. <b>RTW %</b> = each store's return-to-work completion from the sickness/RTW log (target &ge;90%, indicative). <b>Real data (N / 8):</b> count of the 8 scored metrics (RMS, Bench-ready, F1, Brand &amp; Remote, Guest counts, Google, SPH, Food GP) on genuine real data. New Starter Health is now a Brand Foundation (flagged vs &ge;90%, outside the score). The Store Card dropdown also renders a full <b>area</b> card for each coach (Jon / Rich / Ian). Overall = mean of available pillars. Targets indicative for Matt to set.</div>")

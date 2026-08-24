@@ -187,15 +187,16 @@ CANON = ["Attleborough", "Billing Drive Thru", "Burton Latimer", "Corby",
          "Leamington Parade", "Lower Heathcote", "Market Harborough", "Northampton",
          "Northampton Drive-Thru", "Olney", "Peterborough Bridge Street",
          "Peterborough Fletton Quays", "Rothwell", "Rugby", "Rushden Lakes",
-         "Wellingborough", "Wellingborough Train Station"]
-COACH = {  # store -> area coach (Jon 9 / Rich 9 / Ian 3 = 21)
+         "Warwick", "Wellingborough", "Wellingborough Train Station"]
+COACH = {  # store -> area coach (Jon 9 / Rich 9 / Ian 4 = 22)
     "Burton Latimer": "Jon", "Peterborough Fletton Quays": "Jon", "Rothwell": "Jon",
     "Corby": "Jon", "Kettering": "Jon", "Rushden Lakes": "Jon",
     "Peterborough Bridge Street": "Jon", "Higham Ferrers": "Jon", "Olney": "Jon",
     "Leamington Parade": "Rich", "Northampton": "Rich", "Wellingborough Train Station": "Rich",
     "Market Harborough": "Rich", "Wellingborough": "Rich", "Lower Heathcote": "Rich",
     "Rugby": "Rich", "Northampton Drive-Thru": "Rich", "Billing Drive Thru": "Rich",
-    "Attleborough": "Ian", "HOE Balsall Common": "Ian", "Glenvale Drive Thru": "Ian"}
+    "Attleborough": "Ian", "HOE Balsall Common": "Ian", "Glenvale Drive Thru": "Ian",
+    "Warwick": "Ian"}
 DT_STORES = ["Billing Drive Thru", "Glenvale Drive Thru", "Northampton Drive-Thru"]
 STORE_PAGES = ["Olney", "Attleborough", "Billing Drive Thru", "Glenvale Drive Thru",
                "Northampton Drive-Thru", "Leamington Parade"]
@@ -205,7 +206,7 @@ CATS = ["Hot drinks", "Cold drinks", "Milkshakes", "Food", "Bakery", "Other & re
 # informal source label -> canonical (lower-cased keys; competitors flagged separately)
 _MAP = {
     "lower heathcote, warwick": "Lower Heathcote", "lower heathcote": "Lower Heathcote",
-    "warwick": "Lower Heathcote", "burton": "Burton Latimer",
+    "warwick": "Warwick", "warwick market square": "Warwick", "burton": "Burton Latimer",
     "peterborough": "Peterborough Bridge Street", "p'boro bridge st": "Peterborough Bridge Street",
     "fletton": "Peterborough Fletton Quays", "p'boro fletton quays": "Peterborough Fletton Quays",
     "market street": "Wellingborough", "w'boro market st": "Wellingborough",
@@ -2295,12 +2296,12 @@ def pull_franchise():
     Richard Wagg sheet, blended 50/50 on the /5 scale (4.6 = 100/100 target). The combined score keys
     the royalty fee tier (Matt's 'Royalty fees linked to brand execution' scale). Monthly turnover from
     BigQuery gives the GBP fee = Total Fee % x turnover. Franchise stores: Attleborough, Glenvale Drive
-    Thru, HOE Balsall Common; Warwick Market Square listed 'opening soon' until it has audits.
+    Thru, HOE Balsall Common; Warwick listed as open-trading (first audit pending) until it has audits.
     Fault-tolerant: any failure leaves the last-good franchise_fees.json in place."""
     try:
         import collections
         FRAN = ["Attleborough", "Glenvale Drive Thru", "HOE Balsall Common"]
-        NEW = [{"store": "Warwick Market Square", "status": "opening soon"}]
+        NEW = [{"store": "Warwick", "status": "Open \u2013 trading; first audit pending"}]
         # brand monthly (cols A Store, D Date, J Total; A:J avoids the huge action-plan column)
         bmon = collections.defaultdict(lambda: collections.defaultdict(list))
         for r in sheet(SID["audit"], "'Brand Audit Date (NEW24/25)'!A1:J4000")[1:]:
