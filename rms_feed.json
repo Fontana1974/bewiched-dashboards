@@ -9,10 +9,10 @@
   "2026-07-01",
   "2026-08-23"
  ],
- "_comments_label": "recent shift voice — last 2 weeks to 23 Aug 2026",
+ "_comments_label": "recent shift voice — last 2 weeks to 24 Aug 2026",
  "_comments_window": [
-  "2026-08-10",
-  "2026-08-23"
+  "2026-08-11",
+  "2026-08-24"
  ],
  "_lastweek_count": 58,
  "worst": [
@@ -172,8 +172,8 @@
     "avg": 2.25
    },
    "qtd": {
-    "n": 37,
-    "avg": 2.81
+    "n": 39,
+    "avg": 2.92
    },
    "prevq": {
     "n": 69,
@@ -444,6 +444,20 @@
    "prevq": {
     "n": 13,
     "avg": 1.85
+   }
+  },
+  "Warwick": {
+   "weekly": {
+    "n": 0,
+    "avg": null
+   },
+   "qtd": {
+    "n": 0,
+    "avg": null
+   },
+   "prevq": {
+    "n": 0,
+    "avg": null
    }
   }
  },
@@ -1007,6 +1021,22 @@
  },
  "comments": [
   {
+   "store": "Corby",
+   "date": "2026-08-24",
+   "rating": 5.0,
+   "text": "Good shift",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Corby",
+   "date": "2026-08-24",
+   "rating": 5.0,
+   "text": "Good shoft",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
    "store": "HOE Balsall Common",
    "date": "2026-08-23",
    "rating": 5.0,
@@ -1179,22 +1209,6 @@
    "date": "2026-08-22",
    "rating": 4.0,
    "text": "Chill Consistent Good",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Attleborough",
-   "date": "2026-08-22",
-   "rating": 4.0,
-   "text": "Busy consistently",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Peterborough Fletton Quays",
-   "date": "2026-08-21",
-   "rating": 5.0,
-   "text": "Google reviews , friendly , productive",
    "smt": null,
    "sentiment": "Positive"
   }

@@ -1,5 +1,5 @@
 {
- "_generated": "23 Aug 2026, 21:16",
+ "_generated": "24 Aug 2026, 08:55",
  "return_date": "2026-09-02",
  "weeks": {
   "peak": "Mon 24 – Sun 30 Aug 2026",
@@ -549,6 +549,22 @@
    "weekday_delta": 12,
    "weekend_delta": 1,
    "pk_settled_pct": 3
+  },
+  {
+   "store": "Warwick",
+   "new": true,
+   "peak": 0,
+   "trans": 0,
+   "settled": 0,
+   "food_peak": null,
+   "food_trans": null,
+   "food_settled": null,
+   "wk_share_hol": null,
+   "wk_share_term": null,
+   "wk_share_pp": null,
+   "weekday_delta": null,
+   "weekend_delta": null,
+   "pk_settled_pct": null
   }
  ],
  "_method": "2025 same-week actuals x capped recent-8wk YoY (0.85-1.25). Weekday/weekend from 3 holiday wks (11-31 Aug 25) vs 3 term wks (8-28 Sep 25); weekend=Fri-Sun. Per-store food usage from BigQuery item quantities. New stores (Billing DT, Attleborough, Olney): run-rate x estate seasonal shape; food/weekend n/a."
