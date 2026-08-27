@@ -62,11 +62,31 @@ def _credentials():
         os.environ["GOOGLE_APPLICATION_CREDENTIALS"], scopes=scopes)
 
 def read_responses():
+    # Retry the Sheets read on transient outages (HTTP 5xx / timeouts): the Google Sheets API
+    # intermittently returns 503 "service currently unavailable", which used to kill the whole
+    # send (e.g. the Tue 25 Aug 2026 run). 3 attempts, ~25s backoff; 4xx (real errors) fail fast.
+    import time, socket, ssl
     from googleapiclient.discovery import build
+    from googleapiclient.errors import HttpError
     svc = build("sheets", "v4", credentials=_credentials(), cache_discovery=False)
     rng = f"'{RESP_TAB}'!A2:D100000"
-    vals = svc.spreadsheets().values().get(spreadsheetId=SHEET_ID, range=rng).execute().get("values", [])
-    return [tuple((r + ["","","",""])[:4]) for r in vals]
+    req = svc.spreadsheets().values().get(spreadsheetId=SHEET_ID, range=rng)
+    last = None
+    for attempt in range(3):
+        try:
+            vals = req.execute().get("values", [])
+            return [tuple((r + ["","","",""])[:4]) for r in vals]
+        except HttpError as e:
+            code = getattr(getattr(e, "resp", None), "status", None)
+            if code is not None and int(code) < 500:
+                raise                                   # 4xx = genuine error, do not retry
+            last = e
+        except (TimeoutError, socket.timeout, ssl.SSLError, ConnectionError, OSError) as e:
+            last = e
+        if attempt < 2:
+            print("[retry] Sheets read failed (%s) - attempt %d/3, waiting 25s" % (type(last).__name__, attempt + 1))
+            time.sleep(25)
+    raise last
 
 def compile_week(rows, today=None):
     today = today or dt.date.today()
