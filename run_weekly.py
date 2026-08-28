@@ -1464,7 +1464,7 @@ def pull_planner():
     Section B: CPH=idx1, Forecast=idx4/7/10, Plan hrs=idx5/8/11. Blank hours -> field absent."""
     ovr = {}
     for sid in (SID["planner_jon"], SID["planner_rich"], SID["planner_ian"]):
-        rows = sheet(sid, "'Weekly Planner'!A1:S60")
+        rows = sheet(sid, "'Weekly Planner'!A1:V60")
         sec = None
         secB_weeks = [None, None, None]   # calendar weeks the 3 forecast cols are LABELLED for (row 19 D/G/J)
         for r in rows:
@@ -1486,14 +1486,17 @@ def pull_planner():
             o = ovr.setdefault(st, {})
             if sec == "A":
                 worked = r[5] if len(r) > 5 and r[5] not in (None, "") else None
-                hol = r[8] if len(r) > 8 and r[8] not in (None, "") else None   # NEW: Holiday Pay Hours (col I)
-                acph = r[6] if len(r) > 6 and r[6] not in (None, "") else None  # Actual CPH = C/(F+I): sheet now folds holiday in
+                hol = r[8] if len(r) > 8 and r[8] not in (None, "") else None   # Holiday Pay Hours (col I)
+                ssp = r[9] if len(r) > 9 and r[9] not in (None, "") else None    # NEW: SSP Hours (col J), folded into SPH exactly like holiday
+                acph = r[6] if len(r) > 6 and r[6] not in (None, "") else None  # Actual SPH = C/(F+I+J): sheet folds holiday + SSP in
                 if worked is not None:
                     w = round(fnum(worked), 1)
                     hh = round(fnum(hol), 1) if hol is not None else 0.0
+                    ss = round(fnum(ssp), 1) if ssp is not None else 0.0
                     o["worked_lastwk"] = w                       # worked hours only (kept separate/visible)
                     o["holiday_lastwk"] = hh                     # holiday pay hours (paid, non-worked)
-                    o["used_lastwk"] = round(w + hh, 1)          # SPH hours = worked + holiday (feeds den + sph_history + Vizz)
+                    o["ssp_lastwk"] = ss                         # SSP hours (paid sick, non-worked)
+                    o["used_lastwk"] = round(w + hh + ss, 1)     # SPH hours = worked + holiday + SSP (feeds den + sph_history + Vizz)
                 if acph is not None: o["actual_cph_lastwk"] = round(fnum(acph), 1)
             elif sec == "B":
                 o["cph"] = round(fnum(r[1]), 1) if len(r) > 1 and r[1] not in (None, "") else o.get("cph")
@@ -1505,10 +1508,11 @@ def pull_planner():
                 # NEW: holiday-forecast N/P/R (idx 13/15/17); forecast SPH = forecast / (plan hrs + holiday fcst), mirrors sheet O/Q/S
                 def hvf(i): return round(fnum(r[i]), 1) if len(r) > i and r[i] not in (None, "") else 0.0
                 o["hol_fc"] = [hvf(13), hvf(15), hvf(17)]
+                o["ssp_fc"] = [hvf(19), hvf(20), hvf(21)]   # NEW: SSP-forecast T/U/V, folded into forecast SPH like holiday
                 _sfc = []
                 for _k in range(3):
-                    _f = o["fc"][_k]; _h = o["hrs"][_k]; _hol = o["hol_fc"][_k]
-                    _den = (_h or 0) + (_hol or 0)
+                    _f = o["fc"][_k]; _h = o["hrs"][_k]; _hol = o["hol_fc"][_k]; _ssp = o["ssp_fc"][_k]
+                    _den = (_h or 0) + (_hol or 0) + (_ssp or 0)
                     _sfc.append(round(_f / _den) if (_f is not None and _den > 0) else None)
                 o["sph_fc"] = _sfc
                 # LABEL-KEYED: the calendar week (Monday ISO) each forecast column is labelled for
@@ -3034,7 +3038,7 @@ def pull_eos_scorecard():
     # ---- committed PER-STORE SPH history (sph_history.csv): banks each week's per-store sales+hours so the
     # ---- per-store SPH accumulates a real QTD (was mirroring the last week). Upserted by week_ending+store. ----
     SPH_HIST = os.path.join(HERE, "sph_history.csv")
-    SPH_COLS = ["week_ending", "store", "sales", "hours", "sph"]
+    SPH_COLS = ["week_ending", "store", "sales", "hours", "sph", "holiday", "ssp"]
     _sph_hist = []
     if os.path.exists(SPH_HIST):
         try:
@@ -3047,7 +3051,9 @@ def pull_eos_scorecard():
         h = v.get("used_lastwk"); sa = (rec.get(st, {}) or {}).get("lw26")
         if h and sa:
             _sph_this.append({"week_ending": _cur_we, "store": st, "sales": round(sa), "hours": round(h, 1),
-                              "sph": round(sa / h, 1)})
+                              "sph": round(sa / h, 1),
+                              "holiday": round(v.get("holiday_lastwk") or 0, 1),
+                              "ssp": round(v.get("ssp_lastwk") or 0, 1)})
     _sph_merged = {(r.get("week_ending"), r.get("store")): r for r in _sph_hist}
     for r in _sph_this: _sph_merged[(r["week_ending"], r["store"])] = r
     _sph_ord = sorted(_sph_merged.values(), key=lambda r: (r.get("week_ending", ""), r.get("store", "")))
@@ -3075,11 +3081,12 @@ def pull_eos_scorecard():
     try:
         from googleapiclient.discovery import build as _gbuild
         _svc = _gbuild("sheets", "v4", credentials=_creds(), cache_discovery=False).spreadsheets()
-        _hdr = ["Week Ending", "Store", "Sales \u00a3", "Hours", "SPH \u00a3/hr"]
+        _hdr = ["Week Ending", "Store", "Sales \u00a3", "Hours", "SPH \u00a3/hr", "Holiday Hrs", "SSP Hrs"]
         _vals = [_hdr] + [[str(r.get("week_ending", "")), str(r.get("store", "")),
-                           str(r.get("sales", "")), str(r.get("hours", "")), str(r.get("sph", ""))]
+                           str(r.get("sales", "")), str(r.get("hours", "")), str(r.get("sph", "")),
+                           str(r.get("holiday", "")), str(r.get("ssp", ""))]
                           for r in _sph_ord]
-        _svc.values().clear(spreadsheetId=SPH_SHEET_ID, range="Sheet1!A:E").execute()
+        _svc.values().clear(spreadsheetId=SPH_SHEET_ID, range="Sheet1!A:G").execute()
         _svc.values().update(spreadsheetId=SPH_SHEET_ID, range="Sheet1!A1",
                              valueInputOption="USER_ENTERED", body={"values": _vals}).execute()
         try:  # best-effort: bold + freeze the header row
