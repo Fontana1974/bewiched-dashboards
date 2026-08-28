@@ -2128,10 +2128,14 @@ def cos_extra_html():
     return "".join(P)
 
 def sph_forecast_view_html():
-    """Mirror the Company Dashboard 'Forecast & Hours' / SPH actual-vs-forecast view onto the EOS
-    SPH-Labour metric detail. Reads the SAME feeds the company view uses (actuals.json,
-    planner_overrides.json, allstores.json rec) so the numbers RECONCILE between the two dashboards,
-    incl. worked + holiday + SSP hours. Fault-tolerant: returns "" if a feed is missing."""
+    """Faithful replica of the Company dashboard's 'Forecast & Hours' tab, rendered on the EOS
+    SPH/Labour metric detail. Reads the SAME feeds the company view uses (actuals.json,
+    planner_overrides.json, allstores.json rec) so figures RECONCILE with the company dashboard
+    where they overlap. The one intended difference: this version PULLS IAN'S AREA THROUGH -
+    the company page drops any store lacking 'f1' data (currently just Warwick), whereas here every
+    store in all three areas (Jon / Rich / Ian) is shown, grouped by area with an area subtotal.
+    Used hours = worked + holiday + SSP. Stores with no planner forecast / no actuals yet are
+    flagged, never invented. Fault-tolerant: returns "" if a core feed is missing."""
     import datetime as _dt
     try:
         REC = json.load(open(os.path.join(HERE, "allstores.json")))["rec"]
@@ -2142,94 +2146,168 @@ def sph_forecast_view_html():
     try:  ACT = json.load(open(os.path.join(HERE, "actuals.json")))
     except Exception: ACT = {}
     R = REC
-    stores = sorted([s for s in REC if isinstance(REC.get(s), dict) and (REC[s].get("lw26") is not None)],
-                    key=lambda x: -(REC[x].get("lw26") or 0))
+    COACH = {
+        "Burton Latimer": "Jon", "Peterborough Fletton Quays": "Jon", "Rothwell": "Jon",
+        "Corby": "Jon", "Kettering": "Jon", "Rushden Lakes": "Jon",
+        "Peterborough Bridge Street": "Jon", "Higham Ferrers": "Jon", "Olney": "Jon",
+        "Leamington Parade": "Rich", "Northampton": "Rich", "Wellingborough Train Station": "Rich",
+        "Market Harborough": "Rich", "Wellingborough": "Rich", "Lower Heathcote": "Rich",
+        "Rugby": "Rich", "Northampton Drive-Thru": "Rich", "Billing Drive Thru": "Rich",
+        "Attleborough": "Ian", "HOE Balsall Common": "Ian", "Glenvale Drive Thru": "Ian",
+        "Warwick": "Ian"}
+    AREAS = ["Jon", "Rich", "Ian"]
+    stores = [s for s in REC if isinstance(REC.get(s), dict) and (REC[s].get("lw26") is not None) and s in COACH]
     if not stores:
         return ""
     def GBP(x):
-        try: return "£%s" % format(int(round(x)), ",")
-        except Exception: return "—"
+        try: return "&pound;%s" % format(int(round(x)), ",")
+        except Exception: return "&mdash;"
     def tg(t, k): return '<span class="tag %s">%s</span>' % (k, t)
     _t = _dt.date.today(); _cur = _t - _dt.timedelta(days=((_t.weekday() + 1) % 7)); _mon = _cur + _dt.timedelta(days=1)
     def _wl(d): return "W/C %d %s" % (d.day, d.strftime("%b"))
     wk = [_wl(_mon), _wl(_mon + _dt.timedelta(days=7)), _wl(_mon + _dt.timedelta(days=14))]
-    # ---- Three-week forecast & hours (label-keyed, from the planners) ----
-    def _fc(s, i):
+    NCOLS_FH = 12
+    def by_area(fn):
+        out = ""
+        for ar in AREAS:
+            grp = sorted([s for s in stores if COACH.get(s) == ar], key=lambda x: -(REC[x].get("lw26") or 0))
+            if grp: out += fn(ar, grp)
+        return out
+    def _fc_fallback(s, i):
         ly = (R[s].get("ly") or [0, 0, 0, 0])[i]; y = R[s].get("yoy_4w")
         return round(ly * (1 + y / 100)) if (ly > 0 and y is not None) else (R[s].get("lw26") or 0)
-    sumly = [0, 0, 0]; sumf = [0, 0, 0]; sumh = [0, 0, 0]; sumlw = 0; fcst_rows = ""
-    for s in stores:
-        _ov = OVR.get(s) if isinstance(OVR.get(s), dict) else {}
-        cph = (_ov.get("cph") if _ov.get("cph") else R[s].get("cph", 55)); lw = R[s].get("lw26") or 0; sumlw += lw
-        cells = '<td class="l">%s</td><td>£%s</td><td>%s</td>' % (esc(s), cph, GBP(lw))
-        _fcw = _ov.get("fc_weeks") or []
-        for wi in range(3):
-            ly = (R[s].get("ly") or [0, 0, 0, 0])[wi + 1]
-            _tgt = (_mon + _dt.timedelta(days=7 * wi)).isoformat(); _miss = False; f = None; h = None
-            if _ov:
-                _j = (_fcw.index(_tgt) if _tgt in _fcw else None) if any(_fcw) else wi
-                if _j is None: _miss = True
-                else: f = _ov["fc"][_j]; h = _ov["hrs"][_j]
-            else:
-                f = _fc(s, wi + 1); h = round(f / cph) if cph else 0
-            sumly[wi] += ly
-            if not _miss and f is not None: sumf[wi] += (f or 0); sumh[wi] += (h or 0)
-            if _miss:
-                cells += '<td>%s</td><td colspan="2" style="color:#b08968;font-style:italic;font-size:11px">no forecast</td>' % (GBP(ly) if ly > 0 else "—")
-            else:
-                cells += '<td>%s</td><td style="font-weight:600">%s</td><td>%s</td>' % (GBP(ly) if ly > 0 else "—", GBP(f), (h if h is not None else "—"))
-        fcst_rows += "<tr>%s</tr>" % cells
-    tot = '<tr class="tot"><td class="l">COMPANY TOTAL</td><td></td><td>%s</td>' % GBP(sumlw)
-    for wi in range(3): tot += "<td>%s</td><td>%s</td><td>%s</td>" % (GBP(sumly[wi]), GBP(sumf[wi]), sumh[wi])
-    fcst_rows += tot + "</tr>"
-    blended = round(sumf[0] / sumh[0], 1) if sumh[0] else 0
+
+    gsumly = [0, 0, 0]; gsumf = [0, 0, 0]; gsumh = [0, 0, 0]; gsumlw = 0
+    no_forecast = []
+    def _fh_area(ar, grp):
+        nonlocal gsumlw
+        rows = '<tr class="ar"><td class="l" colspan="%d">%s&rsquo;s area</td></tr>' % (NCOLS_FH, esc(ar))
+        aly = [0, 0, 0]; af = [0, 0, 0]; ah = [0, 0, 0]; alw = 0
+        for s in grp:
+            _ov = OVR.get(s) if isinstance(OVR.get(s), dict) else {}
+            cph = (_ov.get("cph") if _ov.get("cph") else R[s].get("cph")) or 55
+            lw = R[s].get("lw26") or 0; alw += lw; gsumlw += lw
+            cells = '<td class="l">%s</td><td>&pound;%s</td><td>%s</td>' % (esc(s), int(cph), GBP(lw))
+            _fcw = _ov.get("fc_weeks") or []; store_has = False
+            for wi in range(3):
+                ly = (R[s].get("ly") or [0, 0, 0, 0])[wi + 1]; aly[wi] += ly; gsumly[wi] += ly
+                _tgt = (_mon + _dt.timedelta(days=7 * wi)).isoformat(); _miss = False; f = None; h = None
+                if _ov:
+                    _j = (_fcw.index(_tgt) if _tgt in _fcw else None) if any(_fcw) else wi
+                    if _j is None: _miss = True
+                    else: f = _ov["fc"][_j]; h = _ov["hrs"][_j]
+                else:
+                    f = _fc_fallback(s, wi + 1); h = round(f / cph) if cph else 0
+                if f is None: _miss = True
+                if not _miss:
+                    af[wi] += (f or 0); ah[wi] += (h or 0); gsumf[wi] += (f or 0); gsumh[wi] += (h or 0); store_has = True
+                    cells += '<td class="mini">%s</td><td style="font-weight:600">%s</td><td>%s</td>' % (GBP(ly) if ly > 0 else "&mdash;", GBP(f), (h if h is not None else "&mdash;"))
+                else:
+                    cells += '<td class="mini">%s</td><td colspan="2" class="nofc">no forecast</td>' % (GBP(ly) if ly > 0 else "&mdash;")
+            if not store_has: no_forecast.append(s)
+            rows += "<tr>%s</tr>" % cells
+        sub = '<tr class="tot"><td class="l">%s&rsquo;s area &mdash; total</td><td></td><td>%s</td>' % (esc(ar), GBP(alw))
+        for wi in range(3): sub += "<td>%s</td><td>%s</td><td>%s</td>" % (GBP(aly[wi]), GBP(af[wi]), ah[wi])
+        return rows + sub + "</tr>"
+    fh_rows = by_area(_fh_area)
+    grand = '<tr class="tot grand"><td class="l">COMPANY TOTAL (all areas)</td><td></td><td>%s</td>' % GBP(gsumlw)
+    for wi in range(3): grand += "<td>%s</td><td>%s</td><td>%s</td>" % (GBP(gsumly[wi]), GBP(gsumf[wi]), gsumh[wi])
+    fh_rows += grand + "</tr>"
+    blended = round(gsumf[0] / gsumh[0], 1) if gsumh[0] else 0
     kpis = ('<div class="md-stats">'
-      '<div class="md-stat"><div class="md-stat-lab">This week forecast</div><div class="md-stat-big">%s</div><div class="md-stat-plan">%s</div></div>'
-      '<div class="md-stat"><div class="md-stat-lab">Planned hours</div><div class="md-stat-big">%s</div><div class="md-stat-plan">this week</div></div>'
-      '<div class="md-stat"><div class="md-stat-lab">Blended SPH</div><div class="md-stat-big">£%s</div><div class="md-stat-plan">forecast ÷ hours</div></div>'
-      '</div>') % (GBP(sumf[0]), esc(wk[0]), sumh[0], blended)
-    fh = ('<table class="md-ps sphv"><thead><tr><th class="l">Store</th><th>SPH tgt</th><th>LW actual</th>'
-          '<th>LY</th><th>%s</th><th>Hrs</th><th>LY</th><th>%s</th><th>Hrs</th><th>LY</th><th>%s</th><th>Hrs</th></tr></thead><tbody>%s</tbody></table>'
-          % (esc(wk[0]), esc(wk[1]), esc(wk[2]), fcst_rows))
-    # ---- Actual vs forecast (last completed week) ----
-    avf = ""; sfc = sa = ssc = su = sa_u = scu = nr = nu = 0
-    for s in stores:
-        a = ACT.get(s)
-        if not isinstance(a, list): continue
-        _ov = OVR.get(s) if isinstance(OVR.get(s), dict) else {}
-        fc = a[1] or 0; sched = a[2] or 0; used = a[3] or 0; act = R[s].get("lw26") or 0
-        tcph = (_ov.get("cph") if _ov.get("cph") else R[s].get("cph", 55))
-        if _ov.get("used_lastwk") is not None: used = _ov["used_lastwk"]
-        sfc += fc; sa += act; ssc += sched; nr += 1
-        if used: su += used; sa_u += act; scu += sched; nu += 1
-        sv = round(100 * (act / fc - 1)) if fc else None
-        hv = round(used - sched, 1) if used else None
-        ac = round(act / used, 2) if used else None
-        svk = "t-ok" if (sv is not None and sv >= 0) else "t-red"
-        cpk = "t-ok" if (ac is not None and ac >= tcph) else "t-red"
-        hvk = "t-ok" if (hv is not None and hv <= 0) else "t-amber"
-        svt = (("+" if sv >= 0 else "") + str(sv) + "%") if sv is not None else "n/a"
-        hvt = (("+" if hv >= 0 else "") + ("%g" % hv)) if hv is not None else "n/a"
-        avf += ('<tr><td class="l" style="font-weight:700">%s</td><td>%s</td><td style="font-weight:700">%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>£%s</td><td>%s</td></tr>'
-                % (esc(s), GBP(fc), GBP(act), tg(svt, svk), ("%g" % sched), (("%g" % used) if used else "—"),
-                   tg(hvt, hvk), tcph, tg(("£%.2f" % ac) if ac is not None else "n/a", cpk)))
-    tsv = round(100 * (sa / sfc - 1)) if sfc else 0; _cmp = (nu == nr and nu > 0)
-    tac = round(sa_u / su, 2) if su else None; thv = round(su - scu, 1) if _cmp else None
-    avf += ('<tr class="tot"><td class="l">COMPANY TOTAL</td><td>%s</td><td>%s</td><td>%s%%</td><td>%s</td><td>%s</td><td>%s</td><td></td><td>%s</td></tr>'
-            % (GBP(sfc), GBP(sa), ("+" if tsv >= 0 else "") + str(tsv), ("%g" % ssc), (("%g" % su) if su else "—"),
-               ((("+" if thv >= 0 else "") + ("%g" % thv)) if thv is not None else "—"), (("£%.2f" % tac) if tac is not None else "—")))
+      '<div class="md-stat"><div class="md-stat-lab">This week &mdash; sales forecast</div><div class="md-stat-big">%s</div><div class="md-stat-plan">%s &middot; all areas</div></div>'
+      '<div class="md-stat"><div class="md-stat-lab">This week &mdash; planned hours</div><div class="md-stat-big">%s</div><div class="md-stat-plan">at CPH (sales per labour hour) target</div></div>'
+      '<div class="md-stat"><div class="md-stat-lab">Blended CPH</div><div class="md-stat-big">&pound;%s</div><div class="md-stat-plan">forecast &pound; &divide; planned hrs</div></div>'
+      '</div>') % (GBP(gsumf[0]), esc(wk[0]), gsumh[0], blended)
+    fh = ('<table class="md-ps sphv"><thead>'
+          '<tr><th class="l" rowspan="2">Store</th><th rowspan="2">CPH</th><th rowspan="2">Last wk actual</th>'
+          '<th colspan="3">%s</th><th colspan="3">%s</th><th colspan="3">%s</th></tr>'
+          '<tr><th>LY</th><th>Forecast &pound;</th><th>Hrs</th><th>LY</th><th>Forecast &pound;</th><th>Hrs</th><th>LY</th><th>Forecast &pound;</th><th>Hrs</th></tr>'
+          '</thead><tbody>%s</tbody></table>' % (esc(wk[0]), esc(wk[1]), esc(wk[2]), fh_rows))
+
+    gfc = ga = gsc = gu = gau = gscu = gnr = gnu = 0
+    no_actuals = []
+    def _avf_area(ar, grp):
+        nonlocal gfc, ga, gsc, gu, gau, gscu, gnr, gnu
+        rows = '<tr class="ar"><td class="l" colspan="9">%s&rsquo;s area</td></tr>' % esc(ar)
+        afc = aa = asc = au = aau = ascu = anr = anu = 0
+        any_row = False
+        for s in grp:
+            a = ACT.get(s)
+            if not isinstance(a, list):
+                no_actuals.append(s); continue
+            any_row = True
+            _ov = OVR.get(s) if isinstance(OVR.get(s), dict) else {}
+            fc = a[1] or 0; sched = a[2] or 0; used = a[3] or 0; act = R[s].get("lw26") or 0
+            tcph = (_ov.get("cph") if _ov.get("cph") else R[s].get("cph")) or 55
+            if _ov.get("used_lastwk") is not None: used = _ov["used_lastwk"]
+            afc += fc; aa += act; asc += sched; anr += 1
+            gfc += fc; ga += act; gsc += sched; gnr += 1
+            if used:
+                au += used; aau += act; ascu += sched; anu += 1
+                gu += used; gau += act; gscu += sched; gnu += 1
+            sv = round(100 * (act / fc - 1)) if fc else None
+            hv = round(used - sched, 1) if used else None
+            ac = round(act / used, 2) if used else None
+            svk = "t-ok" if (sv is not None and sv >= 0) else "t-red"
+            cpk = "t-ok" if (ac is not None and ac >= tcph) else "t-red"
+            hvk = "t-ok" if (hv is not None and hv <= 0) else "t-amber"
+            svt = (("+" if sv >= 0 else "") + str(sv) + "%") if sv is not None else "n/a"
+            hvt = (("+" if hv >= 0 else "") + ("%g" % hv)) if hv is not None else "n/a"
+            rows += ('<tr><td class="l" style="font-weight:700">%s</td><td>%s</td><td style="font-weight:700">%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>&pound;%s</td><td>%s</td></tr>'
+                     % (esc(s), GBP(fc), GBP(act), tg(svt, svk), ("%g" % sched), (("%g" % used) if used else "&mdash;"),
+                        tg(hvt, hvk), int(tcph), tg(("&pound;%.2f" % ac) if ac is not None else "n/a", cpk)))
+        if not any_row:
+            rows += '<tr><td class="l nofc" colspan="9">%s&rsquo;s area &mdash; no actuals recorded yet</td></tr>' % esc(ar)
+            return rows
+        asv = round(100 * (aa / afc - 1)) if afc else 0
+        _acmp = (anu == anr and anu > 0)
+        aac = round(aau / au, 2) if au else None
+        ahv = round(au - ascu, 1) if _acmp else None
+        rows += ('<tr class="tot"><td class="l">%s&rsquo;s area &mdash; total</td><td>%s</td><td>%s</td><td>%s%%</td><td>%s</td><td>%s</td><td>%s</td><td></td><td>%s</td></tr>'
+                 % (esc(ar), GBP(afc), GBP(aa), ("+" if asv >= 0 else "") + str(asv), ("%g" % asc), (("%g" % au) if au else "&mdash;"),
+                    ((("+" if ahv >= 0 else "") + ("%g" % ahv)) if ahv is not None else "&mdash;"), (("&pound;%.2f" % aac) if aac is not None else "&mdash;")))
+        return rows
+    avf_rows = by_area(_avf_area)
+    tsv = round(100 * (ga / gfc - 1)) if gfc else 0; _cmp = (gnu == gnr and gnu > 0)
+    tac = round(gau / gu, 2) if gu else None; thv = round(gu - gscu, 1) if _cmp else None
+    avf_rows += ('<tr class="tot grand"><td class="l">COMPANY TOTAL (all areas)</td><td>%s</td><td>%s</td><td>%s%%</td><td>%s</td><td>%s</td><td>%s</td><td></td><td>%s</td></tr>'
+                 % (GBP(gfc), GBP(ga), ("+" if tsv >= 0 else "") + str(tsv), ("%g" % gsc), (("%g" % gu) if gu else "&mdash;"),
+                    ((("+" if thv >= 0 else "") + ("%g" % thv)) if thv is not None else "&mdash;"), (("&pound;%.2f" % tac) if tac is not None else "&mdash;")))
     avf_wk = ACT.get("_week_label", "last week")
-    avft = ('<table class="md-ps sphv"><thead><tr><th class="l">Store</th><th>Forecast</th><th>Actual</th><th>vs fcst</th>'
-            '<th>Sched hrs</th><th>Used hrs</th><th>Hrs vs sched</th><th>SPH tgt</th><th>Actual SPH</th></tr></thead><tbody>%s</tbody></table>' % avf)
+    avft = ('<table class="md-ps sphv"><thead><tr><th class="l">Store</th><th>Forecast &pound;</th><th>Actual &pound;</th><th>Sales vs FC</th>'
+            '<th>Sched hrs</th><th>Used hrs</th><th>Hrs vs sched</th><th>Target CPH</th><th>Actual CPH</th></tr></thead><tbody>%s</tbody></table>' % avf_rows)
+
+    plinks = ('<div class="md-plinks">'
+      '<a class="plannerbtn" href="https://docs.google.com/spreadsheets/d/1PSjBGiR40171h769esQCtn3ldcpCB5XJyfqRTo7Yccs/edit" target="_blank" rel="noopener">&#128203; Jon&rsquo;s Planner &#8599;</a>'
+      '<a class="plannerbtn" href="https://docs.google.com/spreadsheets/d/1_qdK6fzqPg1NcA2KKMy2TnaZ8nQJtVE-fglz2On3oBw/edit" target="_blank" rel="noopener">&#128203; Ian&rsquo;s Planner &#8599;</a>'
+      '<a class="plannerbtn" href="https://docs.google.com/spreadsheets/d/11XuXn9zQr-JB4x2fQ0ORV96Sf-U7xWPQPvg2YlCl_dQ/edit" target="_blank" rel="noopener">&#128203; Rich&rsquo;s Planner &#8599;</a>'
+      '<span class="md-note" style="margin:0">each area&rsquo;s planner feeds its forecast, which rolls up here</span></div>')
+
+    flag = ""
+    if no_forecast or no_actuals:
+        bits = []
+        if no_forecast: bits.append("no planner forecast yet: <b>%s</b>" % ", ".join(esc(x) for x in sorted(set(no_forecast))))
+        if no_actuals: bits.append("no actuals recorded yet: <b>%s</b>" % ", ".join(esc(x) for x in sorted(set(no_actuals))))
+        flag = '<div class="md-note" style="background:#fbeae8;border:1px solid #eccfca;color:#8c2f22;padding:8px 11px;border-radius:9px">&#9888; New / incomplete stores &mdash; %s. Shown for completeness; excluded from blended totals until data lands.</div>' % " &middot; ".join(bits)
+
     _style = ('<style>.sphv{max-width:100%;font-size:11.5px}.sphv th,.sphv td{text-align:center}'
-              '.sphv th.l,.sphv td.l{text-align:left}.sphv tr.tot td{font-weight:700;background:var(--cream);border-top:2px solid var(--line)}</style>')
-    return (_style + kpis
-      + '<div class="md-section-h">Three-week forecast &amp; hours (from the area planners)</div>'
-      + '<div class="md-note">Blended SPH = this week’s forecast £ ÷ planned hours. Same planner feed as the Company dashboard, so the figures reconcile (incl. worked + holiday + SSP).</div>'
-      + fh
+              '.sphv th.l,.sphv td.l{text-align:left}'
+              '.sphv tr.ar td{text-align:left;font-weight:800;background:#f3ece3;color:var(--brown);border-top:2px solid var(--line);letter-spacing:.02em}'
+              '.sphv tr.tot td{font-weight:700;background:var(--cream)}'
+              '.sphv tr.tot.grand td{background:#e7dccd;border-top:2px solid var(--line);border-bottom:2px solid var(--line)}'
+              '.sphv td.nofc{color:#b08968;font-style:italic;font-size:11px}'
+              '.md-plinks{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:4px 0 14px}'
+              '.md-plinks .plannerbtn{display:inline-block;padding:6px 11px;border-radius:9px;background:var(--card);border:1px solid var(--line);color:var(--brown);font-weight:700;font-size:12px;text-decoration:none}'
+              '.md-plinks .plannerbtn:hover{background:var(--cream)}</style>')
+    return (_style + kpis + plinks
       + '<div class="md-section-h">Last week (%s) &mdash; actual vs forecast</div>' % esc(avf_wk)
-      + '<div class="md-note">Used hours = worked + holiday + SSP (from the planners). Actual SPH = actual sales ÷ used hours, green when ≥ the store’s £/hr target.</div>'
-      + avft)
+      + '<div class="md-note">Forecast = the week&rsquo;s committed forecast; actual sales = live BigQuery; Actual CPH = actual sales &divide; used hours (worked + holiday + SSP). Grouped by area &mdash; Jon, Rich <b>and Ian</b>.</div>'
+      + avft
+      + flag
+      + '<div class="md-section-h">Three-week forecast &amp; hours &mdash; by area</div>'
+      + '<div class="md-note">Forecast = each area planner&rsquo;s committed figure (label-keyed to the calendar week); Blended CPH = this week&rsquo;s forecast &pound; &divide; planned hours. Same feed as the Company dashboard, so overlapping figures reconcile &mdash; the only difference is Ian&rsquo;s area is pulled through here.</div>'
+      + fh)
 
 
 md_options = ""
