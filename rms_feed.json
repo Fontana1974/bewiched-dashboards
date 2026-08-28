@@ -298,7 +298,7 @@
     "avg": 4.75
    },
    "qtd": {
-    "n": 85,
+    "n": 86,
     "avg": 4.64
    },
    "prevq": {
@@ -1029,6 +1029,14 @@
    "sentiment": "Positive"
   },
   {
+   "store": "Billing Drive Thru",
+   "date": "2026-08-28",
+   "rating": 5.0,
+   "text": "Fab shift",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
    "store": "Rugby",
    "date": "2026-08-27",
    "rating": 5.0,
@@ -1203,14 +1211,6 @@
    "text": "Busy close shift",
    "smt": null,
    "sentiment": "Mixed"
-  },
-  {
-   "store": "Corby",
-   "date": "2026-08-24",
-   "rating": 5.0,
-   "text": "Good shift",
-   "smt": null,
-   "sentiment": "Positive"
   }
  ]
 }
