@@ -21,12 +21,6 @@
    "reason": ""
   },
   {
-   "name": "Emily  Mayhew",
-   "store": "Peterborough Fletton Quays",
-   "date": "2026-08-20",
-   "reason": "NaEmily has injured her leg, she feel and has tore a ligament in her leg and is currently "
-  },
-  {
    "name": "Leah-Nicole Ayling",
    "store": "Peterborough Bridge Street",
    "date": "2026-08-18",
@@ -105,25 +99,25 @@
    "reason": "tbc - fever (?)"
   }
  ],
- "outstanding_n": 17,
+ "outstanding_n": 16,
  "per_store": [
   {
    "store": "Peterborough Fletton Quays",
    "sickfs": 22,
-   "late": 12,
-   "rep_pct": 84,
-   "rtw": 10,
-   "sick": 26,
-   "rtw_rate": 38
+   "late": 13,
+   "rep_pct": 85,
+   "rtw": 11,
+   "sick": 27,
+   "rtw_rate": 41
   },
   {
    "store": "Glenvale Drive Thru",
-   "sickfs": 18,
+   "sickfs": 21,
    "late": 11,
    "rep_pct": 94,
    "rtw": 13,
-   "sick": 20,
-   "rtw_rate": 65
+   "sick": 23,
+   "rtw_rate": 57
   },
   {
    "store": "Northampton Drive-Thru",
@@ -245,7 +239,7 @@
   {
    "store": "HOE Balsall Common",
    "sickfs": 5,
-   "late": 2,
+   "late": 4,
    "rep_pct": 100,
    "rtw": 3,
    "sick": 5,

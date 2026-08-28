@@ -86,15 +86,15 @@
       },
       {
        "label": "RTW completion",
-       "value": "65%",
-       "star": 3.7,
+       "value": "57%",
+       "star": 3.3,
        "on_target": false
       },
       {
        "label": "Google health",
-       "value": "3.22 (QTD)",
-       "star": 4.3,
-       "on_target": false
+       "value": "3.33 (QTD)",
+       "star": 4.6,
+       "on_target": true
       },
       {
        "label": "Lateness (shown, not scored)",
@@ -114,7 +114,7 @@
     "coaching_barista_pct": 80.6,
     "openclose_pct": 100,
     "openclose_detail": "57 open & 56 close vs 56 trading days (20 Apr–14 Jun), Process Street feed",
-    "rtw_pct": 65.0,
+    "rtw_pct": 57.0,
     "rtw_detail": "RTW% from HRP sickness/RTW (Glenvale, QTD)"
    },
    "_cph_target": 63,

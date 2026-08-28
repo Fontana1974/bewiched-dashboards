@@ -2,6 +2,7 @@
  "Rushden Lakes": {
   "worked_lastwk": 344.0,
   "holiday_lastwk": 74.0,
+  "ssp_lastwk": 0.0,
   "used_lastwk": 418.0,
   "actual_cph_lastwk": 58.3,
   "cph": 63.0,
@@ -20,6 +21,11 @@
    0.0,
    0.0
   ],
+  "ssp_fc": [
+   0.0,
+   0.0,
+   0.0
+  ],
   "sph_fc": [
    65,
    63,
@@ -34,6 +40,7 @@
  "Kettering": {
   "worked_lastwk": 161.0,
   "holiday_lastwk": 30.0,
+  "ssp_lastwk": 0.0,
   "used_lastwk": 191.0,
   "actual_cph_lastwk": 51.5,
   "cph": 59.0,
@@ -52,6 +59,11 @@
    0.0,
    0.0
   ],
+  "ssp_fc": [
+   0.0,
+   0.0,
+   0.0
+  ],
   "sph_fc": [
    58,
    59,
@@ -66,6 +78,7 @@
  "Peterborough Fletton Quays": {
   "worked_lastwk": 161.0,
   "holiday_lastwk": 18.0,
+  "ssp_lastwk": 0.0,
   "used_lastwk": 179.0,
   "actual_cph_lastwk": 46.6,
   "cph": 52.0,
@@ -84,6 +97,11 @@
    0.0,
    0.0
   ],
+  "ssp_fc": [
+   0.0,
+   0.0,
+   0.0
+  ],
   "sph_fc": [
    52,
    52,
@@ -98,6 +116,7 @@
  "Corby": {
   "worked_lastwk": 157.0,
   "holiday_lastwk": 0.0,
+  "ssp_lastwk": 0.0,
   "used_lastwk": 157.0,
   "actual_cph_lastwk": 48.2,
   "cph": 48.0,
@@ -116,6 +135,11 @@
    0.0,
    0.0
   ],
+  "ssp_fc": [
+   0.0,
+   0.0,
+   0.0
+  ],
   "sph_fc": [
    47,
    52,
@@ -130,6 +154,7 @@
  "Olney": {
   "worked_lastwk": 119.0,
   "holiday_lastwk": 0.0,
+  "ssp_lastwk": 0.0,
   "used_lastwk": 119.0,
   "actual_cph_lastwk": 45.9,
   "cph": 49.0,
@@ -148,6 +173,11 @@
    0.0,
    0.0
   ],
+  "ssp_fc": [
+   0.0,
+   0.0,
+   0.0
+  ],
   "sph_fc": [
    41,
    41,
@@ -162,6 +192,7 @@
  "Rothwell": {
   "worked_lastwk": 114.0,
   "holiday_lastwk": 12.0,
+  "ssp_lastwk": 0.0,
   "used_lastwk": 126.0,
   "actual_cph_lastwk": 53.5,
   "cph": 48.0,
@@ -180,6 +211,11 @@
    0.0,
    0.0
   ],
+  "ssp_fc": [
+   0.0,
+   0.0,
+   0.0
+  ],
   "sph_fc": [
    48,
    48,
@@ -194,6 +230,7 @@
  "Peterborough Bridge Street": {
   "worked_lastwk": 117.0,
   "holiday_lastwk": 46.0,
+  "ssp_lastwk": 0.0,
   "used_lastwk": 163.0,
   "actual_cph_lastwk": 33.2,
   "cph": 48.0,
@@ -212,6 +249,11 @@
    0.0,
    0.0
   ],
+  "ssp_fc": [
+   0.0,
+   0.0,
+   0.0
+  ],
   "sph_fc": [
    45,
    48,
@@ -226,6 +268,7 @@
  "Burton Latimer": {
   "worked_lastwk": 119.0,
   "holiday_lastwk": 0.0,
+  "ssp_lastwk": 0.0,
   "used_lastwk": 119.0,
   "actual_cph_lastwk": 49.0,
   "cph": 40.0,
@@ -244,6 +287,11 @@
    0.0,
    0.0
   ],
+  "ssp_fc": [
+   0.0,
+   0.0,
+   0.0
+  ],
   "sph_fc": [
    45,
    44,
@@ -258,6 +306,7 @@
  "Higham Ferrers": {
   "worked_lastwk": 112.0,
   "holiday_lastwk": 24.0,
+  "ssp_lastwk": 0.0,
   "used_lastwk": 136.0,
   "actual_cph_lastwk": 30.7,
   "cph": 40.0,
@@ -276,6 +325,11 @@
    0.0,
    0.0
   ],
+  "ssp_fc": [
+   0.0,
+   0.0,
+   0.0
+  ],
   "sph_fc": [
    40,
    46,
@@ -290,6 +344,7 @@
  "Northampton Drive-Thru": {
   "worked_lastwk": 364.0,
   "holiday_lastwk": 30.0,
+  "ssp_lastwk": 0.0,
   "used_lastwk": 394.0,
   "actual_cph_lastwk": 63.0,
   "cph": 70.0,
@@ -304,13 +359,18 @@
    357.0
   ],
   "hol_fc": [
+   30.0,
+   51.0,
+   0.0
+  ],
+  "ssp_fc": [
    0.0,
    0.0,
    0.0
   ],
   "sph_fc": [
-   70,
-   70,
+   65,
+   62,
    70
   ],
   "fc_weeks": [
@@ -322,6 +382,7 @@
  "Billing Drive Thru": {
   "worked_lastwk": 240.0,
   "holiday_lastwk": 48.0,
+  "ssp_lastwk": 0.0,
   "used_lastwk": 288.0,
   "actual_cph_lastwk": 44.0,
   "cph": 56.0,
@@ -336,13 +397,18 @@
    223.0
   ],
   "hol_fc": [
+   9.0,
+   18.0,
+   0.0
+  ],
+  "ssp_fc": [
    0.0,
    0.0,
    0.0
   ],
   "sph_fc": [
-   54,
-   56,
+   52,
+   52,
    56
   ],
   "fc_weeks": [
@@ -354,6 +420,7 @@
  "Market Harborough": {
   "worked_lastwk": 194.0,
   "holiday_lastwk": 45.0,
+  "ssp_lastwk": 0.0,
   "used_lastwk": 239.0,
   "actual_cph_lastwk": 49.9,
   "cph": 58.0,
@@ -368,12 +435,17 @@
    172.0
   ],
   "hol_fc": [
+   18.0,
+   0.0,
+   0.0
+  ],
+  "ssp_fc": [
    0.0,
    0.0,
    0.0
   ],
   "sph_fc": [
-   58,
+   53,
    58,
    58
   ],
@@ -386,6 +458,7 @@
  "Northampton": {
   "worked_lastwk": 170.0,
   "holiday_lastwk": 72.0,
+  "ssp_lastwk": 0.0,
   "used_lastwk": 242.0,
   "actual_cph_lastwk": 42.0,
   "cph": 60.0,
@@ -400,13 +473,18 @@
    158.0
   ],
   "hol_fc": [
+   9.0,
+   21.0,
+   0.0
+  ],
+  "ssp_fc": [
    0.0,
    0.0,
    0.0
   ],
   "sph_fc": [
-   60,
-   60,
+   57,
+   54,
    60
   ],
   "fc_weeks": [
@@ -418,6 +496,7 @@
  "Leamington Parade": {
   "worked_lastwk": 168.0,
   "holiday_lastwk": 48.0,
+  "ssp_lastwk": 0.0,
   "used_lastwk": 216.0,
   "actual_cph_lastwk": 46.9,
   "cph": 58.0,
@@ -436,6 +515,11 @@
    0.0,
    0.0
   ],
+  "ssp_fc": [
+   0.0,
+   0.0,
+   0.0
+  ],
   "sph_fc": [
    58,
    58,
@@ -450,6 +534,7 @@
  "Rugby": {
   "worked_lastwk": 156.0,
   "holiday_lastwk": 18.0,
+  "ssp_lastwk": 0.0,
   "used_lastwk": 174.0,
   "actual_cph_lastwk": 45.7,
   "cph": 55.0,
@@ -464,13 +549,18 @@
    146.0
   ],
   "hol_fc": [
+   48.0,
+   30.0,
+   0.0
+  ],
+  "ssp_fc": [
    0.0,
    0.0,
    0.0
   ],
   "sph_fc": [
-   55,
-   55,
+   41,
+   46,
    55
   ],
   "fc_weeks": [
@@ -482,6 +572,7 @@
  "Wellingborough Train Station": {
   "worked_lastwk": 113.0,
   "holiday_lastwk": 0.0,
+  "ssp_lastwk": 0.0,
   "used_lastwk": 113.0,
   "actual_cph_lastwk": 58.6,
   "cph": 55.0,
@@ -500,6 +591,11 @@
    0.0,
    0.0
   ],
+  "ssp_fc": [
+   0.0,
+   0.0,
+   0.0
+  ],
   "sph_fc": [
    55,
    55,
@@ -514,6 +610,7 @@
  "Wellingborough": {
   "worked_lastwk": 131.0,
   "holiday_lastwk": 30.0,
+  "ssp_lastwk": 0.0,
   "used_lastwk": 161.0,
   "actual_cph_lastwk": 41.0,
   "cph": 53.0,
@@ -528,13 +625,18 @@
    126.0
   ],
   "hol_fc": [
+   63.0,
+   33.0,
+   0.0
+  ],
+  "ssp_fc": [
    0.0,
    0.0,
    0.0
   ],
   "sph_fc": [
-   53,
-   53,
+   36,
+   42,
    53
   ],
   "fc_weeks": [
@@ -546,6 +648,7 @@
  "Lower Heathcote": {
   "worked_lastwk": 102.0,
   "holiday_lastwk": 30.0,
+  "ssp_lastwk": 0.0,
   "used_lastwk": 132.0,
   "actual_cph_lastwk": 29.9,
   "cph": 40.0,
@@ -560,13 +663,18 @@
    119.0
   ],
   "hol_fc": [
+   24.0,
+   30.0,
+   0.0
+  ],
+  "ssp_fc": [
    0.0,
    0.0,
    0.0
   ],
   "sph_fc": [
-   40,
-   40,
+   33,
+   32,
    40
   ],
   "fc_weeks": [
@@ -578,6 +686,7 @@
  "Glenvale Drive Thru": {
   "worked_lastwk": 332.0,
   "holiday_lastwk": 42.0,
+  "ssp_lastwk": 0.0,
   "used_lastwk": 374.0,
   "actual_cph_lastwk": 45.2,
   "cph": 63.0,
@@ -596,6 +705,11 @@
    56.0,
    42.0
   ],
+  "ssp_fc": [
+   0.0,
+   0.0,
+   0.0
+  ],
   "sph_fc": [
    53,
    53,
@@ -610,6 +724,7 @@
  "HOE Balsall Common": {
   "worked_lastwk": 135.0,
   "holiday_lastwk": 0.0,
+  "ssp_lastwk": 0.0,
   "used_lastwk": 135.0,
   "actual_cph_lastwk": 49.0,
   "cph": 48.0,
@@ -628,6 +743,11 @@
    38.0,
    22.0
   ],
+  "ssp_fc": [
+   0.0,
+   0.0,
+   0.0
+  ],
   "sph_fc": [
    43,
    38,
@@ -642,6 +762,7 @@
  "Attleborough": {
   "worked_lastwk": 188.0,
   "holiday_lastwk": 40.0,
+  "ssp_lastwk": 0.0,
   "used_lastwk": 228.0,
   "actual_cph_lastwk": 29.0,
   "cph": 49.0,
@@ -659,6 +780,11 @@
    7.0,
    44.0,
    28.0
+  ],
+  "ssp_fc": [
+   0.0,
+   0.0,
+   0.0
   ],
   "sph_fc": [
    46,
@@ -684,6 +810,11 @@
    0.0
   ],
   "hol_fc": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "ssp_fc": [
    0.0,
    0.0,
    0.0
