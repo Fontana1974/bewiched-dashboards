@@ -2291,7 +2291,7 @@ def sph_forecast_view_html():
         if no_actuals: bits.append("no actuals recorded yet: <b>%s</b>" % ", ".join(esc(x) for x in sorted(set(no_actuals))))
         flag = '<div class="md-note" style="background:#fbeae8;border:1px solid #eccfca;color:#8c2f22;padding:8px 11px;border-radius:9px">&#9888; New / incomplete stores &mdash; %s. Shown for completeness; excluded from blended totals until data lands.</div>' % " &middot; ".join(bits)
 
-    _style = ('<style>.sphv{max-width:100%;font-size:11.5px}.sphv th,.sphv td{text-align:center}'
+    _style = ('<style>table.md-ps.sphv{width:100%;max-width:none;table-layout:auto}''.sphv{font-size:11.5px}.sphv th,.sphv td{text-align:center}'
               '.sphv th.l,.sphv td.l{text-align:left}'
               '.sphv tr.ar td{text-align:left;font-weight:800;background:#f3ece3;color:var(--brown);border-top:2px solid var(--line);letter-spacing:.02em}'
               '.sphv tr.tot td{font-weight:700;background:var(--cream)}'
@@ -2389,9 +2389,7 @@ for i, (wm, qm) in enumerate(zip(weekly, quarterly)):
         detail = ('<div class="md-section-h">This quarter, week by week</div>'
                   + trend_svg(name, plan, dirn)
                   + ('<div class="md-section-h">Forecast &amp; hours &mdash; SPH (mirrors the Company dashboard)</div>' + _sv
-                     if _sv else '<div class="md-note">Forecast &amp; hours view unavailable this run (planner/actuals feed missing).</div>')
-                  + '<div class="md-section-h">Per-store breakdown</div>'
-                  + ps_section(name, plan, dirn, fm, qm))
+                     if _sv else '<div class="md-note">Forecast &amp; hours view unavailable this run (planner/actuals feed missing).</div>'))
     else:
         ps_block = ps_section(name, plan, dirn, fm, qm)   # weekly + QTD sub-tables (period selector)
         detail = ('<div class="md-section-h">This quarter, week by week</div>'
