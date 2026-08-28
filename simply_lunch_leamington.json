@@ -246,25 +246,6 @@
    "sparse": true
   },
   {
-   "item": "Chicken & Cheese BBQ Toastie",
-   "category": "Other",
-   "daily": {
-    "1": 0.25,
-    "2": 0.12,
-    "3": 0.25,
-    "4": 0.12,
-    "5": 1.25,
-    "6": 0.38,
-    "7": 0.62
-   },
-   "weekly_mean": 3.0,
-   "tue": 1,
-   "thu": 2,
-   "sat": 2,
-   "weekly_order": 5,
-   "sparse": true
-  },
-  {
    "item": "Smoked Ham & Cheese Ciabatta",
    "category": "Other",
    "daily": {
@@ -275,6 +256,25 @@
     "5": 0.62,
     "6": 0.62,
     "7": 0.75
+   },
+   "weekly_mean": 3.0,
+   "tue": 1,
+   "thu": 2,
+   "sat": 2,
+   "weekly_order": 5,
+   "sparse": true
+  },
+  {
+   "item": "Chicken & Cheese BBQ Toastie",
+   "category": "Other",
+   "daily": {
+    "1": 0.25,
+    "2": 0.12,
+    "3": 0.25,
+    "4": 0.12,
+    "5": 1.25,
+    "6": 0.38,
+    "7": 0.62
    },
    "weekly_mean": 3.0,
    "tue": 1,
