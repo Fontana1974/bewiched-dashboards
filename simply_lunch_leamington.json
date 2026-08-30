@@ -246,25 +246,6 @@
    "sparse": true
   },
   {
-   "item": "Double Egg Mayo Sandwich",
-   "category": "Other",
-   "daily": {
-    "1": 0.38,
-    "2": 0.5,
-    "3": 0.5,
-    "4": 0.5,
-    "5": 0.75,
-    "6": 0.5,
-    "7": 0.75
-   },
-   "weekly_mean": 3.9,
-   "tue": 2,
-   "thu": 2,
-   "sat": 2,
-   "weekly_order": 6,
-   "sparse": true
-  },
-  {
    "item": "Smoked Ham & Cheese Ciabatta",
    "category": "Other",
    "daily": {
@@ -280,6 +261,25 @@
    "tue": 1,
    "thu": 2,
    "sat": 3,
+   "weekly_order": 6,
+   "sparse": true
+  },
+  {
+   "item": "Double Egg Mayo Sandwich",
+   "category": "Other",
+   "daily": {
+    "1": 0.38,
+    "2": 0.5,
+    "3": 0.5,
+    "4": 0.5,
+    "5": 0.75,
+    "6": 0.5,
+    "7": 0.75
+   },
+   "weekly_mean": 3.9,
+   "tue": 2,
+   "thu": 2,
+   "sat": 2,
    "weekly_order": 6,
    "sparse": true
   },
