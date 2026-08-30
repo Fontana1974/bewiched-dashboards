@@ -166,6 +166,17 @@ try:
 except Exception: pass
 for c in CANON: D[c].setdefault('rtw',None)
 RTW_TGT=90.0   # indicative RTW-completion target (Matt to set); a return-to-work chat logged after every sickness absence
+# Coaching % completion per store (csbr_feed.json both_m_pct) — Brand Foundation, same source as EOS brand audit
+try:
+    for r in L("csbr_feed.json").get("stores", []):
+        c = norm(r.get("store"))
+        if c:
+            D[c]['coach'] = r.get('both_m_pct'); D[c]['coach_aw'] = bool(r.get('awaiting'))
+            D[c]['coach_cs'] = r.get('cs_m_pct'); D[c]['coach_br'] = r.get('b_m_pct')
+except Exception: pass
+for c in CANON:
+    D[c].setdefault('coach', None); D[c].setdefault('coach_aw', False)
+COACH_TGT = 90.0   # each team member should get BOTH a Customer and a Barista checklist each month
 def _findkey(o,key):
     if isinstance(o,dict):
         if key in o: return o[key]
@@ -334,7 +345,7 @@ tbody tr:last-child td{border-bottom:none}
 <div class='tglnote'>Ranking recomputes for the selected window. Each overall score carries a <span class='vsy up'>&#9650;<em>vs YTD</em></span> / <span class='vsy dn'>&#9660;<em>vs YTD</em></span> trend (current QTD overall vs that store's YTD overall). <b>QTD</b> = quarter to date (solid); <b>YTD</b> = year-to-date roll-up.</div></div>
 <table><thead><tr><th>#</th><th>Store</th><th>Overall Star Score</th><th class='plh'>Team</th><th class='plh'>Ops</th><th class='plh'>Customers</th><th class='plh'>Profit</th><th>Real data</th></tr></thead><tbody id='lbody'>"""
 +TBODY['qtd']+"""</tbody></table>
-<div class='foot'><b>Pillars:</b> Team (<b>RMS Health + Bench-ready /5</b>) &middot; Ops (<b>F1 avg Total Score QTD (target &le;175) + Brand &amp; Remote (blended audit &amp; remote, target 4.6)</b>) &middot; Customers (<b>Guest Check counts YoY (last completed week vs same week last year) + Google Health (green &ge;3.32)</b>) &middot; Profit (SPH + Food GP%). <b>Brand foundations</b> (Open/Close % + RTW % completed + New Starter Health) and <b>Urgent support</b> (coach vacancy, accidents/near-misses, red maintenance) sit outside the score. <b>Real data (N / 8):</b> count of the 8 scored metrics (RMS, Bench-ready, F1, Brand &amp; Remote, Guest counts, Google, SPH, Food GP) on genuine real data. <b>RTW %</b> is each store's return-to-work completion from the sickness/RTW log (target &ge;90%, indicative). <b>SPH is scored</b> from the banked sph_history.csv. QTD is the solid view; YTD blends Sales &amp; Guest YoY across the held quarters while RMS, Google, SPH, F1 &amp; Food GP carry QTD depth ("history building") until the year accumulates. Bench-ready is now scored inside the Team pillar (green 5 / amber 2.5 / red 0, /5); RTW % completed &amp; New Starter Health are Brand Foundations (flagged vs &ge;90%, outside the score). Overall = mean of available pillars. Targets indicative for Matt to set.</div>
+<div class='foot'><b>Pillars:</b> Team (<b>RMS Health + Bench-ready /5</b>) &middot; Ops (<b>F1 avg Total Score QTD (target &le;175) + Brand &amp; Remote (blended audit &amp; remote, target 4.6)</b>) &middot; Customers (<b>Guest Check counts YoY (last completed week vs same week last year) + Google Health (green &ge;3.32)</b>) &middot; Profit (SPH + Food GP%). <b>Brand foundations</b> (Open/Close % + RTW % completed + New Starter Health + Coaching % completion) and <b>Urgent support</b> (coach vacancy, accidents/near-misses, red maintenance) sit outside the score. <b>Real data (N / 8):</b> count of the 8 scored metrics (RMS, Bench-ready, F1, Brand &amp; Remote, Guest counts, Google, SPH, Food GP) on genuine real data. <b>RTW %</b> is each store's return-to-work completion from the sickness/RTW log (target &ge;90%, indicative). <b>SPH is scored</b> from the banked sph_history.csv. QTD is the solid view; YTD blends Sales &amp; Guest YoY across the held quarters while RMS, Google, SPH, F1 &amp; Food GP carry QTD depth ("history building") until the year accumulates. Bench-ready is now scored inside the Team pillar (green 5 / amber 2.5 / red 0, /5); RTW % completed &amp; New Starter Health are Brand Foundations (flagged vs &ge;90%, outside the score). Overall = mean of available pillars. Targets indicative for Matt to set.</div>
 </div>
 <script>
 var TBODY=""" + _json.dumps(TBODY) + """, WLAB=""" + _json.dumps(WLAB) + """;
@@ -365,6 +376,9 @@ def card(c,win):
     nsval=((('%d%%'%_nsv)+(' ✓' if _nsv>=90 else ' ✗')) if _nsv is not None else 'n/a')
     _rtwv=d.get('rtw'); _rtwc=(('hit' if _rtwv>=90 else 'miss') if _rtwv is not None else 'neutral')
     _rtwval=((('%d%%'%round(_rtwv))+(' ✓' if _rtwv>=90 else ' ✗')) if _rtwv is not None else 'n/a')
+    _cov=d.get('coach'); _coaw=d.get('coach_aw')
+    _coc=('neutral' if (_coaw or _cov is None) else ('hit' if _cov>=90 else ('warn' if _cov>=70 else 'miss')))
+    _coval=('awaiting' if _coaw else (((('%d%%'%round(_cov))+(' ✓' if _cov>=90 else ' ✗')) if _cov is not None else 'n/a')))
     _bst=d.get('bench'); _b5={'green':5.0,'amber':2.5,'red':0.0}.get(_bst)
     _bcls={'green':'hit','amber':'warn','red':'miss'}.get(_bst,'neutral')
     _bsub=('%s &middot; target bench-ready (5 / 5)'%(d.get('bench_detail') or 'not set'))
@@ -443,11 +457,12 @@ def card(c,win):
             "<div class='foundation'><div class='lab'>Open / Close %%</div><div class='val %s'>%s</div><div class='meta'>HRP Process St &middot; target &ge;90%%</div></div>"
             "<div class='foundation'><div class='lab'>RTW %% completed</div><div class='val %s'>%s</div><div class='meta'>Return-to-work log &middot; target &ge;90%%</div></div>"
             "<div class='foundation'><div class='lab'>New Starter Health</div><div class='val %s'>%s</div><div class='meta'>Youda onboarding &middot; target &ge;90%%</div></div>"
+            "<div class='foundation'><div class='lab'>Coaching %% completion</div><div class='val %s'>%s</div><div class='meta'>CS &amp; Br both &middot; HRP &middot; target &ge;90%%</div></div>"
             "</div>"
             "<div class='urgent'><h3>Urgent support needed? <span class='excl'>excluded from score</span></h3><div class='flags'>%s</div></div></div>"
             %(LOGO_IMG,c,cwk,fmt(ov),stars(ov,30),vsytd_card(c),S['real_n'],rk,pc('Team',p['Team'],team),pc('Ops excellence',p['Ops'],ops),
               pc('Customers served',p['Customers'],cust),pc('Profit',p['Profit'],prof),
-              occ,oct,_rtwc,_rtwval,nsc,nsval,flags))
+              occ,oct,_rtwc,_rtwval,nsc,nsval,_coc,_coval,flags))
 CARDCSS=CSS+"""
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin-bottom:18px;box-shadow:0 1px 3px rgba(20,40,60,.05)}
 .chead{display:flex;align-items:center;justify-content:space-between;gap:16px;border-bottom:1px solid var(--line);padding-bottom:18px}
@@ -493,7 +508,7 @@ CARDCSS=CSS+"""
 .dlt.up{color:var(--green)}.dlt.dn{color:var(--red)}.dlt.fl{color:var(--dim)}
 .foundlab{font-size:11px;letter-spacing:1px;text-transform:uppercase;font-weight:800;color:var(--muted);display:flex;align-items:center;margin-bottom:8px}
 .foundlab .excl{margin-left:auto;font-size:10px;color:var(--dim);font-weight:700}
-.foundations{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px}
+.foundations{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:12px}
 .foundation{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:10px;padding:9px 16px}
 .foundation .lab{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);font-weight:800}
 .foundation .val{font-size:18px;font-weight:800}.foundation .meta{font-size:11px;color:var(--dim);margin-left:auto}
@@ -611,6 +626,7 @@ def area_card(co,win):
     sphv=am(lambda d:d.get('sph')); spht=am(lambda d:d.get('sph_tgt')) or 55
     gpq=am(lambda d:d.get('gp')); gpw=am(lambda d:d.get('gp_week')); gp_pv=am(lambda d:d.get('gp_prevq'))
     brand=am(lambda d:d.get('brand')); ocv=am(lambda d:d.get('oc')); nsv=am(lambda d:d.get('ns'))
+    cov=am(lambda d:d.get('coach'))
     bench5a=am(lambda d:{'green':5.0,'amber':2.5,'red':0.0}.get(d.get('bench')))
     _bac=(('hit' if bench5a>=4.0 else ('warn' if bench5a>=2.5 else 'miss')) if bench5a is not None else 'neutral')
     s_tag=('LAST WK' if not ytd else 'YTD'); s_sub=('vs same wk last yr' if not ytd else 'blended YoY')
@@ -643,6 +659,8 @@ def area_card(co,win):
     nsval=((('%d%%'%round(nsv))+(' ✓' if nsv>=90 else ' ✗')) if nsv is not None else 'n/a')
     _rtwca=(('hit' if rtwv>=90 else 'miss') if rtwv is not None else 'neutral')
     _rtwvala=((('%d%%'%round(rtwv))+(' ✓' if rtwv>=90 else ' ✗')) if rtwv is not None else 'n/a')
+    _coca=('neutral' if cov is None else ('hit' if cov>=90 else ('warn' if cov>=70 else 'miss')))
+    _covala=((('%d%%'%round(cov))+(' ✓' if cov>=90 else ' ✗')) if cov is not None else 'n/a')
     def _cnt(pred): return sum(1 for c in stores if pred(D[c]))
     vac=_cnt(lambda d:d.get('bench')=='red'); gap=_cnt(lambda d:d.get('bench') in ('amber','red'))
     acc=sum(1 for c in stores if c in ACC); rmn=_cnt(lambda d:d.get('maint_open',0)>=3)
@@ -665,11 +683,12 @@ def area_card(co,win):
             "<div class='foundation'><div class='lab'>Open / Close %%</div><div class='val %s'>%s</div><div class='meta'>HRP Process St &middot; target &ge;90%%</div></div>"
             "<div class='foundation'><div class='lab'>RTW %% completed</div><div class='val %s'>%s</div><div class='meta'>Return-to-work log &middot; target &ge;90%%</div></div>"
             "<div class='foundation'><div class='lab'>New Starter Health</div><div class='val %s'>%s</div><div class='meta'>Youda onboarding &middot; target &ge;90%%</div></div>"
+            "<div class='foundation'><div class='lab'>Coaching %% completion</div><div class='val %s'>%s</div><div class='meta'>CS &amp; Br both &middot; HRP &middot; target &ge;90%%</div></div>"
             "</div>"
             "<div class='urgent'><h3>Urgent support needed? <span class='excl'>stores in area &middot; excluded from score</span></h3><div class='flags'>%s</div></div></div>"
             %(LOGO_IMG,co,cwk,fmt(ov),stars(ov,30),area_vsytd(co),len(stores),avg8,arank,
               pc('Team',pil['Team'],team),pc('Ops excellence',pil['Ops'],ops),pc('Customers served',pil['Customers'],cust),pc('Profit',pil['Profit'],prof),
-              occ,octxt,_rtwca,_rtwvala,nsc,nsval,flags))
+              occ,octxt,_rtwca,_rtwvala,nsc,nsval,_coca,_covala,flags))
 # ================= LIVE 2-TAB PAGE: star-card.html =================
 LB_CSS = """
 .top{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:14px}
@@ -710,7 +729,7 @@ _opts = "<optgroup label=\"Area coaches\">"+_aopts+"</optgroup><optgroup label=\
 _lb = ("<div class='top'><div><div class='brand'>Star Card</div><div class='h1'>Estate leaderboard &mdash; all 22 stores</div>"
        "<div class='sub'>Ranked by overall Star score &middot; <span id='winlab'>rolling QTD</span> &middot; "+WKLABEL+"</div></div>"
        "<div style='text-align:right'><div class='sub'>Gold = overall rating &middot; pillars: <span class='hit'>green &ge;4</span> &middot; <span class='warn'>amber 3&ndash;4</span> &middot; <span class='miss'>red &lt;3</span></div></div></div>"
-       "<table><thead><tr><th>#</th><th>Store</th><th>Overall Star Score</th><th class='plh'>Team</th><th class='plh'>Ops</th><th class='plh'>Customers</th><th class='plh'>Profit</th><th>Real data</th></tr></thead><tbody id='lbody'>"+TBODY["qtd"]+"</tbody></table>"+"<div class='foot'><b>Pillars:</b> Team (<b>RMS Health + Bench-ready /5</b>) &middot; Ops (<b>F1 avg Total Score QTD (target &le;175) + Brand &amp; Remote (blended audit &amp; remote, target 4.6)</b>) &middot; Customers (<b>Guest Check counts YoY (last completed week vs same week last year) + Google Health (green &ge;3.32)</b>) &middot; Profit (SPH + Food GP%). <b>Brand foundations</b> (Open/Close % + RTW % completed + New Starter Health) and <b>Urgent support</b> (coach vacancy, accidents/near-misses, red maintenance) sit outside the score. <b>RTW %</b> = each store's return-to-work completion from the sickness/RTW log (target &ge;90%, indicative). <b>Real data (N / 8):</b> count of the 8 scored metrics (RMS, Bench-ready, F1, Brand &amp; Remote, Guest counts, Google, SPH, Food GP) on genuine real data. New Starter Health is now a Brand Foundation (flagged vs &ge;90%, outside the score). The Store Card dropdown also renders a full <b>area</b> card for each coach (Jon / Rich / Ian). Overall = mean of available pillars. Targets indicative for Matt to set.</div>")
+       "<table><thead><tr><th>#</th><th>Store</th><th>Overall Star Score</th><th class='plh'>Team</th><th class='plh'>Ops</th><th class='plh'>Customers</th><th class='plh'>Profit</th><th>Real data</th></tr></thead><tbody id='lbody'>"+TBODY["qtd"]+"</tbody></table>"+"<div class='foot'><b>Pillars:</b> Team (<b>RMS Health + Bench-ready /5</b>) &middot; Ops (<b>F1 avg Total Score QTD (target &le;175) + Brand &amp; Remote (blended audit &amp; remote, target 4.6)</b>) &middot; Customers (<b>Guest Check counts YoY (last completed week vs same week last year) + Google Health (green &ge;3.32)</b>) &middot; Profit (SPH + Food GP%). <b>Brand foundations</b> (Open/Close % + RTW % completed + New Starter Health + Coaching % completion) and <b>Urgent support</b> (coach vacancy, accidents/near-misses, red maintenance) sit outside the score. <b>RTW %</b> = each store's return-to-work completion from the sickness/RTW log (target &ge;90%, indicative). <b>Real data (N / 8):</b> count of the 8 scored metrics (RMS, Bench-ready, F1, Brand &amp; Remote, Guest counts, Google, SPH, Food GP) on genuine real data. New Starter Health is now a Brand Foundation (flagged vs &ge;90%, outside the score). The Store Card dropdown also renders a full <b>area</b> card for each coach (Jon / Rich / Ian). Overall = mean of available pillars. Targets indicative for Matt to set.</div>")
 PAGE = ("<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'>"
         "<title>Bewiched Star Card</title><style>"+CARDCSS+LB_CSS+TAB_CSS+AREA_CSS+"</style></head><body><div class='wrap'>"
         "<div class='appbar'><div class='abrand'>"+_LOGO+"<div><div class='eyebrow'>Store Scorecard</div><div class='h1b'>Star Card</div></div></div>"
