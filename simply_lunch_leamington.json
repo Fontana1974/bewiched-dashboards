@@ -40,7 +40,7 @@
    "item": "Sausage Bap",
    "category": "Breakfast baps & bagel",
    "daily": {
-    "1": 2.12,
+    "1": 2.5,
     "2": 2.75,
     "3": 1.75,
     "4": 1.88,
@@ -48,7 +48,7 @@
     "6": 3.12,
     "7": 3.88
    },
-   "weekly_mean": 17.5,
+   "weekly_mean": 17.9,
    "tue": 5,
    "thu": 6,
    "sat": 11,
@@ -59,7 +59,7 @@
    "item": "Breakfast Bagel",
    "category": "Breakfast baps & bagel",
    "daily": {
-    "1": 0.75,
+    "1": 0.88,
     "2": 0.88,
     "3": 0.5,
     "4": 0.62,
@@ -67,11 +67,11 @@
     "6": 1.25,
     "7": 0.88
    },
-   "weekly_mean": 5.4,
+   "weekly_mean": 5.5,
    "tue": 2,
    "thu": 3,
-   "sat": 3,
-   "weekly_order": 8,
+   "sat": 4,
+   "weekly_order": 9,
    "sparse": true
   },
   {
@@ -116,7 +116,7 @@
    "item": "Tuna Ciabatta",
    "category": "Ciabattas",
    "daily": {
-    "1": 2.25,
+    "1": 2.5,
     "2": 2.12,
     "3": 1.75,
     "4": 2.0,
@@ -124,11 +124,11 @@
     "6": 2.0,
     "7": 2.38
    },
-   "weekly_mean": 14.1,
+   "weekly_mean": 14.4,
    "tue": 5,
    "thu": 5,
-   "sat": 8,
-   "weekly_order": 18,
+   "sat": 9,
+   "weekly_order": 19,
    "sparse": false
   },
   {
@@ -249,7 +249,7 @@
    "item": "Smoked Ham & Cheese Ciabatta",
    "category": "Other",
    "daily": {
-    "1": 0.12,
+    "1": 0.25,
     "2": 0.75,
     "3": 0.25,
     "4": 0.38,
@@ -257,7 +257,7 @@
     "6": 0.62,
     "7": 1.0
    },
-   "weekly_mean": 3.9,
+   "weekly_mean": 4.0,
    "tue": 1,
    "thu": 2,
    "sat": 3,
@@ -287,7 +287,7 @@
    "item": "Chicken & Cheese BBQ Toastie",
    "category": "Other",
    "daily": {
-    "1": 0.38,
+    "1": 0.5,
     "2": 0.12,
     "3": 0.25,
     "4": 0.12,
@@ -295,7 +295,7 @@
     "6": 0.5,
     "7": 0.88
    },
-   "weekly_mean": 3.6,
+   "weekly_mean": 3.8,
    "tue": 1,
    "thu": 3,
    "sat": 2,
@@ -325,7 +325,7 @@
    "item": "Smoked Ham Sandwich",
    "category": "Other",
    "daily": {
-    "1": 0.12,
+    "1": 0.25,
     "2": 0.25,
     "3": 0.5,
     "4": 0.12,
@@ -333,7 +333,7 @@
     "6": 0.38,
     "7": 0.5
    },
-   "weekly_mean": 2.2,
+   "weekly_mean": 2.4,
    "tue": 1,
    "thu": 1,
    "sat": 2,

@@ -42,7 +42,7 @@
     ],
     [
      "Sun",
-     843,
+     893,
      0
     ]
    ],
@@ -54,7 +54,7 @@
     ],
     [
      "Lunch",
-     286,
+     293,
      0
     ],
     [
@@ -92,16 +92,16 @@
      "new": [],
      "sell": [
       [
+       "Luxury Millionaires Triangle Traybake",
+       137
+      ],
+      [
        "Ham & Cheese Croque",
        132
       ],
       [
-       "Luxury Millionaires Triangle Traybake",
-       131
-      ],
-      [
        "Cheese & Onion Croque",
-       126
+       131
       ]
      ]
     },
@@ -174,7 +174,7 @@
     ],
     [
      "Sun",
-     730,
+     782,
      0
     ]
    ],
@@ -186,7 +186,7 @@
     ],
     [
      "Lunch",
-     371,
+     378,
      0
     ],
     [
@@ -225,7 +225,7 @@
      "sell": [
       [
        "Ham & Cheese Croque",
-       279
+       282
       ],
       [
        "Cheese & Onion Croque",
@@ -306,7 +306,7 @@
     ],
     [
      "Sun",
-     1571,
+     1739,
      0
     ]
    ],
@@ -318,7 +318,7 @@
     ],
     [
      "Lunch",
-     650,
+     674,
      0
     ],
     [
@@ -357,15 +357,15 @@
      "sell": [
       [
        "Ham & Cheese Croque",
-       371
+       398
       ],
       [
        "Breakfast Bagel",
-       319
+       325
       ],
       [
        "Tuna Ciabatta",
-       197
+       208
       ]
      ]
     },
@@ -411,12 +411,12 @@
     "label": "22 Jun 2026"
    },
    "rec_hour": {
-    "gbp": 422,
-    "label": "Sat 20 Jun 2026, 11am–12pm"
+    "gbp": 433,
+    "label": "Sun 30 Aug 2026, 12pm–1pm"
    },
    "drivethru": {
-    "cars": 752,
-    "mix": 48.7,
+    "cars": 770,
+    "mix": 47.9,
     "rec_cars": 861,
     "rec_label": "6 Jul 2026"
    }
@@ -456,7 +456,7 @@
     ],
     [
      "Sun",
-     2191,
+     2351,
      2012
     ]
    ],
@@ -468,7 +468,7 @@
     ],
     [
      "Lunch",
-     812,
+     834,
      687
     ],
     [
@@ -520,21 +520,21 @@
      "gain": [
       [
        "Sausage Roll Pastry",
-       362,
-       59,
-       134
+       365,
+       60,
+       137
       ],
       [
        "Cherry Bakewell Slice Traybake",
-       120,
-       500,
-       100
+       126,
+       530,
+       106
       ],
       [
        "Ham & Cheese Croque",
-       508,
-       14,
-       62
+       530,
+       19,
+       84
       ]
      ],
      "new": [
@@ -607,8 +607,8 @@
     "label": "Sat 22 Aug 2026, 10am–11am"
    },
    "drivethru": {
-    "cars": 769,
-    "mix": 38.7,
+    "cars": 787,
+    "mix": 38.2,
     "rec_cars": 1060,
     "rec_label": "22 Jun 2026"
    }
@@ -648,7 +648,7 @@
     ],
     [
      "Sun",
-     2700,
+     2896,
      2858
     ]
    ],
@@ -660,7 +660,7 @@
     ],
     [
      "Lunch",
-     1127,
+     1155,
      1048
     ],
     [
@@ -724,19 +724,19 @@
       ],
       [
        "Chocolate Twist Traybake",
-       260,
-       78,
-       114
+       270,
+       85,
+       124
       ]
      ],
      "new": [
       [
        "Breakfast Bagel",
-       257
+       262
       ],
       [
        "Chicken & Cheese BBQ Toastie",
-       218
+       223
       ]
      ],
      "sell": []
@@ -799,8 +799,8 @@
     "label": "Thu 25 Jun 2026, 1pm–2pm"
    },
    "drivethru": {
-    "cars": 1264,
-    "mix": 47.5,
+    "cars": 1294,
+    "mix": 47.3,
     "rec_cars": 1804,
     "rec_label": "22 Jun 2026"
    }
@@ -840,7 +840,7 @@
     ],
     [
      "Sun",
-     1180,
+     1306,
      1046
     ]
    ],
@@ -852,7 +852,7 @@
     ],
     [
      "Lunch",
-     602,
+     620,
      549
     ],
     [
@@ -899,22 +899,22 @@
     "Lunch": {
      "gain": [
       [
+       "Cheese & Onion Croque",
+       304,
+       48,
+       99
+      ],
+      [
        "Ham & Cheese Croque",
        377,
        28,
        83
       ],
       [
-       "Cheese & Onion Croque",
-       282,
-       38,
-       77
-      ],
-      [
        "Teacake Traybake",
-       510,
-       9,
-       43
+       512,
+       10,
+       45
       ]
      ],
      "new": [
