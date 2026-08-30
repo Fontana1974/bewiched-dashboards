@@ -694,6 +694,9 @@ def brand_foundations_combined_html():
         try: return json.load(open(os.path.join(HERE, fn)))
         except Exception: return {}
     OC = load("openclose_feed.json"); AC = load("accidents_feed.json"); CB = load("csbr_feed.json")
+    BR = D.get("brand_remote") or {}
+    br_tgt = BR.get("target", 4.6)
+    BRD = {r.get("store"): r for r in (BR.get("rows") or [])}
     SH = lambda x: F1_SHORT.get(x, x)
     COACH = {
         "Burton Latimer": "Jon", "Peterborough Fletton Quays": "Jon", "Rothwell": "Jon",
@@ -709,7 +712,8 @@ def brand_foundations_combined_html():
     D0 = {}
     def row(st):
         return D0.setdefault(st, {"store": st, "oc": None, "oc_aw": False, "acc": 0, "acc_items": [],
-                                  "cs": None, "br": None, "both": None, "cb_aw": False})
+                                  "cs": None, "br": None, "both": None, "cb_aw": False,
+                                  "brand": None, "remote100": None, "blend": None, "brsrc": None})
     for r in (OC.get("stores") or []):
         rr = row(r.get("store")); rr["oc"] = r.get("pct")
         rr["oc_aw"] = bool(r.get("awaiting") or r.get("pct") is None)
@@ -718,6 +722,9 @@ def brand_foundations_combined_html():
     for r in (CB.get("stores") or []):
         rr = row(r.get("store")); rr["cs"] = r.get("cs_m_pct"); rr["br"] = r.get("b_m_pct")
         rr["both"] = r.get("both_m_pct"); rr["cb_aw"] = bool(r.get("awaiting"))
+    for st, r in BRD.items():
+        rr = row(st); rr["brand"] = r.get("brand"); rr["remote100"] = r.get("remote100")
+        rr["blend"] = r.get("blend"); rr["brsrc"] = r.get("src")
     if not D0:
         return ""
     rows = list(D0.values())
@@ -739,27 +746,52 @@ def brand_foundations_combined_html():
             return '<td class="v"><span class="tag t-ok">0</span></td>'
         k = "t-red" if n >= 3 else "t-amber"
         return '<td class="v"><span class="tag %s">%d</span></td>' % (k, n)
+    def brand_cell(v):   # brand audit /5 vs 4.6
+        if v is None: return '<td class="v"><span class="tag t-na">awaiting</span></td>'
+        k = "t-ok" if v >= br_tgt else ("t-amber" if v >= br_tgt - 0.3 else "t-red")
+        return '<td class="v"><span class="tag %s">%.2f</span></td>' % (k, v)
+    def remote_cell(v):  # remote /100 vs 4.6-equivalent (=92)
+        if v is None: return '<td class="v"><span class="tag t-na">awaiting</span></td>'
+        thr = br_tgt * 20.0
+        k = "t-ok" if v >= thr else ("t-amber" if v >= thr - 6 else "t-red")
+        return '<td class="v"><span class="tag %s">%d</span></td>' % (k, round(v))
+    def blend_cell(v):   # blended /5 -> shown /100 where 4.6 = 100 (franchise convention)
+        if v is None: return '<td class="v"><span class="tag t-na">awaiting</span></td>'
+        b100 = v / br_tgt * 100.0
+        k = "t-ok" if v >= br_tgt else ("t-amber" if v >= br_tgt - 0.3 else "t-red")
+        return '<td class="v"><span class="tag %s">%d</span></td>' % (k, round(b100))
     body = ""
     for r in rows:
         area = COACH.get(r["store"], "&mdash;")
-        body += ('<tr><td class="s">%s</td><td class="v">%s</td>%s%s%s%s%s</tr>'
-                 % (esc(SH(r["store"])), esc(area), oc_cell(r["oc"], r["oc_aw"]), acc_cell(r["acc"]),
+        _src = r.get("brsrc")
+        _srcflag = (' <span class="tag t-na" style="font-size:9px">%s only</span>' % _src) if (_src and _src != "both") else ""
+        body += ('<tr><td class="s">%s</td><td class="v">%s</td>%s%s%s%s%s%s%s%s</tr>'
+                 % (esc(SH(r["store"])) + _srcflag, esc(area),
+                    brand_cell(r["brand"]), remote_cell(r["remote100"]), blend_cell(r["blend"]),
+                    oc_cell(r["oc"], r["oc_aw"]), acc_cell(r["acc"]),
                     pct_cell(r["cs"], r["cb_aw"], cb_tgt), pct_cell(r["br"], r["cb_aw"], cb_tgt),
                     pct_cell(r["both"], r["cb_aw"], cb_tgt)))
     win = AC.get("window_days", 180); acc_total = AC.get("total", 0)
-    table = ('<div class="md-section-h">By store &mdash; brand foundations (open/close, H&amp;S, coaching)</div>'
-             '<div class="md-ps-basis">One consolidated view of the three brand-foundation checks per store. '
-             '<b>Open/Close %%</b> = daily checklist completion (target &ge;%d%%). '
-             '<b>Accidents</b> = H&amp;S incidents logged in the last %d days (0 is best). '
-             '<b>Customer %%</b> / <b>Barista %%</b> = coaching-checklist completion this month, and <b>Both %%</b> = '
-             'team members with both checklists done (target &ge;%d%%). RAG per column; worst-first (accident stores, then lowest coaching). '
-             'Sources: HRP open/close log, HRP Accident Forms, HRP &lsquo;CS and Br %%&rsquo; tab. Warwick (Ian&rsquo;s area) is included.</div>'
-             '<table class="md-ps md-bf"><thead><tr><th>Store</th><th class="v">Area</th>'
+    table = ('<div class="md-section-h">By store &mdash; overall brand table</div>'
+             '<div class="md-ps-basis">One consolidated brand view per store. '
+             '<b>Brand /5</b> &amp; <b>Remote /100</b> are the QTD brand audit and remote assessment; '
+             '<b>Blended</b> is the 50/50 combined score shown /100 where the <b>%.1f</b> target = 100 (same blend as the score widget &amp; franchise dashboard). '
+             '<b>Open/Close %%</b> = daily checklist completion (&ge;%d%%). <b>Accidents</b> = H&amp;S incidents last %d days (0 best). '
+             '<b>Customer %%</b>/<b>Barista %%</b> = coaching-checklist completion this month, <b>Both %%</b> = team with both (&ge;%d%%). '
+             'RAG per column; worst-first (accident stores, then lowest coaching). Sources: brand audit + Remote Assessment sheet, HRP open/close, HRP Accident Forms, HRP &lsquo;CS and Br %%&rsquo;. '
+             'A store with only one assessment is flagged; Warwick (Ian&rsquo;s area) shows &lsquo;awaiting&rsquo; where it has no audit yet.</div>'
+             '<table class="md-ps md-bf"><thead>'
+             '<tr><th rowspan="2">Store</th><th class="v" rowspan="2">Area</th>'
+             '<th class="v grp" colspan="3">Brand assessment &middot; QTD</th>'
+             '<th class="v grp2" colspan="5">Brand foundations</th></tr>'
+             '<tr><th class="v">Brand /5</th><th class="v">Remote /100</th><th class="v">Blended /100</th>'
              '<th class="v">Open/Close %%</th><th class="v">Accidents</th>'
              '<th class="v">Customer %%</th><th class="v">Barista %%</th><th class="v">Both %%</th>'
              '</tr></thead><tbody>%s</tbody></table>'
              '<style>table.md-bf{width:100%%;max-width:none}table.md-bf th.v,table.md-bf td.v{text-align:center}'
-             'table.md-bf td.s{text-align:left}</style>' % (oc_tgt, win, cb_tgt, body))
+             'table.md-bf td.s{text-align:left}table.md-bf th.grp{background:#efe6dc;border-left:2px solid var(--line)}'
+             'table.md-bf th.grp2{background:#f3ece3;border-left:2px solid var(--line)}'
+             'table.md-bf td:nth-child(6){border-left:2px solid var(--line)}</style>' % (br_tgt, oc_tgt, win, cb_tgt, body))
     # ---- accident/incident detail preserved beneath (only stores with incidents) ----
     det = ""
     acc_stores = [r for r in rows if r["acc_items"]]
