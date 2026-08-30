@@ -341,15 +341,15 @@
  },
  "Northampton Drive-Thru": {
   "race": [
-   90.4,
-   0.35,
+   138.0,
+   1.0,
    0.35,
    1.0,
-   1.0,
-   169.15,
-   10.0,
-   13.0,
-   "2026-08-23"
+   0.35,
+   243.0,
+   5.0,
+   18.0,
+   "2026-08-30"
   ],
   "quali": [
    156.0,
@@ -362,15 +362,15 @@
    "2026-08-27"
   ],
   "race_qtd": {
-   "n": 8,
-   "score": 195.73,
-   "queue_s": 131.66,
-   "qcall": 88.0,
-   "hello": 67.0,
-   "goodbye": 52.0,
-   "howareyou": 92.0,
-   "queue": 131.66,
-   "wtq": 0.88
+   "n": 9,
+   "score": 200.98,
+   "queue_s": 132.37,
+   "qcall": 82.0,
+   "hello": 71.0,
+   "goodbye": 50.0,
+   "howareyou": 93.0,
+   "queue": 132.37,
+   "wtq": 0.82
   },
   "race_q2": {
    "n": 12,
@@ -387,25 +387,25 @@
    "queue": 202.81
   },
   "last6": [
+   18.0,
    13.0,
    4.0,
    15.0,
    14.0,
-   20.0,
-   4.0
+   20.0
   ],
   "sections": {
-   "Hello": 8.28,
-   "Goodbye": 12.03,
-   "How are you": 2.03,
-   "Working the queue": 3.12,
-   "Food & syrups": 15.62,
+   "Hello": 7.36,
+   "Goodbye": 12.5,
+   "How are you": 1.81,
+   "Working the queue": 4.58,
+   "Food & syrups": 17.36,
    "Tables <3 mins": 0.0,
-   "Tables brand standard": 5.47,
+   "Tables brand standard": 8.33,
    "Virtual section plan": 0.0,
-   "No late team": 0.62
+   "No late team": 0.56
   },
-  "sect_queue": 131.66
+  "sect_queue": 132.37
  },
  "Wellingborough": {
   "race": [
@@ -483,8 +483,8 @@
    1.0,
    0.0,
    255.416666666666,
-   5.0,
-   18.0,
+   4.0,
+   19.0,
    "2026-08-28"
   ],
   "quali": [
@@ -523,7 +523,7 @@
    "queue": 142.44
   },
   "last6": [
-   18.0,
+   19.0,
    6.0,
    1.0,
    6.0,
@@ -551,8 +551,8 @@
    1.0,
    0.0,
    364.75,
-   2.0,
-   21.0,
+   1.0,
+   22.0,
    "2026-08-30"
   ],
   "quali": [
@@ -591,7 +591,7 @@
    "queue": 213.38
   },
   "last6": [
-   21.0,
+   22.0,
    5.0,
    15.0,
    18.0,
@@ -823,8 +823,8 @@
    0.65,
    0.0,
    266.416666666666,
-   4.0,
-   19.0,
+   3.0,
+   20.0,
    "2026-08-29"
   ],
   "quali": [
@@ -863,7 +863,7 @@
    "queue": 213.64
   },
   "last6": [
-   19.0,
+   20.0,
    20.0,
    20.0,
    20.0,
@@ -959,8 +959,8 @@
    0.0,
    1.0,
    322.75,
-   3.0,
-   20.0,
+   2.0,
+   21.0,
    "2026-08-30"
   ],
   "quali": [
@@ -999,7 +999,7 @@
    "queue": 206.29
   },
   "last6": [
-   20.0,
+   21.0,
    11.0,
    18.0,
    17.0,
@@ -1451,13 +1451,13 @@
    "No late team": 31.25
   },
   "estate": {
-   "Hello": 2.77,
-   "Goodbye": 5.07,
-   "How are you": 1.92,
-   "Working the queue": 9.86,
-   "Food & syrups": 3.94,
+   "Hello": 2.73,
+   "Goodbye": 5.09,
+   "How are you": 1.91,
+   "Working the queue": 9.93,
+   "Food & syrups": 4.03,
    "Tables <3 mins": 2.39,
-   "Tables brand standard": 7.5,
+   "Tables brand standard": 7.64,
    "Virtual section plan": 0.7,
    "No late team": 0.7
   },

@@ -14,7 +14,7 @@
   "2026-08-17",
   "2026-08-30"
  ],
- "_lastweek_count": 52,
+ "_lastweek_count": 54,
  "worst": [
   {
    "store": "Corby",
@@ -288,11 +288,11 @@
   },
   "Billing Drive Thru": {
    "weekly": {
-    "n": 5,
+    "n": 6,
     "avg": 5.0
    },
    "qtd": {
-    "n": 86,
+    "n": 87,
     "avg": 4.64
    },
    "prevq": {
@@ -330,11 +330,11 @@
   },
   "Leamington Parade": {
    "weekly": {
-    "n": 8,
-    "avg": 4.88
+    "n": 9,
+    "avg": 4.89
    },
    "qtd": {
-    "n": 107,
+    "n": 108,
     "avg": 4.85
    },
    "prevq": {
@@ -640,6 +640,15 @@
     "smt": null,
     "sentiment": "Positive",
     "action": null
+   },
+   {
+    "date": "2026-08-30",
+    "dow": "Sun 30 Aug",
+    "rating": 5.0,
+    "text": "All great",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
    }
   ],
   "Warwick Market Place": [
@@ -742,6 +751,15 @@
     "dow": "Fri 28 Aug",
     "rating": 5.0,
     "text": "Fab shift",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-08-30",
+    "dow": "Sun 30 Aug",
+    "rating": 5.0,
+    "text": "We love our canopy",
     "smt": null,
     "sentiment": "Positive",
     "action": null
@@ -955,6 +973,22 @@
  },
  "comments": [
   {
+   "store": "Billing Drive Thru",
+   "date": "2026-08-30",
+   "rating": 5.0,
+   "text": "We love our canopy",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
+   "store": "Leamington Parade",
+   "date": "2026-08-30",
+   "rating": 5.0,
+   "text": "All great",
+   "smt": null,
+   "sentiment": "Positive"
+  },
+  {
    "store": "Northampton Drive-Thru",
    "date": "2026-08-29",
    "rating": 5.0,
@@ -1129,22 +1163,6 @@
    "text": "Busy/clean/good",
    "smt": null,
    "sentiment": "Positive"
-  },
-  {
-   "store": "Rugby",
-   "date": "2026-08-27",
-   "rating": 4.0,
-   "text": "It was good shift, productive one and organised.",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Market Harborough",
-   "date": "2026-08-27",
-   "rating": 3.0,
-   "text": "cleaning, quiet, stormy",
-   "smt": null,
-   "sentiment": "Mixed"
   }
  ]
 }

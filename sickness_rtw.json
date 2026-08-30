@@ -159,6 +159,15 @@
    "rtw_rate": 67
   },
   {
+   "store": "Market Harborough",
+   "sickfs": 8,
+   "late": 9,
+   "rep_pct": 89,
+   "rtw": 8,
+   "sick": 10,
+   "rtw_rate": 80
+  },
+  {
    "store": "Kettering",
    "sickfs": 7,
    "late": 2,
@@ -166,15 +175,6 @@
    "rtw": 6,
    "sick": 9,
    "rtw_rate": 67
-  },
-  {
-   "store": "Market Harborough",
-   "sickfs": 7,
-   "late": 9,
-   "rep_pct": 89,
-   "rtw": 8,
-   "sick": 9,
-   "rtw_rate": 89
   },
   {
    "store": "Higham Ferrers",

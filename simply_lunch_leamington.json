@@ -59,7 +59,7 @@
    "item": "Breakfast Bagel",
    "category": "Breakfast baps & bagel",
    "daily": {
-    "1": 0.88,
+    "1": 1.0,
     "2": 0.88,
     "3": 0.5,
     "4": 0.62,
@@ -67,7 +67,7 @@
     "6": 1.25,
     "7": 0.88
    },
-   "weekly_mean": 5.5,
+   "weekly_mean": 5.6,
    "tue": 2,
    "thu": 3,
    "sat": 4,
@@ -135,7 +135,7 @@
    "item": "Mozzarella & Tomato Ciabatta",
    "category": "Ciabattas",
    "daily": {
-    "1": 1.38,
+    "1": 1.5,
     "2": 1.0,
     "3": 1.75,
     "4": 1.5,
@@ -143,7 +143,7 @@
     "6": 0.75,
     "7": 2.88
    },
-   "weekly_mean": 10.6,
+   "weekly_mean": 10.8,
    "tue": 4,
    "thu": 3,
    "sat": 7,
@@ -303,25 +303,6 @@
    "sparse": true
   },
   {
-   "item": "GF Vegan Wrapped Caramel Shortbread",
-   "category": "Other",
-   "daily": {
-    "1": 0.38,
-    "2": 0.0,
-    "3": 0.25,
-    "4": 0.38,
-    "5": 0.38,
-    "6": 0.0,
-    "7": 1.0
-   },
-   "weekly_mean": 2.4,
-   "tue": 1,
-   "thu": 1,
-   "sat": 2,
-   "weekly_order": 4,
-   "sparse": true
-  },
-  {
    "item": "Smoked Ham Sandwich",
    "category": "Other",
    "daily": {
@@ -332,6 +313,25 @@
     "5": 0.38,
     "6": 0.38,
     "7": 0.5
+   },
+   "weekly_mean": 2.4,
+   "tue": 1,
+   "thu": 1,
+   "sat": 2,
+   "weekly_order": 4,
+   "sparse": true
+  },
+  {
+   "item": "GF Vegan Wrapped Caramel Shortbread",
+   "category": "Other",
+   "daily": {
+    "1": 0.38,
+    "2": 0.0,
+    "3": 0.25,
+    "4": 0.38,
+    "5": 0.38,
+    "6": 0.0,
+    "7": 1.0
    },
    "weekly_mean": 2.4,
    "tue": 1,
