@@ -2,25 +2,25 @@
  "target": 4.6,
  "stores": {
   "Glenvale Drive Thru": {
-   "composite": 4.3,
+   "composite": 4.4,
    "target": 4.6,
    "on_target": false,
    "pillars": [
     {
      "name": "Sales",
-     "star": 4.9,
+     "star": 5.0,
      "target": 4.6,
      "on_target": true,
      "metrics": [
       {
        "label": "Sales YoY (4-wk)",
-       "value": "+25.3%",
+       "value": "+26.0%",
        "star": 5.0,
        "on_target": true
       },
       {
        "label": "ATV vs £6.80",
-       "value": "£7.67",
+       "value": "£7.7",
        "star": 4.9,
        "on_target": true
       }
@@ -133,13 +133,13 @@
      "metrics": [
       {
        "label": "Sales YoY (4-wk)",
-       "value": "+9.3%",
-       "star": 4.6,
+       "value": "+10.0%",
+       "star": 4.7,
        "on_target": true
       },
       {
        "label": "ATV vs £6.80",
-       "value": "£7.45",
+       "value": "£7.48",
        "star": 4.8,
        "on_target": true
       }
@@ -185,7 +185,7 @@
       },
       {
        "label": "Wastage %",
-       "value": "1.2%",
+       "value": "1.1%",
        "star": 5.0,
        "on_target": true
       }

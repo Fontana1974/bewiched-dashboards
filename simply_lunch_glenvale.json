@@ -21,7 +21,7 @@
    "item": "Sausage Bap",
    "category": "Breakfast baps & bagel",
    "daily": {
-    "1": 7.38,
+    "1": 7.5,
     "2": 6.0,
     "3": 6.12,
     "4": 5.88,
@@ -29,7 +29,7 @@
     "6": 6.75,
     "7": 11.25
    },
-   "weekly_mean": 49.6,
+   "weekly_mean": 49.8,
    "tue": 14,
    "thu": 15,
    "sat": 29,
@@ -59,7 +59,7 @@
    "item": "Breakfast Bagel",
    "category": "Breakfast baps & bagel",
    "daily": {
-    "1": 2.75,
+    "1": 3.0,
     "2": 3.38,
     "3": 5.88,
     "4": 4.25,
@@ -67,7 +67,7 @@
     "6": 4.75,
     "7": 7.25
    },
-   "weekly_mean": 34.6,
+   "weekly_mean": 34.9,
    "tue": 12,
    "thu": 13,
    "sat": 16,
@@ -135,7 +135,7 @@
    "item": "Kids Cheese Sandwich",
    "category": "Sandwiches",
    "daily": {
-    "1": 0.25,
+    "1": 0.38,
     "2": 0.12,
     "3": 0.38,
     "4": 0.25,
@@ -143,7 +143,7 @@
     "6": 0.12,
     "7": 1.12
    },
-   "weekly_mean": 2.9,
+   "weekly_mean": 3.0,
    "tue": 1,
    "thu": 1,
    "sat": 2,
