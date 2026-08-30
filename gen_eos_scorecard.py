@@ -2535,11 +2535,8 @@ for i, (wm, qm) in enumerate(zip(weekly, quarterly)):
                   + yoy_bystore_html("Guest checks last week (%s) — by store, this year vs last year" % D.get("week_label", ""))
                   + weekend_html("tx") + weekend_bystore_html("tx"))
     elif name == "Brand & Remote Assessment":
-        _br = blend_detail_html()
         detail = ('<div class="md-section-h">This quarter, week by week</div>'
                   + trend_svg(name, plan, dirn)
-                  + '<div class="md-section-h">Per-store breakdown &mdash; brand audit / remote / blended</div>'
-                  + (_br if _br else '<div class="md-note">Brand &amp; remote breakdown unavailable this run.</div>')
                   + brand_foundations_combined_html())
     elif name == "New Starter Health":
         _ns = ns_detail.new_starter_detail_html(D) if ns_detail else ""
