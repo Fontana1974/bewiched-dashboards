@@ -1,7 +1,31 @@
 {
- "generated": "2026-08-23",
+ "generated": "2026-08-30",
  "window_days": 28,
  "outstanding": [
+  {
+   "name": "Shaira Begum",
+   "store": "Glenvale Drive Thru",
+   "date": "2026-08-27",
+   "reason": "Cold/fever symptoms, chesty cough. Has informed me that she has been to the doctors and ha"
+  },
+  {
+   "name": "Shaira Begum",
+   "store": "Glenvale Drive Thru",
+   "date": "2026-08-26",
+   "reason": "Cold/fever symptoms, chesty cough"
+  },
+  {
+   "name": "Shaira Begum",
+   "store": "Glenvale Drive Thru",
+   "date": "2026-08-24",
+   "reason": "Severe migraine and feeling dizzy and nauseous Shaira came in to work but was sent home"
+  },
+  {
+   "name": "Shaira Begum",
+   "store": "Glenvale Drive Thru",
+   "date": "2026-08-24",
+   "reason": "Severe migraine and feeling dizzy and nauseous Shaira came in to work but was sent home"
+  },
   {
    "name": "Amy Devlin",
    "store": "Northampton Drive-Thru",
@@ -67,39 +91,9 @@
    "store": "Wellingborough Train Station",
    "date": "2026-08-06",
    "reason": "N/AGall stones flair up"
-  },
-  {
-   "name": "Iulia Naumenko",
-   "store": "Northampton Drive-Thru",
-   "date": "2026-07-31",
-   "reason": "Iulia came into work but was suffering with period pains and felt like she was going to be"
-  },
-  {
-   "name": "Corinna Underdood",
-   "store": "Higham Ferrers",
-   "date": "2026-07-31",
-   "reason": "Signed off for 4 weeks due to depression and stress"
-  },
-  {
-   "name": "Katie Summer Wood",
-   "store": "Lower Heathcote",
-   "date": "2026-07-30",
-   "reason": "N/ASickness, nature unknown, suspected heat."
-  },
-  {
-   "name": "Jacob  Mitchell",
-   "store": "Kettering",
-   "date": "2026-07-29",
-   "reason": "Jai is now signed off work for 4 weeks due to mental health"
-  },
-  {
-   "name": "Millie Harrodine",
-   "store": "HOE Balsall Common",
-   "date": "2026-07-28",
-   "reason": "tbc - fever (?)"
   }
  ],
- "outstanding_n": 16,
+ "outstanding_n": 15,
  "per_store": [
   {
    "store": "Peterborough Fletton Quays",

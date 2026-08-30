@@ -1,5 +1,5 @@
 {
- "_updated": "2026-08-23",
+ "_updated": "2026-08-30",
  "months": [
   "2022-10",
   "2022-11",
@@ -246,18 +246,18 @@
     "audit": true,
     "brand5": 4.64,
     "brand_n": 1,
-    "remote100": 88.3,
-    "remote5": 4.42,
-    "remote_n": 3,
-    "comb5": 4.53,
-    "comb100": 98.5,
+    "remote100": 89.0,
+    "remote5": 4.45,
+    "remote_n": 4,
+    "comb5": 4.54,
+    "comb100": 98.7,
     "tier": "Fail",
     "emoji": "⚠️",
     "royalty": 6.0,
     "marketing": 2.0,
     "total_pct": 8.0,
-    "turnover": 24879,
-    "fee_gbp": 1990
+    "turnover": 25819,
+    "fee_gbp": 2066
    }
   },
   "Glenvale Drive Thru": {
@@ -683,18 +683,18 @@
     "audit": true,
     "brand5": 4.72,
     "brand_n": 1,
-    "remote100": 90.5,
-    "remote5": 4.53,
-    "remote_n": 4,
-    "comb5": 4.62,
-    "comb100": 100.4,
+    "remote100": 89.6,
+    "remote5": 4.48,
+    "remote_n": 5,
+    "comb5": 4.6,
+    "comb100": 100.0,
     "tier": "On Target",
     "emoji": "✅",
     "royalty": 4.0,
     "marketing": 2.0,
     "total_pct": 6.0,
-    "turnover": 70622,
-    "fee_gbp": 4237
+    "turnover": 74054,
+    "fee_gbp": 4443
    }
   },
   "HOE Balsall Common": {
@@ -1484,18 +1484,18 @@
     "audit": true,
     "brand5": 4.44,
     "brand_n": 1,
-    "remote100": 87.2,
-    "remote5": 4.36,
-    "remote_n": 4,
-    "comb5": 4.4,
-    "comb100": 95.7,
+    "remote100": 88.0,
+    "remote5": 4.4,
+    "remote_n": 5,
+    "comb5": 4.42,
+    "comb100": 96.1,
     "tier": "Fail",
     "emoji": "⚠️",
     "royalty": 6.0,
     "marketing": 2.0,
     "total_pct": 8.0,
-    "turnover": 26168,
-    "fee_gbp": 2093
+    "turnover": 27424,
+    "fee_gbp": 2194
    }
   }
  },
