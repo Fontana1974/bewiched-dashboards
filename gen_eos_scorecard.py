@@ -683,6 +683,111 @@ def accidents_bystore_html():
             % (win, total, body))
 
 
+def brand_foundations_combined_html():
+    """ONE consolidated by-store table for the Brand Audit tab, merging the three former by-store
+    tables (Open/Close completion %, Accidents/Incidents H&S, and Customer/Barista coaching
+    checklist %). One row per store: Store | Area | Open/Close % | Accidents | Customer % |
+    Barista % | Both %. RAG per column vs each metric's target. Worst-first (accident stores top,
+    then lowest coaching). Underlying feeds/targets unchanged; the detailed incident log is kept as
+    a compact block beneath so no data is lost."""
+    def load(fn):
+        try: return json.load(open(os.path.join(HERE, fn)))
+        except Exception: return {}
+    OC = load("openclose_feed.json"); AC = load("accidents_feed.json"); CB = load("csbr_feed.json")
+    SH = lambda x: F1_SHORT.get(x, x)
+    COACH = {
+        "Burton Latimer": "Jon", "Peterborough Fletton Quays": "Jon", "Rothwell": "Jon",
+        "Corby": "Jon", "Kettering": "Jon", "Rushden Lakes": "Jon",
+        "Peterborough Bridge Street": "Jon", "Higham Ferrers": "Jon", "Olney": "Jon",
+        "Leamington Parade": "Rich", "Northampton": "Rich", "Wellingborough Train Station": "Rich",
+        "Market Harborough": "Rich", "Wellingborough": "Rich", "Lower Heathcote": "Rich",
+        "Rugby": "Rich", "Northampton Drive-Thru": "Rich", "Billing Drive Thru": "Rich",
+        "Attleborough": "Ian", "HOE Balsall Common": "Ian", "Glenvale Drive Thru": "Ian",
+        "Warwick": "Ian"}
+    oc_tgt = OC.get("target", 90); cb_tgt = CB.get("target", 90)
+    # ---- gather per store ----
+    D0 = {}
+    def row(st):
+        return D0.setdefault(st, {"store": st, "oc": None, "oc_aw": False, "acc": 0, "acc_items": [],
+                                  "cs": None, "br": None, "both": None, "cb_aw": False})
+    for r in (OC.get("stores") or []):
+        rr = row(r.get("store")); rr["oc"] = r.get("pct")
+        rr["oc_aw"] = bool(r.get("awaiting") or r.get("pct") is None)
+    for r in (AC.get("stores") or []):
+        rr = row(r.get("store")); rr["acc"] = r.get("count", 0); rr["acc_items"] = r.get("items") or []
+    for r in (CB.get("stores") or []):
+        rr = row(r.get("store")); rr["cs"] = r.get("cs_m_pct"); rr["br"] = r.get("b_m_pct")
+        rr["both"] = r.get("both_m_pct"); rr["cb_aw"] = bool(r.get("awaiting"))
+    if not D0:
+        return ""
+    rows = list(D0.values())
+    # worst-first: most accidents, then lowest 'both %', then lowest open/close
+    rows.sort(key=lambda r: (-(r["acc"] or 0), (r["both"] if r["both"] is not None else 999),
+                             (r["oc"] if r["oc"] is not None else 999)))
+    def pct_cell(v, aw, tgt):
+        if aw or v is None:
+            return '<td class="v"><span class="tag t-na">awaiting</span></td>'
+        k = "t-ok" if v >= tgt else ("t-amber" if v >= tgt - 20 else "t-red")
+        return '<td class="v"><span class="tag %s">%d%%</span></td>' % (k, round(v))
+    def oc_cell(v, aw):
+        if aw or v is None:
+            return '<td class="v"><span class="tag t-na">awaiting</span></td>'
+        k = "t-ok" if v >= oc_tgt else ("t-amber" if v >= oc_tgt - 10 else "t-red")
+        return '<td class="v"><span class="tag %s">%d%%</span></td>' % (k, round(v))
+    def acc_cell(n):
+        if not n:
+            return '<td class="v"><span class="tag t-ok">0</span></td>'
+        k = "t-red" if n >= 3 else "t-amber"
+        return '<td class="v"><span class="tag %s">%d</span></td>' % (k, n)
+    body = ""
+    for r in rows:
+        area = COACH.get(r["store"], "&mdash;")
+        body += ('<tr><td class="s">%s</td><td class="v">%s</td>%s%s%s%s%s</tr>'
+                 % (esc(SH(r["store"])), esc(area), oc_cell(r["oc"], r["oc_aw"]), acc_cell(r["acc"]),
+                    pct_cell(r["cs"], r["cb_aw"], cb_tgt), pct_cell(r["br"], r["cb_aw"], cb_tgt),
+                    pct_cell(r["both"], r["cb_aw"], cb_tgt)))
+    win = AC.get("window_days", 180); acc_total = AC.get("total", 0)
+    table = ('<div class="md-section-h">By store &mdash; brand foundations (open/close, H&amp;S, coaching)</div>'
+             '<div class="md-ps-basis">One consolidated view of the three brand-foundation checks per store. '
+             '<b>Open/Close %%</b> = daily checklist completion (target &ge;%d%%). '
+             '<b>Accidents</b> = H&amp;S incidents logged in the last %d days (0 is best). '
+             '<b>Customer %%</b> / <b>Barista %%</b> = coaching-checklist completion this month, and <b>Both %%</b> = '
+             'team members with both checklists done (target &ge;%d%%). RAG per column; worst-first (accident stores, then lowest coaching). '
+             'Sources: HRP open/close log, HRP Accident Forms, HRP &lsquo;CS and Br %%&rsquo; tab. Warwick (Ian&rsquo;s area) is included.</div>'
+             '<table class="md-ps md-bf"><thead><tr><th>Store</th><th class="v">Area</th>'
+             '<th class="v">Open/Close %%</th><th class="v">Accidents</th>'
+             '<th class="v">Customer %%</th><th class="v">Barista %%</th><th class="v">Both %%</th>'
+             '</tr></thead><tbody>%s</tbody></table>'
+             '<style>table.md-bf{width:100%%;max-width:none}table.md-bf th.v,table.md-bf td.v{text-align:center}'
+             'table.md-bf td.s{text-align:left}</style>' % (oc_tgt, win, cb_tgt, body))
+    # ---- accident/incident detail preserved beneath (only stores with incidents) ----
+    det = ""
+    acc_stores = [r for r in rows if r["acc_items"]]
+    if acc_stores:
+        dbody = ""
+        for r in acc_stores:
+            li = ""
+            for it in r["acc_items"]:
+                person = it.get("person") or ""
+                ptxt = (" &middot; <b>%s</b>" % esc(person)) if person else ""
+                fa = ' <span class="tag t-red">first aid</span>' if it.get("first_aid") else ""
+                desc = esc(it.get("incident") or it.get("injury") or "incident")
+                inj = it.get("injury"); injtxt = (" (%s)" % esc(inj)) if (inj and inj != it.get("incident")) else ""
+                det2 = it.get("details"); dtxt = (" &mdash; %s" % esc(det2)) if det2 else ""
+                li += ('<div class="md-note" style="margin:3px 0"><b>%s</b>%s%s: %s%s%s</div>'
+                       % (esc(it.get("date", "")), ptxt, fa, desc, injtxt, dtxt))
+            dbody += ('<tr><td class="s" style="vertical-align:top">%s <span class="tag t-red">%d</span></td>'
+                      '<td>%s</td></tr>' % (esc(SH(r["store"])), r["acc"], li))
+        det = ('<div class="md-section-h">Accident &amp; incident detail &mdash; last %d days</div>'
+               '<div class="md-ps-basis">Detail behind the Accidents column above (%d in total); contact details omitted.</div>'
+               '<table class="md-ps" style="max-width:780px"><thead><tr><th>Store</th>'
+               '<th>Recent incidents</th></tr></thead><tbody>%s</tbody></table>' % (win, acc_total, dbody))
+    else:
+        det = ('<div class="md-section-h">Accident &amp; incident detail &mdash; last %d days</div>'
+               '<div class="md-ps-basis">No accidents or incidents logged in the last %d days. &#10003;</div>' % (win, win))
+    return table + det
+
+
 def csbr_bystore_html():
     """Per-store Customer (CS) & Barista (Br) coaching-checklist completion for the Brand Audit
     tab, from csbr_feed.json (HRP 'CS and Br %'). Monthly % vs a 90% target (each team member
@@ -2403,9 +2508,7 @@ for i, (wm, qm) in enumerate(zip(weekly, quarterly)):
                   + trend_svg(name, plan, dirn)
                   + '<div class="md-section-h">Per-store breakdown &mdash; brand audit / remote / blended</div>'
                   + (_br if _br else '<div class="md-note">Brand &amp; remote breakdown unavailable this run.</div>')
-                  + openclose_bystore_html()
-                  + csbr_bystore_html()
-                  + accidents_bystore_html())
+                  + brand_foundations_combined_html())
     elif name == "New Starter Health":
         _ns = ns_detail.new_starter_detail_html(D) if ns_detail else ""
         detail = ('<div class="md-section-h">New Starter Health &mdash; onboarding compliance (first 90 days)</div>'
