@@ -728,9 +728,9 @@ def brand_foundations_combined_html():
     if not D0:
         return ""
     rows = list(D0.values())
-    # worst-first: most accidents, then lowest 'both %', then lowest open/close
-    rows.sort(key=lambda r: (-(r["acc"] or 0), (r["both"] if r["both"] is not None else 999),
-                             (r["oc"] if r["oc"] is not None else 999)))
+    # league table on brand+remote: HIGHEST blended first; stores with no audit ('awaiting') to the bottom.
+    # (Flip to worst-first by removing the leading minus on r["blend"].)
+    rows.sort(key=lambda r: (r["blend"] is None, -(r["blend"] if r["blend"] is not None else 0)))
     def pct_cell(v, aw, tgt):
         if aw or v is None:
             return '<td class="v"><span class="tag t-na">awaiting</span></td>'
@@ -750,16 +750,15 @@ def brand_foundations_combined_html():
         if v is None: return '<td class="v"><span class="tag t-na">awaiting</span></td>'
         k = "t-ok" if v >= br_tgt else ("t-amber" if v >= br_tgt - 0.3 else "t-red")
         return '<td class="v"><span class="tag %s">%.2f</span></td>' % (k, v)
-    def remote_cell(v):  # remote /100 vs 4.6-equivalent (=92)
+    def remote_cell(v):  # remote assessment shown /5 (=remote100/20) vs 4.6, for consistency with Brand/Blended
         if v is None: return '<td class="v"><span class="tag t-na">awaiting</span></td>'
-        thr = br_tgt * 20.0
-        k = "t-ok" if v >= thr else ("t-amber" if v >= thr - 6 else "t-red")
-        return '<td class="v"><span class="tag %s">%d</span></td>' % (k, round(v))
-    def blend_cell(v):   # blended /5 -> shown /100 where 4.6 = 100 (franchise convention)
+        r5 = v / 20.0
+        k = "t-ok" if r5 >= br_tgt else ("t-amber" if r5 >= br_tgt - 0.3 else "t-red")
+        return '<td class="v"><span class="tag %s">%.2f</span></td>' % (k, r5)
+    def blend_cell(v):   # blended 50/50 brand+remote on the /5 scale (target 4.6)
         if v is None: return '<td class="v"><span class="tag t-na">awaiting</span></td>'
-        b100 = v / br_tgt * 100.0
         k = "t-ok" if v >= br_tgt else ("t-amber" if v >= br_tgt - 0.3 else "t-red")
-        return '<td class="v"><span class="tag %s">%d</span></td>' % (k, round(b100))
+        return '<td class="v"><span class="tag %s">%.2f</span></td>' % (k, v)
     body = ""
     for r in rows:
         area = COACH.get(r["store"], "&mdash;")
@@ -774,17 +773,17 @@ def brand_foundations_combined_html():
     win = AC.get("window_days", 180); acc_total = AC.get("total", 0)
     table = ('<div class="md-section-h">By store &mdash; overall brand table</div>'
              '<div class="md-ps-basis">One consolidated brand view per store. '
-             '<b>Brand /5</b> &amp; <b>Remote /100</b> are the QTD brand audit and remote assessment; '
-             '<b>Blended</b> is the 50/50 combined score shown /100 where the <b>%.1f</b> target = 100 (same blend as the score widget &amp; franchise dashboard). '
+             '<b>Brand /5</b>, <b>Remote /5</b> and <b>Blended /5</b> are the QTD brand audit, remote assessment and their 50/50 blend (target <b>%.1f</b>). '
+             'Remote is shown /5 (raw /100 &divide; 20) for consistency with Brand &amp; Blended; the blend matches the score widget &amp; franchise dashboard. '
              '<b>Open/Close %%</b> = daily checklist completion (&ge;%d%%). <b>Accidents</b> = H&amp;S incidents last %d days (0 best). '
              '<b>Customer %%</b>/<b>Barista %%</b> = coaching-checklist completion this month, <b>Both %%</b> = team with both (&ge;%d%%). '
-             'RAG per column; worst-first (accident stores, then lowest coaching). Sources: brand audit + Remote Assessment sheet, HRP open/close, HRP Accident Forms, HRP &lsquo;CS and Br %%&rsquo;. '
+             'Sorted as a league table &mdash; highest Blended (brand+remote) first; no-audit stores to the bottom. RAG per column. Sources: brand audit + Remote Assessment sheet, HRP open/close, HRP Accident Forms, HRP &lsquo;CS and Br %%&rsquo;. '
              'A store with only one assessment is flagged; Warwick (Ian&rsquo;s area) shows &lsquo;awaiting&rsquo; where it has no audit yet.</div>'
              '<table class="md-ps md-bf"><thead>'
              '<tr><th rowspan="2">Store</th><th class="v" rowspan="2">Area</th>'
              '<th class="v grp" colspan="3">Brand assessment &middot; QTD</th>'
              '<th class="v grp2" colspan="5">Brand foundations</th></tr>'
-             '<tr><th class="v">Brand /5</th><th class="v">Remote /100</th><th class="v">Blended /100</th>'
+             '<tr><th class="v">Brand /5</th><th class="v">Remote /5</th><th class="v">Blended /5</th>'
              '<th class="v">Open/Close %%</th><th class="v">Accidents</th>'
              '<th class="v">Customer %%</th><th class="v">Barista %%</th><th class="v">Both %%</th>'
              '</tr></thead><tbody>%s</tbody></table>'
