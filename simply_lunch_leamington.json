@@ -21,7 +21,7 @@
    "item": "Bacon Bap",
    "category": "Breakfast baps & bagel",
    "daily": {
-    "1": 1.75,
+    "1": 1.88,
     "2": 2.12,
     "3": 3.5,
     "4": 2.12,
@@ -29,7 +29,7 @@
     "6": 2.38,
     "7": 4.38
    },
-   "weekly_mean": 18.2,
+   "weekly_mean": 18.4,
    "tue": 7,
    "thu": 6,
    "sat": 10,
@@ -287,7 +287,7 @@
    "item": "Chicken & Cheese BBQ Toastie",
    "category": "Other",
    "daily": {
-    "1": 0.25,
+    "1": 0.38,
     "2": 0.12,
     "3": 0.25,
     "4": 0.12,
@@ -295,7 +295,7 @@
     "6": 0.5,
     "7": 0.88
    },
-   "weekly_mean": 3.5,
+   "weekly_mean": 3.6,
    "tue": 1,
    "thu": 3,
    "sat": 2,

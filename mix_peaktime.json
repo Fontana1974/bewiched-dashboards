@@ -5,44 +5,44 @@
   "Hot drinks": {
    "peak": "Morning",
    "share": 42,
-   "gap": 5,
+   "gap": 6,
    "soft": false,
-   "total": 292958
+   "total": 294886
   },
   "Cold drinks": {
    "peak": "Lunch",
    "share": 39,
    "gap": 8,
    "soft": false,
-   "total": 191795
+   "total": 192585
   },
   "Milkshakes": {
    "peak": "Lunch",
    "share": 39,
    "gap": 2,
    "soft": true,
-   "total": 105880
+   "total": 106192
   },
   "Food": {
    "peak": "Lunch",
-   "share": 50,
-   "gap": 17,
+   "share": 49,
+   "gap": 16,
    "soft": false,
-   "total": 84883
+   "total": 85353
   },
   "Bakery": {
    "peak": "Lunch",
    "share": 40,
    "gap": 6,
    "soft": false,
-   "total": 67642
+   "total": 68004
   },
   "Other & retail": {
    "peak": "Lunch",
    "share": 39,
    "gap": 11,
    "soft": false,
-   "total": 46149
+   "total": 46355
   }
  },
  "bakery": [
@@ -51,8 +51,8 @@
    "peak": "Lunch",
    "share": 52,
    "hour": "11am",
-   "units": 3245,
-   "sales": 9093,
+   "units": 3257,
+   "sales": 9127,
    "sparse": false
   },
   {
@@ -60,8 +60,8 @@
    "peak": "Lunch",
    "share": 45,
    "hour": "12pm",
-   "units": 3053,
-   "sales": 9126,
+   "units": 3065,
+   "sales": 9162,
    "sparse": false
   },
   {
@@ -69,8 +69,8 @@
    "peak": "Lunch",
    "share": 44,
    "hour": "11am",
-   "units": 2325,
-   "sales": 7438,
+   "units": 2334,
+   "sales": 7467,
    "sparse": false
   },
   {
@@ -86,18 +86,18 @@
    "name": "Chocolate Twist Traybake",
    "peak": "Morning",
    "share": 49,
-   "hour": "11am",
-   "units": 1331,
-   "sales": 3385,
+   "hour": "10am",
+   "units": 1344,
+   "sales": 3420,
    "sparse": false
   },
   {
    "name": "Lemon Muffin",
    "peak": "Lunch",
    "share": 45,
-   "hour": "11am",
-   "units": 1088,
-   "sales": 3165,
+   "hour": "10am",
+   "units": 1095,
+   "sales": 3185,
    "sparse": false
   },
   {
@@ -105,8 +105,8 @@
    "peak": "Lunch",
    "share": 42,
    "hour": "11am",
-   "units": 1005,
-   "sales": 2923,
+   "units": 1009,
+   "sales": 2934,
    "sparse": false
   },
   {
@@ -114,8 +114,8 @@
    "peak": "Lunch",
    "share": 41,
    "hour": "11am",
-   "units": 992,
-   "sales": 2796,
+   "units": 994,
+   "sales": 2802,
    "sparse": false
   },
   {
@@ -123,8 +123,8 @@
    "peak": "Lunch",
    "share": 44,
    "hour": "11am",
-   "units": 977,
-   "sales": 2946,
+   "units": 983,
+   "sales": 2964,
    "sparse": false
   },
   {
@@ -132,8 +132,8 @@
    "peak": "Lunch",
    "share": 43,
    "hour": "12pm",
-   "units": 939,
-   "sales": 2838,
+   "units": 942,
+   "sales": 2847,
    "sparse": false
   },
   {
@@ -141,17 +141,17 @@
    "peak": "Morning",
    "share": 55,
    "hour": "10am",
-   "units": 832,
-   "sales": 2099,
+   "units": 841,
+   "sales": 2123,
    "sparse": false
   },
   {
    "name": "Croissant Pastry",
    "peak": "Morning",
-   "share": 55,
+   "share": 56,
    "hour": "10am",
-   "units": 815,
-   "sales": 1692,
+   "units": 823,
+   "sales": 1709,
    "sparse": false
   },
   {
@@ -159,8 +159,8 @@
    "peak": "Lunch",
    "share": 41,
    "hour": "11am",
-   "units": 782,
-   "sales": 2282,
+   "units": 784,
+   "sales": 2288,
    "sparse": false
   },
   {
@@ -168,8 +168,8 @@
    "peak": "Morning",
    "share": 99,
    "hour": "10am",
-   "units": 676,
-   "sales": 4252,
+   "units": 685,
+   "sales": 4309,
    "sparse": false
   },
   {
@@ -177,8 +177,8 @@
    "peak": "Lunch",
    "share": 43,
    "hour": "11am",
-   "units": 657,
-   "sales": 1805,
+   "units": 660,
+   "sales": 1813,
    "sparse": false
   },
   {
@@ -186,17 +186,17 @@
    "peak": "Lunch",
    "share": 40,
    "hour": "10am",
-   "units": 302,
-   "sales": 792,
+   "units": 303,
+   "sales": 795,
    "sparse": false
   },
   {
    "name": "Gluten Free Carrot Cake",
    "peak": "Lunch",
    "share": 38,
-   "hour": "3pm",
-   "units": 269,
-   "sales": 919,
+   "hour": "12pm",
+   "units": 270,
+   "sales": 923,
    "sparse": false
   },
   {
@@ -204,8 +204,8 @@
    "peak": "Lunch",
    "share": 43,
    "hour": "11am",
-   "units": 248,
-   "sales": 739,
+   "units": 249,
+   "sales": 742,
    "sparse": false
   },
   {
@@ -213,8 +213,8 @@
    "peak": "Lunch",
    "share": 38,
    "hour": "3pm",
-   "units": 220,
-   "sales": 767,
+   "units": 221,
+   "sales": 771,
    "sparse": false
   },
   {
@@ -222,8 +222,8 @@
    "peak": "Lunch",
    "share": 41,
    "hour": "10am",
-   "units": 201,
-   "sales": 532,
+   "units": 202,
+   "sales": 535,
    "sparse": false
   },
   {
@@ -231,8 +231,8 @@
    "peak": "Lunch",
    "share": 43,
    "hour": "1pm",
-   "units": 174,
-   "sales": 605,
+   "units": 175,
+   "sales": 608,
    "sparse": false
   },
   {
@@ -240,8 +240,8 @@
    "peak": "Morning",
    "share": 49,
    "hour": "10am",
-   "units": 173,
-   "sales": 439,
+   "units": 175,
+   "sales": 444,
    "sparse": false
   },
   {
@@ -249,8 +249,8 @@
    "peak": "Morning",
    "share": 97,
    "hour": "10am",
-   "units": 168,
-   "sales": 1006,
+   "units": 170,
+   "sales": 1018,
    "sparse": false
   },
   {
@@ -258,24 +258,24 @@
    "peak": "Morning",
    "share": 98,
    "hour": "10am",
-   "units": 142,
-   "sales": 893,
+   "units": 144,
+   "sales": 906,
    "sparse": false
   },
   {
    "name": "Tea Time Coffee Cake",
    "peak": "Lunch",
-   "share": 43,
+   "share": 42,
    "hour": "3pm",
-   "units": 101,
-   "sales": 364,
+   "units": 102,
+   "sales": 367,
    "sparse": false
   },
   {
    "name": "Ham & Mozzarella Croissant",
    "peak": "Lunch",
    "share": 44,
-   "hour": "12pm",
+   "hour": "1pm",
    "units": 93,
    "sales": 410,
    "sparse": false

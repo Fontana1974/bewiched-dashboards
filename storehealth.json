@@ -40,7 +40,7 @@
    "r_rag": "amber"
   },
   "Billing Drive Thru": {
-   "g_n": 73,
+   "g_n": 75,
    "g_avg": 4.973,
    "g_target": 49,
    "g_health": 4.99,
@@ -139,10 +139,10 @@
    "r_rag": "red"
   },
   "Market Harborough": {
-   "g_n": 21,
-   "g_avg": 4.81,
+   "g_n": 22,
+   "g_avg": 4.818,
    "g_target": 24,
-   "g_health": 4.59,
+   "g_health": 4.7,
    "g_rag": "green",
    "g_stale": false,
    "r_n": 16,
