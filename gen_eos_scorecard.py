@@ -683,6 +683,45 @@ def accidents_bystore_html():
             % (win, total, body))
 
 
+def csbr_bystore_html():
+    """Per-store Customer (CS) & Barista (Br) coaching-checklist completion for the Brand Audit
+    tab, from csbr_feed.json (HRP 'CS and Br %'). Monthly % vs a 90% target (each team member
+    should get a Customer + a Barista checklist completed each month). Worst/awaiting first."""
+    try:
+        C = json.load(open(os.path.join(HERE, "csbr_feed.json")))
+    except Exception:
+        return ""
+    rows = C.get("stores") or []
+    if not rows:
+        return ""
+    SH = lambda x: F1_SHORT.get(x, x)
+    tgt = C.get("target", 90)
+    def pcell(v):
+        if v is None:
+            return '<td class="v"><span class="tag t-na">awaiting</span></td>'
+        k = "t-ok" if v >= tgt else ("t-amber" if v >= tgt - 20 else "t-red")
+        return '<td class="v"><span class="tag %s">%d%%</span></td>' % (k, round(v))
+    body = ""
+    for r in rows:
+        st = r.get("store"); aw = r.get("awaiting")
+        cs = r.get("cs_m_pct"); br = r.get("b_m_pct")
+        nm = esc(SH(st))
+        if aw or (cs is None and br is None):
+            body += ('<tr><td class="s">%s <span class="tag t-na">new &mdash; awaiting</span></td>'
+                     '<td class="v"><span class="tag t-na">n/a</span></td>'
+                     '<td class="v"><span class="tag t-na">n/a</span></td></tr>' % nm)
+            continue
+        body += '<tr><td class="s">%s</td>%s%s</tr>' % (nm, pcell(cs), pcell(br))
+    return ('<div class="md-section-h">By store &mdash; coaching checklist completion (Customer &amp; Barista)</div>'
+            '<div class="md-ps-basis">Monthly completion of the Customer (CS) and Barista (Br) coaching checklists per store, '
+            'from the HRP &lsquo;CS and Br %%&rsquo; tab (target &ge;%d%% &mdash; each team member should get one of each per month). '
+            'Warwick (&lsquo;Warwick Market Place&rsquo; in HRP) is now included; a brand-new store with no coaching logged yet shows &lsquo;awaiting&rsquo;. '
+            'Lowest first.</div>'
+            '<table class="md-ps" style="max-width:560px"><thead><tr><th>Store</th>'
+            '<th class="v">Customer %%</th><th class="v">Barista %%</th></tr></thead><tbody>%s</tbody></table>'
+            % (tgt, body))
+
+
 def blend_detail_html():
     """Per-store Brand & Remote Assessment: brand audit (/5), remote assessment (/100), and the
     50/50 blended score (/5), from D['brand_remote']. Estate footer row. Best blended first."""
@@ -2365,6 +2404,7 @@ for i, (wm, qm) in enumerate(zip(weekly, quarterly)):
                   + '<div class="md-section-h">Per-store breakdown &mdash; brand audit / remote / blended</div>'
                   + (_br if _br else '<div class="md-note">Brand &amp; remote breakdown unavailable this run.</div>')
                   + openclose_bystore_html()
+                  + csbr_bystore_html()
                   + accidents_bystore_html())
     elif name == "New Starter Health":
         _ns = ns_detail.new_starter_detail_html(D) if ns_detail else ""

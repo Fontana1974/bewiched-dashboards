@@ -1909,6 +1909,116 @@ def pull_accidents():
     print("[pull] accidents_feed: %d incidents across %d stores (last 180d)" % (total, len(stores)))
 
 
+def pull_csbr():
+    """CS & Br coaching-completion % per store for the Brand Audit tab AND the Star Card coaching
+    foundation. Reads the HRP 'CS and Br %' tab: the summary block (K:S) gives per-store
+    Customer-Service (CS) and Barista (Br) checklist completion %, monthly + quarterly; the raw
+    coaching log (A:F = Name, _, Store, Checklist, Score, Date) is used to compute the 'both
+    checklists this month' figure (team members with BOTH a Customer AND a Barista checklist in the
+    current month). One source, two consumers. Writes csbr_feed.json. Non-fatal."""
+    HRP = SID["hrp"]
+    # tab store label -> canonical (EOS rec keys). "Warwick Market Place" = the new Warwick store.
+    CSBRMAP = {
+        "Burton": "Burton Latimer", "Corby": "Corby", "Northampton Drive Thru": "Northampton Drive-Thru",
+        "Fletton": "Peterborough Fletton Quays", "Higham": "Higham Ferrers", "Kettering": "Kettering",
+        "Market Street": "Wellingborough", "Northampton Grosvenor": "Northampton",
+        "Peterborough": "Peterborough Bridge Street", "Rothwell": "Rothwell", "Rugby": "Rugby",
+        "Lakes": "Rushden Lakes", "Train Station": "Wellingborough Train Station",
+        "Balsall Common": "HOE Balsall Common", "Lower Heathcote, Warwick": "Lower Heathcote",
+        "Market Harborough": "Market Harborough", "Leamington Parade": "Leamington Parade",
+        "Glenvale Drive Thru": "Glenvale Drive Thru", "Olney": "Olney", "Attleborough": "Attleborough",
+        "Billing Drive Thru": "Billing Drive Thru", "Warwick Market Place": "Warwick",
+        "Leamington Retail": None}
+    CS_TYPES = {"customer coaching checklist", "customer service coaching checklist",
+                "customer service coaching checklist drive thru final"}
+    BR_TYPES = {"foundation barista coaching", "level two barista assessment"}
+    try:
+        summ = sheet(HRP, "'CS and Br %'!K1:S40")
+    except Exception as e:
+        print("[pull] csbr SKIPPED (summary unreadable? %s)" % e)
+        return
+    def num(x):
+        try: return float(x)
+        except Exception: return None
+    per = {}
+    for r in summ[1:]:
+        if not r or not str(r[0]).strip():
+            continue
+        raw = str(r[0]).strip()
+        canon = CSBRMAP.get(raw, raw)
+        if canon is None:
+            continue
+        def g(i): return num(r[i]) if len(r) > i else None
+        cs_m_cnt, cs_m, cs_q_cnt, cs_q = g(1), g(2), g(3), g(4)
+        b_m_cnt, b_m, b_q_cnt, b_q = g(5), g(6), g(7), g(8)
+        # derive active headcount from count / pct (same denominator across cols)
+        hc = None
+        for cnt, pct in ((cs_m_cnt, cs_m), (b_m_cnt, b_m), (cs_q_cnt, cs_q), (b_q_cnt, b_q)):
+            if cnt and pct and pct > 0:
+                hc = round(cnt / pct); break
+        per[canon] = {"store": canon, "raw_label": raw,
+                      "cs_m_pct": round(cs_m * 100, 1) if cs_m is not None else None,
+                      "cs_q_pct": round(cs_q * 100, 1) if cs_q is not None else None,
+                      "b_m_pct": round(b_m * 100, 1) if b_m is not None else None,
+                      "b_q_pct": round(b_q * 100, 1) if b_q is not None else None,
+                      "cs_m_cnt": int(cs_m_cnt) if cs_m_cnt is not None else 0,
+                      "b_m_cnt": int(b_m_cnt) if b_m_cnt is not None else 0,
+                      "headcount": hc}
+    # ---- 'both checklists this month' from the raw log ----
+    mon_start = CUR_END.replace(day=1)
+    try:
+        log = sheet(HRP, "'CS and Br %'!A2:F2000")
+    except Exception:
+        log = []
+    def logdate(v):
+        if v in (None, ""):
+            return None
+        try:
+            return serial_to_date(float(v))
+        except Exception:
+            pass
+        for fmt in ("%b %d %Y", "%d %b %Y", "%d/%m/%Y", "%Y-%m-%d"):
+            try:
+                return datetime.datetime.strptime(str(v).strip(), fmt).date()
+            except Exception:
+                continue
+        return None
+    csp, brp = {}, {}
+    for r in log:
+        if len(r) < 6:
+            continue
+        name = str(r[0]).strip().lower()
+        name = " ".join(name.split())
+        raw_store = str(r[2]).strip() if len(r) > 2 else ""
+        chk = str(r[3]).strip().lower() if len(r) > 3 else ""
+        d = logdate(r[5] if len(r) > 5 else None)
+        if not name or not raw_store or not d or d < mon_start or d > CUR_END:
+            continue
+        canon = CSBRMAP.get(raw_store, raw_store)
+        if canon is None:
+            continue
+        if chk in CS_TYPES:
+            csp.setdefault(canon, set()).add(name)
+        elif chk in BR_TYPES:
+            brp.setdefault(canon, set()).add(name)
+    for canon, rec in per.items():
+        both = len(csp.get(canon, set()) & brp.get(canon, set()))
+        rec["both_m_cnt"] = both
+        hc = rec.get("headcount")
+        rec["both_m_pct"] = round(100 * both / hc, 1) if hc else None
+        # a store with no headcount AND no coaching logged this month = awaiting/new
+        rec["awaiting"] = bool(not hc and rec["cs_m_cnt"] == 0 and rec["b_m_cnt"] == 0)
+    rows = sorted(per.values(), key=lambda x: (x.get("both_m_pct") is None, x.get("both_m_pct") or 0))
+    W("csbr_feed.json", {"cur_end": CUR_END.isoformat(), "month_start": mon_start.isoformat(),
+        "target": 90,
+        "_source": "HRP 'CS and Br %' tab (sheetId 913735784): summary K:S (CS/Br completion %) + raw coaching log A:F (both-checklists-this-month). CS=Customer checklist, Br=Barista checklist.",
+        "_note": "both_m_pct = team members with BOTH a Customer AND a Barista checklist this month / active headcount. Warwick = 'Warwick Market Place' in the tab; its % denominator currently uses the shared Lower Heathcote/Warwick staff tab until a dedicated Warwick staff tab exists.",
+        "stores": rows})
+    nb = sum(1 for r in rows if r.get("both_m_pct") is not None and r["both_m_pct"] >= 90)
+    print("[pull] csbr_feed: %d stores, %d >=90%% both-checklists" % (len(rows), nb))
+
+
+
 
 def pull_forecast_daily():
     """EOS Forecast tab feed. 3-week planner forecast (planner_overrides: fc/hrs/hol_fc/sph_fc) + LY
@@ -3714,6 +3824,7 @@ def pulls():
     pull_compliance()         # compliance_raw.json
     pull_openclose()          # openclose_feed.json (Brand Audit: open/close completion %)
     pull_accidents()          # accidents_feed.json (Brand Audit: H&S accidents/incidents)
+    pull_csbr()               # csbr_feed.json (Brand Audit + Star Card: CS/Br coaching completion %)
     pull_ns_raws()            # ns_*_raw.json (7)
     pull_sl_raws()            # sl_*_raw.json (2)
     pull_txq_raws()           # txq_*_raw.json (2)
