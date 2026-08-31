@@ -114,6 +114,15 @@
    "rtw_rate": 57
   },
   {
+   "store": "Rushden Lakes",
+   "sickfs": 20,
+   "late": 21,
+   "rep_pct": 100,
+   "rtw": 10,
+   "sick": 20,
+   "rtw_rate": 50
+  },
+  {
    "store": "Northampton Drive-Thru",
    "sickfs": 16,
    "late": 2,
@@ -121,15 +130,6 @@
    "rtw": 10,
    "sick": 20,
    "rtw_rate": 50
-  },
-  {
-   "store": "Rushden Lakes",
-   "sickfs": 19,
-   "late": 21,
-   "rep_pct": 100,
-   "rtw": 10,
-   "sick": 19,
-   "rtw_rate": 53
   },
   {
    "store": "Leamington Parade",

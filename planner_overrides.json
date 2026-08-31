@@ -1,20 +1,20 @@
 {
  "Rushden Lakes": {
-  "worked_lastwk": 344.0,
-  "holiday_lastwk": 74.0,
-  "ssp_lastwk": 0.0,
-  "used_lastwk": 418.0,
-  "actual_cph_lastwk": 58.3,
+  "worked_lastwk": 358.4,
+  "holiday_lastwk": 24.0,
+  "ssp_lastwk": 8.0,
+  "used_lastwk": 390.4,
+  "actual_cph_lastwk": 59.6,
   "cph": 63.0,
   "fc": [
-   20000,
    25000,
-   19000
+   19000,
+   16803
   ],
   "hrs": [
    309.0,
-   397.0,
-   302.0
+   302.0,
+   267.0
   ],
   "hol_fc": [
    0.0,
@@ -27,32 +27,32 @@
    0.0
   ],
   "sph_fc": [
-   65,
+   81,
    63,
    63
   ],
   "fc_weeks": [
-   "2026-08-24",
    "2026-08-31",
-   "2026-09-07"
+   "2026-09-07",
+   "2026-09-14"
   ]
  },
  "Kettering": {
-  "worked_lastwk": 161.0,
-  "holiday_lastwk": 30.0,
+  "worked_lastwk": 163.0,
+  "holiday_lastwk": 12.0,
   "ssp_lastwk": 0.0,
-  "used_lastwk": 191.0,
-  "actual_cph_lastwk": 51.5,
+  "used_lastwk": 175.0,
+  "actual_cph_lastwk": 57.9,
   "cph": 59.0,
   "fc": [
    9800,
-   9800,
-   9500
+   9500,
+   8678
   ],
   "hrs": [
    168.4,
-   166.0,
-   161.0
+   161.0,
+   147.0
   ],
   "hol_fc": [
    0.0,
@@ -70,27 +70,27 @@
    59
   ],
   "fc_weeks": [
-   "2026-08-24",
    "2026-08-31",
-   "2026-09-07"
+   "2026-09-07",
+   "2026-09-14"
   ]
  },
  "Peterborough Fletton Quays": {
-  "worked_lastwk": 161.0,
-  "holiday_lastwk": 18.0,
+  "worked_lastwk": 179.6,
+  "holiday_lastwk": 24.0,
   "ssp_lastwk": 0.0,
-  "used_lastwk": 179.0,
-  "actual_cph_lastwk": 46.6,
+  "used_lastwk": 203.6,
+  "actual_cph_lastwk": 34.8,
   "cph": 52.0,
   "fc": [
-   8800,
    8400,
-   8450
+   8450,
+   8943
   ],
   "hrs": [
-   169.0,
    162.0,
-   163.0
+   163.0,
+   172.0
   ],
   "hol_fc": [
    0.0,
@@ -108,27 +108,27 @@
    52
   ],
   "fc_weeks": [
-   "2026-08-24",
    "2026-08-31",
-   "2026-09-07"
+   "2026-09-07",
+   "2026-09-14"
   ]
  },
  "Corby": {
-  "worked_lastwk": 157.0,
+  "worked_lastwk": 160.4,
   "holiday_lastwk": 0.0,
   "ssp_lastwk": 0.0,
-  "used_lastwk": 157.0,
-  "actual_cph_lastwk": 48.2,
+  "used_lastwk": 160.4,
+  "actual_cph_lastwk": 47.5,
   "cph": 48.0,
   "fc": [
-   7500,
    8500,
-   7700
+   7700,
+   7485
   ],
   "hrs": [
    159.4,
    164.0,
-   160.0
+   156.0
   ],
   "hol_fc": [
    0.0,
@@ -141,32 +141,32 @@
    0.0
   ],
   "sph_fc": [
+   53,
    47,
-   52,
    48
   ],
   "fc_weeks": [
-   "2026-08-24",
    "2026-08-31",
-   "2026-09-07"
+   "2026-09-07",
+   "2026-09-14"
   ]
  },
  "Olney": {
-  "worked_lastwk": 119.0,
+  "worked_lastwk": 115.8,
   "holiday_lastwk": 0.0,
   "ssp_lastwk": 0.0,
-  "used_lastwk": 119.0,
-  "actual_cph_lastwk": 45.9,
+  "used_lastwk": 115.8,
+  "actual_cph_lastwk": 45.1,
   "cph": 49.0,
   "fc": [
    5500,
-   5500,
-   5600
+   5600,
+   5221
   ],
   "hrs": [
    134.5,
    135.0,
-   114.0
+   107.0
   ],
   "hol_fc": [
    0.0,
@@ -184,27 +184,27 @@
    49
   ],
   "fc_weeks": [
-   "2026-08-24",
    "2026-08-31",
-   "2026-09-07"
+   "2026-09-07",
+   "2026-09-14"
   ]
  },
  "Rothwell": {
-  "worked_lastwk": 114.0,
-  "holiday_lastwk": 12.0,
-  "ssp_lastwk": 0.0,
-  "used_lastwk": 126.0,
-  "actual_cph_lastwk": 53.5,
+  "worked_lastwk": 120.8,
+  "holiday_lastwk": 0.0,
+  "ssp_lastwk": 24.0,
+  "used_lastwk": 144.8,
+  "actual_cph_lastwk": 42.4,
   "cph": 48.0,
   "fc": [
-   5700,
    6400,
-   5900
+   5900,
+   5324
   ],
   "hrs": [
    120.0,
-   133.0,
-   123.0
+   123.0,
+   111.0
   ],
   "hol_fc": [
    0.0,
@@ -217,32 +217,32 @@
    0.0
   ],
   "sph_fc": [
-   48,
+   53,
    48,
    48
   ],
   "fc_weeks": [
-   "2026-08-24",
    "2026-08-31",
-   "2026-09-07"
+   "2026-09-07",
+   "2026-09-14"
   ]
  },
  "Peterborough Bridge Street": {
-  "worked_lastwk": 117.0,
-  "holiday_lastwk": 46.0,
+  "worked_lastwk": 114.5,
+  "holiday_lastwk": 45.0,
   "ssp_lastwk": 0.0,
-  "used_lastwk": 163.0,
-  "actual_cph_lastwk": 33.2,
+  "used_lastwk": 159.5,
+  "actual_cph_lastwk": 35.1,
   "cph": 48.0,
   "fc": [
-   5000,
    5300,
-   5000
+   5000,
+   4580
   ],
   "hrs": [
    110.0,
-   110.0,
-   104.0
+   104.0,
+   95.0
   ],
   "hol_fc": [
    0.0,
@@ -255,32 +255,32 @@
    0.0
   ],
   "sph_fc": [
-   45,
+   48,
    48,
    48
   ],
   "fc_weeks": [
-   "2026-08-24",
    "2026-08-31",
-   "2026-09-07"
+   "2026-09-07",
+   "2026-09-14"
   ]
  },
  "Burton Latimer": {
-  "worked_lastwk": 119.0,
+  "worked_lastwk": 117.1,
   "holiday_lastwk": 0.0,
   "ssp_lastwk": 0.0,
-  "used_lastwk": 119.0,
-  "actual_cph_lastwk": 49.0,
+  "used_lastwk": 117.1,
+  "actual_cph_lastwk": 45.0,
   "cph": 40.0,
   "fc": [
-   5450,
    5400,
-   5200
+   5200,
+   4697
   ],
   "hrs": [
    121.2,
    124.0,
-   130.0
+   117.0
   ],
   "hol_fc": [
    0.0,
@@ -294,31 +294,31 @@
   ],
   "sph_fc": [
    45,
-   44,
+   42,
    40
   ],
   "fc_weeks": [
-   "2026-08-24",
    "2026-08-31",
-   "2026-09-07"
+   "2026-09-07",
+   "2026-09-14"
   ]
  },
  "Higham Ferrers": {
-  "worked_lastwk": 112.0,
-  "holiday_lastwk": 24.0,
-  "ssp_lastwk": 0.0,
-  "used_lastwk": 136.0,
-  "actual_cph_lastwk": 30.7,
+  "worked_lastwk": 127.5,
+  "holiday_lastwk": 9.0,
+  "ssp_lastwk": 16.0,
+  "used_lastwk": 152.5,
+  "actual_cph_lastwk": 28.1,
   "cph": 40.0,
   "fc": [
-   5100,
    5200,
-   4600
+   4600,
+   4362
   ],
   "hrs": [
-   128.0,
+   130.0,
    113.0,
-   115.0
+   109.0
   ],
   "hol_fc": [
    0.0,
@@ -332,35 +332,35 @@
   ],
   "sph_fc": [
    40,
-   46,
+   41,
    40
   ],
   "fc_weeks": [
-   "2026-08-24",
    "2026-08-31",
-   "2026-09-07"
+   "2026-09-07",
+   "2026-09-14"
   ]
  },
  "Northampton Drive-Thru": {
-  "worked_lastwk": 364.0,
+  "worked_lastwk": 355.0,
   "holiday_lastwk": 30.0,
   "ssp_lastwk": 0.0,
-  "used_lastwk": 394.0,
-  "actual_cph_lastwk": 63.0,
+  "used_lastwk": 385.0,
+  "actual_cph_lastwk": 58.6,
   "cph": 70.0,
   "fc": [
-   25650,
-   25900,
-   25000
+   24500,
+   24950,
+   23291
   ],
   "hrs": [
-   366.0,
-   370.0,
-   357.0
+   350.0,
+   356.0,
+   333.0
   ],
   "hol_fc": [
-   30.0,
    51.0,
+   0.0,
    0.0
   ],
   "ssp_fc": [
@@ -369,36 +369,36 @@
    0.0
   ],
   "sph_fc": [
-   65,
-   62,
+   61,
+   70,
    70
   ],
   "fc_weeks": [
-   "2026-08-24",
    "2026-08-31",
-   "2026-09-07"
+   "2026-09-07",
+   "2026-09-14"
   ]
  },
  "Billing Drive Thru": {
-  "worked_lastwk": 240.0,
-  "holiday_lastwk": 48.0,
+  "worked_lastwk": 245.0,
+  "holiday_lastwk": 0.0,
   "ssp_lastwk": 0.0,
-  "used_lastwk": 288.0,
-  "actual_cph_lastwk": 44.0,
+  "used_lastwk": 245.0,
+  "actual_cph_lastwk": 55.5,
   "cph": 56.0,
   "fc": [
-   13500,
    13750,
-   12500
+   12500,
+   13593
   ],
   "hrs": [
    249.0,
-   246.0,
-   223.0
+   223.0,
+   243.0
   ],
   "hol_fc": [
-   9.0,
    18.0,
+   0.0,
    0.0
   ],
   "ssp_fc": [
@@ -407,35 +407,35 @@
    0.0
   ],
   "sph_fc": [
-   52,
-   52,
+   51,
+   56,
    56
   ],
   "fc_weeks": [
-   "2026-08-24",
    "2026-08-31",
-   "2026-09-07"
+   "2026-09-07",
+   "2026-09-14"
   ]
  },
  "Market Harborough": {
-  "worked_lastwk": 194.0,
-  "holiday_lastwk": 45.0,
+  "worked_lastwk": 183.0,
+  "holiday_lastwk": 18.0,
   "ssp_lastwk": 0.0,
-  "used_lastwk": 239.0,
-  "actual_cph_lastwk": 49.9,
+  "used_lastwk": 201.0,
+  "actual_cph_lastwk": 55.0,
   "cph": 58.0,
   "fc": [
-   10900,
    11000,
-   10000
+   9800,
+   9882
   ],
   "hrs": [
-   188.0,
    190.0,
-   172.0
+   169.0,
+   170.0
   ],
   "hol_fc": [
-   18.0,
+   0.0,
    0.0,
    0.0
   ],
@@ -445,36 +445,36 @@
    0.0
   ],
   "sph_fc": [
-   53,
+   58,
    58,
    58
   ],
   "fc_weeks": [
-   "2026-08-24",
    "2026-08-31",
-   "2026-09-07"
+   "2026-09-07",
+   "2026-09-14"
   ]
  },
  "Northampton": {
-  "worked_lastwk": 170.0,
-  "holiday_lastwk": 72.0,
+  "worked_lastwk": 165.0,
+  "holiday_lastwk": 9.0,
   "ssp_lastwk": 0.0,
-  "used_lastwk": 242.0,
-  "actual_cph_lastwk": 42.0,
+  "used_lastwk": 174.0,
+  "actual_cph_lastwk": 63.5,
   "cph": 60.0,
   "fc": [
    10500,
-   10500,
-   9500
+   9500,
+   10464
   ],
   "hrs": [
    175.0,
-   175.0,
-   158.0
+   158.0,
+   174.0
   ],
   "hol_fc": [
-   9.0,
    21.0,
+   0.0,
    0.0
   ],
   "ssp_fc": [
@@ -483,32 +483,32 @@
    0.0
   ],
   "sph_fc": [
-   57,
    54,
+   60,
    60
   ],
   "fc_weeks": [
-   "2026-08-24",
    "2026-08-31",
-   "2026-09-07"
+   "2026-09-07",
+   "2026-09-14"
   ]
  },
  "Leamington Parade": {
-  "worked_lastwk": 168.0,
-  "holiday_lastwk": 48.0,
+  "worked_lastwk": 166.0,
+  "holiday_lastwk": 0.0,
   "ssp_lastwk": 0.0,
-  "used_lastwk": 216.0,
-  "actual_cph_lastwk": 46.9,
+  "used_lastwk": 166.0,
+  "actual_cph_lastwk": 58.9,
   "cph": 58.0,
   "fc": [
-   9050,
    9500,
-   9000
+   8900,
+   9892
   ],
   "hrs": [
-   156.0,
    164.0,
-   155.0
+   153.0,
+   171.0
   ],
   "hol_fc": [
    0.0,
@@ -526,31 +526,31 @@
    58
   ],
   "fc_weeks": [
-   "2026-08-24",
    "2026-08-31",
-   "2026-09-07"
+   "2026-09-07",
+   "2026-09-14"
   ]
  },
  "Rugby": {
-  "worked_lastwk": 156.0,
-  "holiday_lastwk": 18.0,
+  "worked_lastwk": 152.0,
+  "holiday_lastwk": 48.0,
   "ssp_lastwk": 0.0,
-  "used_lastwk": 174.0,
-  "actual_cph_lastwk": 45.7,
+  "used_lastwk": 200.0,
+  "actual_cph_lastwk": 41.5,
   "cph": 55.0,
   "fc": [
-   7950,
    8100,
-   8050
+   7900,
+   7757
   ],
   "hrs": [
-   145.0,
    147.0,
-   146.0
+   144.0,
+   141.0
   ],
   "hol_fc": [
-   48.0,
    30.0,
+   0.0,
    0.0
   ],
   "ssp_fc": [
@@ -559,32 +559,32 @@
    0.0
   ],
   "sph_fc": [
-   41,
    46,
+   55,
    55
   ],
   "fc_weeks": [
-   "2026-08-24",
    "2026-08-31",
-   "2026-09-07"
+   "2026-09-07",
+   "2026-09-14"
   ]
  },
  "Wellingborough Train Station": {
-  "worked_lastwk": 113.0,
+  "worked_lastwk": 110.0,
   "holiday_lastwk": 0.0,
   "ssp_lastwk": 0.0,
-  "used_lastwk": 113.0,
-  "actual_cph_lastwk": 58.6,
+  "used_lastwk": 110.0,
+  "actual_cph_lastwk": 54.5,
   "cph": 55.0,
   "fc": [
    6600,
    6600,
-   6700
+   7166
   ],
   "hrs": [
    120.0,
    120.0,
-   122.0
+   130.0
   ],
   "hol_fc": [
    0.0,
@@ -602,31 +602,31 @@
    55
   ],
   "fc_weeks": [
-   "2026-08-24",
    "2026-08-31",
-   "2026-09-07"
+   "2026-09-07",
+   "2026-09-14"
   ]
  },
  "Wellingborough": {
-  "worked_lastwk": 131.0,
-  "holiday_lastwk": 30.0,
+  "worked_lastwk": 129.0,
+  "holiday_lastwk": 63.0,
   "ssp_lastwk": 0.0,
-  "used_lastwk": 161.0,
-  "actual_cph_lastwk": 41.0,
+  "used_lastwk": 192.0,
+  "actual_cph_lastwk": 33.9,
   "cph": 53.0,
   "fc": [
-   7050,
    7000,
-   6700
+   6500,
+   6871
   ],
   "hrs": [
-   133.0,
    132.0,
-   126.0
+   123.0,
+   130.0
   ],
   "hol_fc": [
-   63.0,
    33.0,
+   0.0,
    0.0
   ],
   "ssp_fc": [
@@ -635,36 +635,36 @@
    0.0
   ],
   "sph_fc": [
-   36,
    42,
+   53,
    53
   ],
   "fc_weeks": [
-   "2026-08-24",
    "2026-08-31",
-   "2026-09-07"
+   "2026-09-07",
+   "2026-09-14"
   ]
  },
  "Lower Heathcote": {
-  "worked_lastwk": 102.0,
-  "holiday_lastwk": 30.0,
+  "worked_lastwk": 103.0,
+  "holiday_lastwk": 24.0,
   "ssp_lastwk": 0.0,
-  "used_lastwk": 132.0,
-  "actual_cph_lastwk": 29.9,
+  "used_lastwk": 127.0,
+  "actual_cph_lastwk": 32.8,
   "cph": 40.0,
   "fc": [
-   4750,
    4700,
-   4765
+   4700,
+   4808
   ],
   "hrs": [
-   119.0,
    118.0,
-   119.0
+   118.0,
+   120.0
   ],
   "hol_fc": [
-   24.0,
    30.0,
+   0.0,
    0.0
   ],
   "ssp_fc": [
@@ -673,37 +673,37 @@
    0.0
   ],
   "sph_fc": [
-   33,
    32,
+   40,
    40
   ],
   "fc_weeks": [
-   "2026-08-24",
    "2026-08-31",
-   "2026-09-07"
+   "2026-09-07",
+   "2026-09-14"
   ]
  },
  "Glenvale Drive Thru": {
-  "worked_lastwk": 332.0,
-  "holiday_lastwk": 42.0,
-  "ssp_lastwk": 0.0,
-  "used_lastwk": 374.0,
-  "actual_cph_lastwk": 45.2,
+  "worked_lastwk": 288.0,
+  "holiday_lastwk": 50.0,
+  "ssp_lastwk": 32.0,
+  "used_lastwk": 370.0,
+  "actual_cph_lastwk": 45.4,
   "cph": 63.0,
   "fc": [
-   18450,
    18500,
-   17395
+   17395,
+   17559
   ],
   "hrs": [
-   293.0,
    294.0,
-   276.0
+   276.0,
+   279.0
   ],
   "hol_fc": [
-   57.0,
    56.0,
-   42.0
+   42.0,
+   0.0
   ],
   "ssp_fc": [
    0.0,
@@ -712,36 +712,36 @@
   ],
   "sph_fc": [
    53,
-   53,
-   55
+   55,
+   63
   ],
   "fc_weeks": [
-   "2026-08-24",
    "2026-08-31",
-   "2026-09-07"
+   "2026-09-07",
+   "2026-09-14"
   ]
  },
  "HOE Balsall Common": {
-  "worked_lastwk": 135.0,
-  "holiday_lastwk": 0.0,
+  "worked_lastwk": 148.0,
+  "holiday_lastwk": 18.0,
   "ssp_lastwk": 0.0,
-  "used_lastwk": 135.0,
-  "actual_cph_lastwk": 49.0,
+  "used_lastwk": 166.0,
+  "actual_cph_lastwk": 35.7,
   "cph": 48.0,
   "fc": [
-   6400,
    6850,
-   6600
+   6600,
+   6801
   ],
   "hrs": [
-   133.0,
    143.0,
-   138.0
+   138.0,
+   142.0
   ],
   "hol_fc": [
-   17.0,
    38.0,
-   22.0
+   22.0,
+   0.0
   ],
   "ssp_fc": [
    0.0,
@@ -749,37 +749,37 @@
    0.0
   ],
   "sph_fc": [
-   43,
    38,
-   41
+   41,
+   48
   ],
   "fc_weeks": [
-   "2026-08-24",
    "2026-08-31",
-   "2026-09-07"
+   "2026-09-07",
+   "2026-09-14"
   ]
  },
  "Attleborough": {
-  "worked_lastwk": 188.0,
-  "holiday_lastwk": 40.0,
+  "worked_lastwk": 163.0,
+  "holiday_lastwk": 27.0,
   "ssp_lastwk": 0.0,
-  "used_lastwk": 228.0,
-  "actual_cph_lastwk": 29.0,
+  "used_lastwk": 190.0,
+  "actual_cph_lastwk": 27.8,
   "cph": 49.0,
   "fc": [
-   6150,
    6350,
-   6400
+   6400,
+   5276
   ],
   "hrs": [
-   126.0,
    130.0,
-   131.0
+   131.0,
+   108.0
   ],
   "hol_fc": [
-   7.0,
    44.0,
-   28.0
+   28.0,
+   0.0
   ],
   "ssp_fc": [
    0.0,
@@ -787,27 +787,27 @@
    0.0
   ],
   "sph_fc": [
-   46,
    36,
-   40
+   40,
+   49
   ],
   "fc_weeks": [
-   "2026-08-24",
    "2026-08-31",
-   "2026-09-07"
+   "2026-09-07",
+   "2026-09-14"
   ]
  },
  "Warwick": {
   "cph": 49.0,
   "fc": [
-   null,
-   null,
-   null
+   5028,
+   5028,
+   5028
   ],
   "hrs": [
-   0.0,
-   0.0,
-   0.0
+   103.0,
+   103.0,
+   103.0
   ],
   "hol_fc": [
    0.0,
@@ -820,14 +820,14 @@
    0.0
   ],
   "sph_fc": [
-   null,
-   null,
-   null
+   49,
+   49,
+   49
   ],
   "fc_weeks": [
-   "2026-08-24",
    "2026-08-31",
-   "2026-09-07"
+   "2026-09-07",
+   "2026-09-14"
   ]
  }
 }
