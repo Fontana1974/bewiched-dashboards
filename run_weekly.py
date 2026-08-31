@@ -3181,6 +3181,27 @@ def pull_eos_scorecard():
                               "sph": round(sa / h, 1),
                               "holiday": round(v.get("holiday_lastwk") or 0, 1),
                               "ssp": round(v.get("ssp_lastwk") or 0, 1)})
+    # AUTHORITATIVE company SPH: derive the headline from the per-store rows just built for this week
+    # (_sph_this is runtime-proven present every run — the banking loop populates it), on the 18-equity
+    # basis (exclude Ian's franchise). This overrides the earlier estate aggregation, which has
+    # intermittently read empty at its point in the run, so the tile stays consistent with the
+    # per-store SPH (~£47-49). If _sph_this is genuinely empty, the earlier `sph`/awaiting stands.
+    _IAN_FRAN = {st for st, c in COACH.items() if c == "Ian"}
+    _bn = _bd = 0.0
+    for _sr in _sph_this:
+        if _sr.get("store") not in _IAN_FRAN:
+            try: _bn += float(_sr["sales"]); _bd += float(_sr["hours"])
+            except Exception: pass
+    if _bd:
+        _sph_bank = round(_bn / _bd, 1)
+        sph = _sph_bank
+        qtd_sph = _qtd_rate(q_prior, estate_sales_wk, _sph_bank, "sph") or _sph_bank
+        for _ml in (weekly, quarterly):
+            for _m in _ml:
+                if _m.get("id") == "sph_labour" and ma("sph_labour") is None:
+                    _m["actual"] = _sph_bank
+                elif _m.get("id") == "sph_labour_qtd" and ma("sph_labour_qtd") is None:
+                    _m["actual"] = qtd_sph
     _sph_merged = {(r.get("week_ending"), r.get("store")): r for r in _sph_hist}
     for r in _sph_this: _sph_merged[(r["week_ending"], r["store"])] = r
     _sph_ord = sorted(_sph_merged.values(), key=lambda r: (r.get("week_ending", ""), r.get("store", "")))
