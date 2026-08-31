@@ -2595,11 +2595,28 @@ def pull_eos_scorecard():
     subs = rms.get("submissions") or 0; ravg = rms.get("avg_rating")
     rh = round((min(subs / 70, 1) + min(ravg / 4.6, 1)) / 2 * 100, 1) if ravg and subs else None
     rh_detail = ("%d submissions (÷70) · %s★ (÷4.6) last week" % (subs, ravg)) if ravg else "No Rate My Shift submissions logged last week"
+    # Company SPH = 18-equity basis (Σ sales ÷ Σ hours, exclude Ian's franchise). Aggregate the SAME
+    # per-store sales+hours the banking loop uses; if the live planner read is momentarily empty this
+    # pass, fall back to the already-banked per-store rows (sph_history.csv, current week) so the
+    # headline stays consistent with the per-store SPH. Genuinely empty (no data anywhere) -> None -> awaiting.
     num = den = 0.0; nrep = 0
     for st, v in ovr.items():
-        h = v.get("used_lastwk")
-        if h and rec.get(st, {}).get("lw26") and COACH.get(st) != "Ian":   # company SPH = 18-equity basis (exclude Ian's franchise)
-            num += rec[st]["lw26"]; den += h; nrep += 1
+        h = v.get("used_lastwk"); sa = (rec.get(st, {}) or {}).get("lw26")
+        if h and sa and COACH.get(st) != "Ian":
+            num += sa; den += h; nrep += 1
+    if not den:
+        try:
+            _sphp = os.path.join(HERE, "sph_history.csv"); _cw = CUR_END.isoformat()
+            if os.path.exists(_sphp):
+                with open(_sphp, newline="") as _fh:
+                    for _r in csv.DictReader(_fh):
+                        if _r.get("week_ending") != _cw or COACH.get(_r.get("store")) == "Ian":
+                            continue
+                        try: _s = float(_r.get("sales")); _h = float(_r.get("hours"))
+                        except Exception: continue
+                        if _s and _h: num += _s; den += _h; nrep += 1
+        except Exception:
+            pass
     sph = round(num / den, 1) if den else None
     # planner CPH (actual sales-per-labour-hour from the 3 area planners, Section A) — hours-weighted estate avg.
     cnum = cden = 0.0
