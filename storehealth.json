@@ -40,8 +40,8 @@
    "r_rag": "amber"
   },
   "Billing Drive Thru": {
-   "g_n": 75,
-   "g_avg": 4.973,
+   "g_n": 77,
+   "g_avg": 4.974,
    "g_target": 49,
    "g_health": 4.99,
    "g_rag": "green",
@@ -68,15 +68,15 @@
    "g_health": 2.8,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 44,
-   "r_avg": 3.0,
+   "r_n": 45,
+   "r_avg": 3.04,
    "r_rag": "red"
   },
   "Glenvale Drive Thru": {
-   "g_n": 19,
-   "g_avg": 4.842,
+   "g_n": 20,
+   "g_avg": 4.85,
    "g_target": 49,
-   "g_health": 3.39,
+   "g_health": 3.45,
    "g_rag": "green",
    "g_stale": false,
    "r_n": 33,
@@ -117,19 +117,19 @@
    "r_rag": "red"
   },
   "Leamington Parade": {
-   "g_n": 85,
-   "g_avg": 4.976,
+   "g_n": 88,
+   "g_avg": 4.977,
    "g_target": 15,
    "g_health": 4.99,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 108,
+   "r_n": 109,
    "r_avg": 4.85,
    "r_rag": "green"
   },
   "Lower Heathcote": {
-   "g_n": 20,
-   "g_avg": 4.9,
+   "g_n": 22,
+   "g_avg": 4.909,
    "g_target": 8,
    "g_health": 4.95,
    "g_rag": "green",
@@ -156,9 +156,9 @@
    "g_health": 3.33,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 25,
-   "r_avg": 4.48,
-   "r_rag": "amber"
+   "r_n": 26,
+   "r_avg": 4.5,
+   "r_rag": "green"
   },
   "Northampton Drive-Thru": {
    "g_n": 35,
@@ -167,8 +167,8 @@
    "g_health": 4.19,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 22,
-   "r_avg": 4.0,
+   "r_n": 23,
+   "r_avg": 4.04,
    "r_rag": "amber"
   },
   "Olney": {
@@ -189,9 +189,9 @@
    "g_health": 4.95,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 21,
-   "r_avg": 4.48,
-   "r_rag": "amber"
+   "r_n": 22,
+   "r_avg": 4.5,
+   "r_rag": "green"
   },
   "Peterborough Fletton Quays": {
    "g_n": 26,
@@ -233,8 +233,8 @@
    "g_health": 2.97,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 2,
-   "r_avg": 3.0,
+   "r_n": 3,
+   "r_avg": 3.67,
    "r_rag": "red"
   },
   "Wellingborough": {

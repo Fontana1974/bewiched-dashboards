@@ -118,9 +118,9 @@
    "sickfs": 20,
    "late": 21,
    "rep_pct": 100,
-   "rtw": 10,
+   "rtw": 11,
    "sick": 20,
-   "rtw_rate": 50
+   "rtw_rate": 55
   },
   {
    "store": "Northampton Drive-Thru",
@@ -188,8 +188,8 @@
   {
    "store": "Corby",
    "sickfs": 6,
-   "late": 1,
-   "rep_pct": 100,
+   "late": 2,
+   "rep_pct": 89,
    "rtw": 3,
    "sick": 7,
    "rtw_rate": 43
