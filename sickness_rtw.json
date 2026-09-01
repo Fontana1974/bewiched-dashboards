@@ -97,12 +97,12 @@
  "per_store": [
   {
    "store": "Peterborough Fletton Quays",
-   "sickfs": 22,
+   "sickfs": 23,
    "late": 13,
    "rep_pct": 85,
    "rtw": 11,
-   "sick": 27,
-   "rtw_rate": 41
+   "sick": 28,
+   "rtw_rate": 39
   },
   {
    "store": "Glenvale Drive Thru",
@@ -241,12 +241,12 @@
   },
   {
    "store": "Northampton",
-   "sickfs": 4,
-   "late": 5,
-   "rep_pct": 78,
+   "sickfs": 5,
+   "late": 6,
+   "rep_pct": 82,
    "rtw": 4,
-   "sick": 4,
-   "rtw_rate": 100
+   "sick": 5,
+   "rtw_rate": 80
   },
   {
    "store": "Wellingborough Train Station",

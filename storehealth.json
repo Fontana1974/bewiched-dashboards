@@ -40,7 +40,7 @@
    "r_rag": "amber"
   },
   "Billing Drive Thru": {
-   "g_n": 77,
+   "g_n": 78,
    "g_avg": 4.974,
    "g_target": 49,
    "g_health": 4.99,
@@ -62,13 +62,13 @@
    "r_rag": "amber"
   },
   "Corby": {
-   "g_n": 5,
-   "g_avg": 4.6,
+   "g_n": 6,
+   "g_avg": 4.667,
    "g_target": 25,
-   "g_health": 2.8,
+   "g_health": 2.93,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 45,
+   "r_n": 47,
    "r_avg": 3.04,
    "r_rag": "red"
   },
@@ -101,8 +101,8 @@
    "g_health": 0.0,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 3,
-   "r_avg": 3.33,
+   "r_n": 4,
+   "r_avg": 3.5,
    "r_rag": "red"
   },
   "Kettering": {
@@ -117,14 +117,14 @@
    "r_rag": "red"
   },
   "Leamington Parade": {
-   "g_n": 88,
-   "g_avg": 4.977,
+   "g_n": 91,
+   "g_avg": 4.956,
    "g_target": 15,
-   "g_health": 4.99,
+   "g_health": 4.98,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 109,
-   "r_avg": 4.85,
+   "r_n": 110,
+   "r_avg": 4.86,
    "r_rag": "green"
   },
   "Lower Heathcote": {
@@ -161,14 +161,14 @@
    "r_rag": "green"
   },
   "Northampton Drive-Thru": {
-   "g_n": 35,
-   "g_avg": 4.8,
+   "g_n": 37,
+   "g_avg": 4.757,
    "g_target": 49,
-   "g_health": 4.19,
+   "g_health": 4.27,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 23,
-   "r_avg": 4.04,
+   "r_n": 25,
+   "r_avg": 4.12,
    "r_rag": "amber"
   },
   "Olney": {
@@ -200,8 +200,8 @@
    "g_health": 4.96,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 9,
-   "r_avg": 4.0,
+   "r_n": 10,
+   "r_avg": 4.1,
    "r_rag": "amber"
   },
   "Rothwell": {
@@ -222,15 +222,15 @@
    "g_health": 3.6,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 33,
+   "r_n": 34,
    "r_avg": 4.91,
    "r_rag": "green"
   },
   "Rushden Lakes": {
-   "g_n": 13,
-   "g_avg": 4.615,
+   "g_n": 14,
+   "g_avg": 4.643,
    "g_target": 49,
-   "g_health": 2.97,
+   "g_health": 3.04,
    "g_rag": "red",
    "g_stale": false,
    "r_n": 3,
