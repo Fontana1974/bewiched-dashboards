@@ -2806,6 +2806,13 @@ def pull_eos_scorecard():
         for em, st in emp_store.items():
             kudos_store_hc[st] = kudos_store_hc.get(st, 0) + 1
         kudos_stores_resolved = len(kudos_store_hc)
+        # Emit the email->store map for the BCKH engagement feed (built by the scheduled Cowork
+        # task, which pulls Slack and needs authoritative store attribution). Non-fatal.
+        try:
+            W("emp_store_map.json", {em: st for em, st in emp_store.items()})
+            print("[pull] emp_store_map: %d email->store rows" % len(emp_store))
+        except Exception as _e:
+            print("[pull] emp_store_map emit skipped: %s" % str(_e)[:60])
         bckh_rows = sheet(SID["f1"], "'BCKH'!A2:E20000")        # tail-safe; date col A, email col B
         wk_emp = set(); qtd_emp = set()
         wk_store = {}; qtd_store = {}   # canonical store -> set(distinct contributor emails) in each window

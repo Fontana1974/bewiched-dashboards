@@ -1,0 +1,244 @@
+{
+ "generated": "01 Sep 2026 17:08",
+ "status": "collecting",
+ "week_commencing": "2026-09-01",
+ "windows": [
+  {
+   "day": "Tue",
+   "when": "17:30–18:30"
+  },
+  {
+   "day": "Thu",
+   "when": "12:00–13:00"
+  },
+  {
+   "day": "Sun",
+   "when": "09:00–10:00"
+  }
+ ],
+ "total": 0,
+ "distinct_contributors": 0,
+ "stores_contributing": 0,
+ "stores_total": 22,
+ "by_day": {
+  "Tue": 0,
+  "Thu": 0,
+  "Sun": 0
+ },
+ "by_store": [
+  {
+   "store": "Attleborough",
+   "coach": "Ian",
+   "count": 0,
+   "contributors": 0,
+   "shoutouts_received": 0
+  },
+  {
+   "store": "Billing Drive Thru",
+   "coach": "Rich",
+   "count": 0,
+   "contributors": 0,
+   "shoutouts_received": 0
+  },
+  {
+   "store": "Burton Latimer",
+   "coach": "Jon",
+   "count": 0,
+   "contributors": 0,
+   "shoutouts_received": 0
+  },
+  {
+   "store": "Corby",
+   "coach": "Jon",
+   "count": 0,
+   "contributors": 0,
+   "shoutouts_received": 0
+  },
+  {
+   "store": "Glenvale Drive Thru",
+   "coach": "Ian",
+   "count": 0,
+   "contributors": 0,
+   "shoutouts_received": 0
+  },
+  {
+   "store": "HOE Balsall Common",
+   "coach": "Ian",
+   "count": 0,
+   "contributors": 0,
+   "shoutouts_received": 0
+  },
+  {
+   "store": "Higham Ferrers",
+   "coach": "Jon",
+   "count": 0,
+   "contributors": 0,
+   "shoutouts_received": 0
+  },
+  {
+   "store": "Kettering",
+   "coach": "Jon",
+   "count": 0,
+   "contributors": 0,
+   "shoutouts_received": 0
+  },
+  {
+   "store": "Leamington Parade",
+   "coach": "Rich",
+   "count": 0,
+   "contributors": 0,
+   "shoutouts_received": 0
+  },
+  {
+   "store": "Lower Heathcote",
+   "coach": "Rich",
+   "count": 0,
+   "contributors": 0,
+   "shoutouts_received": 0
+  },
+  {
+   "store": "Market Harborough",
+   "coach": "Rich",
+   "count": 0,
+   "contributors": 0,
+   "shoutouts_received": 0
+  },
+  {
+   "store": "Northampton",
+   "coach": "Rich",
+   "count": 0,
+   "contributors": 0,
+   "shoutouts_received": 0
+  },
+  {
+   "store": "Northampton Drive-Thru",
+   "coach": "Rich",
+   "count": 0,
+   "contributors": 0,
+   "shoutouts_received": 0
+  },
+  {
+   "store": "Olney",
+   "coach": "Jon",
+   "count": 0,
+   "contributors": 0,
+   "shoutouts_received": 0
+  },
+  {
+   "store": "Peterborough Bridge Street",
+   "coach": "Jon",
+   "count": 0,
+   "contributors": 0,
+   "shoutouts_received": 0
+  },
+  {
+   "store": "Peterborough Fletton Quays",
+   "coach": "Jon",
+   "count": 0,
+   "contributors": 0,
+   "shoutouts_received": 0
+  },
+  {
+   "store": "Rothwell",
+   "coach": "Jon",
+   "count": 0,
+   "contributors": 0,
+   "shoutouts_received": 0
+  },
+  {
+   "store": "Rugby",
+   "coach": "Rich",
+   "count": 0,
+   "contributors": 0,
+   "shoutouts_received": 0
+  },
+  {
+   "store": "Rushden Lakes",
+   "coach": "Jon",
+   "count": 0,
+   "contributors": 0,
+   "shoutouts_received": 0
+  },
+  {
+   "store": "Warwick",
+   "coach": "Ian",
+   "count": 0,
+   "contributors": 0,
+   "shoutouts_received": 0
+  },
+  {
+   "store": "Wellingborough",
+   "coach": "Rich",
+   "count": 0,
+   "contributors": 0,
+   "shoutouts_received": 0
+  },
+  {
+   "store": "Wellingborough Train Station",
+   "coach": "Rich",
+   "count": 0,
+   "contributors": 0,
+   "shoutouts_received": 0
+  }
+ ],
+ "zero_stores": [
+  "Attleborough",
+  "Billing Drive Thru",
+  "Burton Latimer",
+  "Corby",
+  "Glenvale Drive Thru",
+  "HOE Balsall Common",
+  "Higham Ferrers",
+  "Kettering",
+  "Leamington Parade",
+  "Lower Heathcote",
+  "Market Harborough",
+  "Northampton",
+  "Northampton Drive-Thru",
+  "Olney",
+  "Peterborough Bridge Street",
+  "Peterborough Fletton Quays",
+  "Rothwell",
+  "Rugby",
+  "Rushden Lakes",
+  "Warwick",
+  "Wellingborough",
+  "Wellingborough Train Station"
+ ],
+ "by_area": [
+  {
+   "coach": "Jon",
+   "count": 0,
+   "stores_contributing": 0,
+   "stores_total": 9
+  },
+  {
+   "coach": "Rich",
+   "count": 0,
+   "stores_contributing": 0,
+   "stores_total": 9
+  },
+  {
+   "coach": "Ian",
+   "count": 0,
+   "stores_contributing": 0,
+   "stores_total": 4
+  }
+ ],
+ "top_individuals": [],
+ "engagement": {
+  "reactions": 0,
+  "replies": 0,
+  "avg_reactions": 0
+ },
+ "tone": {
+  "celebration": 0,
+  "recognition": 0,
+  "warm": 0,
+  "flagged": 0
+ },
+ "flagged": [],
+ "unmapped": 0,
+ "note": "Collecting — the 3-window BCKH format relaunched w/c 1 Sep 2026; the first full week's data lands after this week's Tue/Thu/Sun windows.",
+ "_source": "Slack #company-newsfeed (C9HSYV1PA), #BCKH/#BrewCrewKudosHour, via scheduled Cowork task"
+}

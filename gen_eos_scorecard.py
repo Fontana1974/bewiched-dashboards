@@ -2486,6 +2486,140 @@ def sph_forecast_view_html():
 
 
 md_options = ""
+
+def bckh_engagement_html():
+    """BCKH (Brew Crew Kudos Hour) engagement — Slack #company-newsfeed, three weekly windows.
+    Fed by bckh_feed.json (built by the scheduled Cowork task). Leads with the headline BCKH
+    number and stores-contributing coverage, then by-day, by-area/store, top individuals, tone.
+    'collecting' status renders the scaffold (relaunch w/c 1 Sep 2026) without faking zeros."""
+    try:
+        B = json.load(open(os.path.join(HERE, "bckh_feed.json")))
+    except Exception:
+        return ('<div class="md-note">BCKH engagement feed not available this run '
+                '(bckh_feed.json missing — the scheduled Cowork Slack pull writes it each Sunday).</div>')
+    collecting = B.get("status") == "collecting"
+    total = B.get("total", 0); sc = B.get("stores_contributing", 0); st_tot = B.get("stores_total", 22)
+    contrib = B.get("distinct_contributors", 0)
+    eng = B.get("engagement", {}) or {}; tone = B.get("tone", {}) or {}
+    cov = (sc / st_tot) if st_tot else 0
+    cov_cls = "green" if cov >= 0.8 else ("" if cov >= 0.5 else "red")
+    cov_col = {"green": "var(--green)", "red": "var(--red)", "": "var(--gold)"}[cov_cls]
+    css = ('<style>'
+      '.bckh .krow{display:flex;flex-wrap:wrap;gap:12px;margin:6px 0 4px}'
+      '.bckh .kcard{flex:1 1 150px;min-width:140px;background:var(--card);border:1px solid var(--line);'
+      'border-radius:12px;padding:13px 15px}'
+      '.bckh .kcard .n{font-size:30px;font-weight:800;color:var(--brown);line-height:1}'
+      '.bckh .kcard .l{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);'
+      'font-weight:800;margin-top:5px}'
+      '.bckh .kcard.cov{border-top:3px solid %s}'
+      '.bckh .collect{background:#fff7e9;border:1px solid var(--gold);border-radius:10px;padding:10px 13px;'
+      'font-size:12.5px;color:#7a5a1e;margin:4px 0 10px}'
+      '.bckh .days{display:flex;gap:14px;align-items:flex-end;height:120px;margin:8px 0 2px}'
+      '.bckh .day{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%%}'
+      '.bckh .day .bar{width:60%%;min-height:3px;background:linear-gradient(180deg,var(--brown),var(--brown2));'
+      'border-radius:5px 5px 0 0}.bckh .day .bv{font-size:14px;font-weight:800;color:var(--brown);margin-bottom:3px}'
+      '.bckh .day .bl{font-size:11px;color:var(--muted);margin-top:5px;font-weight:700}'
+      '.bckh .zero{background:var(--redbg);border:1px solid #ecc7c2;border-radius:9px;padding:9px 12px;'
+      'font-size:12px;color:#8a3b2b;margin-top:8px}.bckh .zero b{color:var(--red)}'
+      '.bckh .inds{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}'
+      '.bckh .ind{background:var(--cream);border:1px solid var(--line);border-radius:999px;padding:3px 10px;'
+      'font-size:12px;color:var(--brown)}.bckh .ind b{font-weight:800}'
+      '.bckh .tone{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}'
+      '.bckh .tchip{border-radius:8px;padding:5px 11px;font-size:12px;font-weight:700;border:1px solid var(--line)}'
+      '.bckh .area-h{font-size:12px;font-weight:800;color:var(--brown);margin:14px 0 4px}'
+      '</style>') % cov_col
+
+    # headline cards
+    cards = ('<div class="krow">'
+      '<div class="kcard"><div class="n">%d</div><div class="l">BCKH contributions</div></div>'
+      '<div class="kcard cov"><div class="n">%d<span style="font-size:16px;color:var(--muted)">/%d</span></div>'
+      '<div class="l">Stores contributing</div></div>'
+      '<div class="kcard"><div class="n">%d</div><div class="l">People contributing</div></div>'
+      '<div class="kcard"><div class="n">%d</div><div class="l">Reactions + replies</div></div>'
+      '</div>') % (total, sc, st_tot, contrib, (eng.get("reactions", 0) + eng.get("replies", 0)))
+
+    banner = ''
+    if collecting:
+        banner = ('<div class="collect">%s</div>'
+                  % esc(B.get("note", "Collecting — first full week from w/c 1 Sep 2026.")))
+
+    # by-day bars
+    bd = B.get("by_day", {}) or {}
+    mx = max([bd.get(d, 0) for d in ("Tue", "Thu", "Sun")] + [1])
+    wins = {w["day"]: w.get("when", "") for w in (B.get("windows") or [])}
+    days = '<div class="days">'
+    for d in ("Tue", "Thu", "Sun"):
+        v = bd.get(d, 0); h = int(6 + 100 * v / mx)
+        days += ('<div class="day"><div class="bv">%d</div><div class="bar" style="height:%dpx"></div>'
+                 '<div class="bl">%s<br><span style="font-weight:400;color:var(--muted)">%s</span></div></div>'
+                 ) % (v, h, d, esc(wins.get(d, "")))
+    days += '</div>'
+
+    # by area + by store table (grouped Jon/Rich/Ian)
+    by_area = {a["coach"]: a for a in (B.get("by_area") or [])}
+    tbl = ''
+    for coach in ("Jon", "Rich", "Ian"):
+        a = by_area.get(coach, {})
+        tbl += ('<div class="area-h">%s &middot; %d contribution%s &middot; %d/%d stores active</div>'
+                ) % (esc(coach), a.get("count", 0), "" if a.get("count", 0) == 1 else "s",
+                     a.get("stores_contributing", 0), a.get("stores_total", 0))
+        rows = ''
+        for srow in [x for x in (B.get("by_store") or []) if x["coach"] == coach]:
+            n = srow.get("count", 0)
+            chip = ('<span class="chip green">%d</span>' % n) if n > 0 else '<span class="chip red">0</span>'
+            sr = srow.get("shoutouts_received", 0)
+            rows += ('<tr><td>%s</td><td class="v">%s</td><td class="v">%d</td>'
+                     '<td class="v">%s</td></tr>') % (
+                        esc(srow["store"]), chip, srow.get("contributors", 0),
+                        ('%d' % sr) if sr else '&mdash;')
+        tbl += ('<table class="md-ps" style="max-width:640px"><thead><tr><th>Store</th>'
+                '<th class="v">Posts</th><th class="v">People</th><th class="v">Shout-outs recd</th>'
+                '</tr></thead><tbody>%s</tbody></table>') % rows
+
+    # zero list
+    zero = B.get("zero_stores") or []
+    zero_html = ''
+    if zero and not collecting:
+        zero_html = ('<div class="zero"><b>%d store%s with no BCKH this week</b> — nudge for next round: %s</div>'
+                     ) % (len(zero), "" if len(zero) == 1 else "s", esc(", ".join(zero)))
+
+    # top individuals
+    inds = B.get("top_individuals") or []
+    inds_html = ''
+    if inds:
+        chips = ''.join('<span class="ind"><b>%s</b>%s%s</span>' % (
+            esc(p.get("name", "?")),
+            (' &middot; %s' % esc(p["store"])) if p.get("store") else '',
+            (' &times;%d' % p["count"]) if p.get("count", 0) > 1 else '') for p in inds)
+        inds_html = ('<div class="md-section-h">Top contributors</div><div class="inds">%s</div>' % chips)
+
+    # tone
+    tmap = [("celebration", "Celebration", "var(--greenbg)", "var(--green)"),
+            ("recognition", "Recognition", "#eef3fb", "#2f5aa8"),
+            ("warm", "Warm thank-you", "var(--cream)", "var(--brown)"),
+            ("flagged", "Off-tone (review)", "var(--redbg)", "var(--red)")]
+    tchips = ''.join('<span class="tchip" style="background:%s;color:%s">%s &middot; %d</span>' % (
+        bg, fg, lab, tone.get(k, 0)) for k, lab, bg, fg in tmap)
+    tone_html = ('<div class="md-section-h">Tone &amp; engagement</div><div class="tone">%s</div>' % tchips)
+    flagged = B.get("flagged") or []
+    if flagged:
+        tone_html += ''.join('<div class="zero" style="background:var(--redbg)">Flagged: %s%s &mdash; &ldquo;%s&rdquo;</div>'
+                             % (esc(f.get("user", "")), (' (%s)' % esc(f["store"])) if f.get("store") else '',
+                                esc(f.get("excerpt", ""))) for f in flagged)
+
+    unmapped = B.get("unmapped", 0)
+    foot = ('<div class="md-note" style="margin-top:10px">Source: %s. Windows: Tue 17:30&ndash;18:30, '
+            'Thu 12:00&ndash;13:00, Sun 09:00&ndash;10:00 (Europe/London). Store attribution: store @-mention '
+            '&rarr; HRP employee&rarr;store map &rarr; free-text; cross-store posts credit the poster&rsquo;s '
+            'home store and tally the mentioned store as a shout-out received.%s Generated %s.</div>'
+            ) % (esc(B.get("_source", "Slack #company-newsfeed")),
+                 (' <b>%d contributor(s) unmapped</b> this week.' % unmapped) if unmapped else '',
+                 esc(B.get("generated", "")))
+
+    return (css + '<div class="bckh">' + banner + cards + days + tbl + zero_html
+            + inds_html + tone_html + foot + '</div>')
+
+
 md_details = ""
 for i, (wm, qm) in enumerate(zip(weekly, quarterly)):
     name = wm["name"]; fm = wm.get("fmt", "num1"); dirn = wm.get("dir", "high")
@@ -2537,6 +2671,15 @@ for i, (wm, qm) in enumerate(zip(weekly, quarterly)):
         detail = ('<div class="md-section-h">This quarter, week by week</div>'
                   + trend_svg(name, plan, dirn)
                   + brand_foundations_combined_html())
+    elif name == "Brew Crew Kudos Participation":
+        # Existing participation %% (BCKH tab / headcount) PLUS the Slack-fed engagement section.
+        ps_block = ps_section(name, plan, dirn, fm, qm)
+        detail = ('<div class="md-section-h">This quarter, week by week</div>'
+                  + trend_svg(name, plan, dirn)
+                  + '<div class="md-section-h">BCKH engagement &mdash; who&rsquo;s contributing (Slack, 3 weekly windows)</div>'
+                  + bckh_engagement_html()
+                  + '<div class="md-section-h">Participation %% &mdash; per store (contributors vs headcount)</div>'
+                  + ps_block)
     elif name == "New Starter Health":
         _ns = ns_detail.new_starter_detail_html(D) if ns_detail else ""
         detail = ('<div class="md-section-h">New Starter Health &mdash; onboarding compliance (first 90 days)</div>'
