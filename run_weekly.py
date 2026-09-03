@@ -198,6 +198,11 @@ COACH = {  # store -> area coach (Jon 9 / Rich 9 / Ian 4 = 22)
     "Attleborough": "Ian", "HOE Balsall Common": "Ian", "Glenvale Drive Thru": "Ian",
     "Warwick": "Ian"}
 DT_STORES = ["Billing Drive Thru", "Glenvale Drive Thru", "Northampton Drive-Thru"]
+DT_LANE_SHEET = "1ZC4XdhbHV4FhsqURkgp3W8cipn94FnDMumn_jxMWt58"   # matt@-owned DT lane-speed log (SA writer)
+DT_SITE_MAP = {"glenvale": "Glenvale Drive Thru", "great billing": "Billing Drive Thru",
+               "billing": "Billing Drive Thru", "northampton": "Northampton Drive-Thru",
+               "moulton": "Northampton Drive-Thru", "moulton park": "Northampton Drive-Thru",
+               "moulton park dt": "Northampton Drive-Thru"}
 STORE_PAGES = ["Olney", "Attleborough", "Billing Drive Thru", "Glenvale Drive Thru",
                "Northampton Drive-Thru", "Leamington Parade"]
 COMMERCIAL_STORES = ["Glenvale Drive Thru", "Leamington Parade"]
@@ -3843,6 +3848,52 @@ def push_cos_planner():
 
 
 # ============================ ORCHESTRATION ============================
+def pull_dt_lane_speed():
+    """Drive-thru lane speed (avg TOTAL time) from the matt@-owned 'Drive-Thru Lane Speed' log
+    (dashboards-bot SA has writer access). 'Weekly Log' tab = one row per site per week:
+    Week Ending | Wk# | Site | Cars Served | Avg Total (mm:ss) | Avg Total (secs) | %Under3:00 | ...
+    Emits dt_lane_speed.json with cars-weighted QTD + YTD average total SECONDS per DT store.
+    Goal (sheet's own): total time < 3:00 (180s). Newly populating -> sparse/early data handled
+    gracefully (a store with no rows is simply absent -> Star Card shows 'collecting'). Non-fatal."""
+    OUT = {"_source": "Drive-Thru Lane Speed log 'Weekly Log' tab (matt@, SA writer). "
+                      "Avg Total secs, cars-weighted across the period.",
+           "_target_secs": 180, "_generated": CUR_END.isoformat(), "stores": {}}
+    try:
+        rows = sheet(DT_LANE_SHEET, "'Weekly Log'!A1:J2000")
+        agg = {}
+        for r in rows:
+            if len(r) < 6: continue
+            site = str(r[2]).strip().lower() if len(r) > 2 and r[2] not in (None, "") else ""
+            if site not in DT_SITE_MAP: continue          # skips header, GROUP row, blanks
+            we = parse_any_date(r[0])
+            if not we: continue
+            try: cars = float(r[3])
+            except Exception: cars = 0.0
+            try: secs = float(r[5])
+            except Exception: continue
+            if secs <= 0: continue
+            st = DT_SITE_MAP[site]
+            a = agg.setdefault(st, {"qws": 0.0, "qc": 0.0, "yws": 0.0, "yc": 0.0, "nq": 0, "ny": 0, "latest": None})
+            if we.year == CUR_END.year:
+                a["yws"] += secs * cars; a["yc"] += cars; a["ny"] += 1
+                if a["latest"] is None or we > a["latest"]: a["latest"] = we
+            if we >= QSTART:
+                a["qws"] += secs * cars; a["qc"] += cars; a["nq"] += 1
+        for st, a in agg.items():
+            OUT["stores"][st] = {
+                "qtd_secs": (round(a["qws"] / a["qc"]) if a["qc"] > 0 else None),
+                "ytd_secs": (round(a["yws"] / a["yc"]) if a["yc"] > 0 else None),
+                "weeks_qtd": a["nq"], "weeks_ytd": a["ny"], "cars_qtd": int(a["qc"]),
+                "latest_we": (a["latest"].isoformat() if a["latest"] else None)}
+        W("dt_lane_speed.json", OUT)
+        print("[pull] dt_lane_speed: %d DT store(s) - %s" % (len(OUT["stores"]),
+              ", ".join("%s q=%ss/y=%ss" % (k.split()[0], v["qtd_secs"], v["ytd_secs"])
+                        for k, v in OUT["stores"].items()) or "no rows yet (collecting)"))
+    except Exception as e:
+        W("dt_lane_speed.json", OUT)   # empty stores -> Star Card renders 'collecting'
+        print("[pull] dt_lane_speed skipped (non-fatal): %s" % str(e)[:140])
+
+
 def pulls():
     """All estate + store-page pulls (A) in dependency order."""
     pull_sales()              # rec windows/dow/daypart  (-> allstores.json)
@@ -3877,6 +3928,7 @@ def pulls():
     pull_backtoschool()       # backtoschool_feed.json (EOS 5th tab: back-to-school forecast)
     pull_forecast_daily()     # forecast_feed.json (EOS Forecast tab: 3-wk forecast + daily DOW split)
     pull_sales_extras()       # sales_extras.json (EOS Sales tab: DT lane throughput + fridge items)
+    pull_dt_lane_speed()      # dt_lane_speed.json (Star Card: DT avg total time, 3rd Ops metric)
     pull_franchise()          # franchise_fees.json (Franchise Fees Scale dashboard)
     push_cos_planner()        # write Wastage%+Discounts% into each planner COS tab (K,L)
     push_cos_history()        # bank + mirror full weekly COS history -> "COS History" tab

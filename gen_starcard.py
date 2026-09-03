@@ -80,6 +80,22 @@ try:
             a=_agg.setdefault(c,[0.0,0.0]); a[0]+=float(r['sales']); a[1]+=float(r['hours'])
 except Exception: pass
 for c in CANON: D[c]['sph']=round(_agg[c][0]/_agg[c][1],1) if c in _agg and _agg[c][1] else None
+# Drive-thru lane speed (avg TOTAL time, secs) — DT stores only; committed by run_weekly's pull_dt_lane_speed.
+# 3rd Ops-Excellence metric for the three drive-thrus. Goal (source sheet): total < 3:00 (180s).
+DT_STARS = {"Northampton Drive Thru", "Billing Drive Thru", "Glenvale Drive Thru"}
+DT_TARGET = 180
+try:
+    _dtl = L("dt_lane_speed.json") or {}
+except Exception:
+    _dtl = {}
+for _k, _v in (_dtl.get("stores") or {}).items():
+    _c = norm(_k)
+    if _c in D:
+        D[_c]['dt_qtd'] = _v.get('qtd_secs'); D[_c]['dt_ytd'] = _v.get('ytd_secs')
+        D[_c]['dt_weeks'] = _v.get('weeks_qtd'); D[_c]['dt_latest'] = _v.get('latest_we')
+def _mmss(x):
+    if x is None: return None
+    x = int(round(x)); return "%d:%02d" % (x // 60, x % 60)
 # RMS Health (Rate My Shift, 1-5) — qtd avg scores, weekly avg = last-week chip, prevq = QoQ
 for k,v in L("rms_feed.json")['per_store'].items():
     c=norm(k)
@@ -238,7 +254,11 @@ def score(c,win):
     # Brand Foundations). Google Health moved OUT to Customers.
     f1s=d.get('f1_q3'); f1_s=band(f1s,175,50,25,hib=False) if f1s else None
     br=d.get('brand'); br_s=br if br is not None else None    # brand audit is already a genuine 0-5 (target 4.6)
-    _o=[x for x in (f1_s,br_s) if x is not None]; ops=(sum(_o)/len(_o)) if _o else None
+    # DT drive-thrus get a 3rd Ops metric: avg total lane time vs 180s (lower=better). Equal-weighted
+    # into the now-3-metric Ops blend for the 3 DT stores; non-DT stores keep the 2-metric blend.
+    dt_secs=(d.get('dt_qtd') if win=='qtd' else (d.get('dt_ytd') if d.get('dt_ytd') is not None else d.get('dt_qtd')))
+    dt_s=band(dt_secs,DT_TARGET,60,30,hib=False) if (c in DT_STARS and dt_secs is not None) else None
+    _o=[x for x in (f1_s,br_s,dt_s) if x is not None]; ops=(sum(_o)/len(_o)) if _o else None
     # CUSTOMERS = Guest Check count (YoY) + Google Health (moved IN from Ops). Sales YoY dropped out.
     gh=d.get('gh'); goog_r=clamp(gh/5) if gh is not None else None
     yr=lambda v: clamp((v+10)/20) if v is not None else None
@@ -421,6 +441,18 @@ def card(c,win):
            +rw('vs Last Quarter',('%.0f'%_f2) if _f2 is not None else None,dl(f1s,_f2,False,'')))
         +MW('Brand &amp; Remote',win_tag,('%.2f'%_brv) if _brv is not None else 'n/a',(hc(_brv>=4.6) if _brv is not None else 'neutral'),'blended audit &amp; remote &middot; target 4.6 / 5',
             brow('vs Last Week','n/a')+brow('vs Last Quarter','QTD' if _brv is not None else 'n/a')))
+    # DT lane speed — third Ops metric, drive-thru stores only. 'collecting' until the log fills.
+    if c in DT_STARS:
+        _dts=(d.get('dt_qtd') if not ytd else (d.get('dt_ytd') if d.get('dt_ytd') is not None else d.get('dt_qtd')))
+        _dwk=d.get('dt_weeks') or 0
+        if _dts is not None:
+            _dcls=('hit' if _dts<=180 else ('warn' if _dts<=210 else 'miss'))
+            _dsub='target &lt; 3:00 (180s) &middot; %d wk%s of data'%(_dwk,'' if _dwk==1 else 's')
+            ops=ops+MW('DT lane speed',win_tag,_mmss(_dts),_dcls,_dsub,
+                brow('vs Last Week','n/a')+brow('vs Last Quarter','building'))
+        else:
+            ops=ops+MW('DT lane speed',win_tag,'collecting','neutral','avg total time &middot; data building &middot; target &lt; 3:00',
+                brow('vs Last Week','n/a')+brow('vs Last Quarter','n/a'))
     # CUSTOMERS — Sales + Guest YoY (headline = last completed week vs LY on QTD; blended YoY on YTD)
     lws=d.get('yoy_lw'); lwg=d.get('gc_lw'); qs=qc.get('yoy_sales'); qg=qc.get('yoy_tx'); ps=qp.get('yoy_sales'); pg=qp.get('yoy_tx')
     sH=S['sales']; gH=S['gc']; s_tag=('LAST WK' if not ytd else 'YTD'); s_sub=('vs same wk last yr' if not ytd else 'blended YoY')
