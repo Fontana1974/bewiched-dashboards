@@ -40,8 +40,8 @@
    "r_rag": "amber"
   },
   "Billing Drive Thru": {
-   "g_n": 78,
-   "g_avg": 4.974,
+   "g_n": 79,
+   "g_avg": 4.975,
    "g_target": 49,
    "g_health": 4.99,
    "g_rag": "green",
@@ -84,11 +84,11 @@
    "r_rag": "red"
   },
   "HOE Balsall Common": {
-   "g_n": 7,
-   "g_avg": 4.143,
+   "g_n": 8,
+   "g_avg": 4.25,
    "g_target": 15,
-   "g_health": 3.24,
-   "g_rag": "red",
+   "g_health": 3.46,
+   "g_rag": "green",
    "g_stale": false,
    "r_n": 15,
    "r_avg": 4.67,
@@ -123,7 +123,7 @@
    "g_health": 4.98,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 110,
+   "r_n": 111,
    "r_avg": 4.86,
    "r_rag": "green"
   },
@@ -145,16 +145,16 @@
    "g_health": 4.7,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 16,
-   "r_avg": 4.06,
+   "r_n": 17,
+   "r_avg": 4.12,
    "r_rag": "amber"
   },
   "Northampton": {
-   "g_n": 5,
-   "g_avg": 5.0,
+   "g_n": 6,
+   "g_avg": 4.5,
    "g_target": 15,
-   "g_health": 3.33,
-   "g_rag": "green",
+   "g_health": 3.25,
+   "g_rag": "red",
    "g_stale": false,
    "r_n": 26,
    "r_avg": 4.5,
@@ -167,8 +167,8 @@
    "g_health": 4.27,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 25,
-   "r_avg": 4.12,
+   "r_n": 28,
+   "r_avg": 4.18,
    "r_rag": "amber"
   },
   "Olney": {
@@ -194,14 +194,14 @@
    "r_rag": "green"
   },
   "Peterborough Fletton Quays": {
-   "g_n": 26,
-   "g_avg": 4.923,
+   "g_n": 28,
+   "g_avg": 4.929,
    "g_target": 15,
    "g_health": 4.96,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 10,
-   "r_avg": 4.1,
+   "r_n": 11,
+   "r_avg": 4.18,
    "r_rag": "amber"
   },
   "Rothwell": {
@@ -233,9 +233,9 @@
    "g_health": 3.04,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 3,
-   "r_avg": 3.67,
-   "r_rag": "red"
+   "r_n": 5,
+   "r_avg": 4.0,
+   "r_rag": "amber"
   },
   "Wellingborough": {
    "g_n": 0,
@@ -244,8 +244,8 @@
    "g_health": 0.0,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 7,
-   "r_avg": 4.86,
+   "r_n": 8,
+   "r_avg": 4.88,
    "r_rag": "green"
   },
   "Wellingborough Train Station": {
