@@ -3883,10 +3883,10 @@ def pull_dt_lane_speed():
             if secs <= 0: continue
             st = DT_SITE_MAP[site]
             a = agg.setdefault(st, {"qws": 0.0, "qc": 0.0, "yws": 0.0, "yc": 0.0, "nq": 0, "ny": 0, "latest": None,
-                                   "lastwk": None, "lastwk_we": None})
+                                   "lastwk": None, "lastwk_we": None, "lastwk_cars": None})
             # last completed week (== CUR_END): the row for the Sales-tab "last week avg time"
             if we == CUR_END or (a["lastwk_we"] is None and we >= LASTWK_MON and we <= CUR_END):
-                a["lastwk"] = round(secs); a["lastwk_we"] = we
+                a["lastwk"] = round(secs); a["lastwk_we"] = we; a["lastwk_cars"] = int(cars)
             if we.year == CUR_END.year:
                 a["yws"] += secs * cars; a["yc"] += cars; a["ny"] += 1
                 if a["latest"] is None or we > a["latest"]: a["latest"] = we
@@ -3897,7 +3897,7 @@ def pull_dt_lane_speed():
                 "qtd_secs": (round(a["qws"] / a["qc"]) if a["qc"] > 0 else None),
                 "ytd_secs": (round(a["yws"] / a["yc"]) if a["yc"] > 0 else None),
                 "weeks_qtd": a["nq"], "weeks_ytd": a["ny"], "cars_qtd": int(a["qc"]),
-                "lastwk_secs": a["lastwk"],
+                "lastwk_secs": a["lastwk"], "lastwk_cars": a["lastwk_cars"],
                 "lastwk_we": (a["lastwk_we"].isoformat() if a["lastwk_we"] else None),
                 "latest_we": (a["latest"].isoformat() if a["latest"] else None)}
         W("dt_lane_speed.json", OUT)

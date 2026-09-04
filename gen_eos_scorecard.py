@@ -1925,6 +1925,49 @@ def dt_lanes_html():
     def _pct(v):
         if v is None: return "&mdash;"
         return ("+%.1f%%" % v) if v >= 0 else ("%.1f%%" % v)
+    # ---- Company drive-thru summary (headline, above the three lane tiles) ----
+    _tot_cars = sum((L.get("lw") or 0) for L in lanes)
+    _lfl = [(L.get("lw"), L.get("lw_ly")) for L in lanes if L.get("lw_ly") not in (None, 0)]
+    _tot_yoy = None
+    if _lfl:
+        _ty = sum(a for a, _ in _lfl); _ly = sum(b for _, b in _lfl)
+        _tot_yoy = round((_ty / _ly - 1) * 100, 1) if _ly else None
+    _lfl_n = len(_lfl)
+    # cars-weighted blended avg time from the lane-speed feed (matches the sheet's GROUP row)
+    _bw = _bc = 0.0
+    for L in lanes:
+        d = _DT.get(L.get("store", "")) or {}
+        sec = d.get("lastwk_secs"); car = d.get("lastwk_cars")
+        if sec is not None and car:
+            _bw += sec * car; _bc += car
+    _blended = round(_bw / _bc) if _bc > 0 else None
+    if _blended is None:
+        _bt_html = ('<div style="font-size:22px;font-weight:800;color:var(--muted);line-height:1.1">collecting</div>'
+                    '<div style="font-size:11px;color:var(--muted)">avg lane time &middot; target &lt;3:00</div>')
+    else:
+        _bcol, _bbg = (("var(--green)", "var(--greenbg)") if _blended < 180
+                       else (("var(--gold)", "#fbf1dd") if _blended <= 210 else ("var(--red)", "var(--redbg)")))
+        _bt_html = ('<div style="font-size:27px;font-weight:800;line-height:1.1;color:%s">%s</div>'
+                    '<div style="font-size:11px;color:var(--muted)">blended avg lane time '
+                    '<span style="display:inline-block;background:%s;color:%s;font-weight:800;font-size:10.5px;'
+                    'padding:0 6px;border-radius:8px">last wk</span> &middot; target &lt;3:00 (cars-weighted)</div>'
+                    ) % (_bcol, _mmss(_blended), _bbg, _bcol)
+    _yoy_html = (('<span style="font-size:14px;font-weight:800;color:%s">%s <span style="color:var(--muted);'
+                  'font-weight:600;font-size:11px">YoY</span></span>'
+                  % (("var(--green)" if _tot_yoy >= 0 else "var(--red)"),
+                     (("+%.1f%%" % _tot_yoy) if _tot_yoy >= 0 else ("%.1f%%" % _tot_yoy))))
+                 if _tot_yoy is not None else '<span style="font-size:11.5px;color:var(--muted)">no prior-year baseline</span>')
+    _yoy_note = (" &middot; like-for-like %d of %d lanes (Billing DT new)" % (_lfl_n, len(lanes))) if _lfl_n < len(lanes) else ""
+    company = ('<div style="border:1px solid var(--line);border-top:3px solid var(--brown);border-radius:12px;'
+               'padding:13px 16px;background:linear-gradient(180deg,#fbf7f2,#fff);margin-bottom:12px;'
+               'display:flex;flex-wrap:wrap;gap:22px;align-items:center">'
+               '<div style="min-width:180px"><div style="font-size:11px;text-transform:uppercase;letter-spacing:.05em;'
+               'color:var(--muted);font-weight:800">Company drive-thru &middot; all 3 lanes</div>'
+               '<div style="font-size:30px;font-weight:800;color:var(--brown);line-height:1.05;margin:4px 0 2px">%s '
+               '<span style="font-size:12px;color:var(--muted);font-weight:600">cars last wk</span></div>'
+               '<div>%s<span style="font-size:11px;color:var(--muted)">%s</span></div></div>'
+               '<div style="min-width:200px;border-left:1px solid var(--line);padding-left:20px">%s</div></div>'
+               ) % (_se_fmt_int(_tot_cars), _yoy_html, _yoy_note, _bt_html)
     tiles = ""
     for L in lanes:
         new = L.get("new"); yoy = L.get("qtd_yoy")
@@ -1955,8 +1998,9 @@ def dt_lanes_html():
             'through the lane. YoY compares the same window 52 weeks earlier.')
     return ('<div class="md-section-h">Drive-thru &mdash; cars through the lane, by site '
             '<span style="font-weight:600;color:var(--muted);font-size:12px">(%s)</span></div>'
+            '%s'
             '<div style="display:flex;gap:12px;flex-wrap:wrap;margin:2px 0 6px">%s</div>'
-            '<div class="md-note">%s</div>' % (esc(S.get("qtd_label","")), tiles, note))
+            '<div class="md-note">%s</div>' % (esc(S.get("qtd_label","")), company, tiles, note))
 
 def fridge_items_html():
     """TOP of the Sales view: top chilled grab-and-go 'fridge' food items estate-wide, QTD units
