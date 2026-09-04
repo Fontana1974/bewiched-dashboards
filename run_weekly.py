@@ -912,17 +912,26 @@ def pull_cph_fallback():
 
 
 def pull_cph_targets():
-    """B5 — Store-Targets CPH £/hr -> cph_targets.json (Glenvale 63, Leamington 58)."""
-    rows = sheet(SID["cph"], "A1:F40")
-    tgt = {}
+    """B5 — Store-Targets sheet -> cph_targets.json. SINGLE SOURCE OF TRUTH for the per-store SPH
+    target feeding EOS + Star Card scoring: column G "SPH including Holiday Pay" (6% holiday-inclusive
+    basis, matches actual SPH now that holiday is folded into the denominator). Falls back to the old
+    col C "SPH target (£/hr)" if G is blank for a store (e.g. Warwick, not yet in the sheet)."""
+    rows = sheet(SID["cph"], "A1:G40")
+    tgt = {}; _src = {}
     for r in rows[1:]:
         if not r: continue
         st = normalize(r[0])
-        if st and len(r) > 2 and r[2] not in (None, ""):
-            tgt[st] = round(fnum(r[2]))
-    W("cph_targets.json", {"_source": "Google Sheet %s tab1 (CPH target £/hr)" % SID["cph"],
-        "_pulled": CUR_END.isoformat(), "targets": tgt}, indent=1)
-    print("[pull] cph_targets: %d stores" % len(tgt))
+        if not st: continue
+        g = r[6] if len(r) > 6 and r[6] not in (None, "") else None   # col G = SPH including Holiday Pay
+        c = r[2] if len(r) > 2 and r[2] not in (None, "") else None   # col C = legacy SPH target
+        if g is not None:
+            tgt[st] = round(fnum(g)); _src[st] = "G"
+        elif c is not None:
+            tgt[st] = round(fnum(c)); _src[st] = "C(fallback)"
+    W("cph_targets.json", {"_source": "Google Sheet %s: col G 'SPH including Holiday Pay' (6%% holiday-inclusive), fallback col C" % SID["cph"],
+        "_basis": "holiday-inclusive", "_pulled": CUR_END.isoformat(), "targets": tgt, "_col": _src}, indent=1)
+    print("[pull] cph_targets: %d stores (col G holiday-inclusive; fallback C: %s)"
+          % (len(tgt), ",".join(k for k,v in _src.items() if v!="G") or "none"))
 
 
 def pull_cos():
@@ -3011,7 +3020,7 @@ def pull_eos_scorecard():
                "Distinct employees who contributed to Brew Crew Kudos (BCKH tab, F1 workbook) in the LAST COMPLETED WEEK, matched by email to the Employee List, ÷ total employees. Awaiting if no entries that week."),
         metric("social_media", "Social Media Engagement", None, None, "%", "pct0", "tbc", "",
                "Metric and target not yet defined.", tbc=True),
-        metric("sph_labour", "SPH Labour (incl holiday pay)", 55, sph, "£", "gbp1", "derived",
+        metric("sph_labour", "SPH Labour (incl holiday pay)", 52, sph, "£", "gbp1", "derived",
                ("£%.0f sales ÷ %.0f hours used (last week, %d stores reporting)" % (num, den, nrep)) if den else "Awaiting posted hours",
                "Sales per labour hour incl holiday pay. Last completed week; provisional on Sunday, finalised Monday once planner hours post."),
         metric("bench", "Bench", 3, bench_net, "", "num_signed", "derived",
@@ -3050,7 +3059,7 @@ def pull_eos_scorecard():
                "Distinct employees who contributed to Brew Crew Kudos (BCKH tab) QUARTER-TO-DATE, matched by email to the Employee List, ÷ total employees."),
         metric("social_media_qtd", "Social Media Engagement", None, None, "%", "pct0", "tbc", "",
                "Metric and target not yet defined.", tbc=True),
-        metric("sph_labour_qtd", "SPH Labour (incl holiday pay)", 55, qtd_sph, "£", "gbp1", "derived",
+        metric("sph_labour_qtd", "SPH Labour (incl holiday pay)", 52, qtd_sph, "£", "gbp1", "derived",
                "QTD £/hr, hours-weighted from weekly_history (%d week%s so far)" % (n_hist_q, "" if n_hist_q == 1 else "s"),
                "QTD sales per labour hour, hours-weighted across the weekly_history.csv rows since quarter start. Thin until several weeks accumulate (falls back to the current week)."),
         metric("bench_qtd", "Bench", 3, bench_net, "", "num_signed", "derived",
@@ -3074,7 +3083,7 @@ def pull_eos_scorecard():
     flags = [
         "Status is strictly binary: GREEN when actual ≥ plan, RED when below — no near-target band. Bench is green when ≥ 3.",
         "Google Health & Rate My Shift Health blend divisors (40 reviews / 4.6★ ; 70 submissions / 4.6★) are default assumptions — adjust if you prefer different volume targets.",
-        "Plans (Matt's stated defaults): SPH Labour 55, Brew Crew Kudos 50%, Bench 3, NPAT 18%, Food GP% 71%. YoY Sales 12% / Transactions 5% on both tabs.",
+        "Plans (Matt's stated defaults): SPH Labour 52 (holiday-inclusive; was 55 worked-only), Brew Crew Kudos 50%, Bench 3, NPAT 18%, Food GP% 71%. YoY Sales 12% / Transactions 5% on both tabs.",
         "F1 Score = AVERAGE RACE TOTAL SCORE (Matt confirmed), live from the F1 sheet (ID %s) — weekly = last week's race, quarterly = QTD avg. LOWER IS BETTER on this scale: target ≤175, green at or below 175 and red above (estate ~282 now, so RED). The old '75' higher-is-better target is retired." % SID["f1"],
         "SYMMETRIC: both tabs now carry the SAME 13 KPIs — Weekly measured on the last completed week, Quarterly the identical 13 measured QTD (since quarter start). Where a measure has no natural weekly/QTD split it shows the same figure on both tabs (see below).",
         "Same figure on both tabs (by nature): NPAT (latest-month P&L projection — no weekly actual), SPH Labour (a £/hr rate — QTD labour hours not separately sourced), Bench (point-in-time headcount), Food GP% (weekly CoS, a week in arrears). Brand Audit weekly shows 'awaiting' in weeks with no audits; the QTD tile is the reliable one.",
@@ -3267,11 +3276,11 @@ def pull_eos_scorecard():
                     "target": _sph_tgt.get(st)}
                    for st, v in ovr.items()
                    if v.get("used_lastwk") and rec.get(st, {}).get("lw26") and st not in _FRAN]
-    _ps2("SPH Labour (incl holiday pay)", plan=55,
+    _ps2("SPH Labour (incl holiday pay)", plan=52,
          weekly=_sph_weekly,
          wbasis="Last completed week sales ÷ planner hours used, vs each store's own £/hr target (Store-Targets sheet)",
          qtd=[{"store": r["store"], "value": _sph_qtd_store.get(r["store"], r["value"]), "target": r["target"]} for r in _sph_weekly],
-         qbasis="Per-store SPH QTD = Σ sales ÷ Σ planner hours across the quarter's weeks, banked in sph_history.csv (upserted per week+store). Thin until several weeks accumulate; until then QTD ≈ the current week.")   # company QTD tile stays on 55
+         qbasis="Per-store SPH QTD = Σ sales ÷ Σ planner hours across the quarter's weeks, banked in sph_history.csv (upserted per week+store). Thin until several weeks accumulate; until then QTD ≈ the current week.")   # company QTD tile: 52 = blanket 55 / 1.06 (holiday-inclusive)
     # Franchise (Ian's) stores as DETAIL ONLY on the SPH per-store table — never in the company SPH
     # headline/aggregate (that stays on the 18-equity basis). Ian's planner doesn't record Section-A
     # hours used, so actual £/hr can't be computed -> value None (renders "—", awaiting hours); the
