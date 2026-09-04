@@ -1901,6 +1901,27 @@ def dt_lanes_html():
     if not S: return ""
     lanes = S.get("dt_lanes") or []
     if not lanes: return ""
+    # Last-week average lane TIME per site, from the same Drive-Thru_Lane_Speed feed that powers the
+    # star cards (dt_lane_speed.json). RAG vs the <3:00 (180s) goal. "collecting" if no last-week row.
+    try:
+        _DT = (json.load(open(os.path.join(HERE, "dt_lane_speed.json"))).get("stores") or {})
+    except Exception:
+        _DT = {}
+    def _mmss(x):
+        if x is None: return None
+        x = int(round(x)); return "%d:%02d" % (x // 60, x % 60)
+    def _dt_time_html(store):
+        v = (_DT.get(store) or {}).get("lastwk_secs")
+        if v is None:
+            return ('<div style="margin-top:5px;font-size:11.5px;color:var(--muted)">'
+                    'Avg lane time: <b>collecting</b> <span style="font-size:10.5px">&middot; target &lt;3:00</span></div>')
+        col, bg = (("var(--green)", "var(--greenbg)") if v < 180
+                   else (("var(--gold)", "#fbf1dd") if v <= 210 else ("var(--red)", "var(--redbg)")))
+        return ('<div style="margin-top:5px;font-size:11.5px;color:var(--muted)">Avg lane time '
+                '<span style="font-weight:600">last wk</span> '
+                '<span style="display:inline-block;background:%s;color:%s;font-weight:800;font-size:12px;'
+                'padding:1px 8px;border-radius:9px">%s</span> '
+                '<span style="font-size:10.5px">&middot; target &lt;3:00</span></div>') % (bg, col, _mmss(v))
     def _pct(v):
         if v is None: return "&mdash;"
         return ("+%.1f%%" % v) if v >= 0 else ("%.1f%%" % v)
@@ -1926,8 +1947,9 @@ def dt_lanes_html():
                   '<div style="font-size:27px;font-weight:800;color:var(--brown);line-height:1.1;margin:5px 0 3px">%s '
                   '<span style="font-size:12px;color:var(--muted);font-weight:600">cars QTD</span></div>'
                   '<div style="margin:2px 0 4px">%s</div>'
-                  '<div style="font-size:11.5px;color:var(--muted)">%s</div></div>'
-                  % (accent, esc(L.get("store","")), _se_fmt_int(L.get("qtd")), badge, sub))
+                  '<div style="font-size:11.5px;color:var(--muted)">%s</div>%s</div>'
+                  % (accent, esc(L.get("store","")), _se_fmt_int(L.get("qtd")), badge, sub,
+                     _dt_time_html(L.get("store",""))))
     note = ('Each lane counts the distinct orders taken through that site&rsquo;s drive-thru till(s) '
             '&mdash; Northampton aggregates both its DT registers &mdash; a fair proxy for cars served '
             'through the lane. YoY compares the same window 52 weeks earlier.')
