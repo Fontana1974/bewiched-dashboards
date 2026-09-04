@@ -109,7 +109,7 @@ document.getElementById("bwgate_in").focus();
 <div class="brandbar"><div class="inner">
   <div class="logo"><div><div class="word">Be<span>wiched</span></div><div class="eyebrow">Area Performance</div></div></div>
   <div class="spacer"></div>
-  <div class="ctx">Area: <b>Ian</b> · 3 stores<br>4-week window: <b>11 May → 7 Jun 2026</b> · YoY vs 2025<br><span style="color:#e7b35a;font-weight:700">🔄 Refreshed 04 Sep 2026, 11:19 · auto Mon 9am</span></div>
+  <div class="ctx">Area: <b>Ian</b> · 3 stores<br>4-week window: <b>11 May → 7 Jun 2026</b> · YoY vs 2025<br><span style="color:#e7b35a;font-weight:700">🔄 Refreshed 04 Sep 2026, 21:39 · auto Mon 9am</span></div>
 </div></div>
 <div class="wrap">
   <header class="page">
@@ -124,7 +124,7 @@ document.getElementById("bwgate_in").focus();
     <a class="kpw red" onclick="goTab('sentiment')"><div class="kl">👥 People</div><div class="kv">2.43</div><div class="kt">RMS health · QTD · target ≥3.32 · 65 ratings</div></a>
   </div>
   <div class="note" style="margin:-2px 0 8px"><b>At a glance</b> — <b style="color:#1c6b3d">green</b> on/above target · <b style="color:#9a2f22">red</b> below target · <b style="color:#8a7a6d">grey</b> = no data / no feed. Sales &amp; Operations are last-week; Customer &amp; People are quarter-to-date (last-week per-area review/RMS volumes are too sparse). Tap a widget for the detail.</div>
-  <div class="focusmod"><h2>🎯 Area focus — week of 24 Aug</h2><div class="focus" style="margin:0 0 10px">⏱️ On average this area's queue time is <b>189 seconds</b> (vs competition <b>251 seconds</b>) — <b>62 seconds faster</b> than the chains <span class="mini" style="font-weight:400">· F1 race audits, this quarter</span></div><ul><li style="list-style:none;margin:2px 0 9px -18px;padding:9px 13px;border-radius:10px;font-weight:700;background:#fbeae8;border:1px solid #eccfca;color:#8c2f22">🩹 RTWs to do &mdash; last 45 days: 11 &mdash; of 11 sick-for-shift in window · worst Glenvale DT (7)</li><li><b>Sales:</b> area ran <b>£27,986</b> last week (+16.3% YoY); 4-week +25.8% YoY. <b>Glenvale DT +28.7%</b> leads.</li><li><b>Op's Excellence:</b> best <b>Glenvale DT P14.0</b>; reset <b>Attleborough P16.0</b>.</li><li><b>Wastage:</b> area 2.5% retail; worst <b>Attleborough (3.9%)</b>.</li><li><b>Presence &amp; team:</b> Ian averages <b>11%</b> coverage; RTW completion just <b>66%</b> across 29 sick-for-shift (lateness excluded).</li></ul></div>
+  <div class="focusmod"><h2>🎯 Area focus — week of 24 Aug</h2><div class="focus" style="margin:0 0 10px">⏱️ On average this area's queue time is <b>189 seconds</b> (vs competition <b>248 seconds</b>) — <b>59 seconds faster</b> than the chains <span class="mini" style="font-weight:400">· F1 race audits, this quarter</span></div><ul><li style="list-style:none;margin:2px 0 9px -18px;padding:9px 13px;border-radius:10px;font-weight:700;background:#fbeae8;border:1px solid #eccfca;color:#8c2f22">🩹 RTWs to do &mdash; last 45 days: 11 &mdash; of 11 sick-for-shift in window · worst Glenvale DT (7)</li><li><b>Sales:</b> area ran <b>£27,986</b> last week (+16.3% YoY); 4-week +25.8% YoY. <b>Glenvale DT +28.7%</b> leads.</li><li><b>Op's Excellence:</b> best <b>Glenvale DT P14.0</b>; reset <b>Attleborough P16.0</b>.</li><li><b>Wastage:</b> area 2.5% retail; worst <b>Attleborough (3.9%)</b>.</li><li><b>Presence &amp; team:</b> Ian averages <b>11%</b> coverage; RTW completion just <b>66%</b> across 29 sick-for-shift (lateness excluded).</li></ul></div>
   <nav class="tabs" role="tablist">
     <button class="tab-btn active" data-tab="overview"><span>🚦</span>Area overview</button>
     <button class="tab-btn" data-tab="sales"><span>📈</span>Sales</button>
@@ -431,7 +431,7 @@ function renderWaste(store){
     b.classList.add("active");document.getElementById("tab-"+b.dataset.tab).classList.add("active");
     requestAnimationFrame(()=>{(window.CHARTS||[]).forEach(c=>{try{c.resize();}catch(e){}});});}));})();
 function goTab(t){var b=document.querySelector('.tab-btn[data-tab="'+t+'"]');if(b){b.click();window.scrollTo({top:0,behavior:"smooth"});}}
-document.getElementById("foot").innerHTML="Data refreshed 04 Sep 2026, 11:19 · auto-refreshes every Monday 9am. Sources: live BigQuery POS, polling sheet, F1 audit, the visit rota, HRP &amp; Google reviews.";
+document.getElementById("foot").innerHTML="Data refreshed 04 Sep 2026, 21:39 · auto-refreshes every Monday 9am. Sources: live BigQuery POS, polling sheet, F1 audit, the visit rota, HRP &amp; Google reviews.";
 (function(){var q=document.getElementById("qsel");if(!q)return;function sw(v){document.querySelectorAll("[data-qperiod]").forEach(function(d){d.style.display=(d.getAttribute("data-qperiod")===v)?"block":"none";});}q.addEventListener("change",function(){sw(q.value);});sw(q.value);})();
 </script>
 </body>
