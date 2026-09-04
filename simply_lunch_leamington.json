@@ -303,25 +303,6 @@
    "sparse": true
   },
   {
-   "item": "Smoked Ham Sandwich",
-   "category": "Other",
-   "daily": {
-    "1": 0.25,
-    "2": 0.25,
-    "3": 0.5,
-    "4": 0.12,
-    "5": 0.38,
-    "6": 0.38,
-    "7": 0.5
-   },
-   "weekly_mean": 2.4,
-   "tue": 1,
-   "thu": 1,
-   "sat": 2,
-   "weekly_order": 4,
-   "sparse": true
-  },
-  {
    "item": "GF Vegan Wrapped Caramel Shortbread",
    "category": "Other",
    "daily": {
@@ -332,6 +313,25 @@
     "5": 0.38,
     "6": 0.0,
     "7": 1.0
+   },
+   "weekly_mean": 2.4,
+   "tue": 1,
+   "thu": 1,
+   "sat": 2,
+   "weekly_order": 4,
+   "sparse": true
+  },
+  {
+   "item": "Smoked Ham Sandwich",
+   "category": "Other",
+   "daily": {
+    "1": 0.25,
+    "2": 0.25,
+    "3": 0.5,
+    "4": 0.12,
+    "5": 0.38,
+    "6": 0.38,
+    "7": 0.5
    },
    "weekly_mean": 2.4,
    "tue": 1,
