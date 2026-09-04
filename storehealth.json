@@ -29,10 +29,10 @@
  },
  "stores": {
   "Attleborough": {
-   "g_n": 10,
-   "g_avg": 4.8,
+   "g_n": 11,
+   "g_avg": 4.727,
    "g_target": 15,
-   "g_health": 4.07,
+   "g_health": 4.2,
    "g_rag": "green",
    "g_stale": false,
    "r_n": 16,
@@ -40,10 +40,10 @@
    "r_rag": "amber"
   },
   "Billing Drive Thru": {
-   "g_n": 79,
-   "g_avg": 4.975,
+   "g_n": 81,
+   "g_avg": 4.963,
    "g_target": 49,
-   "g_health": 4.99,
+   "g_health": 4.98,
    "g_rag": "green",
    "g_stale": false,
    "r_n": 87,
@@ -68,7 +68,7 @@
    "g_health": 2.93,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 47,
+   "r_n": 48,
    "r_avg": 3.04,
    "r_rag": "red"
   },
@@ -79,8 +79,8 @@
    "g_health": 3.45,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 33,
-   "r_avg": 3.54,
+   "r_n": 34,
+   "r_avg": 3.5,
    "r_rag": "red"
   },
   "HOE Balsall Common": {
@@ -112,26 +112,26 @@
    "g_health": 2.46,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 5,
-   "r_avg": 3.4,
+   "r_n": 6,
+   "r_avg": 3.67,
    "r_rag": "red"
   },
   "Leamington Parade": {
-   "g_n": 91,
-   "g_avg": 4.956,
+   "g_n": 96,
+   "g_avg": 4.948,
    "g_target": 15,
-   "g_health": 4.98,
+   "g_health": 4.97,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 111,
+   "r_n": 113,
    "r_avg": 4.86,
    "r_rag": "green"
   },
   "Lower Heathcote": {
-   "g_n": 22,
-   "g_avg": 4.909,
+   "g_n": 23,
+   "g_avg": 4.913,
    "g_target": 8,
-   "g_health": 4.95,
+   "g_health": 4.96,
    "g_rag": "green",
    "g_stale": false,
    "r_n": 9,
@@ -139,14 +139,14 @@
    "r_rag": "red"
   },
   "Market Harborough": {
-   "g_n": 22,
-   "g_avg": 4.818,
+   "g_n": 23,
+   "g_avg": 4.826,
    "g_target": 24,
-   "g_health": 4.7,
+   "g_health": 4.81,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 17,
-   "r_avg": 4.12,
+   "r_n": 18,
+   "r_avg": 4.06,
    "r_rag": "amber"
   },
   "Northampton": {
@@ -156,8 +156,8 @@
    "g_health": 3.25,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 26,
-   "r_avg": 4.5,
+   "r_n": 27,
+   "r_avg": 4.52,
    "r_rag": "green"
   },
   "Northampton Drive-Thru": {
@@ -200,8 +200,8 @@
    "g_health": 4.96,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 11,
-   "r_avg": 4.18,
+   "r_n": 13,
+   "r_avg": 4.31,
    "r_rag": "amber"
   },
   "Rothwell": {
@@ -211,8 +211,8 @@
    "g_health": 4.21,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 13,
-   "r_avg": 3.23,
+   "r_n": 14,
+   "r_avg": 3.29,
    "r_rag": "red"
   },
   "Rugby": {
@@ -233,9 +233,9 @@
    "g_health": 3.04,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 5,
-   "r_avg": 4.0,
-   "r_rag": "amber"
+   "r_n": 6,
+   "r_avg": 3.67,
+   "r_rag": "red"
   },
   "Wellingborough": {
    "g_n": 0,
@@ -244,8 +244,8 @@
    "g_health": 0.0,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 8,
-   "r_avg": 4.88,
+   "r_n": 9,
+   "r_avg": 4.89,
    "r_rag": "green"
   },
   "Wellingborough Train Station": {

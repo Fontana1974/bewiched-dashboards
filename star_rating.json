@@ -2,7 +2,7 @@
  "target": 4.6,
  "stores": {
   "Glenvale Drive Thru": {
-   "composite": 4.4,
+   "composite": 4.5,
    "target": 4.6,
    "on_target": false,
    "pillars": [
@@ -28,7 +28,7 @@
     },
     {
      "name": "Commercial",
-     "star": 4.1,
+     "star": 4.5,
      "target": 4.6,
      "on_target": false,
      "metrics": [
@@ -39,10 +39,10 @@
        "on_target": false
       },
       {
-       "label": "CPH vs £63 target",
+       "label": "CPH vs £59 target",
        "value": "£61.6",
-       "star": 3.9,
-       "on_target": false
+       "star": 4.8,
+       "on_target": true
       }
      ]
     },
@@ -80,8 +80,8 @@
      "metrics": [
       {
        "label": "RMS health /5",
-       "value": "3.54",
-       "star": 4.7,
+       "value": "3.5",
+       "star": 4.6,
        "on_target": true
       },
       {
@@ -117,7 +117,7 @@
     "rtw_pct": 57.0,
     "rtw_detail": "RTW% from HRP sickness/RTW (Glenvale, QTD)"
    },
-   "_cph_target": 63,
+   "_cph_target": 59,
    "_f1_pos": 8
   },
   "Leamington Parade": {
@@ -158,7 +158,7 @@
        "on_target": false
       },
       {
-       "label": "CPH vs £58 target",
+       "label": "CPH vs £55 target",
        "value": "held — provisional, shown not scored",
        "star": null,
        "on_target": false
@@ -211,7 +211,7 @@
       },
       {
        "label": "Google health",
-       "value": "4.98 (QTD)",
+       "value": "4.97 (QTD)",
        "star": 5.0,
        "on_target": true
       },
@@ -225,7 +225,7 @@
     }
    ],
    "ops": null,
-   "_cph_target": 58,
+   "_cph_target": 55,
    "_f1_pos": 1
   }
  },

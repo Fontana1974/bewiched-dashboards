@@ -115,12 +115,12 @@
   },
   {
    "store": "Rushden Lakes",
-   "sickfs": 20,
+   "sickfs": 21,
    "late": 21,
    "rep_pct": 100,
    "rtw": 11,
-   "sick": 20,
-   "rtw_rate": 55
+   "sick": 21,
+   "rtw_rate": 52
   },
   {
    "store": "Northampton Drive-Thru",
@@ -160,12 +160,12 @@
   },
   {
    "store": "Market Harborough",
-   "sickfs": 8,
+   "sickfs": 10,
    "late": 9,
-   "rep_pct": 89,
+   "rep_pct": 90,
    "rtw": 8,
-   "sick": 10,
-   "rtw_rate": 80
+   "sick": 12,
+   "rtw_rate": 67
   },
   {
    "store": "Kettering",
@@ -244,9 +244,9 @@
    "sickfs": 5,
    "late": 7,
    "rep_pct": 75,
-   "rtw": 4,
+   "rtw": 5,
    "sick": 5,
-   "rtw_rate": 80
+   "rtw_rate": 100
   },
   {
    "store": "Wellingborough Train Station",
