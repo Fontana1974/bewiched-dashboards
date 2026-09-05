@@ -195,6 +195,15 @@
    "rtw_rate": 43
   },
   {
+   "store": "Northampton",
+   "sickfs": 6,
+   "late": 7,
+   "rep_pct": 77,
+   "rtw": 5,
+   "sick": 6,
+   "rtw_rate": 83
+  },
+  {
    "store": "Burton Latimer",
    "sickfs": 4,
    "late": 0,
@@ -238,15 +247,6 @@
    "rtw": 3,
    "sick": 5,
    "rtw_rate": 60
-  },
-  {
-   "store": "Northampton",
-   "sickfs": 5,
-   "late": 7,
-   "rep_pct": 75,
-   "rtw": 5,
-   "sick": 5,
-   "rtw_rate": 100
   },
   {
    "store": "Wellingborough Train Station",
