@@ -118,9 +118,9 @@
    "sickfs": 21,
    "late": 21,
    "rep_pct": 100,
-   "rtw": 11,
+   "rtw": 12,
    "sick": 21,
-   "rtw_rate": 52
+   "rtw_rate": 57
   },
   {
    "store": "Northampton Drive-Thru",
@@ -133,12 +133,12 @@
   },
   {
    "store": "Lower Heathcote",
-   "sickfs": 14,
+   "sickfs": 15,
    "late": 9,
    "rep_pct": 100,
    "rtw": 10,
-   "sick": 18,
-   "rtw_rate": 56
+   "sick": 19,
+   "rtw_rate": 53
   },
   {
    "store": "Leamington Parade",
@@ -163,9 +163,9 @@
    "sickfs": 10,
    "late": 9,
    "rep_pct": 90,
-   "rtw": 9,
+   "rtw": 10,
    "sick": 12,
-   "rtw_rate": 75
+   "rtw_rate": 83
   },
   {
    "store": "Kettering",

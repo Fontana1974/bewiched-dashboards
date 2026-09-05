@@ -143,8 +143,8 @@
    1.0,
    0.65,
    252.85,
-   18.0,
-   5.0,
+   14.0,
+   9.0,
    "2026-09-05"
   ],
   "quali": [
@@ -183,7 +183,7 @@
    "queue": 143.11
   },
   "last6": [
-   5.0,
+   9.0,
    4.0,
    8.0,
    17.0,
@@ -211,8 +211,8 @@
    1.0,
    1.0,
    363.5,
-   16.0,
-   7.0,
+   12.0,
+   11.0,
    "2026-09-05"
   ],
   "quali": [
@@ -251,7 +251,7 @@
    "queue": 161.78
   },
   "last6": [
-   7.0,
+   11.0,
    10.0,
    10.0,
    19.0,
@@ -681,15 +681,15 @@
  },
  "Rushden Lakes": {
   "race": [
-   94.0,
+   124.5,
    1.0,
    1.0,
-   1.0,
-   0.15,
-   117.25,
-   22.0,
-   2.0,
-   "2026-08-29"
+   0.65,
+   0.0,
+   179.25,
+   19.0,
+   4.0,
+   "2026-09-05"
   ],
   "quali": [
    441.5,
@@ -702,15 +702,15 @@
    "2026-09-01"
   ],
   "race_qtd": {
-   "n": 9,
-   "score": 150.29,
-   "queue_s": 109.84,
-   "qcall": 55.0,
-   "hello": 84.0,
-   "goodbye": 63.0,
-   "howareyou": 96.0,
-   "queue": 109.84,
-   "wtq": 0.55
+   "n": 10,
+   "score": 153.18,
+   "queue_s": 111.31,
+   "qcall": 49.0,
+   "hello": 86.0,
+   "goodbye": 67.0,
+   "howareyou": 93.0,
+   "queue": 111.31,
+   "wtq": 0.49
   },
   "race_q2": {
    "n": 12,
@@ -727,37 +727,37 @@
    "queue": 223.05
   },
   "last6": [
+   4.0,
    2.0,
    9.0,
    6.0,
    9.0,
-   8.0,
-   13.0
+   8.0
   ],
   "sections": {
-   "Hello": 3.89,
-   "Goodbye": 9.17,
-   "How are you": 0.97,
-   "Working the queue": 11.25,
+   "Hello": 3.5,
+   "Goodbye": 8.25,
+   "How are you": 1.75,
+   "Working the queue": 12.62,
    "Food & syrups": 0.0,
    "Tables <3 mins": 0.0,
-   "Tables brand standard": 1.94,
+   "Tables brand standard": 1.75,
    "Virtual section plan": 0.0,
-   "No late team": 1.11
+   "No late team": 1.0
   },
-  "sect_queue": 109.84
+  "sect_queue": 111.31
  },
  "Kettering": {
   "race": [
-   116.666666666666,
-   0.35,
-   0.35,
+   139.875,
+   1.0,
+   1.0,
    1.0,
    0.0,
-   213.416666666666,
-   10.0,
-   13.0,
-   "2026-08-29"
+   166.875,
+   20.0,
+   3.0,
+   "2026-09-05"
   ],
   "quali": [
    90.5,
@@ -770,15 +770,15 @@
    "2026-09-01"
   ],
   "race_qtd": {
-   "n": 9,
-   "score": 200.15,
-   "queue_s": 128.12,
-   "qcall": 22.0,
-   "hello": 70.0,
-   "goodbye": 63.0,
-   "howareyou": 96.0,
-   "queue": 128.12,
-   "wtq": 0.22
+   "n": 10,
+   "score": 196.82,
+   "queue_s": 129.3,
+   "qcall": 20.0,
+   "hello": 73.0,
+   "goodbye": 67.0,
+   "howareyou": 97.0,
+   "queue": 129.3,
+   "wtq": 0.2
   },
   "race_q2": {
    "n": 12,
@@ -795,37 +795,37 @@
    "queue": 155.5
   },
   "last6": [
+   3.0,
    13.0,
    16.0,
    13.0,
    10.0,
-   10.0,
-   19.0
+   10.0
   ],
   "sections": {
-   "Hello": 7.5,
-   "Goodbye": 9.17,
-   "How are you": 0.97,
-   "Working the queue": 19.44,
+   "Hello": 6.75,
+   "Goodbye": 8.25,
+   "How are you": 0.88,
+   "Working the queue": 20.0,
    "Food & syrups": 0.0,
-   "Tables <3 mins": 3.47,
-   "Tables brand standard": 14.03,
+   "Tables <3 mins": 3.12,
+   "Tables brand standard": 12.62,
    "Virtual section plan": 0.0,
    "No late team": 0.0
   },
-  "sect_queue": 128.12
+  "sect_queue": 129.3
  },
  "Higham Ferrers": {
   "race": [
-   128.166666666666,
+   212.25,
    1.0,
    1.0,
-   0.65,
-   0.0,
-   266.416666666666,
-   4.0,
-   19.0,
-   "2026-08-29"
+   1.0,
+   1.0,
+   222.25,
+   15.0,
+   8.0,
+   "2026-09-05"
   ],
   "quali": [
    194.5,
@@ -838,15 +838,15 @@
    "2026-09-01"
   ],
   "race_qtd": {
-   "n": 9,
-   "score": 217.77,
-   "queue_s": 150.91,
-   "qcall": 46.0,
-   "hello": 92.0,
-   "goodbye": 88.0,
-   "howareyou": 73.0,
-   "queue": 150.91,
-   "wtq": 0.46
+   "n": 10,
+   "score": 218.22,
+   "queue_s": 157.05,
+   "qcall": 52.0,
+   "hello": 93.0,
+   "goodbye": 89.0,
+   "howareyou": 76.0,
+   "queue": 157.05,
+   "wtq": 0.52
   },
   "race_q2": {
    "n": 12,
@@ -863,25 +863,25 @@
    "queue": 211.25
   },
   "last6": [
+   8.0,
    19.0,
    20.0,
    20.0,
    20.0,
-   21.0,
-   10.0
+   21.0
   ],
   "sections": {
-   "Hello": 2.08,
-   "Goodbye": 3.06,
-   "How are you": 6.67,
-   "Working the queue": 13.47,
-   "Food & syrups": 6.94,
-   "Tables <3 mins": 4.86,
-   "Tables brand standard": 8.89,
+   "Hello": 1.88,
+   "Goodbye": 2.75,
+   "How are you": 6.0,
+   "Working the queue": 12.12,
+   "Food & syrups": 6.25,
+   "Tables <3 mins": 4.38,
+   "Tables brand standard": 8.0,
    "Virtual section plan": 0.0,
    "No late team": 0.0
   },
-  "sect_queue": 150.91
+  "sect_queue": 157.05
  },
  "Corby": {
   "race": [
@@ -1027,8 +1027,8 @@
    1.0,
    0.15,
    273.75,
-   17.0,
-   6.0,
+   13.0,
+   10.0,
    "2026-09-05"
   ],
   "quali": [
@@ -1067,7 +1067,7 @@
    "queue": 146.39
   },
   "last6": [
-   6.0,
+   10.0,
    8.0,
    15.0,
    8.0,
@@ -1095,8 +1095,8 @@
    1.0,
    1.0,
    203.0,
-   19.0,
-   4.0,
+   17.0,
+   6.0,
    "2026-09-05"
   ],
   "quali": [
@@ -1135,7 +1135,7 @@
    "queue": 157.5
   },
   "last6": [
-   4.0,
+   6.0,
    12.0,
    3.0,
    9.0,
@@ -1163,8 +1163,8 @@
    1.0,
    1.0,
    193.5,
-   20.0,
-   3.0,
+   18.0,
+   5.0,
    "2026-09-05"
   ],
   "quali": [
@@ -1203,7 +1203,7 @@
    "queue": 230.75
   },
   "last6": [
-   3.0,
+   5.0,
    7.0,
    14.0,
    16.0,
@@ -1225,15 +1225,15 @@
  },
  "HOE Balsall Common": {
   "race": [
-   123.333333333333,
-   1.0,
+   191.5,
    0.65,
-   0.35,
+   0.65,
+   0.65,
    1.0,
-   235.583333333333,
-   8.0,
-   15.0,
-   "2026-08-28"
+   221.75,
+   16.0,
+   7.0,
+   "2026-09-05"
   ],
   "quali": [
    135.5,
@@ -1246,15 +1246,15 @@
    "2026-08-31"
   ],
   "race_qtd": {
-   "n": 9,
-   "score": 195.04,
-   "queue_s": 144.87,
-   "qcall": 56.0,
-   "hello": 96.0,
-   "goodbye": 92.0,
-   "howareyou": 79.0,
-   "queue": 144.87,
-   "wtq": 0.56
+   "n": 10,
+   "score": 197.71,
+   "queue_s": 149.54,
+   "qcall": 60.0,
+   "hello": 93.0,
+   "goodbye": 89.0,
+   "howareyou": 78.0,
+   "queue": 149.54,
+   "wtq": 0.6
   },
   "race_q2": {
    "n": 11,
@@ -1271,25 +1271,25 @@
    "queue": 153.45
   },
   "last6": [
+   7.0,
    15.0,
    21.0,
    5.0,
    13.0,
-   18.0,
-   2.0
+   18.0
   ],
   "sections": {
-   "Hello": 0.97,
-   "Goodbye": 1.94,
-   "How are you": 5.14,
-   "Working the queue": 11.11,
+   "Hello": 1.75,
+   "Goodbye": 2.62,
+   "How are you": 5.5,
+   "Working the queue": 10.0,
    "Food & syrups": 0.0,
-   "Tables <3 mins": 1.39,
-   "Tables brand standard": 9.72,
-   "Virtual section plan": 1.11,
+   "Tables <3 mins": 1.25,
+   "Tables brand standard": 8.75,
+   "Virtual section plan": 1.0,
    "No late team": 0.0
   },
-  "sect_queue": 144.87
+  "sect_queue": 149.54
  },
  "Attleborough": {
   "race": [
@@ -1451,14 +1451,14 @@
    "No late team": 31.25
   },
   "estate": {
-   "Hello": 2.73,
-   "Goodbye": 5.02,
-   "How are you": 1.91,
-   "Working the queue": 9.79,
-   "Food & syrups": 3.78,
-   "Tables <3 mins": 2.29,
-   "Tables brand standard": 7.43,
-   "Virtual section plan": 0.81,
+   "Hello": 2.71,
+   "Goodbye": 4.95,
+   "How are you": 1.93,
+   "Working the queue": 9.76,
+   "Food & syrups": 3.75,
+   "Tables <3 mins": 2.25,
+   "Tables brand standard": 7.27,
+   "Virtual section plan": 0.8,
    "No late team": 0.83
   },
   "note": "penalty points per audit section that roll into Total Score; lower = better (0 = full marks)"
