@@ -137,15 +137,15 @@
  },
  "Wellingborough Train Station": {
   "race": [
-   110.0,
+   225.1,
+   1.0,
+   1.0,
    1.0,
    0.65,
+   252.85,
+   25.0,
    1.0,
-   1.0,
-   159.75,
-   19.0,
-   4.0,
-   "2026-08-29"
+   "2026-09-05"
   ],
   "quali": [
    205.5,
@@ -158,15 +158,15 @@
    "2026-09-01"
   ],
   "race_qtd": {
-   "n": 9,
-   "score": 170.62,
-   "queue_s": 119.37,
-   "qcall": 79.0,
-   "hello": 96.0,
-   "goodbye": 88.0,
+   "n": 10,
+   "score": 178.84,
+   "queue_s": 129.94,
+   "qcall": 78.0,
+   "hello": 97.0,
+   "goodbye": 89.0,
    "howareyou": 93.0,
-   "queue": 119.37,
-   "wtq": 0.79
+   "queue": 129.94,
+   "wtq": 0.78
   },
   "race_q2": {
    "n": 12,
@@ -183,25 +183,25 @@
    "queue": 143.11
   },
   "last6": [
+   1.0,
    4.0,
    8.0,
    17.0,
    1.0,
-   20.0,
-   9.0
+   20.0
   ],
   "sections": {
-   "Hello": 0.97,
-   "Goodbye": 2.92,
-   "How are you": 1.81,
-   "Working the queue": 5.14,
-   "Food & syrups": 6.94,
-   "Tables <3 mins": 2.78,
+   "Hello": 0.88,
+   "Goodbye": 2.62,
+   "How are you": 1.62,
+   "Working the queue": 5.5,
+   "Food & syrups": 6.25,
+   "Tables <3 mins": 2.5,
    "Tables brand standard": 0.0,
-   "Virtual section plan": 3.47,
-   "No late team": 2.78
+   "Virtual section plan": 3.12,
+   "No late team": 2.5
   },
-  "sect_queue": 119.37
+  "sect_queue": 129.94
  },
  "Rothwell": {
   "race": [
@@ -1452,20 +1452,20 @@
   },
   "estate": {
    "Hello": 2.73,
-   "Goodbye": 5.1,
-   "How are you": 1.92,
-   "Working the queue": 9.94,
-   "Food & syrups": 4.03,
-   "Tables <3 mins": 2.39,
+   "Goodbye": 5.09,
+   "How are you": 1.91,
+   "Working the queue": 9.96,
+   "Food & syrups": 3.99,
+   "Tables <3 mins": 2.37,
    "Tables brand standard": 7.65,
-   "Virtual section plan": 0.71,
-   "No late team": 0.7
+   "Virtual section plan": 0.69,
+   "No late team": 0.69
   },
   "note": "penalty points per audit section that roll into Total Score; lower = better (0 = full marks)"
  },
  "_stale": {
   "stale": false,
-  "newest": "2026-08-30",
+  "newest": "2026-09-05",
   "cur_end": "2026-08-30",
   "badge": "F1 awaiting this week's audit (w/e 30 Aug 2026)"
  }

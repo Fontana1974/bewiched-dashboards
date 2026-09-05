@@ -192,7 +192,7 @@
   },
   {
    "name": "Gluten Free Carrot Cake",
-   "peak": "Afternoon",
+   "peak": "Lunch",
    "share": 37,
    "hour": "3pm",
    "units": 284,
@@ -227,21 +227,21 @@
    "sparse": false
   },
   {
-   "name": "Toffee Millionaires Cake",
-   "peak": "Lunch",
-   "share": 42,
-   "hour": "1pm",
-   "units": 179,
-   "sales": 619,
-   "sparse": false
-  },
-  {
    "name": "Almond Croissant",
    "peak": "Morning",
    "share": 48,
    "hour": "10am",
    "units": 179,
    "sales": 455,
+   "sparse": false
+  },
+  {
+   "name": "Toffee Millionaires Cake",
+   "peak": "Lunch",
+   "share": 42,
+   "hour": "1pm",
+   "units": 179,
+   "sales": 619,
    "sparse": false
   },
   {
@@ -275,7 +275,7 @@
    "name": "Ham & Mozzarella Croissant",
    "peak": "Lunch",
    "share": 44,
-   "hour": "12pm",
+   "hour": "1pm",
    "units": 93,
    "sales": 410,
    "sparse": false
