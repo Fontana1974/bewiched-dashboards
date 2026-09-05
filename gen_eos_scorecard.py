@@ -2011,15 +2011,15 @@ def dt_lanes_html():
     def _dt_time_html(store):
         v = (_DT.get(store) or {}).get("lastwk_secs")
         if v is None:
-            return ('<div style="margin-top:5px;font-size:11.5px;color:var(--muted)">'
-                    'Avg lane time: <b>collecting</b> <span style="font-size:10.5px">&middot; target &lt;3:00</span></div>')
+            return ('<div style="margin-top:6px;font-size:14px;color:var(--muted)">'
+                    'Avg lane time: <b style="font-size:18px">collecting</b> <span style="font-size:11px">&middot; target &lt;3:00</span></div>')
         col, bg = (("var(--green)", "var(--greenbg)") if v < 180
                    else (("var(--gold)", "#fbf1dd") if v <= 210 else ("var(--red)", "var(--redbg)")))
-        return ('<div style="margin-top:5px;font-size:11.5px;color:var(--muted)">Avg lane time '
+        return ('<div style="margin-top:6px;font-size:14px;color:var(--muted)">Avg lane time '
                 '<span style="font-weight:600">last wk</span> '
-                '<span style="display:inline-block;background:%s;color:%s;font-weight:800;font-size:12px;'
-                'padding:1px 8px;border-radius:9px">%s</span> '
-                '<span style="font-size:10.5px">&middot; target &lt;3:00</span></div>') % (bg, col, _mmss(v))
+                '<span style="display:inline-block;background:%s;color:%s;font-weight:800;font-size:19px;'
+                'padding:1px 10px;border-radius:9px;vertical-align:middle">%s</span> '
+                '<span style="font-size:11px">&middot; target &lt;3:00</span></div>') % (bg, col, _mmss(v))
     def _pct(v):
         if v is None: return "&mdash;"
         return ("+%.1f%%" % v) if v >= 0 else ("%.1f%%" % v)
@@ -2040,15 +2040,15 @@ def dt_lanes_html():
             _bw += sec * car; _bc += car
     _blended = round(_bw / _bc) if _bc > 0 else None
     if _blended is None:
-        _bt_html = ('<div style="font-size:22px;font-weight:800;color:var(--muted);line-height:1.1">collecting</div>'
-                    '<div style="font-size:11px;color:var(--muted)">avg lane time &middot; target &lt;3:00</div>')
+        _bt_html = ('<div style="font-size:30px;font-weight:800;color:var(--muted);line-height:1.1">collecting</div>'
+                    '<div style="font-size:13px;color:var(--muted)">avg lane time &middot; target &lt;3:00</div>')
     else:
         _bcol, _bbg = (("var(--green)", "var(--greenbg)") if _blended < 180
                        else (("var(--gold)", "#fbf1dd") if _blended <= 210 else ("var(--red)", "var(--redbg)")))
-        _bt_html = ('<div style="font-size:27px;font-weight:800;line-height:1.1;color:%s">%s</div>'
-                    '<div style="font-size:11px;color:var(--muted)">blended avg lane time '
-                    '<span style="display:inline-block;background:%s;color:%s;font-weight:800;font-size:10.5px;'
-                    'padding:0 6px;border-radius:8px">last wk</span> &middot; target &lt;3:00 (cars-weighted)</div>'
+        _bt_html = ('<div style="font-size:36px;font-weight:800;line-height:1.05;color:%s">%s</div>'
+                    '<div style="font-size:13px;color:var(--muted)">blended avg lane time '
+                    '<span style="display:inline-block;background:%s;color:%s;font-weight:800;font-size:12px;'
+                    'padding:0 7px;border-radius:8px">last wk</span> &middot; target &lt;3:00 (cars-weighted)</div>'
                     ) % (_bcol, _mmss(_blended), _bbg, _bcol)
     _yoy_html = (('<span style="font-size:14px;font-weight:800;color:%s">%s <span style="color:var(--muted);'
                   'font-weight:600;font-size:11px">YoY</span></span>'
