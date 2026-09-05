@@ -143,8 +143,8 @@
    1.0,
    0.65,
    252.85,
-   20.0,
-   3.0,
+   18.0,
+   5.0,
    "2026-09-05"
   ],
   "quali": [
@@ -183,7 +183,7 @@
    "queue": 143.11
   },
   "last6": [
-   3.0,
+   5.0,
    4.0,
    8.0,
    17.0,
@@ -211,8 +211,8 @@
    1.0,
    1.0,
    363.5,
-   18.0,
-   5.0,
+   16.0,
+   7.0,
    "2026-09-05"
   ],
   "quali": [
@@ -251,7 +251,7 @@
    "queue": 161.78
   },
   "last6": [
-   5.0,
+   7.0,
    10.0,
    10.0,
    19.0,
@@ -1027,8 +1027,8 @@
    1.0,
    0.15,
    273.75,
-   19.0,
-   4.0,
+   17.0,
+   6.0,
    "2026-09-05"
   ],
   "quali": [
@@ -1067,7 +1067,7 @@
    "queue": 146.39
   },
   "last6": [
-   4.0,
+   6.0,
    8.0,
    15.0,
    8.0,
@@ -1089,15 +1089,15 @@
  },
  "Peterborough Fletton Quays": {
   "race": [
-   206.833333333333,
+   179.25,
+   0.65,
    1.0,
    1.0,
    1.0,
-   1.0,
-   211.833333333333,
-   11.0,
-   12.0,
-   "2026-08-28"
+   203.0,
+   19.0,
+   4.0,
+   "2026-09-05"
   ],
   "quali": [
    234.5,
@@ -1110,15 +1110,15 @@
    "2026-09-01"
   ],
   "race_qtd": {
-   "n": 9,
-   "score": 160.59,
-   "queue_s": 134.36,
-   "qcall": 70.0,
-   "hello": 100.0,
-   "goodbye": 89.0,
+   "n": 10,
+   "score": 164.83,
+   "queue_s": 138.85,
+   "qcall": 73.0,
+   "hello": 97.0,
+   "goodbye": 90.0,
    "howareyou": 100.0,
-   "queue": 134.36,
-   "wtq": 0.7
+   "queue": 138.85,
+   "wtq": 0.73
   },
   "race_q2": {
    "n": 11,
@@ -1135,37 +1135,37 @@
    "queue": 157.5
   },
   "last6": [
+   4.0,
    12.0,
    3.0,
    9.0,
    4.0,
-   16.0,
-   4.0
+   16.0
   ],
   "sections": {
-   "Hello": 0.0,
-   "Goodbye": 2.78,
+   "Hello": 0.88,
+   "Goodbye": 2.5,
    "How are you": 0.0,
-   "Working the queue": 7.5,
-   "Food & syrups": 2.78,
-   "Tables <3 mins": 0.83,
+   "Working the queue": 6.75,
+   "Food & syrups": 2.5,
+   "Tables <3 mins": 0.75,
    "Tables brand standard": 0.0,
    "Virtual section plan": 0.0,
-   "No late team": 0.56
+   "No late team": 0.5
   },
-  "sect_queue": 134.36
+  "sect_queue": 138.85
  },
  "Olney": {
   "race": [
-   120.333333333333,
-   1.0,
-   0.65,
+   179.5,
    1.0,
    1.0,
-   173.333333333333,
-   16.0,
-   7.0,
-   "2026-08-29"
+   1.0,
+   1.0,
+   193.5,
+   20.0,
+   3.0,
+   "2026-09-05"
   ],
   "quali": [
    266.0,
@@ -1178,15 +1178,15 @@
    "2026-09-01"
   ],
   "race_qtd": {
-   "n": 9,
-   "score": 222.73,
-   "queue_s": 159.81,
-   "qcall": 74.0,
-   "hello": 89.0,
-   "goodbye": 74.0,
-   "howareyou": 89.0,
-   "queue": 159.81,
-   "wtq": 0.74
+   "n": 10,
+   "score": 219.8,
+   "queue_s": 161.78,
+   "qcall": 77.0,
+   "hello": 90.0,
+   "goodbye": 77.0,
+   "howareyou": 90.0,
+   "queue": 161.78,
+   "wtq": 0.77
   },
   "race_q2": {
    "n": 11,
@@ -1203,25 +1203,25 @@
    "queue": 230.75
   },
   "last6": [
+   3.0,
    7.0,
    14.0,
    16.0,
    16.0,
-   3.0,
-   22.0
+   3.0
   ],
   "sections": {
-   "Hello": 2.78,
-   "Goodbye": 6.53,
-   "How are you": 2.78,
-   "Working the queue": 6.39,
-   "Food & syrups": 6.94,
-   "Tables <3 mins": 7.64,
-   "Tables brand standard": 11.81,
-   "Virtual section plan": 6.94,
+   "Hello": 2.5,
+   "Goodbye": 5.88,
+   "How are you": 2.5,
+   "Working the queue": 5.75,
+   "Food & syrups": 6.25,
+   "Tables <3 mins": 6.88,
+   "Tables brand standard": 10.62,
+   "Virtual section plan": 6.25,
    "No late team": 0.0
   },
-  "sect_queue": 159.81
+  "sect_queue": 161.78
  },
  "HOE Balsall Common": {
   "race": [
@@ -1451,15 +1451,15 @@
    "No late team": 31.25
   },
   "estate": {
-   "Hello": 2.7,
-   "Goodbye": 5.07,
-   "How are you": 1.92,
-   "Working the queue": 9.86,
-   "Food & syrups": 3.83,
-   "Tables <3 mins": 2.33,
-   "Tables brand standard": 7.49,
-   "Virtual section plan": 0.84,
-   "No late team": 0.84
+   "Hello": 2.73,
+   "Goodbye": 5.02,
+   "How are you": 1.91,
+   "Working the queue": 9.79,
+   "Food & syrups": 3.78,
+   "Tables <3 mins": 2.29,
+   "Tables brand standard": 7.43,
+   "Virtual section plan": 0.81,
+   "No late team": 0.83
   },
   "note": "penalty points per audit section that roll into Total Score; lower = better (0 = full marks)"
  },
