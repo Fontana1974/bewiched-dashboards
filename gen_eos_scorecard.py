@@ -555,6 +555,40 @@ def _yoycell(v):
     return '<td><span class="tag %s">%s%s%%</span></td>' % (("t-ok" if v >= 0 else "t-red"), ("+" if v >= 0 else ""), round(v, 1))
 
 
+def dow_growth_html():
+    """Day-of-week sales — YoY growth / decline by store. Replicates the Company scorecard's final
+    sales-tab table 1:1: per store, Mon–Sun % vs the same week last year, from allstores.json rec
+    'dow_growth' (the SAME feed gen_company uses), RAG-coloured with the SAME grcell bands; n/a for
+    new / no-prior-year stores. Fault-tolerant."""
+    try:
+        REC = json.load(open(os.path.join(HERE, "allstores.json")))["rec"]
+    except Exception:
+        return ""
+    stores = sorted([s for s in REC if isinstance(REC.get(s), dict) and "f1" in REC[s]])
+    stores = [s for s in stores if REC[s].get("dow_growth") is not None]
+    if not stores:
+        return ""
+    def grcell(v):
+        if v is None: return '<td class="gc" style="text-align:center;background:#eee;color:#999">n/a</td>'
+        if v >= 5:    bg, fg = "#1f8a4c", "#fff"
+        elif v >= 0:  bg, fg = "#d6ebde", "#1c6b3d"
+        elif v > -5:  bg, fg = "#f7d9d4", "#8c2f22"
+        else:         bg, fg = "#c0392b", "#fff"
+        return '<td class="gc" style="text-align:center;background:%s;color:%s">%s%s%%</td>' % (bg, fg, ("+" if v >= 0 else ""), v)
+    days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+    head = "<tr><th>Store</th>" + "".join('<th class="v">%s</th>' % d for d in days) + "</tr>"
+    body = ""
+    for st in stores:
+        dg = REC[st].get("dow_growth") or [None] * 7
+        body += ('<tr><td>%s</td>%s</tr>'
+                 % (esc(F1_SHORT.get(st, st)), "".join(grcell(dg[i] if i < len(dg) else None) for i in range(7))))
+    note = ("Same YoY basis by weekday (vs the same week last year) &mdash; green columns are days to "
+            "protect, red ones to target with promo or labour. 2026 openings show n/a. "
+            "Reconciles with the Company scorecard&rsquo;s day-of-week table.")
+    return ('<div class="md-section-h">Day-of-week sales &mdash; YoY growth / decline by store</div>'
+            '<table class="md-ps" style="max-width:820px"><thead>%s</thead><tbody>%s</tbody></table>'
+            '<div class="md-note">%s</div>' % (head, body, note))
+
 def yoy_bystore_html(title):
     """By-store last-week table mirroring the Company Dashboard Sales tab, PLUS food attachment:
     Store | Sales | YoY | Av spend | YoY | Food attach | YoY | Guest counts | YoY. Sorted by
@@ -2718,16 +2752,15 @@ for i, (wm, qm) in enumerate(zip(weekly, quarterly)):
                   + (_rms if _rms else '<div class="md-note">Rate My Shift detail unavailable this run (rms_feed.json missing).</div>'))
     elif name == "YoY Sales Growth":
         detail = (sales_category_html()
-                  + top_drinks_html()
                   + dt_lanes_html()
-                  + fridge_items_html()
                   + sales_records_html()
                   + avg_per_store_html()
                   + '<div class="md-section-h">This quarter, week by week</div>'
                   + trend_svg(name, plan, dirn)
                   + yoy_bystore_html("Sales last week (%s) — by store, this year vs last year" % D.get("week_label", ""))
                   + weekend_bystore_html("sales")
-                  + yoy_extras_html())
+                  + yoy_extras_html()
+                  + dow_growth_html())   # final table: day-of-week LFL YoY by store (mirrors Company scorecard)
     elif name == "YoY Transactional Growth":
         detail = ('<div class="md-section-h">This quarter, week by week</div>'
                   + trend_svg(name, plan, dirn)
