@@ -528,6 +528,7 @@ def daypart_lfl_html():
         return [{"name": dp, "cur": round(acc[dp][0]), "ly": round(acc[dp][1]),
                  "yoy": (round(100 * (acc[dp][0] / acc[dp][1] - 1), 1) if acc[dp][1] else None)} for dp in ORD]
     STORES = D2.get("stores") or {}
+    SH = lambda x: F1_SHORT.get(x, x)   # F1_SHORT is module-global; resolved at call time
     # ---- build dropdown options + per-scope table panels ----
     areas = sorted({(STORES[st].get("area") or "") for st in STORES if STORES[st].get("area")})
     opts = ['<option value="estate" selected>All stores (estate)</option>']
