@@ -488,8 +488,6 @@ def yoy_extras_html():
         parts.append('<div class="md-note">No weekly ATV trend yet.</div>')
     parts.append('<div class="md-section-h">Average spend (ATV) — by store</div>')
     parts.append(_extra_dual(YOY.get("atv"), atv_target, "high", "gbp2", target_txt=" · target £6.80"))
-    parts.append('<div class="md-section-h">Food attachment % — by store</div>')
-    parts.append(_extra_dual(YOY.get("food_attach"), None, "high", "pct1", informational=True))
     return "".join(parts)
 
 
