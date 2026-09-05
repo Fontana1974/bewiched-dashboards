@@ -474,19 +474,23 @@ def company_only(name, qm):
             '</div></div>' % big)
 
 def daypart_lfl_html():
-    """Daypart like-for-like sales — this year vs last year, YoY% RAG. DIFFERENT from the day-of-week
-    table: buckets are time-of-day (Breakfast to 11:00 / Lunch 11:00-14:00 / Afternoon 14:00-17:00 /
-    Evening 17:00+), the SAME buckets + 4-week LFL window as the company scorecard's daypart figures
-    (so it reconciles). Estate-level, like-for-like (stores trading in both periods; new stores
-    excluded from the LY comparison). Reads allstores.json 'daypart_lfl'. Fault-tolerant."""
+    """Daypart like-for-like sales — this year vs last year, YoY% RAG, with a STORE/AREA dropdown.
+    DIFFERENT from the day-of-week table: buckets are time-of-day (Breakfast to 11:00 / Lunch
+    11:00-14:00 / Afternoon 14:00-17:00 / Evening 17:00+), the SAME buckets + 4-week LFL window as
+    the company scorecard's daypart figures (so it reconciles). Default = All estate (like-for-like,
+    new stores excluded from the LY comparison); the dropdown switches to each area or store using
+    the same per-store BigQuery daypart aggregation. New/no-LY stores (Warwick, Billing, etc.) show
+    n/a rather than fake YoY. Reads allstores.json 'daypart_lfl'. Fault-tolerant; reuses the generic
+    .stsel / .st-scope / [data-store] client-side switcher."""
     try:
         D2 = json.load(open(os.path.join(HERE, "allstores.json"))).get("daypart_lfl") or {}
     except Exception:
         return ""
-    dps = D2.get("dayparts") or []
-    if not dps:
+    est = D2.get("dayparts") or []
+    if not est:
         return ""
     LBL = {"Morning": "Breakfast", "Lunch": "Lunch", "Afternoon": "Afternoon", "Evening": "Evening"}
+    ORD = ("Morning", "Lunch", "Afternoon", "Evening")
     hrs = D2.get("hours", {})
     def grcell(v):
         if v is None: return '<td class="gc" style="text-align:center;background:#eee;color:#999">n/a</td>'
@@ -495,26 +499,58 @@ def daypart_lfl_html():
         elif v > -5:  bg, fg = "#f7d9d4", "#8c2f22"
         else:         bg, fg = "#c0392b", "#fff"
         return '<td class="gc" style="text-align:center;background:%s;color:%s">%s%s%%</td>' % (bg, fg, ("+" if v >= 0 else ""), v)
-    body = ""
-    tcur = tly = 0
-    for d in dps:
-        nm = LBL.get(d["name"], d["name"]); hr = hrs.get(d["name"], "")
-        cur = d.get("cur") or 0; ly = d.get("ly") or 0; tcur += cur; tly += ly
-        body += ('<tr><td>%s <span style="color:var(--muted);font-size:11px">%s</span></td>'
+    def _table(dps):
+        # dps: list of {name,cur,ly,yoy}. Like-for-like total: only dayparts with LY>0 count toward
+        # the cur+LY totals (so a new store's daypart with no LY doesn't distort the total YoY).
+        body = ""; tcur = tly = 0.0
+        for d in dps:
+            nm = LBL.get(d["name"], d["name"]); hr = hrs.get(d["name"], "")
+            cur = d.get("cur") or 0; ly = d.get("ly") or 0
+            if ly > 0: tcur += cur; tly += ly
+            body += ('<tr><td>%s <span style="color:var(--muted);font-size:11px">%s</span></td>'
+                     '<td class="v">%s</td><td class="v">%s</td>%s</tr>'
+                     % (esc(nm), esc(hr), _se_fmt_int(cur),
+                        _se_fmt_int(ly) if ly > 0 else "&mdash;", grcell(d.get("yoy"))))
+        tyoy = round(100 * (tcur / tly - 1), 1) if tly else None
+        body += ('<tr style="font-weight:800;border-top:2px solid var(--line)"><td>Total</td>'
                  '<td class="v">%s</td><td class="v">%s</td>%s</tr>'
-                 % (esc(nm), esc(hr), _se_fmt_int(cur) if isinstance(cur, (int, float)) else cur,
-                    _se_fmt_int(ly), grcell(d.get("yoy"))))
-    tyoy = round(100 * (tcur / tly - 1), 1) if tly else None
-    body += ('<tr style="font-weight:800;border-top:2px solid var(--line)"><td>Total</td>'
-             '<td class="v">%s</td><td class="v">%s</td>%s</tr>' % (_se_fmt_int(tcur), _se_fmt_int(tly), grcell(tyoy)))
+                 % (_se_fmt_int(tcur), _se_fmt_int(tly) if tly else "&mdash;", grcell(tyoy)))
+        return ('<table class="md-ps" style="max-width:560px"><thead><tr><th>Daypart</th>'
+                '<th class="v">This yr</th><th class="v">Last yr</th><th class="v">YoY</th></tr></thead>'
+                '<tbody>%s</tbody></table>' % body)
+    def _agg(rows_by_store):
+        # like-for-like aggregate across a set of stores: per daypart sum cur+ly only where ly>0.
+        acc = {dp: [0.0, 0.0] for dp in ORD}
+        for st in rows_by_store:
+            for d in (STORES.get(st, {}).get("dayparts") or []):
+                if (d.get("ly") or 0) > 0:
+                    acc[d["name"]][0] += d.get("cur") or 0; acc[d["name"]][1] += d.get("ly") or 0
+        return [{"name": dp, "cur": round(acc[dp][0]), "ly": round(acc[dp][1]),
+                 "yoy": (round(100 * (acc[dp][0] / acc[dp][1] - 1), 1) if acc[dp][1] else None)} for dp in ORD]
+    STORES = D2.get("stores") or {}
+    # ---- build dropdown options + per-scope table panels ----
+    areas = sorted({(STORES[st].get("area") or "") for st in STORES if STORES[st].get("area")})
+    opts = ['<option value="estate" selected>All stores (estate)</option>']
+    opts += ['<option value="area:%s">%s&rsquo;s area</option>' % (esc(a), esc(a)) for a in areas]
+    _skeys = sorted(STORES, key=lambda x: ((STORES[x].get("area") or ""), SH(x)))
+    opts += ['<option value="%s">%s%s</option>'
+             % (esc(st), esc(SH(st)), (" (" + STORES[st].get("area") + ")") if STORES[st].get("area") else "")
+             for st in _skeys]
+    panels = '<div data-store="estate" style="display:block">%s</div>' % _table(est)
+    for a in areas:
+        ks = [st for st in STORES if (STORES[st].get("area") or "") == a]
+        panels += '<div data-store="area:%s" style="display:none">%s</div>' % (esc(a), _table(_agg(ks)))
+    for st in _skeys:
+        panels += ('<div data-store="%s" style="display:none">%s</div>'
+                   % (esc(st), _table(STORES[st].get("dayparts") or [])))
+    bar = ('<div class="md-storebar"><span class="lbl">Store:</span> '
+           '<select class="stsel mdsel">%s</select></div>' % "".join(opts))
     note = ("%s. Time-of-day buckets (BigQuery, hour of sale). Green = growth, red = decline. "
-            "Estate like-for-like &mdash; stores not trading in the prior period are excluded from the "
-            "comparison, so the total reconciles with the estate 4-week like-for-like sales."
+            "Like-for-like &mdash; dayparts with no prior-year trading are excluded from the total, so "
+            "estate reconciles with the 4-week LFL sales. New/no-LY stores (e.g. Warwick, Billing) show n/a."
             % esc(D2.get("basis", "4-week like-for-like")))
     return ('<div class="md-section-h">Daypart sales &mdash; like-for-like YoY (this year vs last year)</div>'
-            '<table class="md-ps" style="max-width:560px"><thead><tr><th>Daypart</th>'
-            '<th class="v">This yr</th><th class="v">Last yr</th><th class="v">YoY</th></tr></thead>'
-            '<tbody>%s</tbody></table><div class="md-note">%s</div>' % (body, note))
+            '<div class="st-scope">%s%s</div><div class="md-note">%s</div>' % (bar, panels, note))
 
 def yoy_extras_html():   # retained no-op: ATV + food-attach standalone tables removed (now in the by-store YoY table)
     return ""

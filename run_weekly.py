@@ -402,12 +402,26 @@ def pull_sales():
             _cur, _ly = _dd.get(dp, (0, 0))
             if _ly and _ly > 0:
                 _dpe[dp][0] += _cur or 0; _dpe[dp][1] += _ly
+    # Per-store daypart LFL (for the EOS store dropdown). Each store keeps its own raw cur/ly per
+    # daypart; yoy is None where the store has no LY in that daypart (new/no-LY stores -> n/a, no
+    # invented growth). Area is carried through (COACH) so gen can build estate/area/store views.
+    _dpst = {}
+    for _s, _dd in dpm.items():
+        if _s not in rec: continue
+        _rows = []
+        for dp in _DPO:
+            _cur, _ly = _dd.get(dp, (0, 0))
+            _cur = _cur or 0; _ly = _ly or 0
+            _rows.append({"name": dp, "cur": round(_cur), "ly": round(_ly),
+                          "yoy": (round(100 * (_cur / _ly - 1), 1) if _ly > 0 else None)})
+        _dpst[_s] = {"area": COACH.get(_s, ""), "dayparts": _rows}
     a["daypart_lfl"] = {
         "basis": "last 4 weeks vs the same 4 weeks last year (like-for-like)",
         "hours": {"Morning": "to 11:00", "Lunch": "11:00-14:00", "Afternoon": "14:00-17:00", "Evening": "17:00+"},
         "dayparts": [{"name": dp, "cur": round(_dpe[dp][0]), "ly": round(_dpe[dp][1]),
                       "yoy": (round(100 * (_dpe[dp][0] / _dpe[dp][1] - 1), 1) if _dpe[dp][1] else None)}
-                     for dp in _DPO]}
+                     for dp in _DPO],
+        "stores": _dpst}
     a["cats"] = CATS
     save_all(a)
     # ---- ALL-TIME COMPANY RECORDS (auto-rolls: recomputed from the full BigQuery history each run,
