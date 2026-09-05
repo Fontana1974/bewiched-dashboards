@@ -2061,8 +2061,8 @@ def dt_lanes_html():
                'display:flex;flex-wrap:wrap;gap:22px;align-items:center">'
                '<div style="min-width:180px"><div style="font-size:11px;text-transform:uppercase;letter-spacing:.05em;'
                'color:var(--muted);font-weight:800">Company drive-thru &middot; all 3 lanes</div>'
-               '<div style="font-size:30px;font-weight:800;color:var(--brown);line-height:1.05;margin:4px 0 2px">%s '
-               '<span style="font-size:12px;color:var(--muted);font-weight:600">cars last wk</span></div>'
+               '<div style="font-size:36px;font-weight:800;color:var(--brown);line-height:1.05;margin:4px 0 2px">%s '
+               '<span style="font-size:13px;color:var(--muted);font-weight:600">cars last wk</span></div>'
                '<div>%s<span style="font-size:11px;color:var(--muted)">%s</span></div></div>'
                '<div style="min-width:200px;border-left:1px solid var(--line);padding-left:20px">%s</div></div>'
                ) % (_se_fmt_int(_tot_cars), _yoy_html, _yoy_note, _bt_html)
@@ -2073,14 +2073,15 @@ def dt_lanes_html():
             accent = "var(--gold)"
             badge = ('<span style="display:inline-block;background:var(--gold);color:#fff;font-size:10.5px;'
                      'font-weight:800;padding:1px 8px;border-radius:9px;letter-spacing:.03em">NEW LANE</span>')
-            sub = "last wk <b>%s</b> &middot; opened May 2026, no prior-year baseline" % _se_fmt_int(L.get("lw"))
+            sub = ('last wk <b style="font-size:19px;color:var(--brown)">%s</b> &middot; opened May 2026, no prior-year baseline'
+                   % _se_fmt_int(L.get("lw")))
         else:
             up = (yoy is not None and yoy >= 0)
             accent = "var(--green)" if up else "var(--red)"
             badge = ('<span style="font-size:14px;font-weight:800;color:%s">%s '
                      '<span style="color:var(--muted);font-weight:600;font-size:11px">YoY</span></span>'
                      % (accent, _pct(yoy)))
-            sub = ("last wk <b>%s</b> (%s vs %s LY)"
+            sub = ('last wk <b style="font-size:19px;color:var(--brown)">%s</b> (%s vs %s LY)'
                    % (_se_fmt_int(L.get("lw")), _pct(L.get("lw_yoy")), _se_fmt_int(L.get("lw_ly"))))
         tiles += ('<div style="flex:1 1 210px;min-width:200px;border:1px solid var(--line);border-top:3px solid %s;'
                   'border-radius:12px;padding:12px 14px;background:#fff">'
