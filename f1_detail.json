@@ -143,8 +143,8 @@
    1.0,
    0.65,
    252.85,
-   25.0,
-   1.0,
+   20.0,
+   3.0,
    "2026-09-05"
   ],
   "quali": [
@@ -183,7 +183,7 @@
    "queue": 143.11
   },
   "last6": [
-   1.0,
+   3.0,
    4.0,
    8.0,
    17.0,
@@ -205,15 +205,15 @@
  },
  "Rothwell": {
   "race": [
-   121.75,
+   293.0,
    1.0,
    1.0,
    1.0,
-   0.0,
-   206.0,
-   13.0,
-   10.0,
-   "2026-08-29"
+   1.0,
+   363.5,
+   18.0,
+   5.0,
+   "2026-09-05"
   ],
   "quali": [
    113.0,
@@ -226,15 +226,15 @@
    "2026-09-01"
   ],
   "race_qtd": {
-   "n": 9,
-   "score": 195.25,
-   "queue_s": 141.41,
-   "qcall": 33.0,
+   "n": 10,
+   "score": 212.07,
+   "queue_s": 156.57,
+   "qcall": 40.0,
    "hello": 100.0,
    "goodbye": 100.0,
    "howareyou": 100.0,
-   "queue": 141.41,
-   "wtq": 0.33
+   "queue": 156.57,
+   "wtq": 0.4
   },
   "race_q2": {
    "n": 12,
@@ -251,25 +251,25 @@
    "queue": 161.78
   },
   "last6": [
+   5.0,
    10.0,
    10.0,
    19.0,
    7.0,
-   7.0,
-   12.0
+   7.0
   ],
   "sections": {
    "Hello": 0.0,
    "Goodbye": 0.0,
    "How are you": 0.0,
-   "Working the queue": 16.67,
-   "Food & syrups": 14.44,
-   "Tables <3 mins": 1.39,
-   "Tables brand standard": 5.56,
-   "Virtual section plan": 0.0,
-   "No late team": 0.0
+   "Working the queue": 15.0,
+   "Food & syrups": 13.0,
+   "Tables <3 mins": 1.25,
+   "Tables brand standard": 5.0,
+   "Virtual section plan": 3.12,
+   "No late team": 3.12
   },
-  "sect_queue": 141.41
+  "sect_queue": 156.57
  },
  "Northampton": {
   "race": [
@@ -409,15 +409,15 @@
  },
  "Wellingborough": {
   "race": [
-   108.333333333333,
+   117.25,
    1.0,
-   0.35,
-   0.65,
    1.0,
-   168.583333333333,
-   18.0,
-   5.0,
-   "2026-08-29"
+   1.0,
+   1.0,
+   133.25,
+   22.0,
+   2.0,
+   "2026-09-05"
   ],
   "quali": [
    157.5,
@@ -430,15 +430,15 @@
    "2026-09-01"
   ],
   "race_qtd": {
-   "n": 9,
-   "score": 145.01,
-   "queue_s": 105.23,
-   "qcall": 89.0,
-   "hello": 92.0,
-   "goodbye": 66.0,
-   "howareyou": 96.0,
-   "queue": 105.23,
-   "wtq": 0.89
+   "n": 10,
+   "score": 143.83,
+   "queue_s": 106.43,
+   "qcall": 90.0,
+   "hello": 93.0,
+   "goodbye": 70.0,
+   "howareyou": 97.0,
+   "queue": 106.43,
+   "wtq": 0.9
   },
   "race_q2": {
    "n": 12,
@@ -455,25 +455,25 @@
    "queue": 152.85
   },
   "last6": [
+   2.0,
    5.0,
    4.0,
    3.0,
    14.0,
-   15.0,
-   5.0
+   15.0
   ],
   "sections": {
-   "Hello": 1.94,
-   "Goodbye": 8.47,
-   "How are you": 0.97,
-   "Working the queue": 2.78,
-   "Food & syrups": 1.39,
+   "Hello": 1.75,
+   "Goodbye": 7.62,
+   "How are you": 0.88,
+   "Working the queue": 2.5,
+   "Food & syrups": 1.25,
    "Tables <3 mins": 0.0,
-   "Tables brand standard": 10.56,
+   "Tables brand standard": 9.5,
    "Virtual section plan": 0.0,
    "No late team": 0.0
   },
-  "sect_queue": 105.23
+  "sect_queue": 106.43
  },
  "Market Harborough": {
   "race": [
@@ -953,15 +953,15 @@
  },
  "Peterborough Bridge Street": {
   "race": [
-   222.5,
+   59.5,
    1.0,
+   0.65,
+   0.65,
    1.0,
-   0.0,
+   115.0,
+   25.0,
    1.0,
-   322.75,
-   3.0,
-   20.0,
-   "2026-08-30"
+   "2026-09-05"
   ],
   "quali": [
    232.5,
@@ -974,15 +974,15 @@
    "2026-09-01"
   ],
   "race_qtd": {
-   "n": 9,
-   "score": 204.91,
-   "queue_s": 143.38,
-   "qcall": 74.0,
-   "hello": 96.0,
-   "goodbye": 93.0,
-   "howareyou": 89.0,
-   "queue": 143.38,
-   "wtq": 0.74
+   "n": 10,
+   "score": 195.92,
+   "queue_s": 134.99,
+   "qcall": 77.0,
+   "hello": 97.0,
+   "goodbye": 90.0,
+   "howareyou": 86.0,
+   "queue": 134.99,
+   "wtq": 0.77
   },
   "race_q2": {
    "n": 12,
@@ -999,37 +999,37 @@
    "queue": 209.56
   },
   "last6": [
+   1.0,
    20.0,
    11.0,
    18.0,
    17.0,
-   13.0,
-   8.0
+   13.0
   ],
   "sections": {
-   "Hello": 0.97,
-   "Goodbye": 1.81,
-   "How are you": 2.78,
-   "Working the queue": 6.53,
-   "Food & syrups": 17.36,
-   "Tables <3 mins": 3.47,
-   "Tables brand standard": 9.17,
+   "Hello": 0.88,
+   "Goodbye": 2.5,
+   "How are you": 3.38,
+   "Working the queue": 5.88,
+   "Food & syrups": 15.62,
+   "Tables <3 mins": 3.12,
+   "Tables brand standard": 8.25,
    "Virtual section plan": 0.0,
    "No late team": 0.0
   },
-  "sect_queue": 143.38
+  "sect_queue": 134.99
  },
  "Burton Latimer": {
   "race": [
-   116.333333333333,
+   243.5,
    1.0,
    1.0,
    1.0,
-   0.0,
-   177.333333333333,
-   15.0,
-   8.0,
-   "2026-08-29"
+   0.15,
+   273.75,
+   19.0,
+   4.0,
+   "2026-09-05"
   ],
   "quali": [
    181.5,
@@ -1042,15 +1042,15 @@
    "2026-09-01"
   ],
   "race_qtd": {
-   "n": 9,
-   "score": 174.62,
-   "queue_s": 116.04,
-   "qcall": 33.0,
+   "n": 10,
+   "score": 184.53,
+   "queue_s": 128.78,
+   "qcall": 32.0,
    "hello": 93.0,
    "goodbye": 93.0,
    "howareyou": 93.0,
-   "queue": 116.04,
-   "wtq": 0.33
+   "queue": 128.78,
+   "wtq": 0.32
   },
   "race_q2": {
    "n": 12,
@@ -1067,25 +1067,25 @@
    "queue": 146.39
   },
   "last6": [
+   4.0,
    8.0,
    15.0,
    8.0,
    5.0,
-   4.0,
-   11.0
+   4.0
   ],
   "sections": {
-   "Hello": 1.81,
-   "Goodbye": 1.81,
-   "How are you": 1.81,
-   "Working the queue": 16.67,
-   "Food & syrups": 1.39,
-   "Tables <3 mins": 3.47,
-   "Tables brand standard": 8.19,
+   "Hello": 1.62,
+   "Goodbye": 1.62,
+   "How are you": 1.62,
+   "Working the queue": 17.12,
+   "Food & syrups": 1.25,
+   "Tables <3 mins": 3.12,
+   "Tables brand standard": 7.38,
    "Virtual section plan": 0.0,
    "No late team": 0.0
   },
-  "sect_queue": 116.04
+  "sect_queue": 128.78
  },
  "Peterborough Fletton Quays": {
   "race": [
@@ -1451,15 +1451,15 @@
    "No late team": 31.25
   },
   "estate": {
-   "Hello": 2.73,
-   "Goodbye": 5.09,
-   "How are you": 1.91,
-   "Working the queue": 9.96,
-   "Food & syrups": 3.99,
-   "Tables <3 mins": 2.37,
-   "Tables brand standard": 7.65,
-   "Virtual section plan": 0.69,
-   "No late team": 0.69
+   "Hello": 2.7,
+   "Goodbye": 5.07,
+   "How are you": 1.92,
+   "Working the queue": 9.86,
+   "Food & syrups": 3.83,
+   "Tables <3 mins": 2.33,
+   "Tables brand standard": 7.49,
+   "Virtual section plan": 0.84,
+   "No late team": 0.84
   },
   "note": "penalty points per audit section that roll into Total Score; lower = better (0 = full marks)"
  },

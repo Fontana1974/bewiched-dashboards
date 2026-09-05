@@ -40,8 +40,8 @@
    "r_rag": "amber"
   },
   "Billing Drive Thru": {
-   "g_n": 83,
-   "g_avg": 4.964,
+   "g_n": 85,
+   "g_avg": 4.965,
    "g_target": 49,
    "g_health": 4.98,
    "g_rag": "green",
@@ -161,10 +161,10 @@
    "r_rag": "green"
   },
   "Northampton Drive-Thru": {
-   "g_n": 37,
-   "g_avg": 4.757,
+   "g_n": 38,
+   "g_avg": 4.763,
    "g_target": 49,
-   "g_health": 4.27,
+   "g_health": 4.32,
    "g_rag": "green",
    "g_stale": false,
    "r_n": 30,

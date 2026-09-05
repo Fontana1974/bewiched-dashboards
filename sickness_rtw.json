@@ -132,6 +132,15 @@
    "rtw_rate": 50
   },
   {
+   "store": "Lower Heathcote",
+   "sickfs": 14,
+   "late": 9,
+   "rep_pct": 100,
+   "rtw": 10,
+   "sick": 18,
+   "rtw_rate": 56
+  },
+  {
    "store": "Leamington Parade",
    "sickfs": 17,
    "late": 12,
@@ -139,15 +148,6 @@
    "rtw": 11,
    "sick": 17,
    "rtw_rate": 65
-  },
-  {
-   "store": "Lower Heathcote",
-   "sickfs": 14,
-   "late": 9,
-   "rep_pct": 100,
-   "rtw": 10,
-   "sick": 17,
-   "rtw_rate": 59
   },
   {
    "store": "Rugby",
@@ -196,12 +196,12 @@
   },
   {
    "store": "Northampton",
-   "sickfs": 6,
+   "sickfs": 7,
    "late": 7,
-   "rep_pct": 77,
+   "rep_pct": 79,
    "rtw": 5,
-   "sick": 6,
-   "rtw_rate": 83
+   "sick": 7,
+   "rtw_rate": 71
   },
   {
    "store": "Burton Latimer",
