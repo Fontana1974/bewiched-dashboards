@@ -390,6 +390,24 @@ def pull_sales():
         rec[s]["dow_growth"] = [growth(*dwm.get(s, {}).get(w, (0, 0))) for w in DOW_ORDER]
         rec[s]["daypart_growth"] = {dp: growth(*dpm.get(s, {}).get(dp, (0, 0)))
                                     for dp in ("Morning", "Lunch", "Afternoon", "Evening")}
+    # Estate daypart LFL for the EOS Sales daypart chart — reuse the per-store dpm (same 4-week
+    # window + buckets as daypart_growth / the company daypart table). Like-for-like: a store's
+    # daypart counts toward the estate cur+LY only where it has LY sales in that daypart (so new
+    # stores don't distort the YoY). Reconciles with the company scorecard's daypart figures.
+    _DPO = ("Morning", "Lunch", "Afternoon", "Evening")
+    _dpe = {dp: [0.0, 0.0] for dp in _DPO}
+    for _s, _dd in dpm.items():
+        if _s not in rec: continue
+        for dp in _DPO:
+            _cur, _ly = _dd.get(dp, (0, 0))
+            if _ly and _ly > 0:
+                _dpe[dp][0] += _cur or 0; _dpe[dp][1] += _ly
+    a["daypart_lfl"] = {
+        "basis": "last 4 weeks vs the same 4 weeks last year (like-for-like)",
+        "hours": {"Morning": "to 11:00", "Lunch": "11:00-14:00", "Afternoon": "14:00-17:00", "Evening": "17:00+"},
+        "dayparts": [{"name": dp, "cur": round(_dpe[dp][0]), "ly": round(_dpe[dp][1]),
+                      "yoy": (round(100 * (_dpe[dp][0] / _dpe[dp][1] - 1), 1) if _dpe[dp][1] else None)}
+                     for dp in _DPO]}
     a["cats"] = CATS
     save_all(a)
     # ---- ALL-TIME COMPANY RECORDS (auto-rolls: recomputed from the full BigQuery history each run,

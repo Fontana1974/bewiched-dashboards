@@ -473,22 +473,51 @@ def company_only(name, qm):
             'Company-level measure — not broken out per store. Figure shown is the quarter-to-date company value.'
             '</div></div>' % big)
 
-def yoy_extras_html():
-    """Extra sections shown ONLY on the YoY Sales Growth detail view: average spend (ATV) trend +
-    per-store (weekly/QTD), and per-store food-attachment % (weekly/QTD)."""
-    if not YOY:
+def daypart_lfl_html():
+    """Daypart like-for-like sales — this year vs last year, YoY% RAG. DIFFERENT from the day-of-week
+    table: buckets are time-of-day (Breakfast to 11:00 / Lunch 11:00-14:00 / Afternoon 14:00-17:00 /
+    Evening 17:00+), the SAME buckets + 4-week LFL window as the company scorecard's daypart figures
+    (so it reconciles). Estate-level, like-for-like (stores trading in both periods; new stores
+    excluded from the LY comparison). Reads allstores.json 'daypart_lfl'. Fault-tolerant."""
+    try:
+        D2 = json.load(open(os.path.join(HERE, "allstores.json"))).get("daypart_lfl") or {}
+    except Exception:
         return ""
-    parts = []
-    atv_target = YOY.get("atv_target")
-    atv_col = YOY.get("atv_trend_col", "estate_atv")
-    parts.append('<div class="md-section-h">Average spend (ATV) — estate trend</div>')
-    if any(r.get(atv_col) not in (None, "") for r in _hist):
-        parts.append(_trend_core(atv_col, "gbp2", atv_target, "high"))
-    else:
-        parts.append('<div class="md-note">No weekly ATV trend yet.</div>')
-    parts.append('<div class="md-section-h">Average spend (ATV) — by store</div>')
-    parts.append(_extra_dual(YOY.get("atv"), atv_target, "high", "gbp2", target_txt=" · target £6.80"))
-    return "".join(parts)
+    dps = D2.get("dayparts") or []
+    if not dps:
+        return ""
+    LBL = {"Morning": "Breakfast", "Lunch": "Lunch", "Afternoon": "Afternoon", "Evening": "Evening"}
+    hrs = D2.get("hours", {})
+    def grcell(v):
+        if v is None: return '<td class="gc" style="text-align:center;background:#eee;color:#999">n/a</td>'
+        if v >= 5:    bg, fg = "#1f8a4c", "#fff"
+        elif v >= 0:  bg, fg = "#d6ebde", "#1c6b3d"
+        elif v > -5:  bg, fg = "#f7d9d4", "#8c2f22"
+        else:         bg, fg = "#c0392b", "#fff"
+        return '<td class="gc" style="text-align:center;background:%s;color:%s">%s%s%%</td>' % (bg, fg, ("+" if v >= 0 else ""), v)
+    body = ""
+    tcur = tly = 0
+    for d in dps:
+        nm = LBL.get(d["name"], d["name"]); hr = hrs.get(d["name"], "")
+        cur = d.get("cur") or 0; ly = d.get("ly") or 0; tcur += cur; tly += ly
+        body += ('<tr><td>%s <span style="color:var(--muted);font-size:11px">%s</span></td>'
+                 '<td class="v">%s</td><td class="v">%s</td>%s</tr>'
+                 % (esc(nm), esc(hr), _se_fmt_int(cur) if isinstance(cur, (int, float)) else cur,
+                    _se_fmt_int(ly), grcell(d.get("yoy"))))
+    tyoy = round(100 * (tcur / tly - 1), 1) if tly else None
+    body += ('<tr style="font-weight:800;border-top:2px solid var(--line)"><td>Total</td>'
+             '<td class="v">%s</td><td class="v">%s</td>%s</tr>' % (_se_fmt_int(tcur), _se_fmt_int(tly), grcell(tyoy)))
+    note = ("%s. Time-of-day buckets (BigQuery, hour of sale). Green = growth, red = decline. "
+            "Estate like-for-like &mdash; stores not trading in the prior period are excluded from the "
+            "comparison, so the total reconciles with the estate 4-week like-for-like sales."
+            % esc(D2.get("basis", "4-week like-for-like")))
+    return ('<div class="md-section-h">Daypart sales &mdash; like-for-like YoY (this year vs last year)</div>'
+            '<table class="md-ps" style="max-width:560px"><thead><tr><th>Daypart</th>'
+            '<th class="v">This yr</th><th class="v">Last yr</th><th class="v">YoY</th></tr></thead>'
+            '<tbody>%s</tbody></table><div class="md-note">%s</div>' % (body, note))
+
+def yoy_extras_html():   # retained no-op: ATV + food-attach standalone tables removed (now in the by-store YoY table)
+    return ""
 
 
 def _weekend_svg(days, this_vals, last_vals, fmt, label_this, label_last):
@@ -2757,7 +2786,7 @@ for i, (wm, qm) in enumerate(zip(weekly, quarterly)):
                   + trend_svg(name, plan, dirn)
                   + yoy_bystore_html("Sales last week (%s) — by store, this year vs last year" % D.get("week_label", ""))
                   + weekend_bystore_html("sales")
-                  + yoy_extras_html()
+                  + daypart_lfl_html()
                   + dow_growth_html())   # final table: day-of-week LFL YoY by store (mirrors Company scorecard)
     elif name == "YoY Transactional Growth":
         detail = ('<div class="md-section-h">This quarter, week by week</div>'
