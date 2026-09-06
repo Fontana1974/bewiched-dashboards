@@ -1,5 +1,5 @@
 {
- "_updated": "2026-08-30",
+ "_updated": "2026-09-06",
  "months": [
   "2022-10",
   "2022-11",
@@ -261,7 +261,21 @@
     "fee_gbp": 2191
    },
    "2026-09": {
-    "audit": false
+    "audit": true,
+    "brand5": null,
+    "brand_n": 0,
+    "remote100": 91.0,
+    "remote5": 4.55,
+    "remote_n": 1,
+    "comb5": 4.55,
+    "comb100": 98.9,
+    "tier": "Fail",
+    "emoji": "⚠️",
+    "royalty": 6.0,
+    "marketing": 2.0,
+    "total_pct": 8.0,
+    "turnover": 4956,
+    "fee_gbp": 396
    }
   },
   "Glenvale Drive Thru": {
@@ -701,7 +715,21 @@
     "fee_gbp": 4726
    },
    "2026-09": {
-    "audit": false
+    "audit": true,
+    "brand5": null,
+    "brand_n": 0,
+    "remote100": 88.0,
+    "remote5": 4.4,
+    "remote_n": 1,
+    "comb5": 4.4,
+    "comb100": 95.7,
+    "tier": "Fail",
+    "emoji": "⚠️",
+    "royalty": 6.0,
+    "marketing": 2.0,
+    "total_pct": 8.0,
+    "turnover": 14622,
+    "fee_gbp": 1170
    }
   },
   "HOE Balsall Common": {
@@ -1518,8 +1546,8 @@
     "royalty": 6.0,
     "marketing": 2.0,
     "total_pct": 8.0,
-    "turnover": 5433,
-    "fee_gbp": 435
+    "turnover": 5958,
+    "fee_gbp": 477
    }
   }
  },

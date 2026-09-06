@@ -1,7 +1,67 @@
 {
- "generated": "2026-08-30",
+ "generated": "2026-09-06",
  "window_days": 28,
  "outstanding": [
+  {
+   "name": "Isabel Bruchez",
+   "store": "Lower Heathcote",
+   "date": "2026-09-06",
+   "reason": "Cough and cold - text absence for Sunday 6th"
+  },
+  {
+   "name": "Prisha Patel",
+   "store": "Northampton",
+   "date": "2026-09-05",
+   "reason": "NaSickness"
+  },
+  {
+   "name": "Marco Ezimokhai",
+   "store": "Lower Heathcote",
+   "date": "2026-09-05",
+   "reason": "Not illness - but no show Marco tried to cover his shift last night but couldn’t"
+  },
+  {
+   "name": "Prisha Patel",
+   "store": "Northampton",
+   "date": "2026-09-05",
+   "reason": ""
+  },
+  {
+   "name": "Hannah  Baines",
+   "store": "Market Harborough",
+   "date": "2026-09-04",
+   "reason": "N/AMigraines continued."
+  },
+  {
+   "name": "Hannah  Baines",
+   "store": "Market Harborough",
+   "date": "2026-09-03",
+   "reason": "N/AHeavy Migraines."
+  },
+  {
+   "name": "Summer Robertson",
+   "store": "Northampton",
+   "date": "2026-09-01",
+   "reason": "NaCold and flu"
+  },
+  {
+   "name": "Keisha  Denham",
+   "store": "Peterborough Fletton Quays",
+   "date": "2026-09-01",
+   "reason": "NaKeisha rang this morning and said she has been physical sick throughout the night"
+  },
+  {
+   "name": "Megan Beattie",
+   "store": "Market Harborough",
+   "date": "2026-08-31",
+   "reason": "Pregnancy related illness."
+  },
+  {
+   "name": "Roxana Malcev",
+   "store": "Rushden Lakes",
+   "date": "2026-08-31",
+   "reason": "Flu"
+  },
   {
    "name": "Shaira Begum",
    "store": "Glenvale Drive Thru",
@@ -79,21 +139,9 @@
    "store": "Olney",
    "date": "2026-08-09",
    "reason": "Flu like symptoms - unable to get out of bed due to illness"
-  },
-  {
-   "name": "Leah-Nicole Ayling",
-   "store": "Peterborough Bridge Street",
-   "date": "2026-08-07",
-   "reason": "NaElena rang at 10:13 Thursday night to inform my she would not be in work tomorrow, she h"
-  },
-  {
-   "name": "Natalia Toro-Dominguez",
-   "store": "Wellingborough Train Station",
-   "date": "2026-08-06",
-   "reason": "N/AGall stones flair up"
   }
  ],
- "outstanding_n": 15,
+ "outstanding_n": 23,
  "per_store": [
   {
    "store": "Peterborough Fletton Quays",

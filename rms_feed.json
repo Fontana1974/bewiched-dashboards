@@ -1,137 +1,137 @@
 {
- "_weekly_label": "w/c 24 Aug 2026",
+ "_weekly_label": "w/c 31 Aug 2026",
  "_weekly_window": [
-  "2026-08-24",
-  "2026-08-30"
+  "2026-08-31",
+  "2026-09-06"
  ],
  "_qtd_label": "Q3 2026",
  "_qtd_window": [
   "2026-07-01",
-  "2026-08-30"
+  "2026-09-06"
  ],
- "_comments_label": "recent shift voice — last 2 weeks to 5 Sep 2026",
+ "_comments_label": "recent shift voice — last 2 weeks to 6 Sep 2026",
  "_comments_window": [
-  "2026-08-23",
-  "2026-09-05"
+  "2026-08-24",
+  "2026-09-06"
  ],
  "_lastweek_count": 54,
  "worst": [
   {
+   "store": "Glenvale Drive Thru",
+   "date": "2026-08-31",
+   "dow": "Mon 31 Aug",
+   "rating": 1.0,
+   "text": "",
+   "smt": null,
+   "sentiment": "Negative",
+   "action": "Low rating with no comment — ask Glenvale Drive Thru's manager to check in with the team member."
+  },
+  {
    "store": "Corby",
-   "date": "2026-08-28",
-   "dow": "Fri 28 Aug",
-   "rating": 1.0,
-   "text": "New BCKH Complicated!",
+   "date": "2026-09-01",
+   "dow": "Tue 1 Sep",
+   "rating": 2.0,
+   "text": "",
    "smt": null,
    "sentiment": "Negative",
-   "action": "Follow up with Corby's manager to investigate this shift and address the comment."
+   "action": "Low rating with no comment — ask Corby's manager to check in with the team member."
   },
   {
-   "store": "Burton Latimer",
-   "date": "2026-08-28",
-   "dow": "Fri 28 Aug",
-   "rating": 1.0,
-   "text": "Disagree with AI useage",
+   "store": "Rushden Lakes",
+   "date": "2026-09-03",
+   "dow": "Thu 3 Sep",
+   "rating": 2.0,
+   "text": "",
    "smt": null,
    "sentiment": "Negative",
-   "action": "Follow up with Burton Latimer's manager to investigate this shift and address the comment."
-  },
-  {
-   "store": "Market Harborough",
-   "date": "2026-08-25",
-   "dow": "Tue 25 Aug",
-   "rating": 3.0,
-   "text": "Busy close shift",
-   "smt": null,
-   "sentiment": "Mixed",
-   "action": null
-  },
-  {
-   "store": "Market Harborough",
-   "date": "2026-08-27",
-   "dow": "Thu 27 Aug",
-   "rating": 3.0,
-   "text": "cleaning, quiet, stormy",
-   "smt": null,
-   "sentiment": "Mixed",
-   "action": null
+   "action": "Low rating with no comment — ask Rushden Lakes's manager to check in with the team member."
   },
   {
    "store": "Glenvale Drive Thru",
-   "date": "2026-08-28",
-   "dow": "Fri 28 Aug",
+   "date": "2026-09-04",
+   "dow": "Fri 4 Sep",
+   "rating": 2.0,
+   "text": "",
+   "smt": null,
+   "sentiment": "Negative",
+   "action": "Low rating with no comment — ask Glenvale Drive Thru's manager to check in with the team member."
+  },
+  {
+   "store": "Corby",
+   "date": "2026-09-03",
+   "dow": "Thu 3 Sep",
    "rating": 3.0,
-   "text": "We need a canopy please",
+   "text": "",
    "smt": null,
    "sentiment": "Mixed",
    "action": null
   },
   {
+   "store": "Market Harborough",
+   "date": "2026-09-03",
+   "dow": "Thu 3 Sep",
+   "rating": 3.0,
+   "text": "",
+   "smt": null,
+   "sentiment": "Mixed",
+   "action": null
+  },
+  {
+   "store": "Northampton Drive-Thru",
+   "date": "2026-09-04",
+   "dow": "Fri 4 Sep",
+   "rating": 3.0,
+   "text": "",
+   "smt": null,
+   "sentiment": "Mixed",
+   "action": null
+  },
+  {
+   "store": "Higham Ferrers",
+   "date": "2026-09-01",
+   "dow": "Tue 1 Sep",
+   "rating": 4.0,
+   "text": "",
+   "smt": null,
+   "sentiment": "Positive",
+   "action": null
+  },
+  {
    "store": "Corby",
-   "date": "2026-08-24",
-   "dow": "Mon 24 Aug",
+   "date": "2026-09-01",
+   "dow": "Tue 1 Sep",
    "rating": 4.0,
-   "text": "Lovely shift",
+   "text": "",
    "smt": null,
    "sentiment": "Positive",
    "action": null
   },
   {
-   "store": "Northampton",
-   "date": "2026-08-24",
-   "dow": "Mon 24 Aug",
+   "store": "Rushden Lakes",
+   "date": "2026-09-02",
+   "dow": "Wed 2 Sep",
    "rating": 4.0,
-   "text": "Good shift in general",
-   "smt": null,
-   "sentiment": "Positive",
-   "action": null
-  },
-  {
-   "store": "Olney",
-   "date": "2026-08-24",
-   "dow": "Mon 24 Aug",
-   "rating": 4.0,
-   "text": "Hours …",
-   "smt": null,
-   "sentiment": "Positive",
-   "action": null
-  },
-  {
-   "store": "Olney",
-   "date": "2026-08-25",
-   "dow": "Tue 25 Aug",
-   "rating": 4.0,
-   "text": "oof 🫪",
+   "text": "",
    "smt": null,
    "sentiment": "Positive",
    "action": null
   },
   {
    "store": "Northampton Drive-Thru",
-   "date": "2026-08-25",
-   "dow": "Tue 25 Aug",
+   "date": "2026-09-02",
+   "dow": "Wed 2 Sep",
    "rating": 4.0,
-   "text": "Great Team Fun",
+   "text": "",
    "smt": null,
    "sentiment": "Positive",
    "action": null
   },
   {
-   "store": "Rugby",
-   "date": "2026-08-25",
-   "dow": "Tue 25 Aug",
+   "store": "Rothwell",
+   "date": "2026-09-03",
+   "dow": "Thu 3 Sep",
    "rating": 4.0,
-   "text": "Challenging, interesting, confident",
-   "smt": null,
-   "sentiment": "Positive",
-   "action": null
-  },
-  {
-   "store": "Wellingborough Train Station",
-   "date": "2026-08-26",
-   "dow": "Wed 26 Aug",
-   "rating": 4.0,
-   "text": "Calm productive engaging",
+   "text": "",
    "smt": null,
    "sentiment": "Positive",
    "action": null
@@ -139,17 +139,17 @@
  ],
  "outlier_stores": [
   {
-   "store": "Market Harborough",
-   "avg": 3.0,
+   "store": "Glenvale Drive Thru",
+   "avg": 1.5,
    "n": 2,
-   "action": "Market Harborough averaged 3.00★ from 2 shifts last week (lowest in the estate) — check in with the manager on what's driving it."
+   "action": "Glenvale Drive Thru averaged 1.50★ from 2 shifts last week (lowest in the estate) — check in with the manager on what's driving it."
   }
  ],
  "per_store": {
   "Burton Latimer": {
    "weekly": {
-    "n": 3,
-    "avg": 3.67
+    "n": 1,
+    "avg": 5.0
    },
    "qtd": {
     "n": 14,
@@ -162,8 +162,8 @@
   },
   "Corby": {
    "weekly": {
-    "n": 7,
-    "avg": 4.0
+    "n": 5,
+    "avg": 3.6
    },
    "qtd": {
     "n": 49,
@@ -176,8 +176,8 @@
   },
   "Higham Ferrers": {
    "weekly": {
-    "n": 0,
-    "avg": null
+    "n": 1,
+    "avg": 4.0
    },
    "qtd": {
     "n": 4,
@@ -190,8 +190,8 @@
   },
   "Kettering": {
    "weekly": {
-    "n": 0,
-    "avg": null
+    "n": 1,
+    "avg": 5.0
    },
    "qtd": {
     "n": 6,
@@ -204,8 +204,8 @@
   },
   "Olney": {
    "weekly": {
-    "n": 2,
-    "avg": 4.0
+    "n": 0,
+    "avg": null
    },
    "qtd": {
     "n": 5,
@@ -218,8 +218,8 @@
   },
   "Peterborough Bridge Street": {
    "weekly": {
-    "n": 5,
-    "avg": 4.8
+    "n": 2,
+    "avg": 5.0
    },
    "qtd": {
     "n": 23,
@@ -232,8 +232,8 @@
   },
   "Peterborough Fletton Quays": {
    "weekly": {
-    "n": 0,
-    "avg": null
+    "n": 5,
+    "avg": 5.0
    },
    "qtd": {
     "n": 14,
@@ -246,8 +246,8 @@
   },
   "Rothwell": {
    "weekly": {
-    "n": 0,
-    "avg": null
+    "n": 1,
+    "avg": 4.0
    },
    "qtd": {
     "n": 14,
@@ -260,8 +260,8 @@
   },
   "Rushden Lakes": {
    "weekly": {
-    "n": 0,
-    "avg": null
+    "n": 4,
+    "avg": 4.0
    },
    "qtd": {
     "n": 6,
@@ -288,7 +288,7 @@
   },
   "Billing Drive Thru": {
    "weekly": {
-    "n": 6,
+    "n": 1,
     "avg": 5.0
    },
    "qtd": {
@@ -302,8 +302,8 @@
   },
   "Glenvale Drive Thru": {
    "weekly": {
-    "n": 1,
-    "avg": 3.0
+    "n": 2,
+    "avg": 1.5
    },
    "qtd": {
     "n": 34,
@@ -316,8 +316,8 @@
   },
   "HOE Balsall Common": {
    "weekly": {
-    "n": 0,
-    "avg": null
+    "n": 2,
+    "avg": 5.0
    },
    "qtd": {
     "n": 17,
@@ -330,8 +330,8 @@
   },
   "Leamington Parade": {
    "weekly": {
-    "n": 9,
-    "avg": 4.89
+    "n": 8,
+    "avg": 5.0
    },
    "qtd": {
     "n": 116,
@@ -358,8 +358,8 @@
   },
   "Market Harborough": {
    "weekly": {
-    "n": 2,
-    "avg": 3.0
+    "n": 3,
+    "avg": 4.0
    },
    "qtd": {
     "n": 19,
@@ -372,8 +372,8 @@
   },
   "Northampton": {
    "weekly": {
-    "n": 2,
-    "avg": 4.5
+    "n": 3,
+    "avg": 5.0
    },
    "qtd": {
     "n": 28,
@@ -386,8 +386,8 @@
   },
   "Northampton Drive-Thru": {
    "weekly": {
-    "n": 4,
-    "avg": 4.75
+    "n": 10,
+    "avg": 4.5
    },
    "qtd": {
     "n": 32,
@@ -400,8 +400,8 @@
   },
   "Rugby": {
    "weekly": {
-    "n": 5,
-    "avg": 4.6
+    "n": 2,
+    "avg": 5.0
    },
    "qtd": {
     "n": 35,
@@ -414,7 +414,7 @@
   },
   "Wellingborough": {
    "weekly": {
-    "n": 1,
+    "n": 2,
     "avg": 5.0
    },
    "qtd": {
@@ -428,8 +428,8 @@
   },
   "Wellingborough Train Station": {
    "weekly": {
-    "n": 3,
-    "avg": 4.67
+    "n": 1,
+    "avg": 5.0
    },
    "qtd": {
     "n": 12,
@@ -456,113 +456,113 @@
   }
  },
  "per_store_detail": {
-  "Corby": [
+  "Glenvale Drive Thru": [
    {
-    "date": "2026-08-28",
-    "dow": "Fri 28 Aug",
+    "date": "2026-08-31",
+    "dow": "Mon 31 Aug",
     "rating": 1.0,
-    "text": "New BCKH Complicated!",
+    "text": "",
     "smt": null,
     "sentiment": "Negative",
-    "action": "Follow up with Corby's manager to investigate this shift and address the comment."
+    "action": "Low rating with no comment — ask Glenvale Drive Thru's manager to check in with the team member."
    },
    {
-    "date": "2026-08-24",
-    "dow": "Mon 24 Aug",
-    "rating": 4.0,
-    "text": "Lovely shift",
+    "date": "2026-09-04",
+    "dow": "Fri 4 Sep",
+    "rating": 2.0,
+    "text": "",
     "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-08-26",
-    "dow": "Wed 26 Aug",
-    "rating": 4.0,
-    "text": "Lovely fun shift",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-08-28",
-    "dow": "Fri 28 Aug",
-    "rating": 4.0,
-    "text": "Lovely shift",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-08-24",
-    "dow": "Mon 24 Aug",
-    "rating": 5.0,
-    "text": "Good shift",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-08-24",
-    "dow": "Mon 24 Aug",
-    "rating": 5.0,
-    "text": "Good shoft",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-08-29",
-    "dow": "Sat 29 Aug",
-    "rating": 5.0,
-    "text": "Good shift,good vibes",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
+    "sentiment": "Negative",
+    "action": "Low rating with no comment — ask Glenvale Drive Thru's manager to check in with the team member."
    }
   ],
-  "Rugby": [
+  "Northampton Drive-Thru": [
    {
-    "date": "2026-08-25",
-    "dow": "Tue 25 Aug",
+    "date": "2026-09-04",
+    "dow": "Fri 4 Sep",
+    "rating": 3.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Mixed",
+    "action": null
+   },
+   {
+    "date": "2026-09-02",
+    "dow": "Wed 2 Sep",
     "rating": 4.0,
-    "text": "Challenging, interesting, confident",
+    "text": "",
     "smt": null,
     "sentiment": "Positive",
     "action": null
    },
    {
-    "date": "2026-08-27",
-    "dow": "Thu 27 Aug",
+    "date": "2026-09-04",
+    "dow": "Fri 4 Sep",
     "rating": 4.0,
-    "text": "It was good shift, productive one and organised.",
+    "text": "",
     "smt": null,
     "sentiment": "Positive",
     "action": null
    },
    {
-    "date": "2026-08-24",
-    "dow": "Mon 24 Aug",
-    "rating": 5.0,
-    "text": "Fun really enjoyed working with rosie she was teally helpful when it got busy",
+    "date": "2026-09-05",
+    "dow": "Sat 5 Sep",
+    "rating": 4.0,
+    "text": "",
     "smt": null,
     "sentiment": "Positive",
     "action": null
    },
    {
-    "date": "2026-08-24",
-    "dow": "Mon 24 Aug",
+    "date": "2026-08-31",
+    "dow": "Mon 31 Aug",
     "rating": 5.0,
-    "text": "another busy day but 100% effort from everyone!",
+    "text": "",
     "smt": null,
     "sentiment": "Positive",
     "action": null
    },
    {
-    "date": "2026-08-27",
-    "dow": "Thu 27 Aug",
+    "date": "2026-09-01",
+    "dow": "Tue 1 Sep",
     "rating": 5.0,
-    "text": "Great shift. Vlada is great. Issue with potwash ER12 happened 4 times in 5 hours had to be manually drained",
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-01",
+    "dow": "Tue 1 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-02",
+    "dow": "Wed 2 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-02",
+    "dow": "Wed 2 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-05",
+    "dow": "Sat 5 Sep",
+    "rating": 5.0,
+    "text": "",
     "smt": null,
     "sentiment": "Positive",
     "action": null
@@ -570,343 +570,158 @@
   ],
   "Leamington Parade": [
    {
-    "date": "2026-08-26",
-    "dow": "Wed 26 Aug",
-    "rating": 4.0,
-    "text": "Good vibes",
+    "date": "2026-08-31",
+    "dow": "Mon 31 Aug",
+    "rating": 5.0,
+    "text": "",
     "smt": null,
     "sentiment": "Positive",
     "action": null
    },
    {
-    "date": "2026-08-24",
-    "dow": "Mon 24 Aug",
+    "date": "2026-09-01",
+    "dow": "Tue 1 Sep",
     "rating": 5.0,
-    "text": "Love working here",
+    "text": "",
     "smt": null,
     "sentiment": "Positive",
     "action": null
    },
    {
-    "date": "2026-08-24",
-    "dow": "Mon 24 Aug",
+    "date": "2026-09-01",
+    "dow": "Tue 1 Sep",
     "rating": 5.0,
-    "text": "Great sales, great teamwork",
+    "text": "",
     "smt": null,
     "sentiment": "Positive",
     "action": null
    },
    {
-    "date": "2026-08-25",
-    "dow": "Tue 25 Aug",
+    "date": "2026-09-03",
+    "dow": "Thu 3 Sep",
     "rating": 5.0,
-    "text": "Teamwork",
+    "text": "",
     "smt": null,
     "sentiment": "Positive",
     "action": null
    },
    {
-    "date": "2026-08-27",
-    "dow": "Thu 27 Aug",
+    "date": "2026-09-03",
+    "dow": "Thu 3 Sep",
     "rating": 5.0,
-    "text": "Great teamwork Sylwia Melika Rui, and fun fun fun haha",
+    "text": "",
     "smt": null,
     "sentiment": "Positive",
     "action": null
    },
    {
-    "date": "2026-08-28",
-    "dow": "Fri 28 Aug",
+    "date": "2026-09-04",
+    "dow": "Fri 4 Sep",
     "rating": 5.0,
-    "text": "Amazing",
+    "text": "",
     "smt": null,
     "sentiment": "Positive",
     "action": null
    },
    {
-    "date": "2026-08-28",
-    "dow": "Fri 28 Aug",
+    "date": "2026-09-05",
+    "dow": "Sat 5 Sep",
     "rating": 5.0,
-    "text": "Best shift with my favs🥰",
+    "text": "",
     "smt": null,
     "sentiment": "Positive",
     "action": null
    },
    {
-    "date": "2026-08-29",
-    "dow": "Sat 29 Aug",
+    "date": "2026-09-05",
+    "dow": "Sat 5 Sep",
     "rating": 5.0,
-    "text": "good",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-08-30",
-    "dow": "Sun 30 Aug",
-    "rating": 5.0,
-    "text": "All great",
+    "text": "",
     "smt": null,
     "sentiment": "Positive",
     "action": null
    }
   ],
-  "Warwick Market Place": [
+  "Rushden Lakes": [
    {
-    "date": "2026-08-24",
-    "dow": "Mon 24 Aug",
-    "rating": 5.0,
-    "text": "Chair broke from beneath me, I will sue",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-08-24",
-    "dow": "Mon 24 Aug",
-    "rating": 5.0,
-    "text": "Anya fell off chair.",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-08-26",
-    "dow": "Wed 26 Aug",
-    "rating": 5.0,
-    "text": "Great day!",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-08-28",
-    "dow": "Fri 28 Aug",
-    "rating": 5.0,
-    "text": "busy!!!!! yay!!!!!!",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   }
-  ],
-  "Northampton": [
-   {
-    "date": "2026-08-24",
-    "dow": "Mon 24 Aug",
-    "rating": 4.0,
-    "text": "Good shift in general",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-08-26",
-    "dow": "Wed 26 Aug",
-    "rating": 5.0,
-    "text": "A busy and enjoyable day",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   }
-  ],
-  "Billing Drive Thru": [
-   {
-    "date": "2026-08-24",
-    "dow": "Mon 24 Aug",
-    "rating": 5.0,
-    "text": "great level 10 meeting",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-08-25",
-    "dow": "Tue 25 Aug",
-    "rating": 5.0,
-    "text": "Good customers & staff",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-08-26",
-    "dow": "Wed 26 Aug",
-    "rating": 5.0,
-    "text": "Team real people support",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-08-26",
-    "dow": "Wed 26 Aug",
-    "rating": 5.0,
-    "text": "Good smooth shift",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-08-28",
-    "dow": "Fri 28 Aug",
-    "rating": 5.0,
-    "text": "Fab shift",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-08-30",
-    "dow": "Sun 30 Aug",
-    "rating": 5.0,
-    "text": "We love our canopy",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   }
-  ],
-  "Wellingborough": [
-   {
-    "date": "2026-08-24",
-    "dow": "Mon 24 Aug",
-    "rating": 5.0,
-    "text": "Lovely busy day",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   }
-  ],
-  "Wellingborough Train Station": [
-   {
-    "date": "2026-08-26",
-    "dow": "Wed 26 Aug",
-    "rating": 4.0,
-    "text": "Calm productive engaging",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-08-24",
-    "dow": "Mon 24 Aug",
-    "rating": 5.0,
-    "text": "Positive productive teamwork",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-08-28",
-    "dow": "Fri 28 Aug",
-    "rating": 5.0,
-    "text": "Informative, proactive, knowledgeable",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   }
-  ],
-  "Olney": [
-   {
-    "date": "2026-08-24",
-    "dow": "Mon 24 Aug",
-    "rating": 4.0,
-    "text": "Hours …",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-08-25",
-    "dow": "Tue 25 Aug",
-    "rating": 4.0,
-    "text": "oof 🫪",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   }
-  ],
-  "Northampton Drive-Thru": [
-   {
-    "date": "2026-08-25",
-    "dow": "Tue 25 Aug",
-    "rating": 4.0,
-    "text": "Great Team Fun",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-08-27",
-    "dow": "Thu 27 Aug",
-    "rating": 5.0,
-    "text": "Fun shift with fun people, it’s been a nice week at work!",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-08-27",
-    "dow": "Thu 27 Aug",
-    "rating": 5.0,
-    "text": "Busy/clean/good",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-08-29",
-    "dow": "Sat 29 Aug",
-    "rating": 5.0,
-    "text": "Supported . Coached . Understood",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   }
-  ],
-  "Market Harborough": [
-   {
-    "date": "2026-08-25",
-    "dow": "Tue 25 Aug",
-    "rating": 3.0,
-    "text": "Busy close shift",
-    "smt": null,
-    "sentiment": "Mixed",
-    "action": null
-   },
-   {
-    "date": "2026-08-27",
-    "dow": "Thu 27 Aug",
-    "rating": 3.0,
-    "text": "cleaning, quiet, stormy",
-    "smt": null,
-    "sentiment": "Mixed",
-    "action": null
-   }
-  ],
-  "Burton Latimer": [
-   {
-    "date": "2026-08-28",
-    "dow": "Fri 28 Aug",
-    "rating": 1.0,
-    "text": "Disagree with AI useage",
+    "date": "2026-09-03",
+    "dow": "Thu 3 Sep",
+    "rating": 2.0,
+    "text": "",
     "smt": null,
     "sentiment": "Negative",
-    "action": "Follow up with Burton Latimer's manager to investigate this shift and address the comment."
+    "action": "Low rating with no comment — ask Rushden Lakes's manager to check in with the team member."
    },
    {
-    "date": "2026-08-26",
-    "dow": "Wed 26 Aug",
-    "rating": 5.0,
-    "text": "random waves, happy, cleaning",
+    "date": "2026-09-02",
+    "dow": "Wed 2 Sep",
+    "rating": 4.0,
+    "text": "",
     "smt": null,
     "sentiment": "Positive",
     "action": null
    },
    {
-    "date": "2026-08-27",
-    "dow": "Thu 27 Aug",
+    "date": "2026-08-31",
+    "dow": "Mon 31 Aug",
     "rating": 5.0,
-    "text": "Lovely shift with Mae and Lacey , even got two 5*reviews",
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-02",
+    "dow": "Wed 2 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   }
+  ],
+  "Corby": [
+   {
+    "date": "2026-09-01",
+    "dow": "Tue 1 Sep",
+    "rating": 2.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Negative",
+    "action": "Low rating with no comment — ask Corby's manager to check in with the team member."
+   },
+   {
+    "date": "2026-09-03",
+    "dow": "Thu 3 Sep",
+    "rating": 3.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Mixed",
+    "action": null
+   },
+   {
+    "date": "2026-09-01",
+    "dow": "Tue 1 Sep",
+    "rating": 4.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-04",
+    "dow": "Fri 4 Sep",
+    "rating": 4.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-08-31",
+    "dow": "Mon 31 Aug",
+    "rating": 5.0,
+    "text": "",
     "smt": null,
     "sentiment": "Positive",
     "action": null
@@ -914,59 +729,252 @@
   ],
   "Peterborough Bridge Street": [
    {
-    "date": "2026-08-29",
-    "dow": "Sat 29 Aug",
-    "rating": 4.0,
-    "text": "Rainy, slow day",
+    "date": "2026-08-31",
+    "dow": "Mon 31 Aug",
+    "rating": 5.0,
+    "text": "",
     "smt": null,
     "sentiment": "Positive",
     "action": null
    },
    {
-    "date": "2026-08-27",
-    "dow": "Thu 27 Aug",
+    "date": "2026-09-04",
+    "dow": "Fri 4 Sep",
     "rating": 5.0,
-    "text": "Chaotic, funny and loads of random stuff (singing from Kimberley, and small noises every so often without being judged) plus the latte competition",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-08-28",
-    "dow": "Fri 28 Aug",
-    "rating": 5.0,
-    "text": "Chaos, Unexpected and Giggles",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-08-29",
-    "dow": "Sat 29 Aug",
-    "rating": 5.0,
-    "text": "Enjoyable, productive and quiet",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-08-29",
-    "dow": "Sat 29 Aug",
-    "rating": 5.0,
-    "text": "Busy pay day!",
+    "text": "",
     "smt": null,
     "sentiment": "Positive",
     "action": null
    }
   ],
-  "Glenvale Drive Thru": [
+  "Northampton": [
    {
-    "date": "2026-08-28",
-    "dow": "Fri 28 Aug",
+    "date": "2026-08-31",
+    "dow": "Mon 31 Aug",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-03",
+    "dow": "Thu 3 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-04",
+    "dow": "Fri 4 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   }
+  ],
+  "Rugby": [
+   {
+    "date": "2026-09-01",
+    "dow": "Tue 1 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-04",
+    "dow": "Fri 4 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   }
+  ],
+  "Higham Ferrers": [
+   {
+    "date": "2026-09-01",
+    "dow": "Tue 1 Sep",
+    "rating": 4.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   }
+  ],
+  "Peterborough Fletton Quays": [
+   {
+    "date": "2026-09-01",
+    "dow": "Tue 1 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-02",
+    "dow": "Wed 2 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-03",
+    "dow": "Thu 3 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-03",
+    "dow": "Thu 3 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-04",
+    "dow": "Fri 4 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   }
+  ],
+  "Wellingborough": [
+   {
+    "date": "2026-09-01",
+    "dow": "Tue 1 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-03",
+    "dow": "Thu 3 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   }
+  ],
+  "Market Harborough": [
+   {
+    "date": "2026-09-03",
+    "dow": "Thu 3 Sep",
     "rating": 3.0,
-    "text": "We need a canopy please",
+    "text": "",
     "smt": null,
     "sentiment": "Mixed",
+    "action": null
+   },
+   {
+    "date": "2026-09-04",
+    "dow": "Fri 4 Sep",
+    "rating": 4.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-02",
+    "dow": "Wed 2 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   }
+  ],
+  "Rothwell": [
+   {
+    "date": "2026-09-03",
+    "dow": "Thu 3 Sep",
+    "rating": 4.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   }
+  ],
+  "Kettering": [
+   {
+    "date": "2026-09-03",
+    "dow": "Thu 3 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   }
+  ],
+  "Wellingborough Train Station": [
+   {
+    "date": "2026-09-04",
+    "dow": "Fri 4 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   }
+  ],
+  "Billing Drive Thru": [
+   {
+    "date": "2026-09-04",
+    "dow": "Fri 4 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   }
+  ],
+  "HOE Balsall Common": [
+   {
+    "date": "2026-09-05",
+    "dow": "Sat 5 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-05",
+    "dow": "Sat 5 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   }
+  ],
+  "Burton Latimer": [
+   {
+    "date": "2026-09-05",
+    "dow": "Sat 5 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
     "action": null
    }
   ]

@@ -1,6 +1,6 @@
 {
- "_updated": "2026-08-30",
- "_basis": "All-time, company estate (22 stores), from BigQuery full history to 2026-08-30.",
+ "_updated": "2026-09-06",
+ "_basis": "All-time, company estate (22 stores), from BigQuery full history to 2026-09-06.",
  "record_week": {
   "rev": 208684,
   "week_start": "2026-05-25",
@@ -8,25 +8,25 @@
   "label": "w/e 31 May 2026"
  },
  "record_hour": {
-  "rev": 5585,
-  "orders": 636,
-  "date": "2026-06-13",
-  "hour": 10,
-  "dow_label": "Sat 13 Jun 2026",
-  "hour_label": "10:00–11:00"
+  "rev": 5813,
+  "orders": 653,
+  "date": "2026-09-05",
+  "hour": 11,
+  "dow_label": "Sat 5 Sep 2026",
+  "hour_label": "11:00–12:00"
  },
  "avg_per_store": {
-  "ty_total": 200670,
-  "ly_total": 165523,
+  "ty_total": 198187,
+  "ly_total": 161138,
   "ty_stores": 22,
   "ly_stores": 18,
-  "ty_avg": 9121,
-  "ly_avg": 9196,
-  "yoy_pct": -0.8,
-  "ty_avg_fixed": 9121,
-  "ly_avg_fixed": 7524,
-  "yoy_fixed_pct": 21.2,
+  "ty_avg": 9008,
+  "ly_avg": 8952,
+  "yoy_pct": 0.6,
+  "ty_avg_fixed": 9008,
+  "ly_avg_fixed": 7324,
+  "yoy_fixed_pct": 23.0,
   "fixed_n": 22,
-  "week_label": "w/c 24 Aug 2026"
+  "week_label": "w/c 31 Aug 2026"
  }
 }

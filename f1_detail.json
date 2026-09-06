@@ -1,15 +1,15 @@
 {
  "Rugby": {
   "race": [
-   122.166666666666,
+   129.75,
    1.0,
    1.0,
    1.0,
-   0.0,
-   188.166666666666,
-   14.0,
-   9.0,
-   "2026-08-29"
+   1.0,
+   134.75,
+   18.0,
+   5.0,
+   "2026-09-06"
   ],
   "quali": [
    160.5,
@@ -22,15 +22,15 @@
    "2026-09-01"
   ],
   "race_qtd": {
-   "n": 9,
-   "score": 211.25,
-   "queue_s": 145.69,
-   "qcall": 43.0,
-   "hello": 96.0,
-   "goodbye": 89.0,
-   "howareyou": 91.0,
-   "queue": 145.69,
-   "wtq": 0.43
+   "n": 10,
+   "score": 203.6,
+   "queue_s": 144.1,
+   "qcall": 48.0,
+   "hello": 97.0,
+   "goodbye": 90.0,
+   "howareyou": 92.0,
+   "queue": 144.1,
+   "wtq": 0.48
   },
   "race_q2": {
    "n": 12,
@@ -47,37 +47,37 @@
    "queue": 218.55
   },
   "last6": [
+   5.0,
    9.0,
    19.0,
    12.0,
    21.0,
-   11.0,
-   21.0
+   11.0
   ],
   "sections": {
-   "Hello": 0.97,
-   "Goodbye": 2.78,
-   "How are you": 2.36,
-   "Working the queue": 14.31,
+   "Hello": 0.88,
+   "Goodbye": 2.5,
+   "How are you": 2.12,
+   "Working the queue": 12.88,
    "Food & syrups": 0.0,
-   "Tables <3 mins": 4.86,
-   "Tables brand standard": 16.25,
-   "Virtual section plan": 0.56,
-   "No late team": 6.25
+   "Tables <3 mins": 4.38,
+   "Tables brand standard": 14.62,
+   "Virtual section plan": 0.5,
+   "No late team": 5.62
   },
-  "sect_queue": 145.69
+  "sect_queue": 144.1
  },
  "Glenvale Drive Thru": {
   "race": [
-   134.7,
-   0.65,
+   76.6666666666666,
+   1.0,
    0.65,
    1.0,
-   0.15,
-   218.7,
-   9.0,
-   14.0,
-   "2026-08-29"
+   1.0,
+   98.9166666666666,
+   25.0,
+   1.0,
+   "2026-09-06"
   ],
   "quali": [
    153.0,
@@ -90,15 +90,15 @@
    "2026-09-01"
   ],
   "race_qtd": {
-   "n": 9,
-   "score": 168.82,
-   "queue_s": 123.09,
-   "qcall": 59.0,
-   "hello": 89.0,
-   "goodbye": 84.0,
-   "howareyou": 79.0,
-   "queue": 123.09,
-   "wtq": 0.59
+   "n": 10,
+   "score": 161.83,
+   "queue_s": 118.45,
+   "qcall": 63.0,
+   "hello": 90.0,
+   "goodbye": 82.0,
+   "howareyou": 82.0,
+   "queue": 118.45,
+   "wtq": 0.63
   },
   "race_q2": {
    "n": 12,
@@ -115,25 +115,25 @@
    "queue": 171.9
   },
   "last6": [
+   1.0,
    14.0,
    17.0,
    11.0,
    8.0,
-   2.0,
-   7.0
+   2.0
   ],
   "sections": {
-   "Hello": 2.78,
-   "Goodbye": 4.03,
-   "How are you": 5.14,
-   "Working the queue": 10.28,
-   "Food & syrups": 4.86,
-   "Tables <3 mins": 0.83,
-   "Tables brand standard": 6.25,
+   "Hello": 2.5,
+   "Goodbye": 4.5,
+   "How are you": 4.62,
+   "Working the queue": 9.25,
+   "Food & syrups": 4.38,
+   "Tables <3 mins": 0.75,
+   "Tables brand standard": 6.88,
    "Virtual section plan": 0.0,
    "No late team": 0.0
   },
-  "sect_queue": 123.09
+  "sect_queue": 118.45
  },
  "Wellingborough Train Station": {
   "race": [
@@ -143,8 +143,8 @@
    1.0,
    0.65,
    252.85,
-   14.0,
-   9.0,
+   8.0,
+   15.0,
    "2026-09-05"
   ],
   "quali": [
@@ -183,7 +183,7 @@
    "queue": 143.11
   },
   "last6": [
-   9.0,
+   15.0,
    4.0,
    8.0,
    17.0,
@@ -211,8 +211,8 @@
    1.0,
    1.0,
    363.5,
-   12.0,
-   11.0,
+   6.0,
+   17.0,
    "2026-09-05"
   ],
   "quali": [
@@ -251,7 +251,7 @@
    "queue": 161.78
   },
   "last6": [
-   11.0,
+   17.0,
    10.0,
    10.0,
    19.0,
@@ -341,15 +341,15 @@
  },
  "Northampton Drive-Thru": {
   "race": [
-   138.0,
+   89.0,
+   0.65,
+   0.65,
    1.0,
    0.35,
-   1.0,
-   0.35,
-   243.0,
-   6.0,
-   17.0,
-   "2026-08-30"
+   203.25,
+   11.0,
+   12.0,
+   "2026-09-06"
   ],
   "quali": [
    218.5,
@@ -362,15 +362,15 @@
    "2026-08-31"
   ],
   "race_qtd": {
-   "n": 9,
-   "score": 200.98,
-   "queue_s": 132.37,
-   "qcall": 82.0,
-   "hello": 71.0,
-   "goodbye": 50.0,
+   "n": 10,
+   "score": 201.21,
+   "queue_s": 128.03,
+   "qcall": 77.0,
+   "hello": 70.0,
+   "goodbye": 52.0,
    "howareyou": 93.0,
-   "queue": 132.37,
-   "wtq": 0.82
+   "queue": 128.03,
+   "wtq": 0.77
   },
   "race_q2": {
    "n": 12,
@@ -387,25 +387,25 @@
    "queue": 204.56
   },
   "last6": [
+   12.0,
    17.0,
    13.0,
    4.0,
    15.0,
-   14.0,
-   20.0
+   14.0
   ],
   "sections": {
-   "Hello": 7.36,
-   "Goodbye": 12.5,
-   "How are you": 1.81,
-   "Working the queue": 4.58,
-   "Food & syrups": 17.36,
+   "Hello": 7.5,
+   "Goodbye": 12.12,
+   "How are you": 1.62,
+   "Working the queue": 5.75,
+   "Food & syrups": 18.75,
    "Tables <3 mins": 0.0,
-   "Tables brand standard": 8.33,
+   "Tables brand standard": 10.62,
    "Virtual section plan": 0.0,
-   "No late team": 0.56
+   "No late team": 0.5
   },
-  "sect_queue": 132.37
+  "sect_queue": 128.03
  },
  "Wellingborough": {
   "race": [
@@ -415,8 +415,8 @@
    1.0,
    1.0,
    133.25,
-   22.0,
-   2.0,
+   19.0,
+   4.0,
    "2026-09-05"
   ],
   "quali": [
@@ -455,7 +455,7 @@
    "queue": 152.85
   },
   "last6": [
-   2.0,
+   4.0,
    5.0,
    4.0,
    3.0,
@@ -687,8 +687,8 @@
    0.65,
    0.0,
    179.25,
-   19.0,
-   4.0,
+   15.0,
+   8.0,
    "2026-09-05"
   ],
   "quali": [
@@ -727,7 +727,7 @@
    "queue": 223.05
   },
   "last6": [
-   4.0,
+   8.0,
    2.0,
    9.0,
    6.0,
@@ -755,8 +755,8 @@
    1.0,
    0.0,
    166.875,
-   20.0,
-   3.0,
+   16.0,
+   7.0,
    "2026-09-05"
   ],
   "quali": [
@@ -795,7 +795,7 @@
    "queue": 155.5
   },
   "last6": [
-   3.0,
+   7.0,
    13.0,
    16.0,
    13.0,
@@ -823,8 +823,8 @@
    1.0,
    1.0,
    222.25,
-   15.0,
-   8.0,
+   9.0,
+   14.0,
    "2026-09-05"
   ],
   "quali": [
@@ -863,7 +863,7 @@
    "queue": 211.25
   },
   "last6": [
-   8.0,
+   14.0,
    19.0,
    20.0,
    20.0,
@@ -885,15 +885,15 @@
  },
  "Corby": {
   "race": [
-   133.5,
+   117.333333333333,
+   0.65,
+   0.65,
    1.0,
    1.0,
-   1.0,
-   0.0,
-   209.75,
-   12.0,
-   11.0,
-   "2026-08-29"
+   193.083333333333,
+   14.0,
+   9.0,
+   "2026-09-06"
   ],
   "quali": [
    449.5,
@@ -906,15 +906,15 @@
    "2026-09-01"
   ],
   "race_qtd": {
-   "n": 9,
-   "score": 208.23,
-   "queue_s": 129.81,
-   "qcall": 13.0,
+   "n": 10,
+   "score": 206.71,
+   "queue_s": 128.56,
+   "qcall": 21.0,
    "hello": 61.0,
    "goodbye": 57.0,
-   "howareyou": 96.0,
-   "queue": 129.81,
-   "wtq": 0.13
+   "howareyou": 97.0,
+   "queue": 128.56,
+   "wtq": 0.21
   },
   "race_q2": {
    "n": 12,
@@ -931,25 +931,25 @@
    "queue": 192.39
   },
   "last6": [
+   9.0,
    11.0,
    18.0,
    21.0,
    12.0,
-   19.0,
-   17.0
+   19.0
   ],
   "sections": {
-   "Hello": 9.86,
-   "Goodbye": 10.83,
-   "How are you": 0.97,
-   "Working the queue": 21.81,
-   "Food & syrups": 1.39,
-   "Tables <3 mins": 6.94,
-   "Tables brand standard": 13.06,
+   "Hello": 9.75,
+   "Goodbye": 10.62,
+   "How are you": 0.88,
+   "Working the queue": 19.62,
+   "Food & syrups": 1.25,
+   "Tables <3 mins": 6.25,
+   "Tables brand standard": 14.88,
    "Virtual section plan": 0.0,
-   "No late team": 0.0
+   "No late team": 0.5
   },
-  "sect_queue": 129.81
+  "sect_queue": 128.56
  },
  "Peterborough Bridge Street": {
   "race": [
@@ -959,8 +959,8 @@
    0.65,
    1.0,
    115.0,
-   25.0,
-   1.0,
+   22.0,
+   2.0,
    "2026-09-05"
   ],
   "quali": [
@@ -999,7 +999,7 @@
    "queue": 209.56
   },
   "last6": [
-   1.0,
+   2.0,
    20.0,
    11.0,
    18.0,
@@ -1027,8 +1027,8 @@
    1.0,
    0.15,
    273.75,
-   13.0,
-   10.0,
+   7.0,
+   16.0,
    "2026-09-05"
   ],
   "quali": [
@@ -1067,7 +1067,7 @@
    "queue": 146.39
   },
   "last6": [
-   10.0,
+   16.0,
    8.0,
    15.0,
    8.0,
@@ -1095,8 +1095,8 @@
    1.0,
    1.0,
    203.0,
-   17.0,
-   6.0,
+   12.0,
+   11.0,
    "2026-09-05"
   ],
   "quali": [
@@ -1135,7 +1135,7 @@
    "queue": 157.5
   },
   "last6": [
-   6.0,
+   11.0,
    12.0,
    3.0,
    9.0,
@@ -1163,8 +1163,8 @@
    1.0,
    1.0,
    193.5,
-   18.0,
-   5.0,
+   13.0,
+   10.0,
    "2026-09-05"
   ],
   "quali": [
@@ -1203,7 +1203,7 @@
    "queue": 230.75
   },
   "last6": [
-   5.0,
+   10.0,
    7.0,
    14.0,
    16.0,
@@ -1231,8 +1231,8 @@
    0.65,
    1.0,
    221.75,
-   16.0,
-   7.0,
+   10.0,
+   13.0,
    "2026-09-05"
   ],
   "quali": [
@@ -1271,7 +1271,7 @@
    "queue": 153.45
   },
   "last6": [
-   7.0,
+   13.0,
    15.0,
    21.0,
    5.0,
@@ -1293,15 +1293,15 @@
  },
  "Attleborough": {
   "race": [
-   162.0,
+   105.166666666666,
    1.0,
    1.0,
    1.0,
-   1.0,
-   236.25,
-   7.0,
-   16.0,
-   "2026-08-28"
+   0.0,
+   153.666666666666,
+   17.0,
+   6.0,
+   "2026-09-06"
   ],
   "quali": [
    201.5,
@@ -1314,15 +1314,15 @@
    "2026-08-31"
   ],
   "race_qtd": {
-   "n": 9,
-   "score": 192.91,
-   "queue_s": 158.02,
-   "qcall": 57.0,
+   "n": 10,
+   "score": 188.98,
+   "queue_s": 152.73,
+   "qcall": 52.0,
    "hello": 100.0,
    "goodbye": 100.0,
-   "howareyou": 87.0,
-   "queue": 158.02,
-   "wtq": 0.57
+   "howareyou": 88.0,
+   "queue": 152.73,
+   "wtq": 0.52
   },
   "race_q2": {
    "n": 9,
@@ -1339,37 +1339,37 @@
    "queue": 172.5
   },
   "last6": [
+   6.0,
    16.0,
    7.0,
    7.0,
    19.0,
-   17.0,
-   15.0
+   17.0
   ],
   "sections": {
    "Hello": 0.0,
    "Goodbye": 0.0,
-   "How are you": 3.33,
-   "Working the queue": 10.69,
-   "Food & syrups": 1.39,
+   "How are you": 3.0,
+   "Working the queue": 12.12,
+   "Food & syrups": 1.25,
    "Tables <3 mins": 0.0,
-   "Tables brand standard": 3.47,
+   "Tables brand standard": 4.38,
    "Virtual section plan": 0.0,
    "No late team": 0.0
   },
-  "sect_queue": 158.02
+  "sect_queue": 152.73
  },
  "Billing Drive Thru": {
   "race": [
-   95.8333333333333,
-   0.65,
-   0.35,
+   103.0,
    1.0,
    1.0,
-   139.33333333333331,
+   1.0,
+   1.0,
+   121.5,
    20.0,
    3.0,
-   "2026-08-29"
+   "2026-09-06"
   ],
   "quali": [
    133.0,
@@ -1382,14 +1382,14 @@
    "2026-09-01"
   ],
   "race_qtd": {
-   "n": 9,
-   "score": 147.41,
-   "queue_s": 116.61,
+   "n": 10,
+   "score": 144.82,
+   "queue_s": 115.25,
    "qcall": 100.0,
-   "hello": 84.0,
-   "goodbye": 71.0,
+   "hello": 86.0,
+   "goodbye": 73.0,
    "howareyou": 100.0,
-   "queue": 116.61,
+   "queue": 115.25,
    "wtq": 1.0
   },
   "race_q2": {
@@ -1408,24 +1408,24 @@
   },
   "last6": [
    3.0,
+   3.0,
    1.0,
    14.0,
    2.0,
-   5.0,
-   18.0
+   5.0
   ],
   "sections": {
-   "Hello": 3.89,
-   "Goodbye": 7.36,
+   "Hello": 3.5,
+   "Goodbye": 6.62,
    "How are you": 0.0,
    "Working the queue": 0.0,
-   "Food & syrups": 1.39,
-   "Tables <3 mins": 2.78,
-   "Tables brand standard": 5.28,
+   "Food & syrups": 1.25,
+   "Tables <3 mins": 2.5,
+   "Tables brand standard": 6.0,
    "Virtual section plan": 0.0,
    "No late team": 0.0
   },
-  "sect_queue": 116.61
+  "sect_queue": 115.25
  },
  "_race_sections": {
   "order": [
@@ -1451,22 +1451,22 @@
    "No late team": 31.25
   },
   "estate": {
-   "Hello": 2.71,
-   "Goodbye": 4.95,
-   "How are you": 1.93,
-   "Working the queue": 9.76,
-   "Food & syrups": 3.75,
-   "Tables <3 mins": 2.25,
-   "Tables brand standard": 7.27,
+   "Hello": 2.67,
+   "Goodbye": 4.9,
+   "How are you": 1.86,
+   "Working the queue": 9.67,
+   "Food & syrups": 3.77,
+   "Tables <3 mins": 2.17,
+   "Tables brand standard": 7.49,
    "Virtual section plan": 0.8,
-   "No late team": 0.83
+   "No late team": 0.82
   },
   "note": "penalty points per audit section that roll into Total Score; lower = better (0 = full marks)"
  },
  "_stale": {
   "stale": false,
-  "newest": "2026-09-05",
-  "cur_end": "2026-08-30",
-  "badge": "F1 awaiting this week's audit (w/e 30 Aug 2026)"
+  "newest": "2026-09-06",
+  "cur_end": "2026-09-06",
+  "badge": "F1 awaiting this week's audit (w/e 6 Sep 2026)"
  }
 }
