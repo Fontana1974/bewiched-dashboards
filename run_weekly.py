@@ -60,6 +60,45 @@ def bq(sql):
     no flattener. Just write normal SQL."""
     return [dict(r) for r in _bq_client().query(sql, location=LOCATION).result()]
 
+def bq_bytes(sql):
+    """Dry-run only: bytes BigQuery WOULD scan for `sql` (no execution, no cost, no cache)."""
+    from google.cloud import bigquery
+    cfg = bigquery.QueryJobConfig(dry_run=True, use_query_cache=False)
+    return _bq_client().query(sql, location=LOCATION, job_config=cfg).total_bytes_processed
+
+def _bq_cost_probe():
+    """FREE dry-run sizing of the key v_sales_details_flat scans + a narrow-vs-wide PRUNING test.
+    Prints bytes BigQuery *would* scan for each window; nothing is executed. Answers whether the
+    DATE(sales_date)-on-a-view filtering prunes partitions or silently full-scans. FULL runs only."""
+    def _h(b):
+        try: b = float(b)
+        except Exception: return "n/a"
+        return ("%.3f GB" % (b/1e9)) if b >= 1e9 else ("%.1f MB" % (b/1e6))
+    probes = [
+        ("FLAT last 1 week",      f"SELECT COUNT(*) FROM {FLAT} WHERE DATE(sales_date) BETWEEN {d(6)} AND {CE}"),
+        ("FLAT last 4 weeks",     f"SELECT COUNT(*) FROM {FLAT} WHERE DATE(sales_date) BETWEEN {d(27)} AND {CE}"),
+        ("FLAT last 56 weeks",    f"SELECT COUNT(*) FROM {FLAT} WHERE DATE(sales_date) BETWEEN {d(391)} AND {CE}"),
+        ("FLAT since 2023 floor", f"SELECT COUNT(*) FROM {FLAT} WHERE DATE(sales_date) BETWEEN {RECORDS_SINCE_LIT} AND {CE}"),
+        ("FLAT full history",     f"SELECT COUNT(*) FROM {FLAT} WHERE DATE(sales_date) <= {CE}"),
+        ("FLAT no date filter",   f"SELECT COUNT(*) FROM {FLAT}"),
+        ("SDET last 1 week",      f"SELECT COUNT(*) FROM {SDET} WHERE DATE(sales_date) BETWEEN {d(6)} AND {CE}"),
+        ("WASTE last 4 weeks",    f"SELECT COUNT(*) FROM {WASTE} WHERE date BETWEEN {d(27)} AND {CE}"),
+    ]
+    print("[probe] --- BigQuery dry-run bytes (FREE; pruning test) ---")
+    b4 = bfull = None
+    for name, sql in probes:
+        try:
+            b = bq_bytes(sql); print("[probe] %-24s %s" % (name, _h(b)))
+            if name == "FLAT last 4 weeks": b4 = b
+            if name == "FLAT full history": bfull = b
+        except Exception as e:
+            print("[probe] %-24s FAILED %s" % (name, str(e)[:70]))
+    if b4 and bfull:
+        pct = 100.0 * b4 / bfull
+        print("[probe] VERDICT: a 4-week query scans %.1f%% of full-history bytes -> %s" % (
+            pct, "PARTITION PRUNING WORKS (narrow filters are cheap)"
+                 if pct < 50 else "NO PRUNING -- DATE() on the view full-scans; every dated query pays full-table cost"))
+
 def sheet(spreadsheet_id, a1_range, unformatted=True):
     """Read a Sheet range as positional rows. UNFORMATTED by default (dates -> serials,
     no flattener column-scramble). Returns list[list]."""
@@ -158,6 +197,20 @@ def short_window():  # daypart-food window label
     return "4 weeks to %s vs same 4 weeks %d" % (CUR_END.strftime("%-d %b %Y"), CUR_END.year - 1)
 print("[dates] mode=%s cur_end=%s last_week=%s cur_week=%s qstart=%s" %
       (MODE, CUR_END, LASTWK_MON, CURWK_MON, QSTART))
+
+# ---------- run profile: which runs do the heavy BigQuery history scans ----------
+# BigQuery bills on bytes scanned. The heavy sales-history scans only need to run on the PRIMARY
+# weekly build. weekly.yml fires 3 scheduled runs (Sun 21:00 full, Mon 09:30 hours-finalise,
+# Mon 11:15 stock refresh) — the two Monday runs re-do only the Google-Sheets finalisation
+# (planner hours -> SPH, COS/stock) and REUSE the primary run's committed sales feeds, so they
+# skip the big scans. Manual "Run workflow" (workflow_dispatch) always runs FULL (for testing).
+_EVENT = os.environ.get("GITHUB_EVENT_NAME", "")
+FULL_RUN = (_EVENT != "schedule") or (MODE == "sunday") or (os.environ.get("FORCE_FULL") == "1")
+RECORDS_SINCE = "2023-01-01"                       # date floor for the all-time record scans
+RECORDS_SINCE_LIT = "DATE('%s')" % RECORDS_SINCE   #   (estate cannot hold an older weekly/hourly record)
+print("[run] profile=%s (event=%s, mode=%s) -> heavy BigQuery scans %s" % (
+    "FULL" if FULL_RUN else "REDUCED", _EVENT or "local", MODE,
+    "ON" if FULL_RUN else "SKIPPED (Monday finalise; reuse committed sales feeds)"))
 
 # ---------- sheet IDs ----------
 SID = dict(
@@ -433,7 +486,7 @@ def pull_sales():
             SELECT DATE_TRUNC(DATE(sales_date),WEEK(MONDAY)) wc,
                    ROUND(SUM(SAFE_CAST(item_line_total_after_discount AS FLOAT64))) rev
             FROM {FLAT}
-            WHERE item_outlet_name IN {ALL_IN} AND DATE(sales_date) <= {CE}
+            WHERE item_outlet_name IN {ALL_IN} AND DATE(sales_date) BETWEEN {RECORDS_SINCE_LIT} AND {CE}
             GROUP BY wc
             QUALIFY ROW_NUMBER() OVER (ORDER BY rev DESC)=1)""")
         _rh = bq(f"""
@@ -442,7 +495,7 @@ def pull_sales():
                    ROUND(SUM(SAFE_CAST(item_line_total_after_discount AS FLOAT64))) rev,
                    COUNT(DISTINCT id) orders
             FROM {FLAT}
-            WHERE item_outlet_name IN {ALL_IN} AND DATE(sales_date) <= {CE}
+            WHERE item_outlet_name IN {ALL_IN} AND DATE(sales_date) BETWEEN {RECORDS_SINCE_LIT} AND {CE}
             GROUP BY dd, hr
             HAVING orders >= 30 AND SAFE_DIVIDE(rev, orders) <= 30
             QUALIFY ROW_NUMBER() OVER (ORDER BY rev DESC)=1)""")
@@ -3696,11 +3749,20 @@ def freshness_gate():
             errs.append("allstores rec missing cust_qtd/cust_wtd (build_reviews skipped)")
     except Exception as e:
         errs.append("reviews gate unreadable: %s" % e)
-    # 3. Changed-vs-baseline: every key estate output must have been rewritten THIS run
+    # 3. Changed-vs-baseline: every key estate output must have been rewritten THIS run.
+    #    EXCEPTION on a REDUCED (Monday) run: the heavy BigQuery pulls are intentionally skipped and
+    #    their committed feeds reused, so those specific outputs are required to EXIST (carried over
+    #    from the primary weekly build) rather than freshly rewritten. Everything the Monday run does
+    #    refresh (planner/SPH/COS + all Sheets feeds + the generators) is still required fresh.
+    _REUSED_ON_REDUCED = {"company_wastage.json", "daypart_food.json"}
     for fn in ("allstores.json", "company_wastage.json", "daypart_food.json", "actuals.json",
                "planner_overrides.json", "rms.json", "storehealth.json", "audit_themes.json",
                "compliance.json", "star_rating.json", "cos_metrics.json", "cph_targets.json",
                "f1_detail.json", "newsite_sales.json", "smt_visits.json", "bench.json"):
+        if (not FULL_RUN) and fn in _REUSED_ON_REDUCED:
+            if not os.path.exists(os.path.join(HERE, fn)):
+                errs.append("%s missing on reduced run (reused primary-build feed absent)" % fn)
+            continue
         if not fresh(fn):
             errs.append("%s not rewritten this run (pull/builder skipped -> stale)" % fn)
     # 4. Consistency: newsite_sales _window names this run's Sunday
@@ -3942,25 +4004,31 @@ def pull_dt_lane_speed():
 
 
 def pulls():
-    """All estate + store-page pulls (A) in dependency order."""
-    pull_sales()              # rec windows/dow/daypart  (-> allstores.json)
+    """All estate + store-page pulls (A) in dependency order.
+    Heavy BigQuery history scans are gated to FULL_RUN (primary weekly build / manual). On the
+    scheduled Monday runs they are skipped and the committed sales feeds are reused — only the
+    Sheets-based finalisation (planner hours -> SPH, COS/stock) and build() re-run."""
+    if FULL_RUN:
+        try: _bq_cost_probe()
+        except Exception as _pe: print("[probe] cost probe failed (non-fatal): %s" % str(_pe)[:100])
+    if FULL_RUN: pull_sales()  # rec windows/dow/daypart  (-> allstores.json)
     pull_cph_fallback()       # rec.cph
     pull_cph_targets()        # cph_targets.json
     pull_cos()                # cos_metrics.json
     pull_smt()                # smt_visits.json + rec.visdow
-    pull_wastage()            # company_wastage.json + rec waste
+    if FULL_RUN: pull_wastage()            # company_wastage.json + rec waste
     pull_f1()                 # f1_detail.json + rec.f1 + champ + the_race.csv
     pull_actuals()            # actuals.json
     pull_planner()            # planner_overrides.json  (MANDATORY)
-    pull_takeaway()           # rec.takeaway
+    if FULL_RUN: pull_takeaway()           # rec.takeaway
     pull_sickness()           # rec.sent
     pull_audit()              # audit_raw.json + rec.audit_qtd
     pull_remote()             # remote_raw.json + rec.remote_qtd (Remote Assessment Data tab)
-    pull_mix()                # rec.mix/mix_prev/mix_lw
-    pull_area_quarters()      # rec[s].q_cur / q_prev (area this-Q/last-Q filter)
-    pull_peak()               # peak_cat_raw.json + peak_bakery_raw.json
+    if FULL_RUN: pull_mix()                # rec.mix/mix_prev/mix_lw
+    if FULL_RUN: pull_area_quarters()      # rec[s].q_cur / q_prev (area this-Q/last-Q filter)
+    if FULL_RUN: pull_peak()               # peak_cat_raw.json + peak_bakery_raw.json
     pull_availability()       # rec.avail
-    pull_daypart_food()       # daypart_food.json + daypart_food_area.json
+    if FULL_RUN: pull_daypart_food()       # daypart_food.json + daypart_food_area.json
     pull_bench()              # bench.json
     pull_reviews()            # reviews_raw.json + rec.cust + customer.json (+ google scratch)
     pull_rms_storehealth()    # rms.json + storehealth_raw.json
@@ -3968,15 +4036,15 @@ def pulls():
     pull_openclose()          # openclose_feed.json (Brand Audit: open/close completion %)
     pull_accidents()          # accidents_feed.json (Brand Audit: H&S accidents/incidents)
     pull_csbr()               # csbr_feed.json (Brand Audit + Star Card: CS/Br coaching completion %)
-    pull_ns_raws()            # ns_*_raw.json (7)
-    pull_sl_raws()            # sl_*_raw.json (2)
-    pull_txq_raws()           # txq_*_raw.json (2)
+    if FULL_RUN: pull_ns_raws()            # ns_*_raw.json (7)
+    if FULL_RUN: pull_sl_raws()            # sl_*_raw.json (2)
+    if FULL_RUN: pull_txq_raws()           # txq_*_raw.json (2)
     pull_eos_scorecard()      # eos_scorecard.json (EOS Weekly+Quarterly scorecard)
-    pull_backtoschool()       # backtoschool_feed.json (EOS 5th tab: back-to-school forecast)
+    if FULL_RUN: pull_backtoschool()       # backtoschool_feed.json (EOS 5th tab: back-to-school forecast)
     pull_forecast_daily()     # forecast_feed.json (EOS Forecast tab: 3-wk forecast + daily DOW split)
-    pull_sales_extras()       # sales_extras.json (EOS Sales tab: DT lane throughput + fridge items)
+    if FULL_RUN: pull_sales_extras()       # sales_extras.json (EOS Sales tab: DT lane throughput + fridge items)
     pull_dt_lane_speed()      # dt_lane_speed.json (Star Card: DT avg total time, 3rd Ops metric)
-    pull_franchise()          # franchise_fees.json (Franchise Fees Scale dashboard)
+    if FULL_RUN: pull_franchise()          # franchise_fees.json (Franchise Fees Scale dashboard)
     push_cos_planner()        # write Wastage%+Discounts% into each planner COS tab (K,L)
     push_cos_history()        # bank + mirror full weekly COS history -> "COS History" tab
     pull_maintenance()        # maintenance.json (reactive/planned/coffee/audit)  [non-fatal]
