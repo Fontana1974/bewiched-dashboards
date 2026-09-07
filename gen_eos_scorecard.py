@@ -607,10 +607,13 @@ def weekend_html(kind):
     tt = sum(x or 0 for x in tv); tl = sum(x or 0 for x in lv)
     overall = ("%+.1f%%" % (100 * (tt / tl - 1))) if tl else "n/a"
     svg = _weekend_svg(wk.get("days", ["Fri", "Sat", "Sun"]), tv, lv, fmt, wk.get("label_this", ""), wk.get("label_last", ""))
+    _lfln = wk.get("lfl_stores")
+    _lflnote = (" Estate total is <b>like-for-like</b> (%d stores trading the equivalent weekend last year; "
+                "new stores excluded), so it reconciles with the by-store table&rsquo;s COMPANY YoY." % _lfln) if _lfln else ""
     return ('<div class="md-section-h">Last weekend &mdash; Fri / Sat / Sun %s vs last year</div>'
             '<div class="md-note">Weekend total %s vs %s the equivalent weekend last year (<b>%s</b>). '
-            'Each bar pair is this year vs the same day of last year&rsquo;s weekend.</div>%s'
-            % (unit, esc(fmt_val(tt, fmt)), esc(fmt_val(tl, fmt)), overall, svg))
+            'Each bar pair is this year vs the same day of last year&rsquo;s weekend.%s</div>%s'
+            % (unit, esc(fmt_val(tt, fmt)), esc(fmt_val(tl, fmt)), overall, _lflnote, svg))
 
 
 def _yoycell(v):

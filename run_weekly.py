@@ -3482,18 +3482,26 @@ def pull_eos_scorecard():
                 FROM {FLAT}
                 WHERE DATE(sales_date) IN ({d(2)},{d(1)},{CE},{d(366)},{d(365)},{d(364)}))
           GROUP BY s""")
-        cs_t = [0, 0, 0]; cs_l = [0, 0, 0]; ct_t = [0, 0, 0]; ct_l = [0, 0, 0]   # company totals = sum of per-store (estate convention)
+        cs_t = [0, 0, 0]; cs_l = [0, 0, 0]; ct_t = [0, 0, 0]; ct_l = [0, 0, 0]   # ESTATE totals (LIKE-FOR-LIKE)
+        _wk_lfl_n = 0
         for r in _wd:
             s_this = [r.get("fs") or 0, r.get("ss") or 0, r.get("us") or 0]
             s_last = [r.get("fsl") or 0, r.get("ssl") or 0, r.get("usl") or 0]
             t_this = [r.get("ft") or 0, r.get("st_") or 0, r.get("ut") or 0]
             t_last = [r.get("ftl") or 0, r.get("stl") or 0, r.get("utl") or 0]
-            for i in range(3):
-                cs_t[i] += s_this[i]; cs_l[i] += s_last[i]; ct_t[i] += t_this[i]; ct_l[i] += t_last[i]
             _st = normalize(r.get("s"))
             if _st:
                 weekend_by_store[_st] = {"sales": {"this": s_this, "last": s_last},
                                          "tx": {"this": t_this, "last": t_last}}
+            # Estate weekend total is LIKE-FOR-LIKE, so it reconciles with the by-store YoY table's
+            # COMPANY (LFL) row: only stores that TRADED the equivalent weekend last year count toward
+            # the estate this+last. Otherwise new/no-LY stores (Billing DT, Warwick, Attleborough,
+            # Olney) contribute to 'this' but £0 to 'last' and inflate the weekend YoY (e.g. +27% vs
+            # the true +10% LFL — the 6 Sep 2026 discrepancy Matt flagged vs the +12% full-week LFL).
+            if _st and sum(s_last) > 0:
+                _wk_lfl_n += 1
+                for i in range(3):
+                    cs_t[i] += s_this[i]; cs_l[i] += s_last[i]; ct_t[i] += t_this[i]; ct_l[i] += t_last[i]
         weekend = {
             "days": ["Fri", "Sat", "Sun"],
             "label_this": "%s–%s %s" % (_wk_fri.strftime("%-d"), _wk_sun.strftime("%-d"), _wk_sun.strftime("%b %Y")),
@@ -3502,6 +3510,8 @@ def pull_eos_scorecard():
             "dates_last": [_ly_fri.isoformat(), _ly_sat.isoformat(), _ly_sun.isoformat()],
             "sales": {"this": cs_t, "last": cs_l},
             "tx":    {"this": ct_t, "last": ct_l},
+            "lfl_stores": _wk_lfl_n,
+            "basis": "like-for-like — stores trading the equivalent weekend last year (new stores excluded from the estate comparison)",
         }
     except Exception as e:
         flags.append("YoY detail: weekend Fri/Sat/Sun (BigQuery) failed (%s)." % str(e)[:70])
