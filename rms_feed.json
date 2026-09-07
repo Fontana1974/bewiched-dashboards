@@ -9,12 +9,12 @@
   "2026-07-01",
   "2026-09-06"
  ],
- "_comments_label": "recent shift voice — last 2 weeks to 6 Sep 2026",
+ "_comments_label": "recent shift voice — last 2 weeks to 7 Sep 2026",
  "_comments_window": [
-  "2026-08-24",
-  "2026-09-06"
+  "2026-08-25",
+  "2026-09-07"
  ],
- "_lastweek_count": 54,
+ "_lastweek_count": 59,
  "worst": [
   {
    "store": "Glenvale Drive Thru",
@@ -288,12 +288,12 @@
   },
   "Billing Drive Thru": {
    "weekly": {
-    "n": 1,
-    "avg": 5.0
+    "n": 2,
+    "avg": 4.5
    },
    "qtd": {
-    "n": 88,
-    "avg": 4.65
+    "n": 89,
+    "avg": 4.64
    },
    "prevq": {
     "n": 28,
@@ -330,11 +330,11 @@
   },
   "Leamington Parade": {
    "weekly": {
-    "n": 8,
+    "n": 10,
     "avg": 5.0
    },
    "qtd": {
-    "n": 116,
+    "n": 118,
     "avg": 4.86
    },
    "prevq": {
@@ -386,12 +386,12 @@
   },
   "Northampton Drive-Thru": {
    "weekly": {
-    "n": 10,
-    "avg": 4.5
+    "n": 11,
+    "avg": 4.45
    },
    "qtd": {
-    "n": 32,
-    "avg": 4.16
+    "n": 33,
+    "avg": 4.15
    },
    "prevq": {
     "n": 44,
@@ -400,12 +400,12 @@
   },
   "Rugby": {
    "weekly": {
-    "n": 2,
+    "n": 3,
     "avg": 5.0
    },
    "qtd": {
-    "n": 35,
-    "avg": 4.91
+    "n": 36,
+    "avg": 4.92
    },
    "prevq": {
     "n": 70,
@@ -507,6 +507,15 @@
    {
     "date": "2026-09-05",
     "dow": "Sat 5 Sep",
+    "rating": 4.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-06",
+    "dow": "Sun 6 Sep",
     "rating": 4.0,
     "text": "",
     "smt": null,
@@ -635,6 +644,24 @@
    {
     "date": "2026-09-05",
     "dow": "Sat 5 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-06",
+    "dow": "Sun 6 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-06",
+    "dow": "Sun 6 Sep",
     "rating": 5.0,
     "text": "",
     "smt": null,
@@ -794,6 +821,15 @@
     "smt": null,
     "sentiment": "Positive",
     "action": null
+   },
+   {
+    "date": "2026-09-06",
+    "dow": "Sun 6 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
    }
   ],
   "Higham Ferrers": [
@@ -937,6 +973,15 @@
    }
   ],
   "Billing Drive Thru": [
+   {
+    "date": "2026-09-06",
+    "dow": "Sun 6 Sep",
+    "rating": 4.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
    {
     "date": "2026-09-04",
     "dow": "Fri 4 Sep",

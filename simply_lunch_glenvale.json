@@ -21,7 +21,7 @@
    "item": "Sausage Bap",
    "category": "Breakfast baps & bagel",
    "daily": {
-    "1": 6.62,
+    "1": 6.75,
     "2": 6.25,
     "3": 6.25,
     "4": 6.12,
@@ -29,7 +29,7 @@
     "6": 7.0,
     "7": 10.12
    },
-   "weekly_mean": 48.2,
+   "weekly_mean": 48.4,
    "tue": 15,
    "thu": 15,
    "sat": 27,
@@ -40,7 +40,7 @@
    "item": "Bacon Bap",
    "category": "Breakfast baps & bagel",
    "daily": {
-    "1": 5.75,
+    "1": 5.88,
     "2": 5.75,
     "3": 4.12,
     "4": 5.88,
@@ -48,7 +48,7 @@
     "6": 7.12,
     "7": 6.62
    },
-   "weekly_mean": 41.4,
+   "weekly_mean": 41.5,
    "tue": 12,
    "thu": 16,
    "sat": 21,
@@ -192,7 +192,7 @@
    "item": "Mozzarella & Tomato Ciabatta",
    "category": "Ciabattas",
    "daily": {
-    "1": 2.38,
+    "1": 2.62,
     "2": 2.25,
     "3": 2.88,
     "4": 3.25,
@@ -200,7 +200,7 @@
     "6": 3.0,
     "7": 2.38
    },
-   "weekly_mean": 19.4,
+   "weekly_mean": 19.6,
    "tue": 8,
    "thu": 8,
    "sat": 9,
@@ -306,7 +306,7 @@
    "item": "Double Egg Mayo Sandwich",
    "category": "Other",
    "daily": {
-    "1": 0.62,
+    "1": 0.75,
     "2": 1.38,
     "3": 0.88,
     "4": 1.88,
@@ -314,7 +314,7 @@
     "6": 1.88,
     "7": 1.5
    },
-   "weekly_mean": 9.3,
+   "weekly_mean": 9.4,
    "tue": 4,
    "thu": 4,
    "sat": 5,
@@ -325,7 +325,7 @@
    "item": "Smoked Ham & Cheese Ciabatta",
    "category": "Other",
    "daily": {
-    "1": 1.75,
+    "1": 1.88,
     "2": 0.0,
     "3": 1.0,
     "4": 1.5,
@@ -333,7 +333,7 @@
     "6": 1.25,
     "7": 1.5
    },
-   "weekly_mean": 8.5,
+   "weekly_mean": 8.6,
    "tue": 3,
    "thu": 4,
    "sat": 4,
@@ -344,7 +344,7 @@
    "item": "Smoked Ham Sandwich",
    "category": "Other",
    "daily": {
-    "1": 0.62,
+    "1": 0.75,
     "2": 0.38,
     "3": 0.62,
     "4": 0.12,
@@ -352,7 +352,7 @@
     "6": 0.62,
     "7": 0.25
    },
-   "weekly_mean": 3.1,
+   "weekly_mean": 3.2,
    "tue": 1,
    "thu": 2,
    "sat": 2,

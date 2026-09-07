@@ -2,10 +2,10 @@
  "_updated": "2026-09-06",
  "_basis": "All-time, company estate (22 stores), from BigQuery full history to 2026-09-06.",
  "record_week": {
-  "rev": 208684,
-  "week_start": "2026-05-25",
-  "week_ending": "2026-05-31",
-  "label": "w/e 31 May 2026"
+  "rev": 209635,
+  "week_start": "2026-08-31",
+  "week_ending": "2026-09-06",
+  "label": "w/e 6 Sep 2026"
  },
  "record_hour": {
   "rev": 5813,
@@ -16,16 +16,16 @@
   "hour_label": "11:00–12:00"
  },
  "avg_per_store": {
-  "ty_total": 198187,
+  "ty_total": 209635,
   "ly_total": 161138,
   "ty_stores": 22,
   "ly_stores": 18,
-  "ty_avg": 9008,
+  "ty_avg": 9529,
   "ly_avg": 8952,
-  "yoy_pct": 0.6,
-  "ty_avg_fixed": 9008,
+  "yoy_pct": 6.4,
+  "ty_avg_fixed": 9529,
   "ly_avg_fixed": 7324,
-  "yoy_fixed_pct": 23.0,
+  "yoy_fixed_pct": 30.1,
   "fixed_n": 22,
   "week_label": "w/c 31 Aug 2026"
  }

@@ -9,6 +9,12 @@
    "reason": "Cough and cold - text absence for Sunday 6th"
   },
   {
+   "name": "Katie Summer Wood",
+   "store": "Lower Heathcote",
+   "date": "2026-09-06",
+   "reason": "Doesn't feel great"
+  },
+  {
    "name": "Prisha Patel",
    "store": "Northampton",
    "date": "2026-09-05",
@@ -141,7 +147,7 @@
    "reason": "Flu like symptoms - unable to get out of bed due to illness"
   }
  ],
- "outstanding_n": 23,
+ "outstanding_n": 24,
  "per_store": [
   {
    "store": "Peterborough Fletton Quays",
@@ -171,6 +177,15 @@
    "rtw_rate": 57
   },
   {
+   "store": "Lower Heathcote",
+   "sickfs": 16,
+   "late": 9,
+   "rep_pct": 100,
+   "rtw": 10,
+   "sick": 20,
+   "rtw_rate": 50
+  },
+  {
    "store": "Northampton Drive-Thru",
    "sickfs": 16,
    "late": 2,
@@ -178,15 +193,6 @@
    "rtw": 10,
    "sick": 20,
    "rtw_rate": 50
-  },
-  {
-   "store": "Lower Heathcote",
-   "sickfs": 15,
-   "late": 9,
-   "rep_pct": 100,
-   "rtw": 10,
-   "sick": 19,
-   "rtw_rate": 53
   },
   {
    "store": "Leamington Parade",

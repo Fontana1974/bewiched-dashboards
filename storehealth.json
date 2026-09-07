@@ -46,8 +46,8 @@
    "g_health": 4.98,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 88,
-   "r_avg": 4.65,
+   "r_n": 89,
+   "r_avg": 4.64,
    "r_rag": "green"
   },
   "Burton Latimer": {
@@ -73,10 +73,10 @@
    "r_rag": "red"
   },
   "Glenvale Drive Thru": {
-   "g_n": 21,
-   "g_avg": 4.857,
+   "g_n": 23,
+   "g_avg": 4.826,
    "g_target": 49,
-   "g_health": 3.5,
+   "g_health": 3.59,
    "g_rag": "green",
    "g_stale": false,
    "r_n": 34,
@@ -123,7 +123,7 @@
    "g_health": 4.97,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 116,
+   "r_n": 118,
    "r_avg": 4.86,
    "r_rag": "green"
   },
@@ -167,8 +167,8 @@
    "g_health": 4.71,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 32,
-   "r_avg": 4.16,
+   "r_n": 33,
+   "r_avg": 4.15,
    "r_rag": "amber"
   },
   "Olney": {
@@ -194,8 +194,8 @@
    "r_rag": "green"
   },
   "Peterborough Fletton Quays": {
-   "g_n": 30,
-   "g_avg": 4.933,
+   "g_n": 31,
+   "g_avg": 4.935,
    "g_target": 15,
    "g_health": 4.97,
    "g_rag": "green",
@@ -205,10 +205,10 @@
    "r_rag": "amber"
   },
   "Rothwell": {
-   "g_n": 9,
-   "g_avg": 4.667,
+   "g_n": 10,
+   "g_avg": 4.7,
    "g_target": 12,
-   "g_health": 4.21,
+   "g_health": 4.43,
    "g_rag": "green",
    "g_stale": false,
    "r_n": 14,
@@ -222,8 +222,8 @@
    "g_health": 3.6,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 35,
-   "r_avg": 4.91,
+   "r_n": 36,
+   "r_avg": 4.92,
    "r_rag": "green"
   },
   "Rushden Lakes": {
