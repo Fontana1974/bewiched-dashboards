@@ -101,10 +101,36 @@ def _bq_cost_probe():
 
 def sheet(spreadsheet_id, a1_range, unformatted=True):
     """Read a Sheet range as positional rows. UNFORMATTED by default (dates -> serials,
-    no flattener column-scramble). Returns list[list]."""
+    no flattener column-scramble). Returns list[list].
+
+    RETRY GUARD: the Google Sheets API intermittently returns transient 5xx (503 "service
+    currently unavailable") or times out. A single such blip on ANY of the ~30 sheet reads used
+    to abort the whole weekly build (the freshness gate then published nothing — e.g. the Sun
+    6 Sep 2026 21:00 run failed on pull_smt). So retry transient failures: 3 attempts, ~20s then
+    ~30s back-off. 4xx (genuine errors: bad range, no access) fail fast; the last transient failure
+    is re-raised loudly after attempt 3, preserving the fail-loud/publish-nothing safety. Same
+    principle as banking_job.py's read guard."""
+    import time, socket, ssl
+    from googleapiclient.errors import HttpError
     opt = "UNFORMATTED_VALUE" if unformatted else "FORMATTED_VALUE"
-    return _sheets_api().get(spreadsheetId=spreadsheet_id, range=a1_range,
-                             valueRenderOption=opt).execute().get("values", [])
+    _WAITS = [20, 30]                      # back-off before attempts 2 and 3
+    last = None
+    for attempt in range(3):
+        try:
+            return _sheets_api().get(spreadsheetId=spreadsheet_id, range=a1_range,
+                                     valueRenderOption=opt).execute().get("values", [])
+        except HttpError as e:
+            code = getattr(getattr(e, "resp", None), "status", None)
+            if code is not None and int(code) < 500:
+                raise                      # 4xx = genuine error (bad range / no access) -> fail fast
+            last = e
+        except (TimeoutError, socket.timeout, ssl.SSLError, ConnectionError, OSError) as e:
+            last = e                       # transient network/timeout -> retry
+        if attempt < 2:
+            print("[retry] Sheets read failed (%s) on %s - attempt %d/3, waiting %ds"
+                  % (type(last).__name__, a1_range[:40], attempt + 1, _WAITS[attempt]))
+            time.sleep(_WAITS[attempt])
+    raise last                             # exhausted retries -> fail loud (build publishes nothing)
 
 # ---------- date / parsing helpers ----------
 EPOCH = datetime.date(1899, 12, 30)
