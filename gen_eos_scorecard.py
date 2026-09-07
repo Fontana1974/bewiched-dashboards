@@ -1993,6 +1993,15 @@ def _se_load():
     except Exception:
         return None
 
+def _dt_we_lbl(iso):
+    """ISO date -> 'w/e 30 Aug' for the DT latest-week fallback label. Safe on bad/missing input."""
+    try:
+        y, m, d = str(iso).split("-")
+        return "w/e %d %s" % (int(d), ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug",
+                                        "Sep", "Oct", "Nov", "Dec"][int(m)])
+    except Exception:
+        return "latest wk"
+
 def dt_lanes_html():
     """TOP of the Sales view: drive-thru lane throughput per lane. All of a site's 'drive'-named
     registers are aggregated into one lane figure (Northampton has two DT tills). QTD + last week
@@ -2012,17 +2021,21 @@ def dt_lanes_html():
         if x is None: return None
         x = int(round(x)); return "%d:%02d" % (x // 60, x % 60)
     def _dt_time_html(store):
-        v = (_DT.get(store) or {}).get("lastwk_secs")
+        d = _DT.get(store) or {}
+        v = d.get("lastwk_secs"); wk_lbl = "last wk"
+        if v is None:                                   # current week's row not loaded yet (lands Mon
+            v = d.get("latest_secs")                    #  after the 08:05 export) -> show the newest
+            wk_lbl = _dt_we_lbl(d.get("latest_we"))     #  available week, labelled honestly, not blank
         if v is None:
             return ('<div style="margin-top:6px;font-size:14px;color:var(--muted)">'
                     'Avg lane time: <b style="font-size:18px">collecting</b> <span style="font-size:11px">&middot; target &lt;3:00</span></div>')
         col, bg = (("var(--green)", "var(--greenbg)") if v < 180
                    else (("var(--gold)", "#fbf1dd") if v <= 210 else ("var(--red)", "var(--redbg)")))
         return ('<div style="margin-top:6px;font-size:14px;color:var(--muted)">Avg lane time '
-                '<span style="font-weight:600">last wk</span> '
+                '<span style="font-weight:600">%s</span> '
                 '<span style="display:inline-block;background:%s;color:%s;font-weight:800;font-size:19px;'
                 'padding:1px 10px;border-radius:9px;vertical-align:middle">%s</span> '
-                '<span style="font-size:11px">&middot; target &lt;3:00</span></div>') % (bg, col, _mmss(v))
+                '<span style="font-size:11px">&middot; target &lt;3:00</span></div>') % (esc(wk_lbl), bg, col, _mmss(v))
     def _pct(v):
         if v is None: return "&mdash;"
         return ("+%.1f%%" % v) if v >= 0 else ("%.1f%%" % v)
@@ -2035,12 +2048,22 @@ def dt_lanes_html():
         _tot_yoy = round((_ty / _ly - 1) * 100, 1) if _ly else None
     _lfl_n = len(_lfl)
     # cars-weighted blended avg time from the lane-speed feed (matches the sheet's GROUP row)
-    _bw = _bc = 0.0
+    _bw = _bc = 0.0; _blbl = "last wk"
     for L in lanes:
         d = _DT.get(L.get("store", "")) or {}
         sec = d.get("lastwk_secs"); car = d.get("lastwk_cars")
         if sec is not None and car:
             _bw += sec * car; _bc += car
+    if _bc == 0:                                        # no current-week rows loaded -> blend the
+        _lwe = None                                     #  newest available week per lane instead of blank
+        for L in lanes:
+            d = _DT.get(L.get("store", "")) or {}
+            sec = d.get("latest_secs"); car = d.get("latest_cars")
+            if sec is not None and car:
+                _bw += sec * car; _bc += car
+                _we = d.get("latest_we")
+                if _we and (_lwe is None or _we > _lwe): _lwe = _we
+        _blbl = _dt_we_lbl(_lwe)
     _blended = round(_bw / _bc) if _bc > 0 else None
     if _blended is None:
         _bt_html = ('<div style="font-size:30px;font-weight:800;color:var(--muted);line-height:1.1">collecting</div>'
@@ -2051,8 +2074,8 @@ def dt_lanes_html():
         _bt_html = ('<div style="font-size:36px;font-weight:800;line-height:1.05;color:%s">%s</div>'
                     '<div style="font-size:13px;color:var(--muted)">blended avg lane time '
                     '<span style="display:inline-block;background:%s;color:%s;font-weight:800;font-size:12px;'
-                    'padding:0 7px;border-radius:8px">last wk</span> &middot; target &lt;3:00 (cars-weighted)</div>'
-                    ) % (_bcol, _mmss(_blended), _bbg, _bcol)
+                    'padding:0 7px;border-radius:8px">%s</span> &middot; target &lt;3:00 (cars-weighted)</div>'
+                    ) % (_bcol, _mmss(_blended), _bbg, _bcol, esc(_blbl))
     _yoy_html = (('<span style="font-size:14px;font-weight:800;color:%s">%s <span style="color:var(--muted);'
                   'font-weight:600;font-size:11px">YoY</span></span>'
                   % (("var(--green)" if _tot_yoy >= 0 else "var(--red)"),
