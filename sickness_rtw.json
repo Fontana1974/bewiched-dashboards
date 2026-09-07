@@ -33,6 +33,18 @@
    "reason": ""
   },
   {
+   "name": "Prisha Patel",
+   "store": "Northampton",
+   "date": "2026-09-05",
+   "reason": "NaSickness"
+  },
+  {
+   "name": "Prisha Patel",
+   "store": "Northampton",
+   "date": "2026-09-05",
+   "reason": "NaSickness"
+  },
+  {
    "name": "Hannah  Baines",
    "store": "Market Harborough",
    "date": "2026-09-04",
@@ -55,6 +67,12 @@
    "store": "Peterborough Fletton Quays",
    "date": "2026-09-01",
    "reason": "NaKeisha rang this morning and said she has been physical sick throughout the night"
+  },
+  {
+   "name": "Summer Robertson",
+   "store": "Northampton",
+   "date": "2026-09-01",
+   "reason": "NaCold and flu"
   },
   {
    "name": "Megan Beattie",
@@ -147,7 +165,7 @@
    "reason": "Flu like symptoms - unable to get out of bed due to illness"
   }
  ],
- "outstanding_n": 24,
+ "outstanding_n": 27,
  "per_store": [
   {
    "store": "Peterborough Fletton Quays",
@@ -222,6 +240,15 @@
    "rtw_rate": 83
   },
   {
+   "store": "Northampton",
+   "sickfs": 10,
+   "late": 8,
+   "rep_pct": 83,
+   "rtw": 6,
+   "sick": 10,
+   "rtw_rate": 60
+  },
+  {
    "store": "Kettering",
    "sickfs": 7,
    "late": 2,
@@ -242,20 +269,11 @@
   {
    "store": "Corby",
    "sickfs": 6,
-   "late": 2,
-   "rep_pct": 89,
+   "late": 3,
+   "rep_pct": 80,
    "rtw": 3,
    "sick": 7,
    "rtw_rate": 43
-  },
-  {
-   "store": "Northampton",
-   "sickfs": 7,
-   "late": 7,
-   "rep_pct": 79,
-   "rtw": 5,
-   "sick": 7,
-   "rtw_rate": 71
   },
   {
    "store": "Burton Latimer",
