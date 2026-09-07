@@ -15,34 +15,10 @@
    "reason": "Doesn't feel great"
   },
   {
-   "name": "Prisha Patel",
-   "store": "Northampton",
-   "date": "2026-09-05",
-   "reason": "NaSickness"
-  },
-  {
    "name": "Marco Ezimokhai",
    "store": "Lower Heathcote",
    "date": "2026-09-05",
    "reason": "Not illness - but no show Marco tried to cover his shift last night but couldn’t"
-  },
-  {
-   "name": "Prisha Patel",
-   "store": "Northampton",
-   "date": "2026-09-05",
-   "reason": ""
-  },
-  {
-   "name": "Prisha Patel",
-   "store": "Northampton",
-   "date": "2026-09-05",
-   "reason": "NaSickness"
-  },
-  {
-   "name": "Prisha Patel",
-   "store": "Northampton",
-   "date": "2026-09-05",
-   "reason": "NaSickness"
   },
   {
    "name": "Hannah  Baines",
@@ -165,7 +141,7 @@
    "reason": "Flu like symptoms - unable to get out of bed due to illness"
   }
  ],
- "outstanding_n": 27,
+ "outstanding_n": 23,
  "per_store": [
   {
    "store": "Peterborough Fletton Quays",
@@ -244,9 +220,9 @@
    "sickfs": 10,
    "late": 8,
    "rep_pct": 83,
-   "rtw": 6,
+   "rtw": 7,
    "sick": 10,
-   "rtw_rate": 60
+   "rtw_rate": 70
   },
   {
    "store": "Kettering",
