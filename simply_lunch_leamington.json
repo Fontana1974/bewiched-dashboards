@@ -116,7 +116,7 @@
    "item": "Tuna Ciabatta",
    "category": "Ciabattas",
    "daily": {
-    "1": 2.12,
+    "1": 2.25,
     "2": 1.5,
     "3": 1.38,
     "4": 2.5,
@@ -124,7 +124,7 @@
     "6": 2.38,
     "7": 2.75
    },
-   "weekly_mean": 14.5,
+   "weekly_mean": 14.6,
    "tue": 5,
    "thu": 5,
    "sat": 8,
@@ -268,7 +268,7 @@
    "item": "Chicken & Cheese BBQ Toastie",
    "category": "Other",
    "daily": {
-    "1": 0.75,
+    "1": 0.88,
     "2": 0.38,
     "3": 0.62,
     "4": 0.25,
@@ -276,11 +276,11 @@
     "6": 0.75,
     "7": 1.38
    },
-   "weekly_mean": 6.1,
+   "weekly_mean": 6.3,
    "tue": 2,
    "thu": 4,
-   "sat": 3,
-   "weekly_order": 9,
+   "sat": 4,
+   "weekly_order": 10,
    "sparse": true
   },
   {
