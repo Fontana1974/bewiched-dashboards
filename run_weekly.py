@@ -4060,15 +4060,12 @@ def pull_sales_explorer():
     Sunday full build so the dashboard renders 3 views CLIENT-SIDE (no live BQ on tab-switch, gated):
     weekly trend (rev/txn/ATV + holiday shading), hourly heatmap (avg per day), term-vs-holiday bars.
     Source: base table sales_details (NOT the flat view). DEDUP by id BEFORE aggregating (table has
-    dupes). total=transaction total (SAFE_CAST FLOAT64); id=unique txn; outlet.outlet_name->canonical
-    via normalize(). Heavy (2 deduped scans, ~14 months) -> gated to FULL_RUN. Non-fatal."""
+    dupes). Column paths (transaction total + outlet name) are DISCOVERED from INFORMATION_SCHEMA
+    (free) because the base table nests them differently from the flat view. id=unique txn;
+    outlet name -> canonical via normalize(). Heavy (2 deduped scans, ~14 months) -> gated to
+    FULL_RUN. Non-fatal."""
     TBL = "`%s.%s.sales_details`" % (PROJECT, DATASET)
     _holcase = " OR ".join("DATE(ts) BETWEEN '%s' AND '%s'" % (a, b) for a, b, _ in SX_HOLIDAYS)
-    _dedup = ("WITH d AS (SELECT id, outlet.outlet_name onm, SAFE_CAST(total AS FLOAT64) tot, "
-              "PARSE_TIMESTAMP('%%Y-%%m-%%d %%H:%%M:%%S', sales_date_time) ts, "
-              "ROW_NUMBER() OVER (PARTITION BY id ORDER BY sales_date_time) rn "
-              "FROM {TBL} WHERE sales_date_time >= '{FL} 00:00:00' AND sales_date_time <= '{CE} 23:59:59')"
-              ).format(TBL=TBL, FL=SX_FLOOR, CE=CUR_END.isoformat())
     out = {"_source": "BigQuery sales_details (deduped by id), transaction total; avg-per-day normalised.",
            "_generated": NOW_UK.strftime("%d %b %Y, %H:%M"), "cur_end": CUR_END.isoformat(),
            "floor": SX_FLOOR, "hours": list(range(8, 19)),
@@ -4077,9 +4074,48 @@ def pull_sales_explorer():
            "stores": [], "weekly": {}, "cells": {}, "_unmapped": []}
     ALL = "All stores"
     try:
+        # ---- discover the real (possibly nested) field paths in the base table ----
+        paths = {}
+        for r in bq("SELECT field_path, data_type FROM `%s.%s.INFORMATION_SCHEMA.COLUMN_FIELD_PATHS` "
+                    "WHERE table_name='sales_details'" % (PROJECT, DATASET)):
+            paths[r["field_path"]] = (r.get("data_type") or "").upper()
+        def _leaf(p): return p.split(".")[-1].lower()
+        NUM = ("INT64", "FLOAT64", "NUMERIC", "BIGNUMERIC")
+        def _pick_total():
+            if "total" in paths: return "total"
+            # leaf named exactly 'total'
+            for p in paths:
+                if _leaf(p) == "total": return p
+            # a numeric leaf that looks like a transaction total
+            cand = [p for p in paths if paths[p] in NUM and any(k in _leaf(p)
+                    for k in ("total", "grand", "gross", "net", "amount", "value", "paid"))]
+            cand.sort(key=lambda p: (0 if "total" in _leaf(p) else 1, len(p)))
+            return cand[0] if cand else None
+        def _pick(cands):
+            for c in cands:
+                if c in paths: return c
+            for p in paths:
+                if _leaf(p) in [_leaf(c) for c in cands]: return p
+            return None
+        TOTALP = _pick_total()
+        OUTP = _pick(["outlet.outlet_name", "outlet_name"])
+        IDP = _pick(["id"]) or "id"
+        TSP = _pick(["sales_date_time"]) or "sales_date_time"
+        print("[pull] sales_explorer schema: total=%s outlet=%s id=%s ts=%s (of %d field paths)"
+              % (TOTALP, OUTP, IDP, TSP, len(paths)))
+        if not TOTALP or not OUTP:
+            samp = sorted([p for p in paths if paths[p] in NUM])[:20]
+            raise RuntimeError("could not resolve total/outlet path; numeric candidates: %s" % samp)
+        _dedup = ("WITH d AS (SELECT {IDP} id, {OUTP} onm, SAFE_CAST({TOTALP} AS FLOAT64) tot, "
+                  "SAFE.PARSE_TIMESTAMP('%%Y-%%m-%%d %%H:%%M:%%S', {TSP}) ts, "
+                  "ROW_NUMBER() OVER (PARTITION BY {IDP} ORDER BY {TSP}) rn "
+                  "FROM {TBL} WHERE {TSP} >= '{FL} 00:00:00' AND {TSP} <= '{CE} 23:59:59')"
+                  ).format(IDP=IDP, OUTP=OUTP, TOTALP=TOTALP, TSP=TSP, TBL=TBL,
+                           FL=SX_FLOOR, CE=CUR_END.isoformat())
+
         q1 = _dedup + (", b AS (SELECT onm, id, tot, DATE(ts) dt, EXTRACT(DAYOFWEEK FROM ts) dow, "
                        "EXTRACT(HOUR FROM ts) hr, CASE WHEN {HOL} THEN 1 ELSE 0 END ishol "
-                       "FROM d WHERE rn=1 AND EXTRACT(HOUR FROM ts) BETWEEN 8 AND 18) "
+                       "FROM d WHERE rn=1 AND ts IS NOT NULL AND EXTRACT(HOUR FROM ts) BETWEEN 8 AND 18) "
                        "SELECT onm, dow, hr, ishol, COUNT(*) txn, ROUND(SUM(tot),2) rev, "
                        "COUNT(DISTINCT dt) days FROM b "
                        "GROUP BY GROUPING SETS ((onm,dow,hr,ishol),(dow,hr,ishol))").format(HOL=_holcase)
@@ -4098,7 +4134,8 @@ def pull_sales_explorer():
         out["cells"] = cells
         out["_unmapped"] = sorted(unmapped.items(), key=lambda x: -x[1])[:12]
 
-        q2 = _dedup + (", b AS (SELECT onm, id, tot, DATE_TRUNC(DATE(ts), WEEK(MONDAY)) wk FROM d WHERE rn=1) "
+        q2 = _dedup + (", b AS (SELECT onm, id, tot, DATE_TRUNC(DATE(ts), WEEK(MONDAY)) wk FROM d "
+                       "WHERE rn=1 AND ts IS NOT NULL) "
                        "SELECT onm, wk, COUNT(*) txn, ROUND(SUM(tot),2) rev FROM b "
                        "GROUP BY GROUPING SETS ((onm,wk),(wk)) ORDER BY wk")
         weekly = {}
@@ -4119,12 +4156,14 @@ def pull_sales_explorer():
         except Exception:
             out["_estate_lastwk"] = None
         W("sales_explorer.json", out, indent=1)
-        print("[pull] sales_explorer: %d stores, %d weekly pts (All), %d unmapped" % (
-            len(present), len(out["weekly"].get(ALL, [])), len(out["_unmapped"])))
+        _elw = out.get("_estate_lastwk") or {}
+        print("[pull] sales_explorer: %d stores, %d weekly pts (All), %d unmapped; estate last full wk "
+              "(w/c %s) rev=£%s txn=%s [reconcile vs FLAT record-week]" % (
+                  len(present), len(out["weekly"].get(ALL, [])), len(out["_unmapped"]),
+                  _elw.get("w"), format(int(_elw.get("rev", 0)), ","), _elw.get("txn")))
     except Exception as e:
         W("sales_explorer.json", out)
-        print("[pull] sales_explorer skipped (non-fatal): %s" % str(e)[:160])
-
+        print("[pull] sales_explorer skipped (non-fatal): %s" % str(e)[:200])
 
 def pulls():
     """All estate + store-page pulls (A) in dependency order.
