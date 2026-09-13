@@ -1,7 +1,7 @@
 {
- "generated": "07 Sep 2026 06:30",
+ "generated": "13 Sep 2026 10:41",
  "status": "live",
- "week_commencing": "2026-08-31",
+ "week_commencing": "2026-09-07",
  "windows": [
   {
    "day": "Tue",
@@ -16,97 +16,97 @@
    "when": "09:00–10:00"
   }
  ],
- "total": 97,
+ "total": 101,
  "distinct_contributors": 46,
- "stores_contributing": 21,
+ "stores_contributing": 18,
  "stores_total": 22,
  "by_day": {
-  "Tue": 36,
-  "Thu": 29,
-  "Sun": 32
+  "Tue": 42,
+  "Thu": 31,
+  "Sun": 28
  },
  "by_store": [
   {
    "store": "Attleborough",
    "coach": "Ian",
-   "count": 2,
-   "contributors": 2,
-   "shoutouts_received": 1
+   "count": 3,
+   "contributors": 3,
+   "shoutouts_received": 2
   },
   {
    "store": "Billing Drive Thru",
    "coach": "Rich",
-   "count": 7,
+   "count": 8,
    "contributors": 7,
-   "shoutouts_received": 3
+   "shoutouts_received": 4
   },
   {
    "store": "Burton Latimer",
    "coach": "Jon",
-   "count": 3,
-   "contributors": 3,
+   "count": 2,
+   "contributors": 2,
    "shoutouts_received": 0
   },
   {
    "store": "Corby",
    "coach": "Jon",
-   "count": 4,
+   "count": 3,
    "contributors": 3,
    "shoutouts_received": 0
   },
   {
    "store": "Glenvale Drive Thru",
    "coach": "Ian",
-   "count": 5,
+   "count": 4,
    "contributors": 4,
-   "shoutouts_received": 1
+   "shoutouts_received": 4
   },
   {
    "store": "HOE Balsall Common",
    "coach": "Ian",
-   "count": 10,
-   "contributors": 4,
+   "count": 0,
+   "contributors": 0,
    "shoutouts_received": 0
   },
   {
    "store": "Higham Ferrers",
    "coach": "Jon",
-   "count": 1,
-   "contributors": 1,
+   "count": 2,
+   "contributors": 2,
    "shoutouts_received": 0
   },
   {
    "store": "Kettering",
    "coach": "Jon",
-   "count": 1,
+   "count": 2,
    "contributors": 1,
    "shoutouts_received": 0
   },
   {
    "store": "Leamington Parade",
    "coach": "Rich",
-   "count": 5,
-   "contributors": 1,
+   "count": 7,
+   "contributors": 5,
    "shoutouts_received": 0
   },
   {
    "store": "Lower Heathcote",
    "coach": "Rich",
    "count": 6,
-   "contributors": 3,
+   "contributors": 4,
    "shoutouts_received": 0
   },
   {
    "store": "Market Harborough",
    "coach": "Rich",
    "count": 2,
-   "contributors": 1,
+   "contributors": 2,
    "shoutouts_received": 0
   },
   {
    "store": "Northampton",
    "coach": "Rich",
-   "count": 3,
+   "count": 2,
    "contributors": 2,
    "shoutouts_received": 0
   },
@@ -114,171 +114,181 @@
    "store": "Northampton Drive-Thru",
    "coach": "Rich",
    "count": 8,
-   "contributors": 4,
-   "shoutouts_received": 2
+   "contributors": 5,
+   "shoutouts_received": 5
   },
   {
    "store": "Olney",
    "coach": "Jon",
-   "count": 3,
-   "contributors": 3,
-   "shoutouts_received": 2
+   "count": 0,
+   "contributors": 0,
+   "shoutouts_received": 1
   },
   {
    "store": "Peterborough Bridge Street",
    "coach": "Jon",
-   "count": 2,
-   "contributors": 2,
+   "count": 8,
+   "contributors": 3,
    "shoutouts_received": 0
   },
   {
    "store": "Peterborough Fletton Quays",
    "coach": "Jon",
-   "count": 10,
-   "contributors": 3,
-   "shoutouts_received": 1
+   "count": 16,
+   "contributors": 5,
+   "shoutouts_received": 0
   },
   {
    "store": "Rothwell",
    "coach": "Jon",
-   "count": 1,
-   "contributors": 1,
+   "count": 0,
+   "contributors": 0,
    "shoutouts_received": 0
   },
   {
    "store": "Rugby",
    "coach": "Rich",
-   "count": 1,
-   "contributors": 1,
+   "count": 4,
+   "contributors": 3,
    "shoutouts_received": 0
   },
   {
    "store": "Rushden Lakes",
    "coach": "Jon",
    "count": 4,
-   "contributors": 4,
+   "contributors": 1,
    "shoutouts_received": 0
   },
   {
    "store": "Warwick",
    "coach": "Ian",
-   "count": 2,
-   "contributors": 2,
-   "shoutouts_received": 0
-  },
-  {
-   "store": "Wellingborough",
-   "coach": "Rich",
    "count": 0,
    "contributors": 0,
    "shoutouts_received": 0
   },
   {
+   "store": "Wellingborough",
+   "coach": "Rich",
+   "count": 4,
+   "contributors": 2,
+   "shoutouts_received": 0
+  },
+  {
    "store": "Wellingborough Train Station",
    "coach": "Rich",
-   "count": 3,
-   "contributors": 2,
+   "count": 1,
+   "contributors": 1,
    "shoutouts_received": 0
   }
  ],
  "zero_stores": [
-  "Wellingborough"
+  "HOE Balsall Common",
+  "Olney",
+  "Rothwell",
+  "Warwick"
  ],
  "by_area": [
   {
    "coach": "Jon",
-   "count": 29,
-   "stores_contributing": 9,
+   "count": 37,
+   "stores_contributing": 7,
    "stores_total": 9
   },
   {
    "coach": "Rich",
-   "count": 35,
-   "stores_contributing": 8,
+   "count": 42,
+   "stores_contributing": 9,
    "stores_total": 9
   },
   {
    "coach": "Ian",
-   "count": 19,
-   "stores_contributing": 4,
+   "count": 7,
+   "stores_contributing": 2,
    "stores_total": 4
   }
  ],
  "top_individuals": [
   {
    "name": "Claire Lamb",
-   "store": "HOE Balsall Common",
+   "store": "Lower Heathcote",
    "count": 11
   },
   {
    "name": "Kimberley",
    "store": "Peterborough Fletton Quays",
-   "count": 6
-  },
-  {
-   "name": "anna",
-   "store": "HOE Balsall Common",
-   "count": 6
-  },
-  {
-   "name": "Rich",
-   "store": "Rushden Lakes",
-   "count": 6
-  },
-  {
-   "name": "Sylwia B.",
-   "store": "Leamington Parade",
-   "count": 5
-  },
-  {
-   "name": "Jon Powell",
-   "store": "Olney",
-   "count": 4
+   "count": 8
   },
   {
    "name": "Kel",
+   "store": "Northampton Drive-Thru",
+   "count": 7
+  },
+  {
+   "name": "Alex",
    "store": "Lower Heathcote",
+   "count": 6
+  },
+  {
+   "name": "Em",
+   "store": "Peterborough Fletton Quays",
+   "count": 5
+  },
+  {
+   "name": "Jess Timms",
+   "store": "Rushden Lakes",
+   "count": 4
+  },
+  {
+   "name": "Emily",
+   "store": "Peterborough Bridge Street",
    "count": 4
   },
   {
    "name": "Amy",
    "store": "Northampton Drive-Thru",
-   "count": 4
-  },
-  {
-   "name": "Nicole T",
-   "store": "Lower Heathcote",
-   "count": 4
-  },
-  {
-   "name": "Lauren",
-   "store": "Peterborough Fletton Quays",
    "count": 3
   },
   {
-   "name": "Alex",
-   "store": "Warwick",
+   "name": "Ella Carroll",
+   "store": "Peterborough Bridge Street",
    "count": 3
   },
   {
-   "name": "Maria Toro",
-   "store": "Wellingborough Train Station",
-   "count": 2
+   "name": "Matt F",
+   "store": "Billing Drive Thru",
+   "count": 3
+  },
+  {
+   "name": "Sylwia B.",
+   "store": "Leamington Parade",
+   "count": 3
+  },
+  {
+   "name": "Sylwia",
+   "store": "Wellingborough",
+   "count": 3
   }
  ],
  "engagement": {
-  "reactions": 615,
-  "replies": 251,
-  "avg_reactions": 6.3
+  "reactions": 617,
+  "replies": 221,
+  "avg_reactions": 6.1
  },
  "tone": {
-  "celebration": 11,
-  "recognition": 7,
-  "warm": 79,
-  "flagged": 0
+  "celebration": 12,
+  "recognition": 4,
+  "warm": 84,
+  "flagged": 1
  },
- "flagged": [],
- "unmapped": 14,
+ "flagged": [
+  {
+   "user": "Emily",
+   "store": "Peterborough Bridge Street",
+   "day": "Thu",
+   "excerpt": "(Lil late) Shoutout to  and  for our Monday Shift together. :sunny:\n\nBoth delivered fantastic customer service and stunning drinks (sadly no photos..) :hugging_"
+  }
+ ],
+ "unmapped": 15,
  "note": "Pulled from Slack #company-newsfeed, three BCKH windows (Europe/London). Engagement prompts excluded. Store via @-mention, HRP employee→store, then free-text.",
  "_source": "Slack #company-newsfeed (C9HSYV1PA), #BCKH/#BrewCrewKudosHour, via scheduled Cowork task"
 }
