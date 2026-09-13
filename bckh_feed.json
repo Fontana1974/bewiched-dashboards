@@ -1,5 +1,5 @@
 {
- "generated": "13 Sep 2026 10:41",
+ "generated": "13 Sep 2026 19:30",
  "status": "live",
  "week_commencing": "2026-09-07",
  "windows": [
@@ -18,7 +18,7 @@
  ],
  "total": 101,
  "distinct_contributors": 46,
- "stores_contributing": 18,
+ "stores_contributing": 17,
  "stores_total": 22,
  "by_day": {
   "Tue": 42,
@@ -29,15 +29,15 @@
   {
    "store": "Attleborough",
    "coach": "Ian",
-   "count": 3,
-   "contributors": 3,
+   "count": 1,
+   "contributors": 1,
    "shoutouts_received": 2
   },
   {
    "store": "Billing Drive Thru",
    "coach": "Rich",
-   "count": 8,
-   "contributors": 7,
+   "count": 6,
+   "contributors": 5,
    "shoutouts_received": 4
   },
   {
@@ -57,8 +57,8 @@
   {
    "store": "Glenvale Drive Thru",
    "coach": "Ian",
-   "count": 4,
-   "contributors": 4,
+   "count": 2,
+   "contributors": 2,
    "shoutouts_received": 4
   },
   {
@@ -71,8 +71,8 @@
   {
    "store": "Higham Ferrers",
    "coach": "Jon",
-   "count": 2,
-   "contributors": 2,
+   "count": 0,
+   "contributors": 0,
    "shoutouts_received": 0
   },
   {
@@ -85,22 +85,22 @@
   {
    "store": "Leamington Parade",
    "coach": "Rich",
-   "count": 7,
-   "contributors": 5,
-   "shoutouts_received": 0
-  },
-  {
-   "store": "Lower Heathcote",
-   "coach": "Rich",
    "count": 6,
    "contributors": 4,
    "shoutouts_received": 0
   },
   {
+   "store": "Lower Heathcote",
+   "coach": "Rich",
+   "count": 3,
+   "contributors": 2,
+   "shoutouts_received": 0
+  },
+  {
    "store": "Market Harborough",
    "coach": "Rich",
-   "count": 2,
-   "contributors": 2,
+   "count": 1,
+   "contributors": 1,
    "shoutouts_received": 0
   },
   {
@@ -113,8 +113,8 @@
   {
    "store": "Northampton Drive-Thru",
    "coach": "Rich",
-   "count": 8,
-   "contributors": 5,
+   "count": 6,
+   "contributors": 3,
    "shoutouts_received": 5
   },
   {
@@ -148,8 +148,8 @@
   {
    "store": "Rugby",
    "coach": "Rich",
-   "count": 4,
-   "contributors": 3,
+   "count": 1,
+   "contributors": 1,
    "shoutouts_received": 0
   },
   {
@@ -169,8 +169,8 @@
   {
    "store": "Wellingborough",
    "coach": "Rich",
-   "count": 4,
-   "contributors": 2,
+   "count": 3,
+   "contributors": 1,
    "shoutouts_received": 0
   },
   {
@@ -183,6 +183,7 @@
  ],
  "zero_stores": [
   "HOE Balsall Common",
+  "Higham Ferrers",
   "Olney",
   "Rothwell",
   "Warwick"
@@ -190,38 +191,28 @@
  "by_area": [
   {
    "coach": "Jon",
-   "count": 37,
-   "stores_contributing": 7,
+   "count": 35,
+   "stores_contributing": 6,
    "stores_total": 9
   },
   {
    "coach": "Rich",
-   "count": 42,
+   "count": 29,
    "stores_contributing": 9,
    "stores_total": 9
   },
   {
    "coach": "Ian",
-   "count": 7,
+   "count": 3,
    "stores_contributing": 2,
    "stores_total": 4
   }
  ],
  "top_individuals": [
   {
-   "name": "Claire Lamb",
-   "store": "Lower Heathcote",
-   "count": 11
-  },
-  {
    "name": "Kimberley",
    "store": "Peterborough Fletton Quays",
    "count": 8
-  },
-  {
-   "name": "Kel",
-   "store": "Northampton Drive-Thru",
-   "count": 7
   },
   {
    "name": "Alex",
@@ -251,11 +242,6 @@
   {
    "name": "Ella Carroll",
    "store": "Peterborough Bridge Street",
-   "count": 3
-  },
-  {
-   "name": "Matt F",
-   "store": "Billing Drive Thru",
    "count": 3
   },
   {
@@ -289,6 +275,40 @@
   }
  ],
  "unmapped": 15,
- "note": "Pulled from Slack #company-newsfeed, three BCKH windows (Europe/London). Engagement prompts excluded. Store via @-mention, HRP employee→store, then free-text.",
- "_source": "Slack #company-newsfeed (C9HSYV1PA), #BCKH/#BrewCrewKudosHour, via scheduled Cowork task"
+ "note": "Pulled from Slack #company-newsfeed, three BCKH windows (Europe/London). Engagement prompts excluded. Store via @-mention, HRP employee→store, then free-text. SMT/support (Area/Franchise/Audit/Engagement Coaches + Owner) are classified by ROLE under an SMT/Support line and excluded from store counts and the stores-contributing figure; they remain in the overall total and people count.",
+ "_source": "Slack #company-newsfeed (C9HSYV1PA), #BCKH/#BrewCrewKudosHour, via scheduled Cowork task",
+ "smt_support": [
+  {
+   "name": "Matt F",
+   "role": "Owner / MD",
+   "email": "matt@bewiched.co.uk",
+   "count": 3
+  },
+  {
+   "name": "Ian",
+   "role": "Area Franchise Coach",
+   "email": "ianhawkswood@hotmail.com",
+   "count": 2
+  },
+  {
+   "name": "Rich",
+   "role": "Area Coach",
+   "email": "rich.bewiched@gmail.com",
+   "count": 2
+  },
+  {
+   "name": "Claire Lamb",
+   "role": "Audit Coach",
+   "email": "claire.bewiched@gmail.com",
+   "count": 11
+  },
+  {
+   "name": "Kel",
+   "role": "Engagement Coach",
+   "email": "kel8848@outlook.com",
+   "count": 7
+  }
+ ],
+ "smt_total": 25,
+ "smt_contributors": 5
 }

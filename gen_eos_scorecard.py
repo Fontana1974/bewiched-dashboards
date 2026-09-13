@@ -2809,8 +2809,27 @@ def bckh_engagement_html():
                  (' <b>%d contributor(s) unmapped</b> this week.' % unmapped) if unmapped else '',
                  esc(B.get("generated", "")))
 
+    # SMT / Support (senior team classified by ROLE, never attributed to a store)
+    smt = B.get("smt_support") or []
+    smt_html = ''
+    if smt:
+        rolebg = {"Owner / MD": "#12233b", "Area Franchise Coach": "#3a2f6b", "Area Coach": "#2f5aa8",
+                  "Audit Coach": "#7a5a1e", "Engagement Coach": "#2e7d46"}
+        chips = ''.join(
+            '<span class="ind" style="background:%s;color:#fff;border-color:%s"><b>%s</b> &middot; %s%s</span>' % (
+                rolebg.get(r.get("role"), "#12233b"), rolebg.get(r.get("role"), "#12233b"),
+                esc(r.get("name", "?")), esc(r.get("role", "")),
+                (' &times;%d' % r["count"]) if r.get("count", 0) > 1 else '') for r in smt)
+        smt_html = ('<div class="md-section-h">SMT / Support &mdash; by role (not attributed to any store)</div>'
+                    '<div class="md-note" style="margin:2px 0 6px">%d senior/support contribution%s from %d '
+                    'people this week. Counted in the estate total, but excluded from store counts and the '
+                    'stores-contributing figure so they don&rsquo;t inflate individual sites.</div>'
+                    '<div class="inds">%s</div>') % (
+                        B.get("smt_total", 0), "" if B.get("smt_total", 0) == 1 else "s",
+                        B.get("smt_contributors", 0), chips)
+
     return (css + '<div class="bckh">' + banner + cards + days + tbl + zero_html
-            + inds_html + tone_html + foot + '</div>')
+            + inds_html + smt_html + tone_html + foot + '</div>')
 
 
 md_details = ""

@@ -82,6 +82,34 @@ RECOG_RX = re.compile(r"\b(above and beyond|leadership|growth|integrity|receptiv
                       r"mentor|supervisor|figure of 8|delegat)\b", re.I)
 MENTION_RX = re.compile(r"<@[UW][A-Z0-9]+\|([^>]+)>")
 
+# ---- SMT / support-office override (senior team classified by ROLE, never pinned to a store) ----
+# Robust key = email (each SMT person has a stable, unique address; none appear in emp_store_map).
+# Name fallback used ONLY when a post carries no email. These override ALL store attribution.
+SMT_ROLE_BY_EMAIL = {
+    "ianhawkswood@hotmail.com":  "Area Franchise Coach",   # Ian H
+    "jon.bewiched@gmail.com":    "Area Coach",             # Jon P
+    "rich.bewiched@gmail.com":   "Area Coach",             # Rich W
+    "claire.bewiched@gmail.com": "Audit Coach",            # Claire
+    "kel8848@outlook.com":       "Engagement Coach",       # Kel
+    "matt@bewiched.co.uk":       "Owner / MD",             # Matt F
+}
+SMT_ROLE_BY_NAME = {   # exact display-name fallback (emailless posts only)
+    "claire lamb": "Audit Coach", "jon powell": "Area Coach", "rich": "Area Coach",
+    "kel": "Engagement Coach", "ian": "Area Franchise Coach", "matt f": "Owner / MD",
+}
+SMT_ROLE_ORDER = ["Owner / MD", "Area Franchise Coach", "Area Coach", "Audit Coach", "Engagement Coach"]
+
+def smt_role(email, user):
+    """Return the SMT/Support role for a contributor, or None if they are store team."""
+    e = (email or "").strip().lower()
+    if e in SMT_ROLE_BY_EMAIL:
+        return SMT_ROLE_BY_EMAIL[e]
+    if not e:
+        n = (user or "").strip().lower()
+        if n in SMT_ROLE_BY_NAME:
+            return SMT_ROLE_BY_NAME[n]
+    return None
+
 def build(raw, emp_map=None, wc=None, status="live"):
     emp_map = emp_map or {}
     if wc:
@@ -122,29 +150,42 @@ def build(raw, emp_map=None, wc=None, status="live"):
             for tok in re.findall(r"[A-Za-z][A-Za-z' ]{2,20}", text):
                 st = normalize(tok.strip())
                 if st: poster_store = st; break
+        role = smt_role(email, user)
+        if role:
+            poster_store = None   # SMT/support are never attributed to a store
         if NEG_RX.search(text):     tone = "flagged"
         elif CELEB_RX.search(text): tone = "celebration"
         elif RECOG_RX.search(text): tone = "recognition"
         else:                       tone = "warm"
         contribs.append({"day": day, "ts": m["ts"], "user": user, "email": email,
-                         "store": poster_store, "shoutout_stores": store_mentions,
+                         "store": poster_store, "smt_role": role, "shoutout_stores": store_mentions,
                          "reactions": int(m.get("reactions", 0) or 0),
                          "replies": int(m.get("replies", 0) or 0), "tone": tone,
                          "excerpt": re.sub(r"<[^>]+>", "", text).strip()[:160]})
     total = len(contribs)
     by_day = {d: sum(1 for c in contribs if c["day"] == d) for d in ("Tue", "Thu", "Sun")}
     store_ct = {}; store_people = {}; shout_recv = {}; people = {}; unmapped = 0
+    smt_ct = {}
     for c in contribs:
+        # shout-outs a person GIVES still credit the receiving store (incl. SMT posters)
+        for ss in c["shoutout_stores"]: shout_recv[ss] = shout_recv.get(ss, 0) + 1
+        key = c["user"] or c["email"] or "?"
+        if c.get("smt_role"):
+            r = smt_ct.setdefault(key, {"name": c["user"] or c["email"] or "?", "role": c["smt_role"],
+                                        "email": c["email"], "count": 0})
+            r["count"] += 1
+            p = people.setdefault(key, {"name": key, "store": None, "count": 0,
+                                        "smt": True, "role": c["smt_role"]})
+            p["count"] += 1
+            continue
         st = c["store"]
         if st:
             store_ct[st] = store_ct.get(st, 0) + 1
             store_people.setdefault(st, set()).add(c["user"] or c["email"])
         else: unmapped += 1
-        for ss in c["shoutout_stores"]: shout_recv[ss] = shout_recv.get(ss, 0) + 1
-        key = c["user"] or c["email"] or "?"
         p = people.setdefault(key, {"name": key, "store": st, "count": 0})
         p["count"] += 1
-        if st and not p["store"]: p["store"] = st
+        if st and not p.get("store"): p["store"] = st
     by_store = [{"store": st, "coach": COACH[st], "count": store_ct.get(st, 0),
                  "contributors": len(store_people.get(st, set())),
                  "shoutouts_received": shout_recv.get(st, 0)} for st in CANON]
@@ -156,7 +197,12 @@ def build(raw, emp_map=None, wc=None, status="live"):
         by_area.append({"coach": coach, "count": sum(s["count"] for s in mem),
                         "stores_contributing": sum(1 for s in mem if s["count"] > 0),
                         "stores_total": len(mem)})
-    top_individuals = sorted(people.values(), key=lambda p: -p["count"])[:12]
+    top_individuals = sorted([p for p in people.values() if not p.get("smt")],
+                             key=lambda p: -p["count"])[:12]
+    smt_support = sorted(smt_ct.values(),
+                         key=lambda r: (SMT_ROLE_ORDER.index(r["role"]) if r["role"] in SMT_ROLE_ORDER else 99,
+                                        -r["count"], r["name"]))
+    smt_total = sum(r["count"] for r in smt_support)
     engagement = {"reactions": sum(c["reactions"] for c in contribs),
                   "replies": sum(c["replies"] for c in contribs),
                   "avg_reactions": round(sum(c["reactions"] for c in contribs) / total, 1) if total else 0}
@@ -171,7 +217,9 @@ def build(raw, emp_map=None, wc=None, status="live"):
         "total": total, "distinct_contributors": len(people),
         "stores_contributing": stores_contributing, "stores_total": len(CANON),
         "by_day": by_day, "by_store": by_store, "zero_stores": zero_stores, "by_area": by_area,
-        "top_individuals": top_individuals, "engagement": engagement, "tone": tone,
+        "top_individuals": top_individuals,
+        "smt_support": smt_support, "smt_total": smt_total, "smt_contributors": len(smt_support),
+        "engagement": engagement, "tone": tone,
         "flagged": flagged, "unmapped": unmapped,
         "note": ("Collecting — the 3-window BCKH format relaunched w/c 1 Sep 2026; the first full "
                  "week's data lands after this week's Tue/Thu/Sun windows." if status == "collecting"
