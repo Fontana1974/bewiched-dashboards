@@ -4059,14 +4059,15 @@ def pull_sales_explorer():
     """Interactive Sales Explorer feed (EOS Sales sub-tab). Pre-computes deduped aggregates on the
     Sunday full build so the dashboard renders 3 views CLIENT-SIDE (no live BQ on tab-switch, gated):
     weekly trend (rev/txn/ATV + holiday shading), hourly heatmap (avg per day), term-vs-holiday bars.
-    Source: base table sales_details (NOT the flat view). DEDUP by id BEFORE aggregating (table has
-    dupes). Column paths (transaction total + outlet name) are DISCOVERED from INFORMATION_SCHEMA
-    (free) because the base table nests them differently from the flat view. id=unique txn;
-    outlet name -> canonical via normalize(). Heavy (2 deduped scans, ~14 months) -> gated to
+    Source = the SAME flat view the rest of EOS uses (v_sales_details_flat, item_line_total_after_discount,
+    item_outlet_name), so every figure reconciles with the estate record-week / avg-per-store numbers.
+    (NB Matt's spec named base table sales_details.total, but that column is a nested line-item field and
+    the base outlet name doesn't resolve to our canonical set; the flat view is the reconcilable grain.)
+    Transactions = COUNT(DISTINCT id); revenue = SUM(line total); hour from SUBSTR(sales_date_time);
+    avg-per-day normalised by distinct trading dates. ONE grouping-sets scan (~4.8 GB) -> gated to
     FULL_RUN. Non-fatal."""
-    TBL = "`%s.%s.sales_details`" % (PROJECT, DATASET)
-    _holcase = " OR ".join("DATE(ts) BETWEEN '%s' AND '%s'" % (a, b) for a, b, _ in SX_HOLIDAYS)
-    out = {"_source": "BigQuery sales_details (deduped by id), transaction total; avg-per-day normalised.",
+    _holcase = " OR ".join("dt BETWEEN '%s' AND '%s'" % (a, b) for a, b, _ in SX_HOLIDAYS)
+    out = {"_source": "BigQuery v_sales_details_flat (net line totals; COUNT(DISTINCT id) txns); avg-per-day normalised.",
            "_generated": NOW_UK.strftime("%d %b %Y, %H:%M"), "cur_end": CUR_END.isoformat(),
            "floor": SX_FLOOR, "hours": list(range(8, 19)),
            "dow": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
@@ -4074,78 +4075,45 @@ def pull_sales_explorer():
            "stores": [], "weekly": {}, "cells": {}, "_unmapped": []}
     ALL = "All stores"
     try:
-        # ---- discover the real (possibly nested) field paths in the base table ----
-        paths = {}
-        for r in bq("SELECT field_path, data_type FROM `%s.%s.INFORMATION_SCHEMA.COLUMN_FIELD_PATHS` "
-                    "WHERE table_name='sales_details'" % (PROJECT, DATASET)):
-            paths[r["field_path"]] = (r.get("data_type") or "").upper()
-        def _leaf(p): return p.split(".")[-1].lower()
-        NUM = ("INT64", "FLOAT64", "NUMERIC", "BIGNUMERIC")
-        def _pick_total():
-            if "total" in paths: return "total"
-            # leaf named exactly 'total'
-            for p in paths:
-                if _leaf(p) == "total": return p
-            # a numeric leaf that looks like a transaction total
-            cand = [p for p in paths if paths[p] in NUM and any(k in _leaf(p)
-                    for k in ("total", "grand", "gross", "net", "amount", "value", "paid"))]
-            cand.sort(key=lambda p: (0 if "total" in _leaf(p) else 1, len(p)))
-            return cand[0] if cand else None
-        def _pick(cands):
-            for c in cands:
-                if c in paths: return c
-            for p in paths:
-                if _leaf(p) in [_leaf(c) for c in cands]: return p
-            return None
-        TOTALP = _pick_total()
-        OUTP = _pick(["outlet.outlet_name", "outlet_name"])
-        IDP = _pick(["id"]) or "id"
-        TSP = _pick(["sales_date_time"]) or "sales_date_time"
-        print("[pull] sales_explorer schema: total=%s outlet=%s id=%s ts=%s (of %d field paths)"
-              % (TOTALP, OUTP, IDP, TSP, len(paths)))
-        if not TOTALP or not OUTP:
-            samp = sorted([p for p in paths if paths[p] in NUM])[:20]
-            raise RuntimeError("could not resolve total/outlet path; numeric candidates: %s" % samp)
-        _dedup = ("WITH d AS (SELECT {IDP} id, {OUTP} onm, SAFE_CAST({TOTALP} AS FLOAT64) tot, "
-                  "SAFE.PARSE_TIMESTAMP('%%Y-%%m-%%d %%H:%%M:%%S', {TSP}) ts, "
-                  "ROW_NUMBER() OVER (PARTITION BY {IDP} ORDER BY {TSP}) rn "
-                  "FROM {TBL} WHERE {TSP} >= '{FL} 00:00:00' AND {TSP} <= '{CE} 23:59:59')"
-                  ).format(IDP=IDP, OUTP=OUTP, TOTALP=TOTALP, TSP=TSP, TBL=TBL,
-                           FL=SX_FLOOR, CE=CUR_END.isoformat())
-
-        q1 = _dedup + (", b AS (SELECT onm, id, tot, DATE(ts) dt, EXTRACT(DAYOFWEEK FROM ts) dow, "
-                       "EXTRACT(HOUR FROM ts) hr, CASE WHEN {HOL} THEN 1 ELSE 0 END ishol "
-                       "FROM d WHERE rn=1 AND ts IS NOT NULL AND EXTRACT(HOUR FROM ts) BETWEEN 8 AND 18) "
-                       "SELECT onm, dow, hr, ishol, COUNT(*) txn, ROUND(SUM(tot),2) rev, "
-                       "COUNT(DISTINCT dt) days FROM b "
-                       "GROUP BY GROUPING SETS ((onm,dow,hr,ishol),(dow,hr,ishol))").format(HOL=_holcase)
-        cells = {}; unmapped = {}
-        for r in bq(q1):
+        q = ("""WITH base AS (
+              SELECT item_outlet_name onm, id,
+                     SAFE_CAST(item_line_total_after_discount AS FLOAT64) v,
+                     DATE(sales_date) dt,
+                     DATE_TRUNC(DATE(sales_date), WEEK(MONDAY)) wk,
+                     EXTRACT(DAYOFWEEK FROM DATE(sales_date)) dow,
+                     {HOUR} hr,
+                     CASE WHEN {HOL} THEN 1 ELSE 0 END ishol
+              FROM {FLAT}
+              WHERE DATE(sales_date) BETWEEN '{FL}' AND '{CE}')
+            SELECT onm, wk, dow, hr, ishol,
+                   COUNT(DISTINCT id) txn, ROUND(SUM(v),2) rev, COUNT(DISTINCT dt) days
+            FROM base
+            GROUP BY GROUPING SETS ((onm,dow,hr,ishol),(dow,hr,ishol),(onm,wk),(wk))
+            """).format(HOUR=HOUR.replace("sales_date_time", "sales_date_time"), HOL=_holcase,
+                        FLAT=FLAT, FL=SX_FLOOR, CE=CUR_END.isoformat())
+        cells = {}; weekly = {}; unmapped = {}
+        for r in bq(q):
             onm = r.get("onm")
             st = ALL if onm is None else normalize(onm)
-            if st is None:
-                if onm: unmapped[onm] = unmapped.get(onm, 0) + int(r.get("txn") or 0)
-                continue
-            dow = int(r["dow"]) - 1
-            hr = int(r["hr"]); ishol = int(r.get("ishol") or 0)
-            c = cells.setdefault(st, {}).setdefault(dow, {}).setdefault(hr, {"t": [0, 0.0, 0], "h": [0, 0.0, 0]})
-            k = "h" if ishol else "t"
-            c[k][0] += int(r.get("txn") or 0); c[k][1] += float(r.get("rev") or 0.0); c[k][2] += int(r.get("days") or 0)
+            if r.get("hr") is not None:                      # ---- hourly grouping-set row ----
+                hr = int(r["hr"])
+                if hr < 8 or hr > 18:
+                    continue
+                if st is None:
+                    if onm: unmapped[onm] = unmapped.get(onm, 0) + int(r.get("txn") or 0)
+                    continue
+                dow = int(r["dow"]) - 1; ishol = int(r.get("ishol") or 0)
+                c = cells.setdefault(st, {}).setdefault(dow, {}).setdefault(hr, {"t": [0, 0.0, 0], "h": [0, 0.0, 0]})
+                k = "h" if ishol else "t"
+                c[k][0] += int(r.get("txn") or 0); c[k][1] += float(r.get("rev") or 0.0); c[k][2] += int(r.get("days") or 0)
+            elif r.get("wk") is not None:                    # ---- weekly grouping-set row ----
+                if st is None:
+                    continue
+                wk = r.get("wk"); wk = wk.isoformat() if hasattr(wk, "isoformat") else str(wk)
+                e = weekly.setdefault(st, {}).setdefault(wk, [0, 0.0])
+                e[0] += int(r.get("txn") or 0); e[1] += float(r.get("rev") or 0.0)
         out["cells"] = cells
         out["_unmapped"] = sorted(unmapped.items(), key=lambda x: -x[1])[:12]
-
-        q2 = _dedup + (", b AS (SELECT onm, id, tot, DATE_TRUNC(DATE(ts), WEEK(MONDAY)) wk FROM d "
-                       "WHERE rn=1 AND ts IS NOT NULL) "
-                       "SELECT onm, wk, COUNT(*) txn, ROUND(SUM(tot),2) rev FROM b "
-                       "GROUP BY GROUPING SETS ((onm,wk),(wk)) ORDER BY wk")
-        weekly = {}
-        for r in bq(q2):
-            onm = r.get("onm")
-            st = ALL if onm is None else normalize(onm)
-            if st is None: continue
-            wk = r.get("wk"); wk = wk.isoformat() if hasattr(wk, "isoformat") else str(wk)
-            e = weekly.setdefault(st, {}).setdefault(wk, [0, 0.0])
-            e[0] += int(r.get("txn") or 0); e[1] += float(r.get("rev") or 0.0)
         out["weekly"] = {st: [{"w": wk, "txn": v[0], "rev": round(v[1])} for wk, v in sorted(d.items())]
                          for st, d in weekly.items()}
         present = [s for s in CANON if s in cells]
@@ -4158,7 +4126,7 @@ def pull_sales_explorer():
         W("sales_explorer.json", out, indent=1)
         _elw = out.get("_estate_lastwk") or {}
         print("[pull] sales_explorer: %d stores, %d weekly pts (All), %d unmapped; estate last full wk "
-              "(w/c %s) rev=£%s txn=%s [reconcile vs FLAT record-week]" % (
+              "(w/c %s) rev=£%s txn=%s [reconcile vs FLAT record-week £209,635]" % (
                   len(present), len(out["weekly"].get(ALL, [])), len(out["_unmapped"]),
                   _elw.get("w"), format(int(_elw.get("rev", 0)), ","), _elw.get("txn")))
     except Exception as e:
