@@ -1,55 +1,35 @@
 {
- "_weekly_label": "w/c 31 Aug 2026",
+ "_weekly_label": "w/c 7 Sep 2026",
  "_weekly_window": [
-  "2026-08-31",
-  "2026-09-06"
+  "2026-09-07",
+  "2026-09-13"
  ],
  "_qtd_label": "Q3 2026",
  "_qtd_window": [
   "2026-07-01",
-  "2026-09-06"
+  "2026-09-13"
  ],
- "_comments_label": "recent shift voice — last 2 weeks to 7 Sep 2026",
+ "_comments_label": "recent shift voice — last 2 weeks to 13 Sep 2026",
  "_comments_window": [
-  "2026-08-25",
-  "2026-09-07"
+  "2026-08-31",
+  "2026-09-13"
  ],
- "_lastweek_count": 59,
+ "_lastweek_count": 60,
  "worst": [
   {
-   "store": "Glenvale Drive Thru",
-   "date": "2026-08-31",
-   "dow": "Mon 31 Aug",
-   "rating": 1.0,
-   "text": "",
-   "smt": null,
-   "sentiment": "Negative",
-   "action": "Low rating with no comment — ask Glenvale Drive Thru's manager to check in with the team member."
-  },
-  {
-   "store": "Corby",
-   "date": "2026-09-01",
-   "dow": "Tue 1 Sep",
+   "store": "Wellingborough",
+   "date": "2026-09-07",
+   "dow": "Mon 7 Sep",
    "rating": 2.0,
    "text": "",
    "smt": null,
    "sentiment": "Negative",
-   "action": "Low rating with no comment — ask Corby's manager to check in with the team member."
-  },
-  {
-   "store": "Rushden Lakes",
-   "date": "2026-09-03",
-   "dow": "Thu 3 Sep",
-   "rating": 2.0,
-   "text": "",
-   "smt": null,
-   "sentiment": "Negative",
-   "action": "Low rating with no comment — ask Rushden Lakes's manager to check in with the team member."
+   "action": "Low rating with no comment — ask Wellingborough's manager to check in with the team member."
   },
   {
    "store": "Glenvale Drive Thru",
-   "date": "2026-09-04",
-   "dow": "Fri 4 Sep",
+   "date": "2026-09-09",
+   "dow": "Wed 9 Sep",
    "rating": 2.0,
    "text": "",
    "smt": null,
@@ -57,9 +37,49 @@
    "action": "Low rating with no comment — ask Glenvale Drive Thru's manager to check in with the team member."
   },
   {
+   "store": "Attleborough",
+   "date": "2026-09-09",
+   "dow": "Wed 9 Sep",
+   "rating": 2.0,
+   "text": "",
+   "smt": null,
+   "sentiment": "Negative",
+   "action": "Low rating with no comment — ask Attleborough's manager to check in with the team member."
+  },
+  {
+   "store": "Northampton Drive-Thru",
+   "date": "2026-09-10",
+   "dow": "Thu 10 Sep",
+   "rating": 2.0,
+   "text": "",
+   "smt": null,
+   "sentiment": "Negative",
+   "action": "Low rating with no comment — ask Northampton Drive-Thru's manager to check in with the team member."
+  },
+  {
+   "store": "Attleborough",
+   "date": "2026-09-12",
+   "dow": "Sat 12 Sep",
+   "rating": 2.0,
+   "text": "",
+   "smt": null,
+   "sentiment": "Negative",
+   "action": "Low rating with no comment — ask Attleborough's manager to check in with the team member."
+  },
+  {
+   "store": "Leamington Parade",
+   "date": "2026-09-13",
+   "dow": "Sun 13 Sep",
+   "rating": 2.0,
+   "text": "",
+   "smt": null,
+   "sentiment": "Negative",
+   "action": "Low rating with no comment — ask Leamington Parade's manager to check in with the team member."
+  },
+  {
    "store": "Corby",
-   "date": "2026-09-03",
-   "dow": "Thu 3 Sep",
+   "date": "2026-09-08",
+   "dow": "Tue 8 Sep",
    "rating": 3.0,
    "text": "",
    "smt": null,
@@ -68,48 +88,18 @@
   },
   {
    "store": "Market Harborough",
-   "date": "2026-09-03",
-   "dow": "Thu 3 Sep",
+   "date": "2026-09-10",
+   "dow": "Thu 10 Sep",
    "rating": 3.0,
    "text": "",
    "smt": null,
    "sentiment": "Mixed",
-   "action": null
-  },
-  {
-   "store": "Northampton Drive-Thru",
-   "date": "2026-09-04",
-   "dow": "Fri 4 Sep",
-   "rating": 3.0,
-   "text": "",
-   "smt": null,
-   "sentiment": "Mixed",
-   "action": null
-  },
-  {
-   "store": "Higham Ferrers",
-   "date": "2026-09-01",
-   "dow": "Tue 1 Sep",
-   "rating": 4.0,
-   "text": "",
-   "smt": null,
-   "sentiment": "Positive",
-   "action": null
-  },
-  {
-   "store": "Corby",
-   "date": "2026-09-01",
-   "dow": "Tue 1 Sep",
-   "rating": 4.0,
-   "text": "",
-   "smt": null,
-   "sentiment": "Positive",
    "action": null
   },
   {
    "store": "Rushden Lakes",
-   "date": "2026-09-02",
-   "dow": "Wed 2 Sep",
+   "date": "2026-09-07",
+   "dow": "Mon 7 Sep",
    "rating": 4.0,
    "text": "",
    "smt": null,
@@ -117,9 +107,9 @@
    "action": null
   },
   {
-   "store": "Northampton Drive-Thru",
-   "date": "2026-09-02",
-   "dow": "Wed 2 Sep",
+   "store": "Lower Heathcote",
+   "date": "2026-09-07",
+   "dow": "Mon 7 Sep",
    "rating": 4.0,
    "text": "",
    "smt": null,
@@ -127,9 +117,19 @@
    "action": null
   },
   {
-   "store": "Rothwell",
-   "date": "2026-09-03",
-   "dow": "Thu 3 Sep",
+   "store": "Lower Heathcote",
+   "date": "2026-09-07",
+   "dow": "Mon 7 Sep",
+   "rating": 4.0,
+   "text": "",
+   "smt": null,
+   "sentiment": "Positive",
+   "action": null
+  },
+  {
+   "store": "Olney",
+   "date": "2026-09-07",
+   "dow": "Mon 7 Sep",
    "rating": 4.0,
    "text": "",
    "smt": null,
@@ -139,17 +139,17 @@
  ],
  "outlier_stores": [
   {
-   "store": "Glenvale Drive Thru",
-   "avg": 1.5,
-   "n": 2,
-   "action": "Glenvale Drive Thru averaged 1.50★ from 2 shifts last week (lowest in the estate) — check in with the manager on what's driving it."
+   "store": "Attleborough",
+   "avg": 3.0,
+   "n": 3,
+   "action": "Attleborough averaged 3.00★ from 3 shifts last week (lowest in the estate) — check in with the manager on what's driving it."
   }
  ],
  "per_store": {
   "Burton Latimer": {
    "weekly": {
-    "n": 1,
-    "avg": 5.0
+    "n": 0,
+    "avg": null
    },
    "qtd": {
     "n": 14,
@@ -162,12 +162,12 @@
   },
   "Corby": {
    "weekly": {
-    "n": 5,
-    "avg": 3.6
+    "n": 2,
+    "avg": 4.0
    },
    "qtd": {
-    "n": 49,
-    "avg": 3.06
+    "n": 51,
+    "avg": 3.1
    },
    "prevq": {
     "n": 69,
@@ -177,7 +177,7 @@
   "Higham Ferrers": {
    "weekly": {
     "n": 1,
-    "avg": 4.0
+    "avg": 5.0
    },
    "qtd": {
     "n": 5,
@@ -190,8 +190,8 @@
   },
   "Kettering": {
    "weekly": {
-    "n": 1,
-    "avg": 5.0
+    "n": 0,
+    "avg": null
    },
    "qtd": {
     "n": 6,
@@ -204,8 +204,8 @@
   },
   "Olney": {
    "weekly": {
-    "n": 0,
-    "avg": null
+    "n": 1,
+    "avg": 4.0
    },
    "qtd": {
     "n": 6,
@@ -218,12 +218,12 @@
   },
   "Peterborough Bridge Street": {
    "weekly": {
-    "n": 2,
-    "avg": 5.0
+    "n": 6,
+    "avg": 4.67
    },
    "qtd": {
-    "n": 23,
-    "avg": 4.52
+    "n": 29,
+    "avg": 4.55
    },
    "prevq": {
     "n": 23,
@@ -232,8 +232,8 @@
   },
   "Peterborough Fletton Quays": {
    "weekly": {
-    "n": 5,
-    "avg": 5.0
+    "n": 0,
+    "avg": null
    },
    "qtd": {
     "n": 14,
@@ -246,8 +246,8 @@
   },
   "Rothwell": {
    "weekly": {
-    "n": 1,
-    "avg": 4.0
+    "n": 0,
+    "avg": null
    },
    "qtd": {
     "n": 14,
@@ -260,12 +260,12 @@
   },
   "Rushden Lakes": {
    "weekly": {
-    "n": 4,
-    "avg": 4.0
+    "n": 3,
+    "avg": 4.33
    },
    "qtd": {
-    "n": 7,
-    "avg": 3.71
+    "n": 9,
+    "avg": 3.89
    },
    "prevq": {
     "n": 21,
@@ -274,12 +274,12 @@
   },
   "Attleborough": {
    "weekly": {
-    "n": 0,
-    "avg": null
+    "n": 3,
+    "avg": 3.0
    },
    "qtd": {
-    "n": 16,
-    "avg": 4.12
+    "n": 19,
+    "avg": 3.95
    },
    "prevq": {
     "n": 38,
@@ -288,11 +288,11 @@
   },
   "Billing Drive Thru": {
    "weekly": {
-    "n": 2,
-    "avg": 4.5
+    "n": 1,
+    "avg": 5.0
    },
    "qtd": {
-    "n": 89,
+    "n": 90,
     "avg": 4.64
    },
    "prevq": {
@@ -302,12 +302,12 @@
   },
   "Glenvale Drive Thru": {
    "weekly": {
-    "n": 2,
-    "avg": 1.5
+    "n": 1,
+    "avg": 2.0
    },
    "qtd": {
-    "n": 34,
-    "avg": 3.5
+    "n": 35,
+    "avg": 3.46
    },
    "prevq": {
     "n": 62,
@@ -316,8 +316,8 @@
   },
   "HOE Balsall Common": {
    "weekly": {
-    "n": 2,
-    "avg": 5.0
+    "n": 0,
+    "avg": null
    },
    "qtd": {
     "n": 17,
@@ -330,12 +330,12 @@
   },
   "Leamington Parade": {
    "weekly": {
-    "n": 10,
-    "avg": 5.0
+    "n": 9,
+    "avg": 4.67
    },
    "qtd": {
-    "n": 120,
-    "avg": 4.87
+    "n": 127,
+    "avg": 4.85
    },
    "prevq": {
     "n": 141,
@@ -344,12 +344,12 @@
   },
   "Lower Heathcote": {
    "weekly": {
-    "n": 0,
-    "avg": null
+    "n": 5,
+    "avg": 4.6
    },
    "qtd": {
-    "n": 12,
-    "avg": 3.67
+    "n": 14,
+    "avg": 3.86
    },
    "prevq": {
     "n": 26,
@@ -358,12 +358,12 @@
   },
   "Market Harborough": {
    "weekly": {
-    "n": 3,
-    "avg": 4.0
+    "n": 1,
+    "avg": 3.0
    },
    "qtd": {
-    "n": 19,
-    "avg": 4.05
+    "n": 20,
+    "avg": 4.0
    },
    "prevq": {
     "n": 20,
@@ -372,8 +372,8 @@
   },
   "Northampton": {
    "weekly": {
-    "n": 3,
-    "avg": 5.0
+    "n": 1,
+    "avg": 4.0
    },
    "qtd": {
     "n": 29,
@@ -386,12 +386,12 @@
   },
   "Northampton Drive-Thru": {
    "weekly": {
-    "n": 11,
-    "avg": 4.45
+    "n": 21,
+    "avg": 4.76
    },
    "qtd": {
-    "n": 33,
-    "avg": 4.15
+    "n": 54,
+    "avg": 4.39
    },
    "prevq": {
     "n": 44,
@@ -400,7 +400,7 @@
   },
   "Rugby": {
    "weekly": {
-    "n": 3,
+    "n": 1,
     "avg": 5.0
    },
    "qtd": {
@@ -415,11 +415,11 @@
   "Wellingborough": {
    "weekly": {
     "n": 2,
-    "avg": 5.0
+    "avg": 3.5
    },
    "qtd": {
-    "n": 10,
-    "avg": 4.6
+    "n": 11,
+    "avg": 4.64
    },
    "prevq": {
     "n": 12,
@@ -432,8 +432,8 @@
     "avg": 5.0
    },
    "qtd": {
-    "n": 12,
-    "avg": 4.17
+    "n": 13,
+    "avg": 4.23
    },
    "prevq": {
     "n": 13,
@@ -456,433 +456,10 @@
   }
  },
  "per_store_detail": {
-  "Glenvale Drive Thru": [
-   {
-    "date": "2026-08-31",
-    "dow": "Mon 31 Aug",
-    "rating": 1.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Negative",
-    "action": "Low rating with no comment — ask Glenvale Drive Thru's manager to check in with the team member."
-   },
-   {
-    "date": "2026-09-04",
-    "dow": "Fri 4 Sep",
-    "rating": 2.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Negative",
-    "action": "Low rating with no comment — ask Glenvale Drive Thru's manager to check in with the team member."
-   }
-  ],
-  "Northampton Drive-Thru": [
-   {
-    "date": "2026-09-04",
-    "dow": "Fri 4 Sep",
-    "rating": 3.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Mixed",
-    "action": null
-   },
-   {
-    "date": "2026-09-02",
-    "dow": "Wed 2 Sep",
-    "rating": 4.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-09-04",
-    "dow": "Fri 4 Sep",
-    "rating": 4.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-09-05",
-    "dow": "Sat 5 Sep",
-    "rating": 4.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-09-06",
-    "dow": "Sun 6 Sep",
-    "rating": 4.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-08-31",
-    "dow": "Mon 31 Aug",
-    "rating": 5.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-09-01",
-    "dow": "Tue 1 Sep",
-    "rating": 5.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-09-01",
-    "dow": "Tue 1 Sep",
-    "rating": 5.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-09-02",
-    "dow": "Wed 2 Sep",
-    "rating": 5.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-09-02",
-    "dow": "Wed 2 Sep",
-    "rating": 5.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-09-05",
-    "dow": "Sat 5 Sep",
-    "rating": 5.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   }
-  ],
-  "Leamington Parade": [
-   {
-    "date": "2026-08-31",
-    "dow": "Mon 31 Aug",
-    "rating": 5.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-09-01",
-    "dow": "Tue 1 Sep",
-    "rating": 5.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-09-01",
-    "dow": "Tue 1 Sep",
-    "rating": 5.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-09-03",
-    "dow": "Thu 3 Sep",
-    "rating": 5.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-09-03",
-    "dow": "Thu 3 Sep",
-    "rating": 5.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-09-04",
-    "dow": "Fri 4 Sep",
-    "rating": 5.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-09-05",
-    "dow": "Sat 5 Sep",
-    "rating": 5.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-09-05",
-    "dow": "Sat 5 Sep",
-    "rating": 5.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-09-06",
-    "dow": "Sun 6 Sep",
-    "rating": 5.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-09-06",
-    "dow": "Sun 6 Sep",
-    "rating": 5.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   }
-  ],
-  "Rushden Lakes": [
-   {
-    "date": "2026-09-03",
-    "dow": "Thu 3 Sep",
-    "rating": 2.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Negative",
-    "action": "Low rating with no comment — ask Rushden Lakes's manager to check in with the team member."
-   },
-   {
-    "date": "2026-09-02",
-    "dow": "Wed 2 Sep",
-    "rating": 4.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-08-31",
-    "dow": "Mon 31 Aug",
-    "rating": 5.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-09-02",
-    "dow": "Wed 2 Sep",
-    "rating": 5.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   }
-  ],
-  "Corby": [
-   {
-    "date": "2026-09-01",
-    "dow": "Tue 1 Sep",
-    "rating": 2.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Negative",
-    "action": "Low rating with no comment — ask Corby's manager to check in with the team member."
-   },
-   {
-    "date": "2026-09-03",
-    "dow": "Thu 3 Sep",
-    "rating": 3.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Mixed",
-    "action": null
-   },
-   {
-    "date": "2026-09-01",
-    "dow": "Tue 1 Sep",
-    "rating": 4.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-09-04",
-    "dow": "Fri 4 Sep",
-    "rating": 4.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-08-31",
-    "dow": "Mon 31 Aug",
-    "rating": 5.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   }
-  ],
-  "Peterborough Bridge Street": [
-   {
-    "date": "2026-08-31",
-    "dow": "Mon 31 Aug",
-    "rating": 5.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-09-04",
-    "dow": "Fri 4 Sep",
-    "rating": 5.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   }
-  ],
-  "Northampton": [
-   {
-    "date": "2026-08-31",
-    "dow": "Mon 31 Aug",
-    "rating": 5.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-09-03",
-    "dow": "Thu 3 Sep",
-    "rating": 5.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-09-04",
-    "dow": "Fri 4 Sep",
-    "rating": 5.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   }
-  ],
-  "Rugby": [
-   {
-    "date": "2026-09-01",
-    "dow": "Tue 1 Sep",
-    "rating": 5.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-09-04",
-    "dow": "Fri 4 Sep",
-    "rating": 5.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-09-06",
-    "dow": "Sun 6 Sep",
-    "rating": 5.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   }
-  ],
   "Higham Ferrers": [
    {
-    "date": "2026-09-01",
-    "dow": "Tue 1 Sep",
-    "rating": 4.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   }
-  ],
-  "Peterborough Fletton Quays": [
-   {
-    "date": "2026-09-01",
-    "dow": "Tue 1 Sep",
-    "rating": 5.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-09-02",
-    "dow": "Wed 2 Sep",
-    "rating": 5.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-09-03",
-    "dow": "Thu 3 Sep",
-    "rating": 5.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-09-03",
-    "dow": "Thu 3 Sep",
-    "rating": 5.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-09-04",
-    "dow": "Fri 4 Sep",
+    "date": "2026-09-07",
+    "dow": "Mon 7 Sep",
     "rating": 5.0,
     "text": "",
     "smt": null,
@@ -892,8 +469,37 @@
   ],
   "Wellingborough": [
    {
-    "date": "2026-09-01",
-    "dow": "Tue 1 Sep",
+    "date": "2026-09-07",
+    "dow": "Mon 7 Sep",
+    "rating": 2.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Negative",
+    "action": "Low rating with no comment — ask Wellingborough's manager to check in with the team member."
+   },
+   {
+    "date": "2026-09-12",
+    "dow": "Sat 12 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   }
+  ],
+  "Leamington Parade": [
+   {
+    "date": "2026-09-13",
+    "dow": "Sun 13 Sep",
+    "rating": 2.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Negative",
+    "action": "Low rating with no comment — ask Leamington Parade's manager to check in with the team member."
+   },
+   {
+    "date": "2026-09-07",
+    "dow": "Mon 7 Sep",
     "rating": 5.0,
     "text": "",
     "smt": null,
@@ -901,8 +507,489 @@
     "action": null
    },
    {
-    "date": "2026-09-03",
-    "dow": "Thu 3 Sep",
+    "date": "2026-09-07",
+    "dow": "Mon 7 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-09",
+    "dow": "Wed 9 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-10",
+    "dow": "Thu 10 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-10",
+    "dow": "Thu 10 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-10",
+    "dow": "Thu 10 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-11",
+    "dow": "Fri 11 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-11",
+    "dow": "Fri 11 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   }
+  ],
+  "Rushden Lakes": [
+   {
+    "date": "2026-09-07",
+    "dow": "Mon 7 Sep",
+    "rating": 4.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-07",
+    "dow": "Mon 7 Sep",
+    "rating": 4.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-10",
+    "dow": "Thu 10 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   }
+  ],
+  "Rugby": [
+   {
+    "date": "2026-09-07",
+    "dow": "Mon 7 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   }
+  ],
+  "Lower Heathcote": [
+   {
+    "date": "2026-09-07",
+    "dow": "Mon 7 Sep",
+    "rating": 4.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-07",
+    "dow": "Mon 7 Sep",
+    "rating": 4.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-07",
+    "dow": "Mon 7 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-08",
+    "dow": "Tue 8 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-10",
+    "dow": "Thu 10 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   }
+  ],
+  "Olney": [
+   {
+    "date": "2026-09-07",
+    "dow": "Mon 7 Sep",
+    "rating": 4.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   }
+  ],
+  "Northampton": [
+   {
+    "date": "2026-09-07",
+    "dow": "Mon 7 Sep",
+    "rating": 4.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   }
+  ],
+  "Warwick Market Place": [
+   {
+    "date": "2026-09-07",
+    "dow": "Mon 7 Sep",
+    "rating": 4.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   }
+  ],
+  "Northampton Drive-Thru": [
+   {
+    "date": "2026-09-10",
+    "dow": "Thu 10 Sep",
+    "rating": 2.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Negative",
+    "action": "Low rating with no comment — ask Northampton Drive-Thru's manager to check in with the team member."
+   },
+   {
+    "date": "2026-09-09",
+    "dow": "Wed 9 Sep",
+    "rating": 4.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-09",
+    "dow": "Wed 9 Sep",
+    "rating": 4.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-07",
+    "dow": "Mon 7 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-07",
+    "dow": "Mon 7 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-07",
+    "dow": "Mon 7 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-07",
+    "dow": "Mon 7 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-07",
+    "dow": "Mon 7 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-08",
+    "dow": "Tue 8 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-08",
+    "dow": "Tue 8 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-08",
+    "dow": "Tue 8 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-08",
+    "dow": "Tue 8 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-08",
+    "dow": "Tue 8 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-09",
+    "dow": "Wed 9 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-09",
+    "dow": "Wed 9 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-09",
+    "dow": "Wed 9 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-09",
+    "dow": "Wed 9 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-09",
+    "dow": "Wed 9 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-09",
+    "dow": "Wed 9 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-10",
+    "dow": "Thu 10 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-10",
+    "dow": "Thu 10 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   }
+  ],
+  "Peterborough Bridge Street": [
+   {
+    "date": "2026-09-08",
+    "dow": "Tue 8 Sep",
+    "rating": 4.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-13",
+    "dow": "Sun 13 Sep",
+    "rating": 4.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-09",
+    "dow": "Wed 9 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-12",
+    "dow": "Sat 12 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-12",
+    "dow": "Sat 12 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   },
+   {
+    "date": "2026-09-13",
+    "dow": "Sun 13 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   }
+  ],
+  "Corby": [
+   {
+    "date": "2026-09-08",
+    "dow": "Tue 8 Sep",
+    "rating": 3.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Mixed",
+    "action": null
+   },
+   {
+    "date": "2026-09-11",
+    "dow": "Fri 11 Sep",
+    "rating": 5.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Positive",
+    "action": null
+   }
+  ],
+  "Glenvale Drive Thru": [
+   {
+    "date": "2026-09-09",
+    "dow": "Wed 9 Sep",
+    "rating": 2.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Negative",
+    "action": "Low rating with no comment — ask Glenvale Drive Thru's manager to check in with the team member."
+   }
+  ],
+  "Attleborough": [
+   {
+    "date": "2026-09-09",
+    "dow": "Wed 9 Sep",
+    "rating": 2.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Negative",
+    "action": "Low rating with no comment — ask Attleborough's manager to check in with the team member."
+   },
+   {
+    "date": "2026-09-12",
+    "dow": "Sat 12 Sep",
+    "rating": 2.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Negative",
+    "action": "Low rating with no comment — ask Attleborough's manager to check in with the team member."
+   },
+   {
+    "date": "2026-09-09",
+    "dow": "Wed 9 Sep",
     "rating": 5.0,
     "text": "",
     "smt": null,
@@ -912,48 +999,19 @@
   ],
   "Market Harborough": [
    {
-    "date": "2026-09-03",
-    "dow": "Thu 3 Sep",
+    "date": "2026-09-10",
+    "dow": "Thu 10 Sep",
     "rating": 3.0,
     "text": "",
     "smt": null,
     "sentiment": "Mixed",
     "action": null
-   },
-   {
-    "date": "2026-09-04",
-    "dow": "Fri 4 Sep",
-    "rating": 4.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-09-02",
-    "dow": "Wed 2 Sep",
-    "rating": 5.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
    }
   ],
-  "Rothwell": [
+  "Billing Drive Thru": [
    {
-    "date": "2026-09-03",
-    "dow": "Thu 3 Sep",
-    "rating": 4.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   }
-  ],
-  "Kettering": [
-   {
-    "date": "2026-09-03",
-    "dow": "Thu 3 Sep",
+    "date": "2026-09-11",
+    "dow": "Fri 11 Sep",
     "rating": 5.0,
     "text": "",
     "smt": null,
@@ -963,59 +1021,8 @@
   ],
   "Wellingborough Train Station": [
    {
-    "date": "2026-09-04",
-    "dow": "Fri 4 Sep",
-    "rating": 5.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   }
-  ],
-  "Billing Drive Thru": [
-   {
-    "date": "2026-09-06",
-    "dow": "Sun 6 Sep",
-    "rating": 4.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-09-04",
-    "dow": "Fri 4 Sep",
-    "rating": 5.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   }
-  ],
-  "HOE Balsall Common": [
-   {
-    "date": "2026-09-05",
-    "dow": "Sat 5 Sep",
-    "rating": 5.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   },
-   {
-    "date": "2026-09-05",
-    "dow": "Sat 5 Sep",
-    "rating": 5.0,
-    "text": "",
-    "smt": null,
-    "sentiment": "Positive",
-    "action": null
-   }
-  ],
-  "Burton Latimer": [
-   {
-    "date": "2026-09-05",
-    "dow": "Sat 5 Sep",
+    "date": "2026-09-11",
+    "dow": "Fri 11 Sep",
     "rating": 5.0,
     "text": "",
     "smt": null,
@@ -1024,198 +1031,5 @@
    }
   ]
  },
- "comments": [
-  {
-   "store": "Billing Drive Thru",
-   "date": "2026-08-30",
-   "rating": 5.0,
-   "text": "We love our canopy",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Leamington Parade",
-   "date": "2026-08-30",
-   "rating": 5.0,
-   "text": "All great",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Northampton Drive-Thru",
-   "date": "2026-08-29",
-   "rating": 5.0,
-   "text": "Supported . Coached . Understood",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Peterborough Bridge Street",
-   "date": "2026-08-29",
-   "rating": 5.0,
-   "text": "Enjoyable, productive and quiet",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Peterborough Bridge Street",
-   "date": "2026-08-29",
-   "rating": 5.0,
-   "text": "Busy pay day!",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Leamington Parade",
-   "date": "2026-08-29",
-   "rating": 5.0,
-   "text": "good",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Corby",
-   "date": "2026-08-29",
-   "rating": 5.0,
-   "text": "Good shift,good vibes",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Peterborough Bridge Street",
-   "date": "2026-08-29",
-   "rating": 4.0,
-   "text": "Rainy, slow day",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Wellingborough Train Station",
-   "date": "2026-08-28",
-   "rating": 5.0,
-   "text": "Informative, proactive, knowledgeable",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Billing Drive Thru",
-   "date": "2026-08-28",
-   "rating": 5.0,
-   "text": "Fab shift",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Peterborough Bridge Street",
-   "date": "2026-08-28",
-   "rating": 5.0,
-   "text": "Chaos, Unexpected and Giggles",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Warwick Market Place",
-   "date": "2026-08-28",
-   "rating": 5.0,
-   "text": "busy!!!!! yay!!!!!!",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Leamington Parade",
-   "date": "2026-08-28",
-   "rating": 5.0,
-   "text": "Amazing",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Leamington Parade",
-   "date": "2026-08-28",
-   "rating": 5.0,
-   "text": "Best shift with my favs🥰",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Corby",
-   "date": "2026-08-28",
-   "rating": 4.0,
-   "text": "Lovely shift",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Glenvale Drive Thru",
-   "date": "2026-08-28",
-   "rating": 3.0,
-   "text": "We need a canopy please",
-   "smt": null,
-   "sentiment": "Mixed"
-  },
-  {
-   "store": "Corby",
-   "date": "2026-08-28",
-   "rating": 1.0,
-   "text": "New BCKH Complicated!",
-   "smt": null,
-   "sentiment": "Negative"
-  },
-  {
-   "store": "Burton Latimer",
-   "date": "2026-08-28",
-   "rating": 1.0,
-   "text": "Disagree with AI useage",
-   "smt": null,
-   "sentiment": "Negative"
-  },
-  {
-   "store": "Rugby",
-   "date": "2026-08-27",
-   "rating": 5.0,
-   "text": "Great shift. Vlada is great. Issue with potwash ER12 happened 4 times in 5 hours had to be manually drained",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Peterborough Bridge Street",
-   "date": "2026-08-27",
-   "rating": 5.0,
-   "text": "Chaotic, funny and loads of random stuff (singing from Kimberley, and small noises every so often without being judged) plus the latte competition",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Burton Latimer",
-   "date": "2026-08-27",
-   "rating": 5.0,
-   "text": "Lovely shift with Mae and Lacey , even got two 5*reviews",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Northampton Drive-Thru",
-   "date": "2026-08-27",
-   "rating": 5.0,
-   "text": "Fun shift with fun people, it’s been a nice week at work!",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Leamington Parade",
-   "date": "2026-08-27",
-   "rating": 5.0,
-   "text": "Great teamwork Sylwia Melika Rui, and fun fun fun haha",
-   "smt": null,
-   "sentiment": "Positive"
-  },
-  {
-   "store": "Northampton Drive-Thru",
-   "date": "2026-08-27",
-   "rating": 5.0,
-   "text": "Busy/clean/good",
-   "smt": null,
-   "sentiment": "Positive"
-  }
- ]
+ "comments": []
 }

@@ -1,7 +1,49 @@
 {
- "generated": "2026-09-06",
+ "generated": "2026-09-13",
  "window_days": 28,
  "outstanding": [
+  {
+   "name": "Lily O’Brien",
+   "store": "Leamington Parade",
+   "date": "2026-09-12",
+   "reason": "Throwing up"
+  },
+  {
+   "name": "Louise Ward",
+   "store": "Wellingborough Train Station",
+   "date": "2026-09-11",
+   "reason": "Has a doctor's appointment"
+  },
+  {
+   "name": "Kathryn Ritchie",
+   "store": "HOE Balsall Common",
+   "date": "2026-09-11",
+   "reason": "no idea"
+  },
+  {
+   "name": "Daizy-Lei Kinton",
+   "store": "Glenvale Drive Thru",
+   "date": "2026-09-10",
+   "reason": "Daizy had been throwing up all afternoon so rang in to say she would be unable to work her"
+  },
+  {
+   "name": "Leah-Nicole Ayling",
+   "store": "Peterborough Bridge Street",
+   "date": "2026-09-09",
+   "reason": "N/AElenas mum rang me at 8pm last night and informed my that Elena was being violently sic"
+  },
+  {
+   "name": "Emily  Mayhew",
+   "store": "Peterborough Fletton Quays",
+   "date": "2026-09-09",
+   "reason": "NaEmily daughter is sick"
+  },
+  {
+   "name": "Barbara Podlewska",
+   "store": "Wellingborough Train Station",
+   "date": "2026-09-09",
+   "reason": "No illness, stuck in Croatia due to airport disruptions, flight was cancelled"
+  },
   {
    "name": "Isabel Bruchez",
    "store": "Lower Heathcote",
@@ -115,56 +157,32 @@
    "store": "Market Harborough",
    "date": "2026-08-18",
    "reason": "N/aCold/flu"
-  },
-  {
-   "name": "Melika Barzegar",
-   "store": "Leamington Parade",
-   "date": "2026-08-13",
-   "reason": "I haven’t been feeling well I’ve had dizziness, nausea and stomach cramps since yesterday."
-  },
-  {
-   "name": "Imogen  Harrison",
-   "store": "Rushden Lakes",
-   "date": "2026-08-12",
-   "reason": "Sickness and in need of rest"
-  },
-  {
-   "name": "Katie Summer Wood",
-   "store": "Lower Heathcote",
-   "date": "2026-08-09",
-   "reason": ""
-  },
-  {
-   "name": "Lillie   Woodman",
-   "store": "Olney",
-   "date": "2026-08-09",
-   "reason": "Flu like symptoms - unable to get out of bed due to illness"
   }
  ],
- "outstanding_n": 23,
+ "outstanding_n": 26,
  "per_store": [
   {
    "store": "Peterborough Fletton Quays",
-   "sickfs": 23,
+   "sickfs": 24,
    "late": 13,
-   "rep_pct": 85,
+   "rep_pct": 86,
    "rtw": 11,
-   "sick": 28,
-   "rtw_rate": 39
+   "sick": 29,
+   "rtw_rate": 38
   },
   {
    "store": "Glenvale Drive Thru",
-   "sickfs": 21,
+   "sickfs": 22,
    "late": 11,
    "rep_pct": 94,
    "rtw": 13,
-   "sick": 23,
-   "rtw_rate": 57
+   "sick": 24,
+   "rtw_rate": 54
   },
   {
    "store": "Rushden Lakes",
    "sickfs": 21,
-   "late": 21,
+   "late": 22,
    "rep_pct": 100,
    "rtw": 12,
    "sick": 21,
@@ -182,26 +200,26 @@
   {
    "store": "Northampton Drive-Thru",
    "sickfs": 16,
-   "late": 2,
-   "rep_pct": 95,
+   "late": 3,
+   "rep_pct": 96,
    "rtw": 10,
    "sick": 20,
    "rtw_rate": 50
   },
   {
    "store": "Leamington Parade",
-   "sickfs": 17,
+   "sickfs": 18,
    "late": 12,
    "rep_pct": 97,
    "rtw": 11,
-   "sick": 17,
-   "rtw_rate": 65
+   "sick": 18,
+   "rtw_rate": 61
   },
   {
    "store": "Rugby",
    "sickfs": 10,
-   "late": 5,
-   "rep_pct": 90,
+   "late": 7,
+   "rep_pct": 91,
    "rtw": 10,
    "sick": 15,
    "rtw_rate": 67
@@ -218,8 +236,8 @@
   {
    "store": "Northampton",
    "sickfs": 10,
-   "late": 8,
-   "rep_pct": 83,
+   "late": 10,
+   "rep_pct": 80,
    "rtw": 7,
    "sick": 10,
    "rtw_rate": 70
@@ -252,6 +270,33 @@
    "rtw_rate": 43
   },
   {
+   "store": "Peterborough Bridge Street",
+   "sickfs": 6,
+   "late": 5,
+   "rep_pct": 91,
+   "rtw": 5,
+   "sick": 6,
+   "rtw_rate": 83
+  },
+  {
+   "store": "HOE Balsall Common",
+   "sickfs": 6,
+   "late": 4,
+   "rep_pct": 100,
+   "rtw": 3,
+   "sick": 6,
+   "rtw_rate": 50
+  },
+  {
+   "store": "Wellingborough Train Station",
+   "sickfs": 4,
+   "late": 0,
+   "rep_pct": 100,
+   "rtw": 4,
+   "sick": 6,
+   "rtw_rate": 67
+  },
+  {
    "store": "Burton Latimer",
    "sickfs": 4,
    "late": 0,
@@ -270,15 +315,6 @@
    "rtw_rate": 60
   },
   {
-   "store": "Peterborough Bridge Street",
-   "sickfs": 5,
-   "late": 5,
-   "rep_pct": 90,
-   "rtw": 5,
-   "sick": 5,
-   "rtw_rate": 100
-  },
-  {
    "store": "Billing Drive Thru",
    "sickfs": 4,
    "late": 6,
@@ -286,24 +322,6 @@
    "rtw": 1,
    "sick": 5,
    "rtw_rate": 20
-  },
-  {
-   "store": "HOE Balsall Common",
-   "sickfs": 5,
-   "late": 4,
-   "rep_pct": 100,
-   "rtw": 3,
-   "sick": 5,
-   "rtw_rate": 60
-  },
-  {
-   "store": "Wellingborough Train Station",
-   "sickfs": 3,
-   "late": 0,
-   "rep_pct": 100,
-   "rtw": 4,
-   "sick": 4,
-   "rtw_rate": 100
   },
   {
    "store": "Attleborough",
