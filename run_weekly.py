@@ -4170,7 +4170,7 @@ def pulls():
     if FULL_RUN: pull_sl_raws()            # sl_*_raw.json (2)
     if FULL_RUN: pull_txq_raws()           # txq_*_raw.json (2)
     pull_eos_scorecard()      # eos_scorecard.json (EOS Weekly+Quarterly scorecard)
-    if FULL_RUN: pull_backtoschool()       # backtoschool_feed.json (EOS 5th tab: back-to-school forecast)
+    # pull_backtoschool() removed 13 Sep 2026 — EOS "Back to School" tab retired (only consumer); trims one BigQuery scan
     pull_forecast_daily()     # forecast_feed.json (EOS Forecast tab: 3-wk forecast + daily DOW split)
     if FULL_RUN: pull_sales_extras()       # sales_extras.json (EOS Sales tab: DT lane throughput + fridge items)
     if FULL_RUN: pull_sales_explorer()     # sales_explorer.json (EOS Sales sub-tab: interactive explorer)
