@@ -18,25 +18,6 @@
  "shelf_life_days": 3,
  "items": [
   {
-   "item": "Bacon Bap",
-   "category": "Breakfast baps & bagel",
-   "daily": {
-    "1": 2.62,
-    "2": 1.88,
-    "3": 3.75,
-    "4": 1.88,
-    "5": 1.88,
-    "6": 2.75,
-    "7": 4.25
-   },
-   "weekly_mean": 19.0,
-   "tue": 7,
-   "thu": 6,
-   "sat": 11,
-   "weekly_order": 24,
-   "sparse": false
-  },
-  {
    "item": "Sausage Bap",
    "category": "Breakfast baps & bagel",
    "daily": {
@@ -53,6 +34,25 @@
    "thu": 7,
    "sat": 10,
    "weekly_order": 23,
+   "sparse": false
+  },
+  {
+   "item": "Bacon Bap",
+   "category": "Breakfast baps & bagel",
+   "daily": {
+    "1": 2.62,
+    "2": 1.88,
+    "3": 3.75,
+    "4": 1.88,
+    "5": 1.88,
+    "6": 2.75,
+    "7": 4.25
+   },
+   "weekly_mean": 19.0,
+   "tue": 7,
+   "thu": 6,
+   "sat": 11,
+   "weekly_order": 24,
    "sparse": false
   },
   {
