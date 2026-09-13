@@ -1456,6 +1456,203 @@ def forecast_tab():
     return button, pane
 
 
+def sales_explorer_tab():
+    """EOS Sales Explorer sub-tab — interactive, CLIENT-SIDE from the pre-computed sales_explorer.json
+    feed (built on the Sunday full run; no live BigQuery on tab-switch, gated). Three views with a store
+    selector (All + each store): (1) weekly sales trend (rev/txn/ATV) with school-holiday shading,
+    (2) hourly heatmap (avg per day, normalised), (3) term-time vs school-holidays grouped bars with a
+    day picker + metric toggle + summary line. Returns (button, pane); '' on failure so build never breaks."""
+    try:
+        SX = json.load(open(os.path.join(HERE, "sales_explorer.json")))
+    except Exception:
+        return "", ""
+    if not SX.get("stores") or not SX.get("cells"):
+        return "", ""
+    SXJSON = json.dumps(SX, separators=(",", ":"))
+    stores = SX["stores"]
+    stopts = "".join('<option value="%s"%s>%s</option>' % (esc(s), (" selected" if i == 0 else ""), esc(s))
+                     for i, s in enumerate(stores))
+    gen = esc(SX.get("_generated", ""))
+    unm = SX.get("_unmapped") or []
+    unm_note = ""
+    if unm:
+        unm_note = ('<div class="sx-note">Note: %d source outlet name(s) did not map to a canonical store '
+                    'and were excluded (e.g. %s).</div>' % (len(unm), esc(", ".join(u[0] for u in unm[:3]))))
+    CSS = r"""<style>
+  #pane-sxplore .sx-head{background:var(--navy,#12233b);color:#fff;border-radius:14px;padding:16px 18px;margin:6px 2px 14px;}
+  #pane-sxplore .sx-head h2{margin:0 0 4px;font-size:18px;letter-spacing:.2px;}
+  #pane-sxplore .sx-head p{margin:0;font-size:12.5px;color:#c8d6e8;line-height:1.5;}
+  #pane-sxplore .sx-bar{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;margin:0 2px 12px;}
+  #pane-sxplore .sx-bar label{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;}
+  #pane-sxplore select.sx-sel{font:inherit;font-size:13px;padding:7px 10px;border:1px solid var(--line);border-radius:9px;background:#fff;min-width:150px;}
+  #pane-sxplore .sx-views{display:flex;gap:6px;flex-wrap:wrap;}
+  #pane-sxplore .sx-vt{font:inherit;font-size:12.5px;font-weight:700;padding:8px 13px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--ink,#22303f);cursor:pointer;}
+  #pane-sxplore .sx-vt.on{background:var(--navy,#12233b);color:#fff;border-color:var(--navy,#12233b);}
+  #pane-sxplore .sx-card{background:var(--card,#fff);border:1px solid var(--line);border-radius:14px;padding:14px 14px 8px;margin:0 2px 12px;}
+  #pane-sxplore .sx-ctrls{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-bottom:8px;}
+  #pane-sxplore .sx-tg{display:flex;gap:5px;flex-wrap:wrap;}
+  #pane-sxplore .sx-tb{font:inherit;font-size:12px;font-weight:700;padding:6px 11px;border:1px solid var(--line);border-radius:20px;background:#fff;color:var(--ink,#22303f);cursor:pointer;}
+  #pane-sxplore .sx-tb.on{background:var(--amber,#d68a2e);color:#fff;border-color:var(--amber,#d68a2e);}
+  #pane-sxplore .sx-days{display:flex;gap:4px;flex-wrap:wrap;}
+  #pane-sxplore .sx-day{font:inherit;font-size:12px;font-weight:700;padding:6px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;cursor:pointer;color:var(--ink,#22303f);}
+  #pane-sxplore .sx-day.on{background:#12233b;color:#fff;border-color:#12233b;}
+  #pane-sxplore .sx-sum{font-size:13px;color:var(--ink,#22303f);margin:4px 2px 10px;font-weight:600;}
+  #pane-sxplore .sx-sum b{color:var(--amber,#d68a2e);}
+  #pane-sxplore .sx-legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin:2px 2px 8px;}
+  #pane-sxplore .sx-legend span span{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-1px;margin-right:5px;}
+  #pane-sxplore .sx-svg{width:100%;height:auto;display:block;}
+  #pane-sxplore .sx-hm td{font-size:11px;text-align:center;padding:6px 4px;border-radius:6px;color:#22303f;min-width:34px;}
+  #pane-sxplore .sx-hm th{font-size:11px;color:var(--muted);padding:4px 6px;font-weight:700;}
+  #pane-sxplore .sx-note{font-size:11px;color:var(--muted);margin:2px 2px 8px;}
+</style>"""
+    JS = r"""<script>(function(){
+  var P=document.getElementById("pane-sxplore"); if(!P||!window.SXDATA) return;
+  var D=window.SXDATA, HRS=D.hours||[], DOW=D.dow||[], HOL=D.holidays||[];
+  var TERMHRS=HRS.filter(function(h){return h>=8&&h<=17;});
+  var CBLUE="#2f6db3", CAMB="#d68a2e", CNAVY="#12233b";
+  var state={store:D.stores[0], view:"term", mTrend:"rev", mHeat:"txn", mTerm:"txn", dow:1};
+  function fmtMoney(v){ if(v==null) return "—"; return "£"+Math.round(v).toLocaleString(); }
+  function fmtMoney1(v){ if(v==null) return "—"; return "£"+(Math.round(v*10)/10).toFixed(1); }
+  function fmtInt(v){ if(v==null) return "—"; return (Math.round(v*10)/10).toString(); }
+  function fmtVal(kind,v){ if(v==null) return "—"; if(kind==="rev") return fmtMoney(v); if(kind==="atv") return fmtMoney1(v); return fmtInt(v); }
+  function cell(st,dw,hr){ var a=D.cells[st]; if(!a) return null; var b=a[dw]; if(!b) return null; return b[hr]||null; }
+  function seg(c,kind,which){ if(!c) return null; var t=c.t||[0,0,0], h=c.h||[0,0,0]; var T,R,DD;
+     if(which==="t"){T=t[0];R=t[1];DD=t[2];} else if(which==="h"){T=h[0];R=h[1];DD=h[2];}
+     else {T=t[0]+h[0];R=t[1]+h[1];DD=t[2]+h[2];}
+     if(kind==="atv") return T>0? R/T : null;
+     if(DD<=0) return null; return kind==="txn"? T/DD : R/DD; }
+  function esc(x){ return (""+x).replace(/[&<>]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;"}[c];}); }
+  function hh(h){ return (h<10?"0":"")+h+":00"; }
+
+  // ---------- view: weekly trend ----------
+  function drawTrend(){
+    var kind=state.mTrend, W=D.weekly[state.store]||[];
+    var pts=W.map(function(r){ var v = kind==="rev"? r.rev : (kind==="txn"? r.txn : (r.txn>0? r.rev/r.txn : null));
+                               return {t:Date.parse(r.w), v:v, w:r.w}; }).filter(function(p){return p.v!=null;});
+    if(!pts.length) return '<div class="sx-note">No weekly data for this store yet.</div>';
+    var w=980,h=340,pl=64,pr=16,pt=16,pb=42;
+    var t0=pts[0].t, t1=pts[pts.length-1].t; if(t1<=t0) t1=t0+1;
+    var vmax=Math.max.apply(null,pts.map(function(p){return p.v;})); var vmin=0;
+    var X=function(t){return pl+(t-t0)/(t1-t0)*(w-pl-pr);};
+    var Y=function(v){return pt+(1-(v-vmin)/(vmax-vmin||1))*(h-pt-pb);};
+    var svg='<svg viewBox="0 0 '+w+' '+h+'" class="sx-svg" preserveAspectRatio="xMidYMid meet">';
+    // holiday shading
+    HOL.forEach(function(p){ var a=Math.max(t0,Date.parse(p[0])), b=Math.min(t1,Date.parse(p[1]));
+      if(b>a){ var x0=X(a), x1=X(b); svg+='<rect x="'+x0.toFixed(1)+'" y="'+pt+'" width="'+(x1-x0).toFixed(1)+'" height="'+(h-pt-pb)+'" fill="'+CAMB+'" opacity="0.12"></rect>'; } });
+    // y gridlines
+    for(var g=0;g<=4;g++){ var vv=vmin+(vmax-vmin)*g/4, yy=Y(vv);
+      svg+='<line x1="'+pl+'" y1="'+yy.toFixed(1)+'" x2="'+(w-pr)+'" y2="'+yy.toFixed(1)+'" stroke="#e6ebf2"></line>';
+      svg+='<text x="'+(pl-8)+'" y="'+(yy+3).toFixed(1)+'" font-size="11" fill="#8494a6" text-anchor="end">'+(kind==="rev"?fmtMoney(vv):(kind==="atv"?fmtMoney1(vv):Math.round(vv)))+'</text>'; }
+    // month ticks
+    var seen={}; pts.forEach(function(p){ var d=new Date(p.t); var k=d.getFullYear()+"-"+d.getMonth(); if(!seen[k]){seen[k]=1;
+      var x=X(p.t); svg+='<text x="'+x.toFixed(1)+'" y="'+(h-14)+'" font-size="10" fill="#8494a6" text-anchor="middle">'+["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][d.getMonth()]+(d.getMonth()===0?" "+String(d.getFullYear()).slice(2):"")+'</text>'; } });
+    // line
+    var dpath=pts.map(function(p,i){return (i?"L":"M")+X(p.t).toFixed(1)+" "+Y(p.v).toFixed(1);}).join(" ");
+    svg+='<path d="'+dpath+'" fill="none" stroke="'+CNAVY+'" stroke-width="2.2"></path>';
+    pts.forEach(function(p){ svg+='<circle cx="'+X(p.t).toFixed(1)+'" cy="'+Y(p.v).toFixed(1)+'" r="2.4" fill="'+CAMB+'"><title>w/c '+p.w+"  "+fmtVal(kind,p.v)+'</title></circle>'; });
+    svg+='</svg>';
+    var last=pts[pts.length-1];
+    var sum='<div class="sx-sum">'+pts.length+' weeks &middot; latest w/c <b>'+last.w+'</b>: '+fmtVal(kind,last.v)+' &middot; amber bands = school holidays</div>';
+    return sum+svg;
+  }
+
+  // ---------- view: hourly heatmap ----------
+  function drawHeat(){
+    var kind=state.mHeat, rows="";
+    var vals=[]; for(var dw=0;dw<7;dw++){ for(var i=0;i<HRS.length;i++){ var v=seg(cell(state.store,dw,HRS[i]),kind,"all"); if(v!=null) vals.push(v); } }
+    if(!vals.length) return '<div class="sx-note">No hourly data for this store yet.</div>';
+    var vmax=Math.max.apply(null,vals), vmin=Math.min.apply(null,vals);
+    function colr(v){ if(v==null) return "#f3f5f8"; var t=(v-vmin)/((vmax-vmin)||1);
+      var r=Math.round(255+(181-255)*t), g=Math.round(247+(101-247)*t), b=Math.round(236+(29-236)*t);
+      return "rgb("+r+","+g+","+b+")"; }
+    var head='<tr><th></th>'+HRS.map(function(h){return '<th>'+hh(h)+'</th>';}).join("")+'</tr>';
+    for(var d2=0;d2<7;d2++){ var tds="";
+      for(var j=0;j<HRS.length;j++){ var v2=seg(cell(state.store,d2,HRS[j]),kind,"all");
+        var txt = v2==null? "" : (kind==="rev"? fmtMoney(v2) : fmtInt(v2));
+        var fg = (v2!=null && (v2-vmin)/((vmax-vmin)||1)>0.6)? "#fff":"#22303f";
+        tds+='<td style="background:'+colr(v2)+';color:'+fg+'">'+txt+'</td>'; }
+      rows+='<tr><th>'+DOW[d2]+'</th>'+tds+'</tr>'; }
+    return '<div class="sx-note">Average per day (each hour ÷ distinct trading dates for that day/hour). '+(kind==="rev"?"Revenue":"Transactions")+'.</div><table class="sx-hm"><tbody>'+head+rows+'</tbody></table>';
+  }
+
+  // ---------- view: term vs holiday ----------
+  function drawTerm(){
+    var kind=state.mTerm, dw=state.dow;
+    var series=TERMHRS.map(function(h){ var c=cell(state.store,dw,h);
+      return {h:h, term:seg(c,kind,"t"), hol:seg(c,kind,"h")}; });
+    var any=series.some(function(s){return s.term!=null||s.hol!=null;});
+    if(!any) return '<div class="sx-note">No data for '+DOW[dw]+' at this store yet.</div>';
+    var vmax=0; series.forEach(function(s){ if(s.term>vmax)vmax=s.term; if(s.hol>vmax)vmax=s.hol; }); if(vmax<=0)vmax=1;
+    var w=980,h=330,pl=60,pr=14,pt=16,pb=40, n=series.length;
+    var bw=(w-pl-pr)/n, gap=bw*0.16, bar=(bw-gap*3)/2;
+    var Y=function(v){return pt+(1-v/vmax)*(h-pt-pb);};
+    var svg='<svg viewBox="0 0 '+w+' '+h+'" class="sx-svg" preserveAspectRatio="xMidYMid meet">';
+    for(var g=0;g<=4;g++){ var vv=vmax*g/4, yy=Y(vv);
+      svg+='<line x1="'+pl+'" y1="'+yy.toFixed(1)+'" x2="'+(w-pr)+'" y2="'+yy.toFixed(1)+'" stroke="#e6ebf2"></line>';
+      svg+='<text x="'+(pl-8)+'" y="'+(yy+3).toFixed(1)+'" font-size="11" fill="#8494a6" text-anchor="end">'+(kind==="rev"?fmtMoney(vv):(kind==="atv"?fmtMoney1(vv):Math.round(vv)))+'</text>'; }
+    series.forEach(function(s,i){ var x0=pl+i*bw+gap;
+      if(s.term!=null){ var ht=(h-pt-pb)-(Y(s.term)-pt); svg+='<rect x="'+x0.toFixed(1)+'" y="'+Y(s.term).toFixed(1)+'" width="'+bar.toFixed(1)+'" height="'+Math.max(0,ht).toFixed(1)+'" fill="'+CBLUE+'" rx="2"><title>Term '+hh(s.h)+" "+fmtVal(kind,s.term)+'</title></rect>'; }
+      if(s.hol!=null){ var x1=x0+bar+gap; var hh2=(h-pt-pb)-(Y(s.hol)-pt); svg+='<rect x="'+x1.toFixed(1)+'" y="'+Y(s.hol).toFixed(1)+'" width="'+bar.toFixed(1)+'" height="'+Math.max(0,hh2).toFixed(1)+'" fill="'+CAMB+'" rx="2"><title>Holiday '+hh(s.h)+" "+fmtVal(kind,s.hol)+'</title></rect>'; }
+      svg+='<text x="'+(pl+i*bw+bw/2).toFixed(1)+'" y="'+(h-14)+'" font-size="10" fill="#8494a6" text-anchor="middle">'+hh(s.h)+'</text>'; });
+    svg+='</svg>';
+    // summary
+    var tT=0,tH=0,nt=0,nh=0,pkT=null,pkH=null,pkTv=-1,pkHv=-1;
+    series.forEach(function(s){ if(s.term!=null){tT+=s.term;nt++; if(s.term>pkTv){pkTv=s.term;pkT=s.h;}}
+                                if(s.hol!=null){tH+=s.hol;nh++; if(s.hol>pkHv){pkHv=s.hol;pkH=s.h;}} });
+    var aT=nt?tT/nt:null, aH=nh?tH/nh:null;
+    var pct = (aT&&aH)? Math.round((aH/aT-1)*100) : null;
+    var sum='<div class="sx-sum">Holidays vs term: <b>'+(pct==null?"—":(pct>=0?"+":"")+pct+"%")+'</b>'
+      +' &middot; Peak hour &mdash; Term <b>'+(pkT==null?"—":hh(pkT))+'</b> / Hols <b>'+(pkH==null?"—":hh(pkH))+'</b>'
+      +' &middot; '+esc(DOW[dw])+'s</div>';
+    var leg='<div class="sx-legend"><span><span style="background:'+CBLUE+'"></span>Term time</span><span><span style="background:'+CAMB+'"></span>School holidays</span></div>';
+    return sum+leg+svg;
+  }
+
+  var VT=P.querySelector(".sx-viewtitle");
+  function ctrlHTML(){
+    if(state.view==="trend"){ return '<div class="sx-tg" data-grp="mTrend">'
+        +tb("mTrend","rev","Revenue / wk")+tb("mTrend","txn","Transactions / wk")+tb("mTrend","atv","ATV")+'</div>'; }
+    if(state.view==="heat"){ return '<div class="sx-tg" data-grp="mHeat">'
+        +tb("mHeat","txn","Transactions")+tb("mHeat","rev","Revenue")+'</div>'; }
+    var days=DOW.map(function(nm,i){return '<button class="sx-day'+(i===state.dow?" on":"")+'" data-dow="'+i+'">'+nm+'</button>';}).join("");
+    return '<div class="sx-tg" data-grp="mTerm">'+tb("mTerm","txn","Avg transactions/hr")+tb("mTerm","rev","Avg revenue/hr")+tb("mTerm","atv","ATV")+'</div>'
+      +'<div class="sx-days">'+days+'</div>';
+  }
+  function tb(grp,val,lbl){ return '<button class="sx-tb'+(state[grp]===val?" on":"")+'" data-grp="'+grp+'" data-val="'+val+'">'+lbl+'</button>'; }
+  function render(){
+    P.querySelectorAll(".sx-vt").forEach(function(b){ b.classList.toggle("on", b.dataset.view===state.view); });
+    var ttl={trend:"Weekly sales trend",heat:"Hourly heatmap",term:"Term-time vs school-holidays"}[state.view];
+    if(VT) VT.textContent=ttl+" — "+state.store;
+    P.querySelector(".sx-ctrls").innerHTML=ctrlHTML();
+    var body = state.view==="trend"? drawTrend() : (state.view==="heat"? drawHeat() : drawTerm());
+    P.querySelector(".sx-body").innerHTML=body;
+  }
+  P.querySelector(".sx-sel").addEventListener("change",function(e){ state.store=e.target.value; render(); });
+  P.querySelectorAll(".sx-vt").forEach(function(b){ b.addEventListener("click",function(){ state.view=b.dataset.view; render(); }); });
+  P.querySelector(".sx-card").addEventListener("click",function(e){ var t=e.target.closest("button"); if(!t) return;
+    if(t.classList.contains("sx-tb")){ state[t.dataset.grp]=t.dataset.val; render(); }
+    else if(t.classList.contains("sx-day")){ state.dow=+t.dataset.dow; render(); } });
+  render();
+})();</script>"""
+    pane = ('\n  <section class="pane" id="pane-sxplore">' + CSS
+            + '<div class="sx-head"><h2>\U0001F4CA Sales Explorer</h2>'
+            + '<p>Interactive view of estate sales &mdash; weekly trend, hour-of-day heatmap, and term-time vs school-holiday trading. '
+            + 'Pre-computed on the weekly build (deduped transactions, avg-per-day normalised); all toggles are instant. Generated ' + gen + '.</p></div>'
+            + unm_note
+            + '<div class="sx-bar"><label>Store</label><select class="sx-sel">' + stopts + '</select>'
+            + '<div class="sx-views">'
+            + '<button class="sx-vt" data-view="trend">Weekly trend</button>'
+            + '<button class="sx-vt" data-view="heat">Hourly heatmap</button>'
+            + '<button class="sx-vt on" data-view="term">Term vs holidays</button>'
+            + '</div></div>'
+            + '<div class="sx-card"><div class="sx-viewtitle" style="font-weight:800;font-size:14px;margin:2px 2px 10px;color:#12233b"></div>'
+            + '<div class="sx-ctrls"></div><div class="sx-body"></div></div>'
+            + '<script>window.SXDATA=' + SXJSON + ';</script>' + JS
+            + '\n  </section>\n')
+    button = '<button class="tab" data-pane="sxplore">Sales Explorer <span class="cnt">interactive</span></button>'
+    return button, pane
+
+
 def f1_ops_html():
     """Build the F1 'Op's Excellence' presentation for the EOS metric-detail view, mirroring the
     Company Dashboard tab. Returns '' on any failure so the EOS build is never broken."""
@@ -2914,6 +3111,7 @@ for i, (wm, qm) in enumerate(zip(weekly, quarterly)):
 
 bts_btn, bts_pane = backtoschool_tab()
 fct_btn, fct_pane = forecast_tab()
+sxp_btn, sxp_pane = sales_explorer_tab()
 
 HTML = f"""<!DOCTYPE html>
 <html lang="en-GB">
@@ -3101,6 +3299,7 @@ HTML = f"""<!DOCTYPE html>
     <button class="tab" data-pane="detail">Metric detail <span class="cnt">any of {len(weekly)}</span></button>
     {bts_btn}
     {fct_btn}
+    {sxp_btn}
   </div>
 
   <section class="pane active" id="pane-weekly">
@@ -3140,6 +3339,7 @@ HTML = f"""<!DOCTYPE html>
   </section>
 {bts_pane}
 {fct_pane}
+{sxp_pane}
 
   <div class="legend">
     <span><span class="sw" style="background:var(--greenbg);border:1px solid #cfe6d8"></span>actual ≥ plan (on plan)</span>

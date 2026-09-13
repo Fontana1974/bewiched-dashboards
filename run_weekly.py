@@ -4042,6 +4042,90 @@ def pull_dt_lane_speed():
         print("[pull] dt_lane_speed skipped (non-fatal): %s" % str(e)[:140])
 
 
+
+# ---------- School-holiday windows (England) — Sales Explorer term/holiday split + trend shading ----------
+SX_HOLIDAYS = [
+    ("2025-07-20", "2025-09-01", "Summer 2025"),
+    ("2025-10-25", "2025-11-02", "Oct half-term 2025"),
+    ("2025-12-20", "2026-01-04", "Christmas 2025"),
+    ("2026-02-14", "2026-02-22", "Feb half-term 2026"),
+    ("2026-04-04", "2026-04-19", "Easter 2026"),
+    ("2026-05-23", "2026-06-01", "May half-term 2026"),
+    ("2026-07-19", "2026-09-01", "Summer 2026"),
+]
+SX_FLOOR = "2025-07-01"
+
+def pull_sales_explorer():
+    """Interactive Sales Explorer feed (EOS Sales sub-tab). Pre-computes deduped aggregates on the
+    Sunday full build so the dashboard renders 3 views CLIENT-SIDE (no live BQ on tab-switch, gated):
+    weekly trend (rev/txn/ATV + holiday shading), hourly heatmap (avg per day), term-vs-holiday bars.
+    Source: base table sales_details (NOT the flat view). DEDUP by id BEFORE aggregating (table has
+    dupes). total=transaction total (SAFE_CAST FLOAT64); id=unique txn; outlet.outlet_name->canonical
+    via normalize(). Heavy (2 deduped scans, ~14 months) -> gated to FULL_RUN. Non-fatal."""
+    TBL = "`%s.%s.sales_details`" % (PROJECT, DATASET)
+    _holcase = " OR ".join("DATE(ts) BETWEEN '%s' AND '%s'" % (a, b) for a, b, _ in SX_HOLIDAYS)
+    _dedup = ("WITH d AS (SELECT id, outlet.outlet_name onm, SAFE_CAST(total AS FLOAT64) tot, "
+              "PARSE_TIMESTAMP('%%Y-%%m-%%d %%H:%%M:%%S', sales_date_time) ts, "
+              "ROW_NUMBER() OVER (PARTITION BY id ORDER BY sales_date_time) rn "
+              "FROM {TBL} WHERE sales_date_time >= '{FL} 00:00:00' AND sales_date_time <= '{CE} 23:59:59')"
+              ).format(TBL=TBL, FL=SX_FLOOR, CE=CUR_END.isoformat())
+    out = {"_source": "BigQuery sales_details (deduped by id), transaction total; avg-per-day normalised.",
+           "_generated": NOW_UK.strftime("%d %b %Y, %H:%M"), "cur_end": CUR_END.isoformat(),
+           "floor": SX_FLOOR, "hours": list(range(8, 19)),
+           "dow": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+           "holidays": [[a, b, nm] for a, b, nm in SX_HOLIDAYS],
+           "stores": [], "weekly": {}, "cells": {}, "_unmapped": []}
+    ALL = "All stores"
+    try:
+        q1 = _dedup + (", b AS (SELECT onm, id, tot, DATE(ts) dt, EXTRACT(DAYOFWEEK FROM ts) dow, "
+                       "EXTRACT(HOUR FROM ts) hr, CASE WHEN {HOL} THEN 1 ELSE 0 END ishol "
+                       "FROM d WHERE rn=1 AND EXTRACT(HOUR FROM ts) BETWEEN 8 AND 18) "
+                       "SELECT onm, dow, hr, ishol, COUNT(*) txn, ROUND(SUM(tot),2) rev, "
+                       "COUNT(DISTINCT dt) days FROM b "
+                       "GROUP BY GROUPING SETS ((onm,dow,hr,ishol),(dow,hr,ishol))").format(HOL=_holcase)
+        cells = {}; unmapped = {}
+        for r in bq(q1):
+            onm = r.get("onm")
+            st = ALL if onm is None else normalize(onm)
+            if st is None:
+                if onm: unmapped[onm] = unmapped.get(onm, 0) + int(r.get("txn") or 0)
+                continue
+            dow = int(r["dow"]) - 1
+            hr = int(r["hr"]); ishol = int(r.get("ishol") or 0)
+            c = cells.setdefault(st, {}).setdefault(dow, {}).setdefault(hr, {"t": [0, 0.0, 0], "h": [0, 0.0, 0]})
+            k = "h" if ishol else "t"
+            c[k][0] += int(r.get("txn") or 0); c[k][1] += float(r.get("rev") or 0.0); c[k][2] += int(r.get("days") or 0)
+        out["cells"] = cells
+        out["_unmapped"] = sorted(unmapped.items(), key=lambda x: -x[1])[:12]
+
+        q2 = _dedup + (", b AS (SELECT onm, id, tot, DATE_TRUNC(DATE(ts), WEEK(MONDAY)) wk FROM d WHERE rn=1) "
+                       "SELECT onm, wk, COUNT(*) txn, ROUND(SUM(tot),2) rev FROM b "
+                       "GROUP BY GROUPING SETS ((onm,wk),(wk)) ORDER BY wk")
+        weekly = {}
+        for r in bq(q2):
+            onm = r.get("onm")
+            st = ALL if onm is None else normalize(onm)
+            if st is None: continue
+            wk = r.get("wk"); wk = wk.isoformat() if hasattr(wk, "isoformat") else str(wk)
+            e = weekly.setdefault(st, {}).setdefault(wk, [0, 0.0])
+            e[0] += int(r.get("txn") or 0); e[1] += float(r.get("rev") or 0.0)
+        out["weekly"] = {st: [{"w": wk, "txn": v[0], "rev": round(v[1])} for wk, v in sorted(d.items())]
+                         for st, d in weekly.items()}
+        present = [s for s in CANON if s in cells]
+        out["stores"] = [ALL] + sorted(present, key=lambda x: (COACH.get(x, ""), x))
+        try:
+            _lw = sorted(out["weekly"].get(ALL, []), key=lambda x: x["w"])
+            out["_estate_lastwk"] = _lw[-2] if len(_lw) >= 2 else (_lw[-1] if _lw else None)
+        except Exception:
+            out["_estate_lastwk"] = None
+        W("sales_explorer.json", out, indent=1)
+        print("[pull] sales_explorer: %d stores, %d weekly pts (All), %d unmapped" % (
+            len(present), len(out["weekly"].get(ALL, [])), len(out["_unmapped"])))
+    except Exception as e:
+        W("sales_explorer.json", out)
+        print("[pull] sales_explorer skipped (non-fatal): %s" % str(e)[:160])
+
+
 def pulls():
     """All estate + store-page pulls (A) in dependency order.
     Heavy BigQuery history scans are gated to FULL_RUN (primary weekly build / manual). On the
@@ -4082,6 +4166,7 @@ def pulls():
     if FULL_RUN: pull_backtoschool()       # backtoschool_feed.json (EOS 5th tab: back-to-school forecast)
     pull_forecast_daily()     # forecast_feed.json (EOS Forecast tab: 3-wk forecast + daily DOW split)
     if FULL_RUN: pull_sales_extras()       # sales_extras.json (EOS Sales tab: DT lane throughput + fridge items)
+    if FULL_RUN: pull_sales_explorer()     # sales_explorer.json (EOS Sales sub-tab: interactive explorer)
     pull_dt_lane_speed()      # dt_lane_speed.json (Star Card: DT avg total time, 3rd Ops metric)
     if FULL_RUN: pull_franchise()          # franchise_fees.json (Franchise Fees Scale dashboard)
     push_cos_planner()        # write Wastage%+Discounts% into each planner COS tab (K,L)
