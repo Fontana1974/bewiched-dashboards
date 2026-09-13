@@ -4066,7 +4066,7 @@ def pull_sales_explorer():
     Transactions = COUNT(DISTINCT id); revenue = SUM(line total); hour from SUBSTR(sales_date_time);
     avg-per-day normalised by distinct trading dates. ONE grouping-sets scan (~4.8 GB) -> gated to
     FULL_RUN. Non-fatal."""
-    _holcase = " OR ".join("dt BETWEEN '%s' AND '%s'" % (a, b) for a, b, _ in SX_HOLIDAYS)
+    _holcase = " OR ".join("DATE(sales_date) BETWEEN '%s' AND '%s'" % (a, b) for a, b, _ in SX_HOLIDAYS)
     out = {"_source": "BigQuery v_sales_details_flat (net line totals; COUNT(DISTINCT id) txns); avg-per-day normalised.",
            "_generated": NOW_UK.strftime("%d %b %Y, %H:%M"), "cur_end": CUR_END.isoformat(),
            "floor": SX_FLOOR, "hours": list(range(8, 19)),
