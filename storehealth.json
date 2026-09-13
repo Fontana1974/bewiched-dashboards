@@ -101,8 +101,8 @@
    "g_health": 0.0,
    "g_rag": "red",
    "g_stale": false,
-   "r_n": 5,
-   "r_avg": 3.8,
+   "r_n": 6,
+   "r_avg": 3.67,
    "r_rag": "red"
   },
   "Kettering": {
@@ -117,13 +117,13 @@
    "r_rag": "red"
   },
   "Leamington Parade": {
-   "g_n": 122,
+   "g_n": 123,
    "g_avg": 4.943,
    "g_target": 15,
    "g_health": 4.97,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 127,
+   "r_n": 128,
    "r_avg": 4.85,
    "r_rag": "green"
   },
@@ -167,8 +167,8 @@
    "g_health": 4.76,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 54,
-   "r_avg": 4.39,
+   "r_n": 58,
+   "r_avg": 4.43,
    "r_rag": "amber"
   },
   "Olney": {
@@ -211,8 +211,8 @@
    "g_health": 4.79,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 14,
-   "r_avg": 3.29,
+   "r_n": 15,
+   "r_avg": 3.2,
    "r_rag": "red"
   },
   "Rugby": {
@@ -222,8 +222,8 @@
    "g_health": 3.7,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 37,
-   "r_avg": 4.92,
+   "r_n": 38,
+   "r_avg": 4.87,
    "r_rag": "green"
   },
   "Rushden Lakes": {
@@ -249,14 +249,14 @@
    "r_rag": "green"
   },
   "Wellingborough Train Station": {
-   "g_n": 26,
-   "g_avg": 4.769,
+   "g_n": 27,
+   "g_avg": 4.63,
    "g_target": 10,
-   "g_health": 4.88,
+   "g_health": 4.81,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 13,
-   "r_avg": 4.23,
+   "r_n": 14,
+   "r_avg": 4.14,
    "r_rag": "amber"
   }
  }

@@ -3,6 +3,18 @@
  "window_days": 28,
  "outstanding": [
   {
+   "name": "Honey Gallen",
+   "store": "Rushden Lakes",
+   "date": "2026-09-13",
+   "reason": "Migraine"
+  },
+  {
+   "name": "Emilia Caranci",
+   "store": "Rushden Lakes",
+   "date": "2026-09-13",
+   "reason": "Cold symptoms"
+  },
+  {
    "name": "Lily O’Brien",
    "store": "Leamington Parade",
    "date": "2026-09-12",
@@ -159,7 +171,7 @@
    "reason": "N/aCold/flu"
   }
  ],
- "outstanding_n": 26,
+ "outstanding_n": 28,
  "per_store": [
   {
    "store": "Peterborough Fletton Quays",
@@ -181,12 +193,12 @@
   },
   {
    "store": "Rushden Lakes",
-   "sickfs": 21,
+   "sickfs": 23,
    "late": 22,
    "rep_pct": 100,
    "rtw": 12,
-   "sick": 21,
-   "rtw_rate": 57
+   "sick": 23,
+   "rtw_rate": 52
   },
   {
    "store": "Lower Heathcote",
