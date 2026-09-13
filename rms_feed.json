@@ -14,7 +14,7 @@
   "2026-08-31",
   "2026-09-13"
  ],
- "_lastweek_count": 69,
+ "_lastweek_count": 70,
  "worst": [
   {
    "store": "Wellingborough",
@@ -87,6 +87,16 @@
    "action": "Low rating with no comment — ask Rothwell's manager to check in with the team member."
   },
   {
+   "store": "Northampton Drive-Thru",
+   "date": "2026-09-13",
+   "dow": "Sun 13 Sep",
+   "rating": 2.0,
+   "text": "",
+   "smt": null,
+   "sentiment": "Negative",
+   "action": "Low rating with no comment — ask Northampton Drive-Thru's manager to check in with the team member."
+  },
+  {
    "store": "Corby",
    "date": "2026-09-08",
    "dow": "Tue 8 Sep",
@@ -118,16 +128,6 @@
   },
   {
    "store": "Higham Ferrers",
-   "date": "2026-09-13",
-   "dow": "Sun 13 Sep",
-   "rating": 3.0,
-   "text": "",
-   "smt": null,
-   "sentiment": "Mixed",
-   "action": null
-  },
-  {
-   "store": "Wellingborough Train Station",
    "date": "2026-09-13",
    "dow": "Sun 13 Sep",
    "rating": 3.0,
@@ -386,12 +386,12 @@
   },
   "Northampton Drive-Thru": {
    "weekly": {
-    "n": 25,
-    "avg": 4.8
+    "n": 26,
+    "avg": 4.69
    },
    "qtd": {
-    "n": 58,
-    "avg": 4.43
+    "n": 59,
+    "avg": 4.39
    },
    "prevq": {
     "n": 44,
@@ -721,6 +721,15 @@
    {
     "date": "2026-09-10",
     "dow": "Thu 10 Sep",
+    "rating": 2.0,
+    "text": "",
+    "smt": null,
+    "sentiment": "Negative",
+    "action": "Low rating with no comment — ask Northampton Drive-Thru's manager to check in with the team member."
+   },
+   {
+    "date": "2026-09-13",
+    "dow": "Sun 13 Sep",
     "rating": 2.0,
     "text": "",
     "smt": null,
