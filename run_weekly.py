@@ -3987,6 +3987,58 @@ def push_cos_planner():
 
 
 # ============================ ORCHESTRATION ============================
+def push_dt_lane_manual():
+    """Idempotent, APPEND-ONLY writer for manually-supplied Drive-Thru lane-speed weeks
+    (dt_lane_manual.json) into the 'Weekly Log' tab of the DT sheet (dashboards-bot SA = editor).
+    For when the Mon 08:05 auto-populator's 'Every Car Export' is late/missing and Matt hands the
+    figures over. Dedup by (week-ending date, site): only rows NOT already present are appended; if
+    the populator already added the week, this no-ops. Never overwrites existing rows. Non-fatal."""
+    src = os.path.join(HERE, "dt_lane_manual.json")
+    if not os.path.exists(src):
+        return
+    try:
+        man = json.load(open(src))
+    except Exception as e:
+        print("[dt-manual] dt_lane_manual.json unreadable (%s) — skipped" % str(e)[:100]); return
+    weeks = man.get("weeks") or []
+    if not weeks:
+        return
+    try:
+        from googleapiclient.discovery import build as _gbuild
+        _svc = _gbuild("sheets", "v4", credentials=_creds(), cache_discovery=False).spreadsheets()
+        cur = _svc.values().get(spreadsheetId=DT_LANE_SHEET,
+                                range="'Weekly Log'!A1:J2000").execute().get("values", [])
+        existing = set()
+        for r in cur:
+            if len(r) < 3:
+                continue
+            d = parse_any_date(r[0]); site = str(r[2]).strip().lower()
+            if d and site:
+                existing.add((d.isoformat(), site))
+        to_append = []; appended = 0; skipped = 0
+        for wk in weeks:
+            we = str(wk.get("week_ending", "")).strip(); wd = parse_any_date(we)
+            wkey = wd.isoformat() if wd else we
+            for row in (wk.get("rows") or []):
+                site = str(row.get("site", "")).strip()
+                if not site:
+                    continue
+                if (wkey, site.lower()) in existing:
+                    skipped += 1; continue
+                to_append.append([we, row.get("wk", "\u2014"), site, row.get("cars", ""),
+                                  row.get("mmss", ""), row.get("secs", ""), row.get("under3", ""),
+                                  row.get("window", ""), row.get("rank", ""), row.get("notes", "")])
+                existing.add((wkey, site.lower())); appended += 1
+        if to_append:
+            _svc.values().append(spreadsheetId=DT_LANE_SHEET, range="'Weekly Log'!A:J",
+                                 valueInputOption="USER_ENTERED", insertDataOption="INSERT_ROWS",
+                                 body={"values": to_append}).execute()
+        print("[dt-manual] Weekly Log: %d row(s) appended, %d already present (append-only dedup by week+site)"
+              % (appended, skipped))
+    except Exception as e:
+        print("[dt-manual] WRITE skipped (non-fatal): %s" % str(e)[:160])
+
+
 def pull_dt_lane_speed():
     """Drive-thru lane speed (avg TOTAL time) from the matt@-owned 'Drive-Thru Lane Speed' log
     (dashboards-bot SA has writer access). 'Weekly Log' tab = one row per site per week:
@@ -4174,6 +4226,7 @@ def pulls():
     pull_forecast_daily()     # forecast_feed.json (EOS Forecast tab: 3-wk forecast + daily DOW split)
     if FULL_RUN: pull_sales_extras()       # sales_extras.json (EOS Sales tab: DT lane throughput + fridge items)
     if FULL_RUN: pull_sales_explorer()     # sales_explorer.json (EOS Sales sub-tab: interactive explorer)
+    push_dt_lane_manual()     # idempotent append of any manual DT weeks (dt_lane_manual.json) BEFORE the read
     pull_dt_lane_speed()      # dt_lane_speed.json (Star Card: DT avg total time, 3rd Ops metric)
     if FULL_RUN: pull_franchise()          # franchise_fees.json (Franchise Fees Scale dashboard)
     push_cos_planner()        # write Wastage%+Discounts% into each planner COS tab (K,L)

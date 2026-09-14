@@ -1,0 +1,12 @@
+{
+ "_note": "Manually-supplied Drive-Thru lane-speed weeks (Every Car Export) for when the Mon 08:05 auto-populator is late/missing. Idempotent APPEND-ONLY: the pipeline adds any (week-ending, site) not already in the 'Weekly Log' tab; if the populator already added it, this no-ops. Never overwrites.",
+ "weeks": [
+   {"week_ending": "13/09/2026",
+    "rows": [
+      {"site": "Glenvale",      "wk": "—", "cars": 914,  "mmss": "2:34", "secs": 154, "under3": "73%",   "window": "", "rank": 1,          "notes": "Fastest lane."},
+      {"site": "Great Billing", "wk": "—", "cars": 712,  "mmss": "2:48", "secs": 168, "under3": "63%",   "window": "", "rank": 2,          "notes": "Under goal."},
+      {"site": "Northampton",   "wk": "—", "cars": 1541, "mmss": "3:06", "secs": 186, "under3": "56%",   "window": "", "rank": 3,          "notes": "Busiest lane; over 3:00 goal."},
+      {"site": "GROUP",         "wk": "—", "cars": 3167, "mmss": "2:53", "secs": 173, "under3": "62.5%", "window": "", "rank": "—",  "notes": "Weighted across all 3 lanes."}
+    ]}
+ ]
+}
