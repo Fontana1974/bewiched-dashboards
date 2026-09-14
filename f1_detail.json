@@ -551,8 +551,8 @@
    1.0,
    1.0,
    308.416666666666,
-   2.0,
-   21.0,
+   1.0,
+   22.0,
    "2026-09-11"
   ],
   "quali": [
@@ -591,7 +591,7 @@
    "queue": 209.7
   },
   "last6": [
-   21.0,
+   22.0,
    5.0,
    21.0,
    5.0,
@@ -823,8 +823,8 @@
    1.0,
    1.0,
    230.5,
-   3.0,
-   20.0,
+   2.0,
+   21.0,
    "2026-09-12"
   ],
   "quali": [
@@ -863,7 +863,7 @@
    "queue": 219.56
   },
   "last6": [
-   20.0,
+   21.0,
    18.0,
    19.0,
    20.0,
@@ -1028,7 +1028,7 @@
    1.0,
    333.25,
    1.0,
-   23.0,
+   24.0,
    "2026-09-12"
   ],
   "quali": [
@@ -1067,7 +1067,7 @@
    "queue": 146.2
   },
   "last6": [
-   23.0,
+   24.0,
    20.0,
    8.0,
    15.0,
@@ -1361,15 +1361,15 @@
  },
  "Billing Drive Thru": {
   "race": [
-   91.75,
+   95.5,
+   1.0,
+   0.65,
    1.0,
    1.0,
-   1.0,
-   1.0,
-   92.75,
-   20.0,
+   230.25,
    3.0,
-   "2026-09-13"
+   20.0,
+   "2026-09-14"
   ],
   "quali": [
    113.0,
@@ -1382,14 +1382,14 @@
    "2026-09-08"
   ],
   "race_qtd": {
-   "n": 11,
-   "score": 140.09,
-   "queue_s": 113.11,
+   "n": 12,
+   "score": 147.6,
+   "queue_s": 111.64,
    "qcall": 100.0,
-   "hello": 87.0,
-   "goodbye": 76.0,
+   "hello": 88.0,
+   "goodbye": 75.0,
    "howareyou": 100.0,
-   "queue": 113.11,
+   "queue": 111.64,
    "wtq": 1.0
   },
   "race_q2": {
@@ -1407,25 +1407,25 @@
    "queue": 168.5
   },
   "last6": [
+   20.0,
    3.0,
    4.0,
    3.0,
    1.0,
-   14.0,
-   2.0
+   14.0
   ],
   "sections": {
-   "Hello": 3.18,
-   "Goodbye": 6.02,
+   "Hello": 2.92,
+   "Goodbye": 6.25,
    "How are you": 0.0,
    "Working the queue": 0.0,
-   "Food & syrups": 1.14,
-   "Tables <3 mins": 2.27,
-   "Tables brand standard": 5.45,
-   "Virtual section plan": 0.0,
-   "No late team": 0.0
+   "Food & syrups": 3.12,
+   "Tables <3 mins": 4.17,
+   "Tables brand standard": 7.08,
+   "Virtual section plan": 2.08,
+   "No late team": 2.08
   },
-  "sect_queue": 113.11
+  "sect_queue": 111.64
  },
  "_race_sections": {
   "order": [
@@ -1451,21 +1451,21 @@
    "No late team": 31.25
   },
   "estate": {
-   "Hello": 2.46,
-   "Goodbye": 4.47,
+   "Hello": 2.45,
+   "Goodbye": 4.49,
    "How are you": 1.68,
    "Working the queue": 8.91,
-   "Food & syrups": 3.43,
-   "Tables <3 mins": 2.01,
-   "Tables brand standard": 6.85,
-   "Virtual section plan": 0.85,
-   "No late team": 0.84
+   "Food & syrups": 3.53,
+   "Tables <3 mins": 2.1,
+   "Tables brand standard": 6.93,
+   "Virtual section plan": 0.95,
+   "No late team": 0.94
   },
   "note": "penalty points per audit section that roll into Total Score; lower = better (0 = full marks)"
  },
  "_stale": {
   "stale": false,
-  "newest": "2026-09-13",
+  "newest": "2026-09-14",
   "cur_end": "2026-09-13",
   "badge": "F1 awaiting this week's audit (w/e 13 Sep 2026)"
  }
