@@ -117,13 +117,13 @@
    "r_rag": "red"
   },
   "Leamington Parade": {
-   "g_n": 123,
-   "g_avg": 4.943,
+   "g_n": 126,
+   "g_avg": 4.944,
    "g_target": 15,
    "g_health": 4.97,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 128,
+   "r_n": 130,
    "r_avg": 4.85,
    "r_rag": "green"
   },
@@ -134,8 +134,8 @@
    "g_health": 4.96,
    "g_rag": "green",
    "g_stale": false,
-   "r_n": 14,
-   "r_avg": 3.86,
+   "r_n": 15,
+   "r_avg": 3.93,
    "r_rag": "red"
   },
   "Market Harborough": {
@@ -150,11 +150,11 @@
    "r_rag": "amber"
   },
   "Northampton": {
-   "g_n": 7,
-   "g_avg": 4.0,
+   "g_n": 8,
+   "g_avg": 4.125,
    "g_target": 15,
-   "g_health": 3.17,
-   "g_rag": "red",
+   "g_health": 3.4,
+   "g_rag": "green",
    "g_stale": false,
    "r_n": 29,
    "r_avg": 4.52,
@@ -194,8 +194,8 @@
    "r_rag": "green"
   },
   "Peterborough Fletton Quays": {
-   "g_n": 37,
-   "g_avg": 4.919,
+   "g_n": 38,
+   "g_avg": 4.921,
    "g_target": 15,
    "g_health": 4.96,
    "g_rag": "green",
@@ -249,10 +249,10 @@
    "r_rag": "green"
   },
   "Wellingborough Train Station": {
-   "g_n": 27,
-   "g_avg": 4.63,
+   "g_n": 28,
+   "g_avg": 4.643,
    "g_target": 10,
-   "g_health": 4.81,
+   "g_health": 4.82,
    "g_rag": "green",
    "g_stale": false,
    "r_n": 14,

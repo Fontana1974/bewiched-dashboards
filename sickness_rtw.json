@@ -282,6 +282,15 @@
    "rtw_rate": 43
   },
   {
+   "store": "HOE Balsall Common",
+   "sickfs": 6,
+   "late": 4,
+   "rep_pct": 100,
+   "rtw": 3,
+   "sick": 7,
+   "rtw_rate": 43
+  },
+  {
    "store": "Peterborough Bridge Street",
    "sickfs": 6,
    "late": 5,
@@ -289,15 +298,6 @@
    "rtw": 5,
    "sick": 6,
    "rtw_rate": 83
-  },
-  {
-   "store": "HOE Balsall Common",
-   "sickfs": 6,
-   "late": 4,
-   "rep_pct": 100,
-   "rtw": 3,
-   "sick": 6,
-   "rtw_rate": 50
   },
   {
    "store": "Wellingborough Train Station",
